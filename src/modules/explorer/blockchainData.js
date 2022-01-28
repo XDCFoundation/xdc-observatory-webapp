@@ -113,13 +113,13 @@ const ValueMain = styled.div`
   grid-gap: 10px;
   grid-template-areas:
             'blockHeight gasPrice transactions'
-            'nodes tps accounts'
+            'nodes accounts tps'
             'stakes contracts activeAddress';
   @media (max-width: 767px) {
     grid-template-areas:
             'blockHeight gasPrice'
             'transactions nodes'
-            'tps accounts'
+            'accounts tps'
             'stakes contracts'
             'activeAddress -';
     grid-gap: 0;
@@ -736,13 +736,7 @@ class BlockChainDataComponent extends Component {
                   <TitleValue>{this.state.activeNodes > 0 ? this.state.activeNodes : ""}{this.state.nodes > 0 ? "/" + this.state.nodes : ""} </TitleValue>
                 </ValueName>
               </Value>
-              <Value gridArea="tps">
-                <TitleIcon src={maxLogo} />
-                <ValueName>
-                  <Title>Current/Max TPS</Title>
-                  <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
-                </ValueName>
-              </Value>
+
               <Value gridArea="accounts">
                 <TitleIcon src={accountLogo} />
                 <ValueName>
@@ -790,6 +784,20 @@ class BlockChainDataComponent extends Component {
                   </div>
                 </ValueName>
               </Value>
+              <Value gridArea="tps">
+                <TitleIcon />
+                <ValueName>
+                  <Title></Title>
+                  <TitleValue></TitleValue>
+                </ValueName>
+              </Value>
+              {/* <Value gridArea="tps">
+                <TitleIcon src={maxLogo} />
+                <ValueName>
+                  <Title>Current/Max TPS</Title>
+                  <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
+                </ValueName>
+              </Value> */}
               {/* <Value gridArea="stakes">
                 <TitleIcon src='/images/stakes.svg'/>
                 <ValueName>

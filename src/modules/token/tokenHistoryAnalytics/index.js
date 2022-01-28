@@ -42,7 +42,7 @@ class TokenPriceHistoryGraph extends BaseComponent {
     this.state = {
       loading: false,
       tokenName: "",
-      graphData:[]
+      graphData: []
     };
   }
 
@@ -50,7 +50,6 @@ class TokenPriceHistoryGraph extends BaseComponent {
     let splitRes = window.location.pathname.split("/");
     if (splitRes && splitRes.length) {
       this.setState({ tokenName: splitRes[splitRes.length - 1] });
-      console.log("tokenName", splitRes[splitRes.length - 1]);
     }
     this.getHistoricalTokenData();
   };
@@ -72,7 +71,7 @@ class TokenPriceHistoryGraph extends BaseComponent {
       this.generateGraphData([]);
       return;
     }
-    this.setState({ loading: false ,graphData:response});
+    this.setState({ loading: false, graphData: response });
     this.generateGraphData(response);
   };
 
@@ -234,19 +233,19 @@ class TokenPriceHistoryGraph extends BaseComponent {
             <CircularProgress size={40} />
           </ProgressBarContainer>
         ) : (
-            <span>
-              {this.state.graphData.length == 0 ?
-                  <NoDataFoundContainer>
-                    <img
-                        src={require("../../../../src/assets/images/XDC-Alert.svg")}
-                    ></img>
+          <span>
+            {this.state.graphData.length == 0 ?
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
 
-                    <div>No Data found.</div>
-                  </NoDataFoundContainer>
-                  :
-                  <Graph options={this.state.options}/>
-              }
-            </span>
+                <div>No Data found.</div>
+              </NoDataFoundContainer>
+              :
+              <Graph options={this.state.options} />
+            }
+          </span>
         )}
       </div>
     );

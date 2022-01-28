@@ -353,41 +353,41 @@ export default function Navbar() {
           <hr className="myhr" />
         </ul>
         <ul className="Network-list-nav">
-                    <a
-                        className="sidebar-links"
-                        href="https://medium.com/xdc-foundation-communications" target="_blank"
-                    >
-                        <div className="xinfin_account_button">About XDC</div>
-                    </a>
-                    <hr className="myhr" />
-                </ul>
-                <ul className="Network-list-nav">
-                    <a
-                        className="sidebar-links"
-                        href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
-                    >
-                        <div className="xinfin_account_button">XDCPay</div>
-                    </a>
-                    <hr className="myhr" />
-                </ul>
-                <ul className="Network-list-nav">
-                    <a
-                        className="sidebar-links"
-                        href="https://github.com/xdcfoundation" target="_blank"
-                    >
-                        <div className="xinfin_account_button">XDC Github</div>
-                    </a>
-                    <hr className="myhr" />
-                </ul>
-                <ul className="Network-list-nav">
-                    <a
-                        className="sidebar-links"
-                        href="https://xdcroadmap.org/" target="_blank"
-                    >
-                        <div className="xinfin_account_button">XDC Roadmap</div>
-                    </a>
-                    <hr className="myhr" />
-                </ul>
+          <a
+            className="sidebar-links"
+            href="https://medium.com/xdc-foundation-communications" target="_blank"
+          >
+            <div className="xinfin_account_button">About XDC</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
+          >
+            <div className="xinfin_account_button">XDCPay</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://github.com/xdcfoundation" target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Github</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://xdcroadmap.org/" target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Roadmap</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
 
         {/* <ul className="inside-side-box">
           <p
@@ -932,6 +932,7 @@ export default function Navbar() {
             isloggedIn,
             openChangePassword,
             classes,
+            childToggle,
             opencontracts,
             state,
             lists,
@@ -1081,6 +1082,7 @@ const SearchBox = ({
 
 const LoginComponent = ({
   toggleDrawer,
+  childToggle,
   isloggedIn,
   openChangePassword,
   classes,
@@ -1118,16 +1120,21 @@ const LoginComponent = ({
           className={classes.drawer}
           anchor={"right"}
           open={state["right"]}
+          onEscapeKeyDown={toggleDrawer("right", false)}
+          onBackdropClick={toggleDrawer("right", false)}
         >
           {lists("right")}
         </Drawer>
-        <Drawer className={classes.drawer} anchor={"right"} open={open}>
+        <Drawer className={classes.drawer} anchor={"right"} onEscapeKeyDown={toggleDrawer("right", false)}
+          onBackdropClick={toggleDrawer("right", false)} open={open}>
           {items("right")}
         </Drawer>
         <Drawer
           className={classes.drawer}
           anchor={"right"}
           open={opencontracts}
+          onEscapeKeyDown={childToggle("right", false)}
+          onBackdropClick={childToggle("right", false)}
         >
           {contracts("right")}
         </Drawer>

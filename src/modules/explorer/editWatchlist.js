@@ -12,8 +12,9 @@ import FormControl from "@material-ui/core/FormControl";
 import PutWatchlist from "../../services/user";
 import utility, { dispatchAction } from "../../utility";
 import { WatchListService } from "../../services";
-import { eventConstants, genericConstants } from "../../constants";
+import {cookiesConstants, eventConstants, genericConstants} from "../../constants";
 import { connect } from "react-redux";
+import {sessionManager} from "../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -240,7 +241,7 @@ function EditWatchList(props) {
     const request = {
       _id: props.row._id,
       address: address,
-      description: description,
+      // description: description,
       notification: {
         type: value,
         isEnabled: value === "NO" ? false : true
@@ -254,6 +255,17 @@ function EditWatchList(props) {
       if (error || !response) {
         utility.apiFailureToast("Error");
       } else {
+        let watchlists = localStorage.getItem(
+            sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST
+        );
+        watchlists = JSON.parse(watchlists);
+        if (!watchlists)
+          watchlists = {}
+        watchlists[request.address] = description;
+        localStorage.setItem(
+            sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST,
+            JSON.stringify(watchlists)
+        );
         utility.apiSuccessToast("Address Updated");
         handleClose();
         await props.getWatchlistList();
@@ -274,6 +286,8 @@ function EditWatchList(props) {
   //   window.location.reload();
   // };
   const handleDelete = async (watchlist) => {
+    console.log("watchlist+++ ",watchlist)
+    console.log("props.row+++ ",props.row)
     if (props?.row?._id) {
       props.dispatchAction(eventConstants.SHOW_LOADER, true);
       const [error, response] = await utility.parseResponse(
@@ -320,6 +334,7 @@ function EditWatchList(props) {
             </DialogContentText>
             <input
               value={address}
+              readOnly
               className={classes.input}
               onChange={(e) => {
                 setAddress(e.target.value);
