@@ -201,13 +201,29 @@ export default function Transaction({ _handleChange }) {
       transactionHash: `${hash}`,
       userId: sessionManager.getDataFromCookies("userId"),
     };
-    let [error, privateNoteUsingHashResponse] = await Utils.parseResponse(
-      TransactionService.getUserTransactionPrivateNoteUsingHash(data)
+    // let [error, privateNoteUsingHashResponse] = await Utils.parseResponse(
+    //   TransactionService.getUserTransactionPrivateNoteUsingHash(data)
+    // );
+    let transactionLabel = localStorage.getItem(
+        data.userId+cookiesConstants.USER_TRASACTION_LABELS
     );
-    if (error || !privateNoteUsingHashResponse) return;
-    setPrivateNote(privateNoteUsingHashResponse);
-    setIsPvtNote(true);
+    transactionLabel = JSON.parse(transactionLabel);
+    if(!transactionLabel || !transactionLabel.length)
+      return;
+
+    const existingTransactionLabel = transactionLabel.find(
+        (item) =>
+            item.transactionHash == data.transactionHash && item.userId == data.userId
+    );
+    if (existingTransactionLabel) {
+      setPrivateNote(existingTransactionLabel);
+      setIsPvtNote(true);
+    }
   };
+
+  const getListOfTxnLabel=()=>{
+    privateNoteUsingHash();
+  }
 
   const tagUsingAddressFrom = async (response) => {
     const data = {
@@ -470,6 +486,8 @@ export default function Transaction({ _handleChange }) {
                             {
                               <PrivateNote
                                 open={dialogPvtNoteIsOpen}
+                                getListOfTxnLabel={getListOfTxnLabel}
+                                getTotalCountTxnLabel={()=>{}}
                                 onClose={closeDialogPvtNote}
                                 hash={hash}
                                 pvtNote={privateNote[0]?.trxLable}
@@ -1017,8 +1035,8 @@ export default function Transaction({ _handleChange }) {
                           Logged In
                         </a>
                       </PrivateText>
-                    ) : pvtNoteValue && pvtNoteValue?.length > 0 ? (
-                      <span>{pvtNoteValue[pvtNoteValue?.length - 1]?.trxLable}</span>
+                    ) : privateNote  ? (
+                      <span>{privateNote?.trxLable}</span>
                     ) : (
                       <AddLabel>
                         <AddLabelText>
@@ -1027,6 +1045,8 @@ export default function Transaction({ _handleChange }) {
                         {
                           <PrivateNote
                             open={dialogPvtNoteIsOpen}
+                            getListOfTxnLabel={getListOfTxnLabel}
+                            getTotalCountTxnLabel={()=>{}}
                             onClose={closeDialogPvtNote}
                             hash={hash}
                             pvtNote={pvtNoteValue[pvtNoteValue?.length - 1]?.trxLable}

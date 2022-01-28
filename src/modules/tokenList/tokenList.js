@@ -209,7 +209,7 @@ export default function StickyHeadTable(props) {
     let searchkeyword = event?.target?.value;
     setSortKey("");
     setSortOrder(0);
-    if (searchkeyword?.length > 2) {
+    if (searchkeyword?.length > 1) {
       setKeywords(searchkeyword);
       setLoading(false);
       let data = { skip: 0, limit: amount, searchKey: searchkeyword };
@@ -790,15 +790,15 @@ export default function StickyHeadTable(props) {
 
                           {props?.state?.tableColumns["Symbol"].isActive && (
                             <TableCell id="td">
-                              {row?.tokenImage ? 
-                              <img
-                                style={{ height: "20px", width: "20px" }}
-                                src={row?.tokenImage}
-                              ></img> :
-                              <img
-                                style={{ height: "20px", width: "20px" }}
-                                src={"/images/XRC20-Icon.svg"}
-                              ></img>}
+                              {row?.tokenImage ?
+                                <img
+                                  style={{ height: "20px", width: "20px" }}
+                                  src={row?.tokenImage}
+                                ></img> :
+                                <img
+                                  style={{ height: "20px", width: "20px" }}
+                                  src={"/images/XRC20-Icon.svg"}
+                                ></img>}
                               &nbsp;{row.symbol}
                             </TableCell>
                           )}
