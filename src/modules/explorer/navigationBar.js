@@ -106,6 +106,24 @@ const useStyles = makeStyles((theme) => ({
             display: "none",
         },
     },
+    drawerHeaderImage: {
+        opacity: 1,
+        display: "flex",
+        alignItems: "center",
+        overflow: "auto",
+        padding: theme.spacing(0, 1),
+        ...theme.mixins.toolbar,
+        justifyContent: "flex-start",
+        "&::-webkit-scrollbar": {
+            display: "none",
+        },
+        "&::-webkit-scrollbar-track": {
+            display: "none",
+        },
+        "&::-webkit-scrollbar-thumb": {
+            display: "none",
+        },
+    },
     content: {
         flexGrow: 1,
         transition: theme.transitions.create("margin", {
@@ -136,6 +154,9 @@ const useStyles = makeStyles((theme) => ({
             height: "100%",
         },
         drawerHeader: {
+            padding: "3px 0 0 0",
+        },
+        drawerHeaderImage: {
             padding: "3px 0 0 0",
         },
     },
@@ -349,10 +370,11 @@ export default function Navbar() {
             })}
             role="presentation"
             onKeyDown={toggleDrawer(anchor, false)}
+
         >
             <div className="menu-sidebar-top">
                 <div className="browse-text-sidebar">Browse</div>
-                <div className={classes.drawerHeader}>
+                <div className={classes.drawerHeaderImage}>
                     <IconButton
                         style={{ color: "white" }}
                         onClick={toggleDrawer(anchor, false)}
@@ -475,7 +497,7 @@ export default function Navbar() {
             onKeyDown={() => setOpencontracts(false)}
         >
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <div className={classes.drawerHeader}>
+                <div className={classes.drawerHeaderImage}>
                     <div className="menubar-contract" style={{ marginTop: "40px" }}>
                         <div>
                             <span
@@ -562,7 +584,7 @@ export default function Navbar() {
             onKeyDown={() => setOpen(false)}
         >
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <div className={classes.drawerHeader}>
+                <div className={classes.drawerHeaderImage}>
                     <div className="menubar-contract">
                         <div style={{ marginTop: 10 }}>
                             <span
@@ -876,6 +898,8 @@ export default function Navbar() {
                                 <Drawer
                                     className={classes.drawer}
                                     anchor={"right"}
+                                    onEscapeKeyDown={toggleDrawer("right", false)}
+                                    onBackdropClick={toggleDrawer("right", false)}
                                     open={state["right"]}
                                 >
                                     {lists("right")}
@@ -886,6 +910,8 @@ export default function Navbar() {
                                 <Drawer
                                     className={classes.drawer}
                                     anchor={"right"}
+                                    onEscapeKeyDown={childToggle("right", false)}
+                                    onBackdropClick={childToggle("right", false)}
                                     open={opencontracts}
                                 >
                                     {contracts("right")}
@@ -931,16 +957,23 @@ export default function Navbar() {
                                     className={classes.drawer}
                                     anchor={"right"}
                                     open={state["right"]}
+                                    onEscapeKeyDown={toggleDrawer("right", false)}
+                                    onBackdropClick={toggleDrawer("right", false)}
                                 >
                                     {lists("right")}
                                 </Drawer>
-                                <Drawer className={classes.drawer} anchor={"right"} open={open}>
+                                <Drawer className={classes.drawer}
+                                    onEscapeKeyDown={toggleDrawer("right", false)}
+                                    onBackdropClick={toggleDrawer("right", false)}
+                                    anchor={"right"} open={open}>
                                     {items("right")}
                                 </Drawer>
                                 <Drawer
                                     className={classes.drawer}
                                     anchor={"right"}
                                     open={opencontracts}
+                                    onEscapeKeyDown={childToggle("right", false)}
+                                    onBackdropClick={childToggle("right", false)}
                                 >
                                     {contracts("right")}
                                 </Drawer>

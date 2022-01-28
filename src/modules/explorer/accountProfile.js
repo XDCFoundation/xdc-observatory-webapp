@@ -250,8 +250,8 @@ const useStyles = makeStyles((theme) => ({
   },
   // "@media (max-width: 828px)": {
   //   appbar: {
-      // maxWidth: "710px",
-      // width: "25rem",
+  // maxWidth: "710px",
+  // width: "25rem",
   //   },
   // },
   "@media (max-width: 767)": {
@@ -544,7 +544,6 @@ export default function SimpleTabs(props) {
         // const [error, response] = await Utils.parseResponse(
         //   UserService.Search(data)
         // );
-        console.log("searchValue ", searchValue)
         const response = await getListOfTxnLabel({ skip: 0, limit: 5, searchValue: searchValue })
       }
     }
@@ -613,7 +612,6 @@ export default function SimpleTabs(props) {
   const onChangeTxnLabelPage = async (value) => {
     setPvtNotePageCount(value);
     const list = Math.ceil(value.selected * 5);
-    console.log("list ", list)
     await getListOfTxnLabel({ skip: list, limit: "5" });
   };
 
@@ -670,12 +668,10 @@ export default function SimpleTabs(props) {
       })
     }
     setTotalCount2(transactionLabels.length)
-    console.log(request, "+++")
     if (transactionLabels.length > requestData?.limit) {
       transactionLabels.splice(0, request.skip)
       transactionLabels.splice(request.limit, transactionLabels.length)
     }
-    console.log("transactionLabels ", transactionLabels)
     setAddress(transactionLabels);
   };
 
@@ -707,7 +703,6 @@ export default function SimpleTabs(props) {
     }
 
     setTotalCount3(taggedAddress.length);
-    console.log(request, "+++")
     if (taggedAddress.length > requestData?.limit) {
       taggedAddress.splice(0, request.skip)
       taggedAddress.splice(request.limit, taggedAddress.length)
@@ -730,7 +725,6 @@ export default function SimpleTabs(props) {
       );
       setAddedOnToggle(0);
     }
-    console.log("wring+++")
     setAddress(newData);
   };
 
@@ -889,7 +883,6 @@ export default function SimpleTabs(props) {
       let tempAddress = address.map((addr) => {
         return { ...addr, isChecked2: checked };
       });
-      console.log("wring++++")
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked2 === true) {
@@ -915,7 +908,6 @@ export default function SimpleTabs(props) {
       let tempAddress = address.map((addr) =>
         addr._id === name ? { ...addr, isChecked2: checked } : addr
       );
-      console.log("wring+++++")
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked2 === true) {
