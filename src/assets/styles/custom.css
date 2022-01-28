@@ -3523,6 +3523,10 @@ p {
   .vc-input-contract-add {
     font-size: 0.8rem;
   }
+  .contract-heading-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
 }
 
 @media (max-width: 450px) {
@@ -7478,6 +7482,7 @@ button {
 @media (max-width: 767px) {
   .contract-address-heading {
     font-size: 14px;
+    color: #252525;
   }
   .contract_details_heading {
     align-items: flex-start;
@@ -9850,6 +9855,12 @@ button {
     width: 16px;
   }
 }
+.contract-heading {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 600;
+  color: #2a2a2a;
+}
 @media (min-width: 0px) and (max-width: 766px) {
   /* .grid-block-table {
     margin: 28px auto auto auto !important;
@@ -9900,6 +9911,10 @@ button {
   .contact-list-tab {
     width: 100%;
     padding: 0 15px;
+  }
+  .contract-heading {
+    font-size: 14px;
+    color: #252525;
   }
   .div-searchelement_11 {
     margin-top: 140px !important;

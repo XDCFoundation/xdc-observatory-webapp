@@ -305,6 +305,7 @@ export default function StickyHeadTable(props) {
     // return () => {
     //     unmounted = true;
     // };
+    sortTable("holdersCount");
   }, []);
 
   function shorten(b, amountL = 10, amountR = 4, stars = 3) {
@@ -561,7 +562,7 @@ export default function StickyHeadTable(props) {
                   </TableCell>
                   {props?.state?.tableColumns["Symbol"].isActive && (
                     <TableCell style={{ border: "none" }} align="left">
-                      <span className={"tablehead-token-details"} onClick={() => sortTable("symbol")}>
+                      <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("symbol")}>
                         Symbol
                         <Tooltip placement="top" title={messages.SYMBOL}>
                           <img
@@ -588,7 +589,7 @@ export default function StickyHeadTable(props) {
                     </TableCell>
                   )}
                   <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tablehead-token-details"} onClick={() => sortTable("tokenName")}>
+                    <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("tokenName")}>
                       Name
                       <Tooltip placement="top" title={messages.NAME}>
                         <img
@@ -632,7 +633,7 @@ export default function StickyHeadTable(props) {
                                     </TableCell>
                                 )} */}
                   <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tablehead-token-details"} onClick={() => sortTable("address")}>
+                    <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("address")}>
                       Contract
                       <Tooltip placement="top" title={messages.CONTRACT}>
                         <img
@@ -695,7 +696,7 @@ export default function StickyHeadTable(props) {
                       style={{ border: "none", whiteSpace: "nowrap" }}
                       align="left"
                     >
-                      <span className={"tablehead-token-details"} onClick={() => sortTable("holdersCount")}>
+                      <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("holdersCount")}>
                         Total Holders
                         <Tooltip placement="top" title={messages.HOLDER}>
                           <img

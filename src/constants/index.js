@@ -173,7 +173,8 @@ export const messages = {
   Highest_Txn: "Highest amount send or received by the user",
   Txn_Fee: "Total transaction fee paid by the user",
   Tokens: "Number of XRC20 tokens available in the user's wallet",
-  AVERAGE_BALANCE: "Average daily balance"
+  AVERAGE_BALANCE: "Average daily balance",
+  PASSWORD: "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols."
 };
 
 export const toolTipMessages = {
