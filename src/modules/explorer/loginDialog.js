@@ -40,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
       display: "none"
     }
   },
+  dialogButton: {
+    flexDirection: "column"
+
+  },
   closeContainer: {
     top: "26px",
     fontWeight: "500",
@@ -59,23 +63,37 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     outline: "none",
   },
-
+  groupLogo: {
+    textAlign: "center"
+  },
   addbtn: {
     width: "434px",
     height: "44px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    margin: "15px 15.5px 30px 15px",
+    margin: "10px",
     color: "white",
   },
-
+  globalidbtn: {
+    width: "434px",
+    height: "44px",
+    borderRadius: "4.4px",
+    border: "solid 1px #9fa9ba",
+    backgroundColor: "#ffffff",
+    margin: " 10px 0 15px 0",
+    color: "#2a2a2a",
+  },
   userContainer: {
     marginTop: "12px",
   },
 
   passwordContainer: {
     marginTop: "15px",
+  },
+  globalTextContainer: {
+    display: "flex",
+    alignItems: "center",
   },
   error: {
     color: "red",
@@ -151,7 +169,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperWidthSm: {
     position: "absolute",
-    top: "45px",
+    top: "10px",
     width: "503px",
     padding: "0 11px",
     borderRadius: "12px",
@@ -185,8 +203,8 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     alignItems: "center",
-    marginTop: "30px",
-    marginBottom: "25px",
+    marginTop: "15px",
+    marginBottom: "10px",
     flexDirection: "column",
   },
   checkbox: {
@@ -350,6 +368,8 @@ const useStyles = makeStyles((theme) => ({
     dialogButton: {
       padding: "0",
       justifyContent: "center",
+      flexDirection: "column"
+
     },
     createaccount: {
       color: "#3763dd",
@@ -383,7 +403,14 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "343px",
       height: "38px",
       borderRadius: "4px",
-      margin: "23px auto 21px auto",
+      margin: "23px auto 21px auto !important",
+    },
+    globalidbtn: {
+      width: "100%",
+      maxWidth: "343px",
+      height: "38px",
+      borderRadius: "4px",
+      margin: "23px auto 21px auto !important",
     },
     privacyContainer: {
       flexFlow: "row nowrap",
@@ -407,6 +434,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "auto",
       marginRight: "auto",
     },
+
     userContainerSignup: {
       marginTop: "12px",
       padding: "0px",
@@ -415,7 +443,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "auto",
       marginRight: "auto",
     },
-    passwordContainer: {
+    globalTextContainer: {
       marginTop: "20px",
       padding: "0px",
       width: "100%",
@@ -665,6 +693,9 @@ export default function FormDialog(props) {
       }
     }
   };
+  function connectGlobalId() {
+    setValue(4)
+  }
 
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
 
@@ -887,7 +918,10 @@ export default function FormDialog(props) {
   const onClickReset = () => {
     clearTimer(getDeadTime());
   };
-
+  function btoa(str) {
+    return Buffer.from(str, "binary").toString("base64");
+  }
+  var randomText = btoa(Math.random().toString()).substr(10, 10).toLowerCase();
   //------------------------------------------------------------------------------------------------------------------------------------->
 
   return (
@@ -943,6 +977,22 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainer}>
+
+              <button
+                className={classes.globalidbtn}
+                onClick={connectGlobalId}
+              >
+
+                <img src="/images/global-id-logo.svg" className="global-id-logo" />
+                Continue with GlobaliD{" "}
+              </button>
+              <div style={{
+                display: "flex", justifyContent: "space-between", alignItems: "center"
+              }}>
+                <div><hr className="line-global-id"></hr></div>
+                <div className="orText-login">or use your email</div>
+                <div><hr className="line-global-id"></hr></div>
+              </div>
               <DialogContentText className={classes.subCategory}>
                 <span className={classes.fieldName}>Username</span>
               </DialogContentText>
@@ -960,7 +1010,7 @@ export default function FormDialog(props) {
               />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
-            <DialogContent className={classes.passwordContainer}>
+            <DialogContent className={classes.userContainer}>
               <DialogContentText className={classes.subCategory}>
                 <span className={classes.fieldName}>Password</span>
                 <span
@@ -1038,6 +1088,7 @@ export default function FormDialog(props) {
               >
                 Login{" "}
               </button>
+
             </DialogActions>
 
             <div className={classes.value}></div>
@@ -1076,6 +1127,21 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainerSignup}>
+              <button
+                className={classes.globalidbtn}
+                onClick={connectGlobalId}
+              >
+
+                <img src="/images/global-id-logo.svg" className="global-id-logo" />
+                Continue with GlobaliD{" "}
+              </button>
+              <div style={{
+                display: "flex", justifyContent: "space-between", alignItems: "center"
+              }}>
+                <div><hr className="line-global-id"></hr></div>
+                <div className="orText-login">or use your email</div>
+                <div><hr className="line-global-id"></hr></div>
+              </div>
               <DialogContentText className={classes.subCategorySignup}>
                 <span className={classes.fieldName}>Username</span>
               </DialogContentText>
@@ -1234,7 +1300,6 @@ export default function FormDialog(props) {
             <button className={classes.createAccountbtn} onClick={handleSignUp}>
               Create an Account{" "}
             </button>
-
             <div className={classes.alreadyAccount}>
               <div>
                 Already have an account?{" "}
@@ -1298,6 +1363,84 @@ export default function FormDialog(props) {
                 </span>
               </div>
             </div>
+          </div>
+        ) : value === 4 ? (
+          //<------------------------------------GlobalID-------------------------------------------->
+          <div>
+
+            <Row>
+              <div className={classes.heading} id="form-dialog-title">
+                Continue with GlobaliD
+              </div>
+              <span onClick={handleClose} className={classes.closeContainer}>
+                <img className={classes.close} src={"/images/XDC-Cross.svg"} />
+              </span>
+            </Row>
+            <DialogContent className={classes.groupLogo}>
+              <img src={"/images/group.svg"} />
+            </DialogContent>
+            <DialogContent className={classes.globalTextContainer}>
+              <div>
+                <img
+                  className="global-id-icon"
+                  src={"/images/group-27.svg"}
+                />
+              </div>
+              <div className="text-global-id">
+                Create a decentralized digital identity with GlobaliD to
+                securely connect to the XDC Network without passwords.
+              </div>
+            </DialogContent>
+            <DialogContent className={classes.globalTextContainer}>
+              <div>
+                <img
+                  className="global-id-icon"
+                  src={"/images/group-26.svg"}
+                />
+              </div>
+              <div className="text-global-id">
+                GlobaliD guarantees that your information remains private
+                and secure with the latest state of the art encryption.
+              </div>
+            </DialogContent>
+            <DialogActions className={classes.dialogButton}>
+              <a
+                href={
+                  "https://connect.global.id/?client_id=808e791a-70b4-43a4-bb30-6f33c610d4ec&response_type=code&scope=openid&redirect_uri=https://observer.xdc.org/&qr_only=true&acrc_id=35fde324-7736-491a-b89f-c29854417300&document_id=tos pp&nonce=" +
+                  randomText
+                }
+              >
+                <button
+                  className={classes.addbtn}
+                  onClick={connectGlobalId}
+                >
+                  Continue with GlobaliD{" "}
+                </button>
+              </a>
+            </DialogActions>
+
+            <div className={classes.value}></div>
+            {window.innerWidth >= 768 ?
+              (<DialogContentText className={classes.xdc}>
+                New to XDC Observatory?{" "}
+                <span
+                  className={classes.createaccount}
+                  onClick={handleClickOpenSignup}
+                >
+                  {" "}
+                  Create an account
+                </span>
+              </DialogContentText>)
+              : (<DialogContentText className={classes.xdc}>
+                New to XDC?{" "}
+                <span
+                  className={classes.createaccount}
+                  onClick={handleClickOpenSignup}
+                >
+                  {" "}
+                  Create an account
+                </span>
+              </DialogContentText>)}
           </div>
         ) : (
           // <------------------------------------------Forgot Password------------------------------------------------->
