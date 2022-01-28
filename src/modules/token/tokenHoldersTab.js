@@ -139,6 +139,7 @@ export default function StickyHeadTable(props) {
     let values = { address: address, skip: 0, limit: 10 };
     listOfHolders(values);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    sortTable("balance")
   }, []);
   const listOfHolders = async (values) => {
     if (!values.sortKey && sortKey && sortOrder)
@@ -351,7 +352,7 @@ export default function StickyHeadTable(props) {
                     className="w-10"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers"} onClick={() => sortTable("address")}>
+                    <span className={"tableheaders table-headers cursor-pointer"} onClick={() => sortTable("address")}>
                       Address
                       <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
                         <img
@@ -380,7 +381,7 @@ export default function StickyHeadTable(props) {
                     className="w-10 p-l-22"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers"} onClick={() => sortTable("balance")}>
+                    <span className={"tableheaders table-headers cursor-pointer"} onClick={() => sortTable("balance")}>
                       Quantity
                       <Tooltip placement="top" title={messages.QUANTITY}>
                         <img
@@ -409,7 +410,7 @@ export default function StickyHeadTable(props) {
                     className="w-10 p-l-22"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers"} onClick={() => sortTable("percentage")}>
+                    <span className={"tableheaders table-headers cursor-pointer"} onClick={() => sortTable("percentage")}>
                       Percentage
                       <Tooltip placement="top" title={messages.PERCENTAGE}>
                         <img

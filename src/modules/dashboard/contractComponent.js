@@ -104,11 +104,12 @@ class Contractlist extends React.Component {
       sortedByContractName: "",
     };
   }
-
+  
   componentDidMount = () => {
     let data = { pageNum: this.state.from, perpage: this.state.amount };
     this.getContractList(data);
     this.getTotalContractList();
+    this.sortByTokenName();
   };
 
   handleKeyUp = async (event) => {
@@ -403,8 +404,9 @@ class Contractlist extends React.Component {
     return (
       <div>
         <Tokensearchbar />
+        <div className="contract-heading-container">
         <div className="display-flex justify-content-between p-t-30 p-b-30 responsive-table-width-contract-list contact-list-tab">
-          <div className="fs-24 fw-bold">Contracts</div>
+          <div className="contract-heading">Contracts</div>
           <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
             <img
               onClick={this.handleSettingsClick}
@@ -433,6 +435,7 @@ class Contractlist extends React.Component {
             />
           </div>
         </div>
+        </div>
         <Paper
           className={"responsive-table-width-contract-list contact-list-tab"}
           style={{
@@ -459,7 +462,7 @@ class Contractlist extends React.Component {
                   >
                     <span
                       style={{ fontSize: "14px" }}
-                      className={"tableheaders-contract"}
+                      className={"tableheaders-contract cursor-pointer"}
                       onClick={this.sortByAddress}
                     >
                       Address
@@ -489,7 +492,7 @@ class Contractlist extends React.Component {
                     <TableCell style={{ border: "none" }} align="left">
                       <span
                         style={{ fontSize: "14px" }}
-                        className={"tableheaders"}
+                        className={"tableheaders cursor-pointer"}
                         onClick={this.sortByTokenName}
                       >
                         Token Name
@@ -520,7 +523,7 @@ class Contractlist extends React.Component {
                     <TableCell style={{ border: "none" }} align="left">
                       <span
                         style={{ fontSize: "14px" }}
-                        className={"tableheaders"}
+                        className={"tableheaders cursor-pointer"}
                         onClick={this.sortByContractName}
                       >
                         Contract Name

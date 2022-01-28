@@ -43,6 +43,7 @@ import { messages } from "../../constants";
 
 import Utility from "../../utility";
 import { useSelector } from "react-redux";
+import format from "format-number";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -906,7 +907,7 @@ export default function SimpleTabs(props) {
       );
     } else {
       let tempAddress = address.map((addr) =>
-        addr._id === name ? { ...addr, isChecked2: checked } : addr
+        addr.transactionHash === name ? { ...addr, isChecked2: checked } : addr
       );
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
@@ -977,7 +978,7 @@ export default function SimpleTabs(props) {
       );
     } else {
       let tempAddress = privateAddress.map((addr) =>
-        addr._id === name ? { ...addr, isChecked3: checked } : addr
+        addr.address === name ? { ...addr, isChecked3: checked } : addr
       );
       setPrivateAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
@@ -1566,7 +1567,7 @@ export default function SimpleTabs(props) {
                                   align="left"
                                 >
                                   <span className="tabledata-1">
-                                    {balanceToShow}&nbsp;XDC
+                                    {format({})(balanceToShow)}&nbsp;XDC
                                   </span>
                                   {/* </a> */}
                                 </TableCell>
@@ -1883,13 +1884,15 @@ export default function SimpleTabs(props) {
                               >
                                 <input
                                   key={row._id}
-                                  name={row._id}
+                                  name={row.transactionHash}
                                   onChange={handlePvtNoteCheckbox}
                                   type="checkbox"
                                   checked={row?.isChecked2 || false}
                                   style={{ marginTop: "4px" }}
                                 // className={classes.Rectangle}
+                                
                                 />
+                                {console.log("ischecked",row)}
                               </TableCell>
                               <TableCell
                                 style={{ border: "none" }}
@@ -2228,7 +2231,7 @@ export default function SimpleTabs(props) {
                               >
                                 <input
                                   key={row._id}
-                                  name={row._id}
+                                  name={row.address}
                                   onChange={handleTagAddressCheckbox}
                                   // className={classes.Rectangle}
                                   type="checkbox"

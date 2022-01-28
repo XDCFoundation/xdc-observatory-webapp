@@ -144,6 +144,7 @@ export default function StickyHeadTable() {
         transferDetail(values);
         let value = { addr: address };
         getTotalTransferToken(value);
+        sortTable("blockNumber");
     }, []);
 
     const transferDetail = async (values, filters, _sortingKey, _sortingOrder) => {
@@ -252,7 +253,7 @@ export default function StickyHeadTable() {
                         <TableHead>
                             <TableRow>
                                 <TableCell style={{ border: "none" }} align="left">
-                                    <span className={"tableheaders_Transfer-table-hash"} onClick={() => sortTable("hash")}>
+                                    <span className={"tableheaders_Transfer-table-hash cursor-pointer"} onClick={() => sortTable("hash")}>
                                         Transaction Hash
                                         <Tooltip
                                             open={txHashToolTop}
@@ -283,7 +284,7 @@ export default function StickyHeadTable() {
                                     </span>
                                 </TableCell>
                                 <TableCell style={{ border: "none" }} align="left">
-                                    <span className={"tableheaders_Transfer-table-age"} onClick={() => sortTable("timestamp")}>
+                                    <span className={"tableheaders_Transfer-table-age cursor-pointer"} onClick={() => sortTable("timestamp")}>
                                         Age
                                         <Tooltip
                                             open={ageToolTip}
@@ -313,7 +314,7 @@ export default function StickyHeadTable() {
                                     </span>
                                 </TableCell>
                                 <TableCell style={{ border: "none" }} align="left">
-                                    <span className={"tableheaders_Transfer-table-block"} onClick={() => sortTable("blockNumber")}>
+                                    <span className={"tableheaders_Transfer-table-block cursor-pointer"} onClick={() => sortTable("blockNumber")}>
                                         Block
                                         <Tooltip
                                             open={blockToolTip}
@@ -343,7 +344,7 @@ export default function StickyHeadTable() {
                                     </span>
                                 </TableCell>
                                 <TableCell style={{ border: "none" }} align="left">
-                                    <span className={"tableheaders_Transfer-table-from"} onClick={() => sortTable("from")}>
+                                    <span className={"tableheaders_Transfer-table-from cursor-pointer"} onClick={() => sortTable("from")}>
                                         From
                                         <Tooltip
                                             open={fromToolTip}
@@ -373,7 +374,7 @@ export default function StickyHeadTable() {
                                     </span>
                                 </TableCell>
                                 <TableCell style={{ border: "none" }} align="left">
-                                    <span className={"tableheaders_Transfer-table-to"} onClick={() => sortTable("to")}>
+                                    <span className={"tableheaders_Transfer-table-to cursor-pointer"} onClick={() => sortTable("to")}>
                                         To
                                         <Tooltip open={toToolTip}
                                             onOpen={() => setToToolTip(true)}

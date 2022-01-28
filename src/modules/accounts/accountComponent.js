@@ -23,6 +23,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import PageSelector from "../common/pageSelector";
 import SearchAndFiltersComponent from "./searchAndFiltersComponent";
+import { useEffect } from "react";
 
 
 const useStyles = makeStyles({
@@ -151,6 +152,10 @@ export default function AccountComponent(props) {
   function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
+  useEffect(() => {
+    props.sortData("balance")
+  }, []);
+  
 
   const { state } = props;
   const classes = useStyles();
@@ -227,7 +232,7 @@ export default function AccountComponent(props) {
                       props.sortData("address");
                     }}
                   >
-                    <span className={"tableheaders_1_address"}>
+                    <span className={"tableheaders_1_address cursor-pointer"}>
                       Address
                       <Tooltip
                         open={addressTT}
@@ -249,12 +254,18 @@ export default function AccountComponent(props) {
                       title={props.getSortTitle("address")}
                     >{
                         props?.state?.sortKey == "address" ?
-                          (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
-                            className={classes.sortButton}
-                          />
-                            : <ArrowDownwardIcon
-                              className={classes.sortButton}
-                            />) : <span></span>
+                          (props?.state?.sortOrder === 1 ? <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                        />
+                            : <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                        />) : <span></span>
                       }
 
                     </Tooltip>
@@ -295,7 +306,7 @@ export default function AccountComponent(props) {
                         props.sortData("balance");
                       }}
                     >
-                      <span className={"tableheaders_1"}>
+                      <span className={"tableheaders_1 cursor-pointer"}>
                         Balance
                         <Tooltip
                           open={balanceTT}
@@ -317,12 +328,18 @@ export default function AccountComponent(props) {
                         title={props.getSortTitle("balance")}
                       >{
                           props?.state?.sortKey == "balance" ?
-                            (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
-                              className={classes.sortButton}
-                            />
-                              : <ArrowDownwardIcon
-                                className={classes.sortButton}
-                              />) : <span></span>
+                            (props?.state?.sortOrder === 1 ? <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                          />
+                              : <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                          />) : <span></span>
                         }
 
                       </Tooltip>
@@ -337,7 +354,7 @@ export default function AccountComponent(props) {
                         props.sortData("percentage");
                       }}
                     >
-                      <span className={"tableheaders_1"}>
+                      <span className={"tableheaders_1 cursor-pointer"}>
                         Percentage
                         <Tooltip
                           open={percentageTT}
@@ -360,12 +377,18 @@ export default function AccountComponent(props) {
                       >
                         {
                           props?.state?.sortKey == "percentage" ?
-                            (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
-                              className={classes.sortButton}
-                            />
-                              : <ArrowDownwardIcon
-                                className={classes.sortButton}
-                              />) : <span></span>
+                            (props?.state?.sortOrder === 1 ? <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                          />
+                              : <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                          />) : <span></span>
                         }
                       </Tooltip>
                     </TableCell>
