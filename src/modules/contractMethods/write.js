@@ -331,7 +331,6 @@ export default function ContractWriteMethods(props) {
           await contract.methods[method](...params)
             .send({ from: state.accountAddress })
             .then(async (response) => {
-              console.log(response, "response");
               writeFunctions[index].response = {
                 method,
                 index,
@@ -342,7 +341,6 @@ export default function ContractWriteMethods(props) {
           await contract.methods[method]()
             .send({ from: state.accountAddress })
             .then(async (response) => {
-              console.log(response, "response");
               writeFunctions[index].response = {
                 method,
                 index,
@@ -584,7 +582,6 @@ const InputTypeFunctions = ({
 }) => {
   const [params, setParams] = React.useState({});
   React.useEffect(() => {
-    console.log(functionDetail.params, "functionDetail.params");
     setParams(functionDetail.params);
   }, [functionDetail.params]);
 

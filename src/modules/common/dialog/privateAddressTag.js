@@ -150,9 +150,8 @@ export default function FormDialog(props) {
     // }
 
     let taggedAddress = localStorage.getItem(
-        data.userId+cookiesConstants.USER_TAGGED_ADDRESS
+      data.userId + cookiesConstants.USER_TAGGED_ADDRESS
     );
-    console.log("taggedAddress ",taggedAddress)
     if (taggedAddress) {
       taggedAddress = JSON.parse(taggedAddress);
       let existingTagsIndex=null;
@@ -177,7 +176,7 @@ export default function FormDialog(props) {
     }
     // taggedAddress.push(data);
     localStorage.setItem(
-        data.userId+cookiesConstants.USER_TAGGED_ADDRESS,
+      data.userId + cookiesConstants.USER_TAGGED_ADDRESS,
       JSON.stringify(taggedAddress)
     );
     utility.apiSuccessToast("Tag Added");

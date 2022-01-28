@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import Tokensearchbar from "../explorer/tokensearchBar";
@@ -114,6 +114,8 @@ const SignUpBottom = styled.div`
   text-align: center;
   color: #2a2a2a;
   margin-top: 40px;
+  display: flex;
+  justify-content: center;
 `;
 const RightTopLogo = styled.div``;
 const Header = styled.div`
@@ -125,8 +127,13 @@ const Header = styled.div`
 const CrossButton = styled.div`
   cursor: pointer;
 `;
+const SignUp = styled.div`
+  color: #0d51ff;
+  cursor: pointer;
+`;
 
 export default function GlobalIdCon() {
+  const [LoginText, setLoginText] = useState(1);
   const history = useHistory();
   function handleClick() {
     window.location.href = "/";
@@ -164,11 +171,33 @@ export default function GlobalIdCon() {
       <Grid className="table-grid-block-global-id grid-block-table">
         <MainContainer>
           <LeftContainer>
-            <XDC>Login to your account to get started</XDC>
-            <FirstLineText>
-              Log in to your account gives you access to following features on
-              XDC Observatory:
-            </FirstLineText>
+            {(() => {
+              switch (LoginText) {
+                case 1:
+                  return (
+                    <>
+                      <XDC>Login to your account to get started</XDC>
+                      <FirstLineText>
+                        Log in to your account gives you access to following
+                        features on XDC Observatory:
+                      </FirstLineText>
+                    </>
+                  );
+                case 2:
+                  return (
+                    <>
+                      <XDC>Create your account to get started</XDC>
+                      <FirstLineText>
+                        Creating the account gives you access to following
+                        features on XDC Observatory:
+                      </FirstLineText>
+                    </>
+                  );
+                default:
+                  return;
+              }
+            })()}
+
             <SecondLineText>
               <IconLogo>
                 <img
@@ -242,7 +271,30 @@ export default function GlobalIdCon() {
                 >
                   <ButtonGlobalid>Continue with GlobaliD</ButtonGlobalid>
                 </a>
-                <SignUpBottom>Don’t have an account? Sign up</SignUpBottom>
+                <SignUpBottom>
+                  {" "}
+                  {LoginText == 1
+                    ? "Don’t have an account?"
+                    : "Already have an account?"}
+                  {(() => {
+                    switch (LoginText) {
+                      case 1:
+                        return (
+                          <SignUp onClick={() => setLoginText(2)}>
+                            &nbsp;Sign up
+                          </SignUp>
+                        );
+                      case 2:
+                        return (
+                          <SignUp onClick={() => setLoginText(1)}>
+                            &nbsp;Sign in
+                          </SignUp>
+                        );
+                      default:
+                        return;
+                    }
+                  })()}
+                </SignUpBottom>
               </RightBelowContainer>
             </RightContainerMain>
           </RightContainer>
