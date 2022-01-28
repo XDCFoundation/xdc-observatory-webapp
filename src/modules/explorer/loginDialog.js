@@ -7,12 +7,13 @@ import { makeStyles } from "@material-ui/styles";
 import userSignUp from "../../services/createUser";
 import { Row } from "simple-flexbox";
 import AuthService from "../../services/userLogin";
+import LoginService from "../../services/auth0";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import { genericConstants } from "../constants";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { cookiesConstants } from "../../constants";
+import { authenticationProvider, cookiesConstants } from "../../constants";
 import { history } from "../../managers/history";
 import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -653,11 +654,10 @@ export default function FormDialog(props) {
       return;
     }
 
-    const authObject = new AuthService();
+    let authObject=new LoginService();
     let [error, authResponse] = await Utility.parseResponse(
-      authObject.signin(reqObj)
+      authObject.signin(reqObj.name , reqObj.password)
     );
-
     if (authResponse?.userInfoRes?.email.length.name > 2) {
       setLoading(false);
     }
@@ -705,6 +705,8 @@ export default function FormDialog(props) {
       name: userName,
       email: email,
       password: password,
+      username:userName,
+      authenticationProvider:authenticationProvider.AUTH0
     };
     setLoading(true);
     setErrorUserName("");
