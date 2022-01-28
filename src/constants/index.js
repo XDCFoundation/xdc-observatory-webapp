@@ -65,6 +65,8 @@ export const cookiesConstants = {
   EMAIL_ID: "EMAIL_ID",
   AUTH0_ID_TOKEN: "AUTH0_ID_TOKEN",
   JWT_TOKEN: "JWT_TOKEN",
+
+  ACCESS_TOKEN:"ACCESS_TOKEN"
 };
 
 export const eventConstants = {
@@ -216,4 +218,8 @@ export const recentSearchTypeConstants = {
   WALLET: 'WALLET',
   BLOCK: 'TOKEN',
   TOKEN: 'TOKEN',
+};
+
+export const authenticationProvider = {
+  AUTH0: "AUTH0"
 }
