@@ -400,7 +400,7 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 w-19" style={{ border: "none", paddingLeft: "2%" }} align="left">
+                  <TableCell className="w-450 w-19" style={{ border: "none", paddingLeft: "1.8%" }} align="left">
                     <span className={"tableheaders table-block"}>
                       Block
                       <Tooltip
@@ -418,7 +418,7 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 w-19" style={{ border: "none", paddingLeft: "1%" }} align="left">
+                  <TableCell className="w-450 w-19" style={{ border: "none", paddingLeft: "1.8%" }} align="left">
                     <span className={"tableheaders table-from"}>
                       From
                       <Tooltip
@@ -436,7 +436,7 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 w-18" style={{ border: "none", paddingLeft: "1%" }} align="left">
+                  <TableCell className="w-450 w-18" style={{ border: "none", paddingLeft: "1.8%" }} align="left">
                     <span className={"tableheaders table-to"}>
                       To
                       <Tooltip
@@ -454,7 +454,7 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1%" }} align="left">
+                  <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1.8%" }} align="left">
                     <span className={"tableheaders table-value"}>
                       Value
                       <Tooltip
@@ -472,7 +472,7 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1%" }} align="left">
+                  <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1.8%" }} align="left">
                     <span className={"tableheaders table-value"}>
                       Avg Txn Fee
                       <Tooltip

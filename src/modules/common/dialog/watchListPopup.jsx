@@ -229,6 +229,7 @@ export default function FormDialog(props) {
   const [description, setDescription] = React.useState("");
   const [error, setError] = React.useState("");
   const [descriptionError, setDescriptionError] = React.useState("");
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
 
   const [notification, setNotification] = React.useState(false);
 
@@ -262,8 +263,12 @@ export default function FormDialog(props) {
   };
 
   const watchListService = async () => {
-    if (!address) {
-      setError("Please enter required field");
+    setError("");
+    setDescriptionError("");
+    setErrorEmptyField("");
+    if (!address && !description) {
+      setErrorEmptyField("Please enter required fields");
+      return
     }
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
@@ -274,20 +279,23 @@ export default function FormDialog(props) {
     };
     if (!address) {
       setError("Please enter required field");
+    } else if (!description) {
+      setDescriptionError("Please enter description");
     } else if (
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
-      setError(
-        "Please add address that is having 43 characters and initiates with xdc"
-      );
-    } else if (!description) {
-      setDescriptionError("Description is required");
+      setError("Address should start with xdc and consist of 43 characters");
     } else {
       if (value === "NO") request["isEnabled"] = false;
       const [error, response] = await utility.parseResponse(
         AddWatchList.addWatchlist(request)
       );
+
+      if (error || !response) {
+        setDescriptionError("Address already exist in table");
+        return;
+      }
 
       // if (error || !response) {
       //   utility.apiFailureToast("Address already exists");
@@ -303,12 +311,12 @@ export default function FormDialog(props) {
             item.address == request.address && item.userId == request.userId
         );
         if (existingWatchList) {
-          utility.apiFailureToast("Address already exists");
+          setDescriptionError("Address already exist in table");
           return;
         }
       } else {
         watchlists = [];
-        utility.apiSuccessToast("Address added to watchlist");
+        // utility.apiSuccessToast("Address added to watchlist");
 
         setAddress("");
         setDescription("");
@@ -375,6 +383,7 @@ export default function FormDialog(props) {
           </div>
         </Row>
         <DialogContent>
+        {errorEmptyField ? <div className={classes.error}>{errorEmptyField}</div> : <></>}
           <DialogContentText className={classes.subCategory}>
             Address
           </DialogContentText>

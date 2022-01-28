@@ -150,6 +150,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "2px",
     marginTop: "-20px",
   },
+  error1: {
+    color: "red",
+    marginLeft: "24px",
+    marginTop: "-20px",
+  },
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -231,6 +236,7 @@ export default function FormDialog(props) {
   const [description, setDescription] = React.useState("");
   const [error, setError] = React.useState("");
   const [descriptionError, setDescriptionError] = React.useState("");
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
 
   const [notification, setNotification] = React.useState("NO");
 
@@ -259,8 +265,12 @@ export default function FormDialog(props) {
   };
 
   const watchListService = async () => {
-    if (!address) {
-      setError("Please enter required field");
+    setError("");
+    setDescriptionError("");
+    setErrorEmptyField("");
+    if (!address && !description) {
+      setErrorEmptyField("Please enter required fields");
+      return
     }
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
@@ -271,13 +281,13 @@ export default function FormDialog(props) {
     };
     if (!address) {
       setError("Please enter required field");
+    } else if (!description) {
+      setDescriptionError("Please enter description");
     } else if (
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
-      setError("Please add address that is having 43 characters and initiates with xdc");
-    } else if (!description) {
-      setDescriptionError("Description is required");
+      setError("Address should start with xdc and consist of 43 characters");
     } else {
       if (value === "NO") request["isEnabled"] = false;
       const [error, response] = await utility.parseResponse(
@@ -285,7 +295,7 @@ export default function FormDialog(props) {
       );
 
       if (error || !response) {
-        utility.apiFailureToast("Address already exists");
+        setDescriptionError("Address already exist in table");
         return;
       }
       let watchlists = localStorage.getItem(
@@ -437,6 +447,7 @@ export default function FormDialog(props) {
                 Add a New Address to your Watchlist
               </div>
             </Row>
+            {errorEmptyField ? <div className={classes.error1}>{errorEmptyField}</div> : <></>}
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 Address

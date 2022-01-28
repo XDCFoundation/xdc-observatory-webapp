@@ -61,7 +61,7 @@ function VerifiedEmailScreenComponent() {
           <EmailVerified> Email Verified </EmailVerified>
         </Verified>
         <Rectangle>
-          Your email is verified. You may proceed to login with your user ID
+          Your email is verified. You may proceed to login with your user name 
           and password.
         </Rectangle>
         {!isloggedIn ? <LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} verifiedEmail={true} /> : <></>}
