@@ -163,23 +163,24 @@ export default function FormDialog(props) {
       trxLable: privateNote,
       transactionHash: transactionsHash,
     };
-    const [error, response] = await utility.parseResponse(
-      UserService.postUserPrivateNote(data)
-    );
-
-    if (error || !response) {
-      utility.apiFailureToast("Transaction private note not added");
-      return;
-    }
+    // const [error, response] = await utility.parseResponse(
+    //   UserService.postUserPrivateNote(data)
+    // );
+    //
+    // if (error || !response) {
+    //   utility.apiFailureToast("Transaction private note not added");
+    //   return;
+    // }
     let transactionLabel = localStorage.getItem(
-      cookiesConstants.USER_TRASACTION_LABELS
+        data.userId+cookiesConstants.USER_TRASACTION_LABELS
     );
     if (transactionLabel) {
       transactionLabel = JSON.parse(transactionLabel);
       const existingTransactionLabel = transactionLabel.find(
         (item) =>
-          item.address == transactionsHash && item.userId == data.userId
+          item.transactionHash == transactionsHash && item.userId == data.userId
       );
+      console.log("+++",existingTransactionLabel)
       if (existingTransactionLabel) {
         utility.apiFailureToast("Transaction private note is already in use");
         return;
@@ -189,7 +190,7 @@ export default function FormDialog(props) {
     }
     transactionLabel.push(data);
     localStorage.setItem(
-      cookiesConstants.USER_TRASACTION_LABELS,
+        data.userId+cookiesConstants.USER_TRASACTION_LABELS,
       JSON.stringify(transactionLabel)
     );
     utility.apiSuccessToast("Transaction Added");

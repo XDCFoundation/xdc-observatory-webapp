@@ -243,23 +243,42 @@ function EditTaggedAddress(props) {
   };
 
   const handleDelete = async () => {
-    if (props?.row?._id) {
-      props.dispatchAction(eventConstants.SHOW_LOADER, true);
-      const [error, response] = await utility.parseResponse(
-        TagAddressService.deleteTagAddress({ _id: props.row._id })
-      );
-      props.dispatchAction(eventConstants.HIDE_LOADER, true);
-      if (error || !response) {
-        utility.apiFailureToast(
-          error?.message || genericConstants.CANNOT_DELETE_TAGGED_ADDRESS
-        );
-        return;
-      }
-      await utility.apiSuccessToast(genericConstants.TAGGED_ADDRESS_DELETED);
+      // props.dispatchAction(eventConstants.SHOW_LOADER, true);
+      // const [error, response] = await utility.parseResponse(
+      //   TagAddressService.deleteTagAddress({ _id: props.row._id })
+      // );
+      // props.dispatchAction(eventConstants.HIDE_LOADER, true);
+      // if (error || !response) {
+      //   utility.apiFailureToast(
+      //     error?.message || genericConstants.CANNOT_DELETE_TAGGED_ADDRESS
+      //   );
+      //   return;
+      // }
+      // await utility.apiSuccessToast(genericConstants.TAGGED_ADDRESS_DELETED);
+    let taggedAddress = localStorage.getItem(
+        props.row.userId + cookiesConstants.USER_TAGGED_ADDRESS
+    );
+    taggedAddress = JSON.parse(taggedAddress)
+
+    let existingTagsIndex=null;
+    const existingTag = taggedAddress.find(
+        (item,index) => {
+          if(item.address == props?.row?.address && item.userId == props?.row?.userId){
+            existingTagsIndex = index;
+            return true;
+          }
+        }
+    );
+    if(existingTag){
+      taggedAddress.splice(existingTagsIndex,1)
+    }
+    localStorage.setItem(
+        props?.row?.userId+cookiesConstants.USER_TAGGED_ADDRESS,
+        JSON.stringify(taggedAddress)
+    );
       await handleClose();
       await props.getListOfTagAddress();
       await props.getTotalCountTagAddress();
-    }
   };
 
   const [input, setInput] = React.useState("");
@@ -344,6 +363,7 @@ function EditTaggedAddress(props) {
             </DialogContentText>
             <input
               value={privateAddress}
+              readOnly
               className={classes.input}
               onChange={(e) => {
                 setPrivateAddress(e.target.value);

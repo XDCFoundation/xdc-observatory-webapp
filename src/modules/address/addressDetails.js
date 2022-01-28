@@ -16,7 +16,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import {
   TransactionService,
   CoinMarketService,
-  UserService,
+  UserService, WatchListService,
 } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
@@ -31,6 +31,7 @@ import LoginDialog from "../explorer/loginDialog";
 import { genericConstants, cookiesConstants } from "../../constants";
 import EditTagAddress from "../../modules/common/dialog/editTagPopup";
 import toast, { Toaster } from "react-hot-toast";
+import utility from "../../utility";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -534,6 +535,8 @@ export default function AddressDetails(props) {
   const [dialogValue, setDailogValue] = React.useState(0);
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
   const [stop, setStop] = React.useState(false);
+  const [watchlistDetails, setWatchListDetails] = React.useState(null);
+  const [existingWatchList, setExistingWatchList] = React.useState(null);
   const closeDialogPvtTag = () => {
     setDialogPvtTagIsOpen(false);
     setDailogValue(0);
@@ -705,7 +708,23 @@ export default function AddressDetails(props) {
     tagUsingAddressHash();
     // getListOfTagAddress();
     getAddressStats();
+    getWatchList();
   }, [amount]);
+
+  const getWatchList = async ()=>{
+    const request = {
+      userId: sessionManager.getDataFromCookies("userId"),
+      address: addr,
+      skip:0,
+      limit:10
+    }
+
+const res = await UserService.getWatchlistList(request)
+    if(res && res.watchlistContent && res.watchlistContent.length){
+      setWatchListDetails(res.watchlistContent[0]);
+        setExistingWatchList(true);
+    }
+  }
 
   const currentTime = new Date();
   const previousTime = new Date(addressData?.timestamp * 1000);
@@ -742,23 +761,26 @@ export default function AddressDetails(props) {
       ? tags?.filter((obj) => obj.address === addr && obj.userId == userId)
       : "";
   let watchlists = localStorage.getItem(
-    cookiesConstants.USER_ADDRESS_WATCHLIST
+      userId+cookiesConstants.USER_ADDRESS_WATCHLIST
   );
   let watchList =
-    watchlists && watchlists.length > 0 ? JSON.parse(watchlists) : "";
-
-  var existingWatchList =
-    watchList &&
-    watchList?.filter((item) => item.address == addr && item.userId == userId);
-  function remove() {
-    var i = watchList.findIndex((obj) => obj.address === addr);
-    if (i !== -1) {
-      watchList.splice(i, 1);
+    watchlists ? JSON.parse(watchlists) : "";
+    // watchList &&
+    // watchList?.filter((item) => item.address == addr && item.userId == userId);
+  async function remove() {
+    delete watchList[addr];
+    // var i = watchList.findIndex((obj) => obj.address === addr);
+    // if (i !== -1) {
+    //   watchList.splice(i, 1);
+    const [error, response] = await utility.parseResponse(
+        WatchListService.deleteWatchlist({ _id: watchlistDetails._id }, watchlistDetails)
+    );
       localStorage.setItem(
-        cookiesConstants.USER_ADDRESS_WATCHLIST,
+        userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchList)
       );
-    }
+    // }
+    setExistingWatchList(null);
     setStop("");
     setStop(true);
   }
@@ -797,6 +819,7 @@ export default function AddressDetails(props) {
                       open={dialogWatchListIsOpen}
                       onClose={closeDialogWatchList}
                       value={dialogValue}
+                      setExistingWatchList={setExistingWatchList}
                       hash={addr}
                     />
                   </>
@@ -835,7 +858,7 @@ export default function AddressDetails(props) {
                         </TagImageTab>
                       </>
                     )}
-                    {existingWatchList && existingWatchList.length > 0 ? (
+                    {existingWatchList ? (
                       <>
                         <WatchListImage onClick={remove}>
                           <img
@@ -1006,6 +1029,7 @@ export default function AddressDetails(props) {
                           />
                           <AddToWatchListPopup
                             open={dialogWatchListIsOpen}
+                            setExistingWatchList={setExistingWatchList}
                             onClose={closeDialogWatchList}
                             fromAddr={transactions.from}
                             value={dialogValue}
@@ -1032,7 +1056,7 @@ export default function AddressDetails(props) {
                             Add Tag
                           </AddTagButton>
                         )}
-                        {existingWatchList && existingWatchList.length > 0 ? (
+                        {existingWatchList ? (
                           <AddToWatchList onClick={remove}>
                             <img
                               className="tag-white-icon"

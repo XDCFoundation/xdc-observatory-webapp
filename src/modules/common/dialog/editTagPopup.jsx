@@ -339,6 +339,7 @@ function EditTaggedAddress(props) {
           </DialogContentText>
           <input
             value={privateAddress}
+            readOnly
             className={classes.input}
             onChange={(e) => {
               setPrivateAddress(e.target.value);
