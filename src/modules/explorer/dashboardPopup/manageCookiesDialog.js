@@ -125,7 +125,7 @@ export default function ManageCookiesDialog(props) {
             //If user is logged in
             const userCookiesDetails = await new Auth0Service().getUserCookies({userId: userInfo.sub});
             console.log('userCookiesDetails', userCookiesDetails)
-            if (userCookiesDetails && userCookiesDetails.cookiesAllowed.length) {
+            if (userCookiesDetails &&  userCookiesDetails.cookiesAllowed && userCookiesDetails.cookiesAllowed.length) {
                 if (userCookiesDetails.cookiesAllowed.includes(userCookiesConstants.FUNCTIONAL_COOKIES))
                     setFunctionalCookies(true);
                 if (userCookiesDetails.cookiesAllowed.includes(userCookiesConstants.PERFORMANCE_COOKIES))

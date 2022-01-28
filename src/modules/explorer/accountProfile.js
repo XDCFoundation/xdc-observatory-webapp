@@ -514,6 +514,15 @@ export default function SimpleTabs(props) {
         if (error || !response) {
           setDataNotFound("Data not found");
         } else {
+
+          let watchlists = localStorage.getItem(
+              data.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
+          );
+          watchlists = JSON.parse(watchlists);
+          response.watchlistContent = response.watchlistContent.map(obj => {
+            obj.description = watchlists && watchlists[obj.address] ? watchlists[obj.address] : "";
+            return obj;
+          })
           setWatchlist(response);
         }
       }
@@ -626,12 +635,10 @@ export default function SimpleTabs(props) {
       request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
     );
     watchlists = JSON.parse(watchlists);
-    console.log('response ', response)
     response.watchlistContent = response.watchlistContent.map(obj => {
       obj.description = watchlists && watchlists[obj.address] ? watchlists[obj.address] : "";
       return obj;
     })
-    console.log('response1 ', response)
     if (response.totalCount > 0) {
       setAddressNotAdded(false);
     }
@@ -2257,7 +2264,7 @@ export default function SimpleTabs(props) {
                                 align="left"
                               >
                                 <span className="tabledata-2">
-                                  {tag.map((item, index) => {
+                                  {tag && tag.length && tag.map((item, index) => {
                                     return (
                                       <div className="nameLabel2" key={index}>
                                         {item}
