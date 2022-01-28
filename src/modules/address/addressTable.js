@@ -87,6 +87,7 @@ export default function AddressTableComponent(props) {
   const [checkAll, setCheckAll] = React.useState(0);
   const [isDownloadActive, setDownloadActive] = useState(0);
   const [noData, setNoData] = useState(false);
+  const [arrowUpDown, setArrowUpDown] = useState(false);
   let showPerPage = 10;
   let datas = {};
   let data = {};
@@ -95,11 +96,11 @@ export default function AddressTableComponent(props) {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState();
   const [sortToggle, setSortToggle] = React.useState({
-    blockNumber: 1,
-    timestamp: 1,
-    from: 1,
-    to: 1,
-    value: 1,
+    blockNumber: 0,
+    timestamp: 0,
+    from: 0,
+    to: 0,
+    value: 0,
   });
   const [sortingKey, setSortingKey] = React.useState("blockNumber");
   function handleSettingsClick(event) {
@@ -275,8 +276,10 @@ export default function AddressTableComponent(props) {
     };
     // getFiltersForAccountTransaction({address: addr});
     getAddressDetails(datas);
+    sortData("value");
   }, []);
   const sortData = async (sortKey) => {
+    setArrowUpDown(false);
     let sortType = sortToggle[sortKey];
     if (sortType === 1) {
       // setLoading(true)
@@ -289,6 +292,7 @@ export default function AddressTableComponent(props) {
       });
       setSortToggle({ ...sortToggle, [sortKey]: -1 });
       setSortingKey(sortKey);
+      setArrowUpDown(true);
     } else {
       // setLoading(true)
       getAddressDetails({
@@ -300,6 +304,7 @@ export default function AddressTableComponent(props) {
       });
       setSortToggle({ ...sortToggle, [sortKey]: 1 });
       setSortingKey(sortKey);
+      setArrowUpDown(true);
     }
   };
   const getSortTitle = (sortKey) => {
@@ -610,7 +615,7 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-block"}>
+                    <span className={"tableheaders table-block cursor-pointer"} onClick={() => {sortData("blockNumber");}}>
                       Block
                       <Tooltip
                         open={blockTT}
@@ -632,21 +637,33 @@ export default function AddressTableComponent(props) {
                       placement="top"
                       title={getSortTitle("blockNumber")}
                     >
-                      {sortToggle.blockNumber == 1 ? (
-                        <ArrowUpwardIcon
-                          onClick={() => {
-                            sortData("blockNumber");
-                          }}
-                          className={classes.sortButton}
+                      {sortingKey && sortingKey === "blockNumber" ? (sortToggle.blockNumber == 1 ? (
+                        // <ArrowUpwardIcon
+                          // onClick={() => {
+                          //   sortData("blockNumber");
+                          // }}
+                        //   className={classes.sortButton}
+                        // />
+                        <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
                         />
                       ) : (
-                        <ArrowDownwardIcon
-                          onClick={() => {
-                            sortData("blockNumber");
-                          }}
-                          className={classes.sortButton}
+                        // <ArrowDownwardIcon
+                        //   onClick={() => {
+                        //     sortData("blockNumber");
+                        //   }}
+                        //   className={classes.sortButton}
+                        // />
+                        <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
                         />
-                      )}
+                      )):(<></>)}
                     </Tooltip>
                   </TableCell>
                   <TableCell
@@ -658,7 +675,7 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-from"}>
+                    <span className={"tableheaders table-from cursor-pointer"} onClick={() => {sortData("from");}}>
                       From
                       <Tooltip
                         open={fromTT}
@@ -678,21 +695,33 @@ export default function AddressTableComponent(props) {
                     </span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("from")}>
-                        {sortToggle.from == 1 ? (
-                          <ArrowUpwardIcon
-                            onClick={() => {
-                              sortData("from");
-                            }}
-                            className={classes.sortButton}
-                          />
+                        {sortingKey && sortingKey === "from" ? (sortToggle.from == 1 ? (
+                          // <ArrowUpwardIcon
+                          //   onClick={() => {
+                          //     sortData("from");
+                          //   }}
+                          //   className={classes.sortButton}
+                          // />
+                          <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
+                        />
                         ) : (
-                          <ArrowDownwardIcon
-                            onClick={() => {
-                              sortData("from");
-                            }}
-                            className={classes.sortButton}
-                          />
-                        )}
+                          // <ArrowDownwardIcon
+                          //   onClick={() => {
+                          //     sortData("from");
+                          //   }}
+                          //   className={classes.sortButton}
+                          // />
+                          <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                        )):(<></>)}
                       </Tooltip>
                     </button>
                   </TableCell>
@@ -705,7 +734,7 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-value"} />
+                    <span className={"tableheaders table-value"}/>
                   </TableCell>
                   <TableCell
                     className="w-450 w-18"
@@ -716,7 +745,7 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-to"}>
+                    <span className={"tableheaders table-to cursor-pointer"} onClick={() => {sortData("to");}}>
                       To
                       <Tooltip
                         open={toTT}
@@ -736,21 +765,33 @@ export default function AddressTableComponent(props) {
                     </span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("to")}>
-                        {sortToggle.to == 1 ? (
-                          <ArrowUpwardIcon
-                            onClick={() => {
-                              sortData("to");
-                            }}
-                            className={classes.sortButton}
-                          />
+                        {sortingKey && sortingKey === "to" ? (sortToggle.to == 1 ? (
+                          // <ArrowUpwardIcon
+                          //   onClick={() => {
+                          //     sortData("to");
+                          //   }}
+                          //   className={classes.sortButton}
+                          // />
+                          <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
+                        />
                         ) : (
-                          <ArrowDownwardIcon
-                            onClick={() => {
-                              sortData("from");
-                            }}
-                            className={classes.sortButton}
-                          />
-                        )}
+                          // <ArrowDownwardIcon
+                          //   onClick={() => {
+                          //     sortData("from");
+                          //   }}
+                          //   className={classes.sortButton}
+                          // />
+                          <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                        )):(<></>)}
                       </Tooltip>
                     </button>
                   </TableCell>
@@ -763,24 +804,36 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-value"}>Value</span>
+                    <span className={"tableheaders table-value cursor-pointer"} onClick={() => {sortData("value");}}>Value</span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("value")}>
-                        {sortToggle.value == 1 ? (
-                          <ArrowUpwardIcon
-                            onClick={() => {
-                              sortData("value");
-                            }}
-                            className={classes.sortButton}
-                          />
+                        {sortingKey && sortingKey === "value"  ? (sortToggle.value == 1 ? (
+                          // <ArrowUpwardIcon
+                          //   onClick={() => {
+                          //     sortData("value");
+                          //   }}
+                          //   className={classes.sortButton}
+                          // />
+                          <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
+                        />
                         ) : (
-                          <ArrowDownwardIcon
-                            onClick={() => {
-                              sortData("value");
-                            }}
-                            className={classes.sortButton}
-                          />
-                        )}
+                          // <ArrowDownwardIcon
+                          //   onClick={() => {
+                          //     sortData("value");
+                          //   }}
+                          //   className={classes.sortButton}
+                          // />
+                          <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                        )):(<></>)}
                       </Tooltip>
                     </button>
                   </TableCell>

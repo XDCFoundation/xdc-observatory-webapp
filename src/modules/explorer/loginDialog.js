@@ -526,6 +526,7 @@ export default function FormDialog(props) {
   const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
   const [newFeatureSignupPropsValue, setNewFeatureSignupPropsValue] = React.useState(false);
   const [errorCaptcha, setErrorCaptcha] = React.useState("");
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
   const [timer, setTimer] = React.useState("00:00");
 
   const [emailError, setEmailError] = useState("");
@@ -601,6 +602,7 @@ export default function FormDialog(props) {
     setErrorCaptcha("");
     setErrorEmailVerified(false);
     setCaptchaError("");
+    setErrorEmptyField("");
     setNewFeatureSignupPropsValue(true);
   };
 
@@ -618,6 +620,7 @@ export default function FormDialog(props) {
     setPassword("")
     setErrorEmail("");
     setErrorPassword("");
+    setErrorEmptyField("");
   };
   const handleOpenForgotPassword = () => {
     setValue(3);
@@ -633,7 +636,12 @@ export default function FormDialog(props) {
     setLoading(true);
     setErrorEmail("");
     setErrorPassword("");
-
+    setErrorEmptyField("");
+    if(!email && !password) {
+      setErrorEmptyField("Enter username and password");
+      setLoading(false);
+      return;
+    }
     if (!email) {
       setErrorEmail("Please enter required field");
       setLoading(false);
@@ -643,12 +651,12 @@ export default function FormDialog(props) {
       setLoading(false);
       return;
     } else if (!email.match(regExAlphaNum)) {
-      setErrorEmail("Enter valid Username");
+      setErrorEmail("Enter valid username");
       setLoading(false);
       return;
     } else if (!password.match(regExPass)) {
       setErrorPassword(
-        "Password must be atleast 8 character long with Uppercase, Lowercase and Number"
+        "Incorrect password"
       );
       setLoading(false);
       return;
@@ -669,7 +677,7 @@ export default function FormDialog(props) {
     } else {
       if (error || !authResponse) {
         setLoading(false);
-        setErrorPassword("Wrong Username or password");
+        setErrorPassword("Wrong username or password");
         // setislogged(true)
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
@@ -715,7 +723,14 @@ export default function FormDialog(props) {
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
     setErrorPrivacyPolicy("");
+    setErrorEmptyField("")
+    setCaptchaError("");
     setErrorCaptcha("");
+    if(!userName && !email && !password && !confirmPassword ) {
+      setErrorEmptyField(genericConstants.ENTER_REQUIRED_FIELD);
+      setLoading(false);
+      return;
+    }
     if (!userName) {
       setErrorUserName(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
@@ -736,24 +751,24 @@ export default function FormDialog(props) {
       setLoading(false);
       return;
     } else if (!userName.match(regExAlphaNum)) {
-      setErrorUserName("Enter valid Username");
+      setErrorUserName("Enter valid username");
       setLoading(false);
     } else if (!email.match(mailformat)) {
-      setErrorEmail("Enter valid Email");
+      setErrorEmail("Enter valid email ID");
       setLoading(false);
     } else if (!password.match(regExPass)) {
       setErrorPassword(
-        "Password must be atleast 8 character long with Uppercase, Lowercase and Number"
+        "Enter a valid password"
       );
       setLoading(false);
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
-    } else if (privacyCheckbox === false) {
-      setErrorTermsCondition("Please agree to our Terms of Use and Privacy Policy");
-      setLoading(false);
     } else if (termsCheckbox === false) {
-      setErrorTermsCondition("Please agree to our Terms of Use and Privacy Policy");
+      setErrorTermsCondition("Please agree to our Terms & Conditions");
+      setLoading(false);
+    } else if (privacyCheckbox === false) {
+      setErrorPrivacyPolicy("Please agree to our Privacy Policy");
       setLoading(false);
     }
     else {
@@ -768,7 +783,7 @@ export default function FormDialog(props) {
         userSignUp.postSignUp(data)
       );
       if (error || !response) {
-        Utility.apiFailureToast("User already exists");
+        setErrorEmptyField("User already exists");
         setLoading(false);
       } else {
         window.location.href = "/activate-account";
@@ -815,6 +830,16 @@ export default function FormDialog(props) {
       email: email,
     };
 
+    if(!email) {
+      setErrorEmail("Please enter email ID");
+      setLoading(false);
+      return
+    }
+    if (!email.match(mailformat)) {
+      setErrorEmail("Enter valid email ID");
+      setLoading(false);
+      return
+    }
     onClickReset();
     setLoading(true);
     if (reCaptcha === '') {
@@ -1077,6 +1102,7 @@ export default function FormDialog(props) {
             ) : (
               <div></div>
             )}
+            <div className={classes.error2}>{errorEmptyField}</div>
             <DialogActions className={classes.dialogButton}>
               <button
                 className={classes.addbtn}
@@ -1191,7 +1217,15 @@ export default function FormDialog(props) {
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategorySignup}>
-                <span className={classes.fieldName}>Password</span>
+                <span className={classes.fieldName}>Password
+                <Tooltip placement="top" title={messages.PASSWORD}>
+                    <img
+                      alt="question-mark"
+                      src="/images/info.svg"
+                      className="tooltipInfoIconEmail"
+                    />
+                  </Tooltip>
+                </span>
               </DialogContentText>
               <input
                 type="password"
@@ -1236,8 +1270,8 @@ export default function FormDialog(props) {
               />
               <span className="iAgree">
                 I have read and agree to the&nbsp;
-                <a className="privacyTermsLink" href="/term-conditions">
-                  terms and conditions.
+                <a className="privacyTermsLink" href="/term-conditions" target="_blank">
+                  Terms and Conditions.
                 </a>
               </span>
             </div>
@@ -1250,8 +1284,8 @@ export default function FormDialog(props) {
               />
               <span className="iAgree">
                 I have read and consent to the&nbsp;
-                <a className="privacyTermsLink" href="/privacy-policy">
-                  privacy policy.
+                <a className="privacyTermsLink" href="/privacy-policy" target="_blank">
+                  Privacy Policy.
                 </a>
               </span>
             </div>
@@ -1299,6 +1333,8 @@ export default function FormDialog(props) {
             ) : (
               <div></div>
             )}
+            
+            <div className={classes.error2}>{errorEmptyField}</div>
             <button className={classes.createAccountbtn} onClick={handleSignUp}>
               Create an Account{" "}
             </button>
@@ -1478,7 +1514,9 @@ export default function FormDialog(props) {
                   setInputError(" ");
                 }}
               />
+              <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
+            
             <div
               style={{
                 width: "100%",
@@ -1522,7 +1560,7 @@ export default function FormDialog(props) {
                 // validateEmail();
                 forgotpassword();
               }}
-              disabled={!email}
+              // disabled={!email}
             >
               Reset Password
             </button>
