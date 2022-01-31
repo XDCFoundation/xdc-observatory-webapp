@@ -163,32 +163,30 @@ export default function FormDialog(props) {
       trxLable: privateNote,
       transactionHash: transactionsHash,
     };
-    // const [error, response] = await utility.parseResponse(
-    //   UserService.postUserPrivateNote(data)
-    // );
-    //
-    // if (error || !response) {
-    //   utility.apiFailureToast("Transaction private note not added");
-    //   return;
-    // }
+
     let transactionLabel = localStorage.getItem(
         data.userId+cookiesConstants.USER_TRASACTION_LABELS
     );
     if (transactionLabel) {
       transactionLabel = JSON.parse(transactionLabel);
+      let existingIndex = null;
       const existingTransactionLabel = transactionLabel.find(
-        (item) =>
-          item.transactionHash == transactionsHash && item.userId == data.userId
+        (item, index) =>
+        {if(item.transactionHash == transactionsHash && item.userId == data.userId){
+          existingIndex = index;
+          return item;
+        }}
       );
-      console.log("+++",existingTransactionLabel)
       if (existingTransactionLabel) {
-        utility.apiFailureToast("Transaction private note is already in use");
-        return;
+        transactionLabel[existingIndex] = data;
+        // utility.apiFailureToast("Transaction private note is already in use");
+        // return;
       }
     } else {
       transactionLabel = [];
+      transactionLabel.push(data);
     }
-    transactionLabel.push(data);
+    // transactionLabel.push(data);
     localStorage.setItem(
         data.userId+cookiesConstants.USER_TRASACTION_LABELS,
       JSON.stringify(transactionLabel)
