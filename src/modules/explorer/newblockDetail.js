@@ -126,10 +126,11 @@ export default function BlockDetails() {
 
   const hashid = `Hash of the block header from the previous block`;
   const blockheight = `Also known as Block Number. The block height, which indicates the length the length of the blockchain, increases after the addition of the new block.`;
+  const transactionT = `Number of transactions associated with a particular block`;
   const timestamp = `The date and time at which a transaction is mined.`;
   const parenthash = `The hash of the block from which this block was generated, also known as its parent block`;
   const sha3uncles = `The mechanism which Ethereum Javascript RLP encodes an empty string`;
-  const diffi = `  The amount of effort required to mine a new block. The difficulty algorithmmay adjust according to time`;
+  const diffi = `  The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time`;
   const tdiffi = `Total difficulty of the chain until this block`;
   const gasU = `The total gas used in the block and  its percentage of gas filled in the block`;
   const gasL = `Total gas limit provided by all transactions in the block`;
@@ -284,7 +285,7 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={hashid}>
+                      <Tooltip align="right" title={transactionT}>
                         <ImageView
                           src="/images/info.svg"
                         />

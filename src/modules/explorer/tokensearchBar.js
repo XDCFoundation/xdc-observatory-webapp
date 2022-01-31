@@ -1106,7 +1106,7 @@ const LoginComponent = ({
           className="hamburger-icon"
           color="inherit"
           aria-label="open drawer"
-          edge="end"
+          // edge="end"
           onClick={toggleDrawer("right", true)}
         >
           <img
