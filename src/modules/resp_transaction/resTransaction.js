@@ -294,7 +294,7 @@ export default function Transaction({ _handleChange }) {
   const nounced = ` Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address. `;
   const input = `Additional information that is required for the transaction `;
   const transferToken = `The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.`;
-  const privatenote = ` Private notes `;
+  const privatenote =  `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`;
 
   function _handleChange(event) {
     setAmount(event?.target?.value);
@@ -1011,7 +1011,7 @@ export default function Transaction({ _handleChange }) {
                   </>)}
                 <SpacingPrivateNode>
                   <Container>
-                    <Tooltip align="right" title={transferToken}>
+                    <Tooltip align="right" title={privatenote}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
                     <Hash>Private Note</Hash>

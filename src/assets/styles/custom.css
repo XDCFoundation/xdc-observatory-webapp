@@ -9732,7 +9732,7 @@ button {
   .profile {
     height: 24px !important;
     width: 24px !important;
-    margin-right: 9px;
+    /* margin-right: 9px; */
   }
 }
 .Shape2-internal1 {
@@ -9761,16 +9761,7 @@ button {
     width: 20px;
     margin-top: 7px;
   }
-  .Shape2-internal1 {
-    height: 28px;
-    width: 26px;
-    margin-top: -2px !important;
-  }
-  .menu-sidebar {
-    height: 27px;
-    width: 26px;
-    margin-top: -2px !important;
-  }
+
   .profile {
     height: 24px !important;
     width: 24px !important;
@@ -9833,6 +9824,17 @@ button {
 @media (max-width: 767px) {
   .w-118 {
     width: 118%;
+  }
+  .Shape2-internal1 {
+    height: 28px;
+    width: 26px;
+    margin-top: -2px !important;
+    margin-right: -12px;
+  }
+  .menu-sidebar {
+  height: 27px;
+  width: 26px;
+  margin-right: -12px !important;
   }
 }
 @media (max-width: 767px) {

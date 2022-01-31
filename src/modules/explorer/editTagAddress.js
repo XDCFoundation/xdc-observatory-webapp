@@ -125,13 +125,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     color: "#2a2a2a",
   },
-  "@media (max-width: 714px)": {
+  "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
     },
     dialogBox: {
-      width: "362px",
+      width: "100%",
       top: "95px",
+      borderRadius: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
     input: {
       maxWidth: "503px",
