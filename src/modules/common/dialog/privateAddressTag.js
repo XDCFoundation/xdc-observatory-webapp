@@ -137,7 +137,7 @@ export default function FormDialog(props) {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
-      tagName: tags,
+      tagName: input,
       modifiedOn: Date.now()
     };
     // const [error, response] = await utility.parseResponse(
@@ -164,7 +164,8 @@ export default function FormDialog(props) {
         }
       );
       if (existingTag) {
-        taggedAddress[existingTagsIndex].tagName = [...taggedAddress[existingTagsIndex].tagName,...tags]
+        // taggedAddress[existingTagsIndex].tagName = [...taggedAddress[existingTagsIndex].tagName,...tags]
+        taggedAddress[existingTagsIndex].tagName = input;
         // utility.apiFailureToast("Address is already in use");
         // return;
       }else{
@@ -268,16 +269,16 @@ export default function FormDialog(props) {
             Name Tag
           </DialogContentText>
           <div className="containerTag">
-            {tags.map((tag, index) => (
-                <div className="tag">
-                  {tag}
-                  <button onClick={() => deleteTag(index)}>x</button>
-                </div>
-            ))}
+            {/*{tags.map((tag, index) => (*/}
+            {/*    <div className="tag">*/}
+            {/*      {tag}*/}
+            {/*      <button onClick={() => deleteTag(index)}>x</button>*/}
+            {/*    </div>*/}
+            {/*))}*/}
             <input
                 value={input}
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
+                // onKeyDown={onKeyDown}
+                // onKeyUp={onKeyUp}
                 onChange={onChange}
             />
           </div>

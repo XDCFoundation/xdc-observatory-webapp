@@ -191,9 +191,6 @@ function EditTaggedAddress(props) {
     } else if (tags.length === 0) {
       setErrorTag("Press comma(,) to add tag");
       return;
-    } else if (tags && tags.length > 5) {
-      setErrorTag("Maximum 5 Name tags are allowed");
-      return;
     } else {
       const [error, response] = await utility.parseResponse(
         PutTagAddress.putTaggedAddress(data)
@@ -204,15 +201,15 @@ function EditTaggedAddress(props) {
       //     return;
       //   }
       let taggedAddress = localStorage.getItem(
-        cookiesConstants.USER_TAGGED_ADDRESS
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS
       );
       if (taggedAddress) {
         taggedAddress = JSON.parse(taggedAddress);
         const existingTag = taggedAddress.find(
           (item) =>
             item.address == privateAddress &&
-            item.userId == data.userId &&
-            item.tagName == tags
+            item.userId == data.userId
+            // item.tagName == tags
         );
         // if (existingTag) {
         //   utility.apiFailureToast("Address is already in use");
@@ -227,7 +224,7 @@ function EditTaggedAddress(props) {
       );
       taggedAddress[objIndex].tagName = tags;
       localStorage.setItem(
-        cookiesConstants.USER_TAGGED_ADDRESS,
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS,
         JSON.stringify(taggedAddress)
       );
       utility.apiSuccessToast("Address tag Updated");
@@ -292,10 +289,10 @@ function EditTaggedAddress(props) {
         setErrorTag("Nametag cannot be longer than 15 characters");
         return;
       }
-      if (tags.length >= 5) {
-        setErrorTag("Maximum 5 Name tags are allowed");
-        return;
-      }
+      // if (tags.length >= 5) {
+      //   setErrorTag("Maximum 5 Name tags are allowed");
+      //   return;
+      // }
       setTags((prevState) => [...prevState, trimmedInput]);
       setInput("");
       setErrorTag("");

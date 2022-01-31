@@ -244,24 +244,18 @@ export default function FormDialog(props) {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
-      tagName: tags,
+      tagName: input,
       modifiedOn: Date.now()
     };
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
-    } else if (!input && tags.length === 0) {
+    } else if (!input) {
       setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
       setError("Please add address that is having 43 characters and initiates with xdc");
-      return;
-    } else if (tags.length === 0) {
-      setErrorTag("Press comma(,) to add tag");
-      return;
-    } else if (tags && tags.length > 5) {
-      setErrorTag("Maximum 5 Name tags are allowed");
       return;
     } else {
       // const [error] = await utility.parseResponse(
@@ -459,10 +453,6 @@ export default function FormDialog(props) {
             <div className={classes.heading} id="form-dialog-title">
               Add a new Address Tag
             </div>
-            {/* <span onClick={handleClose} className={classes.cross}>
-              {" "}
-              X{" "}
-            </span> */}
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
@@ -480,22 +470,17 @@ export default function FormDialog(props) {
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               Name Tag
-              {/* <span  className={classes.forgotpass}>
-              Forgot Password?
-            </span> */}
             </DialogContentText>
 
             <div className="containerTag">
-              {tags.map((tag, index) => (
-                <div className="tag">
-                  {tag}
-                  <button onClick={() => deleteTag(index)}>x</button>
-                </div>
-              ))}
+                {/*<div className="tag">*/}
+                {/*  /!*{input}*!/*/}
+                {/*  /!*<button onClick={() => deleteTag(index)}>x</button>*!/*/}
+                {/*</div>*/}
               <input
                 value={input}
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
+                // onKeyDown={onKeyDown}
+                // onKeyUp={onKeyUp}
                 onChange={onChange}
               />
             </div>
