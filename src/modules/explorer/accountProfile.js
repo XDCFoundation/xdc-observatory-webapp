@@ -469,22 +469,16 @@ export default function SimpleTabs(props) {
   }
 
   async function getUserTxnLabel() {
-    const data = sessionManager.getDataFromCookies("userId");
-    // const response = await UserService.getUserPrivateNote(data);
-    let transactionLabels = localStorage.getItem(sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS);
-    transactionLabels = JSON.parse(transactionLabels);
-    // setAddress(response);
-    if (!transactionLabels)
-      transactionLabels = [];
-    setTotalCount2(transactionLabels.length);
+    // const userId = sessionManager.getDataFromCookies("userId");
+    // let transactionLabels = localStorage.getItem(userId + cookiesConstants.USER_TRASACTION_LABELS);
+    // transactionLabels = JSON.parse(transactionLabels);
+    // if (!transactionLabels)
+    //   transactionLabels = [];
+    // setTotalCount2(transactionLabels.length);
+    getListOfTxnLabel({skip:0, _limit})
   }
 
-  async function getPvtTagAddress() {
-    // const data = sessionManager.getDataFromCookies("userId");
-    // const response = await UserService.getPrivateTagToAddress(data);
-    // // setPrivateAddress(response);
-    // setTotalCount3(response.length);
-  }
+  async function getPvtTagAddress() {}
 
   const [watchlistPageCount, setWatchlistPageCount] = React.useState({});
   const [pvtNotePageCount, setPvtNotePageCount] = React.useState({});
@@ -542,9 +536,6 @@ export default function SimpleTabs(props) {
       if (!searchValue) {
         onChangeTxnLabelPage(pvtNotePageCount);
       } else {
-        // const [error, response] = await Utils.parseResponse(
-        //   UserService.Search(data)
-        // );
         const response = await getListOfTxnLabel({ skip: 0, limit: 5, searchValue: searchValue })
       }
     }
@@ -564,14 +555,6 @@ export default function SimpleTabs(props) {
       } else {
 
         await getListOfTagAddress({ skip: 0, limit: 5, searchValue })
-        // const [error, response] = await Utils.parseResponse(
-        //     UserService.Search(data)
-        // );
-        // if (error || !response) {
-        //     setDataNotFound("Data not found");
-        // } else {
-        //     setPrivateAddress(response);
-        // }
       }
     }
   }
@@ -579,12 +562,6 @@ export default function SimpleTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  // function handleMultipleTag(tag) {
-  //   let tagWords = [];
-  //   tagWords = tag.split(",");
-  //   return tagWords;
-  // }
 
   const list = {};
   const [totalCount1, setTotalCount1] = React.useState(5);
@@ -653,7 +630,6 @@ export default function SimpleTabs(props) {
     };
 
     let transactionLabels = localStorage.getItem(sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS);
-    // const response = await UserService.getTxnLabelList(request);
     transactionLabels = JSON.parse(transactionLabels);
     if (!transactionLabels)
       transactionLabels = []
@@ -673,6 +649,8 @@ export default function SimpleTabs(props) {
       transactionLabels.splice(0, request.skip)
       transactionLabels.splice(request.limit, transactionLabels.length)
     }
+    transactionLabels.length && setDataNotFound(false)
+    transactionLabels.length && setAddressNotAdded(false);
     setAddress(transactionLabels);
   };
 
@@ -684,7 +662,6 @@ export default function SimpleTabs(props) {
       isTaggedAddress: true,
       searchValue: requestData?.searchValue
     };
-    // const response = await UserService.getTagAddresstList(request);
     let taggedAddress = localStorage.getItem(
       request.userId + cookiesConstants.USER_TAGGED_ADDRESS
     );
@@ -2259,13 +2236,9 @@ export default function SimpleTabs(props) {
                                 align="left"
                               >
                                 <span className="tabledata-2">
-                                  {tag && tag.length && tag.map((item, index) => {
-                                    return (
-                                      <div className="nameLabel2" key={index}>
-                                        {item}
+                                      <div className="nameLabel2">
+                                        {tag}
                                       </div>
-                                    );
-                                  })}
                                 </span>
                               </TableCell>
 
@@ -2277,7 +2250,6 @@ export default function SimpleTabs(props) {
                                   {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
                                     "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                                 </span>
-                                {/* </a> */}
                               </TableCell>
 
                               <TableCell
