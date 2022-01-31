@@ -13,6 +13,7 @@ import {sessionManager} from "../../managers/sessionManager";
 import {eventConstants, genericConstants} from "../../constants";
 import moment from "moment";
 import {connect} from "react-redux";
+import Badge from "@mui/material/Badge";
 
 const NoticationClear = styled.div`
   display: flex;
@@ -75,7 +76,7 @@ function TemporaryDrawer(props) {
         right: false,
     });
     const [notifications, setNotifications] = React.useState([]);
-
+    const [isNotifications , setIsNotification] = React.useState(true);
     const toggleDrawer = (anchor, open) => async (event) => {
         if (
             event.type === "keydown" &&
@@ -88,7 +89,12 @@ function TemporaryDrawer(props) {
             await getNotificationList();
         }
     };
-    const getNotificationList = async () => {
+
+    React.useEffect(() => {
+        getNotificationList();
+      }, []);
+
+    const getNotificationList = async (type) => {
         const request = {
             "queryObj": {
                 "isCleared": false,
@@ -103,7 +109,7 @@ function TemporaryDrawer(props) {
         props.dispatchAction(eventConstants.HIDE_LOADER, true)
 
         if (error || !response) {
-            utility.apiFailureToast(error?.message && typeof (error.message) === "string" ? error.message : genericConstants.CANNOT_GET_NOTIFICATIONS);
+            // utility.apiFailureToast(error?.message && typeof (error.message) === "string" ? error.message : genericConstants.CANNOT_GET_NOTIFICATIONS);
             return;
         }
         const parseRes = response.map((notification) => {
@@ -113,6 +119,8 @@ function TemporaryDrawer(props) {
                 _id: notification?._id
             }
         })
+        if(parseRes.length>0)
+            setIsNotification(false);
         setNotifications(parseRes)
     }
     const clearNotification = async () => {
@@ -187,12 +195,17 @@ function TemporaryDrawer(props) {
                     <div
                         style={{padding: "0px", background: "none"}}
                     >
+                    <div className="noticonDiv"> 
+                    
+                    <Badge color="error" overlap="circular" badgeContent="" variant="dot" invisible={isNotifications}>
                         <img
                             className="noticon"
                             src={'/images/notifications.svg'}
                             onClick={toggleDrawer(anchor, true)}
 
                         />
+                    </Badge> 
+                    </div>
                         <Drawer
                             classes={{paper: classes.paper}}
                             anchor={anchor}
