@@ -124,7 +124,7 @@ export const messages = {
   FDMP: "Fully Diluted Market Cap = Price x Total supply.",
   HASH: "Unique transaction identifier, also known as the Transaction ID.",
   BLOCK_HEIGHT: "It indicates the length of the blockchain, increases after the addition of the new block.",
-  NO_OF_TRANSACTION: "Number of transactions submitted in a block.",
+  NO_OF_TRANSACTION: "Number of transactions associated with a particular block.",
   AMOUNT: "The number of tokens being transferred.",
   DATE: "Transaction creation date.",
   BLOCK_CREATION_TIME_STAMP: "Block creation timestamp.",
@@ -176,7 +176,8 @@ export const messages = {
   Txn_Fee: "Total transaction fee paid by the user",
   Tokens: "Number of XRC20 tokens available in the user's wallet",
   AVERAGE_BALANCE: "Average daily balance",
-  PASSWORD: "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols."
+  PASSWORD: "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
+  DOWNLOAD_CSV: "Select the transactions from table to download data",
 };
 
 export const toolTipMessages = {

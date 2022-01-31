@@ -146,6 +146,11 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginLeft: "2px",
   },
+  error2: {
+    color: "red",
+    marginLeft: "24px",
+    marginTop: "-14px",
+  },
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -228,6 +233,7 @@ export default function FormDialog(props) {
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const [privateAddress, setPrivateAddress] = React.useState(false);
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
   // const [nameTag, setNameTag] = React.useState(false);
   const [error, setError] = React.useState("");
   const [errorTag, setErrorTag] = React.useState("");
@@ -241,27 +247,26 @@ export default function FormDialog(props) {
   async function TaggedAddress() {
     setError("");
     setErrorTag("");
+    setErrorEmptyField("");
+    if (!privateAddress && !input && tags.length === 0) {
+        setErrorEmptyField("Please enter required fields");
+        return
+    }
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
-      tagName: tags,
+      tagName: input,
       modifiedOn: Date.now()
     };
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
-    } else if (!input && tags.length === 0) {
+    } else if (!input) {
       setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
-      setError("Please add address that is having 43 characters and initiates with xdc");
-      return;
-    } else if (tags.length === 0) {
-      setErrorTag("Press comma(,) to add tag");
-      return;
-    } else if (tags && tags.length > 5) {
-      setErrorTag("Maximum 5 Name tags are allowed");
+      setError("Address should start with xdc and consist of 43 characters");
       return;
     } else {
       // const [error] = await utility.parseResponse(
@@ -281,7 +286,7 @@ export default function FormDialog(props) {
           (item) => item.address == privateAddress && item.userId == data.userId
         );
         if (existingTag) {
-          utility.apiFailureToast("Address is already in use");
+          setErrorTag("Address already exist in table");
           return;
         }
       } else {
@@ -459,11 +464,8 @@ export default function FormDialog(props) {
             <div className={classes.heading} id="form-dialog-title">
               Add a new Address Tag
             </div>
-            {/* <span onClick={handleClose} className={classes.cross}>
-              {" "}
-              X{" "}
-            </span> */}
           </Row>
+          {errorEmptyField ? <div className={classes.error2}>{errorEmptyField}</div> : <></>}
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               Address
@@ -480,22 +482,17 @@ export default function FormDialog(props) {
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               Name Tag
-              {/* <span  className={classes.forgotpass}>
-              Forgot Password?
-            </span> */}
             </DialogContentText>
 
             <div className="containerTag">
-              {tags.map((tag, index) => (
-                <div className="tag">
-                  {tag}
-                  <button onClick={() => deleteTag(index)}>x</button>
-                </div>
-              ))}
+                {/*<div className="tag">*/}
+                {/*  /!*{input}*!/*/}
+                {/*  /!*<button onClick={() => deleteTag(index)}>x</button>*!/*/}
+                {/*</div>*/}
               <input
                 value={input}
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
+                // onKeyDown={onKeyDown}
+                // onKeyUp={onKeyUp}
                 onChange={onChange}
               />
             </div>

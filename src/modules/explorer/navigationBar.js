@@ -946,7 +946,7 @@ export default function Navbar() {
                                 <IconButton
                                     color="inherit"
                                     aria-label="open drawer"
-                                    edge="end"
+                                    // edge="end"
                                     onClick={toggleDrawer("right", true)}
                                 >
                                     {/* <MenuIcon class="menu-sidebar" /> */}

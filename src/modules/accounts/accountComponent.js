@@ -554,7 +554,7 @@ export default function AccountComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div>No account found.</div>
+                <div>No data found.</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
