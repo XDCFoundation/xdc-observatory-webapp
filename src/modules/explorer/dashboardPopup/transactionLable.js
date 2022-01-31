@@ -215,6 +215,7 @@ export default function FormDialog(props) {
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [error, setError] = React.useState("");
   const [privateNoteError, setPrivateNoteError] = React.useState("");
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
@@ -225,6 +226,13 @@ export default function FormDialog(props) {
   const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   async function transactionLable() {
+    setError("");
+    setPrivateNoteError("");
+    setErrorEmptyField("");
+    if (!TransactionsHash && !PrivateNote) {
+        setErrorEmptyField("Please enter required fields");
+        return
+    }
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: PrivateNote,
@@ -233,13 +241,15 @@ export default function FormDialog(props) {
     };
     if (!TransactionsHash) {
       setError("Please enter required field");
+    } else if (!PrivateNote) {
+      setPrivateNoteError("Please enter transaction label/note");
     } else if (
       !(TransactionsHash && TransactionsHash.length === 66) ||
       !(TransactionsHash.slice(0, 2) == "0x")
     ) {
-      setError("Address should start with 0x & 66 characters");
+      setError("Invalid transaction hash");
     } else if (!PrivateNote) {
-      setPrivateNoteError("Private Note is required");
+      setPrivateNoteError("Please enter transaction label/note");
     } else {
       // const [error, response] = await utility.parseResponse(
       //   UserService.postUserPrivateNote(data)
@@ -259,7 +269,7 @@ export default function FormDialog(props) {
             item.transactionHash == TransactionsHash && item.userId == data.userId
         );
         if (existingTransactionLabel) {
-          utility.apiFailureToast("Transaction private note is already in use");
+          setPrivateNoteError("Transaction hash already exist in table");
           return;
         }
       } else {
@@ -344,7 +354,7 @@ export default function FormDialog(props) {
                 }
             }
           >
-            <div className="headingdiv1">Add transaction label</div>
+            <div className="headingdiv1"><div>Add transaction label</div></div>
             <div className="paradiv1">
               Add a personal note to the transacton hash to track it in future.
             </div>
@@ -391,6 +401,7 @@ export default function FormDialog(props) {
               Add Transaction Label
             </div>
           </Row>
+          {errorEmptyField ? <div className={classes.error1}>{errorEmptyField}</div> : <></>}
           <DialogContent className={classes.overflowNone}>
             <DialogContentText className={classes.subCategory}>
               Transaction Hash
