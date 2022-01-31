@@ -693,13 +693,27 @@ export default function AddressDetails(props) {
       address: addr,
       userId: sessionManager.getDataFromCookies("userId"),
     };
-
-    let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
-      TransactionService.getUserAddressTagUsingAddressHash(data)
+    let taggedAddress = localStorage.getItem(
+        data.userId + cookiesConstants.USER_TAGGED_ADDRESS
     );
-    if (error || !tagUsingAddressHashResponse) return;
-    setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
-    setIsTag(true);
+
+    // let existingTagsIndex=null;
+    // const existingTag = taggedAddress.find(
+    //     (item,index) => {
+    //       if(item.address == addr && item.userId == data.userId){
+    //         existingTagsIndex = index;
+    //         return true;
+    //       }
+    //     }
+    // );
+    // if (existingTag) {
+    //   setAddressTag(existingTag.tagName);
+    //   setIsTag(true);
+    // }
+    // let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
+    //   TransactionService.getUserAddressTagUsingAddressHash(data)
+    // );
+    // if (error || !tagUsingAddressHashResponse) return;
   };
 
   useEffect(() => {
@@ -749,7 +763,7 @@ const res = await UserService.getWatchlistList(request)
     .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"))
   let userId = sessionManager.getDataFromCookies("userId");
   let taggedAddressfetched = localStorage.getItem(
-    cookiesConstants.USER_TAGGED_ADDRESS
+      userId+cookiesConstants.USER_TAGGED_ADDRESS
   );
   let tags =
     taggedAddressfetched && taggedAddressfetched.length > 0
