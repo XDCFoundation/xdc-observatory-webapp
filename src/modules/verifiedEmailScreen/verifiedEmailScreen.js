@@ -3,15 +3,18 @@ import styled from "styled-components";
 import LoginDialog from "../explorer/loginDialog"
 import { sessionManager } from "../../managers/sessionManager";
 const Container = styled.div`
-  margin: 8.125rem 0 0 0;
-  height: 70rem;
+  margin: 8.125rem 0 15.125rem 0;
+  @media (min-width: 0px) and (max-width: 767px) {
+    margin: 2.125rem 0 7.125rem 0;
+  }
 `;
 const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 110px 0 0 0;
-  width: 36.188rem;
+  padding: 110px 15px 0;
+  max-width: 37.188rem;
+  width: 100%;
   margin: auto;
 `;
 const EmailVerified = styled.div`
@@ -25,13 +28,17 @@ const EmailVerified = styled.div`
   color: #007b2c;
 `;
 const Rectangle = styled.div`
-  width: 579px;
-  height: 71px;
+  max-width: 579px;
+  width: 100%;
   margin: 29px 670px 61px 671px;
   padding: 19px 91px 18px 92px;
   border-radius: 6px;
   background-color: #f3fff7;
   color: #007b2c;
+  @media (min-width: 0px) and (max-width: 767px) {
+    padding: 19px 33px 18px 33px;
+  }
+
 `;
 const LoginButton = styled.button`
   width: 287px;

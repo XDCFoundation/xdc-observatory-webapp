@@ -332,19 +332,21 @@ export default function TransactionTableComponent(props) {
         </div>
         <div className="csvDownloadParent">
           {isDownloadActive ? (
-            <div className="csv">
+            <div className="csv cursor-pointer">
               <img src={"/images/rectangle-copy.svg"} />{" "}
               <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}>
                 Download CSV
               </CSVLink>
             </div>
           ) : (
-            <div className="csv-inactive">
+            <Tooltip placement="top" title={messages.DOWNLOAD_CSV}>
+            <div className="csv-inactive cursor-pointer">
               <img src={"/images/rectangle-copy.svg"} />{" "}
               <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}>
                 Download CSV
               </CSVLink>
             </div>
+            </Tooltip>
           )}
         </div>
       </div>
