@@ -20,6 +20,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Avatar } from "@material-ui/core";
 import { Tooltip } from "@material-ui/core";
 import { messages } from "../../constants";
+const recaptchaRef = React.createRef();
+
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -713,8 +715,7 @@ export default function FormDialog(props) {
       name: userName,
       email: email,
       password: password,
-      username:userName,
-      authenticationProvider:authenticationProvider.AUTH0
+      username:userName
     };
     setLoading(true);
     setErrorUserName("");
@@ -779,13 +780,29 @@ export default function FormDialog(props) {
       } else {
         setCaptchaError("");
       }
+      const authObject = new LoginService();
       const [error, response] = await Utility.parseResponse(
-        userSignUp.postSignUp(data)
+        authObject.signUp(data)
       );
       if (error || !response) {
-        setErrorEmptyField("User already exists");
+        setErrorEmptyField(error?.description ? error.description : "User already exists");
         setLoading(false);
       } else {
+        let userData ={
+          name: userName,
+          email: email,
+          username:userName,
+          authenticationProvider:authenticationProvider.AUTH0,
+          userId:`auth0|${response.Id}`
+        }
+        const [error] = await Utility.parseResponse(
+          userSignUp.postSignUp(userData)
+        );
+        if(error)
+         {
+          setErrorEmptyField(error?.message ? error.message : "Cannot Add User")
+           return;
+         }
         window.location.href = "/activate-account";
         sessionManager.setDataInCookies(email, "activateAccountEmail");
         setLoading(false);
@@ -845,6 +862,7 @@ export default function FormDialog(props) {
     if (reCaptcha === '') {
       setLoading(false);
       setErrorCaptcha("Please verify the captcha");
+      return;
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
@@ -853,6 +871,8 @@ export default function FormDialog(props) {
       setLoading(false);
       if (error || !authResponse) {
         setEmailError("Please enter a valid email address");
+        setReCaptcha("")
+        recaptchaRef.current.reset();        
         Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
@@ -1527,10 +1547,13 @@ export default function FormDialog(props) {
                 paddingLeft: "28px",
               }}
             >
+               
               <ReCAPTCHA
+               ref={recaptchaRef}
                 sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
                 onChange={handleReCaptcha}
               />
+             
               <div style={{ marginLeft: 0 }} className={classes.error1}>
                 {errorCaptcha}
               </div>

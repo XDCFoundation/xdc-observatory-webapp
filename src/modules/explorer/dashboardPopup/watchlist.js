@@ -402,8 +402,7 @@ export default function FormDialog(props) {
               <div>Create watchlist</div>
             </div>
             <div className="paradiv1">
-              An Email notification can be sent to you when an address on your
-              watch list recieves an incoming/outgoing transaction.
+            An email notification will be sent when an address in your watch list receives an incoming/outgoing transaction.
             </div>
           </div>
 
