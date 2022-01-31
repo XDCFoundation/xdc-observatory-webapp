@@ -68,23 +68,6 @@ export default function Transaction({ _handleChange }) {
   const [copiedText, setCopiedText] = useState("");
   const [fromAddress, setFromAddress] = useState("");
   const [toAddress, setToAddress] = useState("");
-  // const [open, setOpen] = React.useState(false);
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-  // function shorten(b, amountL = 35, amountR = 3, stars = 3) {
-  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-  //     b.length - 0,
-  //     b.length
-  //   )}`;
-  // }
-  // function shortenHash(b, amountL = 10, amountR = 3, stars = 3) {
-  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-  //     b.length - 0,
-  //     b.length
-  //   )}`;
-  // }
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -201,9 +184,6 @@ export default function Transaction({ _handleChange }) {
       transactionHash: `${hash}`,
       userId: sessionManager.getDataFromCookies("userId"),
     };
-    // let [error, privateNoteUsingHashResponse] = await Utils.parseResponse(
-    //   TransactionService.getUserTransactionPrivateNoteUsingHash(data)
-    // );
     let transactionLabel = localStorage.getItem(
         data.userId+cookiesConstants.USER_TRASACTION_LABELS
     );
