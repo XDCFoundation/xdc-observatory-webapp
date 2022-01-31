@@ -336,7 +336,7 @@
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
-  height: 60%;
+  height: 70%;
   width: 66px;
   font-size: 0.875rem !important;
   padding: 9px 6px 9px 6px;
@@ -789,6 +789,21 @@
     margin-left: 2px;
   }
   #container-table td {
+    /* padding: 7px 0 6px 20px; */
+    text-align: left;
+    border-bottom: none !important;
+    margin: 20px 21px 1.8px 48px;
+    font-family: "Inter" !important;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: left;
+    color: #2a2a2a;
+  }
+  #container-table-transaction-list td {
     /* padding: 7px 0 6px 20px; */
     text-align: left;
     border-bottom: none !important;
