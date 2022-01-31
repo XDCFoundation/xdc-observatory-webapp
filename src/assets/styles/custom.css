@@ -4165,6 +4165,17 @@ body {
   width: 100%;
   border-bottom: transparent;
 }
+#container-table-transaction-list table {
+  /* height: 120px;
+    border-radius: 12px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: #ffffff; */
+  white-space: nowrap !important;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: transparent;
+}
 #container-table-holder table {
   /* height: 120px;
     border-radius: 12px;
@@ -4182,8 +4193,14 @@ body {
 
 #container-table th {
   padding: 25px 0px 15px 24px;
-  /* padding: 15px; */
-  /* padding-top: 25px; */
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: #252525 !important;
+}
+#container-table-transaction-list th {
+  padding: 25px 0px 15px 24px;
+  width: 190px;
   font-weight: 600;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -4199,6 +4216,11 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
+    padding: 17px 0px 15px 20px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  #container-table-transaction-list th {
     padding: 17px 0px 15px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -4237,6 +4259,24 @@ body {
   text-align: left;
   color: #2a2a2a;
 }
+#container-table-transaction-list td {
+  padding: 17px 0px 17px 20px;
+  /* padding: 12px 50px;
+  padding-top: 17px;
+  padding-bottom: 17px; */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  margin: 19px 49px 1.8px 69px;
+  font-family: "Inter" !important;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: left;
+  color: #2a2a2a;
+}
 #container-table-token-holders-tab td {
   padding: 17px 20px 17px 20px;
   text-align: left;
@@ -4250,6 +4290,11 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
+    padding: 16px 0px 10px 20px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  #container-table-transaction-list td {
     padding: 16px 0px 10px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;

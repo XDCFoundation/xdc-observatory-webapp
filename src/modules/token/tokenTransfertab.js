@@ -110,6 +110,7 @@ export default function StickyHeadTable() {
     const [transfer, settransfer] = useState({});
     const [totalToken, setTotalToken] = useState([]);
     const [noData, setNoData] = useState(true);
+    console.log(noData, "noData")
     const [searchAndFilters, setSearchAndFilters] = useState({
         searchQuery: '',
         startDate: ''
@@ -490,45 +491,46 @@ export default function StickyHeadTable() {
                         <p className="p-pagination">Records</p>
                     </>) : ("")}
                 </LeftPagination>
-
-                <RightPagination
-                    style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        marginRight: "0%",
-                    }}>
-                    <div className={page === 0 ? "firstbox disabled" : "firstbox"}
-                        onClick={() => handleChangePage("first")}>
-                        <button style={{ backgroundColor: "white" }} className="first">
-                            First
-                        </button>
-                    </div>
-                    <div className={page === 0 ? "previousbox disabled" : "previousbox"}
-                        onClick={() => handleChangePage("prev")}>
-                        <p className="path">
-                            <img src={"/images/back.svg"} width="9px" />
-                        </p>
-                    </div>
-                    <div className="pagebox">
-                        <p className="Page-1-of-5">
-                            Page&nbsp;
-                            {Math.ceil(totalToken / rowsPerPage) - Math.ceil((totalToken - page) / rowsPerPage) + 1}
-                            &nbsp;of {Math.ceil(totalToken / rowsPerPage)}
-                        </p>
-                    </div>
-                    <div className={page + rowsPerPage === totalToken ? "nextbox disabled" : "nextbox"}>
-                        <p className="path-2" onClick={() => handleChangePage("next")}>
-                            <img src={"/images/next.svg"} width="9px" />
-                        </p>
-                    </div>
-                    <div
-                        className={page + rowsPerPage === totalToken ? "lastbox disabled" : "lastbox"}
-                        onClick={() => handleChangePage("last")}>
-                        <button style={{ backgroundColor: "white" }} className="last">
-                            Last
-                        </button>
-                    </div>
-                </RightPagination>
+                {(noData == true && totalToken > rowsPerPage) ? (
+                    <RightPagination
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            marginRight: "0%",
+                        }}>
+                        <div className={page === 0 ? "firstbox disabled" : "firstbox"}
+                            onClick={() => handleChangePage("first")}>
+                            <button style={{ backgroundColor: "white" }} className="first">
+                                First
+                            </button>
+                        </div>
+                        <div className={page === 0 ? "previousbox disabled" : "previousbox"}
+                            onClick={() => handleChangePage("prev")}>
+                            <p className="path">
+                                <img src={"/images/back.svg"} width="9px" />
+                            </p>
+                        </div>
+                        <div className="pagebox">
+                            <p className="Page-1-of-5">
+                                Page&nbsp;
+                                {Math.ceil(totalToken / rowsPerPage) - Math.ceil((totalToken - page) / rowsPerPage) + 1}
+                                &nbsp;of {Math.ceil(totalToken / rowsPerPage)}
+                            </p>
+                        </div>
+                        <div className={page + rowsPerPage === totalToken ? "nextbox disabled" : "nextbox"}>
+                            <p className="path-2" onClick={() => handleChangePage("next")}>
+                                <img src={"/images/next.svg"} width="9px" />
+                            </p>
+                        </div>
+                        <div
+                            className={page + rowsPerPage === totalToken ? "lastbox disabled" : "lastbox"}
+                            onClick={() => handleChangePage("last")}>
+                            <button style={{ backgroundColor: "white" }} className="last">
+                                Last
+                            </button>
+                        </div>
+                    </RightPagination>
+                ) : ""}
             </Pagination>
         </>
     );

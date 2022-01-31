@@ -129,7 +129,7 @@ export default function TransactionComponent(props) {
       </div>
 
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
-        <TableContainer className={!props.state.isData ? classes.container1 : classes.container} id="container-table">
+        <TableContainer className={!props.state.isData ? classes.container1 : classes.container} id="container-table-transaction-list">
           <Table>
             <TableHead>
               <TableRow>
