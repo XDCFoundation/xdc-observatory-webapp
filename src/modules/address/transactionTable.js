@@ -30,7 +30,7 @@ export default function TransactionTableComponent(props) {
   let { addr } = useParams();
   let { addressNumber } = useParams();
   const [from, setFrom] = React.useState(parseInt(0));
-  const [amount, setAmount] = React.useState(parseInt(50));
+  const [amount, setAmount] = React.useState(parseInt(10));
   const [address, setAddress] = useState([]);
   const [ContractAddress, setContractAddress] = useState(addressNumber);
   const [keywords, setKeywords] = useState("");
@@ -313,7 +313,7 @@ export default function TransactionTableComponent(props) {
   const [toTT, settoTT] = React.useState(false);
   const [valueTT, setvalueTT] = React.useState(false);
   const [gasTT, setgasTT] = React.useState(false);
-
+  console.log(noData, "noData")
   return (
     <div>
       <div className="content_input_all cont-tab-contract">
@@ -330,25 +330,25 @@ export default function TransactionTableComponent(props) {
             onKeyUp={handleKeyUp}
   />*/}
         </div>
-        <div className="csvDownloadParent">
-          {isDownloadActive ? (
-            <div className="csv cursor-pointer">
-              <img src={"/images/rectangle-copy.svg"} />{" "}
-              <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}>
-                Download CSV
-              </CSVLink>
-            </div>
-          ) : (
-            <Tooltip placement="top" title={messages.DOWNLOAD_CSV}>
-            <div className="csv-inactive cursor-pointer">
-              <img src={"/images/rectangle-copy.svg"} />{" "}
-              <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}>
-                Download CSV
-              </CSVLink>
-            </div>
-            </Tooltip>
-          )}
-        </div>
+        {noData == false ?
+          <div className="csvDownloadParent">
+            {isDownloadActive ? (
+              <div className="csv">
+                <img src={"/images/rectangle-copy.svg"} />{" "}
+                <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}>
+                  Download CSV
+                </CSVLink>
+              </div>
+            ) : (
+              <div className="csv-inactive">
+                <img src={"/images/rectangle-copy.svg"} />{" "}
+                <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}>
+                  Download CSV
+                </CSVLink>
+              </div>
+            )}
+          </div>
+          : ""}
       </div>
 
       <Grid lg={13} className="tablegrid_address">
@@ -358,13 +358,14 @@ export default function TransactionTableComponent(props) {
               <TableHead>
                 <TableRow>
                   <TableCell className="w-31 w-850" style={{ border: "none" }} align="left">
-                    <input
-                      onChange={handleChanged}
-                      type="checkbox"
-                      name="allselect"
-                      checked={address.filter((addr) => addr?.isChecked == true).length == address.length}
-                      style={{ marginRight: "8px" }}
-                    />
+                    {noData == false && (
+                      <input
+                        onChange={handleChanged}
+                        type="checkbox"
+                        name="allselect"
+                        checked={address.filter((addr) => addr?.isChecked == true).length == address.length}
+                        style={{ marginRight: "8px" }}
+                      />)}
                     <span className={"tableheaders table-hash"}>
                       Transaction Hash
                       <Tooltip
@@ -606,6 +607,7 @@ export default function TransactionTableComponent(props) {
             )}
           </TableContainer>
         </Paper>
+
         <Grid
           container
           style={{
@@ -614,16 +616,20 @@ export default function TransactionTableComponent(props) {
             justifyContent: "space-between",
           }}
           className="page-container">
-          <Grid className="Pagination_1">
-            <span className="text">Show</span>
-            <PageSelector value={amount}
-              height={30}
-              handler={handleChangeRowsPerPage} />
-            <span className="text">Records</span>
-          </Grid>
-          <Grid xs="2"></Grid>
+          {noData == false ?
+            <>
+              <Grid className="Pagination_1">
+                <span className="text">Show</span>
+                <PageSelector value={amount}
+                  height={30}
+                  handler={handleChangeRowsPerPage} />
+                <span className="text">Records</span>
+              </Grid>
+              <Grid xs="2"></Grid>
+            </>
+            : ""}
 
-          {noData == true && (
+          {/* {noData == true && totalRecord < amount ? (
             <Grid item xs="7" className="page-tab">
               <button
                 style={{ marginLeft: "0px" }}
@@ -652,9 +658,9 @@ export default function TransactionTableComponent(props) {
                 Last
               </button>
             </Grid>
-          )}
+          ) : ""} */}
 
-          {noData == false && (
+          {noData == false && totalRecord > amount ? (
             <Grid item xs="7" className="page-tab">
               <button
                 style={{ marginLeft: "0px" }}
@@ -694,7 +700,7 @@ export default function TransactionTableComponent(props) {
                 Last
               </button>
             </Grid>
-          )}
+          ) : ""}
         </Grid>
       </Grid>
     </div>
