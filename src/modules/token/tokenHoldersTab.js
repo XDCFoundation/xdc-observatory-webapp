@@ -465,7 +465,7 @@ export default function StickyHeadTable(props) {
                   var splittedArray = quantity3?.match(regex);
 
                   var percentageValue = !row[0]?.Percentage
-                    ? "------"
+                    ? "0"
                     : row[0].Percentage.toFixed(8);
                   let percentageValue1 = percentageValue
                     .toString()
@@ -473,7 +473,6 @@ export default function StickyHeadTable(props) {
                   let percentageValue2 = percentageValue
                     .toString()
                     .split(".")[1];
-
                   var quantity4 =
                     splittedArray && splittedArray.length
                       ? splittedArray[0]
@@ -525,12 +524,18 @@ export default function StickyHeadTable(props) {
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <span className="tabledata table-data mar-lef-3">
+                        {percentageValue2 == null|| percentageValue2==0? (
+                      <span>{format({})(percentageValue1)}%</span>
+                    ) : (
+                      <>
                           {percentageValue1}
                           {"."}
                           <span style={{ color: "#9FA9BA" }}>
                             {percentageValue2}
                           </span>
                           %
+                          </>
+                    )}
                         </span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
@@ -569,8 +574,10 @@ export default function StickyHeadTable(props) {
       </Paper>
       <Pagination>
         <LeftPagination>
-          {!isLoading && noData ? (
-            <>
+          {(!isLoading && noData == false) || totalHolder<10?  (
+""
+          ) : (
+<>
               <p className="p-pagination">Show</p>
               <PageSelector
                 value={rowsPerPage}
@@ -579,8 +586,6 @@ export default function StickyHeadTable(props) {
               />
               <p className="p-pagination"> Records</p>
             </>
-          ) : (
-            ""
           )}
         </LeftPagination>
         {(noData == true && totalHolder > rowsPerPage) ? (
