@@ -770,10 +770,7 @@ const res = await UserService.getWatchlistList(request)
       ? JSON.parse(taggedAddressfetched)
       : "";
 
-  var tagValue =
-    tags && tags.length > 0
-      ? tags?.filter((obj) => obj.address === addr && obj.userId == userId)
-      : "";
+  var tagValue = tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addr && obj.userId == userId) : "";
   let watchlists = localStorage.getItem(
       userId+cookiesConstants.USER_ADDRESS_WATCHLIST
   );

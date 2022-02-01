@@ -125,13 +125,17 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     color: "#2a2a2a",
   },
-  "@media (max-width: 714px)": {
+  "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
     },
     dialogBox: {
-      width: "362px",
-      top: "95px",
+      width: "100%",
+      top: "40px",
+      borderRadius: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "100%",
     },
     input: {
       maxWidth: "503px",
@@ -223,6 +227,7 @@ function EditTaggedAddress(props) {
   const classes = useStyles();
 
   const handleClickOpen = () => {
+    window.scrollTo(0, 0);
     setOpen(true);
   };
 
@@ -329,6 +334,7 @@ function EditTaggedAddress(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
+          <div>
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Edit Address Tag
@@ -412,6 +418,7 @@ function EditTaggedAddress(props) {
               </span>
             </div>
           </DialogActions>
+          </div>
         </Dialog>
       </div>
     </div>

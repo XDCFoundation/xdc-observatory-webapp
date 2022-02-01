@@ -15,9 +15,15 @@ import Utility from "../../utility";
 import Utils from "../../utility";
 import ReactHtmlParser from "react-html-parser";
 import ContractData from "../../services/contract";
+
 const useStyles = makeStyles((theme) => ({
   transfer: {
     height: "38px",
+  },
+  websiteLink: {
+    color: "#2149b9 !important",
+    fontFamily: "Inter",
+    fontWeight: "600",
   },
   "@media (min-width: 0px) and (max-width: 767px)": {
     maxWidth: "20px",
@@ -132,7 +138,7 @@ const Title = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   margin-bottom: 5px;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.75rem;
@@ -146,7 +152,7 @@ const TitleValue = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  
+
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
@@ -202,7 +208,7 @@ const LeftTopSec = styled.div`
   font-size: 1.25rem;
   font-weight: 800;
   font-family: Inter;
-  
+
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
@@ -221,7 +227,7 @@ const ContractButton = styled.button`
   background-color: transparent;
   font-size: 1rem;
   font-weight: 600;
-  
+
   border: none;
   color: #2149b9;
   padding-top: 0px;
@@ -255,18 +261,18 @@ const RightTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     text-align: left;
-    
+
     color: #2a2a2a;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 0.875rem;
     text-align: left;
-    
+
     color: #2a2a2a;
   }
 `;
@@ -336,9 +342,13 @@ const TokenImg = styled.img`
   margin-right: 13px;
 `;
 
-// const Icons = styled.div`
-//   padding-top: 1px;
-// `;
+const Icons = styled.div`
+  padding-top: 1px;
+`;
+const SocialMediaIcon = styled.img`
+  margin-right: 15px;
+  cursor: pointer;
+`;
 
 export default function TokenDataComponent() {
   const classes = useStyles();
@@ -395,7 +405,6 @@ export default function TokenDataComponent() {
     settransfer(tns.responseData);
   };
 
-
   const listOfHolders = async (values) => {
     let urlPath = `${address}`;
     let [error, tns] = await Utils.parseResponse(
@@ -443,7 +452,7 @@ export default function TokenDataComponent() {
     }
   }
   let numberStatus = Math.sign(tokenChanges24hr);
-
+  
   return (
     <>
       <div style={{ backgroundColor: "#fff" }}>
@@ -504,11 +513,9 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
-                      { }
+                      {}
                       <TitleValue>
-                        {(transfer.length && transfer.length) === 0
-                          ? "0"
-                          : transfer}
+                        {!transfer ? "" : transfer}
                       </TitleValue>
                     </ValueName>
                   </Value>
@@ -540,7 +547,11 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={maxLogo} /> */}
                     <ValueName>
                       <Title>Website</Title>
-                      <TitleValue>Not available</TitleValue>
+                      {!isLoading ? (contractData?.contractResponse?.website ?
+                      (<a className={classes.websiteLink}href={contractData?.contractResponse?.website}>
+                        {contractData?.contractResponse?.website}
+                      </a>):
+                      (<TitleValue>Not available</TitleValue>)):("")}
                       {/* <ContractButton>www.usdc.com</ContractButton> */}
                     </ValueName>
                   </Value>
@@ -548,59 +559,25 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={accountLogo} /> */}
                     <ValueName>
                       <Title>Social Media</Title>
-                      <TitleValue>Not available</TitleValue>
-                      {/* <Icons>
-                      <GrMail
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
-                      <FaReddit
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
-                      <FaFacebookF
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
+                      {!isLoading ? ((contractData?.contractResponse?.telegram ||
+                        contractData?.contractResponse?.facebook ||
+                        contractData?.contractResponse?.twitter) ?
+                      <Icons>
+                          {contractData?.contractResponse?.telegram ? 
+                            (<a href={contractData?.contractResponse?.telegram}>
+                              <SocialMediaIcon style={{width: "14px",}}src="/images/Telegram.svg" alt="telegram"></SocialMediaIcon>
+                          </a>):("")}
 
-                      />
-                      <AiOutlineTwitter
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
-                      <FaFileAlt
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      /> */}
-                      {/* <AiOutlineTwitter
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
-                      <AiOutlineTwitter
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      /> */}
-                      {/* </Icons> */}
+                          {contractData?.contractResponse?.facebook ? 
+                            (<a href={contractData?.contractResponse?.facebook}>
+                              <SocialMediaIcon src="/images/facebook.svg" alt="facebook"></SocialMediaIcon>
+                            </a>):("")}
+
+                            {contractData?.contractResponse?.twitter ? 
+                            (<a href={contractData?.contractResponse?.twitter}>
+                              <SocialMediaIcon src="/images/twitter.svg" alt="twitter"></SocialMediaIcon>
+                            </a>):("")}
+                      </Icons>:<TitleValue>Not available</TitleValue>):("")}
                     </ValueName>
                   </Value>
                 </MobileScreen>
@@ -675,13 +652,15 @@ const TopHeaderSection = ({
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
-                {!isLoading ? (tokenImage ?
-                <TokenImg
-                src={tokenImage}
-              />:
-          <TokenImg
-            src={"/images/XRC20-Icon.svg"}
-          />):("")}
+          {!isLoading ? (
+            tokenImage ? (
+              <TokenImg src={tokenImage} />
+            ) : (
+              <TokenImg src={"/images/XRC20-Icon.svg"} />
+            )
+          ) : (
+            ""
+          )}
 
           <LeftTitle>{tn.toUpperCase()}</LeftTitle>
         </LeftTop>
@@ -689,7 +668,7 @@ const TopHeaderSection = ({
         <LeftTopSecMain>
           <LeftTopSec>
             {CurrencySymbol}
-            {tokenPriceVal}
+            {!tokenPriceVal ? "" : tokenPriceVal.toFixed(10)}
           </LeftTopSec>
           <div
             className={
@@ -698,20 +677,26 @@ const TopHeaderSection = ({
                 : "data_value_red"
             }
           >
-            <div className="value_changePrice">
-              {numberStatus > 0 ? (
-                <div className="arrow_up">
-                  {/*<BsFillCaretUpFill size={10} />*/}
-                  <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+            {!tokenChanges24hr ? (
+              ""
+            ) : (
+              <>
+                <div className="value_changePrice">
+                  {numberStatus > 0 ? (
+                    <div className="arrow_up">
+                      {/*<BsFillCaretUpFill size={10} />*/}
+                      <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                    </div>
+                  ) : (
+                    <div className="arrow_down">
+                      {/* <BsFillCaretDownFill size={10} />*/}
+                      <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                    </div>
+                  )}
+                  &nbsp;{tokenChanges24hr.toFixed(2)}%
                 </div>
-              ) : (
-                <div className="arrow_down">
-                  {/* <BsFillCaretDownFill size={10} />*/}
-                  <img src={"/images/Down.svg"} style={{ width: "8px" }} />
-                </div>
-              )}
-              &nbsp;{tokenChanges24hr.toFixed(2)}%
-            </div>
+              </>
+            )}
           </div>
         </LeftTopSecMain>
       </LeftFirst>

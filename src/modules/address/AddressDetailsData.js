@@ -186,7 +186,7 @@ export default function AddressDetailsData() {
   React.useEffect(() => {
     let values = { addr: addressNumber };
     getContractDetails(values);
-    let data = { addrr: addressNumber };
+    let data = { address: addressNumber };
     getTransactionsCountForAddress(data);
   }, []);
 

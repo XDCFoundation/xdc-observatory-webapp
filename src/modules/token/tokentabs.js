@@ -164,34 +164,26 @@ export default function SimpleTabs(props) {
               >
                 Code
               </button>
-              {!contractData?.contractResponse ? (
-                ""
-              ) : contractData?.contractStatus !== "Unverified" ? (
-                <>
-                  <button
-                    className={
-                      toggleState === 5
-                        ? "token-data-tabs active-tabs-token"
-                        : "token-data-tabs"
-                    }
-                    onClick={() => toggleTab(5)}
-                  >
-                    Read Contract
-                  </button>
-                  <button
-                    className={
-                      toggleState === 6
-                        ? "token-data-tabs active-tabs-token"
-                        : "token-data-tabs"
-                    }
-                    onClick={() => toggleTab(6)}
-                  >
-                    Write Contract
-                  </button>
-                </>
-              ) : (
-                ""
-              )}
+              <button
+                className={
+                  toggleState === 5
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(5)}
+              >
+                Read Contract
+              </button>
+              <button
+                className={
+                  toggleState === 6
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(6)}
+              >
+                Write Contract
+              </button>
             </div>
             {/* </div>
             </div> */}
@@ -248,10 +240,7 @@ export default function SimpleTabs(props) {
               </div>
             </div>
 
-            {!contractData?.contractResponse ? (
-              ""
-            ) : contractData?.contractStatus !== "Unverified" ? (
-              <>
+           
                 <div
                   className={
                     toggleState === 5 ? "content  active-content" : "content"
@@ -282,10 +271,7 @@ export default function SimpleTabs(props) {
                     />
                   </div>
                 </div>
-              </>
-            ) : (
-              ""
-            )}
+            
             {/* <div
               className={
                 toggleState === 5 ? "content  active-content" : "content"

@@ -150,7 +150,7 @@ function TemporaryDrawer(props) {
             <ListItems>
                 <NoticationClear>
                     <div className="Notification-header-color">Notifications</div>
-                    <div className="Notification-header-text-color-fade" onClick={clearNotification}>Clear</div>
+                    <div className="Notification-header-text-color-fade cursor-pointer" onClick={clearNotification}>Clear</div>
                 </NoticationClear>
                 <div className={classes.drawerHeader}>
                     {/* <CloseIcon  onClick={toggleDrawer(anchor, false)} /> */}

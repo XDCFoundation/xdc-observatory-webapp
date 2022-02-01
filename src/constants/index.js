@@ -128,7 +128,7 @@ export const messages = {
   FDMP: "Fully Diluted Market Cap = Price x Total supply.",
   HASH: "Unique transaction identifier, also known as the Transaction ID.",
   BLOCK_HEIGHT: "It indicates the length of the blockchain, increases after the addition of the new block.",
-  NO_OF_TRANSACTION: "Number of transactions submitted in a block.",
+  NO_OF_TRANSACTION: "Number of transactions associated with a particular block.",
   AMOUNT: "The number of tokens being transferred.",
   DATE: "Transaction creation date.",
   BLOCK_CREATION_TIME_STAMP: "Block creation timestamp.",
@@ -155,7 +155,7 @@ export const messages = {
   WATCHLIST_DESCRIPTION:
     "The description provided by the user while creating the watchlist.",
   WATCHLIST_BALANCE: "The amount available in the wallet.",
-  WATCHLIST_ADDED_ON: "Watchlist creation date.",
+  WATCHLIST_ADDED_ON: "Date on which address was added.",
   WATCHLIST_NOTIFICATION: "Notification priorities set by the users.",
   PRIVATE_NOTE: "A private note added to a transaction.",
   PRIVATE_NOTE_ADDED_ON: "Private note creation date.",
@@ -180,7 +180,8 @@ export const messages = {
   Txn_Fee: "Total transaction fee paid by the user",
   Tokens: "Number of XRC20 tokens available in the user's wallet",
   AVERAGE_BALANCE: "Average daily balance",
-  PASSWORD: "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols."
+  PASSWORD: "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
+  DOWNLOAD_CSV: "Select the transactions from table to download data",
 };
 
 export const toolTipMessages = {
@@ -206,6 +207,8 @@ export const toolTipMessages = {
   transferToken:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
   privatenote: "Private notes",
+  age: "Time when was the transaction created.",
+  date: "Transaction creation date."
 };
 
 export const decimalDivisionValue = {

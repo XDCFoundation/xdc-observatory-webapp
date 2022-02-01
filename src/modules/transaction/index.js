@@ -23,8 +23,8 @@ export default class LatestTransactionList extends BaseComponent {
       tableColumns: {
         // "Transaction Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
         "Amount": { isActive: true, toolTipText: toolTipMessages.value },
-        "Age": { isActive: true, toolTipText: toolTipMessages.timestamp },
-        "Date": { isActive: true, toolTipText: toolTipMessages.timestamp },
+        "Age": { isActive: true, toolTipText: toolTipMessages.age },
+        "Date": { isActive: true, toolTipText: toolTipMessages.date },
         // "Date and Time": {isActive: true},
         "Block": { isActive: true, toolTipText: toolTipMessages.blocknumber },
         // "From Address": {isActive: true, toolTipText: toolTipMessages.from},
