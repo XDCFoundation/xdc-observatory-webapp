@@ -203,6 +203,8 @@ export const toolTipMessages = {
   transferToken:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
   privatenote: "Private notes",
+  age: "Time when was the transaction created.",
+  date: "Transaction creation date."
 };
 
 export const decimalDivisionValue = {

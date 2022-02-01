@@ -75,6 +75,7 @@ export default function NewFeature(props) {
     },
     tapHere: {
       textDecoration: "underline",
+      cursor: "pointer",
     },
     closeMob: {
       width: "12px",

@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "0px",
     marginTop: "25px",
     position: "absolute",
-    cursor: "pointer"
-
+    cursor: "pointer",
+    display: "block",
   },
   "@media (min-width: 740px)": {
     backButtonMobile: {
@@ -1010,7 +1010,7 @@ export default function FormDialog(props) {
         aria-labelledby="form-dialog-title"
       >
         <div onClick={handleClose} className={classes.backButtonMobile}>
-          <img src="images/backbutton.svg" />
+          <img src="/images/backbutton.svg" alt="back"/>
         </div>
         {value === 0 ? (
           <div>
