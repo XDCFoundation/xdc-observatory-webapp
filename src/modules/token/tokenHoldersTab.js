@@ -348,7 +348,7 @@ export default function StickyHeadTable(props) {
                     </span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "0"}}
+                    style={{ border: "none", paddingLeft: "0" }}
                     className="w-10"
                     align="left"
                   >
@@ -583,63 +583,64 @@ export default function StickyHeadTable(props) {
             ""
           )}
         </LeftPagination>
-
-        <RightPagination
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "row",
-        //   marginRight: "0%",
-        // }}
-        >
-          <div
-            className={page === 0 ? "firstbox disabled" : "firstbox"}
-            onClick={() => handleChangePage("first")}
+        {(noData == true && totalHolder > rowsPerPage) ? (
+          <RightPagination
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   marginRight: "0%",
+          // }}
           >
-            <button style={{ backgroundColor: "white" }} className="first">
-              First
-            </button>
-          </div>
-          <div
-            className={page === 0 ? "previousbox disabled" : "previousbox"}
-            onClick={() => handleChangePage("prev")}
-          >
-            <p className="path">
-              <img alt="back" src={"/images/back.svg"} width="9px" />
-            </p>
-          </div>
-          <div className="pagebox">
-            <p className="Page-1-of-5">
-              Page{" "}
-              {Math.round(totalHolder / rowsPerPage) +
-                1 -
-                Math.round((totalHolder - page) / rowsPerPage)}{" "}
-              of {Math.round(totalHolder / rowsPerPage)}
-            </p>
-          </div>
-          <div
-            className={
-              page + rowsPerPage === totalHolder
-                ? "nextbox disabled"
-                : "nextbox"
-            }
-          >
-            <p className="path-2" onClick={() => handleChangePage("next")}>
-              <img alt="next" src={"/images/next.svg"} width="9px" />
-            </p>
-          </div>
-          <div
-            className={
-              page + rowsPerPage === totalHolder
-                ? "lastbox disabled"
-                : "lastbox"
-            }
-            onClick={() => handleChangePage("last")}
-          >
-            <button style={{ backgroundColor: "white" }} className="last">
-              Last
-            </button>
-          </div>
-        </RightPagination>
+            <div
+              className={page === 0 ? "firstbox disabled" : "firstbox"}
+              onClick={() => handleChangePage("first")}
+            >
+              <button style={{ backgroundColor: "white" }} className="first">
+                First
+              </button>
+            </div>
+            <div
+              className={page === 0 ? "previousbox disabled" : "previousbox"}
+              onClick={() => handleChangePage("prev")}
+            >
+              <p className="path">
+                <img alt="back" src={"/images/back.svg"} width="9px" />
+              </p>
+            </div>
+            <div className="pagebox">
+              <p className="Page-1-of-5">
+                Page{" "}
+                {Math.round(totalHolder / rowsPerPage) +
+                  1 -
+                  Math.round((totalHolder - page) / rowsPerPage)}{" "}
+                of {Math.round(totalHolder / rowsPerPage)}
+              </p>
+            </div>
+            <div
+              className={
+                page + rowsPerPage === totalHolder
+                  ? "nextbox disabled"
+                  : "nextbox"
+              }
+            >
+              <p className="path-2" onClick={() => handleChangePage("next")}>
+                <img alt="next" src={"/images/next.svg"} width="9px" />
+              </p>
+            </div>
+            <div
+              className={
+                page + rowsPerPage === totalHolder
+                  ? "lastbox disabled"
+                  : "lastbox"
+              }
+              onClick={() => handleChangePage("last")}
+            >
+              <button style={{ backgroundColor: "white" }} className="last">
+                Last
+              </button>
+            </div>
+          </RightPagination>
+        ) : ""}
       </Pagination>
     </div>
   );
