@@ -1014,7 +1014,7 @@ export default function FormDialog(props) {
         aria-labelledby="form-dialog-title"
       >
         <div onClick={handleClose} className={classes.backButtonMobile}>
-          <img src="/images/backbutton.svg" alt="back"/>
+          <img src="/images/backButton.svg" alt="back"/>
         </div>
         {value === 0 ? (
           <div>
