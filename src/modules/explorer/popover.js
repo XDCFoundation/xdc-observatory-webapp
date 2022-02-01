@@ -74,14 +74,18 @@ export default function BasicPopover(props) {
   const logOut = async () => {
     const authObject = new AuthService();
     // let [error, authResponse] =
-    await Utility.parseResponse(authObject.logout(userId));
-
+    if(sessionManager.getDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER) === "AUTH0"){
+      await Utility.parseResponse(authObject.logout(userId));
+    }
     Utility.apiSuccessToast("Logout Successfully");
     sessionManager.removeDataFromCookies("userId");
     sessionManager.removeDataFromCookies("userInfo");
     sessionManager.removeDataFromCookies("isLoggedIn");
     sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
     sessionManager.removeDataFromCookies(cookiesConstants.USER_PICTURE);
+    sessionManager.removeDataFromCookies(cookiesConstants.ACCESS_TOKEN);
+    sessionManager.removeDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER);
+    sessionManager.removeDataFromCookies(cookiesConstants.ID_TOKEN);
     window.location.href = "/dashboard";
   };
   const open = Boolean(anchorEl);
@@ -158,11 +162,13 @@ export default function BasicPopover(props) {
            
           </Text>
         </Contents>
+        {sessionManager.getDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER) && sessionManager.getDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER)==="AUTH0"
+        ?
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
           <Text style={{ marginRight: "20px" }} onClick={openChangePassword}>
             Change Password
           </Text>
-        </Contents>
+        </Contents> : "" }
         <Contents>
           <Text style={{ marginRight: "auto" }} onClick={() => openCookiesDialog()}>
             Manage Cookies
