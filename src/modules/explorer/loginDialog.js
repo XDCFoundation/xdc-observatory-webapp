@@ -694,6 +694,7 @@ export default function FormDialog(props) {
           authResponse?.userInfoRes?.sub,
           "userId"
         );
+        sessionManager.setDataInCookies("AUTH0", cookiesConstants.AUTHENTICATION_PROVIDER);
         sessionManager.removeDataFromCookies("activateAccountEmail");
         setLoading(false);
         setUserName("");
