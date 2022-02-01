@@ -135,43 +135,43 @@ class MarketDatatable extends Component {
 
   render() {
     /* Calculating marketCap change percentege */
-    const LatestMarketCap = this.state.postLatestMarket.marketCap;
-    const PreviousMarketCap = this.state.postPreviousMarket.marketCap;
-    const MarketCapchange =
+    let LatestMarketCap = this.state.postLatestMarket.marketCap;
+    let PreviousMarketCap = this.state.postPreviousMarket.marketCap;
+    let MarketCapchange =
       LatestMarketCap && PreviousMarketCap
         ? percentageChange(LatestMarketCap, PreviousMarketCap).toFixed(2)
         : 0;
 
     /* Calculating marketCap change percentege */
-    const Latestfdmc = this.state.postLatestMarket.fullyDilutedMarketCap;
-    const Previousfdmc = this.state.postPreviousMarket.fullyDilutedMarketCap;
-    const FullyDilutedMarketCapchange =
+    let Latestfdmc = this.state.postLatestMarket.fullyDilutedMarketCap;
+    let Previousfdmc = this.state.postPreviousMarket.fullyDilutedMarketCap;
+    let FullyDilutedMarketCapchange =
       Previousfdmc && Latestfdmc
         ? percentageChange(Latestfdmc, Previousfdmc).toFixed(2)
         : 0;
 
     /* Calculating marketCap change percentege */
-    const LatestVolume = this.state.postLatestMarket.volume;
-    const PreviousVolume = this.state.postPreviousMarket.volume;
-    const Volumechange =
+    let LatestVolume = this.state.postLatestMarket.volume;
+    let PreviousVolume = this.state.postPreviousMarket.volume;
+    let Volumechange =
       LatestVolume && PreviousVolume
         ? percentageChange(LatestVolume, PreviousVolume).toFixed(2)
         : 0;
 
-    const MarketCapValue = convertToInternationalCurrencySystem(
+    let MarketCapValue = convertToInternationalCurrencySystem(
       this.state.postLatestMarket.marketCap
     ); //marketCap
-    const FullyDilutedMarketCapValue = convertToInternationalCurrencySystem(
+    let FullyDilutedMarketCapValue = convertToInternationalCurrencySystem(
       this.state.postLatestMarket.fullyDilutedMarketCap
     ); //Fully Diluted Market Cap
-    const volumeValue = convertToInternationalCurrencySystem(
+    let volumeValue = convertToInternationalCurrencySystem(
       this.state.postLatestMarket.volume
     ); //volume(24hr)
-    const circulatingSupplyValue = convertToInternationalCurrencySystem(
+    let circulatingSupplyValue = convertToInternationalCurrencySystem(
       this.state.postLatestMarket.circulatingSupply
     ); //circulatingSupply
-    const volumeMarketcap = this.state.postLatestMarket.volumeMarketCap; //volumeMarketCap
-    // const vmc = volumeMarketcap ? parseFloat(volumeMarketcap).toFixed(6) : 0;
+    let volumeMarketcap = this.state.postLatestMarket.volumeMarketCap; //volumeMarketCap
+    // let vmc = volumeMarketcap ? parseFloat(volumeMarketcap).toFixed(6) : 0;
 
     let totalSupplyValue = Math.round(this.state.postLatestMarket.totalSupply); //totalSupply
     totalSupplyValue = totalSupplyValue ? totalSupplyValue : 0;
@@ -211,7 +211,7 @@ class MarketDatatable extends Component {
                     }
                   >
                     <div className="varMarket">
-                      {MarketCapchange === 0 ? (
+                      {MarketCapchange == 0 ? (
                         ""
                       ) : MarketCapchange > 0 ? (
                         <div className="arrow_up">
