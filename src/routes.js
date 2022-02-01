@@ -59,6 +59,7 @@ const Test = withRouter(lazy(() => import('./modules/explorer/dashboardPopup/Tes
 const TestTwo = withRouter(lazy(() => import('./modules/explorer/dashboardPopup/TestTwo')));
 const TestAddress = withRouter(lazy(() => import('./modules/explorer/dashboardPopup/TestAddress')));
 const ContractRead = withRouter(lazy(() => import('./modules/contractMethods/read')));
+const SearchNotFound = withRouter(lazy(() => import('./common/components/dataNotFound')))
 // const GlobalIdContinue = withRouter(lazy(() => import('./modules/explorer/globalIdContinue')));
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
@@ -161,6 +162,11 @@ class Routes extends BaseComponent {
                 exact
                 path={"/activate-account"}
                 component={ActivateAccount}
+              />
+              <Route
+                exact
+                path={"/data-not-found"}
+                component={SearchNotFound}
               />
               <Route
                 exact

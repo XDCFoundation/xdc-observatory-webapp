@@ -170,10 +170,11 @@ const useStyles = makeStyles((theme) => ({
     },
     dialogBox: {
       width: "100%",
-      top: "95px",
+      top: "40px",
       borderRadius: "0px !important",
       marginLeft: "auto",
       marginRight: "auto",
+      height: "100%",
     },
     input: {
       maxWidth: "503px",
@@ -212,6 +213,7 @@ function EditWatchList(props) {
   const classes = useStyles();
 
   const handleClickOpen = () => {
+    window.scrollTo(0, 0);
     setOpen(true);
   };
 
@@ -324,6 +326,7 @@ function EditWatchList(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
+          <div>
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Edit Watchlist
@@ -433,6 +436,7 @@ function EditWatchList(props) {
               </span>
             </div>
           </DialogActions>
+          </div>
         </Dialog>
       </div>
     </div>

@@ -191,7 +191,7 @@ export default function Navbar() {
       var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
       if (format.test(event.target.value)) {
-        setErrorMessage("Special characters are not allowed.");
+        window.location.href=`/data-not-found?searchString=${event.target.value}`;
       } else {
         var selectOptType = SelectOptRef.current?.value;
         let requestdata = {
@@ -272,7 +272,7 @@ export default function Navbar() {
         SearchData.searchData(data)
       );
       if (!responseData || responseData[0]?.token?.length == 0) {
-        Utility.apiFailureToast("No details found.");
+        window.location.href=`/data-not-found?searchString=${data?.data}`;
       }
 
       if (responseData) {
@@ -400,60 +400,56 @@ export default function Navbar() {
           <hr className="myhr" />
         </ul>
 
-        <ul className="inside-side-box">
-          <p
-            className="xinfin_api_button"
-            onClick={() => setOpencontracts(true)}
-            style={{ cursor: "pointer" }}
-          >
-            {" "}
-            Contracts{" "}
-            <span className="side-arrow-contract-tab">
-              <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </span>
-          </p>
-          <hr className="myhr" />
-        </ul>
-        <ul className="Network-list-nav">
-          <a
-            className="sidebar-links"
-            href="https://medium.com/xdc-foundation-communications"
-            target="_blank"
-          >
-            <div className="xinfin_account_button">About XDC</div>
-          </a>
-          <hr className="myhr" />
-        </ul>
-        <ul className="Network-list-nav">
-          <a
-            className="sidebar-links"
-            href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US"
-            target="_blank"
-          >
-            <div className="xinfin_account_button">XDCPay</div>
-          </a>
-          <hr className="myhr" />
-        </ul>
-        <ul className="Network-list-nav">
-          <a
-            className="sidebar-links"
-            href="https://github.com/xdcfoundation"
-            target="_blank"
-          >
-            <div className="xinfin_account_button">XDC Github</div>
-          </a>
-          <hr className="myhr" />
-        </ul>
-        <ul className="Network-list-nav">
-          <a
-            className="sidebar-links"
-            href="https://xdcroadmap.org/"
-            target="_blank"
-          >
-            <div className="xinfin_account_button">XDC Roadmap</div>
-          </a>
-          <hr className="myhr" />
-        </ul>
+                <ul className="inside-side-box">
+                    <p
+                        className="xinfin_api_button"
+                        onClick={() => setOpencontracts(true)}
+                        style={{ cursor: "pointer" }}
+                    >
+                        {" "}
+                        Contracts{" "}
+                        <span className="side-arrow-contract-tab">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
+                    </p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
+                        href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
+                    >
+                        <div className="xinfin_account_button">XDCPay</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
+                        href="https://github.com/xdcfoundation" target="_blank"
+                    >
+                        <div className="xinfin_account_button">XDC Github</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
+                        href="https://xdcroadmap.org/" target="_blank"
+                    >
+                        <div className="xinfin_account_button">XDC Roadmap</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
+                        href="https://medium.com/xdc-foundation-communications" target="_blank"
+                    >
+                        <div className="xinfin_account_button">About XDC</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
 
         {/* <ul className="inside-side-box">
                     <p

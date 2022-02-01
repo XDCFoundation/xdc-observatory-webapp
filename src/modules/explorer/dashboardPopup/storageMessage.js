@@ -142,6 +142,7 @@ const useStyles = makeStyles((theme) => ({
             width: "100%",
             display: "block",
             margin: "16px auto 18px auto",
+            padding: "0 10px",
         },
         ourCookiesText: {
             fontSize: "18px",

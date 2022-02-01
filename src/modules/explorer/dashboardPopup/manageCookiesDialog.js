@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "7px",
         cursor: "pointer",
     },
+    back: {
+        display: "none",
+    },
     contentContainer: {
         padding: "0px 21px 26px 21px",
     },
@@ -92,8 +95,31 @@ const useStyles = makeStyles((theme) => ({
     "@media (min-width:0px) and (max-width: 767px)": {
         acceptAll: {
             marginRight: "15px",
-        }
+        },
+        dialogBox: {
+            maxWidth: "676px",
+            width: "100%",
+            borderRadius: "0px",
+            margin: "0 auto",
+            position: "absolute",
+            height: "100%",
+            top: "69px",
+        },
+        close: {
+            display: "none",
+        },
+        back: {
+            display: "block",
+            position: "absolute",
+            left: "15px",
+            marginTop: "3px",
+            cursor: "pointer",
+        },
+        heading: {
+            fontSize: "20px",
+        },
     }
+
 
 }));
 
@@ -198,6 +224,9 @@ export default function ManageCookiesDialog(props) {
             close={handleClose}
         >
             <div className={classes.headingContainer}>
+                <span className={classes.back} onClick={handleClose}>
+                    <img src={"/images/backbutton.svg"} alt="back"/>
+                </span>
                 <span className={classes.heading}>Manage Consent Preferences</span>
                 <span className={classes.close} onClick={handleClose}>
                 <img src={"/images/XDC-Cross.svg"}/>
