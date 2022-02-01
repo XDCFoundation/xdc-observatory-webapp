@@ -194,6 +194,9 @@ a:link {
 .m-t_-7 {
   margin-top: -7px;
 }
+.display-none {
+  display: none;
+}
 input#password {
   width: 433px;
   height: 40px;
@@ -703,7 +706,8 @@ input:focus {
     height: 1.75rem;
     width: 1.75rem;
   }
-  .XDC {
+  .XDC,
+  .XDC:hover {
     margin-left: 0.438rem;
     font-size: 1.188rem;
     font-weight: 500;
@@ -725,11 +729,7 @@ input:focus {
     font-size: 0.813rem !important;
     margin: 0.4rem 0rem 0.25rem 12.5rem !important;
   }
-  .Shape3 {
-    /* width: 4.375rem;
-    height: 4.375rem; */
-    /* margin-top: 50px; */
-  }
+  
 }
 
 .Shape-XDC {
@@ -777,8 +777,8 @@ input:focus {
     line-height: 0 !important;
   } */
   .Shape:hover {
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
   }
   .xinfin_api_button {
     font-size: 14px !important;
@@ -1702,6 +1702,12 @@ div::-webkit-scrollbar-thumb {
   .XDC {
     font-size: 14px;
     margin-left: 4px;
+    margin-top: 0px !important;
+    line-height: 1 !important ;
+  }
+  .XDC:hover {
+    font-size: 14px !important;
+    margin-left: 4px !important;
     margin-top: 0px !important;
     line-height: 1 !important ;
   }
@@ -9880,9 +9886,9 @@ button {
     margin-right: -12px;
   }
   .menu-sidebar {
-  height: 27px;
-  width: 26px;
-  margin-right: -12px !important;
+    height: 27px;
+    width: 26px;
+    margin-right: -12px !important;
   }
 }
 @media (max-width: 767px) {
@@ -11051,5 +11057,24 @@ button {
   }
 }
 .text-global-id {
-  margin-left: 15px;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff0202;
+}
+.privacy-is-very-important {
+  margin: 0px auto 10px;
+
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff0202;
 }

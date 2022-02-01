@@ -177,7 +177,6 @@ export default function AddressDetailsData() {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getTransactionsCountForAddress(data)
       );
-      console.log(responseData, "<<ResponseData")
       if (error || !responseData) return;
       setCount(parseInt(responseData));
     } catch (error) {

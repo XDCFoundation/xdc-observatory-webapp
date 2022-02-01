@@ -151,7 +151,7 @@ export const messages = {
   WATCHLIST_DESCRIPTION:
     "The description provided by the user while creating the watchlist.",
   WATCHLIST_BALANCE: "The amount available in the wallet.",
-  WATCHLIST_ADDED_ON: "Watchlist creation date.",
+  WATCHLIST_ADDED_ON: "Date on which address was added.",
   WATCHLIST_NOTIFICATION: "Notification priorities set by the users.",
   PRIVATE_NOTE: "A private note added to a transaction.",
   PRIVATE_NOTE_ADDED_ON: "Private note creation date.",
