@@ -190,7 +190,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function EditWatchList(props) {
-  console.log("row-watchlist",props.row?.notification?.type)
   const [open, setOpen] = React.useState(false);
 
   const [_id, setId] = React.useState("");
@@ -290,8 +289,6 @@ function EditWatchList(props) {
   //   window.location.reload();
   // };
   const handleDelete = async (watchlist) => {
-    console.log("watchlist+++ ",watchlist)
-    console.log("props.row+++ ",props.row)
     if (props?.row?._id) {
       props.dispatchAction(eventConstants.SHOW_LOADER, true);
       const [error, response] = await utility.parseResponse(
