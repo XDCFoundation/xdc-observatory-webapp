@@ -464,9 +464,10 @@ export default function FormDialog(props) {
           </DialogActions>
           <div className={classes.lastContainer}>
             <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the transaction labels,
-              is added on your local device. Cleaning the browsing history or
-              cookies will clean the transaction labels saved in your profile.
+            Privacy is very important to us. To protect sensitive information,
+              all custom tags and data related to the Watchlists are saved on
+              your local device. Clearing the browsing history or cookies will
+              remove the watchlist data saved in your profile.
             </div>
           </div>
           {/* <div className={classes.value}></div>

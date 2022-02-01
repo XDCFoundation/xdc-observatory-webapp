@@ -35,17 +35,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "0px",
     marginTop: "25px",
     position: "absolute",
-    cursor: "pointer"
-
+    cursor: "pointer",
   },
   "@media (min-width: 740px)": {
     backButtonMobile: {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   dialogButton: {
-    flexDirection: "column"
-
+    flexDirection: "column",
   },
   closeContainer: {
     top: "26px",
@@ -67,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
   },
   groupLogo: {
-    textAlign: "center"
+    textAlign: "center",
   },
   addbtn: {
     width: "434px",
@@ -95,8 +93,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "15px",
   },
   globalTextContainer: {
+    width: "433px",
+
+    borderRadius: "6px",
+    backgroundColor: "#fff3f3",
+    margin: "30px auto 20px auto",
+    padding: "15px",
     display: "flex",
     alignItems: "center",
+    flexDirection: "column",
   },
   error: {
     color: "red",
@@ -371,8 +376,7 @@ const useStyles = makeStyles((theme) => ({
     dialogButton: {
       padding: "0",
       justifyContent: "center",
-      flexDirection: "column"
-
+      flexDirection: "column",
     },
     createaccount: {
       color: "#3763dd",
@@ -447,12 +451,8 @@ const useStyles = makeStyles((theme) => ({
       marginRight: "auto",
     },
     globalTextContainer: {
-      marginTop: "20px",
-      padding: "0px",
+      padding: "10px",
       width: "100%",
-      maxWidth: "343px",
-      marginLeft: "auto",
-      marginRight: "auto",
     },
 
     paperWidthSm1: {
@@ -526,7 +526,8 @@ export default function FormDialog(props) {
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
   const [errorPrivacyPolicy, setErrorPrivacyPolicy] = React.useState("");
   const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
-  const [newFeatureSignupPropsValue, setNewFeatureSignupPropsValue] = React.useState(false);
+  const [newFeatureSignupPropsValue, setNewFeatureSignupPropsValue] =
+    React.useState(false);
   const [errorCaptcha, setErrorCaptcha] = React.useState("");
   const [errorEmptyField, setErrorEmptyField] = React.useState("");
   const [timer, setTimer] = React.useState("00:00");
@@ -546,7 +547,7 @@ export default function FormDialog(props) {
     if (!newFeatureSignupPropsValue) {
       if (props.isNewFeatureComponent) {
         setOpen(true);
-        handleClickOpenSignup();
+        acceptSetupNewAccount();
         return;
       }
     }
@@ -583,8 +584,8 @@ export default function FormDialog(props) {
       props.verifiedEmail
         ? props.onClose(onClose)
         : !props.dataHashOrAddress
-          ? setOpen(false)
-          : props.onClose(onClose);
+        ? setOpen(false)
+        : props.onClose(onClose);
     }
     setTimeout(() => {
       setValue(0);
@@ -617,9 +618,9 @@ export default function FormDialog(props) {
   const handleClickOpenSignup = () => {
     setValue(1);
     setErrorEmailVerified(false);
-    setEmail("")
-    setUserName("")
-    setPassword("")
+    setEmail("");
+    setUserName("");
+    setPassword("");
     setErrorEmail("");
     setErrorPassword("");
     setErrorEmptyField("");
@@ -627,9 +628,11 @@ export default function FormDialog(props) {
   const handleOpenForgotPassword = () => {
     setValue(3);
     setErrorEmailVerified(false);
-    setEmail("")
+    setEmail("");
   };
-
+  const acceptSetupNewAccount = () => {
+    setValue(4);
+  };
   const login = async () => {
     const reqObj = {
       name: email,
@@ -639,7 +642,7 @@ export default function FormDialog(props) {
     setErrorEmail("");
     setErrorPassword("");
     setErrorEmptyField("");
-    if(!email && !password) {
+    if (!email && !password) {
       setErrorEmptyField("Enter username and password");
       setLoading(false);
       return;
@@ -657,16 +660,14 @@ export default function FormDialog(props) {
       setLoading(false);
       return;
     } else if (!password.match(regExPass)) {
-      setErrorPassword(
-        "Incorrect password"
-      );
+      setErrorPassword("Incorrect password");
       setLoading(false);
       return;
     }
 
-    let authObject=new LoginService();
+    let authObject = new LoginService();
     let [error, authResponse] = await Utility.parseResponse(
-      authObject.signin(reqObj.name , reqObj.password)
+      authObject.signin(reqObj.name, reqObj.password)
     );
     if (authResponse?.userInfoRes?.email.length.name > 2) {
       setLoading(false);
@@ -698,13 +699,15 @@ export default function FormDialog(props) {
         setEmail("");
         setPassword("");
         {
-          !props.dataHashOrAddress ? (window.location.href = "/loginprofile") : history.go(0);
+          !props.dataHashOrAddress
+            ? (window.location.href = "/loginprofile")
+            : history.go(0);
         }
       }
     }
   };
   function connectGlobalId() {
-    setValue(4)
+    window.location.href = "/global-id";
   }
 
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
@@ -715,7 +718,7 @@ export default function FormDialog(props) {
       name: userName,
       email: email,
       password: password,
-      username:userName
+      username: userName,
     };
     setLoading(true);
     setErrorUserName("");
@@ -724,10 +727,10 @@ export default function FormDialog(props) {
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
     setErrorPrivacyPolicy("");
-    setErrorEmptyField("")
+    setErrorEmptyField("");
     setCaptchaError("");
     setErrorCaptcha("");
-    if(!userName && !email && !password && !confirmPassword ) {
+    if (!userName && !email && !password && !confirmPassword) {
       setErrorEmptyField(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
       return;
@@ -758,9 +761,7 @@ export default function FormDialog(props) {
       setErrorEmail("Enter valid email ID");
       setLoading(false);
     } else if (!password.match(regExPass)) {
-      setErrorPassword(
-        "Enter a valid password"
-      );
+      setErrorPassword("Enter a valid password");
       setLoading(false);
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
@@ -771,8 +772,7 @@ export default function FormDialog(props) {
     } else if (privacyCheckbox === false) {
       setErrorPrivacyPolicy("Please agree to our Privacy Policy");
       setLoading(false);
-    }
-    else {
+    } else {
       if (reCaptcha === "") {
         setCaptchaError(genericConstants.RECAPTCHA_ERROR);
         setLoading(false);
@@ -785,24 +785,27 @@ export default function FormDialog(props) {
         authObject.signUp(data)
       );
       if (error || !response) {
-        setErrorEmptyField(error?.description ? error.description : "User already exists");
+        setErrorEmptyField(
+          error?.description ? error.description : "User already exists"
+        );
         setLoading(false);
       } else {
-        let userData ={
+        let userData = {
           name: userName,
           email: email,
-          username:userName,
-          authenticationProvider:authenticationProvider.AUTH0,
-          userId:`auth0|${response.Id}`
-        }
+          username: userName,
+          authenticationProvider: authenticationProvider.AUTH0,
+          userId: `auth0|${response.Id}`,
+        };
         const [error] = await Utility.parseResponse(
           userSignUp.postSignUp(userData)
         );
-        if(error)
-         {
-          setErrorEmptyField(error?.message ? error.message : "Cannot Add User")
-           return;
-         }
+        if (error) {
+          setErrorEmptyField(
+            error?.message ? error.message : "Cannot Add User"
+          );
+          return;
+        }
         window.location.href = "/activate-account";
         sessionManager.setDataInCookies(email, "activateAccountEmail");
         setLoading(false);
@@ -847,19 +850,19 @@ export default function FormDialog(props) {
       email: email,
     };
 
-    if(!email) {
+    if (!email) {
       setErrorEmail("Please enter email ID");
       setLoading(false);
-      return
+      return;
     }
     if (!email.match(mailformat)) {
       setErrorEmail("Enter valid email ID");
       setLoading(false);
-      return
+      return;
     }
     onClickReset();
     setLoading(true);
-    if (reCaptcha === '') {
+    if (reCaptcha === "") {
       setLoading(false);
       setErrorCaptcha("Please verify the captcha");
       return;
@@ -871,8 +874,8 @@ export default function FormDialog(props) {
       setLoading(false);
       if (error || !authResponse) {
         setEmailError("Please enter a valid email address");
-        setReCaptcha("")
-        recaptchaRef.current.reset();        
+        setReCaptcha("");
+        recaptchaRef.current.reset();
         Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
@@ -941,8 +944,8 @@ export default function FormDialog(props) {
     if (total >= 0) {
       setTimer(
         (minutes > 9 ? minutes : "0" + minutes) +
-        ":" +
-        (seconds > 9 ? seconds : "0" + seconds)
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };
@@ -1024,21 +1027,27 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainer}>
-
-              <button
-                className={classes.globalidbtn}
-                onClick={connectGlobalId}
-              >
-
-                <img src="/images/global-id-logo.svg" className="global-id-logo" />
+              <button className={classes.globalidbtn} onClick={connectGlobalId}>
+                <img
+                  src="/images/global-id-logo.svg"
+                  className="global-id-logo"
+                />
                 Continue with GlobaliD{" "}
               </button>
-              <div style={{
-                display: "flex", justifyContent: "space-between", alignItems: "center"
-              }}>
-                <div><hr className="line-global-id"></hr></div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <hr className="line-global-id"></hr>
+                </div>
                 <div className="orText-login">or use your email</div>
-                <div><hr className="line-global-id"></hr></div>
+                <div>
+                  <hr className="line-global-id"></hr>
+                </div>
               </div>
               <DialogContentText className={classes.subCategory}>
                 <span className={classes.fieldName}>Username</span>
@@ -1082,14 +1091,16 @@ export default function FormDialog(props) {
               />
               <span>
                 {passwordShown ? (
-                  <img alt="show"
+                  <img
+                    alt="show"
                     style={{ width: "30px" }}
                     src={"/images/show-icon.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
                 ) : (
-                  <img alt="hide"
+                  <img
+                    alt="hide"
                     style={{ width: "30px" }}
                     src={"/images/not-showing-pw.svg"}
                     className={classes.icon}
@@ -1102,7 +1113,8 @@ export default function FormDialog(props) {
             {errorEmailVerified ? (
               <div className="verifiedEmailError">
                 <span className="verifiedEmailErrorTextIcon">
-                  <img alt="alert"
+                  <img
+                    alt="alert"
                     style={{ paddingRight: "2px" }}
                     src={require("../../../src/assets/images/alert.svg")}
                   />
@@ -1136,31 +1148,32 @@ export default function FormDialog(props) {
               >
                 Login{" "}
               </button>
-
             </DialogActions>
 
             <div className={classes.value}></div>
-            {window.innerWidth >= 768 ?
-              (<DialogContentText className={classes.xdc}>
+            {window.innerWidth >= 768 ? (
+              <DialogContentText className={classes.xdc}>
                 New to XDC Observatory?{" "}
                 <span
                   className={classes.createaccount}
-                  onClick={handleClickOpenSignup}
+                  onClick={acceptSetupNewAccount}
                 >
                   {" "}
                   Create an account
                 </span>
-              </DialogContentText>)
-              : (<DialogContentText className={classes.xdc}>
-                New to XDC?{" "}
+              </DialogContentText>
+            ) : (
+              <DialogContentText className={classes.xdc}>
+                New to XDC Observatory?{" "}
                 <span
                   className={classes.createaccount}
-                  onClick={handleClickOpenSignup}
+                  onClick={acceptSetupNewAccount}
                 >
                   {" "}
                   Create an account
                 </span>
-              </DialogContentText>)}
+              </DialogContentText>
+            )}
           </div>
         ) : value === 1 ? (
           <div>
@@ -1175,20 +1188,27 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainerSignup}>
-              <button
-                className={classes.globalidbtn}
-                onClick={connectGlobalId}
-              >
-
-                <img src="/images/global-id-logo.svg" className="global-id-logo" />
+              <button className={classes.globalidbtn} onClick={connectGlobalId}>
+                <img
+                  src="/images/global-id-logo.svg"
+                  className="global-id-logo"
+                />
                 Continue with GlobaliD{" "}
               </button>
-              <div style={{
-                display: "flex", justifyContent: "space-between", alignItems: "center"
-              }}>
-                <div><hr className="line-global-id"></hr></div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <hr className="line-global-id"></hr>
+                </div>
                 <div className="orText-login">or use your email</div>
-                <div><hr className="line-global-id"></hr></div>
+                <div>
+                  <hr className="line-global-id"></hr>
+                </div>
               </div>
               <DialogContentText className={classes.subCategorySignup}>
                 <span className={classes.fieldName}>Username</span>
@@ -1202,7 +1222,7 @@ export default function FormDialog(props) {
                   setUserName(e.target.value);
                   setErrorUserName("");
                 }}
-              // onChange={inputEventSignUp}
+                // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorUserName}</div>
             </DialogContent>
@@ -1229,16 +1249,17 @@ export default function FormDialog(props) {
                   setEmail(e.target.value);
                   setErrorEmail("");
                 }}
-              // value={signUp.email}
+                // value={signUp.email}
 
-              // onChange={inputEventSignUp}
+                // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategorySignup}>
-                <span className={classes.fieldName}>Password
-                <Tooltip placement="top" title={messages.PASSWORD}>
+                <span className={classes.fieldName}>
+                  Password
+                  <Tooltip placement="top" title={messages.PASSWORD}>
                     <img
                       alt="question-mark"
                       src="/images/info.svg"
@@ -1256,9 +1277,9 @@ export default function FormDialog(props) {
                   setPassword(e.target.value);
                   setErrorPassword("");
                 }}
-              // name="password"
-              // value={signUp.password}
-              // onChange={inputEventSignUp}
+                // name="password"
+                // value={signUp.password}
+                // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorPassword}</div>
             </DialogContent>
@@ -1275,9 +1296,9 @@ export default function FormDialog(props) {
                   setConfirmPassword(e.target.value);
                   setErrorConfirmPassword("");
                 }}
-              // name="confirmPassword"
-              // value={signUp.confirmPassword}
-              // onChange={inputEventSignUp}
+                // name="confirmPassword"
+                // value={signUp.confirmPassword}
+                // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorConfirmPassword}</div>
             </DialogContent>
@@ -1290,7 +1311,11 @@ export default function FormDialog(props) {
               />
               <span className="iAgree">
                 I have read and agree to the&nbsp;
-                <a className="privacyTermsLink" href="/term-conditions" target="_blank">
+                <a
+                  className="privacyTermsLink"
+                  href="/term-conditions"
+                  target="_blank"
+                >
                   Terms and Conditions.
                 </a>
               </span>
@@ -1304,7 +1329,11 @@ export default function FormDialog(props) {
               />
               <span className="iAgree">
                 I have read and consent to the&nbsp;
-                <a className="privacyTermsLink" href="/privacy-policy" target="_blank">
+                <a
+                  className="privacyTermsLink"
+                  href="/privacy-policy"
+                  target="_blank"
+                >
                   Privacy Policy.
                 </a>
               </span>
@@ -1353,7 +1382,7 @@ export default function FormDialog(props) {
             ) : (
               <div></div>
             )}
-            
+
             <div className={classes.error2}>{errorEmptyField}</div>
             <button className={classes.createAccountbtn} onClick={handleSignUp}>
               Create an Account{" "}
@@ -1388,10 +1417,7 @@ export default function FormDialog(props) {
             </Row>
             <div className="forgot-success-box">
               <div className="imageTick">
-                <img
-                  src={"/images/greenTick.svg"}
-                  alt={"imageTick"}
-                />
+                <img src={"/images/greenTick.svg"} alt={"imageTick"} />
               </div>
               <div className="forgot-success-text">
                 If the email address belongs to a known account, a recovery
@@ -1425,80 +1451,62 @@ export default function FormDialog(props) {
         ) : value === 4 ? (
           //<------------------------------------GlobalID-------------------------------------------->
           <div>
-
             <Row>
               <div className={classes.heading} id="form-dialog-title">
-                Continue with GlobaliD
+                Setup a New Account
               </div>
               <span onClick={handleClose} className={classes.closeContainer}>
                 <img className={classes.close} src={"/images/XDC-Cross.svg"} />
               </span>
             </Row>
-            <DialogContent className={classes.groupLogo}>
-              <img src={"/images/group.svg"} />
-            </DialogContent>
+
             <DialogContent className={classes.globalTextContainer}>
-              <div>
-                <img
-                  className="global-id-icon"
-                  src={"/images/group-27.svg"}
-                />
+              <div className="privacy-is-very-important">
+                Privacy is very important to us
               </div>
               <div className="text-global-id">
-                Create a decentralized digital identity with GlobaliD to
-                securely connect to the XDC Network without passwords.
+                To protect sensitive information, all custom tags and data
+                related to the Watchlists are saved on your local device.
+                Clearing the browsing history or cookies will remove the
+                watchlist data saved in your profile.
               </div>
             </DialogContent>
-            <DialogContent className={classes.globalTextContainer}>
-              <div>
-                <img
-                  className="global-id-icon"
-                  src={"/images/group-26.svg"}
-                />
-              </div>
-              <div className="text-global-id">
-                GlobaliD guarantees that your information remains private
-                and secure with the latest state of the art encryption.
-              </div>
-            </DialogContent>
+
             <DialogActions className={classes.dialogButton}>
-              <a
-                href={
-                  "https://connect.global.id/?client_id=808e791a-70b4-43a4-bb30-6f33c610d4ec&response_type=code&scope=openid&redirect_uri=https://observer.xdc.org/&qr_only=true&acrc_id=35fde324-7736-491a-b89f-c29854417300&document_id=tos pp&nonce=" +
-                  randomText
-                }
+              <button
+                className={classes.addbtn}
+                onClick={handleClickOpenSignup}
               >
-                <button
-                  className={classes.addbtn}
-                  onClick={connectGlobalId}
-                >
-                  Continue with GlobaliD{" "}
-                </button>
-              </a>
+                I Understand
+              </button>
             </DialogActions>
 
             <div className={classes.value}></div>
-            {window.innerWidth >= 768 ?
-              (<DialogContentText className={classes.xdc}>
-                New to XDC Observatory?{" "}
-                <span
-                  className={classes.createaccount}
-                  onClick={handleClickOpenSignup}
-                >
-                  {" "}
-                  Create an account
-                </span>
-              </DialogContentText>)
-              : (<DialogContentText className={classes.xdc}>
-                New to XDC?{" "}
-                <span
-                  className={classes.createaccount}
-                  onClick={handleClickOpenSignup}
-                >
-                  {" "}
-                  Create an account
-                </span>
-              </DialogContentText>)}
+            {window.innerWidth >= 768 ? (
+              <div className={classes.alreadyAccount}>
+                <div>
+                  Already have an account?{" "}
+                  <span
+                    className={classes.signIn}
+                    onClick={handleClickOpenSignin}
+                  >
+                    Sign In
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div className={classes.alreadyAccount}>
+                <div>
+                  Already have an account?{" "}
+                  <span
+                    className={classes.signIn}
+                    onClick={handleClickOpenSignin}
+                  >
+                    Sign In
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           // <------------------------------------------Forgot Password------------------------------------------------->
@@ -1536,7 +1544,7 @@ export default function FormDialog(props) {
               />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
-            
+
             <div
               style={{
                 width: "100%",
@@ -1547,13 +1555,12 @@ export default function FormDialog(props) {
                 paddingLeft: "28px",
               }}
             >
-               
               <ReCAPTCHA
-               ref={recaptchaRef}
+                ref={recaptchaRef}
                 sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
                 onChange={handleReCaptcha}
               />
-             
+
               <div style={{ marginLeft: 0 }} className={classes.error1}>
                 {errorCaptcha}
               </div>
