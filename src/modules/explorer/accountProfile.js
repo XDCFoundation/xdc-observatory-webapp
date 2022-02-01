@@ -1001,20 +1001,20 @@ export default function SimpleTabs(props) {
         <UserNameContainer>
           <ParentProfile>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Avatar
+              {/* <Avatar
                 className="profile-icon"
                 src={
                   sessionManager.getDataFromCookies(
                     cookiesConstants.USER_PICTURE
                   ) || "/images/Profile.png"
                 }
-              />
+              /> */}
               <Column style={{ margin: "0 15px" }}>
                 <Row className={classes.profileName} style={{ gap: "15px" }}>
                   Welcome, {Utils.shortenUserName(setUserName())}
                 </Row>
 
-                <Editprofile />
+                {/* <Editprofile /> */}
               </Column>
             </div>
             <div>
