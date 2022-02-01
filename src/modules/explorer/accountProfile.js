@@ -484,7 +484,7 @@ export default function SimpleTabs(props) {
   const [pvtNotePageCount, setPvtNotePageCount] = React.useState({});
   const [tagPageCount, setTagPageCount] = React.useState({});
   const [search, setSearch] = React.useState("");
-  const [dataNotFound, setDataNotFound] = React.useState("");
+  const [dataNotFound, setDataNotFound] = React.useState(false);
   const [addressNotAdded, setAddressNotAdded] = React.useState(true);
   const [watchListNotAdded, setWatchListNotAdded] = React.useState(true);
   const [txnAddressNotAdded, setTxnAddressNotAdded] = React.useState(true);
@@ -493,7 +493,7 @@ export default function SimpleTabs(props) {
     if (value === 0) {
       const searchValue = event.target.value;
       setSearch(searchValue);
-      setDataNotFound("");
+      setDataNotFound(false);
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: searchValue,
@@ -507,7 +507,7 @@ export default function SimpleTabs(props) {
           UserService.Search(data)
         );
         if (error || !response) {
-          setDataNotFound("Data not found");
+          setDataNotFound(true);
         } else {
 
           let watchlists = localStorage.getItem(
@@ -526,7 +526,7 @@ export default function SimpleTabs(props) {
     if (value === 1) {
       const searchValue = event.target.value;
       setSearch(searchValue);
-      setDataNotFound("");
+      setDataNotFound(false);
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: searchValue,
@@ -543,7 +543,7 @@ export default function SimpleTabs(props) {
     if (value === 2) {
       const searchValue = event.target.value;
       setSearch(searchValue);
-      setDataNotFound("");
+      setDataNotFound(false);
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: searchValue,
@@ -1352,7 +1352,7 @@ export default function SimpleTabs(props) {
                       ></img>
 
                       <div className={classes.noData}>
-                        No address added to watchlist
+                        No address added
                       </div>
                     </NoDataFoundContainer>
                   )}
@@ -1730,7 +1730,7 @@ export default function SimpleTabs(props) {
                       ></img>
 
                       <div className={classes.noData}>
-                        No Hash added to Priavte Note
+                        No transaction hash added
                       </div>
                     </NoDataFoundContainer>
                   )}
@@ -2075,7 +2075,7 @@ export default function SimpleTabs(props) {
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       />
                       <div className={classes.noData}>
-                        No Address added to Tagged Address
+                        No address added
                       </div>
                     </NoDataFoundContainer>
                   )}

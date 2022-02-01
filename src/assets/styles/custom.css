@@ -3317,6 +3317,7 @@ p {
 .profile {
   height: 24px !important;
   width: 24px !important;
+  cursor: pointer;
 }
 @media (min-width: 766px) and (max-width: 1240px) {
   .verify-contract-first-div-text {
@@ -5726,6 +5727,8 @@ button {
   .back-newFeature {
     position: absolute;
     left: 15px;
+    cursor: pointer;
+    display: block;
   }
 }
 .main-checkbox {
@@ -11003,9 +11006,10 @@ button {
   width: 15px;
 }
 .sidebar_notification {
-  color: white;
+  color: #9fa9ba;
   width: 100%;
-  margin-left: 20px;
+  text-align: center;
+  margin-top: 40px;
 }
 .tootlip-account-list {
   font-size: 20px;

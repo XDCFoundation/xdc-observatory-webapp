@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
   backButtonMobile : {
     marginLeft : "18px",
     position: "absolute",
-    cursor: "pointer"
+    cursor: "pointer",
+    display: "block",
   },
   "@media (min-width: 740px)":{
     backButtonMobile : {
@@ -463,7 +464,7 @@ export default function FormDialog(props) {
             <Wrapper>
               <Title>Edit Profile</Title>
               <div onClick={handleClose} className={classes.backButtonMobile}>
-            <img src="images/backbutton.svg" />
+            <img src="/images/backbutton.svg" />
           </div>
               <Cut onClick={handleClose}>
                 {" "}
