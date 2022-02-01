@@ -173,14 +173,13 @@ function EditTxnLabel(props) {
     }, [props]);
 
     async function editTransactionLable() {
-        console.log("props.row ", PrivateNote)
         const data = {
             ...props.row,
             trxLable: PrivateNote,
             transactionHash: TransactionsHash,
             modifiedOn: Date.now()
         };
-        console.log(data)
+        
         // const [error, response] = await utility.parseResponse(
         //   UserService.editUserPrivateNote(data)
         // );

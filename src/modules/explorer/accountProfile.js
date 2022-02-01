@@ -40,7 +40,7 @@ import TransactionPDF from "../../common/components/transactionPDF";
 import AddressPDF from "../../common/components/tagAddressPDF";
 import { PDFDownloadLink, StyleSheet } from "@react-pdf/renderer";
 import { messages } from "../../constants";
-
+import PrivacyAlert from "../explorer/dashboardPopup/privacyAlert"
 import Utility from "../../utility";
 import { useSelector } from "react-redux";
 import format from "format-number";
@@ -1869,7 +1869,6 @@ export default function SimpleTabs(props) {
                                 // className={classes.Rectangle}
                                 
                                 />
-                                {console.log("ischecked",row)}
                               </TableCell>
                               <TableCell
                                 style={{ border: "none" }}
@@ -2288,6 +2287,7 @@ export default function SimpleTabs(props) {
           </TabPanel>
         </div>
       </SubParentContainer>
+      <PrivacyAlert/>
       <FooterComponent />
     </div>
   );

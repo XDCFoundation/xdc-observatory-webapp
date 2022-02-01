@@ -224,7 +224,6 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-
   },
 })(Tooltip);
 
@@ -249,14 +248,14 @@ export default function FormDialog(props) {
     setErrorTag("");
     setErrorEmptyField("");
     if (!privateAddress && !input && tags.length === 0) {
-        setErrorEmptyField("Please enter required fields");
-        return
+      setErrorEmptyField("Please enter required fields");
+      return;
     }
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
       tagName: input,
-      modifiedOn: Date.now()
+      modifiedOn: Date.now(),
     };
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
@@ -401,8 +400,8 @@ export default function FormDialog(props) {
               width >= 760
                 ? handleClickOpen
                 : () => {
-                  history.push("/test-address");
-                }
+                    history.push("/test-address");
+                  }
             }
           >
             <img className="imagediv1" src={"/images/private.svg"}></img>
@@ -413,8 +412,8 @@ export default function FormDialog(props) {
               width >= 760
                 ? handleClickOpen
                 : () => {
-                  history.push("/test-address");
-                }
+                    history.push("/test-address");
+                  }
             }
           >
             <div className="headingdiv1">
@@ -465,7 +464,11 @@ export default function FormDialog(props) {
               Add a new Address Tag
             </div>
           </Row>
-          {errorEmptyField ? <div className={classes.error2}>{errorEmptyField}</div> : <></>}
+          {errorEmptyField ? (
+            <div className={classes.error2}>{errorEmptyField}</div>
+          ) : (
+            <></>
+          )}
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               Address
@@ -485,10 +488,10 @@ export default function FormDialog(props) {
             </DialogContentText>
 
             <div className="containerTag">
-                {/*<div className="tag">*/}
-                {/*  /!*{input}*!/*/}
-                {/*  /!*<button onClick={() => deleteTag(index)}>x</button>*!/*/}
-                {/*</div>*/}
+              {/*<div className="tag">*/}
+              {/*  /!*{input}*!/*/}
+              {/*  /!*<button onClick={() => deleteTag(index)}>x</button>*!/*/}
+              {/*</div>*/}
               <input
                 value={input}
                 // onKeyDown={onKeyDown}
@@ -530,9 +533,10 @@ export default function FormDialog(props) {
           </DialogActions>
           <div className={classes.lastContainer}>
             <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the address tags, is
-              added on your local device. Cleaning the browsing history or
-              cookies will clean the address tags saved in your profile.
+              Privacy is very important to us. To protect sensitive information,
+              all custom tags and data related to the Watchlists are saved on
+              your local device. Clearing the browsing history or cookies will
+              remove the watchlist data saved in your profile.
             </div>
           </div>
           {/* <div className={classes.value}></div>

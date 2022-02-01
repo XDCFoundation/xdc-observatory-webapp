@@ -150,7 +150,6 @@ export default function ManageCookiesDialog(props) {
         } else {
             //If user is logged in
             const userCookiesDetails = await new Auth0Service().getUserCookies({userId: userInfo.sub});
-            console.log('userCookiesDetails', userCookiesDetails)
             if (userCookiesDetails &&  userCookiesDetails.cookiesAllowed && userCookiesDetails.cookiesAllowed.length) {
                 if (userCookiesDetails.cookiesAllowed.includes(userCookiesConstants.FUNCTIONAL_COOKIES))
                     setFunctionalCookies(true);
@@ -188,7 +187,6 @@ export default function ManageCookiesDialog(props) {
 
     const saveMyPreferences = async (isForAll) => {
         const userInfo = sessionManager.getDataFromCookies("userInfo");
-        console.log("userInfo ", userInfo);
         const cookiesData = []
         if (!isForAll) {
             functionalCookies && cookiesData.push(userCookiesConstants.FUNCTIONAL_COOKIES);
