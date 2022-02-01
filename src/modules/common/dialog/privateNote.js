@@ -181,7 +181,8 @@ export default function FormDialog(props) {
         transactionLabel[existingIndex] = data;
         // utility.apiFailureToast("Transaction private note is already in use");
         // return;
-      }
+      }else
+        transactionLabel.push(data);
     } else {
       transactionLabel = [];
       transactionLabel.push(data);
