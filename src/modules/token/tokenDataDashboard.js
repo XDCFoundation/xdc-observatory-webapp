@@ -15,9 +15,15 @@ import Utility from "../../utility";
 import Utils from "../../utility";
 import ReactHtmlParser from "react-html-parser";
 import ContractData from "../../services/contract";
+
 const useStyles = makeStyles((theme) => ({
   transfer: {
     height: "38px",
+  },
+  websiteLink: {
+    color: "#2149b9 !important",
+    fontFamily: "Inter",
+    fontWeight: "600",
   },
   "@media (min-width: 0px) and (max-width: 767px)": {
     maxWidth: "20px",
@@ -336,9 +342,13 @@ const TokenImg = styled.img`
   margin-right: 13px;
 `;
 
-// const Icons = styled.div`
-//   padding-top: 1px;
-// `;
+const Icons = styled.div`
+  padding-top: 1px;
+`;
+const SocialMediaIcon = styled.img`
+  margin-right: 15px;
+  cursor: pointer;
+`;
 
 export default function TokenDataComponent() {
   const classes = useStyles();
@@ -540,7 +550,11 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={maxLogo} /> */}
                     <ValueName>
                       <Title>Website</Title>
-                      <TitleValue>Not available</TitleValue>
+                      {!isLoading ? (contractData?.contractResponse?.website ?
+                      (<a className={classes.websiteLink}href={contractData?.contractResponse?.website}>
+                        {contractData?.contractResponse?.website}
+                      </a>):
+                      (<TitleValue>Not available</TitleValue>)):("")}
                       {/* <ContractButton>www.usdc.com</ContractButton> */}
                     </ValueName>
                   </Value>
@@ -548,59 +562,25 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={accountLogo} /> */}
                     <ValueName>
                       <Title>Social Media</Title>
-                      <TitleValue>Not available</TitleValue>
-                      {/* <Icons>
-                      <GrMail
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
-                      <FaReddit
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
-                      <FaFacebookF
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
+                      {!isLoading ? ((contractData?.contractResponse?.telegram ||
+                        contractData?.contractResponse?.facebook ||
+                        contractData?.contractResponse?.twitter) ?
+                      <Icons>
+                          {contractData?.contractResponse?.telegram ? 
+                            (<a href={contractData?.contractResponse?.telegram}>
+                              <SocialMediaIcon style={{width: "14px",}}src="/images/Telegram.svg" alt="telegram"></SocialMediaIcon>
+                          </a>):("")}
 
-                      />
-                      <AiOutlineTwitter
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
-                      <FaFileAlt
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      /> */}
-                      {/* <AiOutlineTwitter
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
-                      <AiOutlineTwitter
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      /> */}
-                      {/* </Icons> */}
+                          {contractData?.contractResponse?.facebook ? 
+                            (<a href={contractData?.contractResponse?.facebook}>
+                              <SocialMediaIcon src="/images/facebook.svg" alt="facebook"></SocialMediaIcon>
+                            </a>):("")}
+
+                            {contractData?.contractResponse?.twitter ? 
+                            (<a href={contractData?.contractResponse?.twitter}>
+                              <SocialMediaIcon src="/images/twitter.svg" alt="twitter"></SocialMediaIcon>
+                            </a>):("")}
+                      </Icons>:<TitleValue>Not available</TitleValue>):("")}
                     </ValueName>
                   </Value>
                 </MobileScreen>
