@@ -46,7 +46,9 @@ const useStyles = makeStyles((theme) => ({
             height: "100% !important",
             borderRadius: "1px !important",
             maxWidth: "768px !important",
-            top: "33px"
+            top: "33px",
+            marginLeft: "auto",
+            marginRight: "auto",
         },
     },
     closeContainer: {
@@ -146,6 +148,7 @@ export default function ChangePassword(props) {
     const [error, setError] = React.useState("");
     const [errorPassword, setErrorPassword] = React.useState("");
     const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
+    const [errorEmptyField, setErrorEmptyField] = React.useState("");
     const [passwordShown1, setPasswordShown1] = React.useState(false);
     const [openChangePassword, setOpenChangePassword] = React.useState(false);
     const togglePasswordVisiblity1 = () => {
@@ -180,8 +183,12 @@ export default function ChangePassword(props) {
         setError("")
         setErrorPassword("");
         setErrorConfirmPassword("");
+        setErrorEmptyField("");
 
-        if (!currentInput) {
+        if (!currentInput && !newInput && !confirmPassword) {
+            setLoading(false);
+            setErrorEmptyField(genericConstants.ENTER_REQUIRED_FIELD);
+        } else if (!currentInput) {
             setLoading(false);
             setError(genericConstants.ENTER_REQUIRED_FIELD);
         } else if (!newInput) {
@@ -192,9 +199,11 @@ export default function ChangePassword(props) {
             setErrorConfirmPassword(genericConstants.ENTER_REQUIRED_FIELD);
         } else if (!newInput.match(regExPass)) {
             setErrorPassword(
-                "Password must be atleast 8 character long with Uppercase, Lowercase and Number"
+                "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols."
             );
             setLoading(false);
+        } else if (currentInput === newInput) {
+            setErrorPassword("New password cannot be same as old password");
         } else if (newInput !== confirmPassword) {
             setErrorConfirmPassword("Password doesn't match");
             setLoading(false);
@@ -246,6 +255,7 @@ export default function ChangePassword(props) {
                     </span>
                 </Row>
                 <Column>
+                {errorEmptyField ? <div className={classes.error}>{errorEmptyField}</div> : <></>}
                     <DialogContentText className={classes.subCategory}>
                         <span className={classes.pass}>Current Password</span>
                         <input

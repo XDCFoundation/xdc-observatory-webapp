@@ -128,13 +128,17 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "18px",
         color: "#2a2a2a",
     },
-    "@media (max-width: 714px)": {
+    "@media (max-width: 767px)": {
         heading: {
             fontSize: "16px",
         },
         dialogBox: {
-            width: "362px",
-            top: "95px",
+            width: "100%",
+            top: "40px",
+            borderRadius: "0px !important",
+            marginLeft: "auto",
+            marginRight: "auto",
+            height: "100%",
         },
         input: {
             maxWidth: "503px",
@@ -169,14 +173,13 @@ function EditTxnLabel(props) {
     }, [props]);
 
     async function editTransactionLable() {
-        console.log("props.row ", PrivateNote)
         const data = {
             ...props.row,
             trxLable: PrivateNote,
             transactionHash: TransactionsHash,
             modifiedOn: Date.now()
         };
-        console.log(data)
+        
         // const [error, response] = await utility.parseResponse(
         //   UserService.editUserPrivateNote(data)
         // );
@@ -213,6 +216,7 @@ function EditTxnLabel(props) {
     const classes = useStyles();
 
     const handleClickOpen = () => {
+        window.scrollTo(0, 0);
         setOpen(true);
     };
 
@@ -291,6 +295,7 @@ function EditTxnLabel(props) {
                     onClose={handleClose}
                     aria-labelledby="form-dialog-title"
                 >
+                    <div>
                     <Row>
                         <div className={classes.heading} id="form-dialog-title">
                             Edit Transaction label
@@ -349,6 +354,7 @@ function EditTxnLabel(props) {
               </span>
                         </div>
                     </DialogActions>
+                    </div>
                 </Dialog>
             </div>
         </div>

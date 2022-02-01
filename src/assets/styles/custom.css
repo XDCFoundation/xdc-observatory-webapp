@@ -194,6 +194,9 @@ a:link {
 .m-t_-7 {
   margin-top: -7px;
 }
+.display-none {
+  display: none;
+}
 input#password {
   width: 433px;
   height: 40px;
@@ -703,7 +706,8 @@ input:focus {
     height: 1.75rem;
     width: 1.75rem;
   }
-  .XDC {
+  .XDC,
+  .XDC:hover {
     margin-left: 0.438rem;
     font-size: 1.188rem;
     font-weight: 500;
@@ -725,11 +729,7 @@ input:focus {
     font-size: 0.813rem !important;
     margin: 0.4rem 0rem 0.25rem 12.5rem !important;
   }
-  .Shape3 {
-    /* width: 4.375rem;
-    height: 4.375rem; */
-    /* margin-top: 50px; */
-  }
+  
 }
 
 .Shape-XDC {
@@ -777,8 +777,8 @@ input:focus {
     line-height: 0 !important;
   } */
   .Shape:hover {
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
   }
   .xinfin_api_button {
     font-size: 14px !important;
@@ -1702,6 +1702,12 @@ div::-webkit-scrollbar-thumb {
   .XDC {
     font-size: 14px;
     margin-left: 4px;
+    margin-top: 0px !important;
+    line-height: 1 !important ;
+  }
+  .XDC:hover {
+    font-size: 14px !important;
+    margin-left: 4px !important;
     margin-top: 0px !important;
     line-height: 1 !important ;
   }
@@ -3311,6 +3317,7 @@ p {
 .profile {
   height: 24px !important;
   width: 24px !important;
+  cursor: pointer;
 }
 @media (min-width: 766px) and (max-width: 1240px) {
   .verify-contract-first-div-text {
@@ -4165,6 +4172,17 @@ body {
   width: 100%;
   border-bottom: transparent;
 }
+#container-table-transaction-list table {
+  /* height: 120px;
+    border-radius: 12px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: #ffffff; */
+  white-space: nowrap !important;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: transparent;
+}
 #container-table-holder table {
   /* height: 120px;
     border-radius: 12px;
@@ -4182,8 +4200,14 @@ body {
 
 #container-table th {
   padding: 25px 0px 15px 24px;
-  /* padding: 15px; */
-  /* padding-top: 25px; */
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: #252525 !important;
+}
+#container-table-transaction-list th {
+  padding: 25px 0px 15px 24px;
+  width: 190px;
   font-weight: 600;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -4199,6 +4223,11 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
+    padding: 17px 0px 15px 20px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  #container-table-transaction-list th {
     padding: 17px 0px 15px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -4237,6 +4266,24 @@ body {
   text-align: left;
   color: #2a2a2a;
 }
+#container-table-transaction-list td {
+  padding: 17px 0px 17px 20px;
+  /* padding: 12px 50px;
+  padding-top: 17px;
+  padding-bottom: 17px; */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  margin: 19px 49px 1.8px 69px;
+  font-family: "Inter" !important;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: left;
+  color: #2a2a2a;
+}
 #container-table-token-holders-tab td {
   padding: 17px 20px 17px 20px;
   text-align: left;
@@ -4250,6 +4297,11 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
+    padding: 16px 0px 10px 20px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  #container-table-transaction-list td {
     padding: 16px 0px 10px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -5675,6 +5727,8 @@ button {
   .back-newFeature {
     position: absolute;
     left: 15px;
+    cursor: pointer;
+    display: block;
   }
 }
 .main-checkbox {
@@ -9732,7 +9786,7 @@ button {
   .profile {
     height: 24px !important;
     width: 24px !important;
-    margin-right: 9px;
+    /* margin-right: 9px; */
   }
 }
 .Shape2-internal1 {
@@ -9761,16 +9815,7 @@ button {
     width: 20px;
     margin-top: 7px;
   }
-  .Shape2-internal1 {
-    height: 28px;
-    width: 26px;
-    margin-top: -2px !important;
-  }
-  .menu-sidebar {
-    height: 27px;
-    width: 26px;
-    margin-top: -2px !important;
-  }
+
   .profile {
     height: 24px !important;
     width: 24px !important;
@@ -9833,6 +9878,17 @@ button {
 @media (max-width: 767px) {
   .w-118 {
     width: 118%;
+  }
+  .Shape2-internal1 {
+    height: 28px;
+    width: 26px;
+    margin-top: -2px !important;
+    margin-right: -12px;
+  }
+  .menu-sidebar {
+    height: 27px;
+    width: 26px;
+    margin-right: -12px !important;
   }
 }
 @media (max-width: 767px) {
@@ -10950,9 +11006,10 @@ button {
   width: 15px;
 }
 .sidebar_notification {
-  color: white;
+  color: #9fa9ba;
   width: 100%;
-  margin-left: 20px;
+  text-align: center;
+  margin-top: 40px;
 }
 .tootlip-account-list {
   font-size: 20px;
@@ -11000,5 +11057,24 @@ button {
   }
 }
 .text-global-id {
-  margin-left: 15px;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff0202;
+}
+.privacy-is-very-important {
+  margin: 0px auto 10px;
+
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff0202;
 }

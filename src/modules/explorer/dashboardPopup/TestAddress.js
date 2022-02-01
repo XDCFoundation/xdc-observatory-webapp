@@ -137,6 +137,11 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginLeft: "2px",
   },
+  error2: {
+    color: "red",
+    marginLeft: "15px",
+    marginTop: "-14px"
+  },
 
   heading: {
     marginTop: "30px",
@@ -196,6 +201,7 @@ export default function FormDialog() {
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const [privateAddress, setPrivateAddress] = React.useState(false);
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
   const [nameTag, setNameTag] = React.useState(false);
   const [error, setError] = React.useState("");
   const [errorTag, setErrorTag] = React.useState("");
@@ -207,6 +213,11 @@ export default function FormDialog() {
   async function TaggedAddress() {
     setError("");
     setErrorTag("");
+    setErrorEmptyField("");
+    if (!privateAddress && !input && tags.length === 0) {
+        setErrorEmptyField("Please enter required fields");
+        return
+    }
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
@@ -214,11 +225,13 @@ export default function FormDialog() {
     };
     if (!privateAddress) {
       setError("Please enter required field");
+    } else if (!input && tags.length === 0) {
+      setErrorTag("Please enter required field");
     } else if (
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
-      setError("Please add address that is having 43 characters and initiates with xdc ");
+      setError("Address should start with xdc and consist of 43 characters");
       return;
     } else if (tags.length === 0) {
       setErrorTag("Use comma(,) to add multiple tag");
@@ -232,7 +245,7 @@ export default function FormDialog() {
       );
 
       if (error) {
-        utility.apiFailureToast("Address is already in use");
+        setErrorTag("Address already exist in table");
         return;
       }
       let taggedAddress = localStorage.getItem(
@@ -244,7 +257,7 @@ export default function FormDialog() {
           (item) => item.address == privateAddress && item.userId == data.userId
         );
         if (existingTag) {
-          utility.apiFailureToast("Address is already in use");
+          setErrorTag("Address already exist in table");
           return;
         }
       } else {
@@ -361,6 +374,7 @@ export default function FormDialog() {
               X{" "}
             </span> */}
         </Row>
+        {errorEmptyField ? <div className={classes.error2}>{errorEmptyField}</div> : <></>}
         <div className={classes.userContainer}>
           <p className={classes.subCategory}>Address</p>
           <input
@@ -425,9 +439,10 @@ export default function FormDialog() {
         </DialogActions>
         <div className={classes.lastContainer}>
           <div className={classes.lastContainerText}>
-            To protect your privacy, data related to the address tags, is added
-            on your local device. Cleaning the browsing history or cookies will
-            clean the address tags saved in your profile.
+          Privacy is very important to us. To protect sensitive information,
+              all custom tags and data related to the Watchlists are saved on
+              your local device. Clearing the browsing history or cookies will
+              remove the watchlist data saved in your profile.
           </div>
         </div>
         {/* <div className={classes.value}></div>

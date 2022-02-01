@@ -207,7 +207,7 @@ export default function AddressTableComponent(props) {
     const skip = data?.pageNum || 0;
     const limit = data?.perpage || 10;
     const sortKey = data?.sortKey || "blockNumber";
-    const sortType = -1
+    const sortType = data?.sortType
     const requestData = { skip, limit, sortKey, sortType }
     requestData.address = data?.addrr || addr
     const filtersData = filters || searchAndFilters
@@ -637,7 +637,7 @@ export default function AddressTableComponent(props) {
                       placement="top"
                       title={getSortTitle("blockNumber")}
                     >
-                      {sortingKey && sortingKey === "blockNumber" ? (sortToggle.blockNumber == 1 ? (
+                      {sortingKey && sortingKey === "blockNumber" ? (sortToggle.blockNumber == -1 ? (
                         // <ArrowUpwardIcon
                           // onClick={() => {
                           //   sortData("blockNumber");
@@ -807,7 +807,7 @@ export default function AddressTableComponent(props) {
                     <span className={"tableheaders table-value cursor-pointer"} onClick={() => {sortData("value");}}>Value</span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("value")}>
-                        {sortingKey && sortingKey === "value"  ? (sortToggle.value == 1 ? (
+                        {sortingKey && sortingKey === "value"  ? (sortToggle.value == -1 ? (
                           // <ArrowUpwardIcon
                           //   onClick={() => {
                           //     sortData("value");
@@ -1035,7 +1035,9 @@ export default function AddressTableComponent(props) {
           className="page-container-address"
         >
           <Grid item className="pagination-tab-address">
-            {!isLoading && !noData ? (
+            {!isLoading && noData == true || totalRecord<10 ? (
+              ""
+            ) : (
               <>
                 <span className="textShowRecord">Show</span>
                 <PageSelector value={rowsPerPage}
@@ -1043,8 +1045,6 @@ export default function AddressTableComponent(props) {
                   handler={handleChangeRowsPerPage} />
                 <span className="textShowRecord">Records</span>
               </>
-            ) : (
-              ""
             )}
           </Grid>
           <Grid xs="1"></Grid>

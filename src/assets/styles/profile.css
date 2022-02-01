@@ -450,6 +450,7 @@ background-color: #4878ff; */
   opacity: 1;
   line-height: 2;
   display: flex;
+  white-space: nowrap;
 }
 .tableheadersWatchlist {
   font-family: Inter !important;
@@ -733,10 +734,11 @@ background-color: #4878ff; */
     width: 950px !important;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .imageParentDiv {
     display: block;
     gap: 5px;
+    padding: 0 10px;
   }
   .imagediv1 {
     margin-top: 0px;

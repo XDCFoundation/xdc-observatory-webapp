@@ -75,6 +75,7 @@ export default function NewFeature(props) {
     },
     tapHere: {
       textDecoration: "underline",
+      cursor: "pointer",
     },
     closeMob: {
       width: "12px",
@@ -130,8 +131,7 @@ export default function NewFeature(props) {
                 />
                 <div className="card-title">Create watchlist</div>
                 <div className="card-text">
-                  An email notification can be sent to you when an address on your
-                  watchlist receives an incoming/outgoing transaction.
+                An email notification will be sent when an address in your watch list receives an incoming/outgoing transaction.
                 </div>
               </div>
               <div className="card margin-right-34px">

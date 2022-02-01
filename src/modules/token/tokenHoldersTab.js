@@ -348,7 +348,7 @@ export default function StickyHeadTable(props) {
                     </span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "0"}}
+                    style={{ border: "none", paddingLeft: "0" }}
                     className="w-10"
                     align="left"
                   >
@@ -465,7 +465,7 @@ export default function StickyHeadTable(props) {
                   var splittedArray = quantity3?.match(regex);
 
                   var percentageValue = !row[0]?.Percentage
-                    ? "------"
+                    ? "0"
                     : row[0].Percentage.toFixed(8);
                   let percentageValue1 = percentageValue
                     .toString()
@@ -473,7 +473,6 @@ export default function StickyHeadTable(props) {
                   let percentageValue2 = percentageValue
                     .toString()
                     .split(".")[1];
-
                   var quantity4 =
                     splittedArray && splittedArray.length
                       ? splittedArray[0]
@@ -525,12 +524,18 @@ export default function StickyHeadTable(props) {
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <span className="tabledata table-data mar-lef-3">
+                        {percentageValue2 == null|| percentageValue2==0? (
+                      <span>{format({})(percentageValue1)}%</span>
+                    ) : (
+                      <>
                           {percentageValue1}
                           {"."}
                           <span style={{ color: "#9FA9BA" }}>
                             {percentageValue2}
                           </span>
                           %
+                          </>
+                    )}
                         </span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
@@ -569,8 +574,10 @@ export default function StickyHeadTable(props) {
       </Paper>
       <Pagination>
         <LeftPagination>
-          {!isLoading && noData ? (
-            <>
+          {(!isLoading && noData == false) || totalHolder<10?  (
+""
+          ) : (
+<>
               <p className="p-pagination">Show</p>
               <PageSelector
                 value={rowsPerPage}
@@ -579,67 +586,66 @@ export default function StickyHeadTable(props) {
               />
               <p className="p-pagination"> Records</p>
             </>
-          ) : (
-            ""
           )}
         </LeftPagination>
-
-        <RightPagination
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "row",
-        //   marginRight: "0%",
-        // }}
-        >
-          <div
-            className={page === 0 ? "firstbox disabled" : "firstbox"}
-            onClick={() => handleChangePage("first")}
+        {(noData == true && totalHolder > rowsPerPage) ? (
+          <RightPagination
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   marginRight: "0%",
+          // }}
           >
-            <button style={{ backgroundColor: "white" }} className="first">
-              First
-            </button>
-          </div>
-          <div
-            className={page === 0 ? "previousbox disabled" : "previousbox"}
-            onClick={() => handleChangePage("prev")}
-          >
-            <p className="path">
-              <img alt="back" src={"/images/back.svg"} width="9px" />
-            </p>
-          </div>
-          <div className="pagebox">
-            <p className="Page-1-of-5">
-              Page{" "}
-              {Math.round(totalHolder / rowsPerPage) +
-                1 -
-                Math.round((totalHolder - page) / rowsPerPage)}{" "}
-              of {Math.round(totalHolder / rowsPerPage)}
-            </p>
-          </div>
-          <div
-            className={
-              page + rowsPerPage === totalHolder
-                ? "nextbox disabled"
-                : "nextbox"
-            }
-          >
-            <p className="path-2" onClick={() => handleChangePage("next")}>
-              <img alt="next" src={"/images/next.svg"} width="9px" />
-            </p>
-          </div>
-          <div
-            className={
-              page + rowsPerPage === totalHolder
-                ? "lastbox disabled"
-                : "lastbox"
-            }
-            onClick={() => handleChangePage("last")}
-          >
-            <button style={{ backgroundColor: "white" }} className="last">
-              Last
-            </button>
-          </div>
-        </RightPagination>
+            <div
+              className={page === 0 ? "firstbox disabled" : "firstbox"}
+              onClick={() => handleChangePage("first")}
+            >
+              <button style={{ backgroundColor: "white" }} className="first">
+                First
+              </button>
+            </div>
+            <div
+              className={page === 0 ? "previousbox disabled" : "previousbox"}
+              onClick={() => handleChangePage("prev")}
+            >
+              <p className="path">
+                <img alt="back" src={"/images/back.svg"} width="9px" />
+              </p>
+            </div>
+            <div className="pagebox">
+              <p className="Page-1-of-5">
+                Page{" "}
+                {Math.round(totalHolder / rowsPerPage) +
+                  1 -
+                  Math.round((totalHolder - page) / rowsPerPage)}{" "}
+                of {Math.round(totalHolder / rowsPerPage)}
+              </p>
+            </div>
+            <div
+              className={
+                page + rowsPerPage === totalHolder
+                  ? "nextbox disabled"
+                  : "nextbox"
+              }
+            >
+              <p className="path-2" onClick={() => handleChangePage("next")}>
+                <img alt="next" src={"/images/next.svg"} width="9px" />
+              </p>
+            </div>
+            <div
+              className={
+                page + rowsPerPage === totalHolder
+                  ? "lastbox disabled"
+                  : "lastbox"
+              }
+              onClick={() => handleChangePage("last")}
+            >
+              <button style={{ backgroundColor: "white" }} className="last">
+                Last
+              </button>
+            </div>
+          </RightPagination>
+        ) : ""}
       </Pagination>
     </div>
   );
