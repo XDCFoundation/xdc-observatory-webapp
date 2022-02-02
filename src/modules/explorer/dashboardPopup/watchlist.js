@@ -19,6 +19,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Utils from "../../../utility";
 import styled from "styled-components";
 import { cookiesConstants } from "../../../constants";
+import AlertDialog from "../../common/dialog/alertDialog";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -189,7 +190,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#ff0202",
 
     lineHeight: "1.58",
-  },
+  }, 
 
   "@media (max-width: 714px)": {
     heading: {
@@ -206,7 +207,7 @@ const useStyles = makeStyles((theme) => ({
     notifyLabel: {
       fontSize: "13px",
       width: "250px",
-    },
+    },    
   },
   "@media (max-width: 900px)": {},
 }));
@@ -234,6 +235,8 @@ export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const [addressAdded, setAddressAdded] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
   const [error, setError] = React.useState("");
   const [descriptionError, setDescriptionError] = React.useState("");
   const [errorEmptyField, setErrorEmptyField] = React.useState("");
@@ -329,8 +332,13 @@ export default function FormDialog(props) {
       setOpen(false);
       await props.getWatchlistList();
       await props.getTotalCountWatchlist();
+      setAddressAdded(true);
+      setOpenAlert(true);
     }
   };
+  const closeAlert = () => {
+    setOpenAlert(false);
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -432,7 +440,7 @@ export default function FormDialog(props) {
       >
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
-        {isSize === false ? (
+        {isSize === false ? (!addressAdded ? (
           // <div className={classes.createWatchlist}>
           <Dialog
             className={classes.dialog}
@@ -566,7 +574,9 @@ export default function FormDialog(props) {
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
-          </Dialog>
+          </Dialog>):(
+              <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>
+            )
           // </div>
         ) : (
           <Test />

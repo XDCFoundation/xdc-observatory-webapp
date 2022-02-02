@@ -19,7 +19,7 @@ export default function NewFeature(props) {
   const [closeForNow, setCloseForNow] = useState(
     getSessionStorageOrDefault('tempClose', false)
   );
-
+  
   useEffect(() => {
     sessionStorage.setItem('tempClose', JSON.stringify(closeForNow));
   }, [closeForNow]);
@@ -91,7 +91,6 @@ export default function NewFeature(props) {
     sessionManager.setDataInCookies(true, "Visited");
   }
   const userInfo = sessionManager.getDataFromCookies("userInfo");
-
   const handleOpenNewFeatureMobile = () => {
     setNewFeatureOpenInMobile(true);
     setOpen(true);
@@ -101,7 +100,7 @@ export default function NewFeature(props) {
   }
 
   return (
-    <>{window.innerWidth >= 768 || newFeatureOpenInMobile ?
+    <>{props.setIsCookiesAccepted ? (window.innerWidth >= 768 || newFeatureOpenInMobile ?
       (!userInfo && !closeForNow ?
 
         (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
@@ -188,7 +187,7 @@ export default function NewFeature(props) {
                 <img className={classes.closeMob} onClick={handleCloseMobileAlert} src="/images/xdc-cross-white.svg" alt="close icon"></img>
               </div>
             </div>
-          </>:"")}</>
+          </>:"")):("")}</>
 
   );
 }
