@@ -7378,8 +7378,7 @@ button {
   width: 75.063rem;
 }
 .table-grid-block-global-id {
-  margin: 0px auto auto auto;
-  width: 75.063rem;
+  margin: 0px auto
 }
 .table-grid-block-contract {
   margin: 5px auto auto auto;
@@ -8925,7 +8924,7 @@ button {
     width: 23.5rem;
   }
   .table-grid-block-global-id {
-    width: 23.5rem;
+    width: 23.5rem !important;
   }
   .table-grid-block-contract {
     width: 21rem;
@@ -8933,6 +8932,10 @@ button {
   .grid-block-table {
     /* width: 100% !important; */
     width: 21rem !important;
+  }
+  .grid-block-table-global-id {
+    /* width: 100% !important; */
+    width: 22.5rem !important;
   }
   .container_sec {
     display: flex;
@@ -9174,6 +9177,9 @@ button {
     width: 41.5rem;
   }
   .grid-block-table {
+    width: 41.5rem !important;
+  }
+  .grid-block-table-global-id {
     width: 41.5rem !important;
   }
   .AddressTitle {
@@ -9917,7 +9923,7 @@ button {
   font-weight: 600;
   color: #2a2a2a;
 }
-@media (min-width: 0px) and (max-width: 766px) {
+@media (min-width: 0px) and (max-width: 767px) {
   /* .grid-block-table {
     margin: 28px auto auto auto !important;
     width: 100% !important;
@@ -9935,6 +9941,9 @@ button {
   } */
   .grid-block-table {
     width: 21rem !important;
+  }
+  .grid-block-table-global-id {
+    width: 22.5rem !important;
   }
   .sec-block-mb {
     margin-left: 0rem !important;
@@ -11030,6 +11039,15 @@ button {
 .global-id {
   background-image: url("../images/banner_bg.png");
   background-color: #2149b9;
+  min-height: 100vh;
+}
+@media(max-width:767px){
+  .global-id {
+    background-image: none;
+    background-color: #fff;
+    min-height: 100vh;
+  }
+
 }
 .global-id-icon {
   height: 45px;
@@ -11077,4 +11095,11 @@ button {
   letter-spacing: normal;
   text-align: center;
   color: #ff0202;
+}
+@media (min-width:768px) and (max-width: 1240px) {
+
+.global-id-image{
+  width: 70px;
+  height: 70px;
+}
 }

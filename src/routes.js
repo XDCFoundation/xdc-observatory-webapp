@@ -186,7 +186,7 @@ class Routes extends BaseComponent {
               />
               <Route
                 exact
-                path={"/global-id"}
+                path={"/global-id/:mode"}
                 component={GlobalIdContinue}
               />
               <Route exact path={"/test"} component={Test} />
