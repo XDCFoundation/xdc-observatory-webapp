@@ -708,10 +708,12 @@ export default function FormDialog(props) {
       }
     }
   };
-  function connectGlobalId() {
-    window.location.href = "/global-id";
+  function connectGlobalIdLogin() {
+    window.location.href = "/global-id" + "/login";
   }
-
+  function connectGlobalIdSignUp() {
+    window.location.href = "/global-id" + "/signup";
+  }
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
 
   const handleSignUp = async (e) => {
@@ -1029,7 +1031,7 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainer}>
-              <button className={classes.globalidbtn} onClick={connectGlobalId}>
+              <button className={classes.globalidbtn} onClick={connectGlobalIdLogin}>
                 <img
                   src="/images/global-id-logo.svg"
                   className="global-id-logo"
@@ -1190,7 +1192,7 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainerSignup}>
-              <button className={classes.globalidbtn} onClick={connectGlobalId}>
+              <button className={classes.globalidbtn} onClick={connectGlobalIdSignUp}>
                 <img
                   src="/images/global-id-logo.svg"
                   className="global-id-logo"
