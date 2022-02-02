@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: "680px",
         width: "100%",
         borderRadius: "12px",
+        zIndex: "100000"
     },
     headingContainer: {
         display: "flex",
