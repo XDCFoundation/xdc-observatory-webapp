@@ -115,7 +115,7 @@ export default function NewFeature(props) {
               </div>
               </> : <>
               <div onClick={handleClose}>
-                <img  className="back-newFeature" alt="back" src={"/images/backbutton.svg"} />
+                <img  className="back-newFeature" alt="back" src={"/images/backButton.svg"} />
               </div>
               <div className="main-title">New Features</div>
               </>} 
