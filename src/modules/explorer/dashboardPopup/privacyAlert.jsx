@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#102e84",
     position: "fixed",
     bottom: "0",
-    zIndex: 1,
+    zIndex: 100,
   },
   containerContent: {
     width: "74.375rem",
@@ -221,6 +221,7 @@ export default function StorageMessage() {
   return (
     <>
       {!isPrivacyAccepted ? (
+        <div className="overlay-private-alert">
         <div className={classes.container}>
           <div className={classes.containerContent}>
             <div className={classes.ourCookiesText}>
@@ -246,6 +247,7 @@ export default function StorageMessage() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       ) : (
         ""

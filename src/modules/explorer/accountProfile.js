@@ -489,6 +489,8 @@ export default function SimpleTabs(props) {
   const [watchListNotAdded, setWatchListNotAdded] = React.useState(true);
   const [txnAddressNotAdded, setTxnAddressNotAdded] = React.useState(true);
 
+  const isPrivacyAccepted =
+      sessionManager.getDataFromCookies("isPrivacyAccepted");
   async function searchData(event) {
     if (value === 0) {
       const searchValue = event.target.value;
@@ -2287,8 +2289,8 @@ export default function SimpleTabs(props) {
           </TabPanel>
         </div>
       </SubParentContainer>
-      <PrivacyAlert/>
       <FooterComponent />
+      <PrivacyAlert/>
     </div>
   );
 }

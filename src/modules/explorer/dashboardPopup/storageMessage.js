@@ -6,6 +6,7 @@ import ManageCookiesDialog from "./manageCookiesDialog"
 import {cookiesConstants, userCookiesConstants} from "../../../constants";
 import Auth0Service from "../../../services/userLogin";
 import { history } from "../../../managers/history";
+import NewFeature from '../newFeature';
 
 const useStyles = makeStyles((theme) => ({
     // cookiesBackground: {
@@ -180,7 +181,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StorageMessage() {
     const classes = useStyles();
-
     const [isCookiesAccepted, setIsCookiesAccepted] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -224,8 +224,9 @@ export default function StorageMessage() {
 
     return (
         <>
-            {!isCookiesAccepted ?
-                (<div className={classes.container}>
+            {!openDialog ? (!isCookiesAccepted ?
+                (<div className="overlay-private-alert">
+                    <div className={classes.container}>
                     <div className={classes.containerContent}>
                         <div className={classes.ourCookiesText}>Our Cookies Policy</div>
                         <div className={classes.container1}>
@@ -240,15 +241,18 @@ export default function StorageMessage() {
                             </div>
                             <div className={classes.buttonContainer}>
                             <div className={classes.buttons}>
-                                <button className={classes.buttonAccept} onClick={saveMyPreferences}>Accept all cookies</button>
-                                <ManageCookiesDialog open={openDialog} close={closeDialog} setIsCookiesAccepted={setIsCookiesAccepted}/>
+                                <button className={classes.buttonAccept} onClick={saveMyPreferences}>Accept all cookies</button>    
                                 <button className={classes.buttonReject} onClick={handleManage}>Manage my preferences</button>
                             </div>
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
-                ) : ("")}
+                ) : 
+                (<NewFeature setIsCookiesAccepted={setIsCookiesAccepted} />)
+                ) :
+                (<ManageCookiesDialog open={openDialog} close={closeDialog} setIsCookiesAccepted={setIsCookiesAccepted}/>)}
         </>
     )
 }
