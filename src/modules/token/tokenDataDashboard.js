@@ -548,7 +548,7 @@ export default function TokenDataComponent() {
                     <ValueName>
                       <Title>Website</Title>
                       {!isLoading ? (contractData?.contractResponse?.website ?
-                      (<a className={classes.websiteLink}href={contractData?.contractResponse?.website}>
+                      (<a className={classes.websiteLink} href={contractData?.contractResponse?.website} target="_blank">
                         {contractData?.contractResponse?.website}
                       </a>):
                       (<TitleValue>Not available</TitleValue>)):("")}
@@ -564,17 +564,17 @@ export default function TokenDataComponent() {
                         contractData?.contractResponse?.twitter) ?
                       <Icons>
                           {contractData?.contractResponse?.telegram ? 
-                            (<a href={contractData?.contractResponse?.telegram}>
+                            (<a href={contractData?.contractResponse?.telegram}  target="_blank">
                               <SocialMediaIcon style={{width: "14px",}}src="/images/Telegram.svg" alt="telegram"></SocialMediaIcon>
                           </a>):("")}
 
                           {contractData?.contractResponse?.facebook ? 
-                            (<a href={contractData?.contractResponse?.facebook}>
+                            (<a href={contractData?.contractResponse?.facebook}  target="_blank">
                               <SocialMediaIcon src="/images/facebook.svg" alt="facebook"></SocialMediaIcon>
                             </a>):("")}
 
                             {contractData?.contractResponse?.twitter ? 
-                            (<a href={contractData?.contractResponse?.twitter}>
+                            (<a href={contractData?.contractResponse?.twitter}  target="_blank">
                               <SocialMediaIcon src="/images/twitter.svg" alt="twitter"></SocialMediaIcon>
                             </a>):("")}
                       </Icons>:<TitleValue>Not available</TitleValue>):("")}
