@@ -14,7 +14,7 @@ import utility, { dispatchAction } from "../../utility";
 import { cookiesConstants, eventConstants } from "../../constants";
 import { connect } from "react-redux";
 import Loader from "../../common/components/loader";
-
+import {history} from "../../managers/history";
 class BlockChainClass extends BaseComponent {
     constructor(props) {
         super(props)
@@ -35,6 +35,7 @@ class BlockChainClass extends BaseComponent {
             const [error, response] = await utility.parseResponse(GlobalIdService.getGlobalIdTokens(code));
             if (error){
                 utility.apiFailureToast(error?.message ? error.message : "Cannot get tokens")
+                history.push("/")
                 return;
             }
             sessionManager.setDataInCookies(response.access_token, cookiesConstants.ACCESS_TOKEN);
@@ -47,6 +48,7 @@ class BlockChainClass extends BaseComponent {
             let [userInfoError, userInforesponse] = await utility.parseResponse(GlobalIdService.getGlobalIdUserInfo(requestData));
             if (userInfoError){
                 utility.apiFailureToast(userInfoError?.message ? userInfoError.message : "Cannot login")
+                history.push("/")
                 return;
             }
             userInforesponse = {...userInforesponse , sub:userInforesponse.userId}   
@@ -62,7 +64,7 @@ class BlockChainClass extends BaseComponent {
                 "userId"
             );
             sessionManager.removeDataFromCookies("activateAccountEmail");
-            window.location.href = "/loginprofile"
+            history.push("/loginprofile")           
             this.setState({ isLoading: false })
 
         }
