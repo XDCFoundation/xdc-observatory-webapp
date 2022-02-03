@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { sessionManager } from "../../../managers/sessionManager";
+import PrivacyConsent from "../../../services/user"
+import utility from "../../../utility";
 import { width } from "@mui/system";
 import ManageCookiesDialog from "./manageCookiesDialog";
 import { cookiesConstants, userCookiesConstants } from "../../../constants";
@@ -216,6 +218,14 @@ export default function StorageMessage() {
     // }
     sessionManager.setDataInCookies(true, "isPrivacyAccepted");
     setIsPrivacyAccepted(true);
+
+    const request = {
+      userId: sessionManager.getDataFromCookies("userId"),
+      privacyConsent: isPrivacyAccepted
+    };
+    const [error, response] = await utility.parseResponse(
+      PrivacyConsent.privacyConsent(request)
+    );
   };
 
   return (
