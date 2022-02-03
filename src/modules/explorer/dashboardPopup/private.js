@@ -13,6 +13,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
 import { genericConstants, cookiesConstants } from "../../../constants";
+import AlertDialog from "../../common/dialog/alertDialog";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -242,6 +243,8 @@ export default function FormDialog(props) {
   // };
 
   const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
+  const [addressAdded, setAddressAdded] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
 
   async function TaggedAddress() {
     setError("");
@@ -308,6 +311,9 @@ export default function FormDialog(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const closeAlert = () => {
+    setOpenAlert(false);
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -452,6 +458,7 @@ export default function FormDialog(props) {
       </Button> */}
 
         {/* <div> */}
+        {!addressAdded ? (
         <Dialog
           // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -543,7 +550,9 @@ export default function FormDialog(props) {
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
-        </Dialog>
+        </Dialog>):(
+              <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>
+            )}
         {/* </div> */}
       </div>
     </>

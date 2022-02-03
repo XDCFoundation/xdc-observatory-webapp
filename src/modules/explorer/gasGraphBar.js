@@ -22,6 +22,7 @@ const toolTipElement = (props) => {
 }
 const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
+    margin={{ left: 50, bottom: 5,top:5 }}
         data={data}
         tooltip={toolTipElement}
 
@@ -39,7 +40,14 @@ const MyResponsiveLine = ({ data }) => (
         axisTop={null}
         axisRight={null}
         axisBottom={null}
-        axisLeft={null}
+        axisLeft={{
+            orient: "left",
+            tickSize: 0,
+        tickPadding:5,
+        
+            tickValues: 3,
+    
+          }}
         enableGridX={false}
         enableGridY={false}
         // colors={{ scheme: 'purple_blue' }}
@@ -53,6 +61,7 @@ const MyResponsiveLine = ({ data }) => (
         enableArea={true}
         useMesh={true}
         legends={[]}
+        theme={{ fontSize: 11, fontFamily: "Inter",textColor:"#9fa9ba" }}
     />
 )
 const GraphSize = styled.div`

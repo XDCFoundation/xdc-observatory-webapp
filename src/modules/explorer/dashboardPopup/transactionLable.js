@@ -13,6 +13,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
 import { cookiesConstants } from "../../../constants";
+import AlertDialog from "../../common/dialog/alertDialog";
 
 const useStyles = makeStyles((theme) => ({
   overflowNone: {
@@ -217,6 +218,8 @@ export default function FormDialog(props) {
   const [privateNoteError, setPrivateNoteError] = React.useState("");
   const [errorEmptyField, setErrorEmptyField] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
+  const [addressAdded, setAddressAdded] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -286,7 +289,12 @@ export default function FormDialog(props) {
       setOpen(false);
       await props.getListOfTxnLabel();
       await props.getTotalCountTxnLabel();
+      setAddressAdded(true);
+      setOpenAlert(true);
     }
+  }
+  const closeAlert = () => {
+    setOpenAlert(false);
   }
   const classes = useStyles();
 
@@ -389,6 +397,7 @@ export default function FormDialog(props) {
       </Button> */}
 
         {/* <div> */}
+        {!addressAdded ? (
         <Dialog
           className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -474,7 +483,9 @@ export default function FormDialog(props) {
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
-        </Dialog>
+        </Dialog>):(
+              <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>
+            )}
         {/* </div> */}
       </div>
     </>

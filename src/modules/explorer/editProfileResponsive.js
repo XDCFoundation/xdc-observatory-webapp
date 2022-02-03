@@ -464,7 +464,7 @@ export default function FormDialog(props) {
             <Wrapper>
               <Title>Edit Profile</Title>
               <div onClick={handleClose} className={classes.backButtonMobile}>
-            <img src="/images/backbutton.svg" />
+            <img src="/images/backButton.svg" />
           </div>
               <Cut onClick={handleClose}>
                 {" "}

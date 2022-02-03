@@ -313,6 +313,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     marginTop: "24px",
   },
+  doNotShow: {
+    marginBottom: "20px",
+    marginTop: "-10px",
+  },
   "@media (max-width: 1920px)": {
     forgotText: {
       maxWidth: "404px",
@@ -632,7 +636,7 @@ export default function FormDialog(props) {
     setEmail("");
   };
   const acceptSetupNewAccount = () => {
-    setValue(4);
+    setValue(1);
   };
   const login = async () => {
     const reqObj = {
@@ -708,13 +712,16 @@ export default function FormDialog(props) {
       }
     }
   };
-  function connectGlobalId() {
-    window.location.href = "/global-id";
+  function connectGlobalIdLogin() {
+    window.location.href = "/global-id" + "/login";
   }
-
+  function connectGlobalIdSignUp() {
+    window.location.href = "/global-id" + "/signup";
+  }
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
 
   const handleSignUp = async (e) => {
+    setValue(4)
     e.preventDefault();
     const data = {
       name: userName,
@@ -808,13 +815,13 @@ export default function FormDialog(props) {
           );
           return;
         }
-        window.location.href = "/activate-account";
+        // window.location.href = "/activate-account";
         sessionManager.setDataInCookies(email, "activateAccountEmail");
         setLoading(false);
         setOpen(false);
-        setTimeout(() => {
-          setValue(0);
-        }, 1000);
+        // setTimeout(() => {
+        //   setValue(0);
+        // }, 1000);
 
         setUserName("");
         setEmail("");
@@ -822,9 +829,17 @@ export default function FormDialog(props) {
         setConfirmPassword("");
         setTermsCheckbox(false);
         setCaptchaCheckbox(false);
+        setValue(4)
       }
     }
   };
+
+  const handleClickOpenVerify = () => {
+    window.location.href = "/activate-account";
+    setTimeout(() => {
+      setValue(0);
+    }, 1000);
+  }
 
   const handleClickOpenSignin = () => {
     setValue(0);
@@ -1014,8 +1029,8 @@ export default function FormDialog(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <div onClick={handleClose} className={classes.backButtonMobile}>
-          <img src="/images/backbutton.svg" alt="back"/>
+        <div onClick={handleClose} className={value === 4 ? "display-none" : classes.backButtonMobile}>
+          <img src="/images/backButton.svg" alt="back"/>
         </div>
         {value === 0 ? (
           <div>
@@ -1029,7 +1044,7 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainer}>
-              <button className={classes.globalidbtn} onClick={connectGlobalId}>
+              <button className={classes.globalidbtn} onClick={connectGlobalIdLogin}>
                 <img
                   src="/images/global-id-logo.svg"
                   className="global-id-logo"
@@ -1190,7 +1205,7 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainerSignup}>
-              <button className={classes.globalidbtn} onClick={connectGlobalId}>
+              <button className={classes.globalidbtn} onClick={connectGlobalIdSignUp}>
                 <img
                   src="/images/global-id-logo.svg"
                   className="global-id-logo"
@@ -1453,15 +1468,6 @@ export default function FormDialog(props) {
         ) : value === 4 ? (
           //<------------------------------------GlobalID-------------------------------------------->
           <div>
-            <Row>
-              <div className={classes.heading} id="form-dialog-title">
-                Setup a New Account
-              </div>
-              <span onClick={handleClose} className={classes.closeContainer}>
-                <img className={classes.close} src={"/images/XDC-Cross.svg"} />
-              </span>
-            </Row>
-
             <DialogContent className={classes.globalTextContainer}>
               <div className="privacy-is-very-important">
                 Privacy is very important to us
@@ -1477,38 +1483,19 @@ export default function FormDialog(props) {
             <DialogActions className={classes.dialogButton}>
               <button
                 className={classes.addbtn}
-                onClick={handleClickOpenSignup}
+                onClick={handleClickOpenVerify}
               >
                 I Understand
               </button>
             </DialogActions>
-
-            <div className={classes.value}></div>
-            {window.innerWidth >= 768 ? (
-              <div className={classes.alreadyAccount}>
-                <div>
-                  Already have an account?{" "}
-                  <span
-                    className={classes.signIn}
-                    onClick={handleClickOpenSignin}
-                  >
-                    Sign In
-                  </span>
-                </div>
-              </div>
-            ) : (
-              <div className={classes.alreadyAccount}>
-                <div>
-                  Already have an account?{" "}
-                  <span
-                    className={classes.signIn}
-                    onClick={handleClickOpenSignin}
-                  >
-                    Sign In
-                  </span>
-                </div>
-              </div>
-            )}
+            <div className={classes.doNotShow}>
+            <div className="main-end-box">
+              <input type="checkbox"
+                // onChange={visited}
+                className="main-checkbox" />
+              <div className="main-end-text">Don't show this message again</div>
+            </div>
+            </div>
           </div>
         ) : (
           // <------------------------------------------Forgot Password------------------------------------------------->
