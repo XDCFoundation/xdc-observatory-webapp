@@ -299,8 +299,10 @@ export default function FormDialog(props) {
         data.userId + cookiesConstants.USER_TAGGED_ADDRESS,
         JSON.stringify(taggedAddress)
       );
-      utility.apiSuccessToast("Tag Added");
       setOpen(false);
+      setAddressAdded(true);
+      setOpenAlert(true);
+      utility.apiSuccessToast("Tag Added");
       await props.getListOfTagAddress();
       await props.getTotalCountTagAddress();
     }
@@ -458,7 +460,6 @@ export default function FormDialog(props) {
       </Button> */}
 
         {/* <div> */}
-        {!addressAdded ? (
         <Dialog
           // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -550,10 +551,9 @@ export default function FormDialog(props) {
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
-        </Dialog>):(
-              <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>
-            )}
+        </Dialog>
         {/* </div> */}
+        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
       </div>
     </>
   );

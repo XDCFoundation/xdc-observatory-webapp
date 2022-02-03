@@ -140,7 +140,7 @@ function TemporaryDrawer(props) {
 
     const list = (anchor) => (
         <div
-            style={{height:"100vh"}}
+            style={{paddingBottom: "100px"}}
             className={clsx(classes.list, {
                 [classes.fullList]: anchor === "top" || anchor === "bottom",
             })}

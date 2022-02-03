@@ -283,14 +283,14 @@ export default function FormDialog(props) {
           sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS,
         JSON.stringify(transactionLabel)
       );
+      setOpen(false);
+      setAddressAdded(true);
+      setOpenAlert(true);
       utility.apiSuccessToast("Transaction Added");
       setTransactionsHash("");
       setPrivateNote("");
-      setOpen(false);
       await props.getListOfTxnLabel();
       await props.getTotalCountTxnLabel();
-      setAddressAdded(true);
-      setOpenAlert(true);
     }
   }
   const closeAlert = () => {
@@ -397,7 +397,6 @@ export default function FormDialog(props) {
       </Button> */}
 
         {/* <div> */}
-        {!addressAdded ? (
         <Dialog
           className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -483,10 +482,9 @@ export default function FormDialog(props) {
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
-        </Dialog>):(
-              <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>
-            )}
+        </Dialog>
         {/* </div> */}
+        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
       </div>
     </>
   );

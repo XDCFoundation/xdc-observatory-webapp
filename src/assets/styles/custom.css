@@ -701,6 +701,11 @@ input:focus {
   opacity: 1;
   overflow: scroll;
 }
+.transaction-synchronization-text {
+  color: #ff0202;
+  position: absolute;
+  margin-top: 52px;
+}
 @media (min-width: 768px) and (max-width: 1240px) {
   .Shape {
     height: 1.75rem;
@@ -728,6 +733,11 @@ input:focus {
   .Token {
     font-size: 0.813rem !important;
     margin: 0.4rem 0rem 0.25rem 12.5rem !important;
+  }
+  .transaction-synchronization-text {
+    color: #ff0202;
+    position: initial;
+    margin-top: 52px;
   }
   
 }
@@ -819,6 +829,11 @@ input:focus {
   .w-320 {
     max-width: 320px;
     width: 100%;
+  }
+  .transaction-synchronization-text {
+    color: #ff0202;
+    position: initial;
+    margin-top: 52px;
   }
 }
 .paddingLeft-30 {
@@ -6595,6 +6610,18 @@ button {
   width: 83%;
   margin: 0 auto;
 }
+.main_mid_token {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  /*border-radius: 12px;*/
+  /*box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);*/
+  /*border: solid 1px #e3e7eb;*/
+  border-top: solid 1px #e3e7eb;
+  background-color: #ffffff;
+  width: 83%;
+  margin: 0 auto;
+}
 .main_mid_address {
   display: flex;
   flex-direction: row;
@@ -6622,6 +6649,14 @@ button {
     height: 198px;
     padding: 12px 15px 15px 15px;
   }
+  .main_mid_token {
+    display: flex;
+    flex-direction: column;
+    width: 41.5rem;
+    margin-top: 45px;
+    /* height: 11.875rem; */
+  }
+  
 }
 
 @media (min-width: 1240px) {
@@ -6636,6 +6671,13 @@ button {
     width: 75.125rem;
     height: 6.183rem;
     margin-top: 50px;
+  }
+  .main_mid_token {
+    display: flex;
+    width: 75.125rem;
+    /* height: 6.183rem; */
+    margin-top: 20px;
+    padding-top: 25px;
   }
 }
 

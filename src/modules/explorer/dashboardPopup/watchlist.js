@@ -326,14 +326,14 @@ export default function FormDialog(props) {
           request.userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
           JSON.stringify(watchlists)
       );
+      setOpen(false);
+      setAddressAdded(true);
+      setOpenAlert(true);
       utility.apiSuccessToast("Address added to watchlist");
       setAddress("");
       setDescription("");
-      setOpen(false);
       await props.getWatchlistList();
       await props.getTotalCountWatchlist();
-      setAddressAdded(true);
-      setOpenAlert(true);
     }
   };
   const closeAlert = () => {
@@ -440,7 +440,7 @@ export default function FormDialog(props) {
       >
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
-        {isSize === false ? (!addressAdded ? (
+        {isSize === false ? (
           // <div className={classes.createWatchlist}>
           <Dialog
             className={classes.dialog}
@@ -574,13 +574,12 @@ export default function FormDialog(props) {
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
-          </Dialog>):(
-              <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>
-            )
+          </Dialog>
           // </div>
         ) : (
           <Test />
         )}
+        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
       </div>
     </>
   );
