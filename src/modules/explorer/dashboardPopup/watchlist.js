@@ -326,12 +326,12 @@ export default function FormDialog(props) {
           request.userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
           JSON.stringify(watchlists)
       );
+      setOpen(false);
       setAddressAdded(true);
       setOpenAlert(true);
       utility.apiSuccessToast("Address added to watchlist");
       setAddress("");
       setDescription("");
-      setOpen(false);
       await props.getWatchlistList();
       await props.getTotalCountWatchlist();
     }

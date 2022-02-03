@@ -475,9 +475,22 @@
   font-weight: bold;
   padding-top: 3px;
 }
+.textShowRecordBlock {
+  font-family: Inter;
+  font-size: 0.875rem;
+  text-align: left;
+  color: #2a2a2a;
+  border-radius: 4px;
+  font-weight: bold;
+  padding-top: 8px;
+}
 @media (max-width: 767px) {
   .text {
     font-size: 12px;
+  }
+  .textShowRecordBlock {
+    font-size: 12px;
+    padding-top: 0px;
   }
 }
 .btn-contract {
@@ -819,11 +832,11 @@
     color: #2a2a2a;
   }
 
-  .select-amount {
+  /* .select-amount {
     width: 65px;
     height: 34px;
     margin: -7px 13px 0 11px;
-  }
+  } */
   /* .select-amount {
     width: 3.125rem;
     height: 2.188rem;

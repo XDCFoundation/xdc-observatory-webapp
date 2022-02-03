@@ -25,12 +25,16 @@ export default function NewFeature(props) {
   }, [closeForNow]);
 
   const [open, setOpen] = React.useState(true);
-  const [signUp, setSignUp] = React.useState(false);
+  const [openSignUp, setOpenSignUp] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
-    setSignUp(false);
+    setOpenSignUp(false);
     setCloseForNow(true);
   };
+  const handleOpenSignUp = () => {
+    setOpenSignUp(true);
+    setCloseForNow(true);
+  }
   //   const { onClose, selectedValue, open } = props;
 
   //   const handleClose = () => {
@@ -101,9 +105,10 @@ export default function NewFeature(props) {
 
   return (
     <>{props.setIsCookiesAccepted ? (window.innerWidth >= 768 || newFeatureOpenInMobile ?
+      (!openSignUp ?
       (!userInfo && !closeForNow ?
 
-        (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
+         <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
           <div className="main-box" >
             <Row className="main-row">
             {window.innerWidth >=768 ? 
@@ -156,10 +161,7 @@ export default function NewFeature(props) {
             </Row>
 
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <div className="sign-up-button" onClick={() => {
-                setSignUp(true);
-                setCloseForNow(true);
-              }}>
+              <div className="sign-up-button" onClick={handleOpenSignUp}>
 
                 <div className="main-sing-up-text"> Sign Up</div>
               </div>
@@ -173,7 +175,7 @@ export default function NewFeature(props) {
             </div>
           </div>
         </Dialog> :
-          <FormDialog isNewFeatureComponent={true} />) : ("")):
+           ("")) :<FormDialog isNewFeatureComponent={true} />):
           (!userInfo && !closeForNow && isOpenMobileAlert ?
             <>
             <div className={classes.alertContainerMob}>
