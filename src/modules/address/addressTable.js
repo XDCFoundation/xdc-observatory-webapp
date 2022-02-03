@@ -1166,6 +1166,7 @@ export default function AddressTableComponent(props) {
               </Grid>
             )}</>) : ("")}
         </Grid>
+        <div className="transaction-synchronization-text">Some transactions might not be visible as transaction synchronization is in progress</div>
       </Grid>
     </div>
   );

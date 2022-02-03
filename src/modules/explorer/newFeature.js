@@ -158,6 +158,7 @@ export default function NewFeature(props) {
             <div style={{ display: "flex", justifyContent: "center" }}>
               <div className="sign-up-button" onClick={() => {
                 setSignUp(true);
+                setCloseForNow(true);
               }}>
 
                 <div className="main-sing-up-text"> Sign Up</div>
