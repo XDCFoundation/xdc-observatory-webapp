@@ -42,7 +42,7 @@ const RightContainer = styled.div`
     height: 478px;
   }
   @media (max-width: 767px) {
-    width: 100%;
+    width:20rem;
   }
 `;
 const XDC = styled.div`
@@ -81,7 +81,7 @@ const SecondLineText = styled.div`
 `;
 const RightBottomText = styled.div`
   display: flex;
-  margin: 25px 0px 25px 0px;
+  margin: 25px 0px 30px 0px;
   align-items: center;
 `;
 const LogoText = styled.div`
@@ -103,6 +103,7 @@ const RightContainerMain = styled.div`
   flex-direction: column;
   @media (max-width: 767px) {
     margin: 30px 0;
+    padding: 0 10px;
   }
 `;
 const RightTopContainer = styled.div`
@@ -111,12 +112,12 @@ const RightTopContainer = styled.div`
   flex-direction: column;
 `;
 const RightBelowContainer = styled.div`
-@media(max-width:767px){
-  margin-top:10px
-}
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
 `;
 const ButtonGlobalid = styled.button`
-  width: 100%;
+  width: 478px;
   height: 50px;
   margin: 15px 0;
   border-radius: 29px;
@@ -153,8 +154,9 @@ const RightTopText = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 17px;
   }
-  @media(max-width:767px){
-    font-size: 17px
+  @media (max-width: 767px) {
+    font-size: 17px;
+    margin:0 55px 0 35px
   }
 `;
 const RightTopText2 = styled.span`
@@ -170,7 +172,7 @@ const RightTopText2 = styled.span`
   }
   @media(max-width:767px){
     font-size:14px
-    width:70%
+    width:75%
   }
 `;
 const RightBottomLogoText = styled.div`
@@ -181,12 +183,14 @@ const RightBottomLogoText = styled.div`
   line-height: normal;
   color: #2a2a2a;
   margin-left: 20px;
+  width:80%;
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
+    width:83%;
   }
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
-    width:67%
+    width: 75%;
   }
 `;
 const SignUpBottom = styled.div`
@@ -232,8 +236,7 @@ const RightTopDiv = styled.div`
   justify-content: center;
   @media (max-width: 767px) {
     justify-content: space-between;
-    width: 75%;
-    align-items:center
+    align-items: center;
   }
 `;
 const RightTopBack = styled.div`
@@ -241,8 +244,12 @@ const RightTopBack = styled.div`
     display: none;
   }
   display: flex;
-  width:20px;
-  height:20px;
+  width: 20px;
+  height: 20px;
+`;
+const GlobalIdButtonContinue = styled.div`
+display:flex;
+justify-content:center;
 `;
 export default function GlobalIdCon() {
   const [LoginText, setLoginText] = useState(1);
@@ -389,15 +396,16 @@ export default function GlobalIdCon() {
                       and secure with the latest state of the art encryption.
                     </RightBottomLogoText>
                   </RightBottomText>
-
-                  <a
-                    href={
-                      "https://connect.global.id/?client_id=808e791a-70b4-43a4-bb30-6f33c610d4ec&response_type=code&scope=openid&redirect_uri=https://observer.xdc.org/&qr_only=true&acrc_id=35fde324-7736-491a-b89f-c29854417300&document_id=tos pp&nonce=" +
-                      randomText
-                    }
-                  >
-                    <ButtonGlobalid>Continue with GlobaliD</ButtonGlobalid>
-                  </a>
+                  <GlobalIdButtonContinue>
+                    <a
+                      href={
+                        "https://connect.global.id/?client_id=808e791a-70b4-43a4-bb30-6f33c610d4ec&response_type=code&scope=openid&redirect_uri=https://observer.xdc.org/&qr_only=true&acrc_id=35fde324-7736-491a-b89f-c29854417300&document_id=tos pp&nonce=" +
+                        randomText
+                      }
+                    >
+                      <ButtonGlobalid>Continue with GlobaliD</ButtonGlobalid>
+                    </a>
+                  </GlobalIdButtonContinue>
 
                   {/* <SignUpBottom>
                     {" "}
