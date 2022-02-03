@@ -139,6 +139,11 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginRight: 0,
   },
+  xdcBeta: {
+    position: "absolute",
+    marginLeft: "138px",
+    marginTop: "49px",
+  },
 
   "@media (min-width: 768px) ": {
     list: {
@@ -159,6 +164,11 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerHeaderImage: {
       padding: "3px 0 0 0",
+    },
+    xdcBeta: {
+      position: "absolute",
+      marginLeft: "95px",
+      marginTop: "65px",
     },
   },
   fullList: {
@@ -1002,8 +1012,9 @@ export default function Navbar() {
         <div className="exp-parent">
           <img
             className="Shape3"
-            src={"/images/xdc-observatory-beta.svg"}
+            src={"/images/xdc-observatory.svg"}
           ></img>
+          <img className={classes.xdcBeta} src={"/images/xdc-beta.svg"}></img>
           {/* <div className="exp">XDC Observatory</div> */}
         </div>
         {/* ------------ Search bar ----------------- */}

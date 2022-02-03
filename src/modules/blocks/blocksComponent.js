@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
-      height: "48.375rem",
+      // height: "48.375rem",
     },
   },
 });
@@ -263,7 +263,7 @@ export default function BlocksComponent(props) {
       </Paper>
       <Grid container style={{ marginTop: "28px" }} className="Pagination">
         <Grid item className="Pagination_1">
-          <span className="text">Show</span>
+          <span className="textShowRecordBlock">Show</span>
           <select
             value={props.state.amount}
             className="select-amount"
@@ -274,7 +274,7 @@ export default function BlocksComponent(props) {
             <option value={50}>50</option>
             <option value={100}>100</option>
           </select>
-          <span className="text">Records</span>
+          <span className="textShowRecordBlock">Records</span>
         </Grid>
 
         <Grid item className="Pagination_2">

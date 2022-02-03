@@ -180,7 +180,7 @@ export default function TokenMarketDataTable(props) {
   return (
     <>
       <DeskTopView>
-        <div className="main_mid">
+        <div className="main_mid_token">
           <div className="main_child">
             <div className="cont-token-data">
               <p>Market Cap </p>
