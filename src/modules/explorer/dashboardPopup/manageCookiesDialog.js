@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: "680px",
         width: "100%",
         borderRadius: "12px",
+        zIndex: "100000"
     },
     headingContainer: {
         display: "flex",
@@ -225,7 +226,7 @@ export default function ManageCookiesDialog(props) {
         >
             <div className={classes.headingContainer}>
                 <span className={classes.back} onClick={handleClose}>
-                    <img src={"/images/backbutton.svg"} alt="back"/>
+                    <img src={"/images/backButton.svg"} alt="back"/>
                 </span>
                 <span className={classes.heading}>Manage Consent Preferences</span>
                 <span className={classes.close} onClick={handleClose}>
