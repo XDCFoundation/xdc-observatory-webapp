@@ -721,7 +721,6 @@ export default function FormDialog(props) {
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
 
   const handleSignUp = async (e) => {
-    setValue(4)
     e.preventDefault();
     const data = {
       name: userName,

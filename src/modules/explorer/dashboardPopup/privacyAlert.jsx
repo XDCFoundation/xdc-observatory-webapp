@@ -221,7 +221,7 @@ export default function StorageMessage() {
 
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
-      privacyConsent: isPrivacyAccepted
+      privacyConsent: true
     };
     const [error, response] = await utility.parseResponse(
       PrivacyConsent.privacyConsent(request)

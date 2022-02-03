@@ -79,7 +79,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function AlertDialog(props) {
-  console.log("alert-props",props)
   const classes = useStyles();
 
   const [closeDialog, setCloseDialog] = useState("");
@@ -108,7 +107,7 @@ export default function AlertDialog(props) {
   //------------------------> permanent close alert dialog <-----------------------//
   const alertChecked = sessionManager.getDataFromCookies("alertChecked");
   const handleAlertChecked = () => {
-    if (alertChecked === true) {
+    if (permanentClose === true) {
       setPermanentClose(false);
     } else {
       setPermanentClose(true);
@@ -117,15 +116,14 @@ export default function AlertDialog(props) {
   sessionManager.setDataInCookies(permanentClose, "alertChecked");
 
   return (
-    <div>{ !closeForNowAlert || !alertChecked ?
+    <div>
+      { !closeForNowAlert || !alertChecked ?
       <Dialog
         classes={{ paperWidthSm: classes.dialogBox }}
         open={props.openAlert}
         // onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        {console.log("alertchecked",alertChecked)}
-        {console.log("permanentClose",permanentClose)}
           <div>
             <DialogContent className={classes.globalTextContainer}>
               <div className="privacy-is-very-important">

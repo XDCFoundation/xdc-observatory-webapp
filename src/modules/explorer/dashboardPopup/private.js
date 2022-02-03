@@ -299,10 +299,10 @@ export default function FormDialog(props) {
         data.userId + cookiesConstants.USER_TAGGED_ADDRESS,
         JSON.stringify(taggedAddress)
       );
+      setOpen(false);
       setAddressAdded(true);
       setOpenAlert(true);
       utility.apiSuccessToast("Tag Added");
-      setOpen(false);
       await props.getListOfTagAddress();
       await props.getTotalCountTagAddress();
     }

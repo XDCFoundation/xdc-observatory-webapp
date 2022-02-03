@@ -286,8 +286,8 @@ async function getTagAddresstList(requestData) {
 }
 
 async function privacyConsent(data) {
-  let url ="https://1lzur2qul1.execute-api.us-east-2.amazonaws.com/prod/auth-srv/privacy-consent"
-    // process.env.REACT_PRIVACY_CONSENT;
+  let url =
+    process.env.REACT_APP_PRIVACY_CONSENT;
     
   return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {

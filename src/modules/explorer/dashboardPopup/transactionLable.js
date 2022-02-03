@@ -283,12 +283,12 @@ export default function FormDialog(props) {
           sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS,
         JSON.stringify(transactionLabel)
       );
+      setOpen(false);
       setAddressAdded(true);
       setOpenAlert(true);
       utility.apiSuccessToast("Transaction Added");
       setTransactionsHash("");
       setPrivateNote("");
-      setOpen(false);
       await props.getListOfTxnLabel();
       await props.getTotalCountTxnLabel();
     }

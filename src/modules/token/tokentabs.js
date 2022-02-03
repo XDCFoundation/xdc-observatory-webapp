@@ -82,6 +82,7 @@ export default function SimpleTabs(props) {
   const contractData = props?.contractStatusData
     ? props?.contractStatusData
     : {};
+    console.log("contract",contractData.contractStatus)
   return (
     <div>
       {/* <Grid lg={10} className="table-grid-block3"> */}
@@ -164,7 +165,8 @@ export default function SimpleTabs(props) {
               >
                 Code
               </button>
-              <button
+              { contractData?.contractStatus === "Verified" ?
+              (<><button
                 className={
                   toggleState === 5
                     ? "token-data-tabs active-tabs-token"
@@ -183,7 +185,7 @@ export default function SimpleTabs(props) {
                 onClick={() => toggleTab(6)}
               >
                 Write Contract
-              </button>
+              </button></>):(<></>)}
             </div>
             {/* </div>
             </div> */}
