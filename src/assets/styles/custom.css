@@ -3829,10 +3829,11 @@ body {
 .dates {
   display: flex;
   justify-content: space-between;
+  padding-left: 50px;
 }
 
 .dates p {
-  font-size: 0.75rem;
+  font-size: 11px;
   font-family: Inter;
   font-weight: normal;
   font-stretch: normal;
@@ -8986,7 +8987,7 @@ button {
   }
   .grid-block-table-global-id {
     /* width: 100% !important; */
-    width: 22.5rem !important;
+    width: 20rem !important;
   }
   .container_sec {
     display: flex;
@@ -9994,7 +9995,7 @@ button {
     width: 21rem !important;
   }
   .grid-block-table-global-id {
-    width: 22.5rem !important;
+    width: 20rem !important;
   }
   .sec-block-mb {
     margin-left: 0rem !important;
