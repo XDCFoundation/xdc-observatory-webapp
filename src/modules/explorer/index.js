@@ -34,6 +34,7 @@ class BlockChainClass extends BaseComponent {
             let code = params.get('code')
             const [error, response] = await utility.parseResponse(GlobalIdService.getGlobalIdTokens(code));
             if (error){
+                this.setState({ isLoading: false })
                 utility.apiFailureToast(error?.message ? error.message : "Cannot get tokens")
                 history.push("/")
                 return;
@@ -47,6 +48,7 @@ class BlockChainClass extends BaseComponent {
             }
             let [userInfoError, userInforesponse] = await utility.parseResponse(GlobalIdService.getGlobalIdUserInfo(requestData));
             if (userInfoError){
+                this.setState({ isLoading: false })
                 utility.apiFailureToast(userInfoError?.message ? userInfoError.message : "Cannot login")
                 history.push("/")
                 return;
@@ -64,7 +66,7 @@ class BlockChainClass extends BaseComponent {
                 "userId"
             );
             sessionManager.removeDataFromCookies("activateAccountEmail");
-            history.push("/loginprofile")           
+            window.location.href("/loginProfile");
             this.setState({ isLoading: false })
 
         }
