@@ -5103,9 +5103,24 @@ button {
   padding-left: 2px;
   /*margin-top: 8px;*/
   /*margin-right: 25px;*/
-  /*animation: fadeInAnimation ease 2s;*/
-  /*animation-iteration-count: inherit;*/
-  /*animation-fill-mode: forwards;*/
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: inherit;
+  animation-fill-mode: forwards;
+}
+.first-block-timestamp {
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  color: #2a2a2a !important;
+  padding-left: 2px;
+  /*margin-top: 8px;*/
+  /*margin-right: 25px;*/
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: inherit;
+  animation-fill-mode: forwards;
 }
 @media (min-width: 1240px) {
   .first-block-age {
@@ -5118,6 +5133,18 @@ button {
 
     text-align: left;
     color: #2149b9 !important;
+    /*padding-left: 18px;*/
+  }
+  .first-block-timestamp {
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: left;
+    color: #2a2a2a !important;
     /*padding-left: 18px;*/
   }
 }
@@ -5134,6 +5161,18 @@ button {
     color: #2149b9 !important;
     height: 1.063rem;
   }
+  .first-block-timestamp {
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: left;
+    color: #2a2a2a !important;
+    height: 1.063rem;
+  }
 }
 @media (min-width: 768px) and (max-width: 1239px) {
   .first-block-age {
@@ -5146,6 +5185,18 @@ button {
 
     text-align: left;
     color: #2149b9 !important;
+    height: 1.063rem;
+  }
+  .first-block-timestamp {
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: left;
+    color: #2a2a2a !important;
     height: 1.063rem;
   }
 }
@@ -5250,9 +5301,9 @@ button {
   color: #2a2a2a;
   width: 400px;
   padding-left: 0px;
-  animation: fadeInAnimation ease 2s;
+  /* animation: fadeInAnimation ease 1s;
   animation-iteration-count: inherit;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards; */
 }
 @media (min-width: 1240px) {
   .second-transaction-amount {
