@@ -86,7 +86,7 @@ class LatestBlocks extends Component {
         blocks.unshift(blockData);
         let blockAnimationClass = { [blockData.number]: "first-block-age" };
         this.setState({ blockAnimation: blockAnimationClass });
-        let ageAnimationClass = { [blockData.number]: "second-block-age" };
+        let ageAnimationClass = { [blockData.number]: "first-block-timestamp" };
         this.setState({ ageAnimation: ageAnimationClass });
         let transactionAnimationClass = {
           [blockData.number]: "third-block-age",
@@ -117,7 +117,7 @@ class LatestBlocks extends Component {
         return item.hash === transactionData.hash;
       });
 
-      if (transactionDataExist === -1 && Number(transactionData.value) > 0) {
+      if (transactionDataExist === -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
         // if(Number(transactionData.value)>0)
