@@ -109,6 +109,7 @@ export default function StickyHeadTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [holders, setHolders] = useState([]);
   const [totalHolder, setTotalHolder] = useState({});
+  const [visibleRowCount, setVisibleRowCount] = useState({});
   const [noData, setNoData] = useState(true);
   const { address } = useParams();
   const [isLoading, setLoading] = useState(true);
@@ -156,6 +157,7 @@ export default function StickyHeadTable(props) {
     }
 
     setTotalHolder(tns?.responseCount);
+    setVisibleRowCount(tns?.data.length)
   };
 
   const handleChangePage = (action) => {
@@ -181,7 +183,7 @@ export default function StickyHeadTable(props) {
     }
 
     if (action === "last") {
-      let pageValue = +totalHolder - +rowsPerPage;
+      let pageValue = (Math.round(totalHolder / rowsPerPage)) * rowsPerPage;
       setPage(pageValue);
       values.skip = pageValue;
     }
@@ -609,21 +611,20 @@ export default function StickyHeadTable(props) {
               onClick={() => handleChangePage("prev")}
             >
               <p className="path">
-                <img alt="back" src={"/images/back.svg"} width="9px" />
+                <img className="rotate-180" alt="back" src={"/images/next.svg"} width="9px" />
               </p>
             </div>
             <div className="pagebox">
               <p className="Page-1-of-5">
                 Page{" "}
-                {Math.round(totalHolder / rowsPerPage) +
-                  1 -
+                {Math.round(totalHolder / rowsPerPage) -
                   Math.round((totalHolder - page) / rowsPerPage)}{" "}
                 of {Math.round(totalHolder / rowsPerPage)}
               </p>
             </div>
             <div
               className={
-                page + rowsPerPage === totalHolder
+                page + visibleRowCount === totalHolder
                   ? "nextbox disabled"
                   : "nextbox"
               }
@@ -634,7 +635,7 @@ export default function StickyHeadTable(props) {
             </div>
             <div
               className={
-                page + rowsPerPage === totalHolder
+                page + visibleRowCount === totalHolder
                   ? "lastbox disabled"
                   : "lastbox"
               }

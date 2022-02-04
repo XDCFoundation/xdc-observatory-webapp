@@ -517,7 +517,7 @@ export default function TransactionComponent(props) {
               props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"
             }
           >
-            <img alt="back" src={"/images/back.svg"} />{" "}
+            <img className="rotate-180" alt="back" src={"/images/next.svg"} />{" "}
           </button>
           <button className="btn btn-page">
             Page{" "}
