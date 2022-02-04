@@ -272,7 +272,6 @@ export default function Transaction({ _handleChange }) {
     sessionManager.getDataFromCookies("userId") +
       cookiesConstants.USER_TAGGED_ADDRESS
   );
-  console.log("taggedAddress ", taggedAddress);
   let tags =
     taggedAddress && taggedAddress.length > 0 ? JSON.parse(taggedAddress) : "";
   var tagValueFrom =
@@ -344,7 +343,6 @@ export default function Transaction({ _handleChange }) {
 
   let txnFee1 = txnFee.toString().split(".")[0];
   let txnFee2 = txnFee.toString().split(".")[1];
-  console.log(txnFee1,"<<")
 
   const transactionFetch =
     CurrencyValue === "INR"
