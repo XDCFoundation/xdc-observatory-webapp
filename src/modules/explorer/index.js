@@ -66,7 +66,7 @@ class BlockChainClass extends BaseComponent {
                 "userId"
             );
             sessionManager.removeDataFromCookies("activateAccountEmail");
-            window.location.href("/loginProfile");
+            window.location.href("/loginprofile");
             this.setState({ isLoading: false })
 
         }
