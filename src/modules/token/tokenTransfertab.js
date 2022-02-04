@@ -220,7 +220,7 @@ export default function StickyHeadTable() {
     }
 
     if (action == "last") {
-      let pageValue = totalToken - rowsPerPage;
+      let pageValue = (Math.ceil(totalToken / rowsPerPage)-1) * rowsPerPage;
       setPage(pageValue);
       let values = { addr: address, pageNum: pageValue, perpage: rowsPerPage };
       transferDetail(values);
@@ -630,7 +630,7 @@ export default function StickyHeadTable() {
               onClick={() => handleChangePage("prev")}
             >
               <p className="path">
-                <img src={"/images/back.svg"} width="9px" />
+                <img className="rotate-180" src={"/images/next.svg"} width="9px" />
               </p>
             </div>
             <div className="pagebox">
@@ -644,7 +644,7 @@ export default function StickyHeadTable() {
             </div>
             <div
               className={
-                page + rowsPerPage === totalToken
+                page + transfer.length === totalToken
                   ? "nextbox disabled"
                   : "nextbox"
               }
@@ -655,7 +655,7 @@ export default function StickyHeadTable() {
             </div>
             <div
               className={
-                page + rowsPerPage === totalToken
+                page + transfer.length === totalToken
                   ? "lastbox disabled"
                   : "lastbox"
               }
