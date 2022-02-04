@@ -589,7 +589,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._PrevPage(event)}
               className={props.state.from === 0 ? "btn disabled" : "btn"}
             >
-              <img className="back-arrow" src={"/images/back.svg"} />
+              <img className="back-arrow rotate-180" src={"/images/next.svg"} alt="back"/>
             </button>
             <button id="btn_12" className="btn">
               Page{" "}
@@ -602,7 +602,7 @@ export default function AccountComponent(props) {
               id="btn_12"
               onClick={(event) => props._NextPage(event)}
               className={
-                props.state.from + props.state.amount ===
+                props.state.from + props.state.accountList.length ===
                   props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
@@ -614,7 +614,7 @@ export default function AccountComponent(props) {
               id="btn_12"
               onClick={(event) => props._LastPage(event)}
               className={
-                props.state.from + props.state.amount ===
+                props.state.from + props.state.accountList.length ===
                   props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"

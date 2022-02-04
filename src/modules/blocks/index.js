@@ -101,7 +101,7 @@ export default class LatestBlocksList extends BaseComponent {
         this.getListOfBlocks(0, this.state.amount)
     }
     _LastPage = (event) => {
-        let from = this.state.totalblocks - this.state.amount
+        let from = (Math.round(this.state.totalblocks / this.state.amount)-1) * this.state.amount
         this.setState({ from })
         this.getListOfBlocks(from, this.state.amount)
     }

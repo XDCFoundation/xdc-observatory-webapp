@@ -40,6 +40,7 @@ export default function TransactionTableComponent(props) {
   const [reportaddress, setReportaddress] = useState([]);
   const [downloadaddress, setDownloadaddress] = useState([]);
   const [isDownloadActive, setDownloadActive] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(0);
   const [noData, setNoData] = useState(false);
   const [totalRecord, setTotalRecord] = useState(0);
   const [isLoading, setLoading] = useState(true);
@@ -67,6 +68,7 @@ export default function TransactionTableComponent(props) {
       let transactionSortByValue = responseData.sort((a, b) => {
         return Number(b.value) - Number(a.value);
       });
+      setVisibleCount(responseData.length);
       if (transactionSortByValue && transactionSortByValue.length > 0) {
         setAddress(transactionSortByValue);
         setLoading(false);
@@ -141,7 +143,7 @@ export default function TransactionTableComponent(props) {
       }
     }
     if (action === "last") {
-      let pagecount = +totalRecord - +amount;
+      let pagecount = (Math.ceil(parseInt(totalRecord) / parseInt(amount))-1) * amount;
       setFrom(parseInt(pagecount));
       if (keywords) {
         datas = {
@@ -800,7 +802,7 @@ export default function TransactionTableComponent(props) {
                     : "btn-contract"
                 }
               >
-                <img src={"/images/back.svg"} />
+                <img className="rotate-180" src={"/images/next.svg"} alt="back" />
               </button>
 
               <button className="btn-contract">
@@ -815,8 +817,8 @@ export default function TransactionTableComponent(props) {
               <button
                 onClick={() => handleChangePage("next")}
                 className={
-                  +from + +amount === totalRecord ||
-                  +from + +amount > totalRecord ||
+                  +from + visibleCount === totalRecord ||
+                  +from + visibleCount > totalRecord ||
                   totalRecord === 0
                     ? "btn-contract disabled"
                     : "btn-contract"
@@ -827,8 +829,8 @@ export default function TransactionTableComponent(props) {
               <button
                 onClick={() => handleChangePage("last")}
                 className={
-                  +from + +amount === totalRecord ||
-                  +from + +amount > totalRecord ||
+                  +from + visibleCount === totalRecord ||
+                  +from + visibleCount > totalRecord ||
                   totalRecord === 0
                     ? "btn-contract disabled"
                     : "btn-contract"

@@ -146,6 +146,7 @@ export default function StickyHeadTable(props) {
   const [totalToken, setTotalToken] = React.useState(0);
   const [keywords, setKeywords] = React.useState("");
   const [rows, setRows] = React.useState([]);
+  const [visibleTokenCount, setVisibleTokenCount] = React.useState(0);
   const [sortKey, setSortKey] = React.useState("");
   const [sortOrder, setSortOrder] = React.useState(0);
   let { token } = useParams();
@@ -182,7 +183,7 @@ export default function StickyHeadTable(props) {
     }
 
     if (action === "last") {
-      let page = totalToken - amount;
+      let page = (Math.ceil(totalToken / amount) - 1) * amount;
       setFrom(page);
       data.skip = page;
       data.limit = amount;
@@ -235,6 +236,7 @@ export default function StickyHeadTable(props) {
         setNoData(false);
         setLoading(false);
         setRows(responseData?.tokens);
+        setVisibleTokenCount(responseData?.tokens.length)
         setTotalToken(responseData?.totalCount);
       } else {
         setLoading(false);
@@ -926,7 +928,7 @@ export default function StickyHeadTable(props) {
               }
               onClick={() => handleChangePage("prev")}
             >
-              <img className="navigation-arrow" src={"/images/back.svg"} />
+              <img className="navigation-arrow rotate-180" src={"/images/next.svg"} />
 
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
@@ -941,7 +943,8 @@ export default function StickyHeadTable(props) {
             </div>
             <div
               className={
-                from + amount === totalToken
+                from + visibleTokenCount === totalToken
+                
                   ? "nextbox-contract disabled"
                   : "nextbox-contract"
               }
@@ -951,7 +954,7 @@ export default function StickyHeadTable(props) {
             </div>
             <div
               className={
-                from + amount === totalToken
+                from + visibleTokenCount === totalToken
                   ? "lastbox-contract disabled"
                   : "lastbox-contract"
               }
