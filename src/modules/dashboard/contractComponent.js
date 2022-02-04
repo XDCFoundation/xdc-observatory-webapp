@@ -163,7 +163,7 @@ class Contractlist extends React.Component {
       }
     }
     if (action === "last") {
-      let page = this.state.totalRecord - this.state.amount;
+      let page = (Math.ceil(this.state.totalRecord / this.state.amount)-1) * this.state.amount;
       this.setState({ from: page });
       if (this.state.keywords) {
         data = {
@@ -743,7 +743,7 @@ class Contractlist extends React.Component {
               }
               onClick={() => this.handleChangePage("prev")}
             >
-              <img className="navigation-arrow" src={"/images/back.svg"} />
+              <img className="navigation-arrow rotate-180" src={"/images/next.svg"} />
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
             <div className="pagebox-contract">
@@ -760,7 +760,7 @@ class Contractlist extends React.Component {
             </div>
             <div
               className={
-                this.state.from + this.state.amount === this.state.totalRecord
+                this.state.from + this.state.rows.length === this.state.totalRecord
                   ? "nextbox-contract disabled"
                   : "nextbox-contract"
               }
@@ -776,7 +776,7 @@ class Contractlist extends React.Component {
             </div>
             <div
               className={
-                +this.state.from + +this.state.amount === this.state.totalRecord
+                +this.state.from + this.state.rows.length === this.state.totalRecord
                   ? "lastbox-contract disabled"
                   : "lastbox-contract"
               }

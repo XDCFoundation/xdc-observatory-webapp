@@ -1013,7 +1013,7 @@ export default function SimpleTabs(props) {
               /> */}
               <Column style={{ margin: "0 15px" }}>
                 <Row className={classes.profileName} style={{ gap: "15px" }}>
-                  Welcome, {Utils.shortenUserName(setUserName())}
+                  Welcome, {setUserName()}
                 </Row>
 
                 {/* <Editprofile /> */}
