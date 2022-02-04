@@ -53,6 +53,7 @@ class BlockChainClass extends BaseComponent {
                 history.push("/")
                 return;
             }
+           
             userInforesponse = {...userInforesponse , sub:userInforesponse.userId}   
             sessionManager.setDataInCookies(userInforesponse, cookiesConstants.USER_INFO);
             sessionManager.setDataInCookies(true,cookiesConstants.IS_LOGGEDIN);
@@ -66,8 +67,9 @@ class BlockChainClass extends BaseComponent {
                 "userId"
             );
             sessionManager.removeDataFromCookies("activateAccountEmail");
-            window.location.href("/loginprofile");
+            window.location.href ="loginprofile";
             this.setState({ isLoading: false })
+          
 
         }
 
