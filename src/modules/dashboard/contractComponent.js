@@ -96,8 +96,8 @@ class Contractlist extends React.Component {
       tableColumns: {
         // "Address": {isActive: true, toolTipText: "Address of the contract"},
         "Token Name": { isActive: true, toolTipText: "Name of the token associated with the contract." },
-        "Contract Name": { isActive: true, toolTipText: "Name of the Smart Contract." },
-        "Token Yes/No": { isActive: true, toolTipText: "Whether the token is associated with the Smart Contract or not" }
+        // "Contract Name": { isActive: false, toolTipText: "Name of the Smart Contract." },
+        "Contract Type": { isActive: true, toolTipText: "Whether the token is associated with the Smart Contract or not" }
       },
       sortedByAddress: "",
       sortedByTokenName: "",
@@ -106,7 +106,7 @@ class Contractlist extends React.Component {
   }
   
   componentDidMount = () => {
-    let data = { pageNum: this.state.from, perpage: this.state.amount };
+    let data = { pageNum: this.state.from, perpage: this.state.amount , sortKey :{tokenName : -1}};
     this.getContractList(data);
     this.getTotalContractList();
     this.sortByTokenName();
@@ -519,7 +519,7 @@ class Contractlist extends React.Component {
                         />) : ""}
                     </TableCell>
                   )}
-                  {this.state.tableColumns["Contract Name"].isActive && (
+                  {/* {this.state.tableColumns["Contract Name"].isActive && (
                     <TableCell style={{ border: "none" }} align="left">
                       <span
                         style={{ fontSize: "14px" }}
@@ -549,14 +549,14 @@ class Contractlist extends React.Component {
                           />) : ""}
                       </span>
                     </TableCell>
-                  )}
-                  {this.state.tableColumns["Token Yes/No"].isActive && (
+                  )} */}
+                  {this.state.tableColumns["Contract Type"].isActive && (
                     <TableCell style={{ border: "none" }} align="left">
                       <span
                         style={{ fontSize: "14px" }}
                         className={"tableheaders"}
                       >
-                        Token Yes/No
+                        Contract Type
                         <Tooltip placement="top" title={messages.TOKEN_YES_NO}>
                           <img
                             alt="question-mark"
@@ -584,11 +584,13 @@ class Contractlist extends React.Component {
                 <TableBody>
                   {this.state.rows.map((row, index) => {
                     let isToken = "";
-                    if (row.ERC == 0) {
-                      isToken = "No";
-                    } else {
-                      isToken = "Yes";
-                    }
+                     if(row.ERC === 2)
+                      isToken = "ERC20";
+                      else if(row.ERC === 721)
+                      isToken = "ERC721";
+                     else 
+                      isToken = "Others";
+                    
                     return (
                       <TableRow
                         key={row.name}
@@ -623,7 +625,7 @@ class Contractlist extends React.Component {
                             </span>
                           </TableCell>
                         )}
-                        {this.state.tableColumns["Contract Name"].isActive && (
+                        {/* {this.state.tableColumns["Contract Name"].isActive && (
                           <TableCell id="td" style={{ borderBottom: "none" }}>
                             <span
                               className="tabledata"
@@ -632,8 +634,8 @@ class Contractlist extends React.Component {
                               {row.contractName}
                             </span>
                           </TableCell>
-                        )}
-                        {this.state.tableColumns["Token Yes/No"].isActive && (
+                        )} */}
+                        {this.state.tableColumns["Contract Type"].isActive && (
                           <TableCell id="td" style={{ borderBottom: "none" }}>
                             <span
                               className="tabledata"
