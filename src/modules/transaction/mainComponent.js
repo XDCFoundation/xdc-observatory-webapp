@@ -25,14 +25,14 @@ export default class LatestTransactionList extends BaseComponent {
       isData: false,
       tableColumns: {
         // "Transaction Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
-        "Amount": { isActive: true, toolTipText: toolTipMessages.value },
-        "Age": { isActive: true, toolTipText: toolTipMessages.age },
-        "Date": { isActive: true, toolTipText: toolTipMessages.date },
+        Amount: { isActive: true, toolTipText: toolTipMessages.value },
+        Age: { isActive: true, toolTipText: toolTipMessages.age },
+        Date: { isActive: true, toolTipText: toolTipMessages.date },
         // "Date and Time": {isActive: true},
-        "Block": { isActive: true, toolTipText: toolTipMessages.blocknumber },
+        Block: { isActive: true, toolTipText: toolTipMessages.blocknumber },
         // "From Address": {isActive: true, toolTipText: toolTipMessages.from},
         // "To Address": {isActive: true, toolTipText: toolTipMessages.to},
-      }
+      },
     };
   }
 
@@ -88,7 +88,7 @@ export default class LatestTransactionList extends BaseComponent {
         return item.hash === transactionData.hash;
       });
 
-      if (transactionDataExist === -1 && this.state.from === 0 ){
+      if (transactionDataExist === -1 && this.state.from === 0) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
         let hashAnimationClass = {

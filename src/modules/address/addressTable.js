@@ -32,7 +32,7 @@ const SearchAndExportDiv = styled.div`
   @media (max-width: 767px) {
     flex-direction: column;
   }
-`
+`;
 
 const useStyles = makeStyles({
   container: {
@@ -68,9 +68,9 @@ export default function AddressTableComponent(props) {
   const [address, setAddress] = useState([]);
   const [txtAddress, setTxtAddress] = useState("");
   const [searchAndFilters, setSearchAndFilters] = useState({
-    searchQuery: '',
-    type: 'ALL',
-    status: 'all',
+    searchQuery: "",
+    type: "ALL",
+    status: "all",
     startDate: moment(),
     endDate: moment(),
   });
@@ -207,23 +207,26 @@ export default function AddressTableComponent(props) {
     const skip = data?.pageNum || 0;
     const limit = data?.perpage || 10;
     const sortKey = data?.sortKey || "blockNumber";
-    const sortType = data?.sortType
-    const requestData = { skip, limit, sortKey, sortType }
-    requestData.address = data?.addrr || addr
-    const filtersData = filters || searchAndFilters
+    const sortType = data?.sortType;
+    const requestData = { skip, limit, sortKey, sortType };
+    requestData.address = data?.addrr || addr;
+    const filtersData = filters || searchAndFilters;
     if (filtersData.searchQuery) {
-      requestData.searchValue = filtersData.searchQuery
-      requestData.searchKeys = ["from", "to", "hash"]
+      requestData.searchValue = filtersData.searchQuery;
+      requestData.searchKeys = ["from", "to", "hash"];
     }
-    if (filtersData.type && filtersData.type !== 'ALL')
-      requestData.txnType = filtersData.type
-    if (filtersData.status && filtersData.status !== 'all')
-      requestData.status = filtersData.status
-    if (filtersData?.startDate?.toDate().toDateString() !== filtersData?.endDate?.toDate().toDateString()) {
+    if (filtersData.type && filtersData.type !== "ALL")
+      requestData.txnType = filtersData.type;
+    if (filtersData.status && filtersData.status !== "all")
+      requestData.status = filtersData.status;
+    if (
+      filtersData?.startDate?.toDate().toDateString() !==
+      filtersData?.endDate?.toDate().toDateString()
+    ) {
       if (filtersData.startDate)
-        requestData.startDate = filtersData?.startDate?.toDate()?.getTime()
+        requestData.startDate = filtersData?.startDate?.toDate()?.getTime();
       if (filtersData.endDate)
-        requestData.endDate = filtersData?.endDate?.toDate()?.getTime()
+        requestData.endDate = filtersData?.endDate?.toDate()?.getTime();
     }
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -258,10 +261,12 @@ export default function AddressTableComponent(props) {
   };
 
   const getFiltersForAccountTransaction = async (data) => {
-    const [error, responseData] = await Utility.parseResponse(AddressData.getFiltersForAccountTransaction(data));
+    const [error, responseData] = await Utility.parseResponse(
+      AddressData.getFiltersForAccountTransaction(data)
+    );
     setSearchAndFilters({
       ...searchAndFilters,
-      startDate: error ? moment() : moment(responseData.startDate)
+      startDate: error ? moment() : moment(responseData.startDate),
     });
   };
   useEffect(() => {
@@ -482,17 +487,24 @@ export default function AddressTableComponent(props) {
   const [toTT, settoTT] = React.useState(false);
 
   const updateFiltersAndGetAccounts = async (filters) => {
-    await setSearchAndFilters(filters)
-    if (filters.searchQuery || filters.type || filters.status !== 'all' /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/)
-      setLoading(true)
-    getAddressDetails({}, filters)
-  }
+    await setSearchAndFilters(filters);
+    if (
+      filters.searchQuery ||
+      filters.type ||
+      filters.status !==
+        "all" /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/
+    )
+      setLoading(true);
+    getAddressDetails({}, filters);
+  };
 
   return (
     <div>
       <SearchAndExportDiv>
-        <SearchAndFiltersComponent searchAndFilters={searchAndFilters}
-          updateFiltersAndGetAccounts={updateFiltersAndGetAccounts} />
+        <SearchAndFiltersComponent
+          searchAndFilters={searchAndFilters}
+          updateFiltersAndGetAccounts={updateFiltersAndGetAccounts}
+        />
         {isDownloadActive ? (
           <CSVLink
             filename={"transactions.csv"}
@@ -615,7 +627,12 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-block cursor-pointer"} onClick={() => {sortData("blockNumber");}}>
+                    <span
+                      className={"tableheaders table-block cursor-pointer"}
+                      onClick={() => {
+                        sortData("blockNumber");
+                      }}
+                    >
                       Block
                       <Tooltip
                         open={blockTT}
@@ -637,33 +654,37 @@ export default function AddressTableComponent(props) {
                       placement="top"
                       title={getSortTitle("blockNumber")}
                     >
-                      {sortingKey && sortingKey === "blockNumber" ? (sortToggle.blockNumber == -1 ? (
-                        // <ArrowUpwardIcon
+                      {sortingKey && sortingKey === "blockNumber" ? (
+                        sortToggle.blockNumber == -1 ? (
+                          // <ArrowUpwardIcon
                           // onClick={() => {
                           //   sortData("blockNumber");
                           // }}
-                        //   className={classes.sortButton}
-                        // />
-                        <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon rotate-180"
-                        />
+                          //   className={classes.sortButton}
+                          // />
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                          />
+                        ) : (
+                          // <ArrowDownwardIcon
+                          //   onClick={() => {
+                          //     sortData("blockNumber");
+                          //   }}
+                          //   className={classes.sortButton}
+                          // />
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        )
                       ) : (
-                        // <ArrowDownwardIcon
-                        //   onClick={() => {
-                        //     sortData("blockNumber");
-                        //   }}
-                        //   className={classes.sortButton}
-                        // />
-                        <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      )):(<></>)}
+                        <></>
+                      )}
                     </Tooltip>
                   </TableCell>
                   <TableCell
@@ -675,7 +696,12 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-from cursor-pointer"} onClick={() => {sortData("from");}}>
+                    <span
+                      className={"tableheaders table-from cursor-pointer"}
+                      onClick={() => {
+                        sortData("from");
+                      }}
+                    >
                       From
                       <Tooltip
                         open={fromTT}
@@ -695,33 +721,37 @@ export default function AddressTableComponent(props) {
                     </span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("from")}>
-                        {sortingKey && sortingKey === "from" ? (sortToggle.from == 1 ? (
-                          // <ArrowUpwardIcon
-                          //   onClick={() => {
-                          //     sortData("from");
-                          //   }}
-                          //   className={classes.sortButton}
-                          // />
-                          <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon rotate-180"
-                        />
+                        {sortingKey && sortingKey === "from" ? (
+                          sortToggle.from == 1 ? (
+                            // <ArrowUpwardIcon
+                            //   onClick={() => {
+                            //     sortData("from");
+                            //   }}
+                            //   className={classes.sortButton}
+                            // />
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                            />
+                          ) : (
+                            // <ArrowDownwardIcon
+                            //   onClick={() => {
+                            //     sortData("from");
+                            //   }}
+                            //   className={classes.sortButton}
+                            // />
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          )
                         ) : (
-                          // <ArrowDownwardIcon
-                          //   onClick={() => {
-                          //     sortData("from");
-                          //   }}
-                          //   className={classes.sortButton}
-                          // />
-                          <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                        )):(<></>)}
+                          <></>
+                        )}
                       </Tooltip>
                     </button>
                   </TableCell>
@@ -734,7 +764,7 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-value"}/>
+                    <span className={"tableheaders table-value"} />
                   </TableCell>
                   <TableCell
                     className="w-450 w-18"
@@ -745,7 +775,12 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-to cursor-pointer"} onClick={() => {sortData("to");}}>
+                    <span
+                      className={"tableheaders table-to cursor-pointer"}
+                      onClick={() => {
+                        sortData("to");
+                      }}
+                    >
                       To
                       <Tooltip
                         open={toTT}
@@ -765,33 +800,37 @@ export default function AddressTableComponent(props) {
                     </span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("to")}>
-                        {sortingKey && sortingKey === "to" ? (sortToggle.to == 1 ? (
-                          // <ArrowUpwardIcon
-                          //   onClick={() => {
-                          //     sortData("to");
-                          //   }}
-                          //   className={classes.sortButton}
-                          // />
-                          <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon rotate-180"
-                        />
+                        {sortingKey && sortingKey === "to" ? (
+                          sortToggle.to == 1 ? (
+                            // <ArrowUpwardIcon
+                            //   onClick={() => {
+                            //     sortData("to");
+                            //   }}
+                            //   className={classes.sortButton}
+                            // />
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                            />
+                          ) : (
+                            // <ArrowDownwardIcon
+                            //   onClick={() => {
+                            //     sortData("from");
+                            //   }}
+                            //   className={classes.sortButton}
+                            // />
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          )
                         ) : (
-                          // <ArrowDownwardIcon
-                          //   onClick={() => {
-                          //     sortData("from");
-                          //   }}
-                          //   className={classes.sortButton}
-                          // />
-                          <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                        )):(<></>)}
+                          <></>
+                        )}
                       </Tooltip>
                     </button>
                   </TableCell>
@@ -804,36 +843,47 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-value cursor-pointer"} onClick={() => {sortData("value");}}>Value</span>
+                    <span
+                      className={"tableheaders table-value cursor-pointer"}
+                      onClick={() => {
+                        sortData("value");
+                      }}
+                    >
+                      Value
+                    </span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("value")}>
-                        {sortingKey && sortingKey === "value"  ? (sortToggle.value == -1 ? (
-                          // <ArrowUpwardIcon
-                          //   onClick={() => {
-                          //     sortData("value");
-                          //   }}
-                          //   className={classes.sortButton}
-                          // />
-                          <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon rotate-180"
-                        />
+                        {sortingKey && sortingKey === "value" ? (
+                          sortToggle.value == -1 ? (
+                            // <ArrowUpwardIcon
+                            //   onClick={() => {
+                            //     sortData("value");
+                            //   }}
+                            //   className={classes.sortButton}
+                            // />
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                            />
+                          ) : (
+                            // <ArrowDownwardIcon
+                            //   onClick={() => {
+                            //     sortData("value");
+                            //   }}
+                            //   className={classes.sortButton}
+                            // />
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          )
                         ) : (
-                          // <ArrowDownwardIcon
-                          //   onClick={() => {
-                          //     sortData("value");
-                          //   }}
-                          //   className={classes.sortButton}
-                          // />
-                          <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                        )):(<></>)}
+                          <></>
+                        )}
                       </Tooltip>
                     </button>
                   </TableCell>
@@ -854,19 +904,20 @@ export default function AddressTableComponent(props) {
                 noData == false && (
                   <TableBody>
                     {address.map((row, index) => {
-
                       const TimeAge = !row.Age
                         ? ""
-                        :
-                        moment(row.Age * 1000).format(
-                          "MMM DD, YYYY h:mm A"
-                        )
+                        : moment(row.Age * 1000).format("MMM DD, YYYY h:mm A");
 
-                      let transactionValue = row?.Value < 100000000 ? row?.Value * 1000000000000000000 : row?.Value;
-                      const value = row.Value > 0 && row.Value < 1 ? row.Value : Utility.decimalDivison(transactionValue, 8);
+                      let transactionValue =
+                        row?.Value < 100000000
+                          ? row?.Value * 1000000000000000000
+                          : row?.Value;
+                      const value =
+                        row.Value > 0 && row.Value < 1
+                          ? row.Value
+                          : Utility.decimalDivison(transactionValue, 8);
                       var value1 = value.toString().split(".")[0];
                       var value2 = value.toString().split(".")[1];
-
                       var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
                       var splittedArray = value2?.match(regex);
                       var bal4 =
@@ -934,18 +985,20 @@ export default function AddressTableComponent(props) {
                               <span className="tabledata">{row.Block}</span>
                             </a>
                           </TableCell>
-                          <TableCell style={{ border: "none" }} align="left"><a
-                            className="linkTable"
-                            href={"/address-details/" + row.From}
-                          >
-                            <Tooltip placement="top" title={row.From}>
-                              <span className="tabledata">
-                                {" "}
-                                {shorten(row.From)}
-                                {/* {let fromAddress = row.From} */}
-                              </span>
-                            </Tooltip>
-                          </a></TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <a
+                              className="linkTable"
+                              href={"/address-details/" + row.From}
+                            >
+                              <Tooltip placement="top" title={row.From}>
+                                <span className="tabledata">
+                                  {" "}
+                                  {shorten(row.From)}
+                                  {/* {let fromAddress = row.From} */}
+                                </span>
+                              </Tooltip>
+                            </a>
+                          </TableCell>
 
                           <TableCell style={{ border: "none" }} align="left">
                             <span className={row.From === addr ? "out" : "in"}>
@@ -977,7 +1030,7 @@ export default function AddressTableComponent(props) {
                               {value2 == null ? (
                                 <span className="tabledata cursor-pointer">
                                   {row.Value == 0 ? 0 : value1}
-                                  { } &nbsp;XDC
+                                  {} &nbsp;XDC
                                 </span>
                               ) : (
                                 <span className="tabledata cursor-pointer">
@@ -1035,138 +1088,148 @@ export default function AddressTableComponent(props) {
           className="page-container-address"
         >
           <Grid item className="pagination-tab-address">
-            {!isLoading && noData == true || totalRecord<10 ? (
+            {(!isLoading && noData == true) || totalRecord < 10 ? (
               ""
             ) : (
               <>
                 <span className="textShowRecord">Show</span>
-                <PageSelector value={rowsPerPage}
+                <PageSelector
+                  value={rowsPerPage}
                   height={30}
-                  handler={handleChangeRowsPerPage} />
+                  handler={handleChangeRowsPerPage}
+                />
                 <span className="textShowRecord">Records</span>
               </>
             )}
           </Grid>
           <Grid xs="1"></Grid>
-          {totalRecord > rowsPerPage ? (<>
-            {noData == true && (
-              <Grid
-                item
-                xs="7"
-                style={{
-                  flexBasis: "auto",
-                  display: "flex",
-                  alignItems: "baseline",
-                }}
-                className="pagination-page"
-              >
-                <button
-                  style={{ marginLeft: "0rem" }}
-                  onClick={() => handleChangePage("first")}
-                  className={
-                    page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
-                  }
+          {totalRecord > rowsPerPage ? (
+            <>
+              {noData == true && (
+                <Grid
+                  item
+                  xs="7"
+                  style={{
+                    flexBasis: "auto",
+                    display: "flex",
+                    alignItems: "baseline",
+                  }}
+                  className="pagination-page"
                 >
-                  First
-                </button>
-                <button
-                  onClick={() => handleChangePage("prev")}
-                  className={
-                    page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
-                  }
-                >
-                  <img className="back-arrow" src={"/images/back.svg"} />
-                </button>
-                <button className="btn">Page 0 of 0</button>
-                <button
-                  onClick={() => handleChangePage("next")}
-                  className={
-                    page + rowsPerPage === totalRecord ||
+                  <button
+                    style={{ marginLeft: "0rem" }}
+                    onClick={() => handleChangePage("first")}
+                    className={
+                      page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                    }
+                  >
+                    First
+                  </button>
+                  <button
+                    onClick={() => handleChangePage("prev")}
+                    className={
+                      page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                    }
+                  >
+                    <img className="back-arrow" src={"/images/back.svg"} />
+                  </button>
+                  <button className="btn">Page 0 of 0</button>
+                  <button
+                    onClick={() => handleChangePage("next")}
+                    className={
+                      page + rowsPerPage === totalRecord ||
                       +page + +rowsPerPage > totalRecord ||
                       totalRecord === 0
-                      ? "btn disabled"
-                      : "btn"
-                  }
-                >
-                  <img className="back-arrow" src={"/images/next.svg"} />
-                </button>
-                <button
-                  onClick={() => handleChangePage("last")}
-                  className={
-                    page + rowsPerPage === totalRecord ||
+                        ? "btn disabled"
+                        : "btn"
+                    }
+                  >
+                    <img className="back-arrow" src={"/images/next.svg"} />
+                  </button>
+                  <button
+                    onClick={() => handleChangePage("last")}
+                    className={
+                      page + rowsPerPage === totalRecord ||
                       +page + +rowsPerPage > totalRecord ||
                       totalRecord === 0
-                      ? "btn disabled"
-                      : "btn"
-                  }
+                        ? "btn disabled"
+                        : "btn"
+                    }
+                  >
+                    Last
+                  </button>
+                </Grid>
+              )}
+              {noData == false && (
+                <Grid
+                  item
+                  xs="7"
+                  style={{
+                    flexBasis: "auto",
+                    display: "flex",
+                    alignItems: "baseline",
+                  }}
+                  className="pagination-page"
                 >
-                  Last
-                </button>
-              </Grid>
-            )}
-            {noData == false && (
-              <Grid
-                item
-                xs="7"
-                style={{
-                  flexBasis: "auto",
-                  display: "flex",
-                  alignItems: "baseline",
-                }}
-                className="pagination-page"
-              >
-                <button
-                  style={{ marginLeft: "0rem" }}
-                  onClick={() => handleChangePage("first")}
-                  className={
-                    page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
-                  }
-                >
-                  First
-                </button>
-                <button
-                  onClick={() => handleChangePage("prev")}
-                  className={
-                    page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
-                  }
-                >
-                  <img className="back-arrow" src={"/images/back.svg"} />
-                </button>
-                <button className="btn">
-                  Page{" "}
-                  {Math.ceil(totalRecord / rowsPerPage) -
-                    Math.ceil((totalRecord - page) / rowsPerPage) +
-                    1}{" "}
-                  of {Math.ceil(totalRecord / rowsPerPage)}
-                </button>
-                <button
-                  onClick={() => handleChangePage("next")}
-                  className={
-                    page + rowsPerPage === totalRecord ||
+                  <button
+                    style={{ marginLeft: "0rem" }}
+                    onClick={() => handleChangePage("first")}
+                    className={
+                      page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                    }
+                  >
+                    First
+                  </button>
+                  <button
+                    onClick={() => handleChangePage("prev")}
+                    className={
+                      page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                    }
+                  >
+                    <img className="back-arrow" src={"/images/back.svg"} />
+                  </button>
+                  <button className="btn">
+                    Page{" "}
+                    {Math.ceil(totalRecord / rowsPerPage) -
+                      Math.ceil((totalRecord - page) / rowsPerPage) +
+                      1}{" "}
+                    of {Math.ceil(totalRecord / rowsPerPage)}
+                  </button>
+                  <button
+                    onClick={() => handleChangePage("next")}
+                    className={
+                      page + rowsPerPage === totalRecord ||
                       +page + +rowsPerPage > totalRecord ||
                       totalRecord === 0
-                      ? "btn disabled"
-                      : "btn"
-                  }
-                >
-                  <img className="back-arrow" src={"/images/next.svg"} />
-                </button>
-                <button
-                  onClick={() => handleChangePage("last")}
-                  className={
-                    page + rowsPerPage === totalRecord ||
+                        ? "btn disabled"
+                        : "btn"
+                    }
+                  >
+                    <img className="back-arrow" src={"/images/next.svg"} />
+                  </button>
+                  <button
+                    onClick={() => handleChangePage("last")}
+                    className={
+                      page + rowsPerPage === totalRecord ||
                       +page + +rowsPerPage > totalRecord ||
                       totalRecord === 0
-                      ? "btn disabled"
-                      : "btn"
-                  }
-                >
-                  Last
-                </button>
-              </Grid>
-            )}</>) : ("")}
+                        ? "btn disabled"
+                        : "btn"
+                    }
+                  >
+                    Last
+                  </button>
+                </Grid>
+              )}
+            </>
+          ) : (
+            ""
+          )}
         </Grid>
-        <div className="transaction-synchronization-text">Some transactions might not be visible as transaction synchronization is in progress</div>
+        <div className="transaction-synchronization-text">
+          Some transactions might not be visible as transaction synchronization
+          is in progress
+        </div>
       </Grid>
     </div>
   );
