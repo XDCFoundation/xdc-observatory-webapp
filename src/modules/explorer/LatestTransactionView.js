@@ -228,8 +228,9 @@ const LatestTransactionView = (props) => {
 
                                         {props?.showHash && (
                                             <TableCell id="td" className="w-150 bord-none" style={{ paddingLeft: '25px' }}>
-                                                <div className="display-flex"><TransactionDetailTooltip
-                                                    transactionAddress={row.hash} />
+                                                <div className="display-flex">
+                                                    {/* <TransactionDetailTooltip
+                                                    transactionAddress={row.hash} /> */}
                                                     <Tooltip placement="right" title={row.hash}>
                                                         <a
                                                             className="linkTable"

@@ -35,7 +35,7 @@ import LoaderComponent from "./common/components/loader";
 // import TestAddress from "./modules/explorer/dashboardPopup/TestAddress";
 // import ContractRead from "./modules/contractMethods/read";
 const TokenDataComponent = withRouter(lazy(() => import('./modules/token/tokenDataDashboard')));
-const LatestTransactionList = withRouter(lazy(() => import('./modules/transaction/index')));
+const LatestTransactionList = withRouter(lazy(() => import('./modules/transaction')));
 const LatestBlocksList = withRouter(lazy(() => import('./modules/blocks')));
 const BlockChainClass = withRouter(lazy(() => import('./modules/explorer')));
 const TokenList = withRouter(lazy(() => import('./modules/tokenList')));
@@ -88,12 +88,12 @@ class Routes extends BaseComponent {
               <Route
                 exact
                 path={"/view-all-transaction"}
-                component={() => <LatestTransactionList socketTrans={socket} />}
+                component={() => <LatestTransactionList  />}
               />
               <Route
                 exact
                 path={"/view-all-blocks"}
-                component={() => <LatestBlocksList socketblock={socket} />}
+                component={() => <LatestBlocksList  />}
               />
               <Route
                 exact

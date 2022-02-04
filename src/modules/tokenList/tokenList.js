@@ -742,17 +742,13 @@ export default function StickyHeadTable(props) {
                         row?.totalSupply,
                         row?.decimals
                       );
+                      
                       const supply =
-                        utility.divideByDecimalValue(
-                          row?.totalSupply,
-                          row?.decimals
-                        ) >= 1
+                      totalsupply >= 1
                           ? format({})(
+
                             utility.convertToInternationalCurrencySystem(
-                              utility.divideByDecimalValue(
-                                row?.totalSupply,
-                                row?.decimals
-                              )
+                              Number(totalsupply)
                             )
                           )
                           : utility.divideByDecimalValue(

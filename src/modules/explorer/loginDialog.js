@@ -1025,7 +1025,7 @@ export default function FormDialog(props) {
         }}
         className={classes.dialog}
         open={open || onOpen}
-        onClose={handleClose}
+        // onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <div onClick={handleClose} className={value === 4 ? "display-none" : classes.backButtonMobile}>
