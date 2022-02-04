@@ -82,7 +82,6 @@ export default function SimpleTabs(props) {
   const contractData = props?.contractStatusData
     ? props?.contractStatusData
     : {};
-    console.log("contract",contractData.contractStatus)
   return (
     <div>
       {/* <Grid lg={10} className="table-grid-block3"> */}

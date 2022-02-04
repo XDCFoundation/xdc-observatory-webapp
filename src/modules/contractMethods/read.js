@@ -267,7 +267,6 @@ export default function ContractRead(props) {
     } catch (error) {
       readFunctions[index].loading = false;
       readFunctions[index].error = "Transaction failed";
-      console.log(error);
       setState({
         ...state,
         readFunctions,
