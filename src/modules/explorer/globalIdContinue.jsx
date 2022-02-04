@@ -255,7 +255,6 @@ export default function GlobalIdCon() {
   const [LoginText, setLoginText] = useState(1);
   const history = useHistory();
   let { mode } = useParams();
-  console.log(typeof mode, "<<mode");
   function handleClick() {
     window.location.href = "/";
   }
