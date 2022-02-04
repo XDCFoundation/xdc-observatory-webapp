@@ -88,6 +88,8 @@ export default function AddressTableComponent(props) {
   const [isDownloadActive, setDownloadActive] = useState(0);
   const [noData, setNoData] = useState(false);
   const [arrowUpDown, setArrowUpDown] = useState(false);
+  const [ageArrow, setAgeArrow] = useState(false);
+  const [blockArrow, setBlockArrow] = useState(false);
   let showPerPage = 10;
   let datas = {};
   let data = {};
@@ -130,7 +132,7 @@ export default function AddressTableComponent(props) {
       }
     }
     if (action === "last") {
-      let pagecount = totalRecord - rowsPerPage;
+      let pagecount = (Math.ceil(totalRecord / rowsPerPage)-1) * rowsPerPage;
       setPage(pagecount);
       if (keywords) {
         datas = {
@@ -587,7 +589,10 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-age"}>
+                    <span className={"tableheaders table-age cursor-pointer"} onClick={() => {sortData("blockNumber")
+                      setAgeArrow(true);
+                      setBlockArrow(false);
+                      }}>
                       Age
                       <Tooltip
                         open={ageTT}
@@ -605,6 +610,26 @@ export default function AddressTableComponent(props) {
                         />
                       </Tooltip>
                     </span>
+                    <Tooltip
+                      placement="top"
+                      title={getSortTitle("blockNumber")}
+                    >
+                      {sortingKey && ageArrow && sortingKey === "blockNumber" ? (sortToggle.blockNumber == -1 ? (
+                        <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
+                        />
+                      ) : (
+                        <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      )):(<></>)}
+                    </Tooltip>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
@@ -615,7 +640,10 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-block cursor-pointer"} onClick={() => {sortData("blockNumber");}}>
+                    <span className={"tableheaders table-block cursor-pointer"} onClick={() => {sortData("blockNumber")
+                    setAgeArrow(false);
+                    setBlockArrow(true);
+                  }}>
                       Block
                       <Tooltip
                         open={blockTT}
@@ -637,7 +665,7 @@ export default function AddressTableComponent(props) {
                       placement="top"
                       title={getSortTitle("blockNumber")}
                     >
-                      {sortingKey && sortingKey === "blockNumber" ? (sortToggle.blockNumber == -1 ? (
+                      {blockArrow && sortingKey && sortingKey === "blockNumber" ? (sortToggle.blockNumber == -1 ? (
                         // <ArrowUpwardIcon
                           // onClick={() => {
                           //   sortData("blockNumber");
@@ -1075,7 +1103,7 @@ export default function AddressTableComponent(props) {
                     page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
                   }
                 >
-                  <img className="back-arrow" src={"/images/back.svg"} />
+                  <img className="back-arrow rotate-180" src={"/images/next.svg"} />
                 </button>
                 <button className="btn">Page 0 of 0</button>
                 <button
@@ -1130,7 +1158,7 @@ export default function AddressTableComponent(props) {
                     page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
                   }
                 >
-                  <img className="back-arrow" src={"/images/back.svg"} />
+                  <img className="back-arrow rotate-180" src={"/images/next.svg"} alt="back" />
                 </button>
                 <button className="btn">
                   Page{" "}

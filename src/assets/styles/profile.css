@@ -212,15 +212,15 @@ background-color: #4878ff; */
   cursor: pointer;
   /* background-color: #4878ff; */
 }
-.noticonDiv{
+/* .noticonDiv{
   margin-top: 9px;
-}
-@media screen and (max-width: 768px) {
+} */
+@media screen and (max-width: 767px) {
   .noticon {
     height: 20px;
-    width: 16px;
-    margin-bottom: 0px;
-    margin-right: 11px;
+    width: 18px;
+    /* margin-bottom: 0px; */
+    /* margin-right: 11px; */
   }
   .searchBar {
     border-radius: 8px;

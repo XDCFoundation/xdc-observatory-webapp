@@ -100,7 +100,7 @@ export default class LatestAccountsList extends BaseComponent {
         this.getListOfAccounts()
     }
     _LastPage = async (event) => {
-        let from = this.state.totalAccounts - this.state.amount
+        let from = (Math.ceil(this.state.totalAccounts / this.state.amount)-1) * this.state.amount
         await this.setState({ from })
         this.getListOfAccounts()
     }

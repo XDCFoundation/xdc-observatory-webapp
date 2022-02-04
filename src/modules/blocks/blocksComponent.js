@@ -294,7 +294,7 @@ export default function BlocksComponent(props) {
               props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"
             }
           >
-            <img src={"/images/back.svg"} width="10px" />
+            <img className="rotate-180" src={"/images/next.svg"} width="10px" />
           </button>
           <button className="btn btn-page">
             Page{" "}
