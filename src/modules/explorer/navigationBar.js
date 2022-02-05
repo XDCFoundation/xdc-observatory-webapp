@@ -139,10 +139,13 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginRight: 0,
   },
+  xdcLogoContainer: {
+    display: "flex",
+    width: "305px",
+    justifyContent: "end",
+  },
   xdcBeta: {
-    position: "absolute",
-    marginLeft: "138px",
-    marginTop: "49px",
+    marginTop: "96px",
   },
 
   "@media (min-width: 768px) ": {
@@ -166,9 +169,12 @@ const useStyles = makeStyles((theme) => ({
       padding: "3px 0 0 0",
     },
     xdcBeta: {
-      position: "absolute",
-      marginLeft: "95px",
-      marginTop: "65px",
+      marginTop: "130px",
+    },
+    xdcLogoContainer: {
+      display: "flex",
+      width: "215px",
+      justifyContent: "end",
     },
   },
   fullList: {
@@ -1010,12 +1016,14 @@ export default function Navbar() {
       </MobileView>
       <main className={clsx(classes.content)}>
         <div className="exp-parent">
+          <div className={classes.xdcLogoContainer}>
           <img
             className="Shape3"
             src={"/images/xdc-observatory.svg"}
           ></img>
           <img className={classes.xdcBeta} src={"/images/xdc-beta.svg"}></img>
           {/* <div className="exp">XDC Observatory</div> */}
+          </div>
         </div>
         {/* ------------ Search bar ----------------- */}
 
