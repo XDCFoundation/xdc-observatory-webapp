@@ -192,7 +192,7 @@ export default function Navbar() {
     right: false,
   });
   const [open, setOpen] = useState(false);
-  const [viewPopUp, setViewPopUp] = useState(true);
+  
   const [opencontracts, setOpencontracts] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const handleSearch = (event) => {
@@ -213,10 +213,8 @@ export default function Navbar() {
     }
   };
 
-  let visited = sessionManager.getDataFromCookies("Visited");
-  if (visited && viewPopUp === true) {
-    setViewPopUp(false);
-  }
+  
+  
   // useEffect(() => {
   //   sessionManager.setDataInCookies("NotVisited");
   // }, []);
@@ -858,7 +856,8 @@ export default function Navbar() {
     <div className={classes.root}>
       <Web3Dialog open={web3DialogOpen} setWeb3DialogOpen={setWeb3DialogOpen} />
       <CssBaseline />
-      {viewPopUp === true ? <NewFeature></NewFeature> : <div />}
+      
+      {/* {viewPopUp == false ? <NewFeature></NewFeature> : <div />} */}
       <DeskTopView>
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <MobileToolBar>
