@@ -139,10 +139,13 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginRight: 0,
   },
+  xdcLogoContainer: {
+    display: "flex",
+    width: "305px",
+    justifyContent: "end",
+  },
   xdcBeta: {
-    position: "absolute",
-    marginLeft: "138px",
-    marginTop: "49px",
+    marginTop: "96px",
   },
 
   "@media (min-width: 768px) ": {
@@ -166,9 +169,12 @@ const useStyles = makeStyles((theme) => ({
       padding: "3px 0 0 0",
     },
     xdcBeta: {
-      position: "absolute",
-      marginLeft: "95px",
-      marginTop: "65px",
+      marginTop: "130px",
+    },
+    xdcLogoContainer: {
+      display: "flex",
+      width: "215px",
+      justifyContent: "end",
     },
   },
   fullList: {
@@ -192,7 +198,7 @@ export default function Navbar() {
     right: false,
   });
   const [open, setOpen] = useState(false);
-  const [viewPopUp, setViewPopUp] = useState(true);
+  
   const [opencontracts, setOpencontracts] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const handleSearch = (event) => {
@@ -213,10 +219,8 @@ export default function Navbar() {
     }
   };
 
-  let visited = sessionManager.getDataFromCookies("Visited");
-  if (visited && viewPopUp === true) {
-    setViewPopUp(false);
-  }
+  
+  
   // useEffect(() => {
   //   sessionManager.setDataInCookies("NotVisited");
   // }, []);
@@ -858,7 +862,8 @@ export default function Navbar() {
     <div className={classes.root}>
       <Web3Dialog open={web3DialogOpen} setWeb3DialogOpen={setWeb3DialogOpen} />
       <CssBaseline />
-      {viewPopUp === true ? <NewFeature></NewFeature> : <div />}
+      
+      {/* {viewPopUp == false ? <NewFeature></NewFeature> : <div />} */}
       <DeskTopView>
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <MobileToolBar>
@@ -1010,12 +1015,14 @@ export default function Navbar() {
       </MobileView>
       <main className={clsx(classes.content)}>
         <div className="exp-parent">
+          <div className={classes.xdcLogoContainer}>
           <img
             className="Shape3"
             src={"/images/xdc-observatory.svg"}
           ></img>
           <img className={classes.xdcBeta} src={"/images/xdc-beta.svg"}></img>
           {/* <div className="exp">XDC Observatory</div> */}
+          </div>
         </div>
         {/* ------------ Search bar ----------------- */}
 

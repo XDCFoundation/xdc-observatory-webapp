@@ -705,6 +705,9 @@ input:focus {
   color: #ff0202;
   position: absolute;
   margin-top: 52px;
+  max-width: 1201px;
+  width: 100%;
+  text-align: center;
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .Shape {
@@ -1646,7 +1649,7 @@ div::-webkit-scrollbar-thumb {
 
 .exp-parent {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
   height: 27.063rem;
@@ -5808,19 +5811,19 @@ button {
   }
 }
 .main-checkbox {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
 }
 .main-end-text {
-  width: 178px;
+  /* width: 178px; */
   height: 15px;
   margin: 0 0 0 8px;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1;
+  line-height: 1.3;
 
   text-align: left;
   color: #303134;

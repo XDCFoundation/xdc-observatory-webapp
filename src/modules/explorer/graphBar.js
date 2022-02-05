@@ -8,7 +8,6 @@ import styled from "styled-components";
 import format from "format-number";
 
 const toolTipElement = (props) => {
-  console.log(props, "<<");
   let transactionCount = Number(props.point?.data?.y);
   return (
     <div>
