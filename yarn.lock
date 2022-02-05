@@ -7654,11 +7654,6 @@
   "resolved" "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.9.1.tgz"
   "version" "1.9.1"
 
-"is_js@^0.9.0":
-  "integrity" "sha1-CrlFQFArp6+iTIVqqYVWFmnpxS0="
-  "resolved" "https://registry.npmjs.org/is_js/-/is_js-0.9.0.tgz"
-  "version" "0.9.0"
-
 "is-absolute-url@^2.0.0":
   "integrity" "sha1-UFMN+4T8yap9vnhS6Do3uTufKqY="
   "resolved" "https://registry.npmjs.org/is-absolute-url/-/is-absolute-url-2.1.0.tgz"
