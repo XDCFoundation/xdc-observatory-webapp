@@ -176,7 +176,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#2a2a2a",
   },
   lastContainer: {
-    width: "504px",
+    maxWidth: "534px",
+    width: "100%",
     padding: "11px 12px 10px 13px",
     borderRadius: "6px",
     backgroundColor: "#fff3f3",
@@ -192,13 +193,17 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "1.58",
   }, 
 
-  "@media (max-width: 714px)": {
+  "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
     },
     dialogBox: {
-      width: "362px",
-      top: "95px",
+      width: "100%",
+      top: "40px",
+      borderRadius: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "100%",
     },
     input: {
       maxWidth: "503px",
@@ -386,11 +391,12 @@ export default function FormDialog(props) {
           <div
             className="imageParentDiv"
             onClick={
-              width >= 760
-                ? handleClickOpen
-                : () => {
-                  history.push("/test");
-                }
+              // width >= 760
+              //   ? 
+                handleClickOpen
+                // : () => {
+                //   history.push("/test");
+                // }
             }
           >
             <img className="imagediv1" src={"/images/watchlist.svg"}></img>
@@ -399,11 +405,12 @@ export default function FormDialog(props) {
           <div
             className="imageParentDiv"
             onClick={
-              width >= 760
-                ? handleClickOpen
-                : () => {
-                  history.push("/test");
-                }
+              // width >= 760
+              //   ?
+                handleClickOpen
+                // : () => {
+                //   history.push("/test");
+                // }
             }
           >
             <div className="headingdiv1">
@@ -440,15 +447,15 @@ export default function FormDialog(props) {
       >
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
-        {isSize === false ? (
-          // <div className={classes.createWatchlist}>
+        
           <Dialog
-            className={classes.dialog}
+            // className={classes.dialog}
             classes={{ paperWidthSm: classes.dialogBox }}
             open={open}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
+            <div>
             <Row>
               <div className={classes.heading} id="form-dialog-title">
                 Add a New Address to your Watchlist
@@ -562,6 +569,7 @@ export default function FormDialog(props) {
                 </button>
               </span>
             </DialogActions>
+            <div className="p-l-15 p-r-15">
             <div className={classes.lastContainer}>
               <div className={classes.lastContainerText}>
               Privacy is very important to us. To protect sensitive information,
@@ -569,16 +577,14 @@ export default function FormDialog(props) {
               your local device. Clearing the browsing history or cookies will
               remove the watchlist data saved in your profile.
               </div>
+              </div>
             </div>
             {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
+            </div>
           </Dialog>
-          // </div>
-        ) : (
-          <Test />
-        )}
         {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
       </div>
     </>
