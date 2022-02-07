@@ -8,6 +8,9 @@ import timezoneList from "../../assets/timezoneList.json"
 const Container = styled.div`
   display: flex;
   width: 100%;
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
 `
 
 const PageSelect = styled(Select)`

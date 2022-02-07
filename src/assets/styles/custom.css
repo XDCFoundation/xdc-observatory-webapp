@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
+  letter-spacing: unset !important;
 }
 a {
   text-decoration: none;
@@ -77,6 +78,9 @@ input[placeholder] {
 a:link {
   text-decoration: none;
 }
+.b-t-1 {
+  border-top: 1px solid #e3e7eb;
+}
 .p-b-0 {
   padding-bottom: 0px !important;
 }
@@ -92,6 +96,9 @@ a:link {
 }
 .p-l-12 {
   padding-left: 12px;
+}
+.p-l-22 {
+  padding-left: 22px !important;
 }
 .p-r-5 {
   padding-right: 5px;
@@ -187,6 +194,9 @@ a:link {
 .m-t_-7 {
   margin-top: -7px;
 }
+.display-none {
+  display: none;
+}
 input#password {
   width: 433px;
   height: 40px;
@@ -199,7 +209,6 @@ input#password {
 input#password[placeholder] {
   text-overflow: ellipsis;
   font-size: 16px;
-  letter-spacing: 0px;
 }
 ::placeholder {
   color: #9fa9ba;
@@ -692,19 +701,28 @@ input:focus {
   opacity: 1;
   overflow: scroll;
 }
+.transaction-synchronization-text {
+  color: #ff0202;
+  position: absolute;
+  margin-top: 52px;
+  max-width: 1201px;
+  width: 100%;
+  text-align: center;
+}
 @media (min-width: 768px) and (max-width: 1240px) {
   .Shape {
     height: 1.75rem;
     width: 1.75rem;
   }
-  .XDC {
+  .XDC,
+  .XDC:hover {
     margin-left: 0.438rem;
     font-size: 1.188rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #ffffff;
     margin-top: 2px;
   }
@@ -719,11 +737,12 @@ input:focus {
     font-size: 0.813rem !important;
     margin: 0.4rem 0rem 0.25rem 12.5rem !important;
   }
-  .Shape3 {
-    /* width: 4.375rem;
-    height: 4.375rem; */
-    /* margin-top: 50px; */
+  .transaction-synchronization-text {
+    color: #ff0202;
+    position: initial;
+    margin-top: 52px;
   }
+  
 }
 
 .Shape-XDC {
@@ -745,6 +764,11 @@ input:focus {
   margin-left: 4px;
   align-items: center;
 }
+.privacyTermsLink {
+  text-decoration: underline !important;
+  color: #2a2a2a !important;
+}
+
 @media (min-width: 0px) and (max-width: 767px) {
   .display-none-mobile {
     display: none !important;
@@ -766,8 +790,8 @@ input:focus {
     line-height: 0 !important;
   } */
   .Shape:hover {
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
   }
   .xinfin_api_button {
     font-size: 14px !important;
@@ -808,6 +832,11 @@ input:focus {
   .w-320 {
     max-width: 320px;
     width: 100%;
+  }
+  .transaction-synchronization-text {
+    color: #ff0202;
+    position: initial;
+    margin-top: 52px;
   }
 }
 .paddingLeft-30 {
@@ -954,7 +983,7 @@ input:focus {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   opacity: 1;
   color: #2a2a2a;
@@ -968,7 +997,6 @@ input:focus {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
 }
 
 .containerTag {
@@ -1200,7 +1228,7 @@ div::-webkit-scrollbar-thumb {
     font-family: Inter;
     font-size: 14px !important;
     font-weight: 600;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     margin-left: 10px !important;
   }
@@ -1458,7 +1486,7 @@ div::-webkit-scrollbar-thumb {
     font-size: 14px !important;
     /* font-weight: 600 !important; */
     font-weight: 600;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
   /* .contractSummary {
@@ -1547,7 +1575,7 @@ div::-webkit-scrollbar-thumb {
     font-size: 14px !important;
     /* font-weight: 600 !important; */
     font-weight: 600;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
   /* .contractSummary {
@@ -1621,11 +1649,11 @@ div::-webkit-scrollbar-thumb {
 
 .exp-parent {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
   height: 27.063rem;
-  /* background-color: #2149b9; */
+  /* background-color:  */
   background-image: url("../images/banner_bg.png");
 }
 
@@ -1636,7 +1664,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 
@@ -1659,7 +1687,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   margin-top: 2px;
 }
@@ -1671,7 +1699,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   /* margin-top: 1.25rem; */
   cursor: pointer;
@@ -1683,7 +1711,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+  
   color: #ffffff;
   margin-top: 0.25rem;
   cursor: pointer;
@@ -1694,6 +1722,16 @@ div::-webkit-scrollbar-thumb {
     margin-left: 4px;
     margin-top: 0px !important;
     line-height: 1 !important ;
+  }
+  .XDC:hover {
+    font-size: 14px !important;
+    margin-left: 4px !important;
+    margin-top: 0px !important;
+    line-height: 1 !important ;
+  }
+  .Shape3 {
+    margin-top: 74px;
+    width: 153px;
   }
   /* .XDC:hover {
     font-size: 14px !important;
@@ -1737,7 +1775,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   margin-top: 2px;
   list-style: none;
@@ -1752,7 +1790,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1768,7 +1806,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1783,7 +1821,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1797,7 +1835,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1831,7 +1869,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1856,7 +1894,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1871,7 +1909,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1885,7 +1923,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1986,7 +2024,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -2126,7 +2164,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -2139,7 +2177,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #3a3a3a;
 }
 
@@ -2236,7 +2274,7 @@ p {
   border: 1px solid #cccccc;
   border-color: transparent;
   display: inline-block;
-  letter-spacing: 0px !important;
+
   text-align: left;
   font-size: 1.063rem;
   padding-left: 10px;
@@ -2254,7 +2292,6 @@ p {
     background-size: 17px 17px;
     outline-color: #ffffff;
     border-color: transparent;
-    letter-spacing: 0px !important;
   }
   .main-input::placeholder {
     color: #9fa9ba !important;
@@ -2353,7 +2390,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #4f4f4f;
 }
@@ -2413,7 +2450,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2447,7 +2484,7 @@ p {
   font-stretch: normal;
   font-style: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2546,7 +2583,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #4f4f4f;
 }
@@ -2600,7 +2637,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   margin: 4px 0;
@@ -2636,7 +2673,7 @@ p {
   font-stretch: normal;
   font-style: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2648,7 +2685,7 @@ p {
   font-stretch: normal;
   font-style: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2656,7 +2693,7 @@ p {
 .last-contract {
   font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   margin: 4px 0;
 }
@@ -2664,7 +2701,7 @@ p {
 .last-contract-disabled {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   cursor: text;
 }
@@ -2673,21 +2710,21 @@ p {
   margin: 4px 0;
   font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
 .last {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
 .first {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -2721,7 +2758,7 @@ p {
   border-color: transparent;
   display: flex;
   text-align: left;
-  letter-spacing: 0rem;
+
   font-size: 0.938rem;
   font-weight: 500;
   /* padding: 0.125rem 0.125rem 0px 0.125rem; */
@@ -2761,7 +2798,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   background-color: #ffffff !important;
 }
@@ -2779,7 +2816,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a !important;
   outline: none;
 }
@@ -2842,7 +2879,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   margin-top: 10px;
 }
@@ -2895,7 +2932,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 
@@ -2911,7 +2948,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 
@@ -2923,7 +2960,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #686868;
 }
@@ -2937,7 +2974,7 @@ p {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #686868;
     margin-right: 20px;
@@ -2970,7 +3007,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2982,7 +3019,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #f60202;
 }
@@ -3008,7 +3045,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -3063,7 +3100,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -3072,13 +3109,14 @@ p {
   display: flex;
   flex-direction: row;
   width: 207px;
-  height: 34px;
-  padding: 7.7px 43px 10px 10px;
+  height: 100%;
+  padding: 5px 0px 5px 12px;
   border-radius: 8px;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
+  align-items: center;
 }
 
 @media (max-width: 1023px) {
@@ -3135,7 +3173,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -3157,7 +3195,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #8ebbfe;
   margin-top: 40px;
 }
@@ -3170,11 +3208,21 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   margin-top: 20px;
 }
-
+.Network-list-nav {
+  padding: 0 0px 0 13px !important;
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
 .margin-top-20px {
   margin-top: 20px;
 }
@@ -3189,7 +3237,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -3209,7 +3257,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 
@@ -3221,7 +3269,7 @@ p {
   padding-left: 8px;
   opacity: 0.73;
   border-radius: 4px;
-  letter-spacing: 0px;
+
   border: solid 1px#F9F9F9;
   background-color: #efefef;
 }
@@ -3234,7 +3282,7 @@ p {
     padding-left: 8px;
     opacity: 0.73;
     border-radius: 4px;
-    letter-spacing: 0px;
+
     border: solid 1px#F9F9F9;
     background-color: #efefef;
   }
@@ -3251,7 +3299,7 @@ p {
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3a3a3a;
 }
@@ -3262,7 +3310,7 @@ p {
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3a3a3a;
 }
@@ -3275,7 +3323,7 @@ p {
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #3a3a3a;
   }
@@ -3287,6 +3335,7 @@ p {
 .profile {
   height: 24px !important;
   width: 24px !important;
+  cursor: pointer;
 }
 @media (min-width: 766px) and (max-width: 1240px) {
   .verify-contract-first-div-text {
@@ -3296,7 +3345,7 @@ p {
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #3a3a3a;
   }
@@ -3304,7 +3353,7 @@ p {
 .textarea-contract-code {
   height: 18.375rem;
   width: 100%;
-  letter-spacing: 0px;
+
   margin-top: 10px;
   padding-left: 8px;
   border-radius: 6px;
@@ -3319,7 +3368,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 
@@ -3329,7 +3378,7 @@ p {
   font-size: 0.875rem;
   margin-top: 10px;
   border-radius: 6px;
-  letter-spacing: 0px;
+
   padding-left: 6px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
@@ -3349,7 +3398,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ffffff;
 }
@@ -3360,11 +3409,11 @@ p {
   width: 5.875rem;
   font-size: 0.938rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ffffff;
 }
@@ -3376,7 +3425,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 
@@ -3387,7 +3436,7 @@ p {
   font-weight: 500;
   margin-top: 7px;
   padding-left: 6px;
-  letter-spacing: 0px;
+
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
@@ -3406,7 +3455,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 
@@ -3418,7 +3467,7 @@ p {
   padding-left: 6px;
   border-radius: 4px;
   margin-top: 7px;
-  letter-spacing: 0px;
+
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
 }
@@ -3436,7 +3485,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
   margin-top: 0;
 }
@@ -3490,14 +3539,18 @@ p {
 } */
 
 @media (min-width: 0px) and (max-width: 767px) {
-  .select-td {
-    /* margin-left: 15px !important; */
-    font-size: 12px;
-  }
+  /* .select-td { */
+  /* margin-left: 15px !important; */
+  /* font-size: 12px;
+  } */
   .vc-contract-add-select,
   .vc-input-contract-name,
   .vc-input-contract-add {
     font-size: 0.8rem;
+  }
+  .contract-heading-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 }
 
@@ -3710,7 +3763,7 @@ body {
   }
 }
 .MuiBackdrop-root {
-  /* opacity: 0 !important; */
+  opacity: 0 !important;
 }
 
 .days p {
@@ -3730,8 +3783,8 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .days p {
-    margin-top: 0px;
-    padding-top: 5px;
+    margin-top: -5px;
+    padding-top: 3px;
   }
 }
 
@@ -3764,7 +3817,7 @@ body {
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
   }
-  
+
   .block {
     justify-content: space-between;
     display: flex;
@@ -3779,17 +3832,18 @@ body {
 .dates {
   display: flex;
   justify-content: space-between;
+  padding-left: 50px;
 }
 
 .dates p {
-  font-size: 0.75rem;
+  font-size: 11px;
   font-family: Inter;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   color: #9fa9ba;
-  letter-spacing: 0px;
+
   margin-top: 4px;
 }
 
@@ -3821,7 +3875,6 @@ body {
   padding-left: 0px;
   margin: 0px 34px 0px 0px;
   font-weight: 400;
-  letter-spacing: 0px;
 }
 @media (min-width: 0px) and (max-width: 768px) {
   .tabs {
@@ -3837,7 +3890,6 @@ body {
     padding-left: 0px;
     margin: 0px 34px 0px 0px;
     font-weight: 400;
-    letter-spacing: 0px;
   }
 }
 
@@ -3855,7 +3907,6 @@ body {
     padding-left: 0px;
     margin: 0px 34px 0px 0px;
     font-weight: 400;
-    letter-spacing: 0px;
   }
 }
 
@@ -3882,13 +3933,11 @@ body {
   padding-left: 0px;
   margin: -3px 27px 1px 0.5px;
   font-weight: 500;
-  letter-spacing: 0px;
 }
 
 @media (max-width: 1240px) {
   .tabs {
     margin: 0px;
-    letter-spacing: 0px;
   }
 }
 .token-data-tabs {
@@ -3906,7 +3955,6 @@ body {
   font-size: 0.938rem;
   font-weight: 500;
   line-height: 1rem;
-  letter-spacing: 0.036rem;
 }
 
 .tabs-data {
@@ -3928,7 +3976,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: 1rem;
-  letter-spacing: 0rem;
+
   text-align: center;
 }
 @media (max-width: 1240px) {
@@ -4049,14 +4097,12 @@ body {
   font-size: 1rem;
   font-family: inter;
   font-weight: 600;
-  letter-spacing: 0px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .contract-text {
     font-size: 0.875rem;
     font-family: inter;
     font-weight: 600;
-    letter-spacing: 0px;
   }
 }
 .hr-line {
@@ -4145,6 +4191,17 @@ body {
   width: 100%;
   border-bottom: transparent;
 }
+#container-table-transaction-list table {
+  /* height: 120px;
+    border-radius: 12px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: #ffffff; */
+  white-space: nowrap !important;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: transparent;
+}
 #container-table-holder table {
   /* height: 120px;
     border-radius: 12px;
@@ -4162,8 +4219,14 @@ body {
 
 #container-table th {
   padding: 25px 0px 15px 24px;
-  /* padding: 15px; */
-  /* padding-top: 25px; */
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: #252525 !important;
+}
+#container-table-transaction-list th {
+  padding: 25px 0px 15px 24px;
+  width: 190px;
   font-weight: 600;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -4183,10 +4246,15 @@ body {
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
+  #container-table-transaction-list th {
+    padding: 17px 0px 15px 20px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table-holder th {
-    padding: 17px 48px 15px 25px !important;
+    padding: 17px 48px 15px 11px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4213,12 +4281,46 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
 }
+#container-table-transaction-list td {
+  padding: 17px 0px 17px 20px;
+  /* padding: 12px 50px;
+  padding-top: 17px;
+  padding-bottom: 17px; */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  margin: 19px 49px 1.8px 69px;
+  font-family: "Inter" !important;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: left;
+  color: #2a2a2a;
+}
+#container-table-token-holders-tab td {
+  padding: 17px 20px 17px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  margin: 19px 49px 1.8px 69px;
+  font-family: "Inter" !important;
+  font-size: 12px;
+  text-align: left;
+  color: #2a2a2a;
+  width: 10%;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
+    padding: 16px 0px 10px 20px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  #container-table-transaction-list td {
     padding: 16px 0px 10px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -4237,7 +4339,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -4267,13 +4369,14 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
   text-align: left;
   color: #2a2a2a;
+  white-space: nowrap;
 }
-@media (min-width: 0px) and (max-width: 766px) {
+@media (min-width: 0px) and (max-width: 767px) {
   #container-table-token td {
     padding-left: 13px;
+    white-space: nowrap;
   }
 }
 
@@ -4346,7 +4449,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   margin-top: 1.66rem;
   color: #2a2a2a;
   display: flex;
@@ -4360,7 +4463,7 @@ body {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     margin-top: 1.66rem;
     color: #2a2a2a;
     display: flex;
@@ -4376,7 +4479,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   color: #2a2a2a;
   display: flex;
@@ -4391,7 +4494,7 @@ body {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     color: #2a2a2a;
     display: flex;
@@ -4408,7 +4511,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -4419,7 +4522,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #3a3a3a;
 }
 
@@ -4433,7 +4536,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 /* 
@@ -4444,7 +4547,7 @@ body {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     color: #3a3a3a;
   } */
 /* .container-table tr:hover {background-color: #ddd;} */
@@ -4454,7 +4557,7 @@ button {
 }
 
 .content {
-  padding-top: 10px;
+  /* padding-top: 10px; */
   background: transparent;
   width: 100%;
   height: 100%;
@@ -4622,7 +4725,7 @@ button {
   justify-content: flex-end;
   font-family: Inter;
   font-weight: 600;
-  letter-spacing: 0px;
+
   text-align: right;
   margin-left: 4px;
   margin-top: -3px;
@@ -4636,7 +4739,7 @@ button {
   justify-content: flex-end;
   font-family: Roboto;
   background-color: transparent;
-  letter-spacing: 0px;
+
   margin-left: 2px;
   margin-top: -1px;
 }
@@ -4710,7 +4813,7 @@ button {
     font-family: Inter;
     font-size: 15px !important;
     font-weight: 600;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
 }
@@ -4725,7 +4828,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -4759,7 +4862,7 @@ button {
   font-family: Inter;
   font-size: 15px;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   margin-left: 2px;
 }
@@ -4772,7 +4875,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -4785,7 +4888,7 @@ button {
     left: 19px;
     height: 1rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-family: Inter;
@@ -4801,7 +4904,7 @@ button {
     left: 72px;
     height: 1.125rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-family: Inter;
@@ -4820,7 +4923,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
 }
 
@@ -4836,7 +4939,6 @@ button {
   margin-top: 7px;
   display: flex;
   padding: 0 12px;
-  letter-spacing: 0px;
 }
 
 @media (max-width: 767px) {
@@ -4916,7 +5018,7 @@ button {
   .data_heading1 p {
     font-weight: 600;
     font-size: 0.875rem;
-    letter-spacing: 0rem;
+
     padding-left: 12px;
     width: 1.813rem;
     height: 1.063rem;
@@ -4928,7 +5030,7 @@ button {
     padding-left: 5px;
     font-size: 0.813rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     top: 1220px;
@@ -4940,7 +5042,7 @@ button {
   .data_heading1 p {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     top: 1287px;
@@ -4999,14 +5101,29 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   padding-left: 2px;
   /*margin-top: 8px;*/
   /*margin-right: 25px;*/
-  /*animation: fadeInAnimation ease 2s;*/
-  /*animation-iteration-count: inherit;*/
-  /*animation-fill-mode: forwards;*/
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: inherit;
+  animation-fill-mode: forwards;
+}
+.first-block-timestamp {
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  color: #2a2a2a !important;
+  padding-left: 2px;
+  /*margin-top: 8px;*/
+  /*margin-right: 25px;*/
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: inherit;
+  animation-fill-mode: forwards;
 }
 @media (min-width: 1240px) {
   .first-block-age {
@@ -5016,9 +5133,21 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
+    /*padding-left: 18px;*/
+  }
+  .first-block-timestamp {
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: left;
+    color: #2a2a2a !important;
     /*padding-left: 18px;*/
   }
 }
@@ -5030,9 +5159,21 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
+    height: 1.063rem;
+  }
+  .first-block-timestamp {
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: left;
+    color: #2a2a2a !important;
     height: 1.063rem;
   }
 }
@@ -5044,9 +5185,21 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
+    height: 1.063rem;
+  }
+  .first-block-timestamp {
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: left;
+    color: #2a2a2a !important;
     height: 1.063rem;
   }
 }
@@ -5070,7 +5223,7 @@ button {
     /*left: 19px;*/
     /*height: 1.063rem;*/
     /*text-align: left;*/
-    /*letter-spacing: 0rem;*/
+    /**/
     /*color: #2a2a2a;*/
     /*opacity: 1;*/
     /*font-weight: normal;*/
@@ -5106,7 +5259,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   opacity: 1;
   color: #2149b9 !important;
   margin-left: 2px;
@@ -5120,7 +5273,7 @@ button {
   .first-transaction-hash {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 1.063rem;
@@ -5132,7 +5285,7 @@ button {
   .first-transaction-hash {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5151,9 +5304,9 @@ button {
   color: #2a2a2a;
   width: 400px;
   padding-left: 0px;
-  animation: fadeInAnimation ease 2s;
+  /* animation: fadeInAnimation ease 1s;
   animation-iteration-count: inherit;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards; */
 }
 @media (min-width: 1240px) {
   .second-transaction-amount {
@@ -5165,7 +5318,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5177,7 +5330,7 @@ button {
     left: 19px;
     height: 1.063rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -5207,7 +5360,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5219,7 +5372,7 @@ button {
     left: 19px;
     height: 1.063rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -5234,7 +5387,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 190px;
   margin-top: 8px;
@@ -5252,7 +5405,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     padding-left: 17px;
   }
 }
@@ -5260,7 +5413,7 @@ button {
   .fourth-transaction-detail {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 1.063rem;
@@ -5271,7 +5424,7 @@ button {
   .fourth-transaction-detail {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5283,7 +5436,7 @@ button {
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   animation: fadeInAnimation ease 2s;
   animation-iteration-count: inherit;
@@ -5295,7 +5448,7 @@ button {
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -5391,6 +5544,16 @@ button {
   height: 20px;
   width: 22px;
 }
+.tooltipInfoIconConfigMob {
+  margin: auto -3px auto -2px;
+  height: 20px;
+  width: 22px;
+}
+.tooltipInfoIconConfigDesk {
+  margin: auto 0px auto -2px;
+  height: 20px;
+  width: 22px;
+}
 .tooltipInfoIconAccount {
   margin-top: -3px;
   margin-left: 1px;
@@ -5399,6 +5562,12 @@ button {
 }
 .tooltipInfoIconMarketData {
   margin-top: -1px;
+  margin-left: 1px;
+  height: 20px;
+  width: 22px;
+}
+.tooltipInfoIconEmail {
+  margin-top: -5px;
   margin-left: 1px;
   height: 20px;
   width: 22px;
@@ -5447,7 +5616,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #007b2c;
   margin-top: 20px;
@@ -5469,7 +5638,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ffffff;
 }
@@ -5495,7 +5664,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -5509,7 +5678,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3763dd;
   margin-left: auto;
@@ -5520,8 +5689,7 @@ button {
 }
 .card {
   width: 212px;
-  height: 209px;
-  padding-bottom: 18px;
+  padding: 0 15px 10px 15px;
   border-radius: 12px;
   border: solid 1px #eaeaea;
   background-color: #f6f7fa;
@@ -5536,7 +5704,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
   margin-top: 13px;
@@ -5549,10 +5717,10 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #686868;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 .crad-image {
   width: 50px;
@@ -5587,6 +5755,15 @@ button {
   background-color: #3763dd;
   cursor: pointer;
 }
+.overlay-private-alert {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  backdrop-filter: brightness(0.5);
+}
 
 .sign-up-button {
   width: 432px;
@@ -5605,7 +5782,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ffffff;
 }
@@ -5626,22 +5803,28 @@ button {
   .main-close {
     display: none;
   }
+  .back-newFeature {
+    position: absolute;
+    left: 15px;
+    cursor: pointer;
+    display: block;
+  }
 }
 .main-checkbox {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
 }
 .main-end-text {
-  width: 178px;
+  /* width: 178px; */
   height: 15px;
   margin: 0 0 0 8px;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1;
-  letter-spacing: 0px;
+  line-height: 1.3;
+
   text-align: left;
   color: #303134;
 }
@@ -5724,7 +5907,6 @@ button {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  letter-spacing: 0px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .data_value {
@@ -5779,7 +5961,7 @@ button {
   .mainhead_child1 {
     font-size: 0.813rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.813rem;
@@ -5789,7 +5971,7 @@ button {
   .mainhead_child1 {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5808,7 +5990,7 @@ button {
   .mainhead_child2 {
     font-size: 0.813rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.813rem;
@@ -5818,7 +6000,7 @@ button {
   .mainhead_child2 {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5845,7 +6027,7 @@ button {
   .mainhead_child3 {
     font-size: 0.813rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.813rem;
@@ -5855,7 +6037,7 @@ button {
   .mainhead_child3 {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5872,7 +6054,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5888,7 +6070,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5904,7 +6086,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5918,7 +6100,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   margin-top: 8px;
   margin-right: 25px;
@@ -5931,7 +6113,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
   }
@@ -5944,7 +6126,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
     height: 1.063rem;
@@ -5958,7 +6140,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
     height: 1.063rem;
@@ -5984,7 +6166,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   margin-top: 8px;
   margin-right: 22px;
@@ -6004,7 +6186,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   color: #2149b9 !important;
   list-style: none;
@@ -6019,7 +6201,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   margin-top: 8px;
   margin-right: 22px;
@@ -6067,7 +6249,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 530px;
   margin-left: 7px;
@@ -6083,7 +6265,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     padding-left: 9px;
   }
@@ -6092,7 +6274,7 @@ button {
   .bttn {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 1.063rem;
@@ -6103,7 +6285,7 @@ button {
   .bttn {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -6119,7 +6301,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 530px;
   margin-left: 7px;
@@ -6138,7 +6320,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   padding-left: 9px;
   list-style: none;
@@ -6165,7 +6347,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 190px;
   margin-top: 8px;
@@ -6174,7 +6356,7 @@ button {
   .details {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 1.063rem;
@@ -6185,7 +6367,7 @@ button {
   .details {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -6203,7 +6385,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     padding-left: 17px;
   }
 }
@@ -6216,7 +6398,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 190px;
   margin-top: 8px;
@@ -6234,7 +6416,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   padding-left: 17px;
   list-style: none;
   text-decoration: none;
@@ -6275,7 +6457,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -6291,7 +6473,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -6305,7 +6487,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -6345,13 +6527,11 @@ button {
 .main_vaa {
   display: flex;
   justify-content: space-between;
-  letter-spacing: 0px;
 }
 
 .main_vaa_2 {
   display: flex;
   justify-content: space-between;
-  letter-spacing: 0px;
 }
 
 .main_vaa_2 p:first-child {
@@ -6389,7 +6569,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -6407,7 +6587,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -6430,7 +6610,7 @@ button {
     left: 19px;
     height: 1.063rem;
     text-align: left;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -6443,7 +6623,7 @@ button {
     left: 80px;
     height: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -6470,10 +6650,21 @@ button {
   align-items: center;
   width: 100%;
   padding-right: 40px;
-  letter-spacing: 0px;
 }
 
 .main_mid {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  /*border-radius: 12px;*/
+  /*box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);*/
+  /*border: solid 1px #e3e7eb;*/
+  border-top: solid 1px #e3e7eb;
+  background-color: #ffffff;
+  width: 83%;
+  margin: 0 auto;
+}
+.main_mid_token {
   display: flex;
   flex-direction: row;
   margin-top: 50px;
@@ -6501,8 +6692,8 @@ button {
     display: flex;
     flex-direction: column;
     width: 41.5rem;
-    margin-top: 20px;
-    height: 11.875rem;
+    margin-top: 45px;
+    /* height: 11.875rem; */
   }
   .main_mid_address {
     display: flex;
@@ -6512,20 +6703,35 @@ button {
     height: 198px;
     padding: 12px 15px 15px 15px;
   }
+  .main_mid_token {
+    display: flex;
+    flex-direction: column;
+    width: 41.5rem;
+    margin-top: 45px;
+    /* height: 11.875rem; */
+  }
+  
 }
 
 @media (min-width: 1240px) {
   .main_mid {
     display: flex;
     width: 75.125rem;
-    height: 6.183rem;
-    margin-top: 50px;
+    /* height: 6.183rem; */
+    margin-top: 20px;
   }
   .main_mid_address {
     display: flex;
     width: 75.125rem;
     height: 6.183rem;
     margin-top: 50px;
+  }
+  .main_mid_token {
+    display: flex;
+    width: 75.125rem;
+    /* height: 6.183rem; */
+    margin-top: 20px;
+    padding-top: 25px;
   }
 }
 
@@ -6538,7 +6744,7 @@ button {
   .main_child_address {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 90%;
   }
 }
 
@@ -6645,7 +6851,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
 }
 
 .cont-token-data p {
@@ -6657,7 +6862,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
 }
 @media (min-width: 1240px) {
   .cont1 p {
@@ -6667,7 +6871,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
   }
 }
@@ -6679,7 +6883,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     top: 63.688rem;
     left: 74px;
     height: 0.938rem;
@@ -6696,7 +6900,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
   }
 }
@@ -6708,7 +6912,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     height: 0.938rem;
   }
@@ -6719,7 +6923,7 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 .cont-token-data :nth-child(2) {
@@ -6727,7 +6931,7 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -6739,7 +6943,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     color: #252525;
     padding-top: 5px;
@@ -6753,7 +6957,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     color: #252525;
     padding-top: 5px;
@@ -6772,7 +6976,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     color: #2a2a2a;
     padding-top: 5px;
@@ -6786,7 +6990,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     color: #2a2a2a;
     height: 1rem;
@@ -6852,7 +7056,7 @@ button {
     padding: 0 10px 0 10px;
   }
   .second_mid_address {
-    margin-top: 22px;
+    margin-top: 25px;
     margin-left: auto;
     margin-right: auto;
     width: 21rem;
@@ -6879,6 +7083,7 @@ button {
 }
 .second_cont {
   display: flex;
+  justify-content: space-between;
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 8px 2px;
@@ -6926,12 +7131,10 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.65px;
   margin-right: 10px;
   top: 895px;
   left: 18px;
   height: 1.063rem;
-  letter-spacing: 0.034rem;
   color: #686868;
   opacity: 1;
   font-size: 0.875rem;
@@ -6944,12 +7147,12 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   margin-right: 10px;
   top: 895px;
   left: 18px;
   height: 1.063rem;
-  letter-spacing: 0rem;
+
   color: #686868;
   opacity: 1;
   font-size: 0.875rem;
@@ -6964,7 +7167,7 @@ button {
     font-style: normal;
     line-height: normal;
     margin-right: 10px;
-    letter-spacing: 0rem;
+
     color: #686868;
     opacity: 1;
     top: 762px;
@@ -6980,7 +7183,6 @@ button {
     font-style: normal;
     line-height: normal;
     margin-right: 10px;
-    letter-spacing: 0.034rem;
     color: #686868;
     opacity: 1;
     top: 762px;
@@ -6991,11 +7193,12 @@ button {
 
 .mid_cont {
   display: flex;
+  justify-content: space-between;
   font-size: 13px;
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+
   margin-right: 8%;
   width: 46%;
   padding-left: 6px;
@@ -7011,7 +7214,6 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0.58px;
   margin-right: 8%;
   width: 46%;
   padding-left: 6px;
@@ -7037,7 +7239,7 @@ button {
   left: 18.875rem;
   height: 0.938rem;
   text-align: center;
-  letter-spacing: 0rem;
+
   opacity: 1;
 }
 
@@ -7054,7 +7256,7 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+
   margin-right: 10%;
 }
 
@@ -7072,7 +7274,6 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
 }
 @media (min-width: 1024px) {
   .varMarket {
@@ -7082,7 +7283,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     display: flex;
     justify-content: center;
@@ -7096,7 +7297,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     height: 0.938rem;
     top: 66.25rem;
     left: 89px;
@@ -7130,7 +7331,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
 }
 @media (min-width: 1240px) {
@@ -7142,7 +7343,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     color: #2149b9 !important;
   }
 }
@@ -7156,7 +7357,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     color: #2149b9 !important;
     height: 0.75rem;
   }
@@ -7171,7 +7372,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     color: #2149b9 !important;
     height: 0.875rem;
   }
@@ -7185,7 +7386,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #2149b9 !important;
   list-style: none;
   text-decoration: none;
@@ -7199,7 +7400,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #2149b9 !important;
   list-style: none;
   text-decoration: none;
@@ -7216,7 +7417,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
+
   line-height: 1rem !important;
 }
 
@@ -7224,7 +7425,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
+
   padding-left: 32px !important;
   line-height: 1rem !important;
   white-space: nowrap !important;
@@ -7234,7 +7435,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 30px !important;
   align-items: center !important;
   line-height: 1rem !important;
@@ -7244,7 +7445,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 30px !important;
   align-items: center !important;
 }
@@ -7253,7 +7454,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 55px !important;
   line-height: 1rem !important;
 }
@@ -7262,7 +7463,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 60px !important;
   line-height: 1rem !important;
   background-color: "red";
@@ -7272,7 +7473,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 60px !important;
   line-height: 1rem !important;
   word-break: break-all !important;
@@ -7281,6 +7482,9 @@ button {
 .table-grid-block {
   margin: 20px auto auto auto;
   width: 75.063rem;
+}
+.table-grid-block-global-id {
+  margin: 0px auto
 }
 .table-grid-block-contract {
   margin: 5px auto auto auto;
@@ -7357,7 +7561,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
+
   padding-left: 30px !important;
   align-items: center !important;
   padding-top: 15px !important;
@@ -7368,7 +7572,6 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem;
 
-  letter-spacing: 0rem;
   color: #2149b9 !important;
   height: 1.125rem;
   font-weight: normal;
@@ -7382,7 +7585,6 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem;
 
-  letter-spacing: 0rem;
   color: #2149b9 !important;
   height: 1.125rem;
   font-weight: normal;
@@ -7398,9 +7600,10 @@ button {
   border-radius: 4px;
   outline: transparent;
   border: solid 1px #9fa9ba;
-  background-color: #dee0e3;
+  background-color: #e3e7eb;
   color: #3a3a3a;
   margin-left: 0px;
+  padding: 8px 10px;
 }
 .text-area-transaction {
   width: 100%;
@@ -7423,14 +7626,33 @@ button {
   font-size: 1.5rem;
   margin-top: 5px;
   font-family: Inter;
-  font-weight: 1000 !important;
-  letter-spacing: 0px;
+  font-weight: 600 !important;
 }
+.contract_details_heading {
+  font-size: 1.5rem;
+  margin-top: 5px;
+  font-family: Inter;
+  font-weight: 600 !important;
+  align-items: center;
+}
+.contract-address-heading {
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+  .contract-address-heading {
+    font-size: 14px;
+    color: #252525;
+  }
+  .contract_details_heading {
+    align-items: flex-start;
+  }
+}
+
 .contract_details_heading_left {
   font-size: 1.5rem;
   font-family: Inter;
   font-weight: 1000 !important;
-  letter-spacing: 0px;
+
   display: flex !important;
   margin-bottom: 0;
   color: #2a2a2a !important;
@@ -7440,7 +7662,6 @@ button {
   font-size: 1.5rem;
   font-family: Inter;
   font-weight: 1000 !important;
-  letter-spacing: 0px;
 }
 
 .Success-rectangle-block {
@@ -7453,7 +7674,6 @@ button {
   border-radius: 4px;
   background-color: #0cdd1e;
   font-size: 14px;
-  letter-spacing: 0px;
 }
 
 .failure-rectangle {
@@ -7466,7 +7686,6 @@ button {
   border-radius: 4px;
   background-color: #fa0404;
   font-size: 14px;
-  letter-spacing: 0px;
 }
 /*address/address page*/
 
@@ -7478,7 +7697,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9;
   font-weight: 500;
   margin-left: 15px;
@@ -7525,7 +7744,7 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem !important;
   border-bottom: none !important;
-  letter-spacing: 0px;
+
   font-weight: 500 !important;
   padding-left: 75px !important;
 }
@@ -7534,14 +7753,14 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
+
   border-bottom: none !important;
 }
 
 .second-row-table_address-balance {
   font-family: Inter !important;
   font-size: 0.938rem !important;
-  letter-spacing: 0px;
+
   padding-left: 75px !important;
   font-weight: normal !important;
 }
@@ -7550,13 +7769,12 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
 }
 
 .second-row-table_address1 {
   font-family: Inter !important;
   font-size: 0.938rem !important;
-  letter-spacing: 0px;
+
   padding-left: 75px !important;
   font-weight: 500 !important;
 }
@@ -7565,7 +7783,7 @@ button {
 .sec-row-table {
   font-family: Inter !important;
   font-size: 12px !important;
-  letter-spacing: 0px;
+
   font-weight: 500 !important;
 }
 
@@ -7584,7 +7802,6 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
 }
 
 .block_sec {
@@ -7609,6 +7826,13 @@ button {
 
 .bloc-tabs_sec_addressDetail {
   display: flex;
+  width: 13rem;
+  justify-content: space-between;
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .bloc-tabs_sec_addressDetail {
+    width: 20rem;
+  }
 }
 
 .tabs_sec {
@@ -7622,7 +7846,6 @@ button {
   font-size: 0.938rem;
   cursor: pointer;
   padding-left: 1.188rem;
-  letter-spacing: 0rem;
 }
 
 .tabs_sec_address_details {
@@ -7635,7 +7858,6 @@ button {
   font-size: 0.938rem;
   cursor: pointer;
   padding-left: 1.188rem;
-  letter-spacing: 0rem;
 }
 
 .tabs_sec_contract {
@@ -7650,13 +7872,14 @@ button {
   cursor: pointer;
   padding-left: 5.5px;
   font-weight: 600;
-  letter-spacing: 0px;
 }
 
 .active-tabs_sec {
   color: #2149b9;
 }
-
+.active-tabs_sec_analytics {
+  color: #2149b9;
+}
 .active-tabs_sec_contract {
   color: #2b51bc;
 }
@@ -7672,7 +7895,17 @@ button {
   border: solid 1px #2149b9;
   background: #2149b9;
 }
-
+.active-tabs_sec_analytics::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 6.563rem;
+  height: 1px;
+  border: solid 1px #2149b9;
+  background: #2149b9;
+}
 .active-tabs_sec_address_details::before {
   content: "";
   display: block;
@@ -7699,7 +7932,7 @@ button {
 
 .content_sec {
   padding-top: 19.5px;
-  padding-bottom: 20px;
+  padding-bottom: 23px;
   width: 100%;
   height: 100%;
   display: none;
@@ -7716,9 +7949,18 @@ button {
   width: 100%;
   border: none;
 }
-
+.container_sec_holder {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: none;
+}
 @media (min-width: 0px) and (max-width: 1240px) {
   .container_sec {
+    align-items: center;
+    margin: auto;
+  }
+  .container_sec_holder {
     align-items: center;
     margin: auto;
   }
@@ -7732,6 +7974,10 @@ button {
 } */
 @media (min-width: 0px) and (max-width: 767px) {
   .container_sec {
+    align-items: self-start;
+    width: 21rem;
+  }
+  .container_sec_holder {
     align-items: self-start;
     width: 21rem;
   }
@@ -7813,7 +8059,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
   border-radius: 4px;
@@ -7828,7 +8074,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
   border-radius: 4px;
@@ -7874,7 +8120,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 30px !important;
   align-items: center !important;
 }
@@ -8034,7 +8280,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
   .Tooltip-graph-date {
@@ -8046,7 +8292,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #9fa9ba;
   }
   .block_details_heading_left {
@@ -8097,7 +8343,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #9fa9ba;
 }
 
@@ -8109,7 +8355,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -8262,14 +8508,14 @@ button {
 .source-code-content-heading {
   font-size: 0.938rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   font-family: inter;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .source-code-content-heading {
     font-size: 0.875rem;
     font-weight: 600;
-    letter-spacing: 0px;
+
     font-family: inter;
   }
 
@@ -8373,7 +8619,7 @@ button {
 
 .left-table-contract-last {
   font-weight: 600 !important;
-  letter-spacing: 0px !important;
+
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
@@ -8386,13 +8632,13 @@ button {
   /* border-bottom: 1px solid rgb(227, 231, 235) !important; */
   border-bottom: none !important;
   font-size: 14px !important;
-  letter-spacing: 0px !important;
+
   color: #3a3a3a !important;
 }
 
 .left-table-contract {
   font-weight: 600 !important;
-  letter-spacing: 0px !important;
+
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
@@ -8404,7 +8650,7 @@ button {
   padding: 10px 6px 10px 0px !important;
   border-bottom: 1px solid rgb(227, 231, 235) !important;
   font-size: 14px !important;
-  letter-spacing: 0px !important;
+
   color: #3a3a3a !important;
 }
 
@@ -8480,15 +8726,16 @@ button {
     margin-top: 0px;
     outline: none;
     border-color: transparent;
-    border-left-color: #9fa9ba;
+    border-left-color: none;
     font-size: 0.75rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     background-color: white !important;
+    -webkit-appearance: none;
   }
   .exp-parent {
     height: 300px;
@@ -8504,8 +8751,8 @@ button {
     width: 70% !important;
   }
   .search-dashboard-select {
-    width: "";
     padding-right: 4px !important;
+    border-left: 1px solid #9fa9ba;
   }
 }
 .search-dashboard-select {
@@ -8551,18 +8798,16 @@ button {
     outline-color: #ffffff;
     border-color: transparent;
     padding-left: 1px !important;
-    letter-spacing: 0px !important;
   }
   .main-input::placeholder {
     color: #9fa9ba !important;
     font-weight: 500px !important;
     font: normal normal normal 0.938rem Inter;
-    letter-spacing: 0px !important;
   }
   .select {
     font-size: 0.938rem !important;
     font-weight: normal !important;
-    letter-spacing: 0px !important;
+
     height: 32px;
     width: 105%;
     padding-left: 10px;
@@ -8575,13 +8820,13 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     background-color: #ffffff !important;
   }
-  .search-dashboard-select {
+  /* .search-dashboard-select {
     width: "";
-  }
+  } */
   .exp-parent {
     height: 305px;
     /* background-image: url("../images/XDC-Observatory-Logo-for-Tab.svg"); */
@@ -8609,7 +8854,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     color: #2a2a2a;
     background-color: #ffffff !important;
   }
@@ -8631,7 +8876,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     background-color: #ffffff !important;
     color: #2a2a2a;
   }
@@ -8643,18 +8888,20 @@ button {
   }
 } */
 
-@media (min-width: 1181px) {
+/* @media (min-width: 1181px) {
   .search-dashboard-select {
     width: "";
   }
-}
+} */
 
 .page-tab {
   display: flex !important;
   flex-basis: auto !important;
   align-items: baseline !important;
 }
-
+.pagination-tab-address {
+  display: flex;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .contract-summary-mobile {
     display: flex;
@@ -8664,7 +8911,7 @@ button {
   .left-table-contract-mobile {
     border-bottom: none !important;
     font-weight: 600 !important;
-    letter-spacing: 0px !important;
+
     font-size: 0.938rem !important;
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
@@ -8675,22 +8922,20 @@ button {
     padding: 0px 6px 10px 0px !important;
     border-bottom: 1px solid rgb(227, 231, 235) !important;
     font-size: 14px !important;
-    letter-spacing: 0px !important;
   }
   .main-input-td {
     width: 100%;
     font-size: 12px !important;
-    margin-top: -2px;
-  }
-  .mobFilter {
-    margin-top: -2px;
   }
   .mobFilter option {
     width: 10px;
   }
   .select-td {
-    margin-left: 0px;
+    margin-left: 5px;
     background-color: white !important;
+    font-size: 12px;
+    -webkit-appearance: none;
+    border: none;
   }
 
   .parentCenterbox {
@@ -8720,7 +8965,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
 
@@ -8772,7 +9017,6 @@ button {
   }
 
   .contract_details_heading_left {
-    letter-spacing: 0px;
     font-size: 16px;
     color: #2a2a2a;
     opacity: 1;
@@ -8785,12 +9029,19 @@ button {
   .table-grid-block {
     width: 23.5rem;
   }
+  .table-grid-block-global-id {
+    width: 23.5rem !important;
+  }
   .table-grid-block-contract {
     width: 21rem;
   }
   .grid-block-table {
     /* width: 100% !important; */
     width: 21rem !important;
+  }
+  .grid-block-table-global-id {
+    /* width: 100% !important; */
+    width: 20rem !important;
   }
   .container_sec {
     display: flex;
@@ -8799,13 +9050,22 @@ button {
     width: 23.75rem;
     border: none;
   }
-
-  .contractOverview {
+  .container_sec_holder {
+    display: flex;
+    flex-direction: column;
+    position: relative;
     width: 21rem;
+    margin: auto;
+    border: none;
+  }
+  .contractOverview {
+    /* width: 21rem; */
+    width: 100%;
     height: 15.875rem;
   }
   .contractSummary {
-    width: 21rem;
+    /* width: 21rem; */
+    width: 100%;
     height: 13rem;
     margin-top: 2rem;
   }
@@ -8823,16 +9083,16 @@ button {
     height: 2.188rem;
     margin: 0 0 0 25px;
   }
-  #transaction-btn {
+  /* #transaction-btn {
     width: 10.5rem;
-  }
+  } */
   #contract-btn {
     width: 10.5rem;
   }
   .active-content_sec {
     display: block;
-    width: 21rem;
-    margin-left: 20px;
+    /* width: 21rem;
+    margin-left: 20px; */
   }
   .sec-active {
     margin: 0 auto !important;
@@ -8841,9 +9101,10 @@ button {
   .content_input_all {
     display: flex;
     /* flex-direction: column; */
-    width: 22.5rem;
+    width: 21rem;
     /* justify-content: space-between; */
   }
+
   .cont-tab {
     width: 21rem !important;
     flex-direction: initial !important;
@@ -8870,9 +9131,9 @@ button {
     padding: 0px 0px 11px 0px !important;
   }
   .pagination-tab-address {
-    max-width: 100% !important;
+    max-width: 190px !important;
     width: 100% !important;
-    padding: 0px 0px 11px 0px !important;
+    padding: 0px 0px 15px 0px !important;
   }
   .source-code-second-container {
     margin-left: 0rem;
@@ -8891,7 +9152,7 @@ button {
   }
   .left-table-contract-mobile {
     font-weight: 600 !important;
-    letter-spacing: 0px !important;
+
     font-size: 0.938rem !important;
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
@@ -8902,7 +9163,6 @@ button {
     padding: 10px 6px 10px 0px !important;
     border-bottom: 1px solid rgb(227, 231, 235) !important;
     font-size: 14px !important;
-    letter-spacing: 0px !important;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -8915,7 +9175,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     color: #2a2a2a;
   } */
   .search-svg {
@@ -8972,7 +9232,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
 
@@ -9008,12 +9268,14 @@ button {
     font-size: 0.938rem;
   }
   .contract_details_heading_left {
-    letter-spacing: 0px;
     color: #2a2a2a;
     opacity: 1;
   }
 
   .table-grid-block {
+    width: 22.563rem;
+  }
+  .table-grid-block-global-id {
     width: 22.563rem;
   }
   .table-grid-block-contract {
@@ -9023,10 +9285,13 @@ button {
   .grid-block-table {
     width: 41.5rem !important;
   }
+  .grid-block-table-global-id {
+    width: 41.5rem !important;
+  }
   .AddressTitle {
-    width: 35rem;
+    /* width: 35rem;
     margin-left: 0px;
-    padding-left: 115px;
+    padding-left: 115px; */
   }
   .contractOverview {
     width: 41.5rem;
@@ -9085,7 +9350,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
 
@@ -9128,23 +9393,23 @@ button {
   margin: auto;
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
   .responsive-table-width-contract-list {
     border-radius: 14px;
     margin-left: 5%;
     margin-right: 5%;
     width: auto;
   }
-}
+} */
 
-@media (min-width: 640px) and (max-width: 1023px) {
+/* @media (min-width: 768px) and (max-width: 1023px) {
   .responsive-table-width-contract-list {
     border-radius: 14px;
     margin-left: 5%;
     margin-right: 5%;
     width: auto;
   }
-}
+} */
 
 .responsive-table-width-token-list {
   border-radius: 0.75rem;
@@ -9179,7 +9444,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 40px;
-  letter-spacing: 0rem;
+
   text-align: center;
   color: #2a2a2a;
   opacity: 0.8;
@@ -9339,6 +9604,9 @@ button {
     height: 22px;
     margin-top: -1px;
     cursor: pointer;
+  }
+  .mobFilter {
+    border-left: 1px solid #9fa9ba;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -9630,7 +9898,7 @@ button {
   .profile {
     height: 24px !important;
     width: 24px !important;
-    margin-right: 9px;
+    /* margin-right: 9px; */
   }
 }
 .Shape2-internal1 {
@@ -9659,16 +9927,7 @@ button {
     width: 20px;
     margin-top: 7px;
   }
-  .Shape2-internal1 {
-    height: 28px;
-    width: 26px;
-    margin-top: -2px !important;
-  }
-  .menu-sidebar {
-    height: 27px;
-    width: 26px;
-    margin-top: -2px !important;
-  }
+
   .profile {
     height: 24px !important;
     width: 24px !important;
@@ -9732,6 +9991,17 @@ button {
   .w-118 {
     width: 118%;
   }
+  .Shape2-internal1 {
+    height: 28px;
+    width: 26px;
+    margin-top: -2px !important;
+    margin-right: -12px;
+  }
+  .menu-sidebar {
+    height: 27px;
+    width: 26px;
+    margin-right: -12px !important;
+  }
 }
 @media (max-width: 767px) {
   .details-margin-30 {
@@ -9753,7 +10023,13 @@ button {
     width: 16px;
   }
 }
-@media (min-width: 0px) and (max-width: 766px) {
+.contract-heading {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 600;
+  color: #2a2a2a;
+}
+@media (min-width: 0px) and (max-width: 767px) {
   /* .grid-block-table {
     margin: 28px auto auto auto !important;
     width: 100% !important;
@@ -9772,8 +10048,11 @@ button {
   .grid-block-table {
     width: 21rem !important;
   }
+  .grid-block-table-global-id {
+    width: 20rem !important;
+  }
   .sec-block-mb {
-    /* margin-left: 0rem !important; */
+    margin-left: 0rem !important;
     padding: 0px !important;
   }
 
@@ -9801,8 +10080,12 @@ button {
     margin-left: 0% !important;
   }
   .contact-list-tab {
-    width: 21rem !important;
-    margin: 0 auto;
+    width: 100%;
+    padding: 0 15px;
+  }
+  .contract-heading {
+    font-size: 14px;
+    color: #252525;
   }
   .div-searchelement_11 {
     margin-top: 140px !important;
@@ -9841,7 +10124,7 @@ button {
   }
   .input-searchelement_11 {
     margin-left: 0% !important;
-    width: 170px;;
+    width: 170px;
   }
   .token-searchelement_11 {
     margin-left: 0% !important;
@@ -10267,20 +10550,20 @@ button {
 .token-link {
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   border: none;
   color: #2149b9;
 }
 .token-link:hover {
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   border: none;
   color: #2149b9;
 }
 .block-details-extraData {
   font-size: 0.938rem;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -10290,7 +10573,7 @@ button {
 @media (min-width: 0px) and (max-width: 766px) {
   .block-details-extraData {
     font-size: 0.938rem;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #3a3a3a;
     margin-left: 0px;
@@ -10300,7 +10583,7 @@ button {
 }
 .transaction-details-input-data {
   font-size: 0.938rem;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3a3a3a;
   width: 100%;
@@ -10309,7 +10592,7 @@ button {
 @media (min-width: 0px) and (max-width: 766px) {
   .transaction-details-input-data {
     font-size: 0.938rem;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #3a3a3a;
     margin-left: 0px;
@@ -10323,7 +10606,7 @@ button {
 }
 .account-searchbar {
   font-size: 15px;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   font-family: "Inter";
   outline-color: transparent;
@@ -10381,7 +10664,7 @@ button {
     width: 8rem;
   }
   .m-r-9 {
-    margin-right: 0px;;
+    margin-right: 0px;
   }
 }
 @media (min-width: 0px) and (max-width: 766px) {
@@ -10538,7 +10821,7 @@ button {
     align-self: flex-end !important;
   }
   #new-features .MuiPaper-root {
-    width: 100%;
+    width: 100% !important;
     margin-left: auto;
     margin-right: auto;
     height: 100%;
@@ -10553,7 +10836,7 @@ button {
   }
 }
 #new-features .MuiPaper-root {
-  max-width: 900px !important;
+  /* max-width: 900px !important; */
   width: 95%;
 }
 .show-tooltip {
@@ -10572,7 +10855,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
 }
 .detail-heading {
   font-family: Inter;
@@ -10581,7 +10863,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 .success-text {
@@ -10591,7 +10873,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #03be46;
   margin-top: 7px;
 }
@@ -10607,7 +10889,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #000000;
   margin-top: 7px;
 }
@@ -10618,7 +10900,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: red;
   margin-top: 7px;
 }
@@ -10644,7 +10926,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   cursor: pointer;
 }
 .tooltip-link:hover {
@@ -10655,7 +10937,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   cursor: pointer;
 }
 .tooltip-link-div {
@@ -10701,7 +10983,6 @@ button {
   font-size: 13px;
   font-weight: 500;
 
-  letter-spacing: 0px;
   text-align: center;
   color: #ff4200;
 }
@@ -10716,7 +10997,6 @@ button {
   font-size: 13px;
   font-weight: 500;
 
-  letter-spacing: 0px;
   text-align: center;
   color: #007b2c;
 }
@@ -10729,7 +11009,6 @@ button {
   color: #2149b9;
 }
 .configure-columns {
-  letter-spacing: 0px;
 }
 .configure-columns-line {
   border: solid 1px #e3e7eb;
@@ -10786,7 +11065,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.42px;
   text-align: center;
   color: #ff4200;
   padding: 2px 1px;
@@ -10797,12 +11075,12 @@ button {
     width: 100% !important;
     margin: 10px 0;
   }
-  .MuiIconButton-root {
+  /* .MuiIconButton-root {
     padding: 0 12px 0 0 !important;
     margin-right: -12px !important;
-  }
+  } */
   .p-l-r-15 {
-    padding: 20px 15px !important;
+    padding: 20px 0px !important;
   }
 }
 .toast-div-address {
@@ -10831,7 +11109,6 @@ button {
 
   .searchdiv {
     padding-left: 0px 15px !important;
-    margin-left: 15px !important;
   }
 
   .PrivateTabIndicator-colorSecondary-120 {
@@ -10844,7 +11121,91 @@ button {
   width: 15px;
 }
 .sidebar_notification {
-  color: white;
+  color: #9fa9ba;
   width: 100%;
-  margin-left: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+.tootlip-account-list {
+  font-size: 20px;
+  color: aqua;
+}
+.holder-detail-table {
+  border-radius: 14px;
+  width: 75.9rem;
+  margin: 0 auto;
+}
+@media screen and (max-width: 767px) {
+  .holder-detail-table {
+    border-radius: 14px;
+    width: 21rem;
+    margin: 0 auto;
+  }
+}
+.global-id {
+  background-image: url("../images/banner_bg.png");
+  background-color: #2149b9;
+  min-height: 100vh;
+}
+@media(max-width:767px){
+  .global-id {
+    background-image: none;
+    background-color: #fff;
+    min-height: 100vh;
+  }
+
+}
+.global-id-icon {
+  height: 45px;
+  width: 45px;
+}
+.orText-login {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  color: #9fa9ba;
+}
+.global-id-logo {
+  margin-right: 30px;
+}
+.line-global-id {
+  width: 142px;
+  height: 1px;
+}
+@media (max-width: 767px) {
+  .line-global-id {
+    width: 100px;
+  }
+}
+.text-global-id {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff0202;
+}
+.privacy-is-very-important {
+  margin: 0px auto 10px;
+
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff0202;
+}
+@media (min-width:768px) and (max-width: 1240px) {
+
+.global-id-image{
+  width: 70px;
+  height: 70px;
+}
 }

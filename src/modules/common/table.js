@@ -17,7 +17,7 @@ import Utility from "../../utility";
 import { CompareArrowsOutlined } from "@material-ui/icons";
 import { messages } from "../../constants";
 import TransactionDetailTooltip from "./transactionDetailTooltip";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   container: {
@@ -48,7 +48,6 @@ const TransactionTitle = styled.div`
   margin-left: 25px;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0px;
   color: #2a2a2a;
   opacity: 1;
   font-family: Inter;
@@ -69,7 +68,7 @@ export default function CommonTransactionsTable(props) {
   const [blockTT, setBlockTT] = React.useState(false)
   const [fromTT, setfromTT] = React.useState(false)
   const [toTT, settoTT] = React.useState(false)
-  const timezone = useSelector(state=> state.timezone)
+  const timezone = useSelector(state => state.timezone)
 
   return (
     <Paper

@@ -118,7 +118,12 @@ const useStyles = makeStyles((theme) => ({
   },
   error1: {
     color: "red",
-    marginLeft: "24px",
+    marginLeft: "0px",
+    marginTop: "-5px",
+  },
+  error2: {
+    color: "red",
+    marginBottom: "8px",
     marginTop: "-14px",
   },
   forgotpass: {
@@ -168,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0px",
+
     lineHeight: "1.58",
   },
 
@@ -208,6 +213,7 @@ export default function FormDialog() {
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [error, setError] = React.useState("");
   const [privateNoteError, setPrivateNoteError] = React.useState("");
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
@@ -216,6 +222,13 @@ export default function FormDialog() {
   };
 
   async function transactionLable() {
+    setError("");
+    setPrivateNoteError("");
+    setErrorEmptyField("");
+    if (!TransactionsHash && !PrivateNote) {
+        setErrorEmptyField("Please enter required fields");
+        return
+    }
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: PrivateNote,
@@ -223,20 +236,20 @@ export default function FormDialog() {
     };
     if (!TransactionsHash) {
       setError("Please enter required field");
+    } else if (!PrivateNote) {
+      setPrivateNoteError("Please enter transaction label/note");
     } else if (
       !(TransactionsHash && TransactionsHash.length === 66) ||
       !(TransactionsHash.slice(0, 2) == "0x")
     ) {
-      setError("Address should start with 0x & 66 characters");
-    } else if (!PrivateNote) {
-      setPrivateNoteError("Private Note is required");
-    } else {
+      setError("Invalid transaction hash");
+    } else{
       const [error, response] = await utility.parseResponse(
         UserService.postUserPrivateNote(data)
       );
 
       if (error || !response) {
-        utility.apiFailureToast("Transaction private note is already in use");
+        setPrivateNoteError("Transaction hash already exist in table");
         return;
       }
       let transactionLabel = localStorage.getItem(
@@ -251,7 +264,7 @@ export default function FormDialog() {
             item.userId == data.userId
         );
         if (existingTransactionLabel) {
-          utility.apiFailureToast("Transaction private note is already in use");
+          setPrivateNoteError("Transaction hash already exist in table");
           return;
         }
       } else {
@@ -321,6 +334,7 @@ export default function FormDialog() {
             Add Transaction Label
           </div>
         </Row>
+        {errorEmptyField ? <div className={classes.error2}>{errorEmptyField}</div> : <></>}
         <div>
           <p className={classes.subCategory}>Transaction Hash</p>
           <input
@@ -382,9 +396,10 @@ export default function FormDialog() {
         </DialogActions>
         <div className={classes.lastContainer}>
           <div className={classes.lastContainerText}>
-            To protect your privacy, data related to the transaction labels, is
-            added on your local device. Cleaning the browsing history or cookies
-            will clean the transaction labels saved in your profile.
+          Privacy is very important to us. To protect sensitive information,
+              all custom tags and data related to the Watchlists are saved on
+              your local device. Clearing the browsing history or cookies will
+              remove the watchlist data saved in your profile.
           </div>
         </div>
         {/* <div className={classes.value}></div>

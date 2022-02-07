@@ -18,7 +18,7 @@ import queryString from "query-string";
 import utility from "../../utility";
 import { useSelector } from "react-redux";
 import Utility from "../../utility";
-
+import format from "format-number";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -126,10 +126,11 @@ export default function BlockDetails() {
 
   const hashid = `Hash of the block header from the previous block`;
   const blockheight = `Also known as Block Number. The block height, which indicates the length the length of the blockchain, increases after the addition of the new block.`;
+  const transactionT = `Number of transactions associated with a particular block`;
   const timestamp = `The date and time at which a transaction is mined.`;
   const parenthash = `The hash of the block from which this block was generated, also known as its parent block`;
   const sha3uncles = `The mechanism which Ethereum Javascript RLP encodes an empty string`;
-  const diffi = `  The amount of effort required to mine a new block. The difficulty algorithmmay adjust according to time`;
+  const diffi = `  The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time`;
   const tdiffi = `Total difficulty of the chain until this block`;
   const gasU = `The total gas used in the block and  its percentage of gas filled in the block`;
   const gasL = `Total gas limit provided by all transactions in the block`;
@@ -143,9 +144,10 @@ export default function BlockDetails() {
     return input;
   };
   let td = parseInt(height?.totalDifficulty);
-  let totalDifficulty = td?.toLocaleString('en-US');
-  let difi = parseInt(height?.difficulty)
-  let difficulty = difi?.toLocaleString('en-US');
+
+
+  let difficulty = parseInt(height?.difficulty)
+
 
   const getHoursAgo = (date) => {
     let today = Date.now()
@@ -283,7 +285,7 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={hashid}>
+                      <Tooltip align="right" title={transactionT}>
                         <ImageView
                           src="/images/info.svg"
                         />
@@ -410,7 +412,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{difficulty}</MiddleContainer>
+                    <MiddleContainer>{format({})(difficulty)}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -421,7 +423,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Total Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{totalDifficulty}</MiddleContainer>
+                    <MiddleContainer>{format({})(td)}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -432,7 +434,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Gas Used</Hash>
                     </Container>
-                    <MiddleContainer>{parseInt(height?.gasUsed)?.toLocaleString('en-US')}</MiddleContainer>
+                    <MiddleContainer>{format({})(parseInt(height?.gasUsed))}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -443,7 +445,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Gas Limit</Hash>
                     </Container>
-                    <MiddleContainer>{parseInt(height?.gasLimit)?.toLocaleString('en-US')}</MiddleContainer>
+                    <MiddleContainer>{format({})(parseInt(height?.gasLimit))}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -490,14 +492,14 @@ const Input = styled.input`
   background-color: #fff;
   font-family: Inter;
   font-size: 14px;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #2a2a2a;
 `;
 const Content = styled.span`
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
@@ -505,7 +507,7 @@ const Content = styled.span`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0px;
+    
     color: #3a3a3a;
     opacity: 1;
   }
@@ -513,7 +515,7 @@ const Content = styled.span`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0px;
+    
     color: #3a3a3a;
     opacity: 1;
   }
@@ -525,7 +527,7 @@ const Content = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     text-align: left;
     color: #3a3a3a;
   }
@@ -550,7 +552,7 @@ const Digits = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #4878ff;
 `;
@@ -558,7 +560,7 @@ const Blocks = styled.span`
   font-family: Inter;
   font-size: 14px;
 
-  letter-spacing: 0px;
+  
   text-align: left;
 `;
 const Div__ = styled.div`
@@ -577,7 +579,7 @@ const Div__ = styled.div`
 const MiddleContainer = styled.div`
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -588,7 +590,7 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0px;
+    
     color: #3a3a3a;
     opacity: 1;
   }
@@ -596,7 +598,7 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0px;
+    
     color: #3a3a3a;
     opacity: 1;
   }
@@ -608,7 +610,7 @@ const MiddleContainer = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     text-align: left;
     color: #3a3a3a;
   }
@@ -616,7 +618,7 @@ const MiddleContainer = styled.div`
 const MiddleContainerHash = styled.div`
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   margin-left: 105px;
@@ -633,14 +635,14 @@ const Hash = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 13px;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 0.75rem;
     text-align: left;
-    letter-spacing: 0px;
+    
     color: #2a2a2a;
     opacity: 1;
   }
@@ -649,7 +651,7 @@ const Hash = styled.span`
     font-weight: 600;
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0px;
+    
     color: #2a2a2a;
     opacity: 1;
   }
@@ -661,7 +663,7 @@ const Hash = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     text-align: left;
     color: #2a2a2a;
   }
@@ -737,7 +739,7 @@ const Heading = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     text-align: left;
     color: #2a2a2a;
   }
@@ -749,7 +751,7 @@ const Heading = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     text-align: left;
     color: #2a2a2a;
     margin-top: 15px;
@@ -763,7 +765,7 @@ const Heading = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     text-align: left;
     color: #2a2a2a;
   }
@@ -777,6 +779,8 @@ const ImageView = styled.img`
   @media (min-width: 0px) and (max-width: 767px) {
     width: 22px;
     // height: 14px;
+    margin-right: 6px;
+    margin-left: -4px;
   }
 
   @media (min-width: 768px) and (max-width: 1240px) {

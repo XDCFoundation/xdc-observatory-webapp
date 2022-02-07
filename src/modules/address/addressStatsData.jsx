@@ -34,7 +34,7 @@ const MarketDataPointTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   justify-content: center;
   color: #686868;
   display: flex;
@@ -48,7 +48,7 @@ const MarketDataPointTitle = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     color: #686868;
     font-size: 0.75rem;
     opacity: 1;
@@ -104,7 +104,7 @@ const OutDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ff4200;
   padding: 2px 1px;
@@ -116,7 +116,7 @@ const InValue = styled.span`
   font-stretch: normal !important;
   font-style: normal !important;
   line-height: normal !important;
-  letter-spacing: 0px !important;
+
   text-align: center !important;
   color: #585858 !important;
   padding: 4px 10px 5px 2px !important;
@@ -132,7 +132,7 @@ const OutValue = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   padding: 4px 0px 5px 2px;
   color: #585858;
@@ -180,16 +180,21 @@ class AddressStatsData extends Component {
     let avgBalance = Utils.convertToInternationalCurrencySystem(
       Number(averageBalance)
     );
-    let avgBalanceConverted = Utils.convertToInternationalCurrencySystem(
-      Number(averageBalance) * Number(currencyPrice)
-    );
+    let avgBalanceConverted = !currencyPrice
+      ? ""
+      : Utils.convertToInternationalCurrencySystem(
+          Number(averageBalance) * Number(currencyPrice)
+        );
+
     let tokens = this.props?.statData?.tokens?.length;
     let tokensConverted = Utils.convertToInternationalCurrencySystem(
       Number(tokens) * Number(currencyPrice)
     );
     let gasP = Utils.decimalDivison(Number(this.props?.statData?.gasFee), 12);
-    let gasPrice = parseFloat(Number(gasP));
-    let gasPriceConverted = Number(gasPrice) * Number(currencyPrice);
+    let gasPrice = !gasP ? "" : parseFloat(Number(gasP));
+    let gasPriceConverted = !gasP
+      ? ""
+      : Number(gasPrice) * Number(currencyPrice);
 
     let currencySymbol = activeCurrency === "EUR" ? "€" : "$";
     return (
@@ -199,7 +204,7 @@ class AddressStatsData extends Component {
             <div className="main_child_address">
               <div className="cont1 p-t-0">
                 <MarketDataPointTitle>
-                  <Tooltip placement="top" title={messages.MARKET_CAP}>
+                  <Tooltip placement="top" title={messages.Total_Txn}>
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
@@ -223,7 +228,7 @@ class AddressStatsData extends Component {
 
               <div className="cont1 p-t-0">
                 <MarketDataPointTitle>
-                  <Tooltip placement="top" title={messages.FDMP}>
+                  <Tooltip placement="top" title={messages.Highest_Txn}>
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
@@ -238,14 +243,14 @@ class AddressStatsData extends Component {
                   <OutValue>
                     {currencySymbol}
                     {!highestTransactionConverted
-                      ? 0
+                      ? ""
                       : highestTransactionConverted}
                   </OutValue>
                 </ThirdRowValue>
               </div>
               <div className="cont1 p-t-0">
                 <MarketDataPointTitle>
-                  <Tooltip placement="top" title={messages.VOLUMEX24}>
+                  <Tooltip placement="top" title={messages.AVERAGE_BALANCE}>
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
@@ -262,7 +267,7 @@ class AddressStatsData extends Component {
                 <ThirdRowValue>
                   <OutValue>
                     {currencySymbol}
-                    {!avgBalanceConverted ? 0 : avgBalanceConverted}
+                    {avgBalanceConverted}
                   </OutValue>
                 </ThirdRowValue>
               </div>
@@ -272,10 +277,7 @@ class AddressStatsData extends Component {
               <div className="cont1 p-t-0">
                 <div className="cont1-child">
                   <MarketDataPointTitle>
-                    <Tooltip
-                      placement="top"
-                      title={messages.CIRCULATING_SUPPLY}
-                    >
+                    <Tooltip placement="top" title={messages.Txn_Fee}>
                       <img
                         alt="question-mark"
                         src="/images/info-new.svg"
@@ -286,41 +288,42 @@ class AddressStatsData extends Component {
                     Txn Fee Paid
                   </MarketDataPointTitle>
                   <Value>
-                    {!gasPrice ? 0 : Number(gasPrice).toFixed(12)}&nbsp;XDC
+                    {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
+                    &nbsp;XDC
                   </Value>
                   <ThirdRowValue>
                     <OutValue>
                       {currencySymbol}
-                      {!gasPriceConverted
-                        ? 0
-                        : Number(gasPriceConverted).toFixed(12)}
+                      {gasPriceConverted > 0
+                        ? Number(gasPriceConverted).toFixed(12)
+                        : gasPriceConverted}
                     </OutValue>
                   </ThirdRowValue>
                 </div>
               </div>
 
-              <div className="cont1 p-t-0 cont1_align">
-                <div className="cont1-child2">
-                  <MarketDataPointTitle>
-                    <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
-                      <img
-                        alt="question-mark"
-                        src="/images/info-new.svg"
-                        height={"14px"}
-                        className="info-new-icon"
-                      />
-                    </Tooltip>
-                    Tokens
-                  </MarketDataPointTitle>
-                  <Value>{this.props?.statData?.tokens?.length}</Value>
-                  <ThirdRowValue>
-                    <OutValue>
-                      {currencySymbol}
-                      {!tokensConverted ? 0 : tokensConverted}
-                    </OutValue>
-                  </ThirdRowValue>
-                </div>
-              </div>
+              {/*<div className="cont1 p-t-0 cont1_align">*/}
+              {/*  <div className="cont1-child2">*/}
+              {/*    <MarketDataPointTitle>*/}
+              {/*      <Tooltip placement="top" title={messages.Tokens}>*/}
+              {/*        <img*/}
+              {/*          alt="question-mark"*/}
+              {/*          src="/images/info-new.svg"*/}
+              {/*          height={"14px"}*/}
+              {/*          className="info-new-icon"*/}
+              {/*        />*/}
+              {/*      </Tooltip>*/}
+              {/*      Tokens*/}
+              {/*    </MarketDataPointTitle>*/}
+              {/*    <Value>{this.props?.statData?.tokens?.length}</Value>*/}
+              {/*    <ThirdRowValue>*/}
+              {/*      <OutValue>*/}
+              {/*        {currencySymbol}*/}
+              {/*        {!tokensConverted ? "" : tokensConverted}*/}
+              {/*      </OutValue>*/}
+              {/*    </ThirdRowValue>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
               <div className="con"> </div>
             </div>
           </div>
@@ -330,7 +333,7 @@ class AddressStatsData extends Component {
             <div className="second_cont_address">
               <div className="w-45-per">
                 <MarketDataPointTitle>
-                  <Tooltip placement="top" title={messages.MARKET_CAP}>
+                  <Tooltip placement="top" title={messages.Total_Txn}>
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
@@ -359,7 +362,7 @@ class AddressStatsData extends Component {
               <div className="w-45-per">
                 {" "}
                 <MarketDataPointTitle>
-                  <Tooltip placement="top" title={messages.FDMP}>
+                  <Tooltip placement="top" title={messages.Highest_Txn}>
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
@@ -378,7 +381,7 @@ class AddressStatsData extends Component {
                     {" "}
                     {currencySymbol}
                     {!highestTransactionConverted
-                      ? 0
+                      ? ""
                       : highestTransactionConverted}
                   </OutValue>
                 </ThirdRowValue>
@@ -402,12 +405,12 @@ class AddressStatsData extends Component {
               </div>
               <div className="mid_cont_address ">
                 {" "}
-                <p>{averageBalance}&nbsp;XDC</p>
+                <p>{avgBalance}&nbsp;XDC</p>
                 <ThirdRowValue>
                   <OutValue>
                     {" "}
                     {currencySymbol}
-                    {!avgBalanceConverted ? 0 : avgBalanceConverted}
+                    {!avgBalanceConverted ? "" : avgBalanceConverted}
                   </OutValue>
                 </ThirdRowValue>
               </div>
@@ -417,7 +420,7 @@ class AddressStatsData extends Component {
               <div className="w-45-per">
                 {" "}
                 <MarketDataPointTitle>
-                  <Tooltip placement="top" title={messages.CIRCULATING_SUPPLY}>
+                  <Tooltip placement="top" title={messages.Txn_Fee}>
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
@@ -430,45 +433,48 @@ class AddressStatsData extends Component {
               </div>
               <div className="mid_cont_address">
                 {" "}
-                <p>{!gasPrice ? 0 : Number(gasPrice).toFixed(12)}&nbsp;XDC</p>
+                <p>
+                  {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
+                  &nbsp;XDC
+                </p>
                 <ThirdRowValue>
                   <OutValue>
                     {currencySymbol}
-                    {!gasPriceConverted
-                      ? 0
-                      : Number(gasPriceConverted).toFixed(12)}
+                    {gasPriceConverted > 0
+                      ? Number(gasPriceConverted).toFixed(12)
+                      : gasPriceConverted}
                   </OutValue>
                 </ThirdRowValue>
               </div>
             </div>
 
-            <div className="second_cont_address">
-              <div className="w-45-per">
-                {" "}
-                <MarketDataPointTitle>
-                  <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
-                    <img
-                      alt="question-mark"
-                      src="/images/info-new.svg"
-                      height={"14px"}
-                      className="info-new-icon"
-                    />
-                  </Tooltip>
-                  Tokens
-                </MarketDataPointTitle>
-              </div>
-              <div className="mid_cont_address">
-                {" "}
-                <p>{this.props?.statData?.tokens?.length}</p>
-                <ThirdRowValue>
-                  <OutValue>
-                    {" "}
-                    {currencySymbol}
-                    {!tokensConverted ? 0 : tokensConverted}
-                  </OutValue>
-                </ThirdRowValue>
-              </div>
-            </div>
+            {/*<div className="second_cont_address">*/}
+            {/*  <div className="w-45-per">*/}
+            {/*    {" "}*/}
+            {/*    <MarketDataPointTitle>*/}
+            {/*      <Tooltip placement="top" title={messages.Tokens}>*/}
+            {/*        <img*/}
+            {/*          alt="question-mark"*/}
+            {/*          src="/images/info-new.svg"*/}
+            {/*          height={"14px"}*/}
+            {/*          className="info-new-icon"*/}
+            {/*        />*/}
+            {/*      </Tooltip>*/}
+            {/*      Tokens*/}
+            {/*    </MarketDataPointTitle>*/}
+            {/*  </div>*/}
+            {/*  <div className="mid_cont_address">*/}
+            {/*    {" "}*/}
+            {/*    <p>{this.props?.statData?.tokens?.length}</p>*/}
+            {/*    <ThirdRowValue>*/}
+            {/*      <OutValue>*/}
+            {/*        {" "}*/}
+            {/*        {currencySymbol}*/}
+            {/*        {!tokensConverted ? "" : tokensConverted}*/}
+            {/*      </OutValue>*/}
+            {/*    </ThirdRowValue>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
           </div>
         </MobileView>
       </>

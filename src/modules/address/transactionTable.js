@@ -21,52 +21,26 @@ import format from "format-number";
 import { messages } from "../../constants";
 import PageSelector from "../common/pageSelector";
 
-function timeDiff(curr, prev) {
-  var ms_Min = 60 * 1000; // milliseconds in Minute
-  var ms_Hour = ms_Min * 60; // milliseconds in Hour
-  var ms_Day = ms_Hour * 24; // milliseconds in day
-  var ms_Mon = ms_Day * 30; // milliseconds in Month
-  var ms_Yr = ms_Day * 365; // milliseconds in Year
-  var diff = curr - prev; //difference between dates.
-  // If the diff is less then milliseconds in a minute
-  if (diff < ms_Min) {
-    return Math.abs(Math.round(diff / 1000)) + " secs ago";
-
-    // If the diff is less then milliseconds in a Hour
-  } else if (diff < ms_Hour) {
-    return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
-
-    // If the diff is less then milliseconds in a day
-  } else if (diff < ms_Day) {
-    return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
-
-    // If the diff is less then milliseconds in a Month
-  } else if (diff < ms_Mon) {
-    return Math.abs(Math.round(diff / ms_Day)) + " days ago";
-
-    // If the diff is less then milliseconds in a year
-  } else if (diff < ms_Yr) {
-    return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
-  } else {
-    return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
-  }
-}
 export default function TransactionTableComponent(props) {
   const { state } = props;
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(b.length - 3, b.length)}`;
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
+      b.length - 3,
+      b.length
+    )}`;
   }
   let { addr } = useParams();
   let { addressNumber } = useParams();
   const [from, setFrom] = React.useState(parseInt(0));
-  const [amount, setAmount] = React.useState(parseInt(50));
+  const [amount, setAmount] = React.useState(parseInt(10));
   const [address, setAddress] = useState([]);
   const [ContractAddress, setContractAddress] = useState(addressNumber);
   const [keywords, setKeywords] = useState("");
   const [reportaddress, setReportaddress] = useState([]);
   const [downloadaddress, setDownloadaddress] = useState([]);
   const [isDownloadActive, setDownloadActive] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(0);
   const [noData, setNoData] = useState(false);
   const [totalRecord, setTotalRecord] = useState(0);
   const [isLoading, setLoading] = useState(true);
@@ -81,7 +55,9 @@ export default function TransactionTableComponent(props) {
   });
   const getContractDetails = async (values) => {
     try {
-      const [error, responseData] = await Utility.parseResponse(AddressData.getAddressDetailWithlimit(values));
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getAddressDetailWithlimit(values)
+      );
       if (!responseData || responseData.length === 0) {
         setNoData(true);
         setTotalRecord(parseInt(0));
@@ -90,8 +66,9 @@ export default function TransactionTableComponent(props) {
         return;
       }
       let transactionSortByValue = responseData.sort((a, b) => {
-        return b.value - a.value;
+        return Number(b.value) - Number(a.value);
       });
+      setVisibleCount(responseData.length);
       if (transactionSortByValue && transactionSortByValue.length > 0) {
         setAddress(transactionSortByValue);
         setLoading(false);
@@ -107,7 +84,9 @@ export default function TransactionTableComponent(props) {
   };
   const getTransactionsCountForAddress = async (data) => {
     try {
-      const [error, responseData] = await Utility.parseResponse(AddressData.getTransactionsCountForAddress(data));
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getTransactionsCountForAddress(data)
+      );
       if (!responseData) {
         setNoData(true);
       }
@@ -164,7 +143,7 @@ export default function TransactionTableComponent(props) {
       }
     }
     if (action === "last") {
-      let pagecount = +totalRecord - +amount;
+      let pagecount = (Math.ceil(parseInt(totalRecord) / parseInt(amount))-1) * amount;
       setFrom(parseInt(pagecount));
       if (keywords) {
         datas = {
@@ -277,7 +256,9 @@ export default function TransactionTableComponent(props) {
         })
       );
     } else {
-      let tempAddress = address.map((addr) => (addr._id === name ? { ...addr, isChecked: checked } : addr));
+      let tempAddress = address.map((addr) =>
+        addr._id === name ? { ...addr, isChecked: checked } : addr
+      );
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
@@ -313,7 +294,7 @@ export default function TransactionTableComponent(props) {
     };
     getContractDetails(values);
     let data = {
-      addrr: ContractAddress,
+      address: ContractAddress,
     };
     getTransactionsCountForAddress(data);
     setLoading(false);
@@ -343,7 +324,6 @@ export default function TransactionTableComponent(props) {
   const [toTT, settoTT] = React.useState(false);
   const [valueTT, setvalueTT] = React.useState(false);
   const [gasTT, setgasTT] = React.useState(false);
-
   return (
     <div>
       <div className="content_input_all cont-tab-contract">
@@ -360,39 +340,67 @@ export default function TransactionTableComponent(props) {
             onKeyUp={handleKeyUp}
   />*/}
         </div>
-        <div className="csvDownloadParent">
-          {isDownloadActive ? (
-            <div className="csv">
-              <img src={"/images/rectangle-copy.svg"} />{" "}
-              <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}>
-                Download CSV
-              </CSVLink>
-            </div>
-          ) : (
-            <div className="csv-inactive">
-              <img src={"/images/rectangle-copy.svg"} />{" "}
-              <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}>
-                Download CSV
-              </CSVLink>
-            </div>
-          )}
-        </div>
+        {noData == false ? (
+          <div className="csvDownloadParent">
+            {isDownloadActive ? (
+              <div className="csv">
+                <img src={"/images/rectangle-copy.svg"} />{" "}
+                <CSVLink
+                  className="ActiveDownload"
+                  filename={"transactions.csv"}
+                  data={downloadaddress}
+                >
+                  Download CSV
+                </CSVLink>
+              </div>
+            ) : (
+              <div className="csv-inactive">
+                <img src={"/images/rectangle-copy.svg"} />{" "}
+                <CSVLink
+                  className="InactiveDownload"
+                  filename={"transactions.csv"}
+                  data={downloadaddress}
+                >
+                  Download CSV
+                </CSVLink>
+              </div>
+            )}
+          </div>
+        ) : (
+          ""
+        )}
       </div>
 
       <Grid lg={13} className="tablegrid_address">
-        <Paper style={{ borderRadius: "14px" }} elevation={0} className="table-paper-contract">
-          <TableContainer className={classes.container} id="container-table table-cont">
+        <Paper
+          style={{ borderRadius: "14px" }}
+          elevation={0}
+          className="table-paper-contract"
+        >
+          <TableContainer
+            className={classes.container}
+            id="container-table table-cont"
+          >
             <Table className="table-trans-contract">
               <TableHead>
                 <TableRow>
-                  <TableCell className="w-31 w-850" style={{ border: "none" }} align="left">
-                    <input
-                      onChange={handleChanged}
-                      type="checkbox"
-                      name="allselect"
-                      checked={address.filter((addr) => addr?.isChecked == true).length == address.length}
-                      style={{ marginRight: "8px" }}
-                    />
+                  <TableCell
+                    className="w-31 w-850"
+                    style={{ border: "none" }}
+                    align="left"
+                  >
+                    {noData == false && (
+                      <input
+                        onChange={handleChanged}
+                        type="checkbox"
+                        name="allselect"
+                        checked={
+                          address.filter((addr) => addr?.isChecked == true)
+                            .length == address.length
+                        }
+                        style={{ marginRight: "8px" }}
+                      />
+                    )}
                     <span className={"tableheaders table-hash"}>
                       Transaction Hash
                       <Tooltip
@@ -400,7 +408,8 @@ export default function TransactionTableComponent(props) {
                         onOpen={() => setHashTT(true)}
                         onClose={() => setHashTT(false)}
                         placement="top"
-                        title={messages.HASH}>
+                        title={messages.HASH}
+                      >
                         <img
                           onClick={() => setHashTT(!hashTT)}
                           alt="question-mark"
@@ -411,7 +420,11 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-16 w-19" style={{ border: "none", paddingLeft: "1.8%" }} align="left">
+                  <TableCell
+                    className="w-16 w-19"
+                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    align="left"
+                  >
                     <span className={"tableheaders table-age"}>
                       Age
                       <Tooltip
@@ -419,7 +432,8 @@ export default function TransactionTableComponent(props) {
                         onOpen={() => setageTT(true)}
                         onClose={() => setageTT(false)}
                         placement="top"
-                        title={messages.AGE}>
+                        title={messages.AGE}
+                      >
                         <img
                           onClick={() => setageTT(!ageTT)}
                           alt="question-mark"
@@ -430,14 +444,20 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 w-19" style={{ border: "none", paddingLeft: "2%" }} align="left">
+                  <TableCell
+                    className="w-450 w-19"
+                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    align="left"
+                  >
                     <span className={"tableheaders table-block"}>
                       Block
                       <Tooltip
-                      open={blockTT}
+                        open={blockTT}
                         onOpen={() => setblockTT(true)}
                         onClose={() => setblockTT(false)}
-                         placement="top" title={messages.BLOCK}>
+                        placement="top"
+                        title={messages.BLOCK}
+                      >
                         <img
                           onClick={() => setblockTT(!blockTT)}
                           alt="question-mark"
@@ -448,14 +468,20 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 w-19" style={{ border: "none", paddingLeft: "1%" }} align="left">
+                  <TableCell
+                    className="w-450 w-19"
+                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    align="left"
+                  >
                     <span className={"tableheaders table-from"}>
                       From
                       <Tooltip
-                      open={fromTT}
+                        open={fromTT}
                         onOpen={() => setfromTT(true)}
                         onClose={() => setfromTT(false)}
-                         placement="top" title={messages.FROM}>
+                        placement="top"
+                        title={messages.FROM}
+                      >
                         <img
                           onClick={() => setfromTT(!fromTT)}
                           alt="question-mark"
@@ -466,14 +492,20 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 w-18" style={{ border: "none", paddingLeft: "1%" }} align="left">
+                  <TableCell
+                    className="w-450 w-18"
+                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    align="left"
+                  >
                     <span className={"tableheaders table-to"}>
                       To
                       <Tooltip
-                      open={toTT}
+                        open={toTT}
                         onOpen={() => settoTT(true)}
                         onClose={() => settoTT(false)}
-                         placement="top" title={messages.TO}>
+                        placement="top"
+                        title={messages.TO}
+                      >
                         <img
                           onClick={() => settoTT(!toTT)}
                           alt="question-mark"
@@ -484,16 +516,22 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1%" }} align="left">
+                  <TableCell
+                    className="w-450 "
+                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    align="left"
+                  >
                     <span className={"tableheaders table-value"}>
                       Value
                       <Tooltip
-                      open={valueTT}
+                        open={valueTT}
                         onOpen={() => setvalueTT(true)}
                         onClose={() => setvalueTT(false)}
-                         placement="top" title={messages.VALUE}>
+                        placement="top"
+                        title={messages.VALUE}
+                      >
                         <img
-                        onClick={() => setvalueTT(!valueTT)}
+                          onClick={() => setvalueTT(!valueTT)}
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
@@ -502,16 +540,22 @@ export default function TransactionTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1%" }} align="left">
+                  <TableCell
+                    className="w-450 "
+                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    align="left"
+                  >
                     <span className={"tableheaders table-value"}>
                       Avg Txn Fee
                       <Tooltip
-                      open={gasTT}
+                        open={gasTT}
                         onOpen={() => setgasTT(true)}
                         onClose={() => setgasTT(false)}
-                         placement="top" title={messages.GAS}>
+                        placement="top"
+                        title={messages.GAS}
+                      >
                         <img
-                        onClick={() => setgasTT(!gasTT)}
+                          onClick={() => setgasTT(!gasTT)}
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
@@ -539,10 +583,22 @@ export default function TransactionTableComponent(props) {
                     {address.map((row, index) => {
                       const currentTime = new Date();
                       const previousTime = new Date(row.timestamp * 1000);
-                      const TimeAge = timeDiff(currentTime, previousTime);
+                      const TimeAge = Utility.timeDiff(
+                        currentTime,
+                        previousTime
+                      );
                       return (
-                        <TableRow style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
-                          <TableCell style={{ border: "none" }} margin-left="5px">
+                        <TableRow
+                          style={
+                            index % 2 !== 1
+                              ? { background: "#f9f9f9" }
+                              : { background: "white" }
+                          }
+                        >
+                          <TableCell
+                            style={{ border: "none" }}
+                            margin-left="5px"
+                          >
                             <input
                               key={row._id}
                               name={row._id}
@@ -553,9 +609,14 @@ export default function TransactionTableComponent(props) {
                               style={{ marginRight: "8px" }}
                             />
 
-                            <a className="linkTable" href={"/transaction-details/" + row.hash}>
+                            <a
+                              className="linkTable"
+                              href={"/transaction-details/" + row.hash}
+                            >
                               <Tooltip placement="top" title={row.hash}>
-                                <span className="tabledata">{shorten(row.hash)} </span>
+                                <span className="tabledata">
+                                  {shorten(row.hash)}{" "}
+                                </span>
                               </Tooltip>
                             </a>
                           </TableCell>
@@ -563,45 +624,73 @@ export default function TransactionTableComponent(props) {
                             <span className="tabledata">{TimeAge}</span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <a className="linkTable" href={"/block-details/" + row.blockNumber}>
-                              <span className="tabledata">{row.blockNumber}</span>
+                            <a
+                              className="linkTable"
+                              href={"/block-details/" + row.blockNumber}
+                            >
+                              <span className="tabledata">
+                                {row.blockNumber}
+                              </span>
                             </a>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             {row.from != addr ? (
-                              <a className="linkTable" href={"/address-details/" + row.from}>
+                              <a
+                                className="linkTable"
+                                href={"/address-details/" + row.from}
+                              >
                                 <Tooltip placement="top" title={row.from}>
-                                  <span className="tabledata"> {shorten(row.from)}</span>
+                                  <span className="tabledata">
+                                    {" "}
+                                    {shorten(row.from)}
+                                  </span>
                                 </Tooltip>
                               </a>
                             ) : (
                               <Tooltip placement="top" title={row.from}>
-                                <span className="tabledata"> {shorten(row.from)}</span>
+                                <span className="tabledata">
+                                  {" "}
+                                  {shorten(row.from)}
+                                </span>
                               </Tooltip>
                             )}
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             {row.to != addr ? (
-                              <a className="linkTable" href={"/address-details/" + row.to}>
+                              <a
+                                className="linkTable"
+                                href={"/address-details/" + row.to}
+                              >
                                 <Tooltip placement="top" title={row.to}>
-                                  <span className="tabledata">{shorten(row.to)}</span>
+                                  <span className="tabledata">
+                                    {shorten(row.to)}
+                                  </span>
                                 </Tooltip>
                               </a>
                             ) : (
                               <Tooltip placement="top" title={row.to}>
-                                <span className="tabledata">{shorten(row.to)}</span>
+                                <span className="tabledata">
+                                  {shorten(row.to)}
+                                </span>
                               </Tooltip>
                             )}
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <Tooltip placement="top" title={format({})(row.value)}>
+                            <Tooltip
+                              placement="top"
+                              title={format({})(row.value)}
+                            >
                               <span className="tabledata">
-                                {Utility.convertToInternationalCurrencySystem(row.value)}
+                                {Utility.convertToInternationalCurrencySystem(
+                                  row.value
+                                )}
                               </span>
                             </Tooltip>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className="tabledata">{format({})(row.gasUsed)}</span>
+                            <span className="tabledata">
+                              {format({})(row.gasUsed)}
+                            </span>
                           </TableCell>
                         </TableRow>
                       );
@@ -634,6 +723,7 @@ export default function TransactionTableComponent(props) {
             )}
           </TableContainer>
         </Paper>
+
         <Grid
           container
           style={{
@@ -641,17 +731,26 @@ export default function TransactionTableComponent(props) {
             display: "flex",
             justifyContent: "space-between",
           }}
-          className="page-container">
-          <Grid item xs="4" className="pagination-tab">
-            <span className="text">Show</span>
-            <PageSelector value={amount}
-                          height={30}
-                          handler={handleChangeRowsPerPage}/>
-            <span className="text">Records</span>
-          </Grid>
-          <Grid xs="2"></Grid>
+          className="page-container"
+        >
+          {noData == true || totalRecord < 10 ? (
+            ""
+          ) : (
+            <>
+              <Grid className="Pagination_1">
+                <span className="text">Show</span>
+                <PageSelector
+                  value={amount}
+                  height={30}
+                  handler={handleChangeRowsPerPage}
+                />
+                <span className="text">Records</span>
+              </Grid>
+              <Grid xs="2"></Grid>
+            </>
+          )}
 
-          {noData == true && (
+          {/* {noData == true && totalRecord < amount ? (
             <Grid item xs="7" className="page-tab">
               <button
                 style={{ marginLeft: "0px" }}
@@ -680,48 +779,68 @@ export default function TransactionTableComponent(props) {
                 Last
               </button>
             </Grid>
-          )}
+          ) : ""} */}
 
-          {noData == false && (
+          {noData == false && totalRecord > amount ? (
             <Grid item xs="7" className="page-tab">
               <button
                 style={{ marginLeft: "0px" }}
                 onClick={() => handleChangePage("first")}
-                className={from === 0 || totalRecord === 0 ? "btn-contract disabled" : "btn-contract"}>
+                className={
+                  from === 0 || totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
+              >
                 First
               </button>
               <button
                 onClick={() => handleChangePage("prev")}
-                className={from === 0 || totalRecord === 0 ? "btn-contract disabled" : "btn-contract"}>
-                <img src={"/images/back.svg"} />
+                className={
+                  from === 0 || totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
+              >
+                <img className="rotate-180" src={"/images/next.svg"} alt="back" />
               </button>
 
               <button className="btn-contract">
                 Page{" "}
                 {Math.ceil(parseInt(totalRecord) / parseInt(amount)) -
-                  Math.ceil((parseInt(totalRecord) - parseInt(from)) / parseInt(amount)) +
+                  Math.ceil(
+                    (parseInt(totalRecord) - parseInt(from)) / parseInt(amount)
+                  ) +
                   1}{" "}
                 of {Math.ceil(parseInt(totalRecord) / parseInt(amount))}
               </button>
               <button
                 onClick={() => handleChangePage("next")}
                 className={
-                  +from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0
+                  +from + visibleCount === totalRecord ||
+                  +from + visibleCount > totalRecord ||
+                  totalRecord === 0
                     ? "btn-contract disabled"
                     : "btn-contract"
-                }>
+                }
+              >
                 <img src={"/images/next.svg"} />
               </button>
               <button
                 onClick={() => handleChangePage("last")}
                 className={
-                  +from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0
+                  +from + visibleCount === totalRecord ||
+                  +from + visibleCount > totalRecord ||
+                  totalRecord === 0
                     ? "btn-contract disabled"
                     : "btn-contract"
-                }>
+                }
+              >
                 Last
               </button>
             </Grid>
+          ) : (
+            ""
           )}
         </Grid>
       </Grid>

@@ -21,6 +21,7 @@ import { AlertContainer, alert } from "react-custom-alert";
 import "../../../../node_modules/react-custom-alert/dist/index.css";
 import { cookiesConstants } from "../../../constants";
 import toast, { Toaster } from "react-hot-toast";
+
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -150,6 +151,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "2px",
     marginTop: "-20px",
   },
+  error1: {
+    color: "red",
+    marginLeft: "24px",
+    marginTop: "-20px",
+  },
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -182,7 +188,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0.46px",
     lineHeight: "1.58",
   },
 
@@ -221,7 +226,6 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0.46px",
   },
 })(Tooltip);
 
@@ -231,7 +235,7 @@ export default function FormDialog(props) {
   const [description, setDescription] = React.useState("");
   const [error, setError] = React.useState("");
   const [descriptionError, setDescriptionError] = React.useState("");
-
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
   const [notification, setNotification] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
@@ -264,63 +268,55 @@ export default function FormDialog(props) {
   };
 
   const watchListService = async () => {
-    if (!address) {
-      setError("Please enter required field");
+    setError("");
+    setDescriptionError("");
+    setErrorEmptyField("");
+    if (!address && !description) {
+      setErrorEmptyField("Please enter required fields");
+      return;
     }
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
-      description: description,
+      // description: description,
       type: value,
       isEnabled: true,
     };
     if (!address) {
       setError("Please enter required field");
+    } else if (!description) {
+      setDescriptionError("Please enter description");
     } else if (
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
-      setError("Address should start with xdc & 43 characters");
-    } else if (!description) {
-      setDescriptionError("Description is required");
+      setError("Address should start with xdc and consist of 43 characters");
     } else {
       if (value === "NO") request["isEnabled"] = false;
       const [error, response] = await utility.parseResponse(
         AddWatchList.addWatchlist(request)
       );
 
-      // if (error || !response) {
-      //   utility.apiFailureToast("Address already exists");
-      //   return;
-      // }
-      let watchlists = localStorage.getItem(
-        cookiesConstants.USER_ADDRESS_WATCHLIST
-      );
-      if (watchlists) {
-        watchlists = JSON.parse(watchlists);
-        const existingWatchList = watchlists.find(
-          (item) =>
-            item.address == request.address && item.userId == request.userId
-        );
-        if (existingWatchList) {
-          utility.apiFailureToast("Address already exists");
-          return;
-        }
-      } else {
-        watchlists = [];
-        utility.apiSuccessToast("Address added to watchlist");
-
-        setAddress("");
-        setDescription("");
+      if (error || !response) {
+        setDescriptionError("Address already exist in table");
+        return;
       }
-      watchlists.push(request);
+      let watchlists = localStorage.getItem(
+        request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
+      );
+      watchlists = JSON.parse(watchlists);
+      if (!watchlists) watchlists = {};
+      watchlists[request.address] = description;
       localStorage.setItem(
-        cookiesConstants.USER_ADDRESS_WATCHLIST,
+        request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchlists)
       );
-
+      utility.apiSuccessToast("Address added to watchlist");
+      setAddress("");
+      setDescription("");
       await onClose();
       await notify();
+      props.setExistingWatchList(true);
     }
   };
 
@@ -374,6 +370,11 @@ export default function FormDialog(props) {
             Add a New Address to your Watchlist
           </div>
         </Row>
+        {errorEmptyField ? (
+          <div className={classes.error1}>{errorEmptyField}</div>
+        ) : (
+          <></>
+        )}
         <DialogContent>
           <DialogContentText className={classes.subCategory}>
             Address
@@ -481,9 +482,10 @@ export default function FormDialog(props) {
         </DialogActions>
         <div className={classes.lastContainer}>
           <div className={classes.lastContainerText}>
-            To protect your privacy, data related to the Watchlists, is added on
-            your local device. Cleaning the browsing history or cookies will
-            clean the watchlist data saved in your profile.
+            Privacy is very important to us. To protect sensitive information,
+            all custom tags and data related to the Watchlists are saved on your
+            local device. Clearing the browsing history or cookies will remove
+            the watchlist data saved in your profile.
           </div>
         </div>
       </Dialog>

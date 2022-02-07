@@ -15,6 +15,7 @@ export default {
   getTxnLabelList,
   getTagAddresstList,
   Search,
+  privacyConsent,
 };
 
 function getHeaders() {
@@ -277,6 +278,26 @@ async function getTagAddresstList(requestData) {
         response.responseData.length === 0
       )
         return Promise.reject(response);
+      return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+
+async function privacyConsent(data) {
+  let url =
+    process.env.REACT_APP_PRIVACY_CONSENT;
+    
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
+    .then((response) => {
+      if (
+        !response.success ||
+        response.responseCode !== 200 ||
+        !response.responseData ||
+        response.responseData.length === 0
+      )
+        return Promise.reject();
       return Promise.resolve(response.responseData);
     })
     .catch(function (err) {

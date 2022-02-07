@@ -14,12 +14,13 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
   margin-bottom: 15px;
+  margin-top: 30px;
 }
-@media (min-width: 0px) and (max-width: 1240px) {
+/* @media (min-width: 0px) and (max-width: 1240px) {
   .table-top-header {
     height: 1.813rem;
     font-family: Inter;
@@ -28,11 +29,11 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #2a2a2a;
   }
-}
+} */
 
 .tablegrid {
   padding-top: 8%;
@@ -61,15 +62,14 @@
   }
   .tabletop-header {
     font-family: Inter;
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #2a2a2a;
-    margin-bottom: 15px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -108,7 +108,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -118,7 +118,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   margin-left: 1.56rem;
@@ -129,7 +129,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   margin-right: 50px;
@@ -140,7 +140,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -150,7 +150,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -162,7 +162,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    display: flex;
     text-align: center;
     color: #2a2a2a;
     font-weight: 500;
@@ -185,7 +185,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    display: flex;
     text-align: center;
     color: #2a2a2a;
     font-weight: 500;
@@ -198,7 +198,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
   }
@@ -209,7 +209,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -219,7 +219,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   margin-right: 50px;
@@ -230,7 +230,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -240,7 +240,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   margin-right: 50px;
@@ -251,7 +251,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   margin-right: 50px;
@@ -263,7 +263,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
 
@@ -275,7 +275,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
   }
@@ -286,7 +286,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -297,7 +297,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
     margin-right: 50px;
@@ -308,7 +308,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
 
@@ -327,7 +327,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   /*margin-right: 50px;*/
@@ -336,7 +336,7 @@
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
-  margin-top: -6px;
+  height: 70%;
   width: 66px;
   font-size: 0.875rem !important;
   padding: 9px 6px 9px 6px;
@@ -376,7 +376,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   opacity: 1;
   padding-left: 2px;
@@ -391,7 +391,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: left;
   }
 }
@@ -403,7 +403,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   opacity: 0.7;
   padding-left: 2px;
@@ -420,9 +420,9 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: left;
-    letter-spacing: 0px;
+
     opacity: 0.7;
     padding-left: 2px;
     animation: fadeInAnimation ease 2s;
@@ -459,16 +459,38 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
   border-radius: 4px;
   font-weight: bold;
+  padding-top: 5px;
+}
+.textShowRecord {
+  font-family: Inter;
+  font-size: 0.875rem;
+  text-align: left;
+  color: #2a2a2a;
+  border-radius: 4px;
+  font-weight: bold;
+  padding-top: 3px;
+}
+.textShowRecordBlock {
+  font-family: Inter;
+  font-size: 0.875rem;
+  text-align: left;
+  color: #2a2a2a;
+  border-radius: 4px;
+  font-weight: bold;
+  padding-top: 8px;
 }
 @media (max-width: 767px) {
   .text {
-    margin-left: 6px;
     font-size: 12px;
+  }
+  .textShowRecordBlock {
+    font-size: 12px;
+    padding-top: 0px;
   }
 }
 .btn-contract {
@@ -478,7 +500,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   height: 60%;
   padding: 7px 10px 25px 9px;
   text-align: left;
@@ -495,7 +517,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   height: 60%;
   padding: 7px 10px 25px 9px;
   text-align: left;
@@ -510,6 +532,7 @@
     width: 3.063rem;
     height: 2.125rem;
     font-size: 12px;
+    margin-left: 0;
   }
   .btn-back {
     width: 2.125rem;
@@ -544,7 +567,11 @@
   padding-top: 9px;
   margin: auto;
   width: 100%;
-  overflow: auto;
+}
+.tablegrid_address_details {
+  padding-top: 9px;
+  margin: auto;
+  width: 100%;
 }
 .tablegrid_no_data {
   padding-top: 1.563rem;
@@ -554,6 +581,11 @@
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .tablegrid_address {
+    padding-top: 3.5%;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+  .tablegrid_address_details {
     padding-top: 3.5%;
     padding-left: 1%;
     padding-right: 1%;
@@ -623,6 +655,9 @@
   .mobileTimeStamp {
     /* padding-bottom: 68px; */
   }
+  .latestTransactionHeading {
+    font-size: 14px !important;
+  }
 }
 
 .width-fit-content {
@@ -646,15 +681,13 @@
 }
 
 .table_1 {
-  padding-top: 70px;
   margin: auto;
   width: 75.125rem;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .table_1 {
-    width: 22.563rem;
-    margin: 12px auto;
-    padding-top: 0;
+    width: 100%;
+    padding: 0 15px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -678,7 +711,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
     /* margin-right: 164px; */
@@ -690,7 +723,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
 
@@ -703,7 +736,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
 
@@ -715,7 +748,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
 
@@ -727,7 +760,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
 
@@ -739,7 +772,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
 
@@ -751,7 +784,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a;
 
@@ -763,11 +796,10 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #2a2a2a !important;
-    margin-right: 20px;
-    margin-left: 10px;
+    margin-left: 2px;
   }
   #container-table td {
     /* padding: 7px 0 6px 20px; */
@@ -780,16 +812,31 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
+    text-align: left;
+    color: #2a2a2a;
+  }
+  #container-table-transaction-list td {
+    /* padding: 7px 0 6px 20px; */
+    text-align: left;
+    border-bottom: none !important;
+    margin: 20px 21px 1.8px 48px;
+    font-family: "Inter" !important;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
     text-align: left;
     color: #2a2a2a;
   }
 
-  .select-amount {
+  /* .select-amount {
     width: 65px;
     height: 34px;
     margin: -7px 13px 0 11px;
-  }
+  } */
   /* .select-amount {
     width: 3.125rem;
     height: 2.188rem;
@@ -804,16 +851,24 @@
     margin-bottom: 23px;
   }
   .Pagination_1 {
-    flex-grow: 0 !important;
-    max-width: 70% !important;
-    flex-basis: 25% !important;
-    padding-bottom: 11px !important;
+    max-width: 95px !important;
+    display: flex;
+    align-items: center;
+    width: 100% !important;
+    padding-bottom: 15px !important;
+    display: flex;
   }
   .Pagination_2 {
     flex-grow: 0 !important;
     max-width: 100% !important;
     flex-basis: 33.333333% !important;
   }
+}
+.latestTransactionHeading {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 600;
+  color: #2a2a2a;
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -842,7 +897,8 @@
     overflow: auto;
   }
   .Pagination_1 {
-    width: 200px;
+    width: 185px;
+    display: flex;
   }
   .Pagination {
     display: flex;
@@ -879,7 +935,8 @@
     width: 13%;
   }
   .Pagination_1 {
-    width: 12.5rem;
+    width: 11.5rem;
+    display: flex;
   }
   .Pagination {
     display: flex;
@@ -936,7 +993,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #252525;
   }
   .tableheaders_1 {
@@ -945,7 +1002,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #252525;
     opacity: 1;
@@ -959,12 +1016,12 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #252525;
 
     margin-right: 27px;
-    margin-left: 10px;
+    margin-left: 2px;
   }
 }
 .block-list-all {

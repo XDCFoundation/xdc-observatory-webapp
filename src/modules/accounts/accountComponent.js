@@ -23,6 +23,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import PageSelector from "../common/pageSelector";
 import SearchAndFiltersComponent from "./searchAndFiltersComponent";
+import { useEffect } from "react";
 
 
 const useStyles = makeStyles({
@@ -151,6 +152,10 @@ export default function AccountComponent(props) {
   function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
+  useEffect(() => {
+    props.sortData("balance")
+  }, []);
+  
 
   const { state } = props;
   const classes = useStyles();
@@ -167,7 +172,7 @@ export default function AccountComponent(props) {
               onClick={handleSettingsClick}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
-              style={{width: "25px"}}
+              style={{ width: "25px" }}
             />
             <ConfigureColumnPopOver
               isOpen={isSettingColumnOpen}
@@ -182,7 +187,7 @@ export default function AccountComponent(props) {
               onClick={toggleModal}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
-              style={{width: "25px"}}
+              style={{ width: "25px" }}
             />
             <ConfigureColumnsModal
               isOpen={isColumnsModalOpen}
@@ -223,8 +228,11 @@ export default function AccountComponent(props) {
                   <TableCell
                     style={{ border: "none", paddingLeft: "2.2%" }}
                     align="center !important"
+                    onClick={() => {
+                      props.sortData("address");
+                    }}
                   >
-                    <span className={"tableheaders_1_address"}>
+                    <span className={"tableheaders_1_address cursor-pointer"}>
                       Address
                       <Tooltip
                         open={addressTT}
@@ -241,6 +249,26 @@ export default function AccountComponent(props) {
                         />
                       </Tooltip>
                     </span>
+                    <Tooltip
+                      placement="top"
+                      title={props.getSortTitle("address")}
+                    >{
+                        props?.state?.sortKey == "address" ?
+                          (props?.state?.sortOrder === 1 ? <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                        />
+                            : <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                        />) : <span></span>
+                      }
+
+                    </Tooltip>
                   </TableCell>
                   {props.state.tableColumns["Type"].isActive && (
                     <TableCell
@@ -274,8 +302,11 @@ export default function AccountComponent(props) {
                         paddingRight: "48px",
                       }}
                       align="center"
+                      onClick={() => {
+                        props.sortData("balance");
+                      }}
                     >
-                      <span className={"tableheaders_1"}>
+                      <span className={"tableheaders_1 cursor-pointer"}>
                         Balance
                         <Tooltip
                           open={balanceTT}
@@ -294,21 +325,21 @@ export default function AccountComponent(props) {
                       </span>
                       <Tooltip
                         placement="top"
-                        title={props.getSortTitle("balanceSort")}
+                        title={props.getSortTitle("balance")}
                       >{
-                          props?.state?.balanceSort == 1 ?
-                            <ArrowUpwardIcon
-                              onClick={() => {
-                                props.sortData("balanceSort");
-                              }}
-                              className={classes.sortButton}
-                            />
-                            : <ArrowDownwardIcon
-                              onClick={() => {
-                                props.sortData("balanceSort");
-                              }}
-                              className={classes.sortButton}
-                            />
+                          props?.state?.sortKey == "balance" ?
+                            (props?.state?.sortOrder === 1 ? <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                          />
+                              : <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                          />) : <span></span>
                         }
 
                       </Tooltip>
@@ -319,8 +350,11 @@ export default function AccountComponent(props) {
                     <TableCell
                       className={classes.PercentageColumn}
                       align="center"
+                      onClick={() => {
+                        props.sortData("percentage");
+                      }}
                     >
-                      <span className={"tableheaders_1"}>
+                      <span className={"tableheaders_1 cursor-pointer"}>
                         Percentage
                         <Tooltip
                           open={percentageTT}
@@ -339,22 +373,22 @@ export default function AccountComponent(props) {
                       </span>
                       <Tooltip
                         placement="top"
-                        title={props.getSortTitle("percentageSort")}
+                        title={props.getSortTitle("percentage")}
                       >
                         {
-                          props?.state?.percentageSort == 1 ?
-                            <ArrowUpwardIcon
-                              onClick={() => {
-                                props.sortData("percentageSort");
-                              }}
-                              className={classes.sortButton}
-                            />
-                            : <ArrowDownwardIcon
-                              onClick={() => {
-                                props.sortData("percentageSort");
-                              }}
-                              className={classes.sortButton}
-                            />
+                          props?.state?.sortKey == "percentage" ?
+                            (props?.state?.sortOrder === 1 ? <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                          />
+                              : <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                          />) : <span></span>
                         }
                       </Tooltip>
                     </TableCell>
@@ -520,13 +554,13 @@ export default function AccountComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div>No account found.</div>
+                <div>No data found.</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
         </Paper>
 
-        <Grid container style={{ marginTop: "35px" }} className="Pagination">
+        <Grid container style={{ marginTop: "28px" }} className="Pagination">
           <Grid item className="Pagination_1">
             {!props.state.isLoading && props.state.noData ? (
               <>
@@ -555,7 +589,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._PrevPage(event)}
               className={props.state.from === 0 ? "btn disabled" : "btn"}
             >
-              <img className="back-arrow" src={"/images/back.svg"} />
+              <img className="back-arrow rotate-180" src={"/images/next.svg"} alt="back"/>
             </button>
             <button id="btn_12" className="btn">
               Page{" "}
@@ -568,7 +602,7 @@ export default function AccountComponent(props) {
               id="btn_12"
               onClick={(event) => props._NextPage(event)}
               className={
-                props.state.from + props.state.amount ===
+                props.state.from + props.state.accountList.length ===
                   props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
@@ -580,7 +614,7 @@ export default function AccountComponent(props) {
               id="btn_12"
               onClick={(event) => props._LastPage(event)}
               className={
-                props.state.from + props.state.amount ===
+                props.state.from + props.state.accountList.length ===
                   props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"

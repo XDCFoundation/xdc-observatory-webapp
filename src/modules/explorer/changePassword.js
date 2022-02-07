@@ -12,6 +12,7 @@ import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import Loader from '../../assets/loader'
 import { genericConstants } from "../../constants";
+import { cookiesConstants } from "../../constants"
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -25,11 +26,13 @@ const useStyles = makeStyles((theme) => ({
         fontStretch: "normal",
         fontStyle: "normal",
         lineHeight: "normal",
-        letterSpacing: "0px",
         textAlign: "center",
         color: "#2a2a2a",
 
     },
+    backButtonMobile: {
+        display: "none",
+      },
     add: {
         backgroundColor: "#2149b9",
         marginLeft: "90px",
@@ -41,13 +44,6 @@ const useStyles = makeStyles((theme) => ({
         top: "65px",
         width: "503px",
         borderRadius: "12px",
-        "@media (min-width:0px) and (max-width:767px)": {
-            width: "100% !important",
-            height: "100% !important",
-            borderRadius: "1px !important",
-            maxWidth: "768px !important",
-            top: "33px"
-        },
     },
     closeContainer: {
         top: "26px",
@@ -55,9 +51,9 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
         right: "30px",
         cursor: "pointer",
-        "@media (min-width:0px) and (max-width:768px)": {
-            display: "none !important",
-        }
+        // "@media (min-width:0px) and (max-width:767px)": {
+        //     display: "none !important",
+        // }
     },
 
     icon: {
@@ -85,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "500",
         fontStretch: "normal",
         fontStyle: "normal",
-        letterSpacing: "0px",
+
         color: "#2a2a2a",
     },
     passwordText: {
@@ -95,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "500",
         fontStretch: "normal",
         fontStyle: "normal",
-        letterSpacing: "0px",
+
         color: "#2a2a2a",
     },
     heading: {
@@ -133,7 +129,26 @@ const useStyles = makeStyles((theme) => ({
     },
     pass: {
         fontWeight: "500px"
-    }
+    },
+    "@media (min-width:0px) and (max-width:767px)": {
+        dialogBox: {
+            width: "100% !important",
+            height: "100% !important",
+            borderRadius: "0px !important",
+            maxWidth: "768px !important",
+            top: "33px",
+            marginLeft: "auto",
+            marginRight: "auto",
+        },
+        backButtonMobile: {
+            position: "absolute",
+            cursor: "pointer",
+            display: "block",
+        }, 
+        closeContainer: {
+            display: "none !important",
+        },
+    }, 
 }));
 
 export default function ChangePassword(props) {
@@ -146,6 +161,7 @@ export default function ChangePassword(props) {
     const [error, setError] = React.useState("");
     const [errorPassword, setErrorPassword] = React.useState("");
     const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
+    const [errorEmptyField, setErrorEmptyField] = React.useState("");
     const [passwordShown1, setPasswordShown1] = React.useState(false);
     const [openChangePassword, setOpenChangePassword] = React.useState(false);
     const togglePasswordVisiblity1 = () => {
@@ -180,8 +196,12 @@ export default function ChangePassword(props) {
         setError("")
         setErrorPassword("");
         setErrorConfirmPassword("");
+        setErrorEmptyField("");
 
-        if (!currentInput) {
+        if (!currentInput && !newInput && !confirmPassword) {
+            setLoading(false);
+            setErrorEmptyField(genericConstants.ENTER_REQUIRED_FIELD);
+        } else if (!currentInput) {
             setLoading(false);
             setError(genericConstants.ENTER_REQUIRED_FIELD);
         } else if (!newInput) {
@@ -192,9 +212,11 @@ export default function ChangePassword(props) {
             setErrorConfirmPassword(genericConstants.ENTER_REQUIRED_FIELD);
         } else if (!newInput.match(regExPass)) {
             setErrorPassword(
-                "Password must be atleast 8 character long with Uppercase, Lowercase and Number"
+                "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols."
             );
             setLoading(false);
+        } else if (currentInput === newInput) {
+            setErrorPassword("New password cannot be same as old password");
         } else if (newInput !== confirmPassword) {
             setErrorConfirmPassword("Password doesn't match");
             setLoading(false);
@@ -208,13 +230,16 @@ export default function ChangePassword(props) {
                 // utility.apiFailureToast("failed");
                 setErrorConfirmPassword("Failed to Change Password");
             } else {
-                setInterval((window.location.href = "/loginprofile"), 3000);
-                utility.apiSuccessToast("Password changed successfully");
-                sessionManager.setDataInCookies(authResponse, "userInfo");
-                sessionManager.setDataInCookies(true, "isLoggedIn");
-                sessionManager.setDataInCookies(authResponse?.sub, "userId");
                 setLoading(false);
-
+                const authObject = new AuthService();
+                await Utility.parseResponse(authObject.logout(userInfo.sub));
+                Utility.apiSuccessToast("Password changed successfully");
+                sessionManager.removeDataFromCookies("userId");
+                sessionManager.removeDataFromCookies("userInfo");
+                sessionManager.removeDataFromCookies("isLoggedIn");
+                sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
+                sessionManager.removeDataFromCookies(cookiesConstants.USER_PICTURE);
+                setInterval((window.location.href = "/dashboard"), 3000);
             }
         }
     };
@@ -228,6 +253,9 @@ export default function ChangePassword(props) {
             aria-labelledby="form-dialog-title"
         >
             <DialogContent className={classes.heading}>
+                <div onClick={handleClose} className={classes.backButtonMobile}>
+                    <img src="/images/backButton.svg" alt="back"/>
+                </div>
                 <Row justifyContent="center" marginTop="8px">
                     <DialogContentText className={classes.text}>
                         <b className={classes.mobileHeader}>Change Password</b>
@@ -243,6 +271,7 @@ export default function ChangePassword(props) {
                     </span>
                 </Row>
                 <Column>
+                {errorEmptyField ? <div className={classes.error}>{errorEmptyField}</div> : <></>}
                     <DialogContentText className={classes.subCategory}>
                         <span className={classes.pass}>Current Password</span>
                         <input

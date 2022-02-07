@@ -8,6 +8,7 @@ import LoginDialog from "../explorer/loginDialog";
 import AuthService from "../../services/userLogin";
 import { Avatar } from "@material-ui/core";
 import { history } from "../../managers/history";
+import ManageCookiesDialog from "./dashboardPopup/manageCookiesDialog";
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -43,6 +44,7 @@ export default function BasicPopover(props) {
   // const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
   // const [openLoginBox, setOpenLoginBox] = React.useState(false)
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
+  const [manageCookiesPopup, setManageCookiesPopup] = React.useState(false);
   const [openCP, setOpen] = React.useState(false);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
@@ -53,22 +55,37 @@ export default function BasicPopover(props) {
     setOpen(props.openChangePassword);
     setAnchorEl(null);
   };
+
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const openCookiesDialog = () => {
+    setManageCookiesPopup(true);
+  };
+
+  const closeCookiesDialog = () => {
+    setManageCookiesPopup(false);
+  }
+
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
   const userId = sessionManager.getDataFromCookies("userId");
   const logOut = async () => {
     const authObject = new AuthService();
     // let [error, authResponse] =
-    await Utility.parseResponse(authObject.logout(userId));
-
+    if(sessionManager.getDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER) === "AUTH0"){
+      await Utility.parseResponse(authObject.logout(userId));
+    }
     Utility.apiSuccessToast("Logout Successfully");
     sessionManager.removeDataFromCookies("userId");
     sessionManager.removeDataFromCookies("userInfo");
     sessionManager.removeDataFromCookies("isLoggedIn");
     sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
     sessionManager.removeDataFromCookies(cookiesConstants.USER_PICTURE);
+    sessionManager.removeDataFromCookies(cookiesConstants.ACCESS_TOKEN);
+    sessionManager.removeDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER);
+    sessionManager.removeDataFromCookies(cookiesConstants.ID_TOKEN);
     window.location.href = "/dashboard";
   };
   const open = Boolean(anchorEl);
@@ -107,6 +124,7 @@ export default function BasicPopover(props) {
               ) || '/images/Profile.svg'
             }
           /> */}
+          <ManageCookiesDialog open={manageCookiesPopup} close={closeCookiesDialog} setIsCookiesAccepted={()=>{}}/>
           <Avatar
             className="profile"
             src={
@@ -144,9 +162,16 @@ export default function BasicPopover(props) {
            
           </Text>
         </Contents>
+        {sessionManager.getDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER) && sessionManager.getDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER)==="AUTH0"
+        ?
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
           <Text style={{ marginRight: "20px" }} onClick={openChangePassword}>
             Change Password
+          </Text>
+        </Contents> : "" }
+        <Contents>
+          <Text style={{ marginRight: "auto" }} onClick={() => openCookiesDialog()}>
+            Manage Cookies
           </Text>
         </Contents>
         <Contents>

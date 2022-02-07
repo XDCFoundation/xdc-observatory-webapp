@@ -126,19 +126,23 @@ export default function FormDialog(props) {
   const [nameTag, setNameTag] = React.useState(false);
   // const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
-    setPrivateAddress(props?.fromAddr);
-    setPrivateAddress(props?.toAddr);
-
+    if (props?.value === 1 && props?.fromAddr) {
+      setPrivateAddress(props?.fromAddr);
+    } else {
+      setPrivateAddress(props?.toAddr)
+    }
   }, [props])
+
   async function TaggedAddress() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
-      tagName: nameTag,
+      tagName: input,
+      modifiedOn: Date.now()
     };
-    const [error, response] = await utility.parseResponse(
-      UserService.addPrivateTagToAddress(data)
-    );
+    // const [error, response] = await utility.parseResponse(
+    //   UserService.addPrivateTagToAddress(data)
+    // );
 
     // if (error) {
     //   utility.apiFailureToast("Address is already in use");
@@ -146,23 +150,34 @@ export default function FormDialog(props) {
     // }
 
     let taggedAddress = localStorage.getItem(
-      cookiesConstants.USER_TAGGED_ADDRESS
+      data.userId + cookiesConstants.USER_TAGGED_ADDRESS
     );
     if (taggedAddress) {
       taggedAddress = JSON.parse(taggedAddress);
+      let existingTagsIndex=null;
       const existingTag = taggedAddress.find(
-        (item) => item.address == privateAddress && item.userId == data.userId
+        (item,index) => {
+          if(item.address == privateAddress && item.userId == data.userId){
+            existingTagsIndex = index;
+            return true;
+        }
+        }
       );
       if (existingTag) {
-        utility.apiFailureToast("Address is already in use");
-        return;
+        // taggedAddress[existingTagsIndex].tagName = [...taggedAddress[existingTagsIndex].tagName,...tags]
+        taggedAddress[existingTagsIndex].tagName = input;
+        // utility.apiFailureToast("Address is already in use");
+        // return;
+      }else{
+        taggedAddress.push(data);
       }
     } else {
       taggedAddress = [];
+      taggedAddress.push(data);
     }
-    taggedAddress.push(data);
+    // taggedAddress.push(data);
     localStorage.setItem(
-      cookiesConstants.USER_TAGGED_ADDRESS,
+      data.userId + cookiesConstants.USER_TAGGED_ADDRESS,
       JSON.stringify(taggedAddress)
     );
     utility.apiSuccessToast("Tag Added");
@@ -171,6 +186,56 @@ export default function FormDialog(props) {
   let taggedAddressfetched = localStorage.getItem(
     cookiesConstants.USER_TAGGED_ADDRESS
   );
+
+  const [input, setInput] = React.useState("");
+  const [tags, setTags] = React.useState([]);
+  const [isKeyReleased, setIsKeyReleased] = React.useState(false);
+  const [errorTag, setErrorTag] = React.useState("");
+
+  const onChange = (e) => {
+    setErrorTag("");
+    const { value } = e.target;
+    setInput(value);
+  };
+
+  const deleteTag = (index) => {
+    setTags((prevState) => prevState.filter((tag, i) => i !== index));
+  };
+
+  const onKeyDown = (e) => {
+    const { key } = e;
+    const trimmedInput = input.trim();
+
+    if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
+      e.preventDefault();
+      if (trimmedInput.length > 15) {
+        setErrorTag("Nametag cannot be longer than 15 characters");
+        return;
+      }
+      if (tags.length >= 5) {
+        setErrorTag("Maximum 5 Name tags are allowed");
+        return;
+      }
+      setTags((prevState) => [...prevState, trimmedInput]);
+      setInput("");
+      setErrorTag("");
+    }
+
+    if (key === "Backspace" && !input.length && tags.length && isKeyReleased) {
+      const tagsCopy = [...tags];
+      const poppedTag = tagsCopy.pop();
+      e.preventDefault();
+      setTags(tagsCopy);
+      setInput(poppedTag);
+    }
+
+    setIsKeyReleased(false);
+  };
+
+  const onKeyUp = () => {
+    setIsKeyReleased(true);
+  };
+
 
   const classes = useStyles();
 
@@ -196,17 +261,32 @@ export default function FormDialog(props) {
 
             className={classes.input}
             onChange={(e) => setPrivateAddress(e.target.value)}
+            readOnly
           ></input>
         </DialogContent>
         <DialogContent>
           <DialogContentText className={classes.subCategory}>
             Name Tag
           </DialogContentText>
-          <input
-            type="text"
-            className={classes.input}
-            onChange={(e) => setNameTag(e.target.value)}
-          ></input>
+          <div className="containerTag">
+            {/*{tags.map((tag, index) => (*/}
+            {/*    <div className="tag">*/}
+            {/*      {tag}*/}
+            {/*      <button onClick={() => deleteTag(index)}>x</button>*/}
+            {/*    </div>*/}
+            {/*))}*/}
+            <input
+                value={input}
+                // onKeyDown={onKeyDown}
+                // onKeyUp={onKeyUp}
+                onChange={onChange}
+            />
+          </div>
+          {/*<input*/}
+          {/*  type="text"*/}
+          {/*  className={classes.input}*/}
+          {/*  onChange={(e) => setNameTag(e.target.value)}*/}
+          {/*></input>*/}
         </DialogContent>
         <DialogActions className={classes.buttons}>
           <span>

@@ -33,7 +33,7 @@ const MarketDataPointTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   justify-content: center;
   color: #686868;
   display: flex;
@@ -47,7 +47,7 @@ const MarketDataPointTitle = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     height: 0.938rem;
     color: #686868;
     font-size: 0.75rem;
@@ -58,12 +58,14 @@ const MarketDataPointTitle = styled.div`
     align-item: left;
   }
 
-  @media (min-width: 350px) and (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     // display: block;
     color: #686868;
     display: flex;
     gap: 10px;
     flex-flow: row-reverse;
+    width: 130px;
+    justify-content: flex-end;
   }
 `;
 
@@ -133,43 +135,43 @@ class MarketDatatable extends Component {
 
   render() {
     /* Calculating marketCap change percentege */
-    const LatestMarketCap = this.state.postLatestMarket.marketCap;
-    const PreviousMarketCap = this.state.postPreviousMarket.marketCap;
-    const MarketCapchange =
+    let LatestMarketCap = this.state.postLatestMarket.marketCap;
+    let PreviousMarketCap = this.state.postPreviousMarket.marketCap;
+    let MarketCapchange =
       LatestMarketCap && PreviousMarketCap
         ? percentageChange(LatestMarketCap, PreviousMarketCap).toFixed(2)
         : 0;
 
     /* Calculating marketCap change percentege */
-    const Latestfdmc = this.state.postLatestMarket.fullyDilutedMarketCap;
-    const Previousfdmc = this.state.postPreviousMarket.fullyDilutedMarketCap;
-    const FullyDilutedMarketCapchange =
+    let Latestfdmc = this.state.postLatestMarket.fullyDilutedMarketCap;
+    let Previousfdmc = this.state.postPreviousMarket.fullyDilutedMarketCap;
+    let FullyDilutedMarketCapchange =
       Previousfdmc && Latestfdmc
         ? percentageChange(Latestfdmc, Previousfdmc).toFixed(2)
         : 0;
 
     /* Calculating marketCap change percentege */
-    const LatestVolume = this.state.postLatestMarket.volume;
-    const PreviousVolume = this.state.postPreviousMarket.volume;
-    const Volumechange =
+    let LatestVolume = this.state.postLatestMarket.volume;
+    let PreviousVolume = this.state.postPreviousMarket.volume;
+    let Volumechange =
       LatestVolume && PreviousVolume
         ? percentageChange(LatestVolume, PreviousVolume).toFixed(2)
         : 0;
 
-    const MarketCapValue = convertToInternationalCurrencySystem(
+    let MarketCapValue = convertToInternationalCurrencySystem(
       this.state.postLatestMarket.marketCap
     ); //marketCap
-    const FullyDilutedMarketCapValue = convertToInternationalCurrencySystem(
+    let FullyDilutedMarketCapValue = convertToInternationalCurrencySystem(
       this.state.postLatestMarket.fullyDilutedMarketCap
     ); //Fully Diluted Market Cap
-    const volumeValue = convertToInternationalCurrencySystem(
+    let volumeValue = convertToInternationalCurrencySystem(
       this.state.postLatestMarket.volume
     ); //volume(24hr)
-    const circulatingSupplyValue = convertToInternationalCurrencySystem(
+    let circulatingSupplyValue = convertToInternationalCurrencySystem(
       this.state.postLatestMarket.circulatingSupply
     ); //circulatingSupply
-    const volumeMarketcap = this.state.postLatestMarket.volumeMarketCap; //volumeMarketCap
-    // const vmc = volumeMarketcap ? parseFloat(volumeMarketcap).toFixed(6) : 0;
+    let volumeMarketcap = this.state.postLatestMarket.volumeMarketCap; //volumeMarketCap
+    // let vmc = volumeMarketcap ? parseFloat(volumeMarketcap).toFixed(6) : 0;
 
     let totalSupplyValue = Math.round(this.state.postLatestMarket.totalSupply); //totalSupply
     totalSupplyValue = totalSupplyValue ? totalSupplyValue : 0;
@@ -209,7 +211,7 @@ class MarketDatatable extends Component {
                     }
                   >
                     <div className="varMarket">
-                      {MarketCapchange === 0 ? (
+                      {MarketCapchange == 0 ? (
                         ""
                       ) : MarketCapchange > 0 ? (
                         <div className="arrow_up">
@@ -378,16 +380,16 @@ class MarketDatatable extends Component {
           <div className={this.state.loading == true ? "cover-spin-4" : ""}>
             <div className="second_mid">
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   <MarketDataPointTitle>
                     Market Cap
                     <Tooltip placement="top" title={messages.MARKET_CAP}
-                             open={this.state.marketCapTT}
-                             onOpen={() => this.setState({marketCapTT:true})}
-                             onClose={() => this.setState({marketCapTT:false})}>
+                      open={this.state.marketCapTT}
+                      onOpen={() => this.setState({ marketCapTT: true })}
+                      onClose={() => this.setState({ marketCapTT: false })}>
                       <img
-                          onClick={() => this.setState((prev)=>({marketCapTT: !prev.marketCapTT}))}
-                          alt="question-mark"
+                        onClick={() => this.setState((prev) => ({ marketCapTT: !prev.marketCapTT }))}
+                        alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
@@ -434,18 +436,18 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   {" "}
                   <MarketDataPointTitle>
                     Fully Diluted Market Cap
                     <Tooltip placement="top" title={messages.FDMP}
-                             open={this.state.fullDilutedMarketCapTT}
-                             onOpen={() => this.setState({fullDilutedMarketCapTT:true})}
-                             onClose={() => this.setState({fullDilutedMarketCapTT:false})}>
+                      open={this.state.fullDilutedMarketCapTT}
+                      onOpen={() => this.setState({ fullDilutedMarketCapTT: true })}
+                      onClose={() => this.setState({ fullDilutedMarketCapTT: false })}>
                       <img
-                          onClick={() => this.setState((prev)=>({fullDilutedMarketCapTT: !prev.fullDilutedMarketCapTT}))}
+                        onClick={() => this.setState((prev) => ({ fullDilutedMarketCapTT: !prev.fullDilutedMarketCapTT }))}
 
-                          alt="question-mark"
+                        alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
@@ -494,16 +496,16 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   {" "}
                   <MarketDataPointTitle>
                     Volume (24hr)
                     <Tooltip placement="top" title={messages.VOLUMEX24}
-                             open={this.state.volume24TT}
-                             onOpen={() => this.setState({volume24TT:true})}
-                             onClose={() => this.setState({volume24TT:false})}>
+                      open={this.state.volume24TT}
+                      onOpen={() => this.setState({ volume24TT: true })}
+                      onClose={() => this.setState({ volume24TT: false })}>
                       <img
-                          onClick={() => this.setState((prev)=>({volume24TT: !prev.volume24TT}))}
+                        onClick={() => this.setState((prev) => ({ volume24TT: !prev.volume24TT }))}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
@@ -549,7 +551,7 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   {" "}
                   <MarketDataPointTitle>
                     Circulating Supply
@@ -557,12 +559,12 @@ class MarketDatatable extends Component {
                       placement="top"
                       title={messages.CIRCULATING_SUPPLY}
                       open={this.state.circulatingSupplyTT}
-                      onOpen={() => this.setState({circulatingSupplyTT:true})}
-                      onClose={() => this.setState({circulatingSupplyTT:false})}
+                      onOpen={() => this.setState({ circulatingSupplyTT: true })}
+                      onClose={() => this.setState({ circulatingSupplyTT: false })}
                     >
                       <img
-                          onClick={() => this.setState((prev)=>({circulatingSupplyTT: !prev.circulatingSupplyTT}))}
-                          alt="question-mark"
+                        onClick={() => this.setState((prev) => ({ circulatingSupplyTT: !prev.circulatingSupplyTT }))}
+                        alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
@@ -578,16 +580,16 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   {" "}
                   <MarketDataPointTitle>
                     Total Supply
                     <Tooltip placement="top" title={messages.TOTAL_SUPPLY}
-                             open={this.state.totalSupplyTT}
-                             onOpen={() => this.setState({totalSupplyTT:true})}
-                             onClose={() => this.setState({totalSupplyTT:false})}>
+                      open={this.state.totalSupplyTT}
+                      onOpen={() => this.setState({ totalSupplyTT: true })}
+                      onClose={() => this.setState({ totalSupplyTT: false })}>
                       <img
-                          onClick={() => this.setState((prev)=>({totalSupplyTT: !prev.totalSupplyTT}))}
+                        onClick={() => this.setState((prev) => ({ totalSupplyTT: !prev.totalSupplyTT }))}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
