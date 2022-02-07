@@ -698,7 +698,10 @@ export default function FormDialog(props) {
           authResponse?.userInfoRes?.sub,
           "userId"
         );
-        sessionManager.setDataInCookies("AUTH0", cookiesConstants.AUTHENTICATION_PROVIDER);
+        sessionManager.setDataInCookies(
+          "AUTH0",
+          cookiesConstants.AUTHENTICATION_PROVIDER
+        );
         sessionManager.removeDataFromCookies("activateAccountEmail");
         setLoading(false);
         setUserName("");
@@ -828,7 +831,7 @@ export default function FormDialog(props) {
         setConfirmPassword("");
         setTermsCheckbox(false);
         setCaptchaCheckbox(false);
-        setValue(4)
+        setValue(4);
       }
     }
   };
@@ -838,7 +841,7 @@ export default function FormDialog(props) {
     setTimeout(() => {
       setValue(0);
     }, 1000);
-  }
+  };
 
   const handleClickOpenSignin = () => {
     setValue(0);
@@ -988,6 +991,9 @@ export default function FormDialog(props) {
     return Buffer.from(str, "binary").toString("base64");
   }
   var randomText = btoa(Math.random().toString()).substr(10, 10).toLowerCase();
+  let userProfilePicture = sessionManager.getDataFromCookies(
+    cookiesConstants.USER_PICTURE
+  ) 
   //------------------------------------------------------------------------------------------------------------------------------------->
 
   return (
@@ -1001,10 +1007,8 @@ export default function FormDialog(props) {
           <Avatar
             className="profile"
             onClick={handleClickOpen}
-            src={
-              sessionManager.getDataFromCookies(
-                cookiesConstants.USER_PICTURE
-              ) || "/images/Profile.svg"
+            src={userProfilePicture === "null" ? 
+              "/images/Profile.svg" : userProfilePicture
             }
             alt={"image"}
           />
@@ -1028,8 +1032,11 @@ export default function FormDialog(props) {
         // onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <div onClick={handleClose} className={value === 4 ? "display-none" : classes.backButtonMobile}>
-          <img src="/images/backButton.svg" alt="back"/>
+        <div
+          onClick={handleClose}
+          className={value === 4 ? "display-none" : classes.backButtonMobile}
+        >
+          <img src="/images/backButton.svg" alt="back" />
         </div>
         {value === 0 ? (
           <div>
@@ -1043,7 +1050,10 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainer}>
-              <button className={classes.globalidbtn} onClick={connectGlobalIdLogin}>
+              <button
+                className={classes.globalidbtn}
+                onClick={connectGlobalIdLogin}
+              >
                 <img
                   src="/images/global-id-logo.svg"
                   className="global-id-logo"
@@ -1204,7 +1214,10 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainerSignup}>
-              <button className={classes.globalidbtn} onClick={connectGlobalIdSignUp}>
+              <button
+                className={classes.globalidbtn}
+                onClick={connectGlobalIdSignUp}
+              >
                 <img
                   src="/images/global-id-logo.svg"
                   className="global-id-logo"
@@ -1488,12 +1501,16 @@ export default function FormDialog(props) {
               </button>
             </DialogActions>
             <div className={classes.doNotShow}>
-            <div className="main-end-box">
-              <input type="checkbox"
-                // onChange={visited}
-                className="main-checkbox" />
-              <div className="main-end-text">Don't show this message again</div>
-            </div>
+              <div className="main-end-box">
+                <input
+                  type="checkbox"
+                  // onChange={visited}
+                  className="main-checkbox"
+                />
+                <div className="main-end-text">
+                  Don't show this message again
+                </div>
+              </div>
             </div>
           </div>
         ) : (
