@@ -1251,6 +1251,7 @@ const Div__ = styled.div`
   padding: 0.563rem;
   padding-left: 27px;
   padding-right: 25px;
+  margin-top: 35px;
   @media (min-width: 0px) and (max-width: 767px) {
     max-width: 22.563rem;
     width: 100%;
@@ -1815,13 +1816,17 @@ const DivCircle = styled.div`
 `;
 
 const ImgNextArrow = styled.div`
-  margin-left: 8px;
-  margin-top: 6px;
-  width: 17px @media (min-width: 0 px) and (max-width: 1240 px) {
+  display: flex;
+  justify-content: center;
+  padding-top: 12px;
+  @media (min-width: 0px) and (max-width: 1240px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 0px;
     transform: rotate(90deg);
-    margin-left: 0px;
-    padding-left: 18px;
-    padding-right: 20px;
+    padding-left: 17px;
   }
 `;
 const AddTagContainer = styled.div`
