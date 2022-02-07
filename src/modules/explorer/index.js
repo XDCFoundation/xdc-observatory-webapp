@@ -47,6 +47,7 @@ class BlockChainClass extends BaseComponent {
                 idToken: response.id_token
             }
             let [userInfoError, userInforesponse] = await utility.parseResponse(GlobalIdService.getGlobalIdUserInfo(requestData));
+            console.log(userInforesponse,"<<<")
             if (userInfoError){
                 this.setState({ isLoading: false })
                 utility.apiFailureToast(userInfoError?.message ? userInfoError.message : "Cannot login")
