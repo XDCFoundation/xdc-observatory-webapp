@@ -16,7 +16,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import {
   TransactionService,
   CoinMarketService,
-  UserService,
+  UserService, WatchListService,
 } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
@@ -31,6 +31,7 @@ import LoginDialog from "../explorer/loginDialog";
 import { genericConstants, cookiesConstants } from "../../constants";
 import EditTagAddress from "../../modules/common/dialog/editTagPopup";
 import toast, { Toaster } from "react-hot-toast";
+import utility from "../../utility";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -85,18 +86,18 @@ const useStyles = makeStyles({
   },
 });
 const MainContanier = styled.div`
-  height: 231px;
+  // height: 231px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   padding: 18px;
-  margin-bottom: 35px;
-  @media (max-width: 767px) {
-    height: 427px;
-  }
-  @media (min-width: 768px) and (max-width: 1240px) {
-    height: 249px;
-  }
+  // margin-bottom: 35px;
+  // @media (max-width: 767px) {
+  //   height: 427px;
+  // }
+  // @media (min-width: 768px) and (max-width: 1240px) {
+  //   height: 249px;
+  // }
 `;
 const MainDiv = styled.div`
   display: flex;
@@ -163,13 +164,13 @@ const AddressHashDiv = styled.div`
   display: flex;
   align-items: center;
   @media (max-width: 767px) {
-    margin-top:10px
-    word-break:break-all
+    margin-top: 10px;
+    word-break: break-all;
     display: block;
     align-items: center;
     text-align: -webkit-center;
   }
-  @media (min-width: 768px) and (max-width:1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     align-items: flex-start;
     flex-direction: column;
   }
@@ -181,14 +182,14 @@ const AddressHash = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px
+  
   color: #3a3a3a;
   @media (max-width: 767px) {
     font-size: 13px;
     text-align: center;
   }
-  @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
   }
 `;
 const CopyButton = styled.div`
@@ -203,15 +204,15 @@ const BalanceDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px
+  
   color: #2149b9;
   margin-top: 7px;
   @media (max-width: 767px) {
     font-size: 18px;
     margin: 10px auto;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-   font-size:24px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 24px;
   }
 `;
 const BalanceUsdDiv = styled.div`
@@ -221,15 +222,15 @@ const BalanceUsdDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px
+  
   color: #585858;
   margin-top: 5px;
   @media (max-width: 767px) {
     font-size: 14px;
     margin: 2px auto;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:16px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 16px;
   }
 `;
 const AddressAgeDiv = styled.div`
@@ -246,13 +247,13 @@ const AddressAge = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
   }
 `;
 const AddressAgeValue = styled.div`
@@ -262,16 +263,16 @@ const AddressAgeValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  
   color: #3a3a3a;
   margin-left: 70px;
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 45px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
-    margin-left:48px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
+    margin-left: 48px;
   }
 `;
 const LastActivityDiv = styled.div`
@@ -284,14 +285,14 @@ const LastActivity = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
     white-space: nowrap;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
     white-space: nowrap;
   }
 `;
@@ -302,16 +303,16 @@ const LastActivityValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  
   color: #3a3a3a;
   margin-left: 73px;
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 46px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
-    margin-left:52px
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
+    margin-left: 52px;
   }
 `;
 
@@ -325,13 +326,13 @@ const Rank = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
   }
 `;
 const RankValue = styled.div`
@@ -341,16 +342,16 @@ const RankValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  
   color: #3a3a3a;
   margin-left: 126px;
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 93px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
-    margin-left:101px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
+    margin-left: 101px;
   }
 `;
 const AddTagButton = styled.button`
@@ -385,14 +386,14 @@ const Heading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px
+  
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 14px;
-    letter-spacing: 0px
+    
   }
-  @media (min-width: 768px) and (max-width:1240px) {
-    font-size:18px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 18px;
   }
 `;
 const IconForMobile = styled.div`
@@ -455,7 +456,7 @@ const LoginText = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: right;
   color: #3a3a3a;
 `;
@@ -466,7 +467,7 @@ const LoginTextMobile = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -495,7 +496,6 @@ const Tag = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
   text-align: center;
   padding: 4px;
   color: #4878ff;
@@ -513,7 +513,7 @@ export default function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
   const [addressData, setAddressData] = useState(0);
   const [txtAddress, setTxtAddress] = useState("");
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState("");
   const [convertCurrency, setConvertCurrency] = useState("");
   const [coinValue, setCoinValue] = useState(0);
   const [transactions, setTransactions] = useState([]);
@@ -524,9 +524,9 @@ export default function AddressDetails(props) {
   const [isTag, setIsTag] = useState(false);
   const [amount, setAmount] = useState("");
   const [coinMarketPrice, setCoinMarketPrice] = useState(0);
-  const [price, setPrice] = useState(0);
-  const [currentPrice, setCurrentPrice] = useState(0);
-  const [addressStats, setAddressStats] = useState(0);
+  const [price, setPrice] = useState("");
+  const [currentPrice, setCurrentPrice] = useState("");
+  const [addressStats, setAddressStats] = useState("");
   const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false);
   const [dialogWatchListIsOpen, setDialogWatchListIsOpen] =
     React.useState(false);
@@ -535,6 +535,8 @@ export default function AddressDetails(props) {
   const [dialogValue, setDailogValue] = React.useState(0);
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
   const [stop, setStop] = React.useState(false);
+  const [watchlistDetails, setWatchListDetails] = React.useState(null);
+  const [existingWatchList, setExistingWatchList] = React.useState(null);
   const closeDialogPvtTag = () => {
     setDialogPvtTagIsOpen(false);
     setDailogValue(0);
@@ -561,7 +563,7 @@ export default function AddressDetails(props) {
   };
   let { addr } = useParams();
   let px = currentPrice * price;
-  let priceChanged = Utility.decimalDivison(px, 8);
+  let priceChanged = !price ? "" : Utility.decimalDivison(px, 8);
   let priceChanged1 = priceChanged.toString().split(".")[0];
   let priceChanged2 = priceChanged.toString().split(".")[1];
 
@@ -571,8 +573,8 @@ export default function AddressDetails(props) {
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-  const currencySymbol =
-    activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
+  const currencySymbol = !price ? "" :
+    activeCurrency === "USD" ? "$" : "€";
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -691,13 +693,27 @@ export default function AddressDetails(props) {
       address: addr,
       userId: sessionManager.getDataFromCookies("userId"),
     };
-
-    let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
-      TransactionService.getUserAddressTagUsingAddressHash(data)
+    let taggedAddress = localStorage.getItem(
+        data.userId + cookiesConstants.USER_TAGGED_ADDRESS
     );
-    if (error || !tagUsingAddressHashResponse) return;
-    setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
-    setIsTag(true);
+
+    // let existingTagsIndex=null;
+    // const existingTag = taggedAddress.find(
+    //     (item,index) => {
+    //       if(item.address == addr && item.userId == data.userId){
+    //         existingTagsIndex = index;
+    //         return true;
+    //       }
+    //     }
+    // );
+    // if (existingTag) {
+    //   setAddressTag(existingTag.tagName);
+    //   setIsTag(true);
+    // }
+    // let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
+    //   TransactionService.getUserAddressTagUsingAddressHash(data)
+    // );
+    // if (error || !tagUsingAddressHashResponse) return;
   };
 
   useEffect(() => {
@@ -706,13 +722,32 @@ export default function AddressDetails(props) {
     tagUsingAddressHash();
     // getListOfTagAddress();
     getAddressStats();
+    getWatchList();
   }, [amount]);
+
+  const getWatchList = async ()=>{
+    const request = {
+      userId: sessionManager.getDataFromCookies("userId"),
+      address: addr,
+      skip:0,
+      limit:10
+    }
+
+const res = await UserService.getWatchlistList(request)
+    if(res && res.watchlistContent && res.watchlistContent.length){
+      setWatchListDetails(res.watchlistContent[0]);
+        setExistingWatchList(true);
+    }
+  }
 
   const currentTime = new Date();
   const previousTime = new Date(addressData?.timestamp * 1000);
   const ti = !addressData?.timestamp
     ? ""
-    : Utility.timeDiff(currentTime, previousTime);
+    :
+    moment(addressData?.timestamp * 1000).format(
+      "MMM DD, YYYY h:mm A"
+    )
 
   const lastActivityTime = new Date(
     addressStats?.lastTransactionTimestamp * 1000
@@ -720,40 +755,47 @@ export default function AddressDetails(props) {
   const lastAct = !addressStats?.lastTransactionTimestamp
     ? ""
     : Utility.timeDiff(currentTime, lastActivityTime);
+  let lastActConverted = !addressStats?.lastTransactionTimestamp ? "" : ((moment(
+    Number(addressStats?.lastTransactionTimestamp) *
+    1000
+  )
+    .utc()
+    .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"))
   let userId = sessionManager.getDataFromCookies("userId");
   let taggedAddressfetched = localStorage.getItem(
-    cookiesConstants.USER_TAGGED_ADDRESS
+      userId+cookiesConstants.USER_TAGGED_ADDRESS
   );
   let tags =
     taggedAddressfetched && taggedAddressfetched.length > 0
       ? JSON.parse(taggedAddressfetched)
       : "";
 
-  var tagValue =
-    tags && tags.length > 0
-      ? tags?.filter((obj) => obj.address === addr && obj.userId == userId)
-      : "";
+  var tagValue = tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addr && obj.userId == userId) : "";
   let watchlists = localStorage.getItem(
-    cookiesConstants.USER_ADDRESS_WATCHLIST
+      userId+cookiesConstants.USER_ADDRESS_WATCHLIST
   );
   let watchList =
-    watchlists && watchlists.length > 0 ? JSON.parse(watchlists) : "";
-
-  var existingWatchList =
-    watchList &&
-    watchList?.filter((item) => item.address == addr && item.userId == userId);
-  function remove() {
-    var i = watchList.findIndex((obj) => obj.address === addr);
-    if (i !== -1) {
-      watchList.splice(i, 1);
+    watchlists ? JSON.parse(watchlists) : "";
+    // watchList &&
+    // watchList?.filter((item) => item.address == addr && item.userId == userId);
+  async function remove() {
+    delete watchList[addr];
+    // var i = watchList.findIndex((obj) => obj.address === addr);
+    // if (i !== -1) {
+    //   watchList.splice(i, 1);
+    const [error, response] = await utility.parseResponse(
+        WatchListService.deleteWatchlist({ _id: watchlistDetails._id }, watchlistDetails)
+    );
       localStorage.setItem(
-        cookiesConstants.USER_ADDRESS_WATCHLIST,
+        userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchList)
       );
-    }
+    // }
+    setExistingWatchList(null);
     setStop("");
     setStop(true);
   }
+
   return (
     <>
       <div style={{ backgroundColor: "#fff" }}>
@@ -788,6 +830,7 @@ export default function AddressDetails(props) {
                       open={dialogWatchListIsOpen}
                       onClose={closeDialogWatchList}
                       value={dialogValue}
+                      setExistingWatchList={setExistingWatchList}
                       hash={addr}
                     />
                   </>
@@ -826,7 +869,7 @@ export default function AddressDetails(props) {
                         </TagImageTab>
                       </>
                     )}
-                    {existingWatchList && existingWatchList.length > 0 ? (
+                    {existingWatchList ? (
                       <>
                         <WatchListImage onClick={remove}>
                           <img
@@ -886,7 +929,7 @@ export default function AddressDetails(props) {
               <QrDiv>
                 <QRCode
                   className="qrcode-address-details"
-                  value={process.env.REACT_APP_QR_CODE_LINK + addr}
+                  value={addr}
                 />
               </QrDiv>
               <DetailDiv>
@@ -918,8 +961,8 @@ export default function AddressDetails(props) {
                       </CopyButton>
                     </AddressLine>
                     {sessionManager.getDataFromCookies("isLoggedIn") &&
-                    tagValue &&
-                    tagValue?.length > 0 ? (
+                      tagValue &&
+                      tagValue?.length > 0 ? (
                       <Tag>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
                     ) : (
                       ""
@@ -955,29 +998,25 @@ export default function AddressDetails(props) {
                       </span>
                     )}
                   </BalanceUsdDiv>
+                  {/*
                   <AddressAgeDiv>
                     <AddressAge>Address Age</AddressAge>
                     <AddressAgeValue>{ti}</AddressAgeValue>
                   </AddressAgeDiv>
-                  <LastActivityDiv>
+
+
+*/}
+                  <AddressAgeDiv> {/* TODO: REVERT THE CSS TAG BACK TO LASTACTIVITY ONCE ADDRESS AGE IS FIXED*/}
                     <LastActivity>Last Activity</LastActivity>
                     <LastActivityValue>
-                      {lastAct} (
-                      {addressStats?.lastTransactionTimestamp &&
-                      !isNaN(Number(addressStats?.lastTransactionTimestamp))
-                        ? moment(
-                            Number(addressStats?.lastTransactionTimestamp) *
-                              1000
-                          )
-                            .utc()
-                            .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"
-                        : ""}
-                      )
+                      {lastAct}&nbsp;
+                      {!lastActConverted ? "" : "(" + (lastActConverted) + ")"}
+
                     </LastActivityValue>
-                  </LastActivityDiv>
+                  </AddressAgeDiv>
                   <RankDiv>
                     <Rank>Rank</Rank>
-                    <RankValue>NA</RankValue>
+                    <RankValue>Not available</RankValue>
                   </RankDiv>
                 </AddressDetailDiv>
                 <ButtonDiv>
@@ -1001,6 +1040,7 @@ export default function AddressDetails(props) {
                           />
                           <AddToWatchListPopup
                             open={dialogWatchListIsOpen}
+                            setExistingWatchList={setExistingWatchList}
                             onClose={closeDialogWatchList}
                             fromAddr={transactions.from}
                             value={dialogValue}
@@ -1027,7 +1067,7 @@ export default function AddressDetails(props) {
                             Add Tag
                           </AddTagButton>
                         )}
-                        {existingWatchList && existingWatchList.length > 0 ? (
+                        {existingWatchList ? (
                           <AddToWatchList onClick={remove}>
                             <img
                               className="tag-white-icon"
@@ -1080,9 +1120,7 @@ export default function AddressDetails(props) {
               <div className="bloc-tabs_sec_addressDetail">
                 <button
                   className={
-                    toggleState === 1
-                      ? "tabs_sec_address_details active-tabs_sec_address_details"
-                      : "tabs_sec_address_details"
+                    toggleState === 1 ? "tabs_sec_address_details active-tabs_sec" : "tabs_sec_address_details"
                   }
                   onClick={() => toggleTab(1)}
                   id="transaction-btn"
@@ -1091,7 +1129,9 @@ export default function AddressDetails(props) {
                 </button>
                 <button
                   className={
-                    toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                    toggleState === 2
+                      ? "tabs_sec active-tabs_sec_analytics"
+                      : "tabs_sec"
                   }
                   onClick={() => toggleTab(2)}
                   id="transaction-btn"
@@ -1108,19 +1148,21 @@ export default function AddressDetails(props) {
                     : "content_sec"
                 }
               >
-                {isTag ? (
-                  <AddressTableComponent
-                    trans={transactions}
-                    coinadd={addr}
-                    tag={addressTag}
-                  />
-                ) : (
-                  <AddressTableComponent
-                    trans={transactions}
-                    coinadd={addr}
-                    currency={amount}
-                  />
-                )}
+                <div>
+                  {isTag ? (
+                    <AddressTableComponent
+                      trans={transactions}
+                      coinadd={addr}
+                      tag={addressTag}
+                    />
+                  ) : (
+                    <AddressTableComponent
+                      trans={transactions}
+                      coinadd={addr}
+                      currency={amount}
+                    />
+                  )}
+                </div>
               </div>
             )}
             {toggleState === 2 && <AddressDetailsAnalytics />}

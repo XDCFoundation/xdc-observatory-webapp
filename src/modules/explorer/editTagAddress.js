@@ -13,8 +13,9 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import utility, { dispatchAction } from "../../utility";
 import { TagAddressService } from "../../services";
-import { eventConstants, genericConstants } from "../../constants";
+import {cookiesConstants, eventConstants, genericConstants} from "../../constants";
 import { connect } from "react-redux";
+import {sessionManager} from "../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -124,13 +125,17 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     color: "#2a2a2a",
   },
-  "@media (max-width: 714px)": {
+  "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
     },
     dialogBox: {
-      width: "362px",
-      top: "95px",
+      width: "100%",
+      top: "40px",
+      borderRadius: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "100%",
     },
     input: {
       maxWidth: "503px",
@@ -151,6 +156,7 @@ function EditTaggedAddress(props) {
   const [id, setId] = React.useState("");
   const [error, setError] = React.useState("");
   const [errorTag, setErrorTag] = React.useState("");
+  const [input, setInput] = React.useState("");
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -161,6 +167,7 @@ function EditTaggedAddress(props) {
   useEffect(() => {
     if (props.row.address) setPrivateAddress(props.row.address);
     setNameTag(props.row.tagName);
+    setInput(props.row.tagName);
     setId(props.row._id);
     setTags(multipleTag);
   }, [props]);
@@ -169,35 +176,46 @@ function EditTaggedAddress(props) {
     setError("");
     setErrorTag("");
     const data = {
-      _id: props.row._id,
+      ...props.row,
       address: privateAddress,
-      tagName: tags,
+      tagName: input,
+      modifiedOn: Date.now()
     };
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
-    } else if (!input && tags.length === 0) {
+    } else if (!input ) {
       setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
-      setError("Address should start with xdc & 43 characters");
+      setError("Please add address that is having 43 characters and initiates with xdc");
       return;
-    } else if (tags.length === 0) {
-      setErrorTag("Press comma(,) to add tag");
+    } else if (!input) {
+      setErrorTag("Tag name couldn't be blank");
       return;
-    } else if (tags && tags.length > 5) {
-      setErrorTag("You can not add Name tag more than 5");
-      return;
-    } else {
-      const [error, response] = await utility.parseResponse(
-        PutTagAddress.putTaggedAddress(data)
+    }  else {
+      let taggedAddress = localStorage.getItem(
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS
+      );
+      taggedAddress = JSON.parse(taggedAddress);
+      taggedAddress[props.index] = data;
+
+      const existingTaggedAddress = taggedAddress.find(
+          (item, innerIndex) =>
+              item.address == privateAddress && item.userId == data.userId && props.index !== innerIndex
       );
 
-      if (error) {
-        setErrorTag("Address is already in use");
+      if (existingTaggedAddress) {
+        utility.apiFailureToast("Address is already in use");
         return;
       }
+
+      localStorage.setItem(
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS,
+          JSON.stringify(taggedAddress)
+      );
+
       utility.apiSuccessToast("Address tag Updated");
       await props.getListOfTagAddress();
       await props.getTotalCountTagAddress();
@@ -209,6 +227,7 @@ function EditTaggedAddress(props) {
   const classes = useStyles();
 
   const handleClickOpen = () => {
+    window.scrollTo(0, 0);
     setOpen(true);
   };
 
@@ -219,26 +238,32 @@ function EditTaggedAddress(props) {
   };
 
   const handleDelete = async () => {
-    if (props?.row?._id) {
-      props.dispatchAction(eventConstants.SHOW_LOADER, true);
-      const [error, response] = await utility.parseResponse(
-        TagAddressService.deleteTagAddress({ _id: props.row._id })
-      );
-      props.dispatchAction(eventConstants.HIDE_LOADER, true);
-      if (error || !response) {
-        utility.apiFailureToast(
-          error?.message || genericConstants.CANNOT_DELETE_TAGGED_ADDRESS
-        );
-        return;
-      }
-      await utility.apiSuccessToast(genericConstants.TAGGED_ADDRESS_DELETED);
+    let taggedAddress = localStorage.getItem(
+        props.row.userId + cookiesConstants.USER_TAGGED_ADDRESS
+    );
+    taggedAddress = JSON.parse(taggedAddress)
+
+    let existingTagsIndex=null;
+    const existingTag = taggedAddress.find(
+        (item,index) => {
+          if(item.address == props?.row?.address && item.userId == props?.row?.userId){
+            existingTagsIndex = index;
+            return true;
+          }
+        }
+    );
+    if(existingTag){
+      taggedAddress.splice(existingTagsIndex,1)
+    }
+    localStorage.setItem(
+        props?.row?.userId+cookiesConstants.USER_TAGGED_ADDRESS,
+        JSON.stringify(taggedAddress)
+    );
       await handleClose();
       await props.getListOfTagAddress();
       await props.getTotalCountTagAddress();
-    }
   };
 
-  const [input, setInput] = React.useState("");
   const [tags, setTags] = React.useState([]);
   const [isKeyReleased, setIsKeyReleased] = React.useState(false);
 
@@ -261,13 +286,13 @@ function EditTaggedAddress(props) {
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
       if (trimmedInput.length > 15) {
-        setErrorTag("Tag length should be less than 15");
+        setErrorTag("Nametag cannot be longer than 15 characters");
         return;
       }
-      if (tags.length >= 5) {
-        setErrorTag("Maximum 5 Tags are allowed");
-        return;
-      }
+      // if (tags.length >= 5) {
+      //   setErrorTag("Maximum 5 Name tags are allowed");
+      //   return;
+      // }
       setTags((prevState) => [...prevState, trimmedInput]);
       setInput("");
       setErrorTag("");
@@ -309,6 +334,7 @@ function EditTaggedAddress(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
+          <div>
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Edit Address Tag
@@ -320,6 +346,7 @@ function EditTaggedAddress(props) {
             </DialogContentText>
             <input
               value={privateAddress}
+              readOnly
               className={classes.input}
               onChange={(e) => {
                 setPrivateAddress(e.target.value);
@@ -327,7 +354,7 @@ function EditTaggedAddress(props) {
                 setErrorTag("")
               }}
             ></input>
-            {!tags && error ? <div className={classes.error}>{error}</div> : <></>}
+            {!input && error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           {/* <DialogContent>
               <DialogContentText className={classes.subCategory}>
@@ -349,17 +376,17 @@ function EditTaggedAddress(props) {
               Name Tag
             </DialogContentText>
             <div className="containerTag">
-              {tags.map((tag, index) => (
-                <div className="tag">
-                  {tag}
-                  <button onClick={() => deleteTag(index)}>x</button>
-                </div>
-              ))}
+              {/*/!*{tags.map((tag, index) => (*!/*/}
+              {/*  <div className="tag">*/}
+              {/*    {tags}*/}
+              {/*    <button onClick={() => deleteTag(index)}>x</button>*/}
+              {/*  </div>*/}
+              {/*/!*))}*!/*/}
               <input
                 value={input}
                 placeholder="Enter a tag"
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
+                // onKeyDown={onKeyDown}
+                // onKeyUp={onKeyUp}
                 onChange={onChange}
               />
             </div>
@@ -391,6 +418,7 @@ function EditTaggedAddress(props) {
               </span>
             </div>
           </DialogActions>
+          </div>
         </Dialog>
       </div>
     </div>

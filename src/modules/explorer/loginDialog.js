@@ -7,16 +7,21 @@ import { makeStyles } from "@material-ui/styles";
 import userSignUp from "../../services/createUser";
 import { Row } from "simple-flexbox";
 import AuthService from "../../services/userLogin";
+import LoginService from "../../services/auth0";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import { genericConstants } from "../constants";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { cookiesConstants } from "../../constants";
+import { authenticationProvider, cookiesConstants } from "../../constants";
 import { history } from "../../managers/history";
 import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Avatar } from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
+import { messages } from "../../constants";
+const recaptchaRef = React.createRef();
+
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -26,17 +31,20 @@ const useStyles = makeStyles((theme) => ({
   value: {
     width: "400px !important",
   },
-  backButtonMobile : {
-    marginLeft : "18px",
-    marginTop: "29px",
+  backButtonMobile: {
+    marginLeft: "0px",
+    marginTop: "25px",
     position: "absolute",
-    cursor: "pointer"
-
+    cursor: "pointer",
+    display: "block",
   },
-  "@media (min-width: 740px)":{
-    backButtonMobile : {
-      display: "none"
-    }
+  "@media (min-width: 767px)": {
+    backButtonMobile: {
+      display: "none",
+    },
+  },
+  dialogButton: {
+    flexDirection: "column",
   },
   closeContainer: {
     top: "26px",
@@ -57,23 +65,44 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     outline: "none",
   },
-
+  groupLogo: {
+    textAlign: "center",
+  },
   addbtn: {
     width: "434px",
     height: "44px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    margin: "15px 15.5px 30px 15px",
+    margin: "10px",
     color: "white",
   },
-
+  globalidbtn: {
+    width: "434px",
+    height: "44px",
+    borderRadius: "4.4px",
+    border: "solid 1px #9fa9ba",
+    backgroundColor: "#ffffff",
+    margin: " 10px 0 15px 0",
+    color: "#2a2a2a",
+  },
   userContainer: {
     marginTop: "12px",
   },
 
   passwordContainer: {
     marginTop: "15px",
+  },
+  globalTextContainer: {
+    width: "433px",
+
+    borderRadius: "6px",
+    backgroundColor: "#fff3f3",
+    margin: "30px auto 20px auto",
+    padding: "15px",
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
   },
   error: {
     color: "red",
@@ -149,7 +178,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperWidthSm: {
     position: "absolute",
-    top: "45px",
+    top: "10px",
     width: "503px",
     padding: "0 11px",
     borderRadius: "12px",
@@ -167,18 +196,24 @@ const useStyles = makeStyles((theme) => ({
   //   // padding: "0 11px",
   //   borderRadius: "12px",
   // },
+  privacyContainer: {
+    flexFlow: "row nowrap",
+    display: "flex",
+    marginLeft: "24px",
+    marginTop: "10px",
+  },
   termsContainer: {
     flexFlow: "row nowrap",
     display: "flex",
     marginLeft: "24px",
-    marginTop: "20px",
+    marginTop: "0px",
   },
   iAmNotRobotSignup: {
     width: "100%",
     display: "flex",
     alignItems: "center",
-    marginTop: "50px",
-    marginBottom: "25px",
+    marginTop: "15px",
+    marginBottom: "10px",
     flexDirection: "column",
   },
   checkbox: {
@@ -264,7 +299,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    letterSpacing: "0px",
+
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
@@ -277,6 +312,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: "24px",
+  },
+  doNotShow: {
+    marginBottom: "20px",
+    marginTop: "-10px",
   },
   "@media (max-width: 1920px)": {
     forgotText: {
@@ -302,13 +341,16 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-width: 767px)": {
     paperWidthSm: {
       position: "absolute",
-      // top: "102px",
+      top: "30px",
       height: "100%",
       width: "100%",
       maxWidth: "767px",
       borderRadius: "0px",
       backgroundImage: "none",
       opacity: "0px",
+      padding: "0px 15px",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
     closeContainer: {
       display: "none",
@@ -339,6 +381,7 @@ const useStyles = makeStyles((theme) => ({
     dialogButton: {
       padding: "0",
       justifyContent: "center",
+      flexDirection: "column",
     },
     createaccount: {
       color: "#3763dd",
@@ -372,12 +415,26 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "343px",
       height: "38px",
       borderRadius: "4px",
-      margin: "23px auto 21px auto",
+      margin: "23px auto 21px auto !important",
+    },
+    globalidbtn: {
+      width: "100%",
+      maxWidth: "343px",
+      height: "38px",
+      borderRadius: "4px",
+      margin: "23px auto 21px auto !important",
+    },
+    privacyContainer: {
+      flexFlow: "row nowrap",
+      display: "flex",
+      margin: "20px auto 0px auto",
+      maxWidth: "342px",
+      width: "100%",
     },
     termsContainer: {
       flexFlow: "row nowrap",
       display: "flex",
-      margin: "20px auto 35px auto",
+      margin: "5px auto 20px auto",
       maxWidth: "342px",
       width: "100%",
     },
@@ -389,6 +446,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "auto",
       marginRight: "auto",
     },
+
     userContainerSignup: {
       marginTop: "12px",
       padding: "0px",
@@ -397,13 +455,9 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "auto",
       marginRight: "auto",
     },
-    passwordContainer: {
-      marginTop: "20px",
-      padding: "0px",
+    globalTextContainer: {
+      padding: "10px",
       width: "100%",
-      maxWidth: "343px",
-      marginLeft: "auto",
-      marginRight: "auto",
     },
 
     paperWidthSm1: {
@@ -416,6 +470,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundImage: "none",
       opacity: "0px",
       paddingBottom: "30px",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
 
     input: {
@@ -428,6 +484,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   "@media (min-width: 768px) and (max-height: 800px)": {
+    privacyContainer: {
+      marginTop: "0px",
+    },
     termsContainer: {
       marginTop: "0px",
     },
@@ -470,9 +529,12 @@ export default function FormDialog(props) {
   const [errorEmailVerified, setErrorEmailVerified] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
+  const [errorPrivacyPolicy, setErrorPrivacyPolicy] = React.useState("");
   const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
-  const [newFeatureSignupPropsValue, setNewFeatureSignupPropsValue] = React.useState(false);
+  const [newFeatureSignupPropsValue, setNewFeatureSignupPropsValue] =
+    React.useState(false);
   const [errorCaptcha, setErrorCaptcha] = React.useState("");
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
   const [timer, setTimer] = React.useState("00:00");
 
   const [emailError, setEmailError] = useState("");
@@ -490,7 +552,7 @@ export default function FormDialog(props) {
     if (!newFeatureSignupPropsValue) {
       if (props.isNewFeatureComponent) {
         setOpen(true);
-        handleClickOpenSignup();
+        acceptSetupNewAccount();
         return;
       }
     }
@@ -527,8 +589,8 @@ export default function FormDialog(props) {
       props.verifiedEmail
         ? props.onClose(onClose)
         : !props.dataHashOrAddress
-          ? setOpen(false)
-          : props.onClose(onClose);
+        ? setOpen(false)
+        : props.onClose(onClose);
     }
     setTimeout(() => {
       setValue(0);
@@ -544,9 +606,11 @@ export default function FormDialog(props) {
     setErrorPassword("");
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
+    setErrorPrivacyPolicy("");
     setErrorCaptcha("");
     setErrorEmailVerified(false);
     setCaptchaError("");
+    setErrorEmptyField("");
     setNewFeatureSignupPropsValue(true);
   };
 
@@ -559,16 +623,21 @@ export default function FormDialog(props) {
   const handleClickOpenSignup = () => {
     setValue(1);
     setErrorEmailVerified(false);
-    setEmail("")
-    setUserName("")
-    setPassword("")
+    setEmail("");
+    setUserName("");
+    setPassword("");
+    setErrorEmail("");
+    setErrorPassword("");
+    setErrorEmptyField("");
   };
   const handleOpenForgotPassword = () => {
     setValue(3);
     setErrorEmailVerified(false);
-    setEmail("")
+    setEmail("");
   };
-
+  const acceptSetupNewAccount = () => {
+    setValue(1);
+  };
   const login = async () => {
     const reqObj = {
       name: email,
@@ -577,7 +646,12 @@ export default function FormDialog(props) {
     setLoading(true);
     setErrorEmail("");
     setErrorPassword("");
-
+    setErrorEmptyField("");
+    if (!email && !password) {
+      setErrorEmptyField("Enter username and password");
+      setLoading(false);
+      return;
+    }
     if (!email) {
       setErrorEmail("Please enter required field");
       setLoading(false);
@@ -587,22 +661,19 @@ export default function FormDialog(props) {
       setLoading(false);
       return;
     } else if (!email.match(regExAlphaNum)) {
-      setErrorEmail("Enter valid Username");
+      setErrorEmail("Enter valid username");
       setLoading(false);
       return;
     } else if (!password.match(regExPass)) {
-      setErrorPassword(
-        "Password must be atleast 8 character long with Uppercase, Lowercase and Number"
-      );
+      setErrorPassword("Incorrect password");
       setLoading(false);
       return;
     }
 
-    const authObject = new AuthService();
+    let authObject = new LoginService();
     let [error, authResponse] = await Utility.parseResponse(
-      authObject.signin(reqObj)
+      authObject.signin(reqObj.name, reqObj.password)
     );
-
     if (authResponse?.userInfoRes?.email.length.name > 2) {
       setLoading(false);
     }
@@ -614,7 +685,7 @@ export default function FormDialog(props) {
     } else {
       if (error || !authResponse) {
         setLoading(false);
-        setErrorPassword("Wrong Username or password");
+        setErrorPassword("Wrong username or password");
         // setislogged(true)
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
@@ -627,18 +698,26 @@ export default function FormDialog(props) {
           authResponse?.userInfoRes?.sub,
           "userId"
         );
+        sessionManager.setDataInCookies("AUTH0", cookiesConstants.AUTHENTICATION_PROVIDER);
         sessionManager.removeDataFromCookies("activateAccountEmail");
         setLoading(false);
         setUserName("");
         setEmail("");
         setPassword("");
         {
-          !props.dataHashOrAddress ? (window.location.href = "/loginprofile") : history.go(0);
+          !props.dataHashOrAddress
+            ? (window.location.href = "/loginprofile")
+            : history.go(0);
         }
       }
     }
   };
-
+  function connectGlobalIdLogin() {
+    window.location.href = "/global-id" + "/login";
+  }
+  function connectGlobalIdSignUp() {
+    window.location.href = "/global-id" + "/signup";
+  }
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
 
   const handleSignUp = async (e) => {
@@ -647,6 +726,7 @@ export default function FormDialog(props) {
       name: userName,
       email: email,
       password: password,
+      username: userName,
     };
     setLoading(true);
     setErrorUserName("");
@@ -654,7 +734,15 @@ export default function FormDialog(props) {
     setErrorPassword("");
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
+    setErrorPrivacyPolicy("");
+    setErrorEmptyField("");
+    setCaptchaError("");
     setErrorCaptcha("");
+    if (!userName && !email && !password && !confirmPassword) {
+      setErrorEmptyField(genericConstants.ENTER_REQUIRED_FIELD);
+      setLoading(false);
+      return;
+    }
     if (!userName) {
       setErrorUserName(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
@@ -675,21 +763,22 @@ export default function FormDialog(props) {
       setLoading(false);
       return;
     } else if (!userName.match(regExAlphaNum)) {
-      setErrorUserName("Enter valid Username");
+      setErrorUserName("Enter valid username");
       setLoading(false);
     } else if (!email.match(mailformat)) {
-      setErrorEmail("Enter valid Email");
+      setErrorEmail("Enter valid email ID");
       setLoading(false);
     } else if (!password.match(regExPass)) {
-      setErrorPassword(
-        "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
-      );
+      setErrorPassword("Enter a valid password");
       setLoading(false);
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
     } else if (termsCheckbox === false) {
-      setErrorTermsCondition("Please agree to the terms and conditions");
+      setErrorTermsCondition("Please agree to our Terms & Conditions");
+      setLoading(false);
+    } else if (privacyCheckbox === false) {
+      setErrorPrivacyPolicy("Please agree to our Privacy Policy");
       setLoading(false);
     } else {
       if (reCaptcha === "") {
@@ -699,20 +788,39 @@ export default function FormDialog(props) {
       } else {
         setCaptchaError("");
       }
+      const authObject = new LoginService();
       const [error, response] = await Utility.parseResponse(
-        userSignUp.postSignUp(data)
+        authObject.signUp(data)
       );
       if (error || !response) {
-        Utility.apiFailureToast("User already exists");
+        setErrorEmptyField(
+          error?.description ? error.description : "User already exists"
+        );
         setLoading(false);
       } else {
-        window.location.href = "/activate-account";
+        let userData = {
+          name: userName,
+          email: email,
+          username: userName,
+          authenticationProvider: authenticationProvider.AUTH0,
+          userId: `auth0|${response.Id}`,
+        };
+        const [error] = await Utility.parseResponse(
+          userSignUp.postSignUp(userData)
+        );
+        if (error) {
+          setErrorEmptyField(
+            error?.message ? error.message : "Cannot Add User"
+          );
+          return;
+        }
+        // window.location.href = "/activate-account";
         sessionManager.setDataInCookies(email, "activateAccountEmail");
         setLoading(false);
         setOpen(false);
-        setTimeout(() => {
-          setValue(0);
-        }, 1000);
+        // setTimeout(() => {
+        //   setValue(0);
+        // }, 1000);
 
         setUserName("");
         setEmail("");
@@ -720,9 +828,17 @@ export default function FormDialog(props) {
         setConfirmPassword("");
         setTermsCheckbox(false);
         setCaptchaCheckbox(false);
+        setValue(4)
       }
     }
   };
+
+  const handleClickOpenVerify = () => {
+    window.location.href = "/activate-account";
+    setTimeout(() => {
+      setValue(0);
+    }, 1000);
+  }
 
   const handleClickOpenSignin = () => {
     setValue(0);
@@ -739,6 +855,7 @@ export default function FormDialog(props) {
     setErrorPassword("");
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
+    setErrorPrivacyPolicy("");
     setErrorCaptcha("");
   };
 
@@ -748,12 +865,23 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-  
+
+    if (!email) {
+      setErrorEmail("Please enter email ID");
+      setLoading(false);
+      return;
+    }
+    if (!email.match(mailformat)) {
+      setErrorEmail("Enter valid email ID");
+      setLoading(false);
+      return;
+    }
     onClickReset();
     setLoading(true);
-    if (reCaptcha === '') {
+    if (reCaptcha === "") {
       setLoading(false);
-      setErrorCaptcha("please verify captcha");
+      setErrorCaptcha("Please verify the captcha");
+      return;
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
@@ -762,6 +890,8 @@ export default function FormDialog(props) {
       setLoading(false);
       if (error || !authResponse) {
         setEmailError("Please enter a valid email address");
+        setReCaptcha("");
+        recaptchaRef.current.reset();
         Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
@@ -776,6 +906,14 @@ export default function FormDialog(props) {
   };
 
   //--------------------------------------------------checkbox functionality--------------------------------------------------->
+  const [privacyCheckbox, setPrivacyCheckbox] = React.useState(false);
+  const handlePrivacyCheckbox = () => {
+    if (privacyCheckbox === true) {
+      setPrivacyCheckbox(false);
+    } else {
+      setPrivacyCheckbox(true);
+    }
+  };
   const [termsCheckbox, setTermsCheckbox] = React.useState(false);
   const handleTermsCheckbox = () => {
     if (termsCheckbox === true) {
@@ -822,8 +960,8 @@ export default function FormDialog(props) {
     if (total >= 0) {
       setTimer(
         (minutes > 9 ? minutes : "0" + minutes) +
-        ":" +
-        (seconds > 9 ? seconds : "0" + seconds)
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };
@@ -846,7 +984,10 @@ export default function FormDialog(props) {
   const onClickReset = () => {
     clearTimer(getDeadTime());
   };
-
+  function btoa(str) {
+    return Buffer.from(str, "binary").toString("base64");
+  }
+  var randomText = btoa(Math.random().toString()).substr(10, 10).toLowerCase();
   //------------------------------------------------------------------------------------------------------------------------------------->
 
   return (
@@ -880,16 +1021,16 @@ export default function FormDialog(props) {
           paperWidthSm:
             value === 1 && window.innerHeight < 800 && window.innerWidth >= 768
               ? classes.paperWidthSm1
-                : classes.paperWidthSm,
+              : classes.paperWidthSm,
         }}
         className={classes.dialog}
         open={open || onOpen}
-        onClose={handleClose}
+        // onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <div onClick={handleClose} className={classes.backButtonMobile}>
-            <img src="images/backbutton.svg" />
-          </div>
+        <div onClick={handleClose} className={value === 4 ? "display-none" : classes.backButtonMobile}>
+          <img src="/images/backButton.svg" alt="back"/>
+        </div>
         {value === 0 ? (
           <div>
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
@@ -902,12 +1043,34 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainer}>
+              <button className={classes.globalidbtn} onClick={connectGlobalIdLogin}>
+                <img
+                  src="/images/global-id-logo.svg"
+                  className="global-id-logo"
+                />
+                Continue with GlobaliD{" "}
+              </button>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <hr className="line-global-id"></hr>
+                </div>
+                <div className="orText-login">or use your email</div>
+                <div>
+                  <hr className="line-global-id"></hr>
+                </div>
+              </div>
               <DialogContentText className={classes.subCategory}>
                 <span className={classes.fieldName}>Username</span>
               </DialogContentText>
               <input
                 className={classes.input}
-                placeholder="5 to 30 characters in length, only alphanumeric allowed"
+                placeholder="5-30 alphanumeric characters"
                 onChange={(e) => {
                   setEmail(e.target.value);
                   setErrorEmail("");
@@ -919,7 +1082,7 @@ export default function FormDialog(props) {
               />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
-            <DialogContent className={classes.passwordContainer}>
+            <DialogContent className={classes.userContainer}>
               <DialogContentText className={classes.subCategory}>
                 <span className={classes.fieldName}>Password</span>
                 <span
@@ -944,15 +1107,17 @@ export default function FormDialog(props) {
               />
               <span>
                 {passwordShown ? (
-                  <img alt="show"
-                    style={{width: "30px"}}
+                  <img
+                    alt="show"
+                    style={{ width: "30px" }}
                     src={"/images/show-icon.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
                 ) : (
-                  <img alt="hide"
-                  style={{width: "30px"}}
+                  <img
+                    alt="hide"
+                    style={{ width: "30px" }}
                     src={"/images/not-showing-pw.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
@@ -964,7 +1129,8 @@ export default function FormDialog(props) {
             {errorEmailVerified ? (
               <div className="verifiedEmailError">
                 <span className="verifiedEmailErrorTextIcon">
-                  <img alt="alert"
+                  <img
+                    alt="alert"
                     style={{ paddingRight: "2px" }}
                     src={require("../../../src/assets/images/alert.svg")}
                   />
@@ -984,6 +1150,7 @@ export default function FormDialog(props) {
             ) : (
               <div></div>
             )}
+            <div className={classes.error2}>{errorEmptyField}</div>
             <DialogActions className={classes.dialogButton}>
               <button
                 className={classes.addbtn}
@@ -1000,27 +1167,29 @@ export default function FormDialog(props) {
             </DialogActions>
 
             <div className={classes.value}></div>
-            {window.innerWidth >= 768 ?
-            (<DialogContentText className={classes.xdc}>
-              New to XDC Observatory?{" "}
-              <span
-                className={classes.createaccount}
-                onClick={handleClickOpenSignup}
-              >
-                {" "}
-                Create an account
-              </span>
-            </DialogContentText>)
-            : (<DialogContentText className={classes.xdc}>
-              New to XDC?{" "}
-              <span
-                className={classes.createaccount}
-                onClick={handleClickOpenSignup}
-              >
-                {" "}
-                Create an account
-              </span>
-            </DialogContentText>)}
+            {window.innerWidth >= 768 ? (
+              <DialogContentText className={classes.xdc}>
+                New to XDC Observatory?{" "}
+                <span
+                  className={classes.createaccount}
+                  onClick={acceptSetupNewAccount}
+                >
+                  {" "}
+                  Create an account
+                </span>
+              </DialogContentText>
+            ) : (
+              <DialogContentText className={classes.xdc}>
+                New to XDC Observatory?{" "}
+                <span
+                  className={classes.createaccount}
+                  onClick={acceptSetupNewAccount}
+                >
+                  {" "}
+                  Create an account
+                </span>
+              </DialogContentText>
+            )}
           </div>
         ) : value === 1 ? (
           <div>
@@ -1035,25 +1204,56 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainerSignup}>
+              <button className={classes.globalidbtn} onClick={connectGlobalIdSignUp}>
+                <img
+                  src="/images/global-id-logo.svg"
+                  className="global-id-logo"
+                />
+                Continue with GlobaliD{" "}
+              </button>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <hr className="line-global-id"></hr>
+                </div>
+                <div className="orText-login">or use your email</div>
+                <div>
+                  <hr className="line-global-id"></hr>
+                </div>
+              </div>
               <DialogContentText className={classes.subCategorySignup}>
                 <span className={classes.fieldName}>Username</span>
               </DialogContentText>
               <input
                 className={classes.input}
-                placeholder="5 to 30 characters in length, only alphanumeric allowed"
+                placeholder="5-30 alphanumeric characters"
                 // name="userName"
                 value={userName}
                 onChange={(e) => {
                   setUserName(e.target.value);
                   setErrorUserName("");
                 }}
-              // onChange={inputEventSignUp}
+                // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorUserName}</div>
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategorySignup}>
-                <span className={classes.fieldName}>Email</span>
+                <span className={classes.fieldName}>
+                  Email
+                  <Tooltip placement="top" title={messages.EMAIL}>
+                    <img
+                      alt="question-mark"
+                      src="/images/info.svg"
+                      className="tooltipInfoIconEmail"
+                    />
+                  </Tooltip>
+                </span>
               </DialogContentText>
               <input
                 type="email"
@@ -1065,15 +1265,24 @@ export default function FormDialog(props) {
                   setEmail(e.target.value);
                   setErrorEmail("");
                 }}
-              // value={signUp.email}
+                // value={signUp.email}
 
-              // onChange={inputEventSignUp}
+                // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategorySignup}>
-                <span className={classes.fieldName}>Password</span>
+                <span className={classes.fieldName}>
+                  Password
+                  <Tooltip placement="top" title={messages.PASSWORD}>
+                    <img
+                      alt="question-mark"
+                      src="/images/info.svg"
+                      className="tooltipInfoIconEmail"
+                    />
+                  </Tooltip>
+                </span>
               </DialogContentText>
               <input
                 type="password"
@@ -1084,9 +1293,9 @@ export default function FormDialog(props) {
                   setPassword(e.target.value);
                   setErrorPassword("");
                 }}
-              // name="password"
-              // value={signUp.password}
-              // onChange={inputEventSignUp}
+                // name="password"
+                // value={signUp.password}
+                // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorPassword}</div>
             </DialogContent>
@@ -1103,12 +1312,13 @@ export default function FormDialog(props) {
                   setConfirmPassword(e.target.value);
                   setErrorConfirmPassword("");
                 }}
-              // name="confirmPassword"
-              // value={signUp.confirmPassword}
-              // onChange={inputEventSignUp}
+                // name="confirmPassword"
+                // value={signUp.confirmPassword}
+                // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorConfirmPassword}</div>
             </DialogContent>
+
             <div className={classes.termsContainer}>
               <input
                 className={classes.checkbox}
@@ -1116,17 +1326,35 @@ export default function FormDialog(props) {
                 type="checkbox"
               />
               <span className="iAgree">
-                I agree to the{" "}
-                <a style={{ color: "#2b51bc" }} href="/term-conditions">
-                  Terms of Use
-                </a>{" "}
-                &{" "}
-                <a style={{ color: "#2b51bc" }} href="/privacy-policy">
-                  Privacy Policy
+                I have read and agree to the&nbsp;
+                <a
+                  className="privacyTermsLink"
+                  href="/term-conditions"
+                  target="_blank"
+                >
+                  Terms and Conditions.
                 </a>
               </span>
             </div>
             <div className={classes.error1}>{errorTermsCondition}</div>
+            <div className={classes.privacyContainer}>
+              <input
+                className={classes.checkbox}
+                onClick={handlePrivacyCheckbox}
+                type="checkbox"
+              />
+              <span className="iAgree">
+                I have read and consent to the&nbsp;
+                <a
+                  className="privacyTermsLink"
+                  href="/privacy-policy"
+                  target="_blank"
+                >
+                  Privacy Policy.
+                </a>
+              </span>
+            </div>
+            <div className={classes.error1}>{errorPrivacyPolicy}</div>
             {/* <div
                             style={{
                                 width: "100%",
@@ -1170,10 +1398,11 @@ export default function FormDialog(props) {
             ) : (
               <div></div>
             )}
+
+            <div className={classes.error2}>{errorEmptyField}</div>
             <button className={classes.createAccountbtn} onClick={handleSignUp}>
               Create an Account{" "}
             </button>
-
             <div className={classes.alreadyAccount}>
               <div>
                 Already have an account?{" "}
@@ -1204,10 +1433,7 @@ export default function FormDialog(props) {
             </Row>
             <div className="forgot-success-box">
               <div className="imageTick">
-                <img  
-                  src={"/images/greenTick.svg"}
-                  alt={"imageTick"}
-                />
+                <img src={"/images/greenTick.svg"} alt={"imageTick"} />
               </div>
               <div className="forgot-success-text">
                 If the email address belongs to a known account, a recovery
@@ -1236,6 +1462,38 @@ export default function FormDialog(props) {
                   Sign In
                 </span>
               </div>
+            </div>
+          </div>
+        ) : value === 4 ? (
+          //<------------------------------------GlobalID-------------------------------------------->
+          <div>
+            <DialogContent className={classes.globalTextContainer}>
+              <div className="privacy-is-very-important">
+                Privacy is very important to us
+              </div>
+              <div className="text-global-id">
+                To protect sensitive information, all custom tags and data
+                related to the Watchlists are saved on your local device.
+                Clearing the browsing history or cookies will remove the
+                watchlist data saved in your profile.
+              </div>
+            </DialogContent>
+
+            <DialogActions className={classes.dialogButton}>
+              <button
+                className={classes.addbtn}
+                onClick={handleClickOpenVerify}
+              >
+                I Understand
+              </button>
+            </DialogActions>
+            <div className={classes.doNotShow}>
+            <div className="main-end-box">
+              <input type="checkbox"
+                // onChange={visited}
+                className="main-checkbox" />
+              <div className="main-end-text">Don't show this message again</div>
+            </div>
             </div>
           </div>
         ) : (
@@ -1272,7 +1530,9 @@ export default function FormDialog(props) {
                   setInputError(" ");
                 }}
               />
+              <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
+
             <div
               style={{
                 width: "100%",
@@ -1284,9 +1544,11 @@ export default function FormDialog(props) {
               }}
             >
               <ReCAPTCHA
+                ref={recaptchaRef}
                 sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
                 onChange={handleReCaptcha}
               />
+
               <div style={{ marginLeft: 0 }} className={classes.error1}>
                 {errorCaptcha}
               </div>
@@ -1316,7 +1578,7 @@ export default function FormDialog(props) {
                 // validateEmail();
                 forgotpassword();
               }}
-              disabled={!email}
+              // disabled={!email}
             >
               Reset Password
             </button>

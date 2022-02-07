@@ -146,7 +146,7 @@ export default function StickyHeadTable() {
     }
 
     if (action === "last") {
-      let page = totalToken - amount;
+      let page = (Math.ceil(totalToken / amount)-1) * amount;
       setFrom(page);
 
       if (keywords) {
@@ -421,10 +421,15 @@ export default function StickyHeadTable() {
                           <p className= {classes.tokenNumber}>{index + 1}</p>
                         </TableCell>
                         <TableCell id="td">
+                          {row?.tokenImage ? 
+                          <img
+                          style={{ height: "24", width: "24" }}
+                          src={row?.tokenImage}
+                        ></img> :
                           <img
                             style={{ height: "24", width: "24" }}
                             src={"/images/XRC20-Icon.svg"}
-                          ></img>
+                          ></img>}
                           &nbsp;{row.symbol}
                         </TableCell>
                         <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
@@ -529,7 +534,7 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("prev")}
           >
-            <img className="navigation-arrow" src={"/images/back.svg"} />
+            <img className="navigation-arrow rotate-180" src={"/images/next.svg"} />
 
             {/* <p className="path-contract">{"<"}</p> */}
           </div>

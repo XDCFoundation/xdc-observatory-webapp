@@ -18,8 +18,9 @@ export default class LatestAccountsList extends BaseComponent {
             totalSupply: 0,
             noData: 1,
             isLoading: true,
-            balanceSort: 1,
-            percentageSort: 1,
+            sortKey: "",
+            sortType: 0,
+            address: 0,
             tableColumns: {
                 "Rank": { isActive: true, toolTipText: "Account’s rank sorted on the basis of Balance." },
                 "Type": { isActive: true, toolTipText: "Account type is either Account, Contract or Token." },
@@ -39,6 +40,7 @@ export default class LatestAccountsList extends BaseComponent {
         // this.getTotalAccounts()
         this.getCoinMarketTotalSupply()
     }
+
     toggleTableColumns = (columnName) => {
         const columns = this.state.tableColumns;
         columns[columnName].isActive = !columns[columnName].isActive
@@ -46,6 +48,7 @@ export default class LatestAccountsList extends BaseComponent {
     }
 
     async getListOfAccounts(sortKey, sortType) {
+
         const skip = this.state.from || 0;
         const limit = this.state.amount || 10;
         sortKey = sortKey || "balance";
@@ -73,12 +76,14 @@ export default class LatestAccountsList extends BaseComponent {
         this.setState({ accountList, totalAccounts: totalCount })
         this.setState({ isLoading: false })
     }
+
     async getCoinMarketTotalSupply() {
         let [error, coinMarketTotalSupply] = await Utils.parseResponse(CoinMarketService.getCoinMarketTotalSupply())
         if (error || !coinMarketTotalSupply)
             return
         this.setState({ totalSupply: coinMarketTotalSupply })
     }
+
     async getTotalAccounts() {
         let [error, totalNumberAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
         if (error || !totalNumberAccounts)
@@ -95,7 +100,7 @@ export default class LatestAccountsList extends BaseComponent {
         this.getListOfAccounts()
     }
     _LastPage = async (event) => {
-        let from = this.state.totalAccounts - this.state.amount
+        let from = (Math.ceil(this.state.totalAccounts / this.state.amount)-1) * this.state.amount
         await this.setState({ from })
         this.getListOfAccounts()
     }
@@ -113,15 +118,18 @@ export default class LatestAccountsList extends BaseComponent {
             this.getListOfAccounts()
         }
     }
+
     create_data(hash, amount, age, block, from, to, txnfee) {
         return { hash, amount, age, block, from, to, txnfee }
     }
+
     shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
             b.length
         )}`;
     }
+
     create_url(item, type) {
         // Thisn is to create URL for table items. changing it can affect whole table.
         if (!item || !item.length) {
@@ -129,17 +137,19 @@ export default class LatestAccountsList extends BaseComponent {
         }
         return `#${item}-#{type}`
     }
-    sortData = async (sortKey) => {
-        let sortType = this.state[sortKey];
-        if (sortType === 1) {
-            // setLoading(true)
-            this.getListOfAccounts("balance", 1);
-            this.setState({ [sortKey]: -1 })
+
+    sortData = async (_sortKey) => {
+
+        let sortOrder = 0;
+        if (this.state.sortKey.includes(_sortKey)) {
+            sortOrder = -1 * this.state.sortOrder;
+            this.setState({ sortOrder })
         } else {
-            // setLoading(true)
-            this.getListOfAccounts("balance", -1);
-            this.setState({ [sortKey]: 1 })
+            this.setState({ sortKey: _sortKey, sortOrder: -1 })
         }
+        if (_sortKey === 'percentage')
+            _sortKey = "balance"
+        this.getListOfAccounts([_sortKey], sortOrder);
     }
     getSortTitle = (sortKey) => {
         if (this.state[sortKey] === 1)
@@ -150,8 +160,10 @@ export default class LatestAccountsList extends BaseComponent {
 
     updateFiltersAndGetAccounts = async (searchAndFilters) => {
         await this.setState({ searchAndFilters })
+        this.setState({ isLoading: true })
         this.getListOfAccounts()
     }
+
     render() {
         return (
             <AccountComponent

@@ -19,6 +19,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Utils from "../../../utility";
 import styled from "styled-components";
 import { cookiesConstants } from "../../../constants";
+import AlertDialog from "../../common/dialog/alertDialog";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -99,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#3763dd",
     color: "white",
 
-    },
+  },
 
   cnlbtn: {
     width: "94px",
@@ -150,6 +151,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "2px",
     marginTop: "-20px",
   },
+  error1: {
+    color: "red",
+    marginLeft: "24px",
+    marginTop: "-20px",
+  },
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -170,7 +176,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#2a2a2a",
   },
   lastContainer: {
-    width: "504px",
+    maxWidth: "534px",
+    width: "100%",
     padding: "11px 12px 10px 13px",
     borderRadius: "6px",
     backgroundColor: "#fff3f3",
@@ -182,17 +189,21 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0px",
-    lineHeight: "1.58",
-  },
 
-  "@media (max-width: 714px)": {
+    lineHeight: "1.58",
+  }, 
+
+  "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
     },
     dialogBox: {
-      width: "362px",
-      top: "95px",
+      width: "100%",
+      top: "40px",
+      borderRadius: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "100%",
     },
     input: {
       maxWidth: "503px",
@@ -201,7 +212,7 @@ const useStyles = makeStyles((theme) => ({
     notifyLabel: {
       fontSize: "13px",
       width: "250px",
-    },
+    },    
   },
   "@media (max-width: 900px)": {},
 }));
@@ -221,7 +232,7 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0px",
+
   },
 })(Tooltip);
 
@@ -229,10 +240,13 @@ export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const [addressAdded, setAddressAdded] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
   const [error, setError] = React.useState("");
   const [descriptionError, setDescriptionError] = React.useState("");
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
 
-  const [notification, setNotification] = React.useState(false);
+  const [notification, setNotification] = React.useState("NO");
 
   const [passwordShown, setPasswordShown] = React.useState(false);
 
@@ -243,7 +257,7 @@ export default function FormDialog(props) {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  const [value, setValue] = React.useState("female");
+  const [value, setValue] = React.useState("NO");
   const [isSize, setisSize] = React.useState(false);
   const screenSize = window.innerHeight;
   if (screenSize === "626") {
@@ -259,25 +273,29 @@ export default function FormDialog(props) {
   };
 
   const watchListService = async () => {
-    if (!address) {
-      setError("Please enter required field");
+    setError("");
+    setDescriptionError("");
+    setErrorEmptyField("");
+    if (!address && !description) {
+      setErrorEmptyField("Please enter required fields");
+      return
     }
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
-      description: description,
+      // description: description,
       type: value,
       isEnabled: true,
     };
     if (!address) {
       setError("Please enter required field");
+    } else if (!description) {
+      setDescriptionError("Please enter description");
     } else if (
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
-      setError("Address should start with xdc & 43 characters");
-    } else if (!description) {
-      setDescriptionError("Description is required");
+      setError("Address should start with xdc and consist of 43 characters");
     } else {
       if (value === "NO") request["isEnabled"] = false;
       const [error, response] = await utility.parseResponse(
@@ -285,38 +303,47 @@ export default function FormDialog(props) {
       );
 
       if (error || !response) {
-        utility.apiFailureToast("Address already exists");
+        setDescriptionError("Address already exist in table");
         return;
       }
       let watchlists = localStorage.getItem(
-        cookiesConstants.USER_ADDRESS_WATCHLIST
+        request.userId+cookiesConstants.USER_ADDRESS_WATCHLIST
       );
-      if (watchlists) {
-        watchlists = JSON.parse(watchlists);
-        const existingWatchList = watchlists.find(
-          (item) =>
-            item.address == request.address && item.userId == request.userId
-        );
-        if (existingWatchList) {
-          utility.apiFailureToast("Address already exists");
-          return;
-        }
-      } else {
-        watchlists = [];
-      }
-      watchlists.push(request);
-      localStorage.setItem(
-        cookiesConstants.USER_ADDRESS_WATCHLIST,
-        JSON.stringify(watchlists)
+      watchlists = JSON.parse(watchlists);
+      if(!watchlists)
+        watchlists = {}
+      // if (watchlists) {
+      //   watchlists = JSON.parse(watchlists);
+      //   const existingWatchList = response.find(
+      //     (item) =>
+      //       item.address == request.address && item.userId == request.userId
+      //   );
+      //   if (existingWatchList) {
+      //     utility.apiFailureToast("Address already exists");
+      //     return;
+      //   }
+      // } else {
+      //   watchlists = [];
+      // }
+      // watchlists.push(request);
+        watchlists[request.address] = description;
+        localStorage.setItem(
+          request.userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
+          JSON.stringify(watchlists)
       );
+      setOpen(false);
+      setAddressAdded(true);
+      setOpenAlert(true);
       utility.apiSuccessToast("Address added to watchlist");
       setAddress("");
       setDescription("");
-      setOpen(false);
       await props.getWatchlistList();
       await props.getTotalCountWatchlist();
     }
   };
+  const closeAlert = () => {
+    setOpenAlert(false);
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -359,59 +386,60 @@ export default function FormDialog(props) {
 
   return (
     <>
-    <div className="w-33p">
-      <div className="div1 cursor-pointer">
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
-                  history.push("/test");
-                }
-          }
-        >
-          <img className="imagediv1" src={"/images/watchlist.svg"}></img>
-        </div>
-
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
-                  history.push("/test");
-                }
-          }
-        >
-          <div className="headingdiv1">
-            <div>Create watchlist</div>
-          </div>
-          <div className="paradiv1">
-            An Email notification can be sent to you when an address on your
-            watch list recieves an incoming transaction.
-          </div>
-        </div>
-
-        <LearnMoreParent>
-          <LightToolTip
-            open={tooltipIsOpen}
-            onClose={tooltipClose}
-            title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
-            arrow
-            placement="top-start"
+      <div className="w-33p">
+        <div className="div1 cursor-pointer">
+          <div
+            className="imageParentDiv"
+            onClick={
+              // width >= 760
+              //   ? 
+                handleClickOpen
+                // : () => {
+                //   history.push("/test");
+                // }
+            }
           >
-            <div
-              className="learnMoreText"
-              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-            >
-              Learn More
-            </div>
-          </LightToolTip>
-        </LearnMoreParent>
-      </div>
+            <img className="imagediv1" src={"/images/watchlist.svg"}></img>
+          </div>
 
-      {/* <Button
+          <div
+            className="imageParentDiv"
+            onClick={
+              // width >= 760
+              //   ?
+                handleClickOpen
+                // : () => {
+                //   history.push("/test");
+                // }
+            }
+          >
+            <div className="headingdiv1">
+              <div>Create watchlist</div>
+            </div>
+            <div className="paradiv1">
+            An email notification will be sent when an address in your watch list receives an incoming/outgoing transaction.
+            </div>
+          </div>
+
+          <LearnMoreParent>
+            <LightToolTip
+              open={tooltipIsOpen}
+              onClose={tooltipClose}
+              title="An Email notification can be sent to you when an address on your watch list recieves an incoming/outgoing transaction."
+              arrow
+              placement="top-start"
+            >
+              <div
+                className="learnMoreText"
+                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+              >
+                Learn More
+              </div>
+            </LightToolTip>
+          </LearnMoreParent>
+        </div>
+
+        {/* <Button
         className={classes.btn}
         variant="outlined"
         color="primary"
@@ -419,20 +447,21 @@ export default function FormDialog(props) {
       >
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
-      {isSize === false ? (
-        // <div className={classes.createWatchlist}>
+        
           <Dialog
-            className={classes.dialog}
+            // className={classes.dialog}
             classes={{ paperWidthSm: classes.dialogBox }}
             open={open}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
+            <div>
             <Row>
               <div className={classes.heading} id="form-dialog-title">
                 Add a New Address to your Watchlist
               </div>
             </Row>
+            {errorEmptyField ? <div className={classes.error1}>{errorEmptyField}</div> : <></>}
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 Address
@@ -540,24 +569,25 @@ export default function FormDialog(props) {
                 </button>
               </span>
             </DialogActions>
+            <div className="p-l-15 p-r-15">
             <div className={classes.lastContainer}>
               <div className={classes.lastContainerText}>
-                To protect your privacy, data related to the Watchlists, is
-                added on your local device. Cleaning the browsing history or
-                cookies will clean the watchlist data saved in your profile.
+              Privacy is very important to us. To protect sensitive information,
+              all custom tags and data related to the Watchlists are saved on
+              your local device. Clearing the browsing history or cookies will
+              remove the watchlist data saved in your profile.
+              </div>
               </div>
             </div>
             {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
+            </div>
           </Dialog>
-        // </div>
-      ) : (
-        <Test />
-      )}
+        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
       </div>
-      </>
+    </>
   );
 }
 

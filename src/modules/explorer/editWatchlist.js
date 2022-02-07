@@ -12,8 +12,9 @@ import FormControl from "@material-ui/core/FormControl";
 import PutWatchlist from "../../services/user";
 import utility, { dispatchAction } from "../../utility";
 import { WatchListService } from "../../services";
-import { eventConstants, genericConstants } from "../../constants";
+import {cookiesConstants, eventConstants, genericConstants} from "../../constants";
 import { connect } from "react-redux";
+import {sessionManager} from "../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -163,13 +164,17 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     color: "#2a2a2a",
   },
-  "@media (max-width: 714px)": {
+  "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
     },
     dialogBox: {
-      width: "362px",
-      top: "95px",
+      width: "100%",
+      top: "40px",
+      borderRadius: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "100%",
     },
     input: {
       maxWidth: "503px",
@@ -208,13 +213,14 @@ function EditWatchList(props) {
   const classes = useStyles();
 
   const handleClickOpen = () => {
+    window.scrollTo(0, 0);
     setOpen(true);
   };
 
   const handleClose = async () => {
     setOpen(false);
   };
-  const [value, setValue] = React.useState("NONE");
+  const [value, setValue] = React.useState(props.row?.notification?.type);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -231,7 +237,7 @@ function EditWatchList(props) {
       return true;
       // watchListService();
     } else {
-      setError("Address should start with xdc & 43 characters");
+      setError("Please add address that is having 43 characters and initiates with xdc");
       return false;
     }
   };
@@ -240,10 +246,10 @@ function EditWatchList(props) {
     const request = {
       _id: props.row._id,
       address: address,
-      description: description,
-      notification : {
-        type : value,
-        isEnabled : value==="NO" ? false : true
+      // description: description,
+      notification: {
+        type: value,
+        isEnabled: value === "NO" ? false : true
       }
     };
     if (validateAddress()) {
@@ -254,6 +260,17 @@ function EditWatchList(props) {
       if (error || !response) {
         utility.apiFailureToast("Error");
       } else {
+        let watchlists = localStorage.getItem(
+            sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST
+        );
+        watchlists = JSON.parse(watchlists);
+        if (!watchlists)
+          watchlists = {}
+        watchlists[request.address] = description;
+        localStorage.setItem(
+            sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST,
+            JSON.stringify(watchlists)
+        );
         utility.apiSuccessToast("Address Updated");
         handleClose();
         await props.getWatchlistList();
@@ -309,6 +326,7 @@ function EditWatchList(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
+          <div>
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Edit Watchlist
@@ -320,6 +338,7 @@ function EditWatchList(props) {
             </DialogContentText>
             <input
               value={address}
+              readOnly
               className={classes.input}
               onChange={(e) => {
                 setAddress(e.target.value);
@@ -359,7 +378,7 @@ function EditWatchList(props) {
               >
                 <FormControlLabel
                   className="radio-inside-dot"
-                  value="NONE"
+                  value="NO"
                   control={<Radio style={{ color: "#979797" }} />}
                   classes={{ label: classes.notifyLabel }}
                   style={{ margin: "5px 2px -5px -5px" }}
@@ -375,7 +394,7 @@ function EditWatchList(props) {
                 />
                 <FormControlLabel
                   className="radio-inside-dot"
-                  value="INTRX"
+                  value="IN"
                   control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
@@ -384,7 +403,7 @@ function EditWatchList(props) {
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Transactions Only" /> */}
                 <FormControlLabel
                   className="radio-inside-dot"
-                  value="OUTTRX"
+                  value="OUT"
                   control={<Radio style={{ color: "#979797" }} />}
                   classes={{ label: classes.notifyLabel }}
                   style={{ margin: "-5px 26px -5px -5px" }}
@@ -417,6 +436,7 @@ function EditWatchList(props) {
               </span>
             </div>
           </DialogActions>
+          </div>
         </Dialog>
       </div>
     </div>

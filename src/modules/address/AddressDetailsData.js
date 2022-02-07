@@ -46,7 +46,7 @@ const useStyles = makeStyles({
     fontWeight: "500",
     fontFamily: "Inter !important",
     color: "#3a3a3a",
-    letterSpacing: "0px",
+
     marginLeft: "25px",
   },
 });
@@ -186,7 +186,7 @@ export default function AddressDetailsData() {
   React.useEffect(() => {
     let values = { addr: addressNumber };
     getContractDetails(values);
-    let data = { addrr: addressNumber };
+    let data = { address: addressNumber };
     getTransactionsCountForAddress(data);
   }, []);
 
@@ -194,40 +194,15 @@ export default function AddressDetailsData() {
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
       <Grid className="table-grid-block-contract ">
-        <div className="container_sec">
+        <div>
           <div
-            className="block_details_heading b-h1"
-            style={{ display: "flex", flexDirection: "row" }}
+            className="contract_details_heading p-t-30 display-flex justify-content-betwe"
           >
-            <Row
-              alignItems="center"
-              justifyContent="center"
-              className="contract_details_heading_left"
-            >
-              Contract Address{" "}
-              <span className="AddressTitle addtitle">{addressNumber}</span>
-              {!isloggedIn ? (
-                <span className={classes.wantToLoginText}>
-                  <LoginDialog
-                    open={loginDialogIsOpen}
-                    onClose={closeLoginDialog}
-                    dataHashOrAddress={addressNumber}
-                  />
-                  <div>
-                    Want to tag this address?
-                    <a
-                      className="linkTableDetails-transaction"
-                      style={{ marginLeft: "5px", cursor: "pointer" }}
-                      onClick={openLoginDialog}
-                    >
-                      Login
-                    </a>
-                  </div>
-                </span>
-              ) : (
-                ""
-              )}
-            </Row>
+            <div className="contract-address-heading">Contract Address{" "}</div>
+
+            <div className="AddressTitle">{addressNumber}</div>
+
+
           </div>
           <div className="address_block_main">
             <div className="contractOverview">
@@ -432,64 +407,64 @@ export default function AddressDetailsData() {
             </TabContainer>
           </TabContainerParent>
 
-          <div className="content-tabs_sec">
-            <div
-              className={
-                toggleState === 1
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-              <TransactionTableComponent />
-            </div>
-            <div
-              className={
-                toggleState === 2
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-              {!responses ? (
-                ""
-              ) : responses?.contractStatus === "Unverified" ? (
-                <TokenUnverifiedContract
-                  contractData={responses?.contractResponse}
-                />
-              ) : (
-                <TokenContracttab contractData={responses?.contractResponse} />
-              )}
-            </div>
-            <div
-              className={
-                toggleState === 3
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-              <ReadContract
-                contractData={
-                  responses?.contractResponse
-                    ? { ...responses?.contractResponse }
-                    : {}
-                }
-              />
-            </div>
-            <div
-              className={
-                toggleState === 4
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-              <WriteContract
-                contractData={
-                  responses?.contractResponse
-                    ? { ...responses?.contractResponse }
-                    : {}
-                }
-              />
-            </div>
+          {/* <div className="content-tabs_sec"> */}
+          <div
+            className={
+              toggleState === 1
+                ? "content_sec  active-content_sec"
+                : "content_sec"
+            }
+          >
+            <TransactionTableComponent />
           </div>
+          <div
+            className={
+              toggleState === 2
+                ? "content_sec  active-content_sec"
+                : "content_sec"
+            }
+          >
+            {!responses ? (
+              ""
+            ) : responses?.contractStatus === "Unverified" ? (
+              <TokenUnverifiedContract
+                contractData={responses?.contractResponse}
+              />
+            ) : (
+              <TokenContracttab contractData={responses?.contractResponse} />
+            )}
+          </div>
+          <div
+            className={
+              toggleState === 3
+                ? "content_sec  active-content_sec"
+                : "content_sec"
+            }
+          >
+            <ReadContract
+              contractData={
+                responses?.contractResponse
+                  ? { ...responses?.contractResponse }
+                  : {}
+              }
+            />
+          </div>
+          <div
+            className={
+              toggleState === 4
+                ? "content_sec  active-content_sec"
+                : "content_sec"
+            }
+          >
+            <WriteContract
+              contractData={
+                responses?.contractResponse
+                  ? { ...responses?.contractResponse }
+                  : {}
+              }
+            />
+          </div>
+          {/* </div> */}
         </div>
       </Grid>
       <FooterComponent />

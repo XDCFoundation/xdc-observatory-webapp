@@ -149,108 +149,108 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-    const {open, onClose} = props
-    const [transactionsHash, setTransactionsHash] = React.useState("");
-    const [privateNote, setPrivateNote] = React.useState("");
+  const { open, onClose } = props
+  const [transactionsHash, setTransactionsHash] = React.useState("");
+  const [privateNote, setPrivateNote] = React.useState("");
 
-    React.useEffect(() => {
-      setTransactionsHash(props.hash)
-      setPrivateNote(props.pvtNote)
-    }, [props])
+  React.useEffect(() => {
+    setTransactionsHash(props.hash)
+    setPrivateNote(props.pvtNote)
+  }, [props])
   async function transactionLable() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: privateNote,
       transactionHash: transactionsHash,
     };
-    const [error] = await utility.parseResponse(
-      UserService.postUserPrivateNote(data)
-    );
 
-    if (error) {
-        utility.apiFailureToast("Transaction private note not added");
-        return;
-      }
-      let transactionLabel = localStorage.getItem(
-        cookiesConstants.USER_TRASACTION_LABELS
+    let transactionLabel = localStorage.getItem(
+        data.userId+cookiesConstants.USER_TRASACTION_LABELS
+    );
+    if (transactionLabel) {
+      transactionLabel = JSON.parse(transactionLabel);
+      let existingIndex = null;
+      const existingTransactionLabel = transactionLabel.find(
+        (item, index) =>
+        {if(item.transactionHash == transactionsHash && item.userId == data.userId){
+          existingIndex = index;
+          return item;
+        }}
       );
-      if (transactionLabel) {
-        transactionLabel = JSON.parse(transactionLabel);
-        const existingTransactionLabel = transactionLabel.find(
-          (item) =>
-            item.address == transactionsHash && item.userId == data.userId
-        );
-        if (existingTransactionLabel) {
-          utility.apiFailureToast("Transaction private note is already in use");
-          return;
-        }
-      } else {
-        transactionLabel = [];
-      }
+      if (existingTransactionLabel) {
+        transactionLabel[existingIndex] = data;
+        // utility.apiFailureToast("Transaction private note is already in use");
+        // return;
+      }else
+        transactionLabel.push(data);
+    } else {
+      transactionLabel = [];
       transactionLabel.push(data);
-      localStorage.setItem(
-        cookiesConstants.USER_TRASACTION_LABELS,
-        JSON.stringify(transactionLabel)
-      );
-      utility.apiSuccessToast("Transaction Added");
-      await props.getListOfTxnLabel();
-      await props.getTotalCountTxnLabel();
-      setTransactionsHash("");
-      setPrivateNote("");
-      window.location.reload();
     }
+    // transactionLabel.push(data);
+    localStorage.setItem(
+        data.userId+cookiesConstants.USER_TRASACTION_LABELS,
+      JSON.stringify(transactionLabel)
+    );
+    utility.apiSuccessToast("Transaction Added");
+    onClose();
+    await props.getListOfTxnLabel();
+    await props.getTotalCountTxnLabel();
+    setTransactionsHash("");
+    setPrivateNote("");
+  }
 
   const classes = useStyles();
 
   return (
-      <div>
-        <Dialog
-          className={classes.dialog}
-          classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          aria-labelledby="form-dialog-title"
-        >
-          <Row>
-            <div className={classes.heading} id="form-dialog-title">
-              Add Transaction Label
-            </div>
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Transaction Hash
-            </DialogContentText>
-            <input
-              type="text"
-              value={transactionsHash}
-              className={classes.input}
-              onChange={(e) => setTransactionsHash(e.target.value)}
-            ></input>
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Transaction Label/Note
-            </DialogContentText>
-            <textarea
-              type="text"
-              className={classes.textarea}
-              value={privateNote}
-              onChange={(e) => setPrivateNote(e.target.value)}
-            ></textarea>
-          </DialogContent>
-          <DialogActions className={classes.buttons}>
-            <span style={{ color: "white" }}>
-              <button className={classes.cnlbtn} onClick={onClose}>
-                {" "}
-                Cancel
-              </button>
-            </span>
-            <span>
-              <button className={classes.addbtn} onClick={transactionLable}>
-                Add
-              </button>
-            </span>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
+    <div>
+      <Dialog
+        className={classes.dialog}
+        classes={{ paperWidthSm: classes.dialogBox }}
+        open={open}
+        aria-labelledby="form-dialog-title"
+      >
+        <Row>
+          <div className={classes.heading} id="form-dialog-title">
+            Add Transaction Label
+          </div>
+        </Row>
+        <DialogContent>
+          <DialogContentText className={classes.subCategory}>
+            Transaction Hash
+          </DialogContentText>
+          <input
+            type="text"
+            value={transactionsHash}
+            className={classes.input}
+            onChange={(e) => setTransactionsHash(e.target.value)}
+          ></input>
+        </DialogContent>
+        <DialogContent>
+          <DialogContentText className={classes.subCategory}>
+            Transaction Label/Note
+          </DialogContentText>
+          <textarea
+            type="text"
+            className={classes.textarea}
+            value={privateNote}
+            onChange={(e) => setPrivateNote(e.target.value)}
+          ></textarea>
+        </DialogContent>
+        <DialogActions className={classes.buttons}>
+          <span style={{ color: "white" }}>
+            <button className={classes.cnlbtn} onClick={onClose}>
+              {" "}
+              Cancel
+            </button>
+          </span>
+          <span>
+            <button className={classes.addbtn} onClick={transactionLable}>
+              Add
+            </button>
+          </span>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 }

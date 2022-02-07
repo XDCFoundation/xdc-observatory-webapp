@@ -49,7 +49,7 @@ const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
       data={data}
       tooltip={toolTipElement}
-      margin={{ top: 10 }}
+      margin={{ left: 40, bottom: 5, top: 10 }}
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
@@ -62,23 +62,12 @@ const MyResponsiveLine = ({ data }) => (
       curve="monotoneX"
       axisTop={null}
       axisRight={null}
-      axisBottom={{
-        orient: "bottom",
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: "transportation",
-        legendOffset: 36,
-        legendPosition: "middle",
-      }}
+      axisBottom={null}
       axisLeft={{
         orient: "left",
-        tickSize: 5,
+        tickSize: 0,
         tickPadding: 5,
-        tickRotation: 0,
-        legend: "count",
-        legendOffset: -40,
-        legendPosition: "middle",
+        tickValues: 5,
       }}
       enableGridX={false}
       enableGridY={false}
@@ -94,6 +83,7 @@ const MyResponsiveLine = ({ data }) => (
       colors={["url(#someGradientId)"]}
       enableCrosshair={false}
       useMesh={true}
+      theme={{ fontSize: 11, fontFamily: "Inter", textColor: "#9fa9ba" }}
       legends={[
         {
           anchor: "bottom-right",

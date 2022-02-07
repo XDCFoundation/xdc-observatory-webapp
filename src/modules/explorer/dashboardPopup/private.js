@@ -12,7 +12,8 @@ import { sessionManager } from "../../../managers/sessionManager";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
-import { genericConstants, cookiesConstants } from "../../constants";
+import { genericConstants, cookiesConstants } from "../../../constants";
+import AlertDialog from "../../common/dialog/alertDialog";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -146,7 +147,11 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginLeft: "2px",
   },
-
+  error2: {
+    color: "red",
+    marginLeft: "24px",
+    marginTop: "-14px",
+  },
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -171,7 +176,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "12px",
   },
   lastContainer: {
-    width: "504px",
+    maxWidth: "534px",
+    width: "100%",
     padding: "11px 12px 10px 13px",
     borderRadius: "6px",
     backgroundColor: "#fff3f3",
@@ -183,16 +189,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0px",
+
     lineHeight: "1.58",
   },
-  "@media (max-width: 714px)": {
+  "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
     },
     dialogBox: {
-      width: "362px",
-      top: "95px",
+      width: "100%",
+      top: "40px",
+      borderRadius: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "100%",
     },
     input: {
       maxWidth: "503px",
@@ -220,7 +230,6 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0px",
   },
 })(Tooltip);
 
@@ -229,6 +238,7 @@ export default function FormDialog(props) {
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const [privateAddress, setPrivateAddress] = React.useState(false);
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
   // const [nameTag, setNameTag] = React.useState(false);
   const [error, setError] = React.useState("");
   const [errorTag, setErrorTag] = React.useState("");
@@ -238,42 +248,44 @@ export default function FormDialog(props) {
   // };
 
   const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
+  const [addressAdded, setAddressAdded] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
 
   async function TaggedAddress() {
     setError("");
     setErrorTag("");
+    setErrorEmptyField("");
+    if (!privateAddress && !input && tags.length === 0) {
+      setErrorEmptyField("Please enter required fields");
+      return;
+    }
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
-      tagName: tags,
+      tagName: input,
+      modifiedOn: Date.now(),
     };
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
-    } else if (!input && tags.length === 0) {
+    } else if (!input) {
       setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
-      setError("Address should start with xdc & 43 characters");
-      return;
-    } else if (tags.length === 0) {
-      setErrorTag("Press comma(,) to add tag");
-      return;
-    } else if (tags && tags.length > 5) {
-      setErrorTag("You can not add Name tag more than 5");
+      setError("Address should start with xdc and consist of 43 characters");
       return;
     } else {
-      const [error] = await utility.parseResponse(
-        UserService.addPrivateTagToAddress(data)
-      );
-
-      if (error) {
-        utility.apiFailureToast("Address is already in use");
-        return;
-      }
+      // const [error] = await utility.parseResponse(
+      //   UserService.addPrivateTagToAddress(data)
+      // );
+      //
+      // if (error) {
+      //   utility.apiFailureToast("Address is already in use");
+      //   return;
+      // }
       let taggedAddress = localStorage.getItem(
-        cookiesConstants.USER_TAGGED_ADDRESS
+        data.userId + cookiesConstants.USER_TAGGED_ADDRESS
       );
       if (taggedAddress) {
         taggedAddress = JSON.parse(taggedAddress);
@@ -281,7 +293,7 @@ export default function FormDialog(props) {
           (item) => item.address == privateAddress && item.userId == data.userId
         );
         if (existingTag) {
-          utility.apiFailureToast("Address is already in use");
+          setErrorTag("Address already exist in table");
           return;
         }
       } else {
@@ -289,11 +301,13 @@ export default function FormDialog(props) {
       }
       taggedAddress.push(data);
       localStorage.setItem(
-        cookiesConstants.USER_TAGGED_ADDRESS,
+        data.userId + cookiesConstants.USER_TAGGED_ADDRESS,
         JSON.stringify(taggedAddress)
       );
-      utility.apiSuccessToast("Tag Added");
       setOpen(false);
+      setAddressAdded(true);
+      setOpenAlert(true);
+      utility.apiSuccessToast("Tag Added");
       await props.getListOfTagAddress();
       await props.getTotalCountTagAddress();
     }
@@ -304,6 +318,9 @@ export default function FormDialog(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const closeAlert = () => {
+    setOpenAlert(false);
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -330,11 +347,11 @@ export default function FormDialog(props) {
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
       if (trimmedInput.length > 15) {
-        setErrorTag("Tag length should be less than 15");
+        setErrorTag("Nametag cannot be longer than 15 characters");
         return;
       }
       if (tags.length >= 5) {
-        setErrorTag("Maximum 5 Tags are allowed");
+        setErrorTag("Maximum 5 Name tags are allowed");
         return;
       }
       setTags((prevState) => [...prevState, trimmedInput]);
@@ -389,56 +406,58 @@ export default function FormDialog(props) {
 
   return (
     <>
-    <div className="w-33p">
-      <div className="div1 cursor-pointer">
-        <div
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
-                  history.push("/test-address");
-                }
-          }
-        >
-          <img className="imagediv1" src={"/images/private.svg"}></img>
-        </div>
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
-                  history.push("/test-address");
-                }
-          }
-        >
-          <div className="headingdiv1">
-            <div>Add private tag to an Address</div>
-          </div>
-          <div className="paradiv1">
-            Add a short memo or private tag to the address of interest.
-          </div>
-        </div>
-
-        <LearnMoreParent>
-          <LightToolTip
-            open={tooltipIsOpen}
-            onClose={tooltipClose}
-            title="Add a short memo or private tag to the address of interest."
-            arrow
-            placement="top-start"
+      <div className="w-33p">
+        <div className="div1 cursor-pointer">
+          <div
+            onClick={
+              // width >= 760
+              //   ? 
+                handleClickOpen
+                // : () => {
+                //     history.push("/test-address");
+                //   }
+            }
           >
-            <div
-              className="learnMoreText"
-              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-            >
-              Learn More
+            <img className="imagediv1" src={"/images/private.svg"}></img>
+          </div>
+          <div
+            className="imageParentDiv"
+            onClick={
+              // width >= 760
+              //   ? 
+                handleClickOpen
+                // : () => {
+                //     history.push("/test-address");
+                //   }
+            }
+          >
+            <div className="headingdiv1">
+              <div>Add private tag to an Address</div>
             </div>
-          </LightToolTip>
-        </LearnMoreParent>
-      </div>
+            <div className="paradiv1">
+              Add a short memo or private tag to the address of interest.
+            </div>
+          </div>
 
-      {/* <Button
+          <LearnMoreParent>
+            <LightToolTip
+              open={tooltipIsOpen}
+              onClose={tooltipClose}
+              title="Add a short memo or private tag to the address of interest."
+              arrow
+              placement="top-start"
+            >
+              <div
+                className="learnMoreText"
+                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+              >
+                Learn More
+              </div>
+            </LightToolTip>
+          </LearnMoreParent>
+        </div>
+
+        {/* <Button
         className={classes.btn}
         variant="outlined"
         color="primary"
@@ -447,7 +466,7 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-      {/* <div> */}
+        {/* <div> */}
         <Dialog
           // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -455,15 +474,17 @@ export default function FormDialog(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
+          <div>
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Add a new Address Tag
             </div>
-            {/* <span onClick={handleClose} className={classes.cross}>
-              {" "}
-              X{" "}
-            </span> */}
           </Row>
+          {errorEmptyField ? (
+            <div className={classes.error2}>{errorEmptyField}</div>
+          ) : (
+            <></>
+          )}
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               Address
@@ -480,22 +501,17 @@ export default function FormDialog(props) {
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               Name Tag
-              {/* <span  className={classes.forgotpass}>
-              Forgot Password?
-            </span> */}
             </DialogContentText>
 
             <div className="containerTag">
-              {tags.map((tag, index) => (
-                <div className="tag">
-                  {tag}
-                  <button onClick={() => deleteTag(index)}>x</button>
-                </div>
-              ))}
+              {/*<div className="tag">*/}
+              {/*  /!*{input}*!/*/}
+              {/*  /!*<button onClick={() => deleteTag(index)}>x</button>*!/*/}
+              {/*</div>*/}
               <input
                 value={input}
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
+                // onKeyDown={onKeyDown}
+                // onKeyUp={onKeyUp}
                 onChange={onChange}
               />
             </div>
@@ -531,19 +547,24 @@ export default function FormDialog(props) {
               </button>
             </span>
           </DialogActions>
+          <div className="p-l-15 p-r-15">
           <div className={classes.lastContainer}>
             <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the address tags, is
-              added on your local device. Cleaning the browsing history or
-              cookies will clean the address tags saved in your profile.
+              Privacy is very important to us. To protect sensitive information,
+              all custom tags and data related to the Watchlists are saved on
+              your local device. Clearing the browsing history or cookies will
+              remove the watchlist data saved in your profile.
+            </div>
             </div>
           </div>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
+            </div>
         </Dialog>
-      {/* </div> */}
+        {/* </div> */}
+        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
       </div>
     </>
   );

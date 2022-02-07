@@ -11,16 +11,16 @@ export default class LatestTransactionList extends BaseComponent {
     super(props);
     this.state = {
       tableColumns: {
-        Hash: { isActive: true, toolTipText: "Unique transaction identifier, also known as the Transaction ID." },
+        // Hash: { isActive: true, toolTipText: "Unique transaction identifier, also known as the Transaction ID." },
         // "Contract": {isActive: true, toolTipText: toolTipMessages.hashid},
         // "Name": {isActive: true, toolTipText: toolTipMessages.value},
-        Symbol: { isActive: true, toolTipText: "A virtual currency token." },
+        Symbol: { isActive: true, toolTipText: "Short name of the token" },
         // "Date and Time": {isActive: true},
-        Type: { isActive: true, toolTipText: "Token type may include XRC20, XRC721 or XRC1155." },
+        // Type: { isActive: true, toolTipText: "Token type may include XRC20, XRC721 or XRC1155." },
         // "Total Supply": {isActive: true, toolTipText: toolTipMessages.from},
         "Total Holders": {
           isActive: true,
-          toolTipText: "The number of holders.",
+          toolTipText: "The total number of unique addresses that hold the token",
         },
       },
       sortKey:""

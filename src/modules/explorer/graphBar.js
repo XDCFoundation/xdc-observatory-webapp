@@ -8,22 +8,27 @@ import styled from "styled-components";
 import format from "format-number";
 
 const toolTipElement = (props) => {
-  let transactionCount = Number(props.point?.data?.y)
+  let transactionCount = Number(props.point?.data?.y);
   return (
     <div>
       <div className="Tooltip-graph">
         <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
-        <p className="Tooltip-graph-tx">Transactions: {format({})(transactionCount)}</p>
+        <p className="Tooltip-graph-tx">
+          Transactions: {format({})(transactionCount)}
+        </p>
       </div>
       <div class="outer-oval-trans">
         <div class="Oval"></div>
       </div>
       {/* <TriangleArrowDown /> */}
-    </div >
+    </div>
   );
 };
+
+
 const MyResponsiveLine = ({ data }) => (
   <ResponsiveLine
+    margin={{ left: 55, bottom: 5,top: 5 }}
     data={data}
     tooltip={toolTipElement}
     // colors={{ scheme: "category10" }}
@@ -40,7 +45,16 @@ const MyResponsiveLine = ({ data }) => (
     axisTop={null}
     axisRight={null}
     axisBottom={null}
-    axisLeft={null}
+    axisLeft={{
+      orient: "left",
+      tickSize: 0,
+      tickPadding: 5,
+      tickValues: 5,
+      format: value =>
+              `${Number(value).toLocaleString('EN-US', {
+                  minimumFractionDigits: 0,
+              })}`
+    }}
     enableGridX={false}
     enableGridY={false}
     enablePoints={false}
@@ -53,6 +67,7 @@ const MyResponsiveLine = ({ data }) => (
     enableArea={true}
     useMesh={true}
     legends={[]}
+    theme={{ fontSize: 11, fontFamily: "Inter",textColor:"#9fa9ba" }}
   />
 );
 const GraphSize = styled.div`
@@ -105,6 +120,12 @@ export default function App() {
     setData(arr);
   }, []);
   let length = graphTransactions ? graphTransactions?.length : "";
+  // console.log(graphTransactions,"<<<")
+  // let totalcoinMarketData = graphTransactions;
+  // let totalcoinMarket = totalcoinMarketData.sort((a, b) => {
+  //   return b.transactionCount - a.transactionCount;
+  // });
+  // console.log(totalcoinMarket,">??>>");
   const firstDate =
     graphTransactions && graphTransactions?.length === 0
       ? ""
@@ -113,6 +134,7 @@ export default function App() {
     graphTransactions && graphTransactions?.length === 0
       ? ""
       : moment(graphTransactions[0]?.day).format("D MMM");
+
   return (
     <GraphSize>
       <MyResponsiveLine data={data} />
@@ -123,6 +145,3 @@ export default function App() {
     </GraphSize>
   );
 }
-
-
-

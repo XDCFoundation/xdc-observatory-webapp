@@ -145,7 +145,7 @@ const PDF = ({ data }) => {
             </View>
             <View style={styles.footer} fixed>
                 <Text>Verify on: </Text>
-                <Link style={styles.observerLink} src="www.xdc.observer"> www.xdc.observer</Link></View>
+                <Link style={styles.observerLink} src="https://observer.xdc.org/">www.observer.xdc.org</Link></View>
         </Page>
     </Document>
     )

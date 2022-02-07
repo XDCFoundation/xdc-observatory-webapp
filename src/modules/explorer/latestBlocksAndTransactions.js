@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../../assets/styles/custom.css";
-import { TransactionService } from "../../services";
+import { TransactionService, BlockService } from "../../services";
 import Utils from "../../utility";
 import Tooltip from "@material-ui/core/Tooltip";
 import Loader from "../../assets/loader";
@@ -69,7 +69,7 @@ class LatestBlocks extends Component {
   }
   async componentDidMount() {
     this.transactionsLatest();
-    // await this.blocksLatest();
+    await this.blocksLatest();
     this.socketData(this.props.socket);
   }
   socketData(socket) {
@@ -86,7 +86,7 @@ class LatestBlocks extends Component {
         blocks.unshift(blockData);
         let blockAnimationClass = { [blockData.number]: "first-block-age" };
         this.setState({ blockAnimation: blockAnimationClass });
-        let ageAnimationClass = { [blockData.number]: "second-block-age" };
+        let ageAnimationClass = { [blockData.number]: "first-block-timestamp" };
         this.setState({ ageAnimation: ageAnimationClass });
         let transactionAnimationClass = {
           [blockData.number]: "third-block-age",
@@ -117,7 +117,7 @@ class LatestBlocks extends Component {
         return item.hash === transactionData.hash;
       });
 
-      if (transactionDataExist === -1 && Number(transactionData.value) > 0) {
+      if (transactionDataExist === -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
         // if(Number(transactionData.value)>0)
@@ -156,29 +156,29 @@ class LatestBlocks extends Component {
 
   /* FETCHING LATEST BLOCKS API*/
 
-  // async blocksLatest() {
-  //   let urlPath = "?skip=0&limit=10";
-  //   let [error, latestBlocks] = await Utils.parseResponse(
-  //     BlockService.getLatestBlock(urlPath, {})
-  //   );
-  //   if (error || !latestBlocks) return;
+  async blocksLatest() {
+    let urlPath = "?skip=0&limit=10";
+    let [error, latestBlocks] = await Utils.parseResponse(
+      BlockService.getLatestBlock(urlPath, {})
+    );
+    if (error || !latestBlocks) return;
 
-  //   this.setState({ latestBlocksData: latestBlocks });
-  //   this.setState({ isLoading: false });
-  //   // blocks = latestBlocks;
+    this.setState({ latestBlocksData: latestBlocks });
+    this.setState({ isLoading: false });
+    // blocks = latestBlocks;
 
-  //   const interval = setInterval(async () => {
-  //     if (!this.state.blockSocketConnected) {
-  //       let [error, latestBlocks] = await Utils.parseResponse(
-  //         BlockService.getLatestBlock(urlPath, {})
-  //       );
-  //       this.setState({ latestBlocksData: latestBlocks });
-  //       this.setState({ isLoading: false });
-  //     }
+    const interval = setInterval(async () => {
+      if (!this.state.blockSocketConnected) {
+        let [error, latestBlocks] = await Utils.parseResponse(
+          BlockService.getLatestBlock(urlPath, {})
+        );
+        this.setState({ latestBlocksData: latestBlocks });
+        this.setState({ isLoading: false });
+      }
 
-  //     // blocks = latestBlocks;
-  //   }, 90000);
-  // }
+      // blocks = latestBlocks;
+    }, 90000);
+  }
 
   /* FETCHING LATEST TRANSACTIONS API*/
 
@@ -225,19 +225,19 @@ class LatestBlocks extends Component {
         <div>
           <div className="block_main gap-3">
             <LatestBlockView
-                state={this.state}
-                transactionList={this.state.latestTransactionData}
-                showDetail={false}
-                showBlock={true}
-                isHomePage={true}
+              state={this.state}
+              transactionList={this.state.latestTransactionData}
+              showDetail={false}
+              showBlock={true}
+              isHomePage={true}
             />
             <LatestTransactionView
-                state={this.state}
-                transactionList={this.state.latestTransactionData}
-                showHash={true}
-                showDetails={false}
-                showDate={true}
-                isHomePage={true}
+              state={this.state}
+              transactionList={this.state.latestTransactionData}
+              showHash={true}
+              showDetails={false}
+              showDate={true}
+              isHomePage={true}
             />
             {/*{!hideBlock ? (*/}
             {/*  <div className="block_main">*/}

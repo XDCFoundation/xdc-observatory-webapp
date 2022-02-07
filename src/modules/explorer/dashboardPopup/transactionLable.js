@@ -13,6 +13,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
 import { cookiesConstants } from "../../../constants";
+import AlertDialog from "../../common/dialog/alertDialog";
 
 const useStyles = makeStyles((theme) => ({
   overflowNone: {
@@ -158,7 +159,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "12px",
   },
   lastContainer: {
-    width: "504px",
+    maxWidth: "534px",
+    width: "100%",
     padding: "11px 12px 10px 13px",
     borderRadius: "6px",
     backgroundColor: "#fff3f3",
@@ -170,16 +172,19 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0px",
     lineHeight: "1.58",
   },
-  "@media (max-width: 714px)": {
+  "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
     },
     dialogBox: {
-      width: "362px",
-      top: "95px",
+      width: "100%",
+      top: "40px",
+      borderRadius: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "100%",
     },
     input: {
       maxWidth: "503px",
@@ -208,7 +213,6 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0px",
   },
 })(Tooltip);
 
@@ -217,7 +221,10 @@ export default function FormDialog(props) {
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [error, setError] = React.useState("");
   const [privateNoteError, setPrivateNoteError] = React.useState("");
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
+  const [addressAdded, setAddressAdded] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -227,40 +234,50 @@ export default function FormDialog(props) {
   const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   async function transactionLable() {
+    setError("");
+    setPrivateNoteError("");
+    setErrorEmptyField("");
+    if (!TransactionsHash && !PrivateNote) {
+        setErrorEmptyField("Please enter required fields");
+        return
+    }
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
+      modifiedOn: Date.now()
     };
     if (!TransactionsHash) {
       setError("Please enter required field");
+    } else if (!PrivateNote) {
+      setPrivateNoteError("Please enter transaction label/note");
     } else if (
       !(TransactionsHash && TransactionsHash.length === 66) ||
       !(TransactionsHash.slice(0, 2) == "0x")
     ) {
-      setError("Address should start with 0x & 66 characters");
+      setError("Invalid transaction hash");
     } else if (!PrivateNote) {
-      setPrivateNoteError("Private Note is required");
+      setPrivateNoteError("Please enter transaction label/note");
     } else {
-      const [error, response] = await utility.parseResponse(
-        UserService.postUserPrivateNote(data)
-      );
-
-      if (error || !response) {
-        utility.apiFailureToast("Transaction private note is already in use");
-        return;
-      }
+      // const [error, response] = await utility.parseResponse(
+      //   UserService.postUserPrivateNote(data)
+      // );
+      //
+      // if (error || !response) {
+      //   utility.apiFailureToast("Transaction private note is already in use");
+      //   return;
+      // }
       let transactionLabel = localStorage.getItem(
-        cookiesConstants.USER_TRASACTION_LABELS
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS
       );
       if (transactionLabel) {
         transactionLabel = JSON.parse(transactionLabel);
         const existingTransactionLabel = transactionLabel.find(
           (item) =>
-            item.address == TransactionsHash && item.userId == data.userId
+            item.transactionHash == TransactionsHash && item.userId == data.userId
         );
         if (existingTransactionLabel) {
-          utility.apiFailureToast("Transaction private note is already in use");
+          setPrivateNoteError("Transaction hash already exist in table");
           return;
         }
       } else {
@@ -268,16 +285,21 @@ export default function FormDialog(props) {
       }
       transactionLabel.push(data);
       localStorage.setItem(
-        cookiesConstants.USER_TRASACTION_LABELS,
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS,
         JSON.stringify(transactionLabel)
       );
+      setOpen(false);
+      setAddressAdded(true);
+      setOpenAlert(true);
       utility.apiSuccessToast("Transaction Added");
       setTransactionsHash("");
       setPrivateNote("");
-      setOpen(false);
       await props.getListOfTxnLabel();
       await props.getTotalCountTxnLabel();
     }
+  }
+  const closeAlert = () => {
+    setOpenAlert(false);
   }
   const classes = useStyles();
 
@@ -321,55 +343,57 @@ export default function FormDialog(props) {
 
   return (
     <>
-    <div className="w-33p">
-      <div className="div1 cursor-pointer">
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
-                  history.push("/testTrancation");
-                }
-          }
-        >
-          <img className="imagediv1" src={"/images/transaction.svg"}></img>
-        </div>
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
-                  history.push("/testTrancation");
-                }
-          }
-        >
-          <div className="headingdiv1">Add transaction label</div>
-          <div className="paradiv1">
-            Add a personal note to a transacton hash to track it in future.
-          </div>
-        </div>
-
-        <LearnMoreParent>
-          <LightToolTip
-            open={tooltipIsOpen}
-            onClose={tooltipClose}
-            title="Add a personal note to a transacton hash to track it in future."
-            arrow
-            placement="top-start"
+      <div className="w-33p">
+        <div className="div1 cursor-pointer">
+          <div
+            className="imageParentDiv"
+            onClick={
+              // width >= 760
+              //   ? 
+                handleClickOpen
+                // : () => {
+                //   history.push("/testTrancation");
+                // }
+            }
           >
-            <div
-              className="learnMoreText"
-              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-            >
-              Learn More
+            <img className="imagediv1" src={"/images/transaction.svg"}></img>
+          </div>
+          <div
+            className="imageParentDiv"
+            onClick={
+              // width >= 760
+              //   ? 
+                handleClickOpen
+                // : () => {
+                //   history.push("/testTrancation");
+                // }
+            }
+          >
+            <div className="headingdiv1"><div>Add transaction label</div></div>
+            <div className="paradiv1">
+              Add a personal note to the transacton hash to track it in future.
             </div>
-          </LightToolTip>
-        </LearnMoreParent>
-      </div>
+          </div>
 
-      {/* <Button
+          <LearnMoreParent>
+            <LightToolTip
+              open={tooltipIsOpen}
+              onClose={tooltipClose}
+              title="Add a personal note to the transacton hash to track it in future."
+              arrow
+              placement="top-start"
+            >
+              <div
+                className="learnMoreText"
+                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+              >
+                Learn More
+              </div>
+            </LightToolTip>
+          </LearnMoreParent>
+        </div>
+
+        {/* <Button
         className={classes.btn}
         variant="outlined"
         color="primary"
@@ -379,19 +403,21 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-      {/* <div> */}
+        {/* <div> */}
         <Dialog
-          className={classes.dialog}
+          // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
+          <div>
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Add Transaction Label
             </div>
           </Row>
+          {errorEmptyField ? <div className={classes.error1}>{errorEmptyField}</div> : <></>}
           <DialogContent className={classes.overflowNone}>
             <DialogContentText className={classes.subCategory}>
               Transaction Hash
@@ -452,20 +478,25 @@ export default function FormDialog(props) {
               </button>
             </span>
           </DialogActions>
+          <div className="p-l-15 p-r-15">
           <div className={classes.lastContainer}>
             <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the transaction labels,
-              is added on your local device. Cleaning the browsing history or
-              cookies will clean the transaction labels saved in your profile.
+            Privacy is very important to us. To protect sensitive information,
+              all custom tags and data related to the Watchlists are saved on
+              your local device. Clearing the browsing history or cookies will
+              remove the watchlist data saved in your profile.
+            </div>
             </div>
           </div>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
+            </div>
         </Dialog>
-      {/* </div> */}
-    </div>
+        {/* </div> */}
+        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
+      </div>
     </>
   );
 }

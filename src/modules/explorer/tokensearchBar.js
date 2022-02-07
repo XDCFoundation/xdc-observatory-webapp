@@ -17,6 +17,8 @@ import Popover from "./popover";
 import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
 import { Row } from "simple-flexbox";
+import { eventConstants, recentSearchTypeConstants } from "../../constants";
+import { useDispatch } from "react-redux";
 
 const drawerWidth = 240;
 const Cut = styled.div`
@@ -169,6 +171,7 @@ export default function Navbar() {
     right: false,
   });
 
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [opencontracts, setOpencontracts] = useState(false);
   const ref = React.useRef(null);
@@ -188,7 +191,7 @@ export default function Navbar() {
     if (event.key === "Enter") {
       var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
       if (format.test(event.target.value)) {
-        setErrorMessage("Special characters are not allowed.");
+        window.location.href=`/data-not-found?searchString=${event.target.value}`;
       } else {
         var selectOptType = SelectOptRef.current?.value;
 
@@ -220,20 +223,44 @@ export default function Navbar() {
       );
 
       if (!responseData || responseData[0]?.token?.length == 0) {
-        Utility.apiFailureToast("No details found.");
+        window.location.href=`/data-not-found?searchString=${data?.data}`;
       }
 
       if (responseData) {
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
+          dispatch({
+            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+              type: recentSearchTypeConstants.BLOCK,
+              searchValue: data?.data || '',
+              result: responseData[0]?.block?.transactions?.length > 0 && responseData[0]?.block?.transactions.reduce((accumulator, trx) => accumulator + parseInt(trx.value), [0]) || 0,
+              redirectUrl: blockurl
+            }
+          })
           window.location.href = blockurl;
         } else if (responseData[0].redirect === "account") {
           let accounturl =
             "/address-details/" + responseData[0].account.address;
+          dispatch({
+            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+              type: recentSearchTypeConstants.ACCOUNT,
+              searchValue: responseData[0]?.account?.address || '',
+              result: responseData[0]?.account?.balance || 0,
+              redirectUrl: accounturl
+            }
+          })
           window.location.href = accounturl;
         } else if (responseData[0].redirect === "transaction") {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
+          dispatch({
+            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+              type: recentSearchTypeConstants.TRANSACTION,
+              searchValue: data?.data || '',
+              result: responseData[0]?.transaction?.value || 0,
+              redirectUrl: transactionurl
+            }
+          })
           window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
           if (responseData[0]?.token.length == 1) {
@@ -242,11 +269,26 @@ export default function Navbar() {
               responseData[0]?.token[0]?.address +
               "/" +
               responseData[0]?.token[0]?.symbol;
+            dispatch({
+              type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                type: recentSearchTypeConstants.TOKEN,
+                searchValue: responseData[0]?.token[0]?.address || '',
+                result: responseData[0]?.token[0]?.totalSupply || 0,
+                redirectUrl: tokenDataUrl
+              }
+            })
             window.location.href = tokenDataUrl;
           } else if (responseData[0]?.token.length > 1) {
             let tokenListUrl =
               "/tokens/" + responseData[0]?.token[0]?.tokenName;
-
+            dispatch({
+              type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                type: recentSearchTypeConstants.TOKEN,
+                searchValue: responseData[0]?.token?.address || '',
+                result: responseData[0]?.token?.totalSupply || 0,
+                redirectUrl: tokenListUrl
+              }
+            })
             window.location.href = tokenListUrl;
           } else {
           }
@@ -310,8 +352,44 @@ export default function Navbar() {
           </p>
           <hr className="myhr" />
         </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
+          >
+            <div className="xinfin_account_button">XDCPay</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://github.com/xdcfoundation" target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Github</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://xdcroadmap.org/" target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Roadmap</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://medium.com/xdc-foundation-communications" target="_blank"
+          >
+            <div className="xinfin_account_button">About XDC</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
 
-        <ul className="inside-side-box">
+        {/* <ul className="inside-side-box">
           <p
             className="xinfin_api_button"
             onClick={() => setOpen(true)}
@@ -335,7 +413,7 @@ export default function Navbar() {
             Nodes
           </p>
           <hr className="myhr" />
-        </ul>
+        </ul> */}
       </List>
     </div>
   );
@@ -529,7 +607,7 @@ export default function Navbar() {
             href="https://xinfin.network/#masternode"
           >
             <div className="xinfin_account_button">
-              Become a Master Node/Validator
+              Become a MasterNode/Validator
             </div>
           </a>
           <hr className="myhr" />
@@ -579,7 +657,7 @@ export default function Navbar() {
             href="https://apothem.network/#masternode"
           >
             <div className="xinfin_account_button">
-              Become a Master Node/Validator
+              Become a MasterNode/Validator
             </div>
           </a>
           <hr className="myhr" />
@@ -671,14 +749,14 @@ export default function Navbar() {
   text-decoration :  none;
   padding: 5px 20px;
   border-bottom: ${(props) =>
-    props.active ? "0.15rem solid #ffffff !important" : ""};
+      props.active ? "0.15rem solid #ffffff !important" : ""};
     padding-bottom: 3px;
     font-size: 0.938rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     color: #ffffff;
     list-style: none;
   @media (min-width: 0px) and (max-width: 767px){
@@ -854,6 +932,7 @@ export default function Navbar() {
             isloggedIn,
             openChangePassword,
             classes,
+            childToggle,
             opencontracts,
             state,
             lists,
@@ -960,7 +1039,7 @@ const SearchBox = ({
               }} */
               className="main-input-td "
               src={"/images/Search.png"}
-              placeholder="Search for an address, a Transaction or a block number"
+              placeholder="Search by Address / Txn Hash / Block"
             />
             {/* name="NAME" */}
             <div className="mobFilter">
@@ -1003,6 +1082,7 @@ const SearchBox = ({
 
 const LoginComponent = ({
   toggleDrawer,
+  childToggle,
   isloggedIn,
   openChangePassword,
   classes,
@@ -1026,7 +1106,7 @@ const LoginComponent = ({
           className="hamburger-icon"
           color="inherit"
           aria-label="open drawer"
-          edge="end"
+          // edge="end"
           onClick={toggleDrawer("right", true)}
         >
           <img
@@ -1040,16 +1120,21 @@ const LoginComponent = ({
           className={classes.drawer}
           anchor={"right"}
           open={state["right"]}
+          onEscapeKeyDown={toggleDrawer("right", false)}
+          onBackdropClick={toggleDrawer("right", false)}
         >
           {lists("right")}
         </Drawer>
-        <Drawer className={classes.drawer} anchor={"right"} open={open}>
+        <Drawer className={classes.drawer} anchor={"right"} onEscapeKeyDown={toggleDrawer("right", false)}
+          onBackdropClick={toggleDrawer("right", false)} open={open}>
           {items("right")}
         </Drawer>
         <Drawer
           className={classes.drawer}
           anchor={"right"}
           open={opencontracts}
+          onEscapeKeyDown={childToggle("right", false)}
+          onBackdropClick={childToggle("right", false)}
         >
           {contracts("right")}
         </Drawer>
