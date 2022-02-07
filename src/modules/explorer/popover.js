@@ -56,7 +56,6 @@ export default function BasicPopover(props) {
     setAnchorEl(null);
   };
 
-
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -67,14 +66,18 @@ export default function BasicPopover(props) {
 
   const closeCookiesDialog = () => {
     setManageCookiesPopup(false);
-  }
+  };
 
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
   const userId = sessionManager.getDataFromCookies("userId");
   const logOut = async () => {
     const authObject = new AuthService();
     // let [error, authResponse] =
-    if(sessionManager.getDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER) === "AUTH0"){
+    if (
+      sessionManager.getDataFromCookies(
+        cookiesConstants.AUTHENTICATION_PROVIDER
+      ) === "AUTH0"
+    ) {
       await Utility.parseResponse(authObject.logout(userId));
     }
     Utility.apiSuccessToast("Logout Successfully");
@@ -84,7 +87,9 @@ export default function BasicPopover(props) {
     sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
     sessionManager.removeDataFromCookies(cookiesConstants.USER_PICTURE);
     sessionManager.removeDataFromCookies(cookiesConstants.ACCESS_TOKEN);
-    sessionManager.removeDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER);
+    sessionManager.removeDataFromCookies(
+      cookiesConstants.AUTHENTICATION_PROVIDER
+    );
     sessionManager.removeDataFromCookies(cookiesConstants.ID_TOKEN);
     window.location.href = "/dashboard";
   };
@@ -106,7 +111,9 @@ export default function BasicPopover(props) {
   //   let userName = name.profilePic;
   //   return userName;
   // };
-
+let p =sessionManager.getDataFromCookies(
+  cookiesConstants.USER_PICTURE
+)
   return (
     <div>
       {!isloggedIn ? (
@@ -124,7 +131,11 @@ export default function BasicPopover(props) {
               ) || '/images/Profile.svg'
             }
           /> */}
-          <ManageCookiesDialog open={manageCookiesPopup} close={closeCookiesDialog} setIsCookiesAccepted={()=>{}}/>
+          <ManageCookiesDialog
+            open={manageCookiesPopup}
+            close={closeCookiesDialog}
+            setIsCookiesAccepted={() => {}}
+          />
           <Avatar
             className="profile"
             src={
@@ -157,20 +168,32 @@ export default function BasicPopover(props) {
         }}
       >
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
-          <Text style={{ marginRight: "auto" }} >
-          <a href="/loginprofile" className="profile-links"> My Profile</a>
-           
+          <Text style={{ marginRight: "auto" }}>
+            <a href="/loginprofile" className="profile-links">
+              {" "}
+              My Profile
+            </a>
           </Text>
         </Contents>
-        {sessionManager.getDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER) && sessionManager.getDataFromCookies(cookiesConstants.AUTHENTICATION_PROVIDER)==="AUTH0"
-        ?
-        <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
-          <Text style={{ marginRight: "20px" }} onClick={openChangePassword}>
-            Change Password
-          </Text>
-        </Contents> : "" }
+        {sessionManager.getDataFromCookies(
+          cookiesConstants.AUTHENTICATION_PROVIDER
+        ) &&
+        sessionManager.getDataFromCookies(
+          cookiesConstants.AUTHENTICATION_PROVIDER
+        ) === "AUTH0" ? (
+          <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
+            <Text style={{ marginRight: "20px" }} onClick={openChangePassword}>
+              Change Password
+            </Text>
+          </Contents>
+        ) : (
+          "" 
+        )}
         <Contents>
-          <Text style={{ marginRight: "auto" }} onClick={() => openCookiesDialog()}>
+          <Text
+            style={{ marginRight: "auto" }}
+            onClick={() => openCookiesDialog()}
+          >
             Manage Cookies
           </Text>
         </Contents>
