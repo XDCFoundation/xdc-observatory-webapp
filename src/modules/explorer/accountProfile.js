@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import { Tooltip } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -313,6 +314,14 @@ const useStyles = makeStyles((theme) => ({
     border: "none !important",
     background: "none",
     "&:hover": { background: "none" },
+  },
+  rotatedBtn: {
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
+    transform: "rotate(180deg)",
   },
   tab1: {
     color: "#2149b9 !important",
@@ -696,12 +705,12 @@ export default function SimpleTabs(props) {
     let newData;
     if (addedOnToggle === 0) {
       newData = oldData.sort(
-        (index1, index2) => index2?.addedOn - index1?.addedOn
+        (index1, index2) => index1.trxLable.localeCompare(index2.trxLable)
       );
       setAddedOnToggle(1);
     } else {
       newData = oldData.sort(
-        (index1, index2) => index1?.addedOn - index2?.addedOn
+        (index1, index2) => index2.trxLable.localeCompare(index1.trxLable)
       );
       setAddedOnToggle(0);
     }
@@ -1283,6 +1292,7 @@ export default function SimpleTabs(props) {
                                 </Tooltip>
                               </span>
                               <button className={classes.btn}>
+                                {balanceToggle == 0 ?
                                 <ArrowUpwardIcon
                                   onClick={sortByBalance}
                                   style={{
@@ -1291,7 +1301,16 @@ export default function SimpleTabs(props) {
                                     width: "15px",
                                     marginLeft: "5px",
                                   }}
-                                />
+                                />:
+                                <ArrowDownwardIcon
+                                  onClick={sortByBalance}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />}
                               </button>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
@@ -1439,15 +1458,25 @@ export default function SimpleTabs(props) {
                               </Tooltip>
                             </span>
                             <button className={classes.btn}>
-                              <ArrowUpwardIcon
-                                onClick={sortByBalance}
-                                style={{
-                                  color: "#3763dd",
-                                  height: "20px",
-                                  width: "15px",
-                                  marginLeft: "5px",
-                                }}
-                              />
+                            {balanceToggle == 0 ?
+                                <ArrowUpwardIcon
+                                  onClick={sortByBalance}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />:
+                                <ArrowDownwardIcon
+                                  onClick={sortByBalance}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />}
                             </button>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
@@ -1692,6 +1721,7 @@ export default function SimpleTabs(props) {
                                 </Tooltip>
                                 {/* <span> */}
                                 <button className={classes.btn}>
+                                { addedOnToggle == 0 ?
                                   <ArrowUpwardIcon
                                     onClick={sortByAddedOn}
                                     style={{
@@ -1700,7 +1730,15 @@ export default function SimpleTabs(props) {
                                       width: "15px",
                                       marginLeft: "5px",
                                     }}
-                                  />
+                                  />:<ArrowDownwardIcon
+                                  onClick={sortByAddedOn}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />}
                                 </button>
                               </span>
                               {/* </span> */}
@@ -1819,7 +1857,16 @@ export default function SimpleTabs(props) {
                               </Tooltip>
                               {/* <span> */}
                               <button className={classes.btn}>
-                                <ArrowUpwardIcon
+                              { addedOnToggle == 0 ?
+                                  <ArrowUpwardIcon
+                                    onClick={sortByAddedOn}
+                                    style={{
+                                      color: "#3763dd",
+                                      height: "20px",
+                                      width: "15px",
+                                      marginLeft: "5px",
+                                    }}
+                                  />:<ArrowDownwardIcon
                                   onClick={sortByAddedOn}
                                   style={{
                                     color: "#3763dd",
@@ -1827,7 +1874,7 @@ export default function SimpleTabs(props) {
                                     width: "15px",
                                     marginLeft: "5px",
                                   }}
-                                />
+                                />}
                               </button>
                             </span>
                             {/* </span> */}
@@ -2016,15 +2063,25 @@ export default function SimpleTabs(props) {
                                   />
                                 </Tooltip>
                                 <button className={classes.btn}>
-                                  <ArrowUpwardIcon
-                                    onClick={sortByTagName}
-                                    style={{
-                                      color: "#3763dd",
-                                      height: "20px",
-                                      width: "15px",
-                                      marginLeft: "5px",
-                                    }}
-                                  />
+                                {nameToggle == 0 ?
+                                <ArrowUpwardIcon
+                                  onClick={sortByTagName}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />:
+                                <ArrowDownwardIcon 
+                                  onClick={sortByTagName}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />}
                                 </button>
                               </span>
                             </TableCell>
@@ -2142,6 +2199,7 @@ export default function SimpleTabs(props) {
                                 />
                               </Tooltip>
                               <button className={classes.btn}>
+                                {nameToggle == 0 ?
                                 <ArrowUpwardIcon
                                   onClick={sortByTagName}
                                   style={{
@@ -2150,7 +2208,16 @@ export default function SimpleTabs(props) {
                                     width: "15px",
                                     marginLeft: "5px",
                                   }}
-                                />
+                                />:
+                                <ArrowDownwardIcon 
+                                  onClick={sortByTagName}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />}
                               </button>
                             </span>
                           </TableCell>
