@@ -114,7 +114,6 @@ export default function BasicPopover(props) {
 let p =sessionManager.getDataFromCookies(
   cookiesConstants.USER_PICTURE
 )
-console.log(p,"ooo")
   return (
     <div>
       {!isloggedIn ? (
