@@ -142,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
   xdcLogoContainer: {
     display: "flex",
     width: "305px",
-    justifyContent: "end",
+    justifyContent: "flex-end",
   },
   xdcBeta: {
     marginTop: "96px",
@@ -173,8 +173,8 @@ const useStyles = makeStyles((theme) => ({
     },
     xdcLogoContainer: {
       display: "flex",
-      width: "215px",
-      justifyContent: "end",
+      width: "217px",
+      justifyContent: "flex-end",
     },
   },
   fullList: {
