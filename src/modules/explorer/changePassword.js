@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
         color: "#2a2a2a",
 
     },
+    backButtonMobile: {
+        display: "none",
+      },
     add: {
         backgroundColor: "#2149b9",
         marginLeft: "90px",
@@ -41,15 +44,6 @@ const useStyles = makeStyles((theme) => ({
         top: "65px",
         width: "503px",
         borderRadius: "12px",
-        "@media (min-width:0px) and (max-width:767px)": {
-            width: "100% !important",
-            height: "100% !important",
-            borderRadius: "1px !important",
-            maxWidth: "768px !important",
-            top: "33px",
-            marginLeft: "auto",
-            marginRight: "auto",
-        },
     },
     closeContainer: {
         top: "26px",
@@ -57,9 +51,9 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
         right: "30px",
         cursor: "pointer",
-        "@media (min-width:0px) and (max-width:768px)": {
-            display: "none !important",
-        }
+        // "@media (min-width:0px) and (max-width:767px)": {
+        //     display: "none !important",
+        // }
     },
 
     icon: {
@@ -135,7 +129,26 @@ const useStyles = makeStyles((theme) => ({
     },
     pass: {
         fontWeight: "500px"
-    }
+    },
+    "@media (min-width:0px) and (max-width:767px)": {
+        dialogBox: {
+            width: "100% !important",
+            height: "100% !important",
+            borderRadius: "0px !important",
+            maxWidth: "768px !important",
+            top: "33px",
+            marginLeft: "auto",
+            marginRight: "auto",
+        },
+        backButtonMobile: {
+            position: "absolute",
+            cursor: "pointer",
+            display: "block",
+        }, 
+        closeContainer: {
+            display: "none !important",
+        },
+    }, 
 }));
 
 export default function ChangePassword(props) {
@@ -240,6 +253,9 @@ export default function ChangePassword(props) {
             aria-labelledby="form-dialog-title"
         >
             <DialogContent className={classes.heading}>
+                <div onClick={handleClose} className={classes.backButtonMobile}>
+                    <img src="/images/backButton.svg" alt="back"/>
+                </div>
                 <Row justifyContent="center" marginTop="8px">
                     <DialogContentText className={classes.text}>
                         <b className={classes.mobileHeader}>Change Password</b>
