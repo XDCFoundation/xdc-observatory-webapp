@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     display: "block",
   },
-  "@media (min-width: 740px)": {
+  "@media (min-width: 767px)": {
     backButtonMobile: {
       display: "none",
     },
