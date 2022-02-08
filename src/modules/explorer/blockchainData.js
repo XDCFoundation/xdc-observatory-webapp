@@ -9,7 +9,7 @@ import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
 import Tooltip from "@material-ui/core/Tooltip";
-import Utility from '../../utility'
+import Utility from "../../utility";
 import Tab from "./tab";
 import format from "format-number";
 import {
@@ -23,7 +23,7 @@ import {
 import Utils from "../../utility";
 import utility from "../../utility";
 import { useParams } from "react-router";
-var _ = require('lodash');
+var _ = require("lodash");
 const MainContainer = styled.div`
   width: 75.125rem;
   margin: 0 auto;
@@ -90,10 +90,10 @@ const RightContainer = styled.div`
   flex: 0.47;
   display: flex;
   margin-left: 12px;
-   @media (min-width: 0px) and (max-width: 767px) {
-     display: flex;
-     flex-direction:column;
-   }
+  @media (min-width: 0px) and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const LeftSec = styled.div`
@@ -104,7 +104,7 @@ const LeftSec = styled.div`
     padding: 3%;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
- margin-top: 30px;
+    margin-top: 30px;
   }
 `;
 const ValueMain = styled.div`
@@ -112,16 +112,16 @@ const ValueMain = styled.div`
   display: grid;
   grid-gap: 10px;
   grid-template-areas:
-            'blockHeight gasPrice transactions'
-            'nodes accounts tps'
-            'stakes contracts activeAddress';
+    "blockHeight gasPrice transactions"
+    "nodes accounts tps"
+    "stakes contracts activeAddress";
   @media (max-width: 767px) {
     grid-template-areas:
-            'blockHeight gasPrice'
-            'transactions nodes'
-            'accounts tps'
-            'stakes contracts'
-            'activeAddress -';
+      "blockHeight gasPrice"
+      "transactions nodes"
+      "accounts tps"
+      "stakes contracts"
+      "activeAddress -";
     grid-gap: 0;
     margin-top: 15px;
   }
@@ -164,7 +164,7 @@ const Title = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   margin-bottom: 5px;
 `;
 const TitleValue = styled.div`
@@ -172,30 +172,30 @@ const TitleValue = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  
+
   color: #252525;
   @media (max-width: 767px) {
     font-size: 0.875rem;
   }
 `;
 const TransactionTitleValue = styled.div`
-display:flex;
+  display: flex;
   font-size: 1rem;
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  
+
   color: #252525;
   @media (max-width: 767px) {
     font-size: 0.875rem;
   }
 `;
 const TransactionValue = styled.div`
-font-size: 1rem;
+  font-size: 1rem;
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  
+
   color: #252525;
 `;
 const TitleData = styled.div`
@@ -203,7 +203,7 @@ const TitleData = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  
+
   color: #2a2a2a;
   @media (max-width: 767px) {
     white-space: nowrap;
@@ -238,7 +238,7 @@ const LeftTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 1.375rem;
@@ -250,7 +250,7 @@ const LeftTitle = styled.div`
   }
 `;
 const Line1 = styled.hr`
-background-color: #e3e7eb;
+  background-color: #e3e7eb;
   width: 100%;
   position: absolute;
   top: 77%;
@@ -268,7 +268,7 @@ const LeftTopSec = styled.div`
   font-size: 1.375rem;
   font-weight: 800;
   font-family: Inter;
-  
+
   color: #252525;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
@@ -282,18 +282,20 @@ const LeftTopSecMain = styled.div`
   margin-top: 7px;
 `;
 const MobileDesign = styled.div`
- @media (min-width: 0px) and (max-width: 767px) {
-  display: block;}
- @media (min-width: 768px) {
-   display: none;
- }
+  @media (min-width: 0px) and (max-width: 767px) {
+    display: block;
+  }
+  @media (min-width: 768px) {
+    display: none;
+  }
 `;
 const DeskTopDesign = styled.div`
- @media (min-width: 0px) and (max-width: 767px) {
-  display: none;}
- @media (min-width: 768px) {
-   display: block;
- }
+  @media (min-width: 0px) and (max-width: 767px) {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    display: block;
+  }
 `;
 class BlockChainDataComponent extends Component {
   constructor(props) {
@@ -323,7 +325,7 @@ class BlockChainDataComponent extends Component {
     this.props.socket.off("block-socket");
   }
   async componentDidMount() {
-    this.socketDataNode(this.props.nodeSocket)
+    this.socketDataNode(this.props.nodeSocket);
     this.totalTransactionCount();
     this.getNetStatsData();
     this.someDaysAccountCount();
@@ -334,7 +336,6 @@ class BlockChainDataComponent extends Component {
     // await this.CountMaxtps();
 
     this.socketData(this.props.socket);
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -377,10 +378,10 @@ class BlockChainDataComponent extends Component {
       if (transactionDataExist == -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
-        let gpCurrent = this.state.transactionDataDetails[0]?.gasPrice
-          ? (
-            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
-          : 0;
+        let txnFeeAvg =
+          this.state.transactionDataDetails[0]?.gasPrice *
+          this.state.transactionDataDetails[0]?.gasUsed;
+        let gpCurrent = txnFeeAvg ? Utility.decimalDivison(txnFeeAvg, 12) : 0;
         if (gpCurrent >= 0.000000000001 && this.state.gasPrice !== gpCurrent) {
           let blockAnimationClass = {
             [transactionData.hash]: "block-height-animation",
@@ -391,10 +392,7 @@ class BlockChainDataComponent extends Component {
           }, 500);
         }
         this.setState({ transactionDataDetails: transactions });
-        let gp = this.state.transactionDataDetails[0]?.gasPrice
-          ? (
-            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
-          : 0;
+        let gp = txnFeeAvg ? Utility.decimalDivison(txnFeeAvg, 12) : 0;
         if (gp >= 0.000000000001 && this.state.gasPrice !== gp) {
           this.setState({ gasPrice: gp });
         }
@@ -407,11 +405,15 @@ class BlockChainDataComponent extends Component {
 
   socketDataNode(socket) {
     socket.on("network-stats-nodes", (transactionData, error) => {
-      transactionData = transactionData && transactionData.nodes ? transactionData.nodes : []
-      this.setState({ nodes: transactionData.length })
-      let nodesActive = transactionData && Array.isArray(transactionData) ? transactionData.filter((node) => node?.stats?.active).length : [];
-      this.setState({ activeNodes: nodesActive })
-      socket.close()
+      transactionData =
+        transactionData && transactionData.nodes ? transactionData.nodes : [];
+      this.setState({ nodes: transactionData.length });
+      let nodesActive =
+        transactionData && Array.isArray(transactionData)
+          ? transactionData.filter((node) => node?.stats?.active).length
+          : [];
+      this.setState({ activeNodes: nodesActive });
+      socket.close();
     });
   }
   /* FETCHING GET TOTAL TRANSACTIONS API*/
@@ -437,13 +439,19 @@ class BlockChainDataComponent extends Component {
       NetStatsService.getNetStatsData()
     );
     if (error || !netStatData) return;
-    this.setState({ netStatData: netStatData, totalAccount: netStatData?.activeAddressCount });
+    this.setState({
+      netStatData: netStatData,
+      totalAccount: netStatData?.activeAddressCount,
+    });
     const interval = setInterval(async () => {
       let [error, netStatData] = await Utils.parseResponse(
         NetStatsService.getNetStatsData()
       );
       if (error || !netStatData) return;
-      this.setState({ netStatData: netStatData, totalAccount: netStatData?.activeAddressCount });
+      this.setState({
+        netStatData: netStatData,
+        totalAccount: netStatData?.activeAddressCount,
+      });
     }, 90000);
   }
 
@@ -570,10 +578,10 @@ class BlockChainDataComponent extends Component {
     );
     if (error || !latestTransactions) return;
     this.setState({ transactionDataDetails: latestTransactions });
-    let gp = this.state.transactionDataDetails[0]?.gasPrice
-      ? (
-        Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
-      : 0;
+    let txnFeeAvg =
+      this.state.transactionDataDetails[0]?.gasPrice *
+      this.state.transactionDataDetails[0]?.gasUsed;
+    let gp = txnFeeAvg ? Utility.decimalDivison(txnFeeAvg, 12) : 0;
     this.setState({ gasPrice: gp });
 
     setInterval(async () => {
@@ -582,17 +590,16 @@ class BlockChainDataComponent extends Component {
           TransactionService.getLatestTransaction(urlPath, {})
         );
         this.setState({ transactionDataDetails: latestTransactions });
-        let gp = this.state.transactionDataDetails[0]?.gasPrice
-          ? (
-            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
-          : 0;
+        let txnFeeAvg =
+          this.state.transactionDataDetails[0]?.gasPrice *
+          this.state.transactionDataDetails[0]?.gasUsed;
+        let gp = txnFeeAvg ? Utility.decimalDivison(txnFeeAvg, 12) : 0;
         this.setState({ gasPrice: gp });
       }
     }, 90000);
   }
 
   render() {
-
     let changePrice;
     if (
       this.state.coinMarketPrice &&
@@ -610,17 +617,26 @@ class BlockChainDataComponent extends Component {
       this.props.currency === "INR"
         ? "₹"
         : this.props.currency === "USD"
-          ? "$"
-          : "€";
+        ? "$"
+        : "€";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
     let changeAccounts = this.state.someDayAccount
       ? this.state.someDayAccount
       : 0;
-    let blockNumber = this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number : "";
+    let blockNumber =
+      this.state &&
+      this.state.blockdataNumber &&
+      this.state.blockdataNumber?.length
+        ? this.state.blockdataNumber[0]?.number
+        : "";
     let animationClass = this.state.animationBlock?.[blockNumber];
-    let txhash = this.state.transactionDataDetails && this.state.transactionDataDetails?.length ? this.state.transactionDataDetails[0]?.hash : 0;
+    let txhash =
+      this.state.transactionDataDetails &&
+      this.state.transactionDataDetails?.length
+        ? this.state.transactionDataDetails[0]?.hash
+        : 0;
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
     let currentTp = this.state.tpsCounts;
@@ -659,7 +675,10 @@ class BlockChainDataComponent extends Component {
                     ) : (
                       <div className="arrow_down">
                         {/* <BsFillCaretDownFill size={10} /> */}
-                        <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                        <img
+                          src={"/images/Down.svg"}
+                          style={{ width: "8px" }}
+                        />
                       </div>
                     )}
                     &nbsp;{changeDecimal ? changeDecimal : 0}%
@@ -676,7 +695,11 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Block Height</Title>
                   <TitleValue className={animationClass ? animationClass : ""}>
-                    {this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
+                    {this.state &&
+                    this.state.blockdataNumber &&
+                    this.state.blockdataNumber?.length
+                      ? this.state.blockdataNumber[0]?.number.toLocaleString()
+                      : ""}
                   </TitleValue>
                 </ValueName>
               </Value>
@@ -684,7 +707,9 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src={priceLogo} />
                 <ValueName>
                   <Title>Txn Fee (Avg)</Title>
-                  <TitleData className={TxanimationClass ? TxanimationClass : ""}>
+                  <TitleData
+                    className={TxanimationClass ? TxanimationClass : ""}
+                  >
                     {this.state.gasPrice}
                   </TitleData>
                 </ValueName>
@@ -696,24 +721,33 @@ class BlockChainDataComponent extends Component {
 
                   <TransactionTitleValue>
                     {" "}
-                    <Tooltip placement="top" title={this.state.totalTransaction}>
-                      <TransactionValue>{utility.convertToInternationalCurrencySystem(this.state.totalTransaction)}</TransactionValue>
+                    <Tooltip
+                      placement="top"
+                      title={this.state.totalTransaction}
+                    >
+                      <TransactionValue>
+                        {utility.convertToInternationalCurrencySystem(
+                          this.state.totalTransaction
+                        )}
+                      </TransactionValue>
                     </Tooltip>
                     <Tooltip
                       open={this.state.addressTT}
                       onOpen={() => this.setState({ addressTT: true })}
                       onClose={() => this.setState({ addressTT: false })}
                       placement="top"
-                      title="Transactions are syncing">
+                      title="Transactions are syncing"
+                    >
                       <img
-                        onClick={() => this.setState({ addressTT: !this.state.addressTT })}
+                        onClick={() =>
+                          this.setState({ addressTT: !this.state.addressTT })
+                        }
                         alt="question-mark"
                         src="/images/alert.svg"
                         className="tooltipAlert"
                       />
                     </Tooltip>
                   </TransactionTitleValue>
-
                 </ValueName>
               </Value>
               {/*<Value>*/}
@@ -729,11 +763,14 @@ class BlockChainDataComponent extends Component {
               {/*  </ValueName>*/}
               {/*</Value>*/}
               <Value gridArea="nodes">
-                <TitleIcon src='/images/nodes.svg' />
+                <TitleIcon src="/images/nodes.svg" />
                 <ValueName>
                   <Title>Nodes</Title>
                   {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
-                  <TitleValue>{this.state.activeNodes > 0 ? this.state.activeNodes : ""}{this.state.nodes > 0 ? "/" + this.state.nodes : ""} </TitleValue>
+                  <TitleValue>
+                    {this.state.activeNodes > 0 ? this.state.activeNodes : ""}
+                    {this.state.nodes > 0 ? "/" + this.state.nodes : ""}{" "}
+                  </TitleValue>
                 </ValueName>
               </Value>
 
@@ -742,7 +779,9 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Accounts</Title>
                   <div className="last_value">
-                    <TitleValue>{format({})(this.state.totalAccount)}</TitleValue>
+                    <TitleValue>
+                      {format({})(this.state.totalAccount)}
+                    </TitleValue>
                     <div
                       className={
                         changeAccounts >= 0
@@ -852,7 +891,10 @@ class BlockChainDataComponent extends Component {
                     ) : (
                       <div className="arrow_down">
                         {/* <BsFillCaretDownFill size={10} /> */}
-                        <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                        <img
+                          src={"/images/Down.svg"}
+                          style={{ width: "8px" }}
+                        />
                       </div>
                     )}
                     &nbsp;{changeDecimal ? changeDecimal : 0}%
