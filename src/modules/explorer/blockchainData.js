@@ -381,7 +381,10 @@ class BlockChainDataComponent extends Component {
         let txnFeeAvg =
           this.state.transactionDataDetails[0]?.gasPrice *
           this.state.transactionDataDetails[0]?.gasUsed;
-        let gpCurrent = txnFeeAvg ? Utility.decimalDivison(txnFeeAvg, 12) : 0;
+        let txnFeeConverted = txnFeeAvg * this.state.coinMarketPrice.price;
+        let gpCurrent = txnFeeAvg
+          ? Utility.decimalDivison(txnFeeConverted, 12)
+          : 0;
         if (gpCurrent >= 0.000000000001 && this.state.gasPrice !== gpCurrent) {
           let blockAnimationClass = {
             [transactionData.hash]: "block-height-animation",
@@ -392,7 +395,9 @@ class BlockChainDataComponent extends Component {
           }, 500);
         }
         this.setState({ transactionDataDetails: transactions });
-        let gp = txnFeeAvg ? Utility.decimalDivison(txnFeeAvg, 12) : 0;
+        let gp = txnFeeConverted
+          ? Utility.decimalDivison(txnFeeConverted, 12)
+          : 0;
         if (gp >= 0.000000000001 && this.state.gasPrice !== gp) {
           this.setState({ gasPrice: gp });
         }
@@ -581,7 +586,8 @@ class BlockChainDataComponent extends Component {
     let txnFeeAvg =
       this.state.transactionDataDetails[0]?.gasPrice *
       this.state.transactionDataDetails[0]?.gasUsed;
-    let gp = txnFeeAvg ? Utility.decimalDivison(txnFeeAvg, 12) : 0;
+    let txnFeeConverted = txnFeeAvg * this.state.coinMarketPrice.price;
+    let gp = txnFeeConverted ? Utility.decimalDivison(txnFeeConverted, 12) : 0;
     this.setState({ gasPrice: gp });
 
     setInterval(async () => {
@@ -593,7 +599,10 @@ class BlockChainDataComponent extends Component {
         let txnFeeAvg =
           this.state.transactionDataDetails[0]?.gasPrice *
           this.state.transactionDataDetails[0]?.gasUsed;
-        let gp = txnFeeAvg ? Utility.decimalDivison(txnFeeAvg, 12) : 0;
+        let txnFeeConverted = txnFeeAvg * this.state.coinMarketPrice.price;
+        let gp = txnFeeConverted
+          ? Utility.decimalDivison(txnFeeConverted, 12)
+          : 0;
         this.setState({ gasPrice: gp });
       }
     }, 90000);
@@ -622,6 +631,8 @@ class BlockChainDataComponent extends Component {
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
+    let averageTxnFeeConverted = this.state.gasPrice * changeXdc;
+
     let changeAccounts = this.state.someDayAccount
       ? this.state.someDayAccount
       : 0;
