@@ -196,6 +196,9 @@ a:link {
 .display-none {
   display: none;
 }
+.justify-content-center {
+  justify-content: center;
+}
 input#password {
   width: 433px;
   height: 40px;
@@ -741,7 +744,6 @@ input:focus {
     position: initial;
     margin-top: 52px;
   }
-  
 }
 
 .Shape-XDC {
@@ -6708,7 +6710,6 @@ button {
     margin-top: 45px;
     /* height: 11.875rem; */
   }
-  
 }
 
 @media (min-width: 1240px) {
@@ -7482,7 +7483,7 @@ button {
   width: 75.063rem;
 }
 .table-grid-block-global-id {
-  margin: 0px auto
+  margin: 0px auto;
 }
 .table-grid-block-contract {
   margin: 5px auto auto auto;
@@ -11145,13 +11146,12 @@ button {
   background-color: #2149b9;
   min-height: 100vh;
 }
-@media(max-width:767px){
+@media (max-width: 767px) {
   .global-id {
     background-image: none;
     background-color: #fff;
     min-height: 100vh;
   }
-
 }
 .global-id-icon {
   height: 45px;
@@ -11198,10 +11198,9 @@ button {
   text-align: center;
   color: #ff0202;
 }
-@media (min-width:768px) and (max-width: 1240px) {
-
-.global-id-image{
-  width: 70px;
-  height: 70px;
-}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .global-id-image {
+    width: 70px;
+    height: 70px;
+  }
 }
