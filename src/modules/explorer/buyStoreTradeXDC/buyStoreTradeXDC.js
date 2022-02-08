@@ -95,14 +95,13 @@ function BuyStoreTradeXDC() {
   return (
     <MainContainer>
       <BuyStoreContainer>
-        <Heading>Buy and Store XDC</Heading>
+        <Heading>Store XDC</Heading>
         <ImgContainer>
           <img src="/images/buy-store.svg" alt="buy-store-img" />
         </ImgContainer>
         <ContentContainer>
           <Description>
-            Install our secure XDCPay Extension to Buy, Send and Store XDC and
-            other Network Tokens.
+          Install the secure XDCPay Extension to store XDC and other XRC20 tokens.
           </Description>
           <div className="display-flex justify-content-center">
             <a
