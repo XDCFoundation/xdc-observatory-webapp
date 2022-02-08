@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
-  letter-spacing: unset !important;
 }
 a {
   text-decoration: none;
@@ -3220,7 +3219,6 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
   color: #ffffff;
 }
 .margin-top-20px {
@@ -11186,7 +11184,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 1.43;
-  letter-spacing: normal;
   text-align: center;
   color: #ff0202;
 }
@@ -11198,7 +11195,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 1.33;
-  letter-spacing: normal;
   text-align: center;
   color: #ff0202;
 }

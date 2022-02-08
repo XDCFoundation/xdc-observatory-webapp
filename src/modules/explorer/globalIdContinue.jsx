@@ -128,7 +128,6 @@ const ButtonGlobalid = styled.button`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.38;
-  letter-spacing: normal;
   text-align: center;
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 290px;
@@ -199,7 +198,6 @@ const SignUpBottom = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
   text-align: center;
   color: #2a2a2a;
   margin-top: 25px;
