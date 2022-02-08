@@ -10,13 +10,11 @@ function getHeaders() {
 }
 
 async function getGlobalIdTokens(code) {
-  let url =  process.env.REACT_APP_USER_SERVICE_URL_GLOBAL_ID_AUTHENTICATION + "get-globalid-tokens?code=" + code;
-  return httpService(
-    "GET",
-    getHeaders(),
-    {},
-    url
-  )
+  let url =
+    process.env.REACT_APP_USER_SERVICE_URL_GLOBAL_ID_AUTHENTICATION +
+    "get-globalid-tokens?code=" +
+    code;
+  return httpService("GET", getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -33,13 +31,10 @@ async function getGlobalIdTokens(code) {
 }
 
 async function getGlobalIdUserInfo(data) {
-  let url =  process.env.REACT_APP_USER_SERVICE_URL_GLOBAL_ID_AUTHENTICATION+ "get-globalid-user-info";
-  return httpService(
-    "POST",
-    getHeaders(),
-    data,
-    url
-  )
+  let url =
+    process.env.REACT_APP_USER_SERVICE_URL_GLOBAL_ID_AUTHENTICATION +
+    "get-globalid-user-info";
+  return httpService("POST", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
