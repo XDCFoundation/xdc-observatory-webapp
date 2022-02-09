@@ -41,7 +41,7 @@ import TransactionPDF from "../../common/components/transactionPDF";
 import AddressPDF from "../../common/components/tagAddressPDF";
 import { PDFDownloadLink, StyleSheet } from "@react-pdf/renderer";
 import { messages } from "../../constants";
-import PrivacyAlert from "../explorer/dashboardPopup/privacyAlert"
+import PrivacyAlert from "../explorer/dashboardPopup/privacyAlert";
 import Utility from "../../utility";
 import { useSelector } from "react-redux";
 import format from "format-number";
@@ -149,11 +149,10 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px 0px",
     justifyContent: "space-around",
     textTransform: "none",
-
   },
   "@media(max-width: 767px)": {
     root: {
-      width: "21rem"
+      width: "21rem",
     },
   },
   label: {
@@ -264,9 +263,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-
   "@media (max-width: 714px)": {
-
     mywatch: {
       /* width: 100px; */
       height: "19px",
@@ -328,15 +325,14 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "initial",
     "@media (max-width: 767px)": {
       padding: "0px 6px",
-    }
+    },
   },
   tab2: {
     color: "#6b7482",
     textTransform: "initial",
     "@media (max-width: 714px)": {
       padding: "0px 6px",
-    }
-
+    },
   },
   noData: {
     width: "auto",
@@ -379,7 +375,7 @@ const ParentProfile = styled.div`
     justify-content: space-between;
     width: 100%;
   }
-`
+`;
 
 const UserNameContainer = styled.div`
   display: flex;
@@ -393,27 +389,27 @@ const UserNameContainer = styled.div`
   width: 100%;
   align-items: center;
 
-
   @media (max-width: 850px) {
-  ${'' /* padding: 0 10px 0 10px !important;
+    ${
+      "" /* padding: 0 10px 0 10px !important;
     flex-wrap : nowrap;
-    max-width: 710px; */}
+    max-width: 710px; */
+    }
   }
   @media (min-width: 400px) and (max-width: 767px) {
-  ${'' /* gap: 12px; */}
+    ${"" /* gap: 12px; */}
     margin-top: 15px;
     margin-bottom: 15px;
     padding: 0px 15px !important;
   }
 
-
   @media (min-width: 450px) and (max-width: 850px) {
-  ${'' /* gap: ${(props) => (props.isWallet ? "10px" : "10px")}; */}
+    ${"" /* gap: ${(props) => (props.isWallet ? "10px" : "10px")}; */}
   }
 
   @media (max-width: 767px) {
-  ${'' /* justify-content: space-around; */}
-  ${'' /* gap: 12px; */}
+    ${"" /* justify-content: space-around; */}
+    ${"" /* gap: 12px; */}
     margin-left: auto !important;
     margin: 12px 0px;
     margin-right: auto;
@@ -434,7 +430,7 @@ const SubParentContainer = styled.div`
   }
 `;
 export default function SimpleTabs(props) {
-  const timezone = useSelector(state => state.timezone)
+  const timezone = useSelector((state) => state.timezone);
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
@@ -455,7 +451,7 @@ export default function SimpleTabs(props) {
   const [value, setValue] = React.useState(0);
   // const { state } = props;
   const [addedOnToggle, setAddedOnToggle] = React.useState(0);
-  const [balanceToggle, setBalanceToggle] = React.useState(0);
+  const [balanceToggle, setBalanceToggle] = React.useState("");
   const [nameToggle, setNameToggle] = React.useState(0);
   const [tableValue, setTablevalue] = React.useState(1);
   const [downloadWatchlist, setDownloadWatchlist] = React.useState([]);
@@ -484,7 +480,7 @@ export default function SimpleTabs(props) {
     // if (!transactionLabels)
     //   transactionLabels = [];
     // setTotalCount2(transactionLabels.length);
-    getListOfTxnLabel({skip:0, _limit})
+    getListOfTxnLabel({ skip: 0, _limit });
   }
 
   async function getPvtTagAddress() {}
@@ -499,7 +495,7 @@ export default function SimpleTabs(props) {
   const [txnAddressNotAdded, setTxnAddressNotAdded] = React.useState(true);
 
   const isPrivacyAccepted =
-      sessionManager.getDataFromCookies("isPrivacyAccepted");
+    sessionManager.getDataFromCookies("isPrivacyAccepted");
   async function searchData(event) {
     if (value === 0) {
       const searchValue = event.target.value;
@@ -520,15 +516,17 @@ export default function SimpleTabs(props) {
         if (error || !response) {
           setDataNotFound(true);
         } else {
-
           let watchlists = localStorage.getItem(
-              data.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
+            data.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
           );
           watchlists = JSON.parse(watchlists);
-          response.watchlistContent = response.watchlistContent.map(obj => {
-            obj.description = watchlists && watchlists[obj.address] ? watchlists[obj.address] : "";
+          response.watchlistContent = response.watchlistContent.map((obj) => {
+            obj.description =
+              watchlists && watchlists[obj.address]
+                ? watchlists[obj.address]
+                : "";
             return obj;
-          })
+          });
           setWatchlist(response);
         }
       }
@@ -547,7 +545,11 @@ export default function SimpleTabs(props) {
       if (!searchValue) {
         onChangeTxnLabelPage(pvtNotePageCount);
       } else {
-        const response = await getListOfTxnLabel({ skip: 0, limit: 5, searchValue: searchValue })
+        const response = await getListOfTxnLabel({
+          skip: 0,
+          limit: 5,
+          searchValue: searchValue,
+        });
       }
     }
 
@@ -564,8 +566,7 @@ export default function SimpleTabs(props) {
       if (!searchValue) {
         onChangeTagAddressPage(tagPageCount);
       } else {
-
-        await getListOfTagAddress({ skip: 0, limit: 5, searchValue })
+        await getListOfTagAddress({ skip: 0, limit: 5, searchValue });
       }
     }
   }
@@ -597,7 +598,6 @@ export default function SimpleTabs(props) {
     await getListOfWatchlist({ skip: list, limit: "5" });
   };
 
-
   const onChangeTxnLabelPage = async (value) => {
     setPvtNotePageCount(value);
     const list = Math.ceil(value.selected * 5);
@@ -622,10 +622,11 @@ export default function SimpleTabs(props) {
       request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
     );
     watchlists = JSON.parse(watchlists);
-    response.watchlistContent = response.watchlistContent.map(obj => {
-      obj.description = watchlists && watchlists[obj.address] ? watchlists[obj.address] : "";
+    response.watchlistContent = response.watchlistContent.map((obj) => {
+      obj.description =
+        watchlists && watchlists[obj.address] ? watchlists[obj.address] : "";
       return obj;
-    })
+    });
     if (response.totalCount > 0) {
       setAddressNotAdded(false);
     }
@@ -637,30 +638,35 @@ export default function SimpleTabs(props) {
       limit: requestData?.limit || "5",
       skip: isNaN(requestData?.skip) ? list : requestData?.skip,
       userId: sessionManager.getDataFromCookies("userId"),
-      searchValue: requestData?.searchValue
+      searchValue: requestData?.searchValue,
     };
 
-    let transactionLabels = localStorage.getItem(sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS);
+    let transactionLabels = localStorage.getItem(
+      sessionManager.getDataFromCookies("userId") +
+        cookiesConstants.USER_TRASACTION_LABELS
+    );
     transactionLabels = JSON.parse(transactionLabels);
-    if (!transactionLabels)
-      transactionLabels = []
+    if (!transactionLabels) transactionLabels = [];
     if (transactionLabels.length > 0) {
       setWatchListNotAdded(false);
     }
 
     if (request.searchValue) {
-      transactionLabels = transactionLabels.filter(obj => {
-        if (obj.transactionHash.includes(request.searchValue) || obj.trxLable.includes(request.searchValue)) {
+      transactionLabels = transactionLabels.filter((obj) => {
+        if (
+          obj.transactionHash.includes(request.searchValue) ||
+          obj.trxLable.includes(request.searchValue)
+        ) {
           return obj;
         }
-      })
+      });
     }
-    setTotalCount2(transactionLabels.length)
+    setTotalCount2(transactionLabels.length);
     if (transactionLabels.length > requestData?.limit) {
-      transactionLabels.splice(0, request.skip)
-      transactionLabels.splice(request.limit, transactionLabels.length)
+      transactionLabels.splice(0, request.skip);
+      transactionLabels.splice(request.limit, transactionLabels.length);
     }
-    transactionLabels.length && setDataNotFound(false)
+    transactionLabels.length && setDataNotFound(false);
     transactionLabels.length && setAddressNotAdded(false);
     setAddress(transactionLabels);
   };
@@ -671,30 +677,32 @@ export default function SimpleTabs(props) {
       skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       isTaggedAddress: true,
-      searchValue: requestData?.searchValue
+      searchValue: requestData?.searchValue,
     };
     let taggedAddress = localStorage.getItem(
       request.userId + cookiesConstants.USER_TAGGED_ADDRESS
     );
-    taggedAddress = JSON.parse(taggedAddress)
-    if (!taggedAddress)
-      taggedAddress = []
+    taggedAddress = JSON.parse(taggedAddress);
+    if (!taggedAddress) taggedAddress = [];
     if (taggedAddress.length > 0) {
       setTxnAddressNotAdded(false);
     }
 
     if (request.searchValue) {
-      taggedAddress = taggedAddress.filter(obj => {
-        if (obj.address.includes(request.searchValue) || obj.tagName.includes(request.searchValue)) {
+      taggedAddress = taggedAddress.filter((obj) => {
+        if (
+          obj.address.includes(request.searchValue) ||
+          obj.tagName.includes(request.searchValue)
+        ) {
           return obj;
         }
-      })
+      });
     }
 
     setTotalCount3(taggedAddress.length);
     if (taggedAddress.length > requestData?.limit) {
-      taggedAddress.splice(0, request.skip)
-      taggedAddress.splice(request.limit, taggedAddress.length)
+      taggedAddress.splice(0, request.skip);
+      taggedAddress.splice(request.limit, taggedAddress.length);
     }
 
     setPrivateAddress(taggedAddress);
@@ -720,7 +728,7 @@ export default function SimpleTabs(props) {
   const sortByBalance = () => {
     let oldData = watchlist;
     let newData;
-    if (balanceToggle === 0) {
+    if (balanceToggle === -1) {
       newData = oldData.sort(
         (index1, index2) => index1?.balance - index2?.balance
       );
@@ -729,7 +737,7 @@ export default function SimpleTabs(props) {
       newData = oldData.sort(
         (index1, index2) => index2?.balance - index1?.balance
       );
-      setBalanceToggle(0);
+      setBalanceToggle(-1);
     }
     setWatchlist(newData);
   };
@@ -763,6 +771,8 @@ export default function SimpleTabs(props) {
     setTablevalue(1);
     setDownloadActive(0);
     setSearch("");
+    setBalanceToggle("")
+
   };
   const handlePrivateNote = () => {
     setTablevalue(2);
@@ -844,8 +854,13 @@ export default function SimpleTabs(props) {
             Address: item.address,
             Description: item.description,
             Balance: item.balance,
-            AddedOn: `${item?.addedOn && moment(item.addedOn).tz(timezone).format(
-              "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`,
+            AddedOn: `${
+              (item?.addedOn &&
+                moment(item.addedOn)
+                  .tz(timezone)
+                  .format("MMM DD, YYYY, hh:mm A")) ||
+              ""
+            } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`,
             Notification: item.notification.type === "NO" ? "Off" : "Email",
           };
         })
@@ -992,7 +1007,10 @@ export default function SimpleTabs(props) {
       );
     }
   };
-
+  // const getSortTitle = (sortKey) => {
+  //   if (sortToggle[sortKey] === 1) return "Ascending";
+  //   else return "Descending";
+  // };
   return (
     <div>
       <Tokensearchbar />
@@ -1011,7 +1029,13 @@ export default function SimpleTabs(props) {
             /> */}
         <UserNameContainer>
           <ParentProfile>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               {/* <Avatar
                 className="profile-icon"
                 src={
@@ -1031,7 +1055,6 @@ export default function SimpleTabs(props) {
             <div>
               <NotificationBar />
             </div>
-
           </ParentProfile>
         </UserNameContainer>
         {/* </span> */}
@@ -1052,13 +1075,16 @@ export default function SimpleTabs(props) {
         <UserNameContainer isWallet={true}>
           <Watchlist
             getWatchlistList={getListOfWatchlist}
-            getTotalCountWatchlist={getUserWatchlist} />
+            getTotalCountWatchlist={getUserWatchlist}
+          />
           <Transaction
             getListOfTxnLabel={getListOfTxnLabel}
-            getTotalCountTxnLabel={getUserTxnLabel} />
+            getTotalCountTxnLabel={getUserTxnLabel}
+          />
           <Private
             getListOfTagAddress={getListOfTagAddress}
-            getTotalCountTagAddress={getPvtTagAddress} />
+            getTotalCountTagAddress={getPvtTagAddress}
+          />
         </UserNameContainer>
 
         <div className={classes.root + " accProfile"}>
@@ -1080,7 +1106,10 @@ export default function SimpleTabs(props) {
                 label="My Watchlist"
                 // className={classes.mywatch}
                 className={value === 0 ? classes.tab1 : classes.tab2}
-                style={{ borderBottom: value === 0 ? "2px solid rgb(33, 73, 185)" : "none" }}
+                style={{
+                  borderBottom:
+                    value === 0 ? "2px solid rgb(33, 73, 185)" : "none",
+                }}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
               />
@@ -1088,7 +1117,10 @@ export default function SimpleTabs(props) {
                 label="Transaction Private Note"
                 className={classes.txnprivate}
                 className={value === 1 ? classes.tab1 : classes.tab2}
-                style={{ borderBottom: value === 1 ? "2px solid rgb(33, 73, 185)" : "none" }}
+                style={{
+                  borderBottom:
+                    value === 1 ? "2px solid rgb(33, 73, 185)" : "none",
+                }}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
               />
@@ -1096,7 +1128,10 @@ export default function SimpleTabs(props) {
                 label="Tagged Address"
                 className={classes.address}
                 className={value === 2 ? classes.tab1 : classes.tab2}
-                style={{ borderBottom: value === 2 ? "2px solid rgb(33, 73, 185)" : "none" }}
+                style={{
+                  borderBottom:
+                    value === 2 ? "2px solid rgb(33, 73, 185)" : "none",
+                }}
                 {...a11yProps(2)}
                 onClick={handleTagAddress}
               />
@@ -1129,8 +1164,59 @@ export default function SimpleTabs(props) {
               tableValue === 1 ? (
                 ""
               ) : // <CSVLink
-                //   filename={"watchlist.csv"}
-                //   data={downloadWatchlist}
+              //   filename={"watchlist.csv"}
+              //   data={downloadWatchlist}
+              //   style={{
+              //     fontSize: "0.938rem",
+              //     textAlign: "center",
+              //     color: "#ffffff",
+              //     backgroundColor: "rgb(7 125 245)",
+              //     borderRadius: "0.25rem",
+              //     width: "5.875rem",
+              //     height: "2.125rem",
+              //     marginRight: "1.5rem",
+              //     paddingTop: "0.125rem",
+              //   }}
+              // >
+              //   Export
+              // </CSVLink>
+              tableValue === 2 ? (
+                // <div
+                //   onClick={downloadTxnPvtNotePDF}
+                //   filename={"private_note.csv"}
+                //   data={downloadTxnPvtNote}
+                //   style={{
+                //     fontSize: "0.938rem",
+                //     textAlign: "center",
+                //     color: "#ffffff",
+                //     backgroundColor: "rgb(7 125 245)",
+                //     borderRadius: "0.25rem",
+                //     width: "5.875rem",
+                //     height: "2.125rem",
+                //     marginRight: "1.5rem",
+                //     paddingTop: "0.125rem",
+                //   }}
+                // >
+                //   Export test
+                // </div>
+                <PDFDownloadLink
+                  style={styles.pdfDownloadLink}
+                  document={<TransactionPDF data={downloadTxnPvtNote} />}
+                  fileName="transactionPvtNote.pdf"
+                >
+                  Export
+                </PDFDownloadLink>
+              ) : (
+                <PDFDownloadLink
+                  style={styles.pdfDownloadLink}
+                  document={<AddressPDF data={downloadTagAddress} />}
+                  fileName="tagAddresses.pdf"
+                >
+                  Export
+                </PDFDownloadLink>
+                // <CSVLink
+                //   filename={"tag_address.csv"}
+                //   data={downloadTagAddress}
                 //   style={{
                 //     fontSize: "0.938rem",
                 //     textAlign: "center",
@@ -1145,58 +1231,7 @@ export default function SimpleTabs(props) {
                 // >
                 //   Export
                 // </CSVLink>
-                tableValue === 2 ? (
-                  // <div
-                  //   onClick={downloadTxnPvtNotePDF}
-                  //   filename={"private_note.csv"}
-                  //   data={downloadTxnPvtNote}
-                  //   style={{
-                  //     fontSize: "0.938rem",
-                  //     textAlign: "center",
-                  //     color: "#ffffff",
-                  //     backgroundColor: "rgb(7 125 245)",
-                  //     borderRadius: "0.25rem",
-                  //     width: "5.875rem",
-                  //     height: "2.125rem",
-                  //     marginRight: "1.5rem",
-                  //     paddingTop: "0.125rem",
-                  //   }}
-                  // >
-                  //   Export test
-                  // </div>
-                  <PDFDownloadLink
-                    style={styles.pdfDownloadLink}
-                    document={<TransactionPDF data={downloadTxnPvtNote} />}
-                    fileName="transactionPvtNote.pdf"
-                  >
-                    Export
-                  </PDFDownloadLink>
-                ) : (
-                  <PDFDownloadLink
-                    style={styles.pdfDownloadLink}
-                    document={<AddressPDF data={downloadTagAddress} />}
-                    fileName="tagAddresses.pdf"
-                  >
-                    Export
-                  </PDFDownloadLink>
-                  // <CSVLink
-                  //   filename={"tag_address.csv"}
-                  //   data={downloadTagAddress}
-                  //   style={{
-                  //     fontSize: "0.938rem",
-                  //     textAlign: "center",
-                  //     color: "#ffffff",
-                  //     backgroundColor: "rgb(7 125 245)",
-                  //     borderRadius: "0.25rem",
-                  //     width: "5.875rem",
-                  //     height: "2.125rem",
-                  //     marginRight: "1.5rem",
-                  //     paddingTop: "0.125rem",
-                  //   }}
-                  // >
-                  //   Export
-                  // </CSVLink>
-                )
+              )
             ) : (
               <div
                 filename={"tag_address.csv"}
@@ -1277,7 +1312,11 @@ export default function SimpleTabs(props) {
                               }}
                               align="left"
                             >
-                              <span className={"tableheaders-1"}>
+                              <span
+                                className={"tableheaders-1"}
+                                style={{ cursor: "pointer" }}
+                                onClick={sortByBalance}
+                              >
                                 Balance
                                 <Tooltip
                                   placement="top"
@@ -1292,25 +1331,34 @@ export default function SimpleTabs(props) {
                                 </Tooltip>
                               </span>
                               <button className={classes.btn}>
-                                {balanceToggle == 0 ?
-                                <ArrowUpwardIcon
-                                  onClick={sortByBalance}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />:
-                                <ArrowDownwardIcon
-                                  onClick={sortByBalance}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />}
+                                <Tooltip
+                                  placement="top"
+                                  title={
+                                    balanceToggle == 1
+                                      ? "Descending"
+                                      : "Ascending"
+                                  }
+                                >
+                                  {balanceToggle ==="" ? (
+                                    <></>
+                                  ) : (
+                                    balanceToggle == 1 ? (
+                                      <img
+                                        alt="question-mark"
+                                        src="/images/see-more.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon rotate-180"
+                                      />
+                                    ) : (
+                                      <img
+                                        alt="question-mark"
+                                        src="/images/see-more.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon"
+                                      />
+                                    )
+                                  )}
+                                </Tooltip>
                               </button>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
@@ -1372,9 +1420,7 @@ export default function SimpleTabs(props) {
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       ></img>
 
-                      <div className={classes.noData}>
-                        No address added
-                      </div>
+                      <div className={classes.noData}>No address added</div>
                     </NoDataFoundContainer>
                   )}
                 </div>
@@ -1443,7 +1489,11 @@ export default function SimpleTabs(props) {
                             }}
                             align="left"
                           >
-                            <span className={"tableheaders-1"}>
+                            <span
+                              className={"tableheaders-1"}
+                              onClick={sortByBalance}
+                              style={{ cursor: "pointer" }}
+                            >
                               Balance
                               <Tooltip
                                 placement="top"
@@ -1458,25 +1508,34 @@ export default function SimpleTabs(props) {
                               </Tooltip>
                             </span>
                             <button className={classes.btn}>
-                            {balanceToggle == 0 ?
-                                <ArrowUpwardIcon
-                                  onClick={sortByBalance}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />:
-                                <ArrowDownwardIcon
-                                  onClick={sortByBalance}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />}
+                              <Tooltip
+                                placement="top"
+                                title={
+                                  balanceToggle == -1
+                                    ? "Descending"
+                                    : "Ascending"
+                                }
+                              >
+                                {balanceToggle ==="" ? (
+                                    <></>
+                                  ) : (
+                                    balanceToggle == 1 ? (
+                                      <img
+                                        alt="question-mark"
+                                        src="/images/see-more.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon rotate-180"
+                                      />
+                                    ) : (
+                                      <img
+                                        alt="question-mark"
+                                        src="/images/see-more.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon"
+                                      />
+                                    )
+                                  )}
+                              </Tooltip>
                             </button>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
@@ -1522,7 +1581,10 @@ export default function SimpleTabs(props) {
                         {watchlist &&
                           watchlist.length > 0 &&
                           watchlist.map((row, index) => {
-                            let balanceToShow = Utility.decimalDivisonOnly(row.balance, 8);
+                            let balanceToShow = Utility.decimalDivisonOnly(
+                              row.balance,
+                              8
+                            );
                             return (
                               <TableRow
                                 style={
@@ -1584,8 +1646,17 @@ export default function SimpleTabs(props) {
                                   align="left"
                                 >
                                   <span className="tabledata-1">
-                                    {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
-                                      "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
+                                    {`${
+                                      (row?.modifiedOn &&
+                                        moment(row?.modifiedOn)
+                                          .tz(timezone)
+                                          .format("MMM DD, YYYY, hh:mm A")) ||
+                                      ""
+                                    } ${
+                                      (timezone &&
+                                        Utility.getUtcOffset(timezone)) ||
+                                      ""
+                                    }`}
                                   </span>
                                   {/* </a> */}
                                 </TableCell>
@@ -1615,7 +1686,6 @@ export default function SimpleTabs(props) {
                       </TableBody>
                     </Table>
                   </Grid>
-
                 </Grid>
               )}
             </div>
@@ -1669,8 +1739,11 @@ export default function SimpleTabs(props) {
                                 }}
                               />
                             </TableCell>
-                            <TableCell style={{ border: "none" }} align="left"
-                              paddingBottom="0">
+                            <TableCell
+                              style={{ border: "none" }}
+                              align="left"
+                              paddingBottom="0"
+                            >
                               <span className={"tableheaders-1"}>
                                 Transaction Hash
                                 <Tooltip placement="top" title={messages.HASH}>
@@ -1788,7 +1861,11 @@ export default function SimpleTabs(props) {
                     >
                       <TableHead>
                         <TableRow>
-                          <TableCell style={{ border: "none" }} align="left" className="p-b-0">
+                          <TableCell
+                            style={{ border: "none" }}
+                            align="left"
+                            className="p-b-0"
+                          >
                             <input
                               // className={classes.Rectangle}
                               onChange={handlePvtNoteCheckbox}
@@ -1802,9 +1879,7 @@ export default function SimpleTabs(props) {
                                 marginRight: "10px",
                                 border: "solid 1px #e3e7eb",
                               }}
-
                             />
-
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <span className={"tableheaders-1"}>
@@ -1894,8 +1969,7 @@ export default function SimpleTabs(props) {
 
                       <TableBody>
                         {address.map((row, index) => {
-                          if (index >= _limit)
-                            return null;
+                          if (index >= _limit) return null;
                           return (
                             <TableRow
                               style={
@@ -1915,8 +1989,7 @@ export default function SimpleTabs(props) {
                                   type="checkbox"
                                   checked={row?.isChecked2 || false}
                                   style={{ marginTop: "4px" }}
-                                // className={classes.Rectangle}
-                                
+                                  // className={classes.Rectangle}
                                 />
                               </TableCell>
                               <TableCell
@@ -1958,8 +2031,17 @@ export default function SimpleTabs(props) {
                                 align="left"
                               >
                                 <span className="tabledata-1">
-                                  {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
-                                    "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
+                                  {`${
+                                    (row?.modifiedOn &&
+                                      moment(row?.modifiedOn)
+                                        .tz(timezone)
+                                        .format("MMM DD, YYYY, hh:mm A")) ||
+                                    ""
+                                  } ${
+                                    (timezone &&
+                                      Utility.getUtcOffset(timezone)) ||
+                                    ""
+                                  }`}
                                 </span>
                               </TableCell>
                               <TableCell
@@ -2133,9 +2215,7 @@ export default function SimpleTabs(props) {
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       />
-                      <div className={classes.noData}>
-                        No address added
-                      </div>
+                      <div className={classes.noData}>No address added</div>
                     </NoDataFoundContainer>
                   )}
                 </div>
@@ -2257,8 +2337,7 @@ export default function SimpleTabs(props) {
                       </TableHead>
                       <TableBody>
                         {privateAddress.map((row, index) => {
-                          if (index >= _limit)
-                            return null;
+                          if (index >= _limit) return null;
                           let tag = row.tagName;
                           // const multipleTag = handleMultipleTag(tag);
 
@@ -2304,9 +2383,7 @@ export default function SimpleTabs(props) {
                                 align="left"
                               >
                                 <span className="tabledata-2">
-                                      <div className="nameLabel2">
-                                        {tag}
-                                      </div>
+                                  <div className="nameLabel2">{tag}</div>
                                 </span>
                               </TableCell>
 
@@ -2315,8 +2392,17 @@ export default function SimpleTabs(props) {
                                 align="left"
                               >
                                 <span className="tabledata-1">
-                                  {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
-                                    "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
+                                  {`${
+                                    (row?.modifiedOn &&
+                                      moment(row?.modifiedOn)
+                                        .tz(timezone)
+                                        .format("MMM DD, YYYY, hh:mm A")) ||
+                                    ""
+                                  } ${
+                                    (timezone &&
+                                      Utility.getUtcOffset(timezone)) ||
+                                    ""
+                                  }`}
                                 </span>
                               </TableCell>
 
@@ -2357,7 +2443,7 @@ export default function SimpleTabs(props) {
         </div>
       </SubParentContainer>
       <FooterComponent />
-      <PrivacyAlert/>
+      <PrivacyAlert />
     </div>
   );
 }

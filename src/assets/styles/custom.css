@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
-  letter-spacing: unset !important;
 }
 a {
   text-decoration: none;
@@ -196,6 +195,9 @@ a:link {
 }
 .display-none {
   display: none;
+}
+.justify-content-center {
+  justify-content: center;
 }
 input#password {
   width: 433px;
@@ -742,7 +744,6 @@ input:focus {
     position: initial;
     margin-top: 52px;
   }
-  
 }
 
 .Shape-XDC {
@@ -3220,7 +3221,6 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
   color: #ffffff;
 }
 .margin-top-20px {
@@ -6710,7 +6710,6 @@ button {
     margin-top: 45px;
     /* height: 11.875rem; */
   }
-  
 }
 
 @media (min-width: 1240px) {
@@ -7484,7 +7483,7 @@ button {
   width: 75.063rem;
 }
 .table-grid-block-global-id {
-  margin: 0px auto
+  margin: 0px auto;
 }
 .table-grid-block-contract {
   margin: 5px auto auto auto;
@@ -11147,13 +11146,12 @@ button {
   background-color: #2149b9;
   min-height: 100vh;
 }
-@media(max-width:767px){
+@media (max-width: 767px) {
   .global-id {
     background-image: none;
     background-color: #fff;
     min-height: 100vh;
   }
-
 }
 .global-id-icon {
   height: 45px;
@@ -11186,7 +11184,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 1.43;
-  letter-spacing: normal;
   text-align: center;
   color: #ff0202;
 }
@@ -11198,14 +11195,12 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 1.33;
-  letter-spacing: normal;
   text-align: center;
   color: #ff0202;
 }
-@media (min-width:768px) and (max-width: 1240px) {
-
-.global-id-image{
-  width: 70px;
-  height: 70px;
-}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .global-id-image {
+    width: 70px;
+    height: 70px;
+  }
 }
