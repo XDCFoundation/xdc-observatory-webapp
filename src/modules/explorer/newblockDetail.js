@@ -181,6 +181,18 @@ export default function BlockDetails() {
     }
   }
   const timezone = useSelector(state => state.timezone)
+  const [hashTT, setHashTT] = useState(false);
+  const [blockHeightTT, setBlockHeightTT] = useState(false);
+  const [transactionTT, setTransactionTT] = useState(false);
+  const [timeStampTT, setTimeStampTT] = useState(false);
+  const [parentHashTT, setParentHashTT] = useState(false);
+  const [sha3UnclesTT, setSha3UnclesTT] = useState(false);
+  const [difficultyTT, setDifficultyTT] = useState(false);
+  const [totalDifficultyTT, setTotalDifficultyTT] = useState(false);
+  const [gasUsedTT, setGasUsedTT] = useState(false);
+  const [gasLimitTT, setGasLimitTT] = useState(false);
+  const [nonceTT, setNonceTT] = useState(false);
+  const [extraDataTT, setExtraDataTT] = useState(false);
 
   return (
     <div>
@@ -199,8 +211,14 @@ export default function BlockDetails() {
                 <Div>
                   <HashDiv>
                     <Container className="pad-left-6 pad-left-7">
-                      <Tooltip align="right" title={hashid}>
+                      <Tooltip 
+                        open={hashTT}
+                        onOpen={() => setHashTT(true)}
+                        onClose={() => setHashTT(false)}
+                        align="right" 
+                        title={hashid}>
                         <ImageView
+                          onClick={() => setHashTT(!hashTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -237,8 +255,14 @@ export default function BlockDetails() {
                 <Div__>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={blockheight}>
+                      <Tooltip 
+                        open={blockHeightTT}
+                        onOpen={() => setBlockHeightTT(true)}
+                        onClose={() => setBlockHeightTT(false)}
+                        align="right" 
+                        title={blockheight}>
                         <ImageView
+                          onClick={() => setBlockHeightTT(!blockHeightTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -285,8 +309,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={transactionT}>
+                      <Tooltip 
+                        open={transactionTT}
+                        onOpen={() => setTransactionTT(true)}
+                        onClose={() => setTransactionTT(false)}
+                        align="right" 
+                        title={transactionT}>
                         <ImageView
+                          onClick={() => setTransactionTT(!transactionTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -300,8 +330,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={timestamp}>
+                      <Tooltip 
+                        open={timeStampTT}
+                        onOpen={() => setTimeStampTT(true)}
+                        onClose={() => setTimeStampTT(false)}
+                        align="right" 
+                        title={timestamp}>
                         <ImageView
+                          onClick={() => setTimeStampTT(!timeStampTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -316,8 +352,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={parenthash}>
+                      <Tooltip 
+                        open={parentHashTT}
+                        onOpen={() => setParentHashTT(true)}
+                        onClose={() => setParentHashTT(false)}
+                        align="right" 
+                        title={parenthash}>
                         <ImageView
+                          onClick={() => setParentHashTT(!parentHashTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -364,8 +406,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={sha3uncles}>
+                      <Tooltip 
+                        open={sha3UnclesTT}
+                        onOpen={() => setSha3UnclesTT(true)}
+                        onClose={() => setSha3UnclesTT(false)}
+                        align="right" 
+                        title={sha3uncles}>
                         <ImageView
+                          onClick={() => setSha3UnclesTT(!sha3UnclesTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -405,8 +453,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={diffi}>
+                      <Tooltip 
+                        open={difficultyTT}
+                        onOpen={() => setDifficultyTT(true)}
+                        onClose={() => setDifficultyTT(false)}
+                        align="right" 
+                        title={diffi}>
                         <ImageView
+                          onClick={() => setDifficultyTT(!difficultyTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -416,8 +470,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={tdiffi}>
+                      <Tooltip 
+                        open={totalDifficultyTT}
+                        onOpen={() => setTotalDifficultyTT(true)}
+                        onClose={() => setTotalDifficultyTT(false)}
+                        align="right" 
+                        title={tdiffi}>
                         <ImageView
+                          onClick={() => setTotalDifficultyTT(!totalDifficultyTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -427,8 +487,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={gasU}>
+                      <Tooltip 
+                        open={gasUsedTT}
+                        onOpen={() => setGasUsedTT(true)}
+                        onClose={() => setGasUsedTT(false)}
+                        align="right" 
+                        title={gasU}>
                         <ImageView
+                          onClick={() => setGasUsedTT(!gasUsedTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -438,8 +504,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={gasL}>
+                      <Tooltip
+                        open={gasLimitTT}
+                        onOpen={() => setGasLimitTT(true)}
+                        onClose={() => setGasLimitTT(false)} 
+                        align="right" 
+                        title={gasL}>
                         <ImageView
+                          onClick={() => setGasLimitTT(!gasLimitTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -449,8 +521,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing>
                     <Container>
-                      <Tooltip align="right" title={nonc}>
+                      <Tooltip 
+                        open={nonceTT}
+                        onOpen={() => setNonceTT(true)}
+                        onClose={() => setNonceTT(false)}
+                        align="right" 
+                        title={nonc}>
                         <ImageView
+                          onClick={() => setNonceTT(!nonceTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>
@@ -460,8 +538,14 @@ export default function BlockDetails() {
                   </Spacing>
                   <Spacing style={{ height: "unset" }}>
                     <Container className="pad-bottom-34">
-                      <Tooltip align="right" title={extrad}>
+                      <Tooltip 
+                        open={extraDataTT}
+                        onOpen={() => setExtraDataTT(true)}
+                        onClose={() => setExtraDataTT(false)}
+                        align="right" 
+                        title={extrad}>
                         <ImageView
+                          onClick={() => setExtraDataTT(!extraDataTT)}
                           src="/images/info.svg"
                         />
                       </Tooltip>

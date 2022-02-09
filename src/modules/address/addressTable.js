@@ -104,7 +104,7 @@ export default function AddressTableComponent(props) {
     to: 0,
     value: 0,
   });
-  const [sortingKey, setSortingKey] = React.useState("blockNumber");
+  const [sortingKey, setSortingKey] = React.useState("value");
   function handleSettingsClick(event) {
     setOpen(true);
     setAnchorEl(event?.currentTarget);
@@ -208,7 +208,7 @@ export default function AddressTableComponent(props) {
   const getAddressDetails = async (data, filters) => {
     const skip = data?.pageNum || 0;
     const limit = data?.perpage || 10;
-    const sortKey = data?.sortKey || "blockNumber";
+    const sortKey = data?.sortKey || "value";
     const sortType = data?.sortType
     const requestData = { skip, limit, sortKey, sortType }
     requestData.address = data?.addrr || addr
@@ -278,7 +278,6 @@ export default function AddressTableComponent(props) {
     };
     // getFiltersForAccountTransaction({address: addr});
     getAddressDetails(datas);
-    sortData("value");
   }, []);
   const sortData = async (sortKey) => {
     setArrowUpDown(false);
