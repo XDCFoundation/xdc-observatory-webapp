@@ -115,7 +115,7 @@ const Value = styled.div`
   width: 10.625rem;
   padding-bottom: 35px;
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 6.625rem;
+    width: 9.4rem;
     padding-bottom: 23px;
   }
 `;

@@ -42,7 +42,7 @@ const RightContainer = styled.div`
     height: 478px;
   }
   @media (max-width: 767px) {
-    width:20rem;
+    width: 20rem;
   }
 `;
 const XDC = styled.div`
@@ -128,7 +128,6 @@ const ButtonGlobalid = styled.button`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.38;
-  letter-spacing: normal;
   text-align: center;
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 290px;
@@ -156,7 +155,7 @@ const RightTopText = styled.div`
   }
   @media (max-width: 767px) {
     font-size: 17px;
-    margin:0 55px 0 35px
+    margin: 0 55px 0 35px;
   }
 `;
 const RightTopText2 = styled.span`
@@ -183,10 +182,10 @@ const RightBottomLogoText = styled.div`
   line-height: normal;
   color: #2a2a2a;
   margin-left: 20px;
-  width:80%;
+  width: 80%;
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
-    width:83%;
+    width: 83%;
   }
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
@@ -199,7 +198,6 @@ const SignUpBottom = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
   text-align: center;
   color: #2a2a2a;
   margin-top: 25px;
@@ -248,8 +246,8 @@ const RightTopBack = styled.div`
   height: 20px;
 `;
 const GlobalIdButtonContinue = styled.div`
-display:flex;
-justify-content:center;
+  display: flex;
+  justify-content: center;
 `;
 export default function GlobalIdCon() {
   const [LoginText, setLoginText] = useState(1);
@@ -396,9 +394,15 @@ export default function GlobalIdCon() {
                     </RightBottomLogoText>
                   </RightBottomText>
                   <GlobalIdButtonContinue>
-                    <a
+                    {/* <a
                       href={
                         "https://connect.global.id/?client_id=808e791a-70b4-43a4-bb30-6f33c610d4ec&response_type=code&scope=openid&redirect_uri=https://observer.xdc.org/&qr_only=true&acrc_id=35fde324-7736-491a-b89f-c29854417300&document_id=tos pp&nonce=" +
+                        randomText
+                      }
+                    > */}
+                    <a
+                      href={
+                        "https://connect.global.id/?client_id=d93fd233-00b4-4070-9d6a-f5a315626b7f&response_type=code&scope=openid&redirect_uri=https://observer.xdc.org/&qr_only=true&acrc_id=b016eed3-c79b-48b2-88f0-7d9225a9af7e&document_id=tos&nonce=" +
                         randomText
                       }
                     >
