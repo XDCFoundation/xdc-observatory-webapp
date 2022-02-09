@@ -210,8 +210,8 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
     notifyLabel: {
-      fontSize: "13px",
-      width: "250px",
+      fontSize: "12px",
+      width: "275px",
     },    
   },
   "@media (max-width: 900px)": {},
@@ -346,6 +346,7 @@ export default function FormDialog(props) {
   }
 
   const handleClickOpen = () => {
+    window.scrollTo(0, 0);
     setOpen(true);
   };
   const handleClose = () => {
@@ -513,7 +514,7 @@ export default function FormDialog(props) {
                 {/* <FormLabel component="legend" className={classes.radio}>Gender</FormLabel> */}
                 <RadioGroup
                   className={classes.radio}
-                  style={{ margin: "-5px 28px -3px -10px" }}
+                  style={{ margin: "-5px 0px -3px -10px" }}
                   value={value}
                   onChange={handleChange}
                 >

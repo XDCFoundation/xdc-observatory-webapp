@@ -105,13 +105,26 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 714px)": {
+  error1: {
+    color: "red",
+    marginLeft: "2px",
+  },
+  error2: {
+    color: "red",
+    marginLeft: "24px",
+    marginTop: "-14px",
+  },
+  "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
     },
     dialogBox: {
-      width: "362px",
-      top: "95px"
+      width: "100%",
+      top: "40px",
+      borderRadius: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "100%",
     },
     input: {
       maxWidth: "503px",
@@ -124,6 +137,9 @@ export default function FormDialog(props) {
   const { open, onClose } = props
   const [privateAddress, setPrivateAddress] = React.useState();
   const [nameTag, setNameTag] = React.useState(false);
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [errorTag, setErrorTag] = React.useState("");
   // const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     if (props?.value === 1 && props?.fromAddr) {
@@ -134,6 +150,26 @@ export default function FormDialog(props) {
   }, [props])
 
   async function TaggedAddress() {
+    setError("");
+    setErrorTag("");
+    setErrorEmptyField("");
+    if (!privateAddress && !input && tags.length === 0) {
+      setErrorEmptyField(genericConstants.ENTER_REQUIRED_FIELD);
+      return;
+    }
+    if (!privateAddress) {
+      setError(genericConstants.ENTER_REQUIRED_FIELD);
+    } else if (!input) {
+      setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
+    } else if (
+      !(privateAddress && privateAddress.length === 43) ||
+      !(privateAddress.slice(0, 3) === "xdc")
+    ) {
+      setError("Address should start with xdc and consist of 43 characters");
+      return;
+    } else if (input.length > 15) {
+      setErrorTag("Nametag cannot be longer than 15 characters");
+    } else {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
@@ -182,6 +218,7 @@ export default function FormDialog(props) {
     );
     utility.apiSuccessToast("Tag Added");
     onClose();
+    }
   }
   let taggedAddressfetched = localStorage.getItem(
     cookiesConstants.USER_TAGGED_ADDRESS
@@ -190,7 +227,7 @@ export default function FormDialog(props) {
   const [input, setInput] = React.useState("");
   const [tags, setTags] = React.useState([]);
   const [isKeyReleased, setIsKeyReleased] = React.useState(false);
-  const [errorTag, setErrorTag] = React.useState("");
+  // const [errorTag, setErrorTag] = React.useState("");
 
   const onChange = (e) => {
     setErrorTag("");
@@ -242,16 +279,22 @@ export default function FormDialog(props) {
   return (
     <div>
       <Dialog
-        className={classes.dialog}
+        // className={classes.dialog}
         classes={{ paperWidthSm: classes.dialogBox }}
         open={open}
         aria-labelledby="form-dialog-title"
       >
+        <div>
         <Row>
           <DialogTitle className={classes.heading} id="form-dialog-title">
             Add a new Address Tag
           </DialogTitle>
         </Row>
+        {errorEmptyField ? (
+            <div className={classes.error2}>{errorEmptyField}</div>
+          ) : (
+            <></>
+          )}
         <DialogContent>
           <DialogContentText className={classes.subCategory}>
             Address
@@ -260,9 +303,13 @@ export default function FormDialog(props) {
             value={privateAddress}
 
             className={classes.input}
-            onChange={(e) => setPrivateAddress(e.target.value)}
+            onChange={(e) => {
+              setPrivateAddress(e.target.value)
+              setError("");
+            }}
             readOnly
           ></input>
+          {error ? <div className={classes.error}>{error}</div> : <></>}
         </DialogContent>
         <DialogContent>
           <DialogContentText className={classes.subCategory}>
@@ -282,6 +329,11 @@ export default function FormDialog(props) {
                 onChange={onChange}
             />
           </div>
+          {errorTag ? (
+              <div className={classes.error1}>{errorTag}</div>
+            ) : (
+              <></>
+            )}
           {/*<input*/}
           {/*  type="text"*/}
           {/*  className={classes.input}*/}
@@ -300,6 +352,7 @@ export default function FormDialog(props) {
             </button>
           </span>
         </DialogActions>
+        </div>
       </Dialog>
     </div>
   );

@@ -194,13 +194,14 @@ export default function StickyHeadTable(props) {
   const handleChangeRowsPerPage = (event) => {
     setFrom(0);
     setAmount(event.target.value);
-    setSortKey('');
-    setSortOrder(0);
+    setSortKey("holdersCount");
+    setSortOrder(-1);
     setFrom(0);
     let data = {
       skip: 0,
       limit: event.target.value,
       searchKey: keywords ? keywords : '',
+      sortKey: {holdersCount: -1}
     };
     if (!keywords)
       setNoData(false);
