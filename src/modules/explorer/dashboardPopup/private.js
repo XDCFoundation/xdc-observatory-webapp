@@ -256,7 +256,7 @@ export default function FormDialog(props) {
     setErrorTag("");
     setErrorEmptyField("");
     if (!privateAddress && !input && tags.length === 0) {
-      setErrorEmptyField("Please enter required fields");
+      setErrorEmptyField(genericConstants.ENTER_REQUIRED_FIELD);
       return;
     }
     const data = {
@@ -275,6 +275,8 @@ export default function FormDialog(props) {
     ) {
       setError("Address should start with xdc and consist of 43 characters");
       return;
+    } else if (input.length > 15) {
+      setErrorTag("Nametag cannot be longer than 15 characters");
     } else {
       // const [error] = await utility.parseResponse(
       //   UserService.addPrivateTagToAddress(data)
@@ -316,6 +318,7 @@ export default function FormDialog(props) {
   const classes = useStyles();
 
   const handleClickOpen = () => {
+    window.scrollTo(0, 0);
     setOpen(true);
   };
   const closeAlert = () => {

@@ -304,6 +304,7 @@ export default function FormDialog(props) {
   const classes = useStyles();
 
   const handleClickOpen = () => {
+    window.scrollTo(0, 0);
     setOpen(true);
   };
 
