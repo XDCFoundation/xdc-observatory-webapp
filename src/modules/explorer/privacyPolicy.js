@@ -860,7 +860,7 @@ function PrivacyPolicy() {
             <Para>
               The purpose of this privacy notice is to give you information on
               how XDC Foundation processes your Personal Data through your use
-              of the website at <br /> <a href="">https://observer.xdc.org/</a> (hereinafter
+              of the website at <br /> <a style={{color: "#2149b9"}} href="/">https://observer.xdc.org/</a> (hereinafter
               referred to as the “Website”), including any data you may provide
               through the Website when you sign up to use any of the services we
               provide.
@@ -896,7 +896,7 @@ function PrivacyPolicy() {
               notice, including any requests to exercise your legal rights,
               please contact the DPCM using the details set out below or by
               sending an email to
-              <a href=""> education+privacy@xdcfoundation.org.</a>
+              <a style={{color: "#2149b9"}} href="mailto:education+privacy@xdcfoundation.org"> education+privacy@xdcfoundation.org.</a>
             </Para>
             <PointHeading>(c) DPCM Contact Details</PointHeading>
             <Para>
