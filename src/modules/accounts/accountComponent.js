@@ -198,7 +198,9 @@ export default function AccountComponent(props) {
           </div>
         </div>
         <SearchAndFiltersComponent searchAndFilters={props.state.searchAndFilters}
-          updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts} />
+          updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts} 
+          getListOfAccounts={props.getListOfAccounts}
+          />
         <Paper style={{ borderRadius: "0.875rem" }} elevation={0}>
           <TableContainer className={classes.container} id="container-table">
             <Table>

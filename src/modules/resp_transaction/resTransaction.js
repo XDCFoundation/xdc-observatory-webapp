@@ -426,24 +426,11 @@ export default function Transaction({ _handleChange }) {
             <div className={isLoading == true ? "cover-spin" : ""}>
               <Container>
                 <Heading>Transaction Details</Heading>
-                {/* <p className="Failed-rectangle">Failed</p> */}
               </Container>
-
-              {/*
-                  <Div>
-                    <HashDiv>
-                      <Container>
-                        <Tooltip align="right" title={hashid}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-
-                        <Hash>Hash ID</Hash>
-                      </Container>
-                    </Spacing> */}
 
               <Div>
                 {transactions ? (
-                  transactions.status ? (
+                  transactions.status == true ? (
                     <StatusContainer>
                       <StatusContainerInside>
                         <StatusImgContainer>
