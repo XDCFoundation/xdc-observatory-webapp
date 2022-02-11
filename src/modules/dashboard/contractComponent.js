@@ -585,9 +585,9 @@ class Contractlist extends React.Component {
                   {this.state.rows.map((row, index) => {
                     let isToken = "";
                      if(row.ERC === 2)
-                      isToken = "ERC20";
+                      isToken = "XRC20";
                       else if(row.ERC === 721)
-                      isToken = "ERC721";
+                      isToken = "XRC721";
                      else 
                       isToken = "Others";
                     
