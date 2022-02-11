@@ -611,7 +611,7 @@ export default function StickyHeadTable(props) {
               onClick={() => handleChangePage("prev")}
             >
               <p className="path">
-                <img className="rotate-180" alt="back" src={"/images/next.svg"} width="9px" />
+                <img className="rotate-180" alt="back" src={"/images/next.svg"} />
               </p>
             </div>
             <div className="pagebox">
@@ -630,7 +630,7 @@ export default function StickyHeadTable(props) {
               }
             >
               <p className="path-2" onClick={() => handleChangePage("next")}>
-                <img alt="next" src={"/images/next.svg"} width="9px" />
+                <img alt="next" src={"/images/next.svg"} />
               </p>
             </div>
             <div
