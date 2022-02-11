@@ -247,7 +247,7 @@ export default function FormDialog(props) {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  const [value, setValue] = React.useState("female");
+  const [value, setValue] = React.useState("NO");
   const [isSize, setisSize] = React.useState(false);
   const alertSuccess = () => alert({ message: "success", type: "success" });
   const screenSize = window.innerHeight;

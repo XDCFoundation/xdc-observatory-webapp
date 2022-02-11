@@ -490,9 +490,9 @@ export default function SimpleTabs(props) {
   const [tagPageCount, setTagPageCount] = React.useState({});
   const [search, setSearch] = React.useState("");
   const [dataNotFound, setDataNotFound] = React.useState(false);
-  const [addressNotAdded, setAddressNotAdded] = React.useState(true);
-  const [watchListNotAdded, setWatchListNotAdded] = React.useState(true);
-  const [txnAddressNotAdded, setTxnAddressNotAdded] = React.useState(true);
+  const [watchlistAddressNotAdded, setWatchlistAddressNotAdded] = React.useState(true);
+  const [txnHashNotAdded, setTxnHashNotAdded] = React.useState(true);
+  const [tagAddressNotAdded, setTagAddressNotAdded] = React.useState(true);
 
   const isPrivacyAccepted =
     sessionManager.getDataFromCookies("isPrivacyAccepted");
@@ -510,25 +510,27 @@ export default function SimpleTabs(props) {
       if (!searchValue) {
         onChangeWatchlistPage(watchlistPageCount);
       } else {
-        const [error, response] = await Utils.parseResponse(
-          UserService.Search(data)
-        );
-        if (error || !response) {
-          setDataNotFound(true);
-        } else {
-          let watchlists = localStorage.getItem(
-            data.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
-          );
-          watchlists = JSON.parse(watchlists);
-          response.watchlistContent = response.watchlistContent.map((obj) => {
-            obj.description =
-              watchlists && watchlists[obj.address]
-                ? watchlists[obj.address]
-                : "";
-            return obj;
-          });
-          setWatchlist(response);
-        }
+        const response = await getListOfWatchlist({
+          skip: 0,
+          limit: 5,
+          searchValue: searchValue,
+        });
+        // if (error || !response) {
+        //   setDataNotFound(true);
+        // } else {
+        //   let watchlists = localStorage.getItem(
+        //     data.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
+        //   );
+        //   watchlists = JSON.parse(watchlists);
+        //   response.watchlistContent = response.watchlistContent.map((obj) => {
+        //     obj.description =
+        //       watchlists && watchlists[obj.address]
+        //         ? watchlists[obj.address]
+        //         : "";
+        //     return obj;
+        //   });
+          // setWatchlist(response);
+        // }
       }
     }
 
@@ -628,7 +630,7 @@ export default function SimpleTabs(props) {
       return obj;
     });
     if (response.totalCount > 0) {
-      setAddressNotAdded(false);
+      setWatchlistAddressNotAdded(false);
     }
     setWatchlist(response.watchlistContent);
   };
@@ -648,7 +650,7 @@ export default function SimpleTabs(props) {
     transactionLabels = JSON.parse(transactionLabels);
     if (!transactionLabels) transactionLabels = [];
     if (transactionLabels.length > 0) {
-      setWatchListNotAdded(false);
+      setTxnHashNotAdded(false);
     }
 
     if (request.searchValue) {
@@ -658,6 +660,8 @@ export default function SimpleTabs(props) {
           obj.trxLable.includes(request.searchValue)
         ) {
           return obj;
+        } else {
+          setDataNotFound(true);
         }
       });
     }
@@ -667,7 +671,7 @@ export default function SimpleTabs(props) {
       transactionLabels.splice(request.limit, transactionLabels.length);
     }
     transactionLabels.length && setDataNotFound(false);
-    transactionLabels.length && setAddressNotAdded(false);
+    transactionLabels.length && setWatchlistAddressNotAdded(false);
     setAddress(transactionLabels);
   };
 
@@ -685,7 +689,7 @@ export default function SimpleTabs(props) {
     taggedAddress = JSON.parse(taggedAddress);
     if (!taggedAddress) taggedAddress = [];
     if (taggedAddress.length > 0) {
-      setTxnAddressNotAdded(false);
+      setTagAddressNotAdded(false);
     }
 
     if (request.searchValue) {
@@ -694,7 +698,11 @@ export default function SimpleTabs(props) {
           obj.address.includes(request.searchValue) ||
           obj.tagName.includes(request.searchValue)
         ) {
+          console.log("obj",obj);
           return obj;
+         
+        } else {
+          setDataNotFound(true);
         }
       });
     }
@@ -1098,7 +1106,7 @@ export default function SimpleTabs(props) {
               onChange={handleChange}
               TabIndicatorProps={{
                 style: {
-                  backgroundColor: "#2149b9",
+                  backgroundColor: "transparent",
                 },
               }}
             >
@@ -1255,7 +1263,7 @@ export default function SimpleTabs(props) {
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv add-root">
-              {addressNotAdded || dataNotFound ? (
+              {watchlistAddressNotAdded || dataNotFound ? (
                 <div style={{ height: "512px" }}>
                   <Grid
                     className="tablegrid_no_data"
@@ -1706,7 +1714,7 @@ export default function SimpleTabs(props) {
 
           <TabPanel value={value} index={1}>
             <div className="griddiv">
-              {addressNotAdded || dataNotFound ? (
+              {txnHashNotAdded || dataNotFound ? (
                 <div style={{ height: "512px" }}>
                   <Grid
                     className="tablegrid_no_data"
@@ -2080,7 +2088,7 @@ export default function SimpleTabs(props) {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <div className="griddiv">
-              {txnAddressNotAdded || dataNotFound ? (
+              {tagAddressNotAdded || dataNotFound ? (
                 <div style={{ height: "512px" }}>
                   <Grid
                     className="tablegrid_no_data"

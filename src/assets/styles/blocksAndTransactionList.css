@@ -487,6 +487,7 @@
 @media (max-width: 767px) {
   .text {
     font-size: 12px;
+    padding-top: 0;
   }
   .textShowRecordBlock {
     font-size: 12px;
