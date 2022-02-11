@@ -771,7 +771,7 @@ export default function FormDialog(props) {
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid email ID");
       setLoading(false);
-    } else if (!password.match(regExPass)) {
+    } else if (!password.match(regExPass) || password.length>70) {
       setErrorPassword("Enter a valid password");
       setLoading(false);
     } else if (password !== confirmPassword) {
