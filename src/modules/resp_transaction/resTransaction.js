@@ -99,6 +99,7 @@ export default function Transaction({ _handleChange }) {
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
 
   const openDialogPvtTag = () => {
+    window.scrollTo(0, 0);
     setDialogPvtTagIsOpen(true);
     setDailogValue(1);
   };
@@ -107,6 +108,7 @@ export default function Transaction({ _handleChange }) {
     setDailogValue(0);
   };
   const openDialogPvtTag2 = () => {
+    window.scrollTo(0, 0);
     setDialogPvtTagIsOpen2(true);
     setDailogValue2(1);
   };
@@ -424,24 +426,11 @@ export default function Transaction({ _handleChange }) {
             <div className={isLoading == true ? "cover-spin" : ""}>
               <Container>
                 <Heading>Transaction Details</Heading>
-                {/* <p className="Failed-rectangle">Failed</p> */}
               </Container>
-
-              {/*
-                  <Div>
-                    <HashDiv>
-                      <Container>
-                        <Tooltip align="right" title={hashid}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-
-                        <Hash>Hash ID</Hash>
-                      </Container>
-                    </Spacing> */}
 
               <Div>
                 {transactions ? (
-                  transactions.status ? (
+                  transactions.status == true ? (
                     <StatusContainer>
                       <StatusContainerInside>
                         <StatusImgContainer>

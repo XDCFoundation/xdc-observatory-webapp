@@ -542,6 +542,7 @@ export default function AddressDetails(props) {
     setDailogValue(0);
   };
   const openDialogPvtTag = () => {
+    window.scrollTo(0, 0);
     setDialogPvtTagIsOpen(true);
     setDailogValue(1);
   };

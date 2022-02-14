@@ -224,6 +224,7 @@ export default function ManageCookiesDialog(props) {
             open={props.open}
             close={handleClose}
         >
+            <div>
             <div className={classes.headingContainer}>
                 <span className={classes.back} onClick={handleClose}>
                     <img src={"/images/backButton.svg"} alt="back"/>
@@ -291,6 +292,7 @@ export default function ManageCookiesDialog(props) {
                     <div className={classes.acceptAll+" cursor-pointer"} onClick={()=>saveMyPreferences(true)}>Accept all cookies</div>
                     <div className={classes.savePref + " cursor-pointer"} onClick={()=>saveMyPreferences(false)}>Save my preferences</div>
                 </div>
+            </div>
             </div>
         </Dialog>
     </div>;

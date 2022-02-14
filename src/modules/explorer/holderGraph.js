@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Utils from "../../utility";
 import TokenData from "../../services/token";
 import moment from "moment";
+import TokenDataComponent from "../token/tokenDataDashboard"
 
 const GraphSize = styled.div`
   height: 8.75rem;
@@ -170,7 +171,6 @@ export default function App() {
         <p>{lastDate}</p>
         <p>{firstDate}</p>
       </div>
-
       {/* </div> */}
     </div>
   );
