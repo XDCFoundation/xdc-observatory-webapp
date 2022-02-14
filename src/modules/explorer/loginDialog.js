@@ -946,11 +946,8 @@ export default function FormDialog(props) {
   // Google Recaptcha Handlers
   const [reCaptcha, setReCaptcha] = React.useState("");
   const [captchaError, setCaptchaError] = React.useState("");
-  console.log(captchaError, "ppp");
   const [captchaExpired, setCaptchaExpired] = React.useState(false);
-  console.log(typeof captchaExpired, captchaExpired, reCaptcha, "ololo");
   function handleReCaptcha(value) {
-    console.log(value, "////");
     setReCaptcha(value);
     setCaptchaExpired(false);
     setCaptchaError("");

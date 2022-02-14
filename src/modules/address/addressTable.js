@@ -284,7 +284,6 @@ export default function AddressTableComponent(props) {
   const sortData = async (sortKey) => {
     setArrowUpDown(false);
     let sortType = sortToggle[sortKey];
-    console.log(sortType,"opop")
     if (sortType === 1) {
       // setLoading(true)
       getAddressDetails({
