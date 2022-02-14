@@ -548,7 +548,7 @@ export default function StickyHeadTable() {
                       >
                         <Tooltip placement="top" title={row.from}>
                           <span className="tabledata table-data">
-                            {shorten(row.from)}
+                            {row.from > "xdc" ? shorten(row.from) : row.from}
                           </span>
                         </Tooltip>
                       </a>
@@ -558,9 +558,9 @@ export default function StickyHeadTable() {
                         style={{ color: "#2419b9", fontSize: 11 }}
                         href={"/address-details/" + row.to}
                       >
-                        <Tooltip placement="top" title={row.to}>
+                        <Tooltip placement="top" title= {row.to > "xdc" ? shorten(row.to) : shorten(row.contract)}>
                           <span className="tabledata table-data">
-                            {shorten(row.to)}
+                            {row.to > "xdc" ? shorten(row.to) : shorten(row.contract)}
                           </span>
                         </Tooltip>
                       </a>

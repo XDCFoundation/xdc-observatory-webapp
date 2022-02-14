@@ -90,6 +90,7 @@ export default function AddressTableComponent(props) {
   const [arrowUpDown, setArrowUpDown] = useState(false);
   const [ageArrow, setAgeArrow] = useState(false);
   const [blockArrow, setBlockArrow] = useState(false);
+  const [valueArrow, setValueArrow] = useState(false);
   let showPerPage = 10;
   let datas = {};
   let data = {};
@@ -278,6 +279,7 @@ export default function AddressTableComponent(props) {
     };
     // getFiltersForAccountTransaction({address: addr});
     getAddressDetails(datas);
+    sortData("value");
   }, []);
   const sortData = async (sortKey) => {
     setArrowUpDown(false);
@@ -376,29 +378,29 @@ export default function AddressTableComponent(props) {
       })
     );
   };
-  const handleKeyUp = (event) => {
-    let searchkeyword = event.target.value;
-    setPage(0);
-    if (searchkeyword.length > 2) {
-      setKeywords(searchkeyword);
-      datas = {
-        pageNum: 0,
-        perpage: rowsPerPage,
-        addrr: addr,
-        keywords: searchkeyword,
-      };
-      getTransactionSearch(datas);
-    }
-    if (searchkeyword.length == 0) {
-      setPage(0);
-      datas = {
-        pageNum: 0,
-        perpage: rowsPerPage,
-        addrr: addr,
-      };
-      getAddressDetails(datas);
-    }
-  };
+  // const handleKeyUp = (event) => {
+  //   let searchkeyword = event.target.value;
+  //   setPage(0);
+  //   if (searchkeyword.length > 2) {
+  //     setKeywords(searchkeyword);
+  //     datas = {
+  //       pageNum: 0,
+  //       perpage: rowsPerPage,
+  //       addrr: addr,
+  //       keywords: searchkeyword,
+  //     };
+  //     getTransactionSearch(datas);
+  //   }
+  //   if (searchkeyword.length == 0) {
+  //     setPage(0);
+  //     datas = {
+  //       pageNum: 0,
+  //       perpage: rowsPerPage,
+  //       addrr: addr,
+  //     };
+  //     getAddressDetails(datas);
+  //   }
+  // };
 
   const handleChanged = (event) => {
     const { name, checked } = event.target;
@@ -831,10 +833,11 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-value cursor-pointer"} onClick={() => {sortData("value");}}>Value</span>
+                    <span className={"tableheaders table-value cursor-pointer"} onClick={() => {sortData("value")
+                     setValueArrow(true)}}>Value</span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("value")}>
-                        {sortingKey && sortingKey === "value"  ? (sortToggle.value == -1 ? (
+                        {valueArrow && sortingKey && sortingKey === "value"  ? (sortToggle.value == -1 ? (
                           // <ArrowUpwardIcon
                           //   onClick={() => {
                           //     sortData("value");
