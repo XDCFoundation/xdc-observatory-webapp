@@ -6,7 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
 import CommonTransactionsTable from "../common/table";
-import Utility from '../../utility'
+import Utility from "../../utility";
 import LatestBlockView from "./latestBlockView";
 import LatestTransactionView from "./LatestTransactionView";
 // function timeDiff(curr, prev) {
@@ -189,7 +189,13 @@ class LatestBlocks extends Component {
       TransactionService.getLatestTransaction(urlPath, {})
     );
     if (error) return;
-    if (!latestTransactions || latestTransactions.length === 0 || latestTransactions === undefined || latestTransactions === "" || latestTransactions === null) {
+    if (
+      !latestTransactions ||
+      latestTransactions.length === 0 ||
+      latestTransactions === undefined ||
+      latestTransactions === "" ||
+      latestTransactions === null
+    ) {
       this.setState({ isLoading: false });
     }
 
@@ -201,16 +207,20 @@ class LatestBlocks extends Component {
         let [error, latestTransactions] = await Utils.parseResponse(
           TransactionService.getLatestTransaction(urlPath, {})
         );
-        if (!latestTransactions || latestTransactions.length === 0 || latestTransactions === undefined || latestTransactions === "" || latestTransactions === null) {
+        if (
+          !latestTransactions ||
+          latestTransactions.length === 0 ||
+          latestTransactions === undefined ||
+          latestTransactions === "" ||
+          latestTransactions === null
+        ) {
           this.setState({ isLoading: false });
         }
         if (error || !latestTransactions) return;
         this.setState({ isLoading: false });
         this.setState({ latestTransactionData: latestTransactions });
-
       }
     }, 90000);
-
   }
   shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
