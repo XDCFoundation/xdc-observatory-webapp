@@ -507,7 +507,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  const { onOpen, onClose } = props;
+  const { onClose } = props;
   const [open, setOpen] = React.useState(false);
   // const [value, setValue] = React.useState(0);
   const [value, setValue] = React.useState(0);
@@ -637,6 +637,10 @@ export default function FormDialog(props) {
   };
   const acceptSetupNewAccount = () => {
     setValue(1);
+    setUserName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
     setErrorEmail("");
     setErrorPassword("");
     setErrorEmptyField("");
@@ -848,14 +852,12 @@ export default function FormDialog(props) {
 
   const handleClickOpenSignin = () => {
     setValue(0);
-
     setUserName("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
     setTermsCheckbox(false);
     setCaptchaCheckbox(false);
-
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
@@ -1031,7 +1033,7 @@ export default function FormDialog(props) {
               : classes.paperWidthSm,
         }}
         className={classes.dialog}
-        open={open || onOpen}
+        open={open}
         // onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >

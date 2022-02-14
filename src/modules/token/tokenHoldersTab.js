@@ -58,7 +58,7 @@ const LeftPagination = styled.div`
 const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(odd)": {
-      backgroundColor: "f9f9f9",
+      backgroundColor: theme.palette.action.hover,
     },
   },
 }))(TableRow);
@@ -484,7 +484,7 @@ export default function StickyHeadTable(props) {
                       ? splittedArray[1]
                       : 0;
                   return (
-                    <StyledTableRow hover role="checkbox" tabIndex={-1}>
+                    <StyledTableRow role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
                         <span className="tabledata table-data">
                           {row[0]?.Rank}
