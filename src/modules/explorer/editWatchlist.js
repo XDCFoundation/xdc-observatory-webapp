@@ -197,7 +197,7 @@ function EditWatchList(props) {
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [error, setError] = React.useState("");
-
+  const [value, setValue] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -208,10 +208,12 @@ function EditWatchList(props) {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
     setId(props.row._id);
+    setValue(props?.row?.notification?.type)
   }, [props]);
 
   const classes = useStyles();
 
+  console.log("props",props)
   const handleClickOpen = () => {
     window.scrollTo(0, 0);
     setOpen(true);
@@ -220,7 +222,6 @@ function EditWatchList(props) {
   const handleClose = async () => {
     setOpen(false);
   };
-  const [value, setValue] = React.useState(props.row?.notification?.type);
 
   const handleChange = (event) => {
     setValue(event.target.value);

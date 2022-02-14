@@ -317,6 +317,7 @@ export default function TransactionTableComponent(props) {
   `;
 
   //tooltip states
+  const [downloadCsvTT, setDownloadCsvTT] = React.useState(false);
   const [hashTT, setHashTT] = React.useState(false);
   const [ageTT, setageTT] = React.useState(false);
   const [blockTT, setblockTT] = React.useState(false);
@@ -355,14 +356,25 @@ export default function TransactionTableComponent(props) {
               </div>
             ) : (
               <div className="csv-inactive">
-                <img src={"/images/rectangle-copy.svg"} />{" "}
-                <CSVLink
-                  className="InactiveDownload"
-                  filename={"transactions.csv"}
-                  data={downloadaddress}
-                >
-                  Download CSV
-                </CSVLink>
+                <Tooltip
+                        open={downloadCsvTT}
+                        onOpen={() => setDownloadCsvTT(true)}
+                        onClose={() => setDownloadCsvTT(false)}
+                        placement="top"
+                        title={messages.DOWNLOAD_CSV}
+                      >
+                        <div onClick={() => setDownloadCsvTT(!downloadCsvTT)}>
+                          <img src={"/images/rectangle-copy.svg"} />{" "}
+                          <CSVLink
+                            className="InactiveDownload"
+                            filename={"transactions.csv"}
+                            data={downloadaddress}
+                          >
+                          Download CSV
+                          </CSVLink>
+                        </div>
+                      </Tooltip>
+                
               </div>
             )}
           </div>

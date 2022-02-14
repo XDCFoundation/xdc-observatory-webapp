@@ -194,6 +194,9 @@ function EditTaggedAddress(props) {
     } else if (!input) {
       setErrorTag("Tag name couldn't be blank");
       return;
+    }  else if (input.length > 15) {
+      setErrorTag("Nametag cannot be longer than 15 characters");
+      return;
     }  else {
       let taggedAddress = localStorage.getItem(
           sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS

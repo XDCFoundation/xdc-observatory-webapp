@@ -507,7 +507,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  const { onOpen, onClose } = props;
+  const { onClose } = props;
   const [open, setOpen] = React.useState(false);
   // const [value, setValue] = React.useState(0);
   const [value, setValue] = React.useState(0);
@@ -637,6 +637,13 @@ export default function FormDialog(props) {
   };
   const acceptSetupNewAccount = () => {
     setValue(1);
+    setUserName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setErrorEmail("");
+    setErrorPassword("");
+    setErrorEmptyField("");
   };
   const login = async () => {
     const reqObj = {
@@ -776,7 +783,7 @@ export default function FormDialog(props) {
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid email ID");
       setLoading(false);
-    } else if (!password.match(regExPass)) {
+    } else if (!password.match(regExPass) || password.length > 70) {
       setErrorPassword("Enter a valid password");
       setLoading(false);
     } else if (password.length > 70) {
@@ -853,14 +860,12 @@ export default function FormDialog(props) {
 
   const handleClickOpenSignin = () => {
     setValue(0);
-
     setUserName("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
     setTermsCheckbox(false);
     setCaptchaCheckbox(false);
-
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
@@ -1046,7 +1051,7 @@ export default function FormDialog(props) {
               : classes.paperWidthSm,
         }}
         className={classes.dialog}
-        open={open || onOpen}
+        open={open}
         // onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >

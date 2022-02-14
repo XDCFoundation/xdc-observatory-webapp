@@ -721,7 +721,7 @@ class BlockChainDataComponent extends Component {
                   <TitleData
                     className={TxanimationClass ? TxanimationClass : ""}
                   >
-                    {this.state.gasPrice}
+                    {this.state.gasPrice > 0 ? this.state.gasPrice: ""}
                   </TitleData>
                 </ValueName>
               </Value>

@@ -2307,15 +2307,15 @@ p {
 }
 
 .p-pagination {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   margin-top: 8px !important;
 }
 @media (max-width: 767px) {
   .p-pagination {
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
-    margin-top: 6px;
+    margin-top: 6px !important;
     margin: 0 0 0rem;
   }
 }
@@ -2361,9 +2361,9 @@ p {
 } */
 
 .firstbox {
-  height: 27px;
+  height: 35px;
   margin: 39px 6px 46px 68px;
-  padding: 2px;
+  padding: 4px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -2397,7 +2397,7 @@ p {
 }
 .previousbox {
   width: 35px;
-  height: 27px;
+  height: 35px;
   margin: 39px 6px 46px;
   padding: 12px;
   border-radius: 4px;
@@ -2420,7 +2420,7 @@ p {
 .path {
   color: #2a2a2a;
   font-size: 10px;
-  margin-top: -8px;
+  margin-top: -3px;
   font-weight: 600;
 }
 @media (max-width: 1240px) {
@@ -2435,10 +2435,10 @@ p {
 .path-2 {
   display: flex;
   justify-content: center;
-  width: 6px;
-  height: 11px;
+  /* width: 6px;
+  height: 11px; */
   flex-grow: 0;
-  margin-top: -8px;
+  margin-top: 0px;
 }
 
 .Last {
@@ -2458,7 +2458,7 @@ p {
 
 .pagebox {
   width: 100%;
-  height: 27px;
+  height: 35px;
   margin: 39px 6px 46px;
   padding: 6px 8px;
   border-radius: 4px;
@@ -2470,7 +2470,7 @@ p {
   .pagebox {
     width: auto;
     height: 2.125rem;
-    padding: 10px 8px;
+    padding: 6px 8px;
     border-radius: 4px;
     margin: 0px;
     border: solid 1px #e5e8f0;
@@ -2480,19 +2480,15 @@ p {
 
 .Page-1-of-5 {
   font-family: Inter;
-  font-size: 10px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: bold;
-  line-height: normal;
-
+  font-size: 14px;
+  font-weight: bold;
   text-align: center;
   color: #2a2a2a;
 }
 
 .nextbox {
   width: 35px;
-  height: 27px;
+  height: 35px;
   margin: 39px 6px 46px;
   padding: 12px;
   border-radius: 4px;
@@ -2513,10 +2509,10 @@ p {
 }
 
 .lastbox {
-  width: 50px;
-  height: 27px;
+  width: 60px;
+  height: 35px;
   margin: 39px 0px 46px 6px;
-  padding: 2px;
+  padding: 4px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -2617,7 +2613,7 @@ p {
 .path-2 {
   color: #2a2a2a;
   font-size: 10px;
-  margin-top: -8px;
+  margin-top: -3px;
   font-weight: 600;
 }
 @media (max-width: 1240px) {
@@ -2671,15 +2667,12 @@ p {
   font-family: Inter;
   font-size: 0.875rem;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: bold;
-  line-height: normal;
 
   text-align: center;
   color: #2a2a2a;
 }
 
-.Page-1-of-5 {
+/* .Page-1-of-5 {
   font-family: Inter;
   font-size: 10px;
   font-weight: 600;
@@ -2689,7 +2682,7 @@ p {
 
   text-align: center;
   color: #2a2a2a;
-}
+} */
 
 .last-contract {
   font-size: 0.875rem;
@@ -2716,14 +2709,14 @@ p {
 }
 
 .last {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 600;
 
   color: #2a2a2a;
 }
 
 .first {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 600;
 
   color: #2a2a2a;
@@ -7786,10 +7779,11 @@ button {
   font-weight: 500 !important;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .sec-row-table {
     display: flex;
     word-break: break-all;
+    margin-right: 15px;
   }
 }
 
@@ -10806,6 +10800,7 @@ button {
     color: #2149b9;
     height: 1rem;
     width: 1rem;
+    margin-top: -4px !important;
   }
 }
 .inputIconCntr {
