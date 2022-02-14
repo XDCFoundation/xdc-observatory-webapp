@@ -92,7 +92,9 @@ export default class LatestAccountsList extends BaseComponent {
 
     _handleChange = async (event) => {
         await this.setState({ amount: event.target.value })
-        this.getListOfAccounts()
+        this.getListOfAccounts(this.state.sortKey, this.state.sortOrder)
+        // console.log("this.state.sortKey",this.state.sortKey);
+        // console.log("this.state.sortType",this.state.sortOrder);
     }
     _FirstPage = async (event) => {
         await this.setState({ from: 0 })
@@ -151,7 +153,8 @@ export default class LatestAccountsList extends BaseComponent {
         this.getListOfAccounts([_sortKey], sortOrder);
     }
     getSortTitle = (sortKey) => {
-        if (this.state[sortKey] === 1)
+        // console.log("sort_key1",sortKey)
+        if (sortKey === 1)
             return "Ascending"
         else
             return "Descending"
