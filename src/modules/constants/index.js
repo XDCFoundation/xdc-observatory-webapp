@@ -73,8 +73,8 @@ export const genericConstants = {
     PASSWORD_UPDATE_SUCCESS: "Your Password has been updated successfully",
     RESET_PASSWORD_MAIL_SENT: "A reset password mail is sent successfully",
     PASSWORD_UPDATE_FAILED: "Failed to update your password",
-    RECAPTCHA_ERROR: "Before you proceed, please complete the captcha"
-
+    RECAPTCHA_ERROR: "Before you proceed, please complete the captcha",
+    USERNAME_CHARACTER_LIMIT: "Username characters should be more than 5"
 }
 
 export const statusConstants = {
