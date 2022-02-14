@@ -751,6 +751,11 @@ export default function FormDialog(props) {
       setLoading(false);
       return;
     }
+    if (userName.length < 5) {
+      setErrorUserName(genericConstants.USERNAME_CHARACTER_LIMIT);
+      setLoading(false);
+      return;
+    }
     if (!email) {
       setErrorEmail(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
@@ -771,8 +776,11 @@ export default function FormDialog(props) {
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid email ID");
       setLoading(false);
-    } else if (!password.match(regExPass) || password.length>70) {
+    } else if (!password.match(regExPass)) {
       setErrorPassword("Enter a valid password");
+      setLoading(false);
+    } else if (password.length > 70) {
+      setErrorPassword("Password length can not be more than 70");
       setLoading(false);
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
@@ -784,7 +792,7 @@ export default function FormDialog(props) {
       setErrorPrivacyPolicy("Please agree to our Privacy Policy");
       setLoading(false);
     } else {
-      if (reCaptcha === "") {
+      if (reCaptcha === "" || captchaExpired === true) {
         setCaptchaError(genericConstants.RECAPTCHA_ERROR);
         setLoading(false);
         return;
@@ -938,9 +946,20 @@ export default function FormDialog(props) {
   // Google Recaptcha Handlers
   const [reCaptcha, setReCaptcha] = React.useState("");
   const [captchaError, setCaptchaError] = React.useState("");
-
+  console.log(captchaError, "ppp");
+  const [captchaExpired, setCaptchaExpired] = React.useState(false);
+  console.log(typeof captchaExpired, captchaExpired, reCaptcha, "ololo");
   function handleReCaptcha(value) {
+    console.log(value, "////");
     setReCaptcha(value);
+    setCaptchaExpired(false);
+    setCaptchaError("");
+  }
+  function expiredRecaptcha(e) {
+    setCaptchaExpired(true);
+    setLoading(false);
+    setErrorEmptyField("");
+    setReCaptcha("");
   }
 
   const Ref = useRef(null);
@@ -993,7 +1012,7 @@ export default function FormDialog(props) {
   var randomText = btoa(Math.random().toString()).substr(10, 10).toLowerCase();
   let userProfilePicture = sessionManager.getDataFromCookies(
     cookiesConstants.USER_PICTURE
-  ) 
+  );
   //------------------------------------------------------------------------------------------------------------------------------------->
 
   return (
@@ -1007,8 +1026,10 @@ export default function FormDialog(props) {
           <Avatar
             className="profile"
             onClick={handleClickOpen}
-            src={userProfilePicture === "null" ? 
-              "/images/Profile.svg" : userProfilePicture
+            src={
+              userProfilePicture === "null"
+                ? "/images/Profile.svg"
+                : userProfilePicture
             }
             alt={"image"}
           />
@@ -1381,8 +1402,12 @@ export default function FormDialog(props) {
             <div className={classes.iAmNotRobotSignup}>
               <ReCAPTCHA
                 // sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                ref={recaptchaRef}
                 sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
                 onChange={handleReCaptcha}
+                onExpired={(e) => {
+                  expiredRecaptcha();
+                }}
               />
               <div className={classes.error2}>{captchaError}</div>
             </div>
