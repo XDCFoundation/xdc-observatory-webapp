@@ -5,16 +5,20 @@ import moment from "moment";
 import { TransactionService } from "../../services";
 import Utils from "../../utility";
 import styled from "styled-components";
+import coinMarketService from "../../services/coinMarket";
 
 const toolTipElement = (props) => {
+  let activeCurrency = window.localStorage.getItem("currency");
+  let currencySymbol = activeCurrency === "INR" ? "INR" : activeCurrency === "USD" ? "USD" : "EUR"
   return (
     <div>
       <div className="Tooltip-graph">
         <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
         <p className="Tooltip-graph-tx">
-          Avg Transaction Fee(USD): {props.point?.data?.y}
+          Avg Transaction Fee({currencySymbol}): {(props.point?.data?.y).toFixed(8)}
         </p>
       </div>
+      {/* {console.log("props", props)} */}
       <div class="outer-oval-trans">
         <div class="Oval"></div>
       </div>
@@ -75,10 +79,14 @@ const GraphSize = styled.div`
 
 export default function App() {
   const [data, setData] = useState([]);
-
+  const [coinmarketcap, setCoinmarketcap] = useState("");
   const [graphTransactions, setGraphTransactions] = useState([]);
 
+  let CurrencyValue = window.localStorage.getItem("currency");
   useEffect(async () => {
+    console.log("In useEffect")
+    let coinmarketCapValue = await getcoinMarketCapData()
+
     let [error, transactionGraph] = await Utils.parseResponse(
       TransactionService.getSomeDaysTransaction()
     );
@@ -105,17 +113,31 @@ export default function App() {
     var resultData = [];
 
     transactionGraph.map((items) => {
+      let covertedFee = (Utils.decimalDivisonOnly(items?.avgGasPrice, 8) * coinmarketCapValue[coinmarketCapValue.length-1].price)
+      let covertedfeeFixed = covertedFee.toFixed(8)
       resultData.push({
         x: items.day,
-        y: Utils.decimalDivisonOnly(items?.avgGasPrice, 8),
+        y: parseFloat(covertedfeeFixed),
+        // z: coinmarketCapValue[coinmarketCapValue.length-1].price,
       });
     });
 
     let graphdata = resultData;
+    // console.log("graph data",graphdata)
     graphdata.reverse();
     arr[0].data = resultData;
     setData(arr);
   }, []);
+  const getcoinMarketCapData = async () => {
+    let urlPath = `${CurrencyValue}`;
+    let [error, coinMarket] = await Utils.parseResponse(
+      coinMarketService.getCoinMarketData(urlPath, {})
+    );
+    if (error || !coinMarket) return;
+    setCoinmarketcap(coinMarket[0])
+    return coinMarket;
+  };
+  // {console.log("coinmarketcap",coinmarketcap)}
   let length = graphTransactions ? graphTransactions?.length : "";
 
   const firstDate =
