@@ -486,7 +486,7 @@ const LoginMobile = styled.div`
   }
 `;
 const Tag = styled.div`
-  min-width: 95px;
+  min-width: 70px;
   height: 28px;
   border-radius: 4px;
   border: solid 1px #d2deff;
@@ -500,9 +500,10 @@ const Tag = styled.div`
   padding: 4px;
   color: #4878ff;
   margin-left: 10px;
+  white-space: nowrap;
   @media (max-width: 767px) {
     margin-top: 10px;
-    min-width: 95px;
+    min-width: 70px;
     width: fit-content;
   }
   @media (min-width: 768px) and (max-width: 1240px) {

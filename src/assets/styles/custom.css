@@ -4172,6 +4172,13 @@ body {
   border: none;
   padding: 0 20px;
 }
+.container-table-holder-mob {
+  border-radius: 12px;
+  width: 95%;
+  background: #fff;
+  border: none;
+  padding: 0 20px;
+}
 
 #container-table table {
   /* height: 120px;
@@ -4236,6 +4243,11 @@ body {
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
     padding: 17px 0px 15px 20px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  #container-table-holder-mob th {
+    padding: 17px 0px 15px 0px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -10101,6 +10113,12 @@ button {
   }
   .boxfirst {
     margin-left: 0% !important;
+  }
+  .first-row-table_address-mob {
+    font-family: Inter !important;
+    font-size: 0.938rem !important;
+    font-weight: 600 !important;
+    padding-left: 0px !important;
   }
 }
 

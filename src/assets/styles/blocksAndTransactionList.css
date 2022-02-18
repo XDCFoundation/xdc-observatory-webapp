@@ -897,6 +897,9 @@
   .container-table {
     overflow: auto;
   }
+  .container-table-holder-mob {
+    overflow: auto;
+  }
   .Pagination_1 {
     width: 185px;
     display: flex;
