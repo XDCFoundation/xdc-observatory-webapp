@@ -31,12 +31,13 @@ const PageSelector = ({ value, handler, height = 35 }) => {
     // </PageSelect>
     <select
     value={value}
-    className="select-amount"
+    className="select-amount cursor-pointer"
     onChange={(event) => handler(event)}
   >
     <option value={10}>10</option>
     <option value={25}>25</option>
     <option value={50}>50</option>
+    <option value={75}>75</option>
     <option value={100}>100</option>
   </select>
   );
