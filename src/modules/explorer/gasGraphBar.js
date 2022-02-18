@@ -27,7 +27,7 @@ const toolTipElement = (props) => {
 };
 const MyResponsiveLine = ({ data }) => (
   <ResponsiveLine
-    margin={{ left: 60, bottom: 5, top: 5 }}
+    margin={{ left: 80, bottom: 5, top: 5 }}
     data={data}
     tooltip={toolTipElement}
     // colors={{ scheme: "category10" }}
@@ -50,6 +50,9 @@ const MyResponsiveLine = ({ data }) => (
       tickPadding: 5,
 
       tickValues: 3,
+      format: value =>
+              `${Number(value).toFixed(8)
+              }`
     }}
     enableGridX={false}
     enableGridY={false}
@@ -84,7 +87,7 @@ export default function App() {
 
   let CurrencyValue = window.localStorage.getItem("currency");
   useEffect(async () => {
-    console.log("In useEffect")
+    // console.log("In useEffect")
     let coinmarketCapValue = await getcoinMarketCapData()
 
     let [error, transactionGraph] = await Utils.parseResponse(
@@ -114,11 +117,9 @@ export default function App() {
 
     transactionGraph.map((items) => {
       let covertedFee = (Utils.decimalDivisonOnly(items?.avgGasPrice, 8) * coinmarketCapValue[coinmarketCapValue.length-1].price)
-      let covertedfeeFixed = covertedFee.toFixed(8)
       resultData.push({
         x: items.day,
-        y: parseFloat(covertedfeeFixed),
-        // z: coinmarketCapValue[coinmarketCapValue.length-1].price,
+        y: parseFloat(covertedFee),
       });
     });
 
@@ -151,6 +152,7 @@ export default function App() {
   return (
     <GraphSize>
       <MyResponsiveLine data={data} />
+      {/* {console.log("data",data)} */}
       <div className="dates">
         <p>{firstDate}</p>
         <p>{lastDate}</p>

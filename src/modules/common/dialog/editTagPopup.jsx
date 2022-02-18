@@ -168,6 +168,7 @@ function EditTaggedAddress(props) {
   useEffect(() => {
     if (props?.address) setPrivateAddress(props.address);
     setTags(props?.tag);
+    setInput(props?.tag);
     setId(props?.id);
   }, [props]);
 
@@ -191,8 +192,11 @@ function EditTaggedAddress(props) {
         "Please add address that is having 43 characters and initiates with xdc "
       );
       return;
-    } else if (tags.length === 0) {
-      setErrorTag("Press comma(,) to add tag");
+    } else if (!input) {
+      setErrorTag("Tag name couldn't be blank");
+      return;
+    }  else if (input.length > 15) {
+      setErrorTag("Nametag cannot be longer than 15 characters");
       return;
     } else {
       const [error, response] = await utility.parseResponse(
@@ -274,6 +278,7 @@ function EditTaggedAddress(props) {
     setErrorTag("");
     const { value } = e.target;
     setInput(value);
+    setTags(value);
   };
 
   const onKeyDown = (e) => {
@@ -376,7 +381,8 @@ function EditTaggedAddress(props) {
             <input
               value={tags}
               placeholder="Enter a tag"
-              onChange={(e) => setTags(e.target.value)}
+              // onChange={(e) => setTags(e.target.value)}
+              onChange={onChange}
             />
           </div>
           {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}

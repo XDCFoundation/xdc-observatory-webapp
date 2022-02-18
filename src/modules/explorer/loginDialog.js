@@ -905,17 +905,19 @@ export default function FormDialog(props) {
       );
       setLoading(false);
       if (error || !authResponse) {
-        setEmailError("Please enter a valid email address");
+        setErrorEmail("Please enter a valid email address");
         setReCaptcha("");
         recaptchaRef.current.reset();
-        Utility.apiFailureToast("Wrong email");
+        // Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
+        setErrorEmail("");
+        setReCaptcha("");
         setValue(2);
         setCaptchaCheckbox(false);
-        Utility.apiSuccessToast(
-          "We have just sent you an email to reset your password."
-        );
+        // Utility.apiSuccessToast(
+        //   "We have just sent you an email to reset your password."
+        // );
         // window.location.href = "/";
       }
     }
@@ -1570,8 +1572,8 @@ export default function FormDialog(props) {
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  setEmailError("");
-                  setInputError(" ");
+                  setErrorEmail("");
+                  setInputError("");
                 }}
               />
               <div className={classes.error}>{errorEmail}</div>
