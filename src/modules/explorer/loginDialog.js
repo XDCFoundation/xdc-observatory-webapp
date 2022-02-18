@@ -758,11 +758,6 @@ export default function FormDialog(props) {
       setLoading(false);
       return;
     }
-    if (userName.length < 5) {
-      setErrorUserName(genericConstants.USERNAME_CHARACTER_LIMIT);
-      setLoading(false);
-      return;
-    }
     if (!email) {
       setErrorEmail(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
@@ -777,6 +772,9 @@ export default function FormDialog(props) {
       setErrorConfirmPassword(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
       return;
+    } else if (userName.length < 5 || userName.length > 30) {
+      setErrorUserName(genericConstants.USERNAME_CHARACTER_LIMIT_5_30);
+      setLoading(false);
     } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid username");
       setLoading(false);
