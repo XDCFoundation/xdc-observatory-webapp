@@ -7,9 +7,11 @@ import TokenSearchComponent from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import { toolTipMessages } from "../../constants";
 import socketClient from "socket.io-client";
+import { withRouter } from "react-router";
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
 });
+
 export default class LatestTransactionList extends BaseComponent {
   constructor(props) {
     super(props);
@@ -23,6 +25,7 @@ export default class LatestTransactionList extends BaseComponent {
       hashAnimation: {},
       isLoading: true,
       isData: false,
+      pageParam:this.props?.match?.params?.pageNo,
       tableColumns: {
         // "Transaction Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
         Amount: { isActive: true, toolTipText: toolTipMessages.value },
@@ -69,6 +72,22 @@ export default class LatestTransactionList extends BaseComponent {
       isData: listOfTransactions.length > 0,
     });
   }
+
+  // async increment() {
+  //   setLoading(true);
+  //   let updatedCount = Number(count) + 1;
+  //   setcount(updatedCount);
+  //   window.history.pushState("", "", `//${updatedCount}`);
+  //   getLatestaccount(updatedCount);
+  // }
+
+  // async decrement() {
+  //   setLoading(true);
+  //   let updatedCount = Number(count) - 1;
+  //   setcount(updatedCount);
+  //   window.history.pushState("", "", `/block-details/${updatedCount}`);
+  //   getLatestaccount(updatedCount);
+  // }
 
   async getTotalTransaction() {
     let [error, total] = await Utils.parseResponse(
@@ -169,6 +188,7 @@ export default class LatestTransactionList extends BaseComponent {
   };
 
   render() {
+    console.log(this.state.pageParam,"opopo")
     return (
       <div>
         <TransactionComponent
