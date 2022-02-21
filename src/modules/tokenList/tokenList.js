@@ -164,6 +164,7 @@ export default function StickyHeadTable(props) {
       setFrom(0);
       data.skip = 0;
       data.limit = amount;
+      sortKey= {[sortKey]: sortOrder};
     }
     if (action === "prev") {
       if (from - amount >= 0) {

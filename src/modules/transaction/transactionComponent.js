@@ -20,7 +20,7 @@ import TransactionDetailTooltip from "../common/transactionDetailTooltip";
 import format from "format-number";
 import utility from "../../utility";
 import PageSelector from "../common/pageSelector";
-
+import { useParams } from "react-router";
 
 
 const useStyles = makeStyles({
@@ -95,6 +95,9 @@ export default function TransactionComponent(props) {
   `;
 
   const tableColumns = { "Transaction Hash": { isActive: true } };
+  const { blockNumber } = useParams();
+
+  
   return (
     <div className="responsive-table-width-transactions-list contact-list-tab ">
       <div className="display-flex justify-content-between p-t-30 p-b-15">
