@@ -74,11 +74,13 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "env-cmd .env.production react-scripts start",
-    "start-development": "env-cmd .env.development react-scripts start",
-    "start-production": "env-cmd .env.production react-scripts start",
-    "development": "PORT=80 env-cmd .env.development npm run build",
-    "production": "env-cmd .env.production react-scripts build",
+    "start": "env-cmd .env.mainnetprod react-scripts start",
+    "start-mainnetprod": "env-cmd .env.mainnetprod react-scripts start",
+    "start-mainnetdev": "env-cmd .env.mainnetdev react-scripts start",
+    "start-apothem": "env-cmd .env.apothem react-scripts start",
+    "build-mainnetprod": "env-cmd .env.mainnetprod react-scripts build",
+    "build-mainnetdev": "env-cmd .env.mainnetdev react-scripts build",
+    "build-apothem": "env-cmd .env.apothem react-scripts build",
     "test": "PORT=80 env-cmd .env.test npm run build",
     "build": " env-cmd .env react-scripts build",
     "eject": "react-scripts eject"

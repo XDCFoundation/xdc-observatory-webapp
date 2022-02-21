@@ -163,7 +163,7 @@ export default function TermsCondition() {
           <Subheading>Information Published on the Website</Subheading>
           <Para1>
             This website at{" "}
-            <a href="" style={{ color: "#2149b9" }}>
+            <a href="/" style={{ color: "#2149b9" }}>
               https://observer.xdc.org/{" "}
             </a>
             (hereinafter referred to as the “Website”) is published and
@@ -185,7 +185,7 @@ export default function TermsCondition() {
               established a privacy policy which describes the use of your data
               within the Website and explains certain rights you may have as a
               user. You can access the privacy policy at{" "}
-              <a href="" style={{ color: "#2149b9" }}>
+              <a href="/privacy-policy" style={{ color: "#2149b9" }}>
                 https://observer.xdc.org/privacy-policy{" "}
               </a>
             </Para>

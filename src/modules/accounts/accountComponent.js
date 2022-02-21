@@ -198,7 +198,9 @@ export default function AccountComponent(props) {
           </div>
         </div>
         <SearchAndFiltersComponent searchAndFilters={props.state.searchAndFilters}
-          updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts} />
+          updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts} 
+          getListOfAccounts={props.getListOfAccounts}
+          />
         <Paper style={{ borderRadius: "0.875rem" }} elevation={0}>
           <TableContainer className={classes.container} id="container-table">
             <Table>
@@ -251,7 +253,7 @@ export default function AccountComponent(props) {
                     </span>
                     <Tooltip
                       placement="top"
-                      title={props.getSortTitle("address")}
+                      title={props.getSortTitle(props?.state?.sortOrder)}
                     >{
                         props?.state?.sortKey == "address" ?
                           (props?.state?.sortOrder === 1 ? <img
@@ -325,7 +327,7 @@ export default function AccountComponent(props) {
                       </span>
                       <Tooltip
                         placement="top"
-                        title={props.getSortTitle("balance")}
+                        title={props.getSortTitle(props?.state?.sortOrder)}
                       >{
                           props?.state?.sortKey == "balance" ?
                             (props?.state?.sortOrder === 1 ? <img
@@ -373,7 +375,7 @@ export default function AccountComponent(props) {
                       </span>
                       <Tooltip
                         placement="top"
-                        title={props.getSortTitle("percentage")}
+                        title={props.getSortTitle(props?.state?.sortOrder)}
                       >
                         {
                           props?.state?.sortKey == "percentage" ?

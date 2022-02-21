@@ -353,13 +353,13 @@ const SocialMediaIcon = styled.img`
 export default function TokenDataComponent() {
   const classes = useStyles();
   // let changePrice = 5.21;
-  let changeHolders = 0;
   // let tokenName = 'XDC'
   // let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({});
   const [isLoading, setLoading] = useState(false);
   const [contractData, setContractData] = useState("");
+  const [holderCount14Days, setHolderCount14Days] = useState("");
   const { address } = useParams();
   const { tn } = useParams();
 
@@ -393,6 +393,7 @@ export default function TokenDataComponent() {
     let value = { addr: address };
     transferDetail(value);
     getContractDetails(value);
+    holderCount();
     // CoinMarketExchangeForToken(tn);
   }, []);
   const [transfer, settransfer] = useState([]);
@@ -413,6 +414,14 @@ export default function TokenDataComponent() {
     if (error || !tns) return;
     setHolders(tns);
   };
+  const holderCount = async () =>{
+    let urlPath = `${address}`;
+    const [error, resHolderCount14Days] = await Utility.parseResponse(
+      TokenData.getSomeDaysHolders(urlPath, {})
+    );
+    if (error || !resHolderCount14Days) return;
+    setHolderCount14Days(resHolderCount14Days);
+  }
   const getContractDetails = async () => {
     setLoading(true);
     let urlPath = `${address}`;
@@ -452,7 +461,9 @@ export default function TokenDataComponent() {
     }
   }
   let numberStatus = Math.sign(tokenChanges24hr);
-  
+  let changeHolders = holderCount14Days ? holderCount14Days[holderCount14Days.length-1]?.count : 0;
+  let changeHoldersCount = holderCount14Days ? holderCount14Days[holderCount14Days.length-1]?.count : "";
+
   return (
     <>
       <div style={{ backgroundColor: "#fff" }}>
@@ -493,7 +504,7 @@ export default function TokenDataComponent() {
                             }
                           >
                             <div className="value_p">
-                              {changeHolders >= 0 ? (
+                              {changeHolders === 0 ? ("") :(changeHolders > 0 ? (
                                 <div className="arrow_up_token">
                                   <BsFillCaretUpFill size={10} />
                                 </div>
@@ -501,8 +512,8 @@ export default function TokenDataComponent() {
                                 <div className="arrow_down">
                                   <BsFillCaretDownFill size={10} />
                                 </div>
-                              )}
-                              {changeHolders}
+                              ))}
+                              {changeHoldersCount}
                             </div>
                           </div>
                         </div>

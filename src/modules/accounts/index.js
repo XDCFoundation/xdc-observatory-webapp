@@ -48,7 +48,6 @@ export default class LatestAccountsList extends BaseComponent {
     }
 
     async getListOfAccounts(sortKey, sortType) {
-
         const skip = this.state.from || 0;
         const limit = this.state.amount || 10;
         sortKey = sortKey || "balance";
@@ -58,7 +57,7 @@ export default class LatestAccountsList extends BaseComponent {
             requestData.searchValue = this.state.searchAndFilters.searchQuery
             requestData.searchKeys = ["address"]
         }
-        if (this.state.searchAndFilters.type)
+        if (this.state.searchAndFilters.type && this.state.searchAndFilters.type != "-1")
             requestData.accountType = this.state.searchAndFilters.type
         if (this.state.searchAndFilters.percentage)
             requestData.percentage = this.state.searchAndFilters.percentage
@@ -93,7 +92,9 @@ export default class LatestAccountsList extends BaseComponent {
 
     _handleChange = async (event) => {
         await this.setState({ amount: event.target.value })
-        this.getListOfAccounts()
+        this.getListOfAccounts(this.state.sortKey, this.state.sortOrder)
+        // console.log("this.state.sortKey",this.state.sortKey);
+        // console.log("this.state.sortType",this.state.sortOrder);
     }
     _FirstPage = async (event) => {
         await this.setState({ from: 0 })
@@ -152,7 +153,8 @@ export default class LatestAccountsList extends BaseComponent {
         this.getListOfAccounts([_sortKey], sortOrder);
     }
     getSortTitle = (sortKey) => {
-        if (this.state[sortKey] === 1)
+        // console.log("sort_key1",sortKey)
+        if (sortKey === 1)
             return "Ascending"
         else
             return "Descending"
@@ -180,6 +182,7 @@ export default class LatestAccountsList extends BaseComponent {
                 sortData={this.sortData}
                 getSortTitle={this.getSortTitle}
                 updateFiltersAndGetAccounts={this.updateFiltersAndGetAccounts}
+                getListOfAccounts={this.getListOfAccounts}
             />
         )
 

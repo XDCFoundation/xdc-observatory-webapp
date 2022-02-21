@@ -58,7 +58,7 @@ const LeftPagination = styled.div`
 const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(odd)": {
-      backgroundColor: "f9f9f9",
+      backgroundColor: theme.palette.action.hover,
     },
   },
 }))(TableRow);
@@ -484,7 +484,7 @@ export default function StickyHeadTable(props) {
                       ? splittedArray[1]
                       : 0;
                   return (
-                    <StyledTableRow hover role="checkbox" tabIndex={-1}>
+                    <StyledTableRow role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
                         <span className="tabledata table-data">
                           {row[0]?.Rank}
@@ -611,7 +611,7 @@ export default function StickyHeadTable(props) {
               onClick={() => handleChangePage("prev")}
             >
               <p className="path">
-                <img className="rotate-180" alt="back" src={"/images/next.svg"} width="9px" />
+                <img className="rotate-180" alt="back" src={"/images/next.svg"} />
               </p>
             </div>
             <div className="pagebox">
@@ -630,7 +630,7 @@ export default function StickyHeadTable(props) {
               }
             >
               <p className="path-2" onClick={() => handleChangePage("next")}>
-                <img alt="next" src={"/images/next.svg"} width="9px" />
+                <img alt="next" src={"/images/next.svg"} />
               </p>
             </div>
             <div
