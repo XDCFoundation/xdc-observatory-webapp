@@ -378,29 +378,11 @@ class BlockChainDataComponent extends Component {
       if (transactionDataExist == -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
-        let txnFeeAvg =
-          this.state.transactionDataDetails[0]?.gasPrice *
-          this.state.transactionDataDetails[0]?.gasUsed;
-        let txnFeeConverted = txnFeeAvg * this.state.coinMarketPrice.price;
-        let gpCurrent = txnFeeAvg
-          ? Utility.decimalDivison(txnFeeConverted, 12)
-          : 0;
-        if (gpCurrent >= 0.000000000001 && this.state.gasPrice !== gpCurrent) {
-          let blockAnimationClass = {
-            [transactionData.hash]: "block-height-animation",
-          };
-          this.setState({ animationTransaction: blockAnimationClass });
-          setTimeout(() => {
-            this.setState({ animationTransaction: {} });
-          }, 500);
-        }
+        // let txnFeeAvg =
+        //   this.state.transactionDataDetails[0]?.gasPrice *
+        //   this.state.transactionDataDetails[0]?.gasUsed;
+
         this.setState({ transactionDataDetails: transactions });
-        let gp = txnFeeConverted
-          ? Utility.decimalDivison(txnFeeConverted, 12)
-          : 0;
-        if (gp >= 0.000000000001 && this.state.gasPrice !== gp) {
-          this.setState({ gasPrice: gp });
-        }
 
         if (error) {
         }
@@ -418,8 +400,35 @@ class BlockChainDataComponent extends Component {
           ? transactionData.filter((node) => node?.stats?.active).length
           : [];
       this.setState({ activeNodes: nodesActive });
-      socket.close();
-    });
+      let bestStats = _.maxBy(transactionData, function (node) {
+        return parseInt(node.stats.block.number);
+      }).stats;
+      let gasUsed = _.maxBy(transactionData, function (node) {
+        return parseInt(node.stats.block.gasUsed);
+      }).stats.block.gasUsed;
+      let GasInit = bestStats.gasPrice;
+      let txnFeeAvgMultiple = GasInit * gasUsed;
+      let txnFeeConverted =
+        txnFeeAvgMultiple * this.state.coinMarketPrice.price;
+      let gpCurrent = txnFeeAvgMultiple
+        ? Utility.decimalDivison(txnFeeConverted, 8)
+        : 0;
+      if (gpCurrent >= 0.000000000001 && this.state.gasPrice !== gpCurrent) {
+        let blockAnimationClass = {
+          [transactionData.hash]: "block-height-animation",
+        };
+        this.setState({ animationTransaction: blockAnimationClass });
+        setTimeout(() => {
+          this.setState({ animationTransaction: {} });
+        }, 500);
+      }
+      let gp = txnFeeConverted
+        ? Utility.decimalDivison(txnFeeConverted, 8)
+        : 0;
+      if (this.state.gasPrice !== gp) {
+        this.setState({ gasPrice: gp });
+      }
+        });
   }
   /* FETCHING GET TOTAL TRANSACTIONS API*/
 
@@ -721,7 +730,7 @@ class BlockChainDataComponent extends Component {
                   <TitleData
                     className={TxanimationClass ? TxanimationClass : ""}
                   >
-                    {this.state.gasPrice}
+                    {this.state.gasPrice > 0 ? this.state.gasPrice : ""}
                   </TitleData>
                 </ValueName>
               </Value>

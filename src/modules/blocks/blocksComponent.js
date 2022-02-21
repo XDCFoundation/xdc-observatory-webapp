@@ -12,8 +12,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
-import { messages } from "../../constants"
-import utility from "../../utility"
+import { messages } from "../../constants";
+import utility from "../../utility";
+import { useState } from "react";
 
 const useStyles = makeStyles({
   container: {
@@ -39,6 +40,13 @@ export default function BlocksComponent(props) {
 
   const { state } = props;
   const classes = useStyles();
+  const [hashTT, setHashTT] = useState(false);
+  const [heightTT, setHeightTT] = useState(false);
+  const [ageTT, setAgeTT] = useState(false);
+  const [transactionTT, setTransactionTT] = useState(false);
+  const [difficultyTT, setDifficultyTT] = useState(false);
+  const [gasUsedTT, setGasUsedTT] = useState(false);
+
   return (
     <Grid className="table_1 ">
       <Grid class="tabletop-header table-top-header">{state.tableName}</Grid>
@@ -50,8 +58,14 @@ export default function BlocksComponent(props) {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers block-list-all"}>
                     Hash
-                    <Tooltip placement="top" title={messages.HASH}>
+                    <Tooltip
+                      open={hashTT}
+                      onOpen={() => setHashTT(true)}
+                      onClose={() => setHashTT(false)}
+                      placement="top" 
+                      title={messages.HASH}>
                       <img
+                        onClick={() => setHashTT(!hashTT)}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconAccount"
@@ -62,8 +76,14 @@ export default function BlocksComponent(props) {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers"}>
                     Height
-                    <Tooltip placement="top" title={messages.BLOCK_HEIGHT}>
+                    <Tooltip
+                      open={heightTT}
+                      onOpen={() => setHeightTT(true)}
+                      onClose={() => setHeightTT(false)}  
+                      placement="top" 
+                      title={messages.BLOCK_HEIGHT}>
                       <img
+                        onClick={() => setHeightTT(!heightTT)}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconAccount"
@@ -74,8 +94,14 @@ export default function BlocksComponent(props) {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers"}>
                     Age
-                    <Tooltip placement="top" title={messages.AGE}>
+                    <Tooltip 
+                      open={ageTT}
+                      onOpen={() => setAgeTT(true)}
+                      onClose={() => setAgeTT(false)} 
+                      placement="top" 
+                      title={messages.AGE}>
                       <img
+                        onClick={() => setAgeTT(!ageTT)}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconAccount"
@@ -86,8 +112,14 @@ export default function BlocksComponent(props) {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers"}>
                     Transactions
-                    <Tooltip placement="top" title={messages.NO_OF_TRANSACTION}>
+                    <Tooltip 
+                      open={transactionTT}
+                      onOpen={() => setTransactionTT(true)}
+                      onClose={() => setTransactionTT(false)}
+                      placement="top" 
+                      title={messages.NO_OF_TRANSACTION}>
                       <img
+                        onClick={() => setTransactionTT(!transactionTT)}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconAccount"
@@ -98,8 +130,14 @@ export default function BlocksComponent(props) {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers"}>
                     Difficulty
-                    <Tooltip placement="top" title={messages.DIFFICULTY}>
+                    <Tooltip 
+                      open={difficultyTT}
+                      onOpen={() => setDifficultyTT(true)}
+                      onClose={() => setDifficultyTT(false)} 
+                      placement="top" 
+                      title={messages.DIFFICULTY}>
                       <img
+                        onClick={() => setDifficultyTT(!difficultyTT)}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconAccount"
@@ -110,8 +148,14 @@ export default function BlocksComponent(props) {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers"}>
                     Gas Used
-                    <Tooltip placement="top" title={messages.GAS_USED}>
+                    <Tooltip 
+                      open={gasUsedTT}
+                      onOpen={() => setGasUsedTT(true)}
+                      onClose={() => setGasUsedTT(false)} 
+                      placement="top" 
+                      title={messages.GAS_USED}>
                       <img
+                        onClick={() => setGasUsedTT(!gasUsedTT)}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconAccount"
@@ -173,7 +217,6 @@ export default function BlocksComponent(props) {
                           >
                             {shorten(row.hash)}{" "}
                           </span>
-
                         </TableCell>
                         <TableCell
                           style={{ border: "none" }}

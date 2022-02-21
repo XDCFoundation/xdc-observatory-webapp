@@ -35,12 +35,11 @@ const SearchBox = styled.div`
   }
 `;
 const SearchAndFiltersComponent = (props) => {
-  const { searchAndFilters, updateFiltersAndGetAccounts } = props;
+  const { searchAndFilters, updateFiltersAndGetAccounts, getListOfAccounts } = props;
   const [searchQuery, setSearchQuery] = useState(searchAndFilters.searchQuery);
   const [type, setType] = useState(searchAndFilters.type);
   const [percentage, setPercentage] = useState(searchAndFilters.percentage);
   let timeoutId = 0;
-
   useEffect(() => {
     if (!type && !percentage) return;
     updateFiltersAndGetAccounts({ searchQuery, type, percentage });
@@ -67,6 +66,7 @@ const SearchAndFiltersComponent = (props) => {
         selectedOption={type}
         onSelect={(data) => setType(data)}
         options={[
+          { key: "-1", value: "View All" },
           { key: "0", value: "Account" },
           { key: "1", value: "Contract" },
           { key: "2", value: "Token" },

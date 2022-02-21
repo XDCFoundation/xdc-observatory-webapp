@@ -90,6 +90,7 @@ export default function AddressTableComponent(props) {
   const [arrowUpDown, setArrowUpDown] = useState(false);
   const [ageArrow, setAgeArrow] = useState(false);
   const [blockArrow, setBlockArrow] = useState(false);
+  const [valueArrow, setValueArrow] = useState(false);
   let showPerPage = 10;
   let datas = {};
   let data = {};
@@ -104,7 +105,7 @@ export default function AddressTableComponent(props) {
     to: 0,
     value: 0,
   });
-  const [sortingKey, setSortingKey] = React.useState("blockNumber");
+  const [sortingKey, setSortingKey] = React.useState("value");
   function handleSettingsClick(event) {
     setOpen(true);
     setAnchorEl(event?.currentTarget);
@@ -208,7 +209,7 @@ export default function AddressTableComponent(props) {
   const getAddressDetails = async (data, filters) => {
     const skip = data?.pageNum || 0;
     const limit = data?.perpage || 10;
-    const sortKey = data?.sortKey || "blockNumber";
+    const sortKey = data?.sortKey || "value";
     const sortType = data?.sortType
     const requestData = { skip, limit, sortKey, sortType }
     requestData.address = data?.addrr || addr
@@ -377,29 +378,29 @@ export default function AddressTableComponent(props) {
       })
     );
   };
-  const handleKeyUp = (event) => {
-    let searchkeyword = event.target.value;
-    setPage(0);
-    if (searchkeyword.length > 2) {
-      setKeywords(searchkeyword);
-      datas = {
-        pageNum: 0,
-        perpage: rowsPerPage,
-        addrr: addr,
-        keywords: searchkeyword,
-      };
-      getTransactionSearch(datas);
-    }
-    if (searchkeyword.length == 0) {
-      setPage(0);
-      datas = {
-        pageNum: 0,
-        perpage: rowsPerPage,
-        addrr: addr,
-      };
-      getAddressDetails(datas);
-    }
-  };
+  // const handleKeyUp = (event) => {
+  //   let searchkeyword = event.target.value;
+  //   setPage(0);
+  //   if (searchkeyword.length > 2) {
+  //     setKeywords(searchkeyword);
+  //     datas = {
+  //       pageNum: 0,
+  //       perpage: rowsPerPage,
+  //       addrr: addr,
+  //       keywords: searchkeyword,
+  //     };
+  //     getTransactionSearch(datas);
+  //   }
+  //   if (searchkeyword.length == 0) {
+  //     setPage(0);
+  //     datas = {
+  //       pageNum: 0,
+  //       perpage: rowsPerPage,
+  //       addrr: addr,
+  //     };
+  //     getAddressDetails(datas);
+  //   }
+  // };
 
   const handleChanged = (event) => {
     const { name, checked } = event.target;
@@ -832,10 +833,11 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-value cursor-pointer"} onClick={() => {sortData("value");}}>Value</span>
+                    <span className={"tableheaders table-value cursor-pointer"} onClick={() => {sortData("value")
+                     setValueArrow(true)}}>Value</span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("value")}>
-                        {sortingKey && sortingKey === "value"  ? (sortToggle.value == -1 ? (
+                        {valueArrow && sortingKey && sortingKey === "value"  ? (sortToggle.value == -1 ? (
                           // <ArrowUpwardIcon
                           //   onClick={() => {
                           //     sortData("value");
