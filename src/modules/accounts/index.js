@@ -92,31 +92,32 @@ export default class LatestAccountsList extends BaseComponent {
 
     _handleChange = async (event) => {
         await this.setState({ amount: event.target.value })
-        this.getListOfAccounts(this.state.sortKey, this.state.sortOrder)
+        
+        this.getListOfAccounts("balance", this.state.sortOrder)
         // console.log("this.state.sortKey",this.state.sortKey);
         // console.log("this.state.sortType",this.state.sortOrder);
     }
     _FirstPage = async (event) => {
         await this.setState({ from: 0 })
-        this.getListOfAccounts()
+        this.getListOfAccounts("balance", this.state.sortOrder)
     }
     _LastPage = async (event) => {
         let from = (Math.ceil(this.state.totalAccounts / this.state.amount)-1) * this.state.amount
         await this.setState({ from })
-        this.getListOfAccounts()
+        this.getListOfAccounts("balance", this.state.sortOrder)
     }
     _NextPage = async (event) => {
         if (+this.state.amount + +this.state.from < this.state.totalAccounts) {
             let from = +this.state.amount + +this.state.from
             await this.setState({ from })
-            this.getListOfAccounts()
+            this.getListOfAccounts("balance", this.state.sortOrder)
         }
     }
     _PrevPage = async (event) => {
         if (this.state.from - this.state.amount >= 0) {
             let from = this.state.from - this.state.amount
             await this.setState({ from })
-            this.getListOfAccounts()
+            this.getListOfAccounts("balance", this.state.sortOrder)
         }
     }
 
@@ -148,7 +149,7 @@ export default class LatestAccountsList extends BaseComponent {
         } else {
             this.setState({ sortKey: _sortKey, sortOrder: -1 })
         }
-        if (_sortKey === 'percentage')
+        if (_sortKey === "percentage")
             _sortKey = "balance"
         this.getListOfAccounts([_sortKey], sortOrder);
     }

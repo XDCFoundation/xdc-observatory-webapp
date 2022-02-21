@@ -107,6 +107,7 @@ export default function StickyHeadTable() {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  console.log(rowsPerPage, "rowsPerPa");
   const [transfer, settransfer] = useState({});
   const [totalToken, setTotalToken] = useState([]);
   const [noData, setNoData] = useState(true);
@@ -135,7 +136,7 @@ export default function StickyHeadTable() {
       sortingOrder === -1 ? (order = 1) : (order = -1);
       setSortingOrder(order);
     }
-    let values = { addr: address, pageNum: 0, perpage: rowsPerPage };
+    let values = { addr: address, pageNum: page, perpage: rowsPerPage };
     transferDetail(values, searchAndFilters, key, order);
   };
 
@@ -220,7 +221,7 @@ export default function StickyHeadTable() {
     }
 
     if (action == "last") {
-      let pageValue = (Math.ceil(totalToken / rowsPerPage)-1) * rowsPerPage;
+      let pageValue = (Math.ceil(totalToken / rowsPerPage) - 1) * rowsPerPage;
       setPage(pageValue);
       let values = { addr: address, pageNum: pageValue, perpage: rowsPerPage };
       transferDetail(values);
@@ -249,18 +250,18 @@ export default function StickyHeadTable() {
     transferDetail(null, filters);
   };
   const NoDataFoundContainer = styled.div`
-      display: flex;
-      flex-flow: column;
-      height: 300px !important;,
+    display: flex;
+    flex-flow: column;
+    height: 300px !important;
     justify-content: center;
-      align-items: center;
-      margin-top: 140px !important;,
+    align-items: center;
+    margin-top: 140px !important;
     gap: 10 px;
-      @media (min-width: 0px) and (max-width: 767px) {
-        margin: 30px 0 !important;
-        height: 70px !important;,
-      }
-    `;
+    @media (min-width: 0px) and (max-width: 767px) {
+      margin: 30px 0 !important;
+      height: 70px !important;
+    }
+  `;
 
   return (
     <>
@@ -558,9 +559,18 @@ export default function StickyHeadTable() {
                         style={{ color: "#2419b9", fontSize: 11 }}
                         href={"/address-details/" + row.to}
                       >
-                        <Tooltip placement="top" title= {row.to > "xdc" ? shorten(row.to) : shorten(row.contract)}>
+                        <Tooltip
+                          placement="top"
+                          title={
+                            row.to > "xdc"
+                              ? shorten(row.to)
+                              : shorten(row.contract)
+                          }
+                        >
                           <span className="tabledata table-data">
-                            {row.to > "xdc" ? shorten(row.to) : shorten(row.contract)}
+                            {row.to > "xdc"
+                              ? shorten(row.to)
+                              : shorten(row.contract)}
                           </span>
                         </Tooltip>
                       </a>
@@ -594,7 +604,7 @@ export default function StickyHeadTable() {
       </Paper>
       <Pagination>
         <LeftPagination>
-          {(!isLoading && noData == false) || totalToken < 10? (
+          {(!isLoading && noData == false) || totalToken < 10 ? (
             ""
           ) : (
             <>
