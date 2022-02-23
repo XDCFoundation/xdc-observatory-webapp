@@ -67,7 +67,8 @@ const utility = {
   timeDiff,
   convertToInternationalCurrencySystem,
   getNumberUnit, decimalDivison, decimalDivisonOnly, divideByDecimalValue, getNumber,
-  getUtcOffset
+  getUtcOffset,
+  shortenAddress
 };
 export default utility;
 
@@ -253,6 +254,12 @@ function shortenHashTab(b, amountL = 40, amountR = 0, stars = 3) {
       b.length
     )}`;
   else return b;
+}
+function shortenAddress(b, amountL, amountR, stars) {
+  return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+    b.length - amountR,
+    b.length
+  )}`;
 }
 
 function getDateFormat() {

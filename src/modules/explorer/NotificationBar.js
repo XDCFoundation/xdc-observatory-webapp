@@ -46,6 +46,12 @@ const useStyles = makeStyles((theme) => ({
     drawerHeader: {
         marginTop: "8px"
     },
+    dateClearContainer: {
+        display: "flex",
+        justifyContent: "space-between",
+        maxWidth: "280px",
+        width: "100%",
+    },
     "@media (max-width: 1240px)": {
         paper: {
             top: "8.375rem",
@@ -115,10 +121,11 @@ function TemporaryDrawer(props) {
         const parseRes = response.map((notification) => {
             return {
                 timestamp: notification?.payload?.timestamp,
-                description: notification.description,
+                description: {splitted : notification.description.split(" ")},
                 _id: notification?._id
             }
         })
+
         if(parseRes.length>0)
             setIsNotification(false);
         setNotifications(parseRes)
@@ -128,6 +135,17 @@ function TemporaryDrawer(props) {
         notifications.map(notification => {
             notificationIdArray.push(notification._id)
         })
+        props.dispatchAction(eventConstants.SHOW_LOADER, true)
+        const [error] = await utility.parseResponse(NotificationService.markNotificationCleared({notificationIDArray: notificationIdArray}));
+        props.dispatchAction(eventConstants.HIDE_LOADER, true)
+        if (error) {
+            utility.apiFailureToast(error?.message ? error.message : genericConstants.CANNOT_CLEAR_NOTIFICATIONS);
+            return;
+        }
+        await getNotificationList();
+    }
+    const clearSingleNotification = async (id) => {
+        let notificationIdArray = [id];
         props.dispatchAction(eventConstants.SHOW_LOADER, true)
         const [error] = await utility.parseResponse(NotificationService.markNotificationCleared({notificationIDArray: notificationIdArray}));
         props.dispatchAction(eventConstants.HIDE_LOADER, true)
@@ -150,7 +168,7 @@ function TemporaryDrawer(props) {
             <ListItems>
                 <NoticationClear>
                     <div className="Notification-header-color">Notifications</div>
-                    <div className="Notification-header-text-color-fade cursor-pointer" onClick={clearNotification}>Clear</div>
+                    <div className="Notification-header-text-color-fade cursor-pointer" onClick={clearNotification}>Clear all</div>
                 </NoticationClear>
                 <div className={classes.drawerHeader}>
                     {/* <CloseIcon  onClick={toggleDrawer(anchor, false)} /> */}
@@ -170,12 +188,25 @@ function TemporaryDrawer(props) {
                     <ul className="inside-side-box">
                         <a className="Notification_details_button ">
                             <div className="Notificationtext">
-                                {notification.description}
+                                <span>{notification.description.splitted[0]}&nbsp;</span>
+                                <span>{notification.description.splitted[1]}&nbsp;</span>
+                                <span>{notification.description.splitted[2]}&nbsp;</span>
+                                <span>{notification.description.splitted[3]}&nbsp;</span>
+                                <span>{notification.description.splitted[4]}&nbsp;</span>
+                                <span>{window.innerWidth > 767 ? 
+                                utility.shortenAddress(notification.description.splitted[5], 20, 4, 3) :
+                                utility.shortenAddress(notification.description.splitted[5], 10, 4, 3)
+                                }</span>
                             </div>
                         </a>
+                        <div className={classes.dateClearContainer}>
                         <div className="Notification-text-color-fade">
                             {notification && notification.timestamp && moment.unix(notification.timestamp).format("HH:mm A, DD MMM YYYY")}
 
+                        </div>
+                        <div className="clear-single-notification-btn Notification-text-color-fade cursor-pointer" onClick={() => clearSingleNotification(notification._id)}>
+                            Clear
+                        </div>
                         </div>
                         <hr className="notification-hr"/>
                     </ul>
