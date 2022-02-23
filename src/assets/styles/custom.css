@@ -2824,6 +2824,14 @@ p {
   background-color: #102e84;
   padding: 0 10px 0px 10px !important;
 }
+.clear-single-notification-btn {
+  display: none;
+}
+.side-box:hover .clear-single-notification-btn {
+  display: inline-block;
+  transition:height .5s ease-out 0s;
+}
+
 
 .account_details_button {
   font-size: 15px;
@@ -2990,6 +2998,9 @@ p {
     border-radius: 6px;
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
+  }
+  .clear-single-notification-btn {
+    display: block;
   }
 }
 
@@ -10218,6 +10229,7 @@ button {
   font-family: Inter;
   margin-left: 15px !important;
   margin-top: 23px;
+  white-space: nowrap;
 }
 .Notification-text-color-fade {
   color: #81b4ff;
@@ -10239,6 +10251,8 @@ button {
   font-size: 0.938rem !important;
   color: #ffffff;
   margin-bottom: 10px;
+  display: flex;
+  flex-flow: wrap;
 }
 @media (max-width: 767px) {
   .details-margin-30 {

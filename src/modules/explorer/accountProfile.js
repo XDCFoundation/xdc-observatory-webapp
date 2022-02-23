@@ -507,6 +507,7 @@ export default function SimpleTabs(props) {
         searchKeys: ["description", "address"],
         search: value.toString(),
       };
+      // console.log("search data",data)
       if (!searchValue) {
         onChangeWatchlistPage(watchlistPageCount);
       } else {
@@ -618,6 +619,7 @@ export default function SimpleTabs(props) {
       skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       isWatchlistAddress: true,
+      // searchValue: requestData?.searchValue,
     };
     let response = await UserService.getWatchlistList(request);
     let watchlists = localStorage.getItem(
