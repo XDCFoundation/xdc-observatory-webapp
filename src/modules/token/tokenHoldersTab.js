@@ -52,7 +52,7 @@ const LeftPagination = styled.div`
 
   @media (max-width: 1240px) {
     margin-top: 31px;
-    max-width:95px;
+    max-width: 95px;
   }
 `;
 const StyledTableRow = withStyles((theme) => ({
@@ -125,26 +125,25 @@ export default function StickyHeadTable(props) {
       setSortKey(_sortKey);
     }
     setSortOrder(_sortOrder);
-    if (_sortKey === "percentage")
-      _sortKey = "balance";
+    if (_sortKey === "percentage") _sortKey = "balance";
     let requestObj = {
       skip: 0,
       limit: rowsPerPage,
       address: address,
-      sortKey: { [_sortKey]: _sortOrder }
-    }
+      sortKey: { [_sortKey]: _sortOrder },
+    };
     listOfHolders(requestObj);
-  }
+  };
 
   useEffect(() => {
     let values = { address: address, skip: 0, limit: 10 };
     listOfHolders(values);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    sortTable("balance")
+    sortTable("balance");
   }, []);
   const listOfHolders = async (values) => {
     if (!values.sortKey && sortKey && sortOrder)
-      values.sortKey = { [sortKey]: sortOrder }
+      values.sortKey = { [sortKey]: sortOrder };
     let [error, tns] = await Utils.parseResponse(
       TokenData.getListOfHoldersForToken(values)
     );
@@ -157,7 +156,7 @@ export default function StickyHeadTable(props) {
     }
 
     setTotalHolder(tns?.responseCount);
-    setVisibleRowCount(tns?.data.length)
+    setVisibleRowCount(tns?.data.length);
   };
 
   const handleChangePage = (action) => {
@@ -183,7 +182,7 @@ export default function StickyHeadTable(props) {
     }
 
     if (action === "last") {
-      let pageValue = (Math.round(totalHolder / rowsPerPage)) * rowsPerPage;
+      let pageValue = Math.round(totalHolder / rowsPerPage) * rowsPerPage;
       setPage(pageValue);
       values.skip = pageValue;
     }
@@ -224,7 +223,10 @@ export default function StickyHeadTable(props) {
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
         {isLoading == true ? (
-          <TableContainer className={classes.container} id="container-table-token-holders-tab">
+          <TableContainer
+            className={classes.container}
+            id="container-table-token-holders-tab"
+          >
             <Table>
               <TableBody>
                 <TableRow>
@@ -238,7 +240,10 @@ export default function StickyHeadTable(props) {
             </Table>
           </TableContainer>
         ) : noData == false ? (
-          <TableContainer className={classes.container} id="container-table-token-holders-tab">
+          <TableContainer
+            className={classes.container}
+            id="container-table-token-holders-tab"
+          >
             <Table>
               <TableHead>
                 <TableRow className="w-100">
@@ -264,7 +269,7 @@ export default function StickyHeadTable(props) {
                     className="w-40"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers"} >
+                    <span className={"tableheaders table-headers"}>
                       Address
                       <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
                         <img
@@ -281,7 +286,7 @@ export default function StickyHeadTable(props) {
                     className="w-20"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers"} >
+                    <span className={"tableheaders table-headers"}>
                       Quantity
                       <Tooltip placement="top" title={messages.QUANTITY}>
                         <img
@@ -298,7 +303,7 @@ export default function StickyHeadTable(props) {
                     className="w-21"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers"} >
+                    <span className={"tableheaders table-headers"}>
                       Percentage
                       <Tooltip placement="top" title={messages.PERCENTAGE}>
                         <img
@@ -328,7 +333,10 @@ export default function StickyHeadTable(props) {
             </NoDataFoundContainer>
           </TableContainer>
         ) : (
-          <TableContainer className={classes.container} id="container-table-token-holders-tab">
+          <TableContainer
+            className={classes.container}
+            id="container-table-token-holders-tab"
+          >
             <Table>
               <TableHead>
                 <TableRow className="w-100">
@@ -354,7 +362,10 @@ export default function StickyHeadTable(props) {
                     className="w-10"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers cursor-pointer"} onClick={() => sortTable("address")}>
+                    <span
+                      className={"tableheaders table-headers cursor-pointer"}
+                      onClick={() => sortTable("address")}
+                    >
                       Address
                       <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
                         <img
@@ -364,18 +375,25 @@ export default function StickyHeadTable(props) {
                           className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
-                      {sortKey && sortOrder && sortKey == "address" ? (sortOrder === -1 ? <img
-                        alt="question-mark"
-                        src="/images/see-more.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      /> :
-                        <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon rotate-180"
-                        />) : ""}
+                      {sortKey && sortOrder && sortKey == "address" ? (
+                        sortOrder === -1 ? (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        ) : (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                          />
+                        )
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -383,7 +401,10 @@ export default function StickyHeadTable(props) {
                     className="w-10 p-l-22"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers cursor-pointer"} onClick={() => sortTable("balance")}>
+                    <span
+                      className={"tableheaders table-headers cursor-pointer"}
+                      onClick={() => sortTable("balance")}
+                    >
                       Quantity
                       <Tooltip placement="top" title={messages.QUANTITY}>
                         <img
@@ -393,18 +414,25 @@ export default function StickyHeadTable(props) {
                           className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
-                      {sortKey && sortOrder && sortKey == "balance" ? (sortOrder === -1 ? <img
-                        alt="question-mark"
-                        src="/images/see-more.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      /> :
-                        <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon rotate-180"
-                        />) : ""}
+                      {sortKey && sortOrder && sortKey == "balance" ? (
+                        sortOrder === -1 ? (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        ) : (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                          />
+                        )
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -412,7 +440,10 @@ export default function StickyHeadTable(props) {
                     className="w-10 p-l-22"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers cursor-pointer"} onClick={() => sortTable("percentage")}>
+                    <span
+                      className={"tableheaders table-headers cursor-pointer"}
+                      onClick={() => sortTable("percentage")}
+                    >
                       Percentage
                       <Tooltip placement="top" title={messages.PERCENTAGE}>
                         <img
@@ -422,18 +453,25 @@ export default function StickyHeadTable(props) {
                           className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
-                      {sortKey && sortOrder && sortKey == "percentage" ? (sortOrder === -1 ? <img
-                        alt="question-mark"
-                        src="/images/see-more.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      /> :
-                        <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon rotate-180"
-                        />) : ""}
+                      {sortKey && sortOrder && sortKey == "percentage" ? (
+                        sortOrder === -1 ? (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        ) : (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                          />
+                        )
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </TableCell>
                   {/* <TableCell
@@ -449,26 +487,26 @@ export default function StickyHeadTable(props) {
               <TableBody>
                 {holders?.data?.map((row, index) => {
                   let quantity = (
-                    row[0]?.Quantity / Math.pow(10, decimals)
-                  )?.toFixed(decimals);
+                    row?.Quantity 
+                  );
+                  console.log(row?.Percentage,"<<<");
                   let quantity1 =
-                    row[0]?.Quantity / Math.pow(10, decimals) >= 1
+                    row?.Quantity >= 1
                       ? format({})(
-                        utility.convertToInternationalCurrencySystem(
-                          row[0]?.Quantity / Math.pow(10, decimals)
+                          utility.convertToInternationalCurrencySystem(
+                            Number(row?.Quantity)
+                          )
                         )
-                      )
-                      : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(
-                        decimals
-                      );
-                  var quantity2 = quantity1.toString().split(".")[0];
-                  var quantity3 = quantity1.toString().split(".")[1];
+                      : row?.Quantity?.toFixed(decimals);
+                  console.log(quantity1, "quantity1");
+                  var quantity2 = quantity1?.toString().split(".")[0];
+                  var quantity3 = quantity1?.toString().split(".")[1];
                   var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
                   var splittedArray = quantity3?.match(regex);
 
-                  var percentageValue = !row[0]?.Percentage
+                  var percentageValue = !row?.Percentage
                     ? "0"
-                    : row[0].Percentage.toFixed(8);
+                    : row.Percentage.toFixed(18);
                   let percentageValue1 = percentageValue
                     .toString()
                     .split(".")[0];
@@ -487,16 +525,19 @@ export default function StickyHeadTable(props) {
                     <StyledTableRow role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
                         <span className="tabledata table-data">
-                          {row[0]?.Rank}
+                          {row?.Rank}
                         </span>
                       </TableCell>
-                      <TableCell id="td" style={{ border: "none", paddingLeft: "0" }}>
+                      <TableCell
+                        id="td"
+                        style={{ border: "none", paddingLeft: "0" }}
+                      >
                         <a
                           style={{ color: "#2149b9", fontSize: 11 }}
-                          href={"/holder-details/" + row[0]?.Address + "/" + tn}
+                          href={"/holder-details/" + row?.Address + "/" + tn}
                         >
                           <span className="tabledata table-data">
-                            {row[0]?.Address}
+                            {row?.Address}
                           </span>
                         </a>
                       </TableCell>
@@ -526,25 +567,25 @@ export default function StickyHeadTable(props) {
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <span className="tabledata table-data mar-lef-3">
-                        {percentageValue2 == null|| percentageValue2==0? (
-                      <span>{format({})(percentageValue1)}%</span>
-                    ) : (
-                      <>
-                          {percentageValue1}
-                          {"."}
-                          <span style={{ color: "#9FA9BA" }}>
-                            {percentageValue2}
-                          </span>
-                          %
-                          </>
-                    )}
+                          {percentageValue2 == null || percentageValue2 == 0 ? (
+                            <span>{format({})(percentageValue1)}%</span>
+                          ) : (
+                            <>
+                              {percentageValue1}
+                              {"."}
+                              <span style={{ color: "#9FA9BA" }}>
+                                {percentageValue2}
+                              </span>
+                              %
+                            </>
+                          )}
                         </span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <span className="tabledata table-data mar-lef-3">
                           <a
-                            href={`/holder-details/${row[0]?.Address}/${tn}?isAnalytics=true&tokenAddress=${address}`}
+                            href={`/holder-details/${row?.Address}/${tn}?isAnalytics=true&tokenAddress=${address}`}
                           >
                             Analytics
                           </a>
@@ -557,11 +598,11 @@ export default function StickyHeadTable(props) {
                       >
                         <Tooltip
                           placement="top"
-                          title={format({})(row[0]?.Value)}
+                          title={format({})(row?.Value)}
                         >
                           <span className="tabledata table-data mar-lef-2">
                             {utility.convertToInternationalCurrencySystem(
-                              row[0]?.Value
+                              row?.Value
                             )}
                           </span>
                         </Tooltip>
@@ -576,10 +617,10 @@ export default function StickyHeadTable(props) {
       </Paper>
       <Pagination>
         <LeftPagination>
-          {(!isLoading && noData == false) || totalHolder<10?  (
-""
+          {(!isLoading && noData == false) || totalHolder < 10 ? (
+            ""
           ) : (
-<>
+            <>
               <p className="p-pagination">Show</p>
               <PageSelector
                 value={rowsPerPage}
@@ -590,7 +631,7 @@ export default function StickyHeadTable(props) {
             </>
           )}
         </LeftPagination>
-        {(noData == true && totalHolder > rowsPerPage) ? (
+        {noData == true && totalHolder > rowsPerPage ? (
           <RightPagination
           // style={{
           //   display: "flex",
@@ -611,7 +652,11 @@ export default function StickyHeadTable(props) {
               onClick={() => handleChangePage("prev")}
             >
               <p className="path">
-                <img className="rotate-180" alt="back" src={"/images/next.svg"} />
+                <img
+                  className="rotate-180"
+                  alt="back"
+                  src={"/images/next.svg"}
+                />
               </p>
             </div>
             <div className="pagebox">
@@ -646,7 +691,9 @@ export default function StickyHeadTable(props) {
               </button>
             </div>
           </RightPagination>
-        ) : ""}
+        ) : (
+          ""
+        )}
       </Pagination>
     </div>
   );
