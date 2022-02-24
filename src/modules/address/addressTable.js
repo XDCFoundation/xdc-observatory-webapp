@@ -105,7 +105,6 @@ export default function AddressTableComponent(props) {
     to: 0,
     value: 0,
   });
-  console.log(sortToggle["value"],sortToggle, "kiy");
 
   const [sortingKey, setSortingKey] = React.useState("");
   if (sortToggle["value"] === 1 && sortingKey ==="value") {
@@ -503,7 +502,7 @@ export default function AddressTableComponent(props) {
             To: d.To,
             Value:
               d?.Value < 1000000000000
-                ? Number(d?.Value * 1000000000000000000)
+                ? Number(d?.Value * 1000000000000000000) /*there are some transactions which are not in gwei in ou DB*/
                 : Utility.decimalDivison(d.Value, 8),
           };
         })
@@ -992,13 +991,7 @@ export default function AddressTableComponent(props) {
                         ? ""
                         : moment(row.Age * 1000).format("MMM DD, YYYY h:mm A");
 
-                      // let transactionValue =
-                      //   row?.Value < 1000000000000
-                      //     ? Number(row?.Value * 1000000000000000000)
-                      //     : ;
 
-                      // let sortedValue = Number(transactionValue).sort()
-                      // console.log(sortedValue,">>>")/*there are some transactions which are not in gwei in ou DB*/
                       const value =
                         row.Value > 0 && row.Value < 1
                           ? row.Value
