@@ -517,7 +517,7 @@ export default function Transaction({ _handleChange }) {
                             </button>
                           </Tooltip>
                         </CopyToClipboard>
-                        {userInfo ? (
+                        {userInfo ? ( privateNote ?<></>:
                           <>
                             {
                               <PrivateNote
@@ -1302,7 +1302,7 @@ const MiddleContainerPrivateNote = styled.div`
     margin-left: unset;
     line-height: 1.5;
     height: auto;
-    padding: 1px 9px 1px 6px;
+    padding: 1px 6px 1px 6px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
@@ -1889,7 +1889,9 @@ const MobileDesktopTag = styled.div`
 `;
 const AddLabel = styled.div`
   display: flex;
+  flex-flow: wrap;
 `;
 const AddLabelText = styled.div`
   margin-right: 8px;
+  white-space: nowrap;
 `;
