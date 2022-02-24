@@ -496,44 +496,64 @@ export default function SimpleTabs(props) {
 
   const isPrivacyAccepted =
     sessionManager.getDataFromCookies("isPrivacyAccepted");
+
   async function searchData(event) {
     if (value === 0) {
       const searchValue = event.target.value;
       setSearch(searchValue);
-      setDataNotFound(false);
+      setDataNotFound("");
+      if(!searchValue) {
+        getListOfWatchlist();
+        return
+      }
+      let localWatchlists = localStorage.getItem(
+        sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST
+      );
+      localWatchlists = JSON.parse(localWatchlists)
+      let count = 0;
+      let totalLocalWatchlist = localWatchlists.length;
+      if (searchValue) {
+        localWatchlists = localWatchlists.filter((obj) => {
+          if (
+            obj.address.includes(searchValue) ||
+            obj.description.includes(searchValue)
+          ) {
+            return obj;
+          } else {
+            count++;
+          }
+        });
+      }
+      
+      if(totalLocalWatchlist == count) {
+        setDataNotFound(true);
+        return
+      }
+
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
-        searchValue: searchValue,
+        searchValue: localWatchlists[0].address,
         searchKeys: ["description", "address"],
         search: value.toString(),
       };
-      // console.log("search data",data)
       if (!searchValue) {
         onChangeWatchlistPage(watchlistPageCount);
       } else {
-        const response = await getListOfWatchlist({
-          skip: 0,
-          limit: 5,
-          searchValue: searchValue,
-        });
-        // if (error || !response) {
-        //   setDataNotFound(true);
-        // } else {
-        //   let watchlists = localStorage.getItem(
-        //     data.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
-        //   );
-        //   watchlists = JSON.parse(watchlists);
-        //   response.watchlistContent = response.watchlistContent.map((obj) => {
-        //     obj.description =
-        //       watchlists && watchlists[obj.address]
-        //         ? watchlists[obj.address]
-        //         : "";
-        //     return obj;
-        //   });
-          // setWatchlist(response);
-        // }
+        let [error, response] = await Utils.parseResponse(
+          UserService.Search(data)
+        );
+        if (error || !response) {
+          setDataNotFound("Data not found");
+        } else {
+          response = response.map((obj) => {
+            obj.description = localWatchlists[0].description;
+            return obj;
+          });
+          setWatchlist(response);
+        }
       }
     }
+
 
     if (value === 1) {
       const searchValue = event.target.value;
@@ -619,16 +639,17 @@ export default function SimpleTabs(props) {
       skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       isWatchlistAddress: true,
-      // searchValue: requestData?.searchValue,
     };
     let response = await UserService.getWatchlistList(request);
     let watchlists = localStorage.getItem(
       request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
     );
     watchlists = JSON.parse(watchlists);
+    if(!watchlists) watchlists = [];
     response.watchlistContent = response.watchlistContent.map((obj) => {
-      obj.description =
-        watchlists && watchlists[obj.address] ? watchlists[obj.address] : "";
+      obj.description = watchlists.map((item, index) =>{
+        return watchlists && watchlists[index][obj.address] ? watchlists[index][obj.address] : "";
+        })
       return obj;
     });
     if (response.totalCount > 0) {
@@ -655,6 +676,8 @@ export default function SimpleTabs(props) {
       setTxnHashNotAdded(false);
     }
 
+    let tempNoteCount = 0;
+    let totalLocalNote = transactionLabels.length;
     if (request.searchValue) {
       transactionLabels = transactionLabels.filter((obj) => {
         if (
@@ -663,9 +686,12 @@ export default function SimpleTabs(props) {
         ) {
           return obj;
         } else {
-          setDataNotFound(true);
+          tempNoteCount++;
         }
       });
+      if(tempNoteCount == totalLocalNote){
+        setDataNotFound(true);
+      }
     }
     setTotalCount2(transactionLabels.length);
     if (transactionLabels.length > requestData?.limit) {
@@ -694,19 +720,22 @@ export default function SimpleTabs(props) {
       setTagAddressNotAdded(false);
     }
 
+    let tempTagCount = 0;
+    let totalLocaltag = taggedAddress.length;
     if (request.searchValue) {
       taggedAddress = taggedAddress.filter((obj) => {
         if (
           obj.address.includes(request.searchValue) ||
           obj.tagName.includes(request.searchValue)
         ) {
-          console.log("obj",obj);
           return obj;
-         
         } else {
-          setDataNotFound(true);
+          tempTagCount++;
         }
       });
+      if(tempTagCount == totalLocaltag){
+        setDataNotFound(true);
+      }
     }
 
     setTotalCount3(taggedAddress.length);
