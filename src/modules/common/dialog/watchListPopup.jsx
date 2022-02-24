@@ -305,8 +305,14 @@ export default function FormDialog(props) {
         request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
       );
       watchlists = JSON.parse(watchlists);
-      if (!watchlists) watchlists = {};
-      watchlists[request.address] = description;
+      if (!watchlists) watchlists = [];
+      const data = {
+        description: description,
+        address: address,
+        [request.address] : description
+      };
+      watchlists.push(data);
+      // watchlists[request.address] = description;
       localStorage.setItem(
         request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchlists)
