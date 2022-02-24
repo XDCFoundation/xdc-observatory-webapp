@@ -212,8 +212,6 @@ function EditWatchList(props) {
   }, [props]);
 
   const classes = useStyles();
-
-  console.log("props",props)
   const handleClickOpen = () => {
     window.scrollTo(0, 0);
     setOpen(true);

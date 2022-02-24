@@ -366,7 +366,7 @@ export default function Transaction({ _handleChange }) {
   let gasPrice2 = gasPrice.toString().split(".")[1];
   let transactionValue =
     transactions?.value <
-    100000000000 /*there are some transactions which are not in gwei in ou DB*/
+    1000000000000 /*there are some transactions which are not in gwei in ou DB*/
       ? transactions?.value * 1000000000000000000
       : transactions?.value;
 

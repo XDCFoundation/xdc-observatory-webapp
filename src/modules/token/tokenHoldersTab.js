@@ -489,7 +489,6 @@ export default function StickyHeadTable(props) {
                   let quantity = (
                     row?.Quantity 
                   );
-                  console.log(row?.Percentage,"<<<");
                   let quantity1 =
                     row?.Quantity >= 1
                       ? format({})(
@@ -498,7 +497,6 @@ export default function StickyHeadTable(props) {
                           )
                         )
                       : row?.Quantity?.toFixed(decimals);
-                  console.log(quantity1, "quantity1");
                   var quantity2 = quantity1?.toString().split(".")[0];
                   var quantity3 = quantity1?.toString().split(".")[1];
                   var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");

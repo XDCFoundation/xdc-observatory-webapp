@@ -702,7 +702,6 @@ export default function SimpleTabs(props) {
           obj.address.includes(request.searchValue) ||
           obj.tagName.includes(request.searchValue)
         ) {
-          console.log("obj", obj);
           return obj;
         } else {
           setDataNotFound(true);
@@ -797,13 +796,13 @@ export default function SimpleTabs(props) {
       newData = oldData.sort((index1, index2) =>
       index2.modifiedOn - index1.modifiedOn
       );
-      console.log(newData,"<<<")
+      
       setAgeToggle(1);
     } else {
       newData = oldData.sort((index1, index2) =>
       index1.modifiedOn - index2.modifiedOn
       );
-      console.log(newData,"<<<")
+      
       setAgeToggle(-1);
     }
     setPrivateAddress(newData);
