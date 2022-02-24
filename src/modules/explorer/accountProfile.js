@@ -452,13 +452,14 @@ export default function SimpleTabs(props) {
   // const { state } = props;
   const [addedOnToggle, setAddedOnToggle] = React.useState(0);
   const [balanceToggle, setBalanceToggle] = React.useState("");
-  const [nameToggle, setNameToggle] = React.useState(0);
+  const [nameToggle, setNameToggle] = React.useState("");
   const [tableValue, setTablevalue] = React.useState(1);
   const [downloadWatchlist, setDownloadWatchlist] = React.useState([]);
   const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
   const [downloadTagAddress, setDownloadTagAddress] = React.useState([]);
   const [isDownloadActive, setDownloadActive] = React.useState(0);
-
+  const [tagArrow, setTagArrow] = React.useState(true);
+  const [ageArrow, setAgeArrow] = React.useState(true);
   React.useEffect(() => {
     getUserWatchlist();
     getUserTxnLabel();
@@ -490,7 +491,8 @@ export default function SimpleTabs(props) {
   const [tagPageCount, setTagPageCount] = React.useState({});
   const [search, setSearch] = React.useState("");
   const [dataNotFound, setDataNotFound] = React.useState(false);
-  const [watchlistAddressNotAdded, setWatchlistAddressNotAdded] = React.useState(true);
+  const [watchlistAddressNotAdded, setWatchlistAddressNotAdded] =
+    React.useState(true);
   const [txnHashNotAdded, setTxnHashNotAdded] = React.useState(true);
   const [tagAddressNotAdded, setTagAddressNotAdded] = React.useState(true);
 
@@ -502,14 +504,15 @@ export default function SimpleTabs(props) {
       const searchValue = event.target.value;
       setSearch(searchValue);
       setDataNotFound("");
-      if(!searchValue) {
+      if (!searchValue) {
         getListOfWatchlist();
-        return
+        return;
       }
       let localWatchlists = localStorage.getItem(
-        sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST
+        sessionManager.getDataFromCookies("userId") +
+          cookiesConstants.USER_ADDRESS_WATCHLIST
       );
-      localWatchlists = JSON.parse(localWatchlists)
+      localWatchlists = JSON.parse(localWatchlists);
       let count = 0;
       let totalLocalWatchlist = localWatchlists.length;
       if (searchValue) {
@@ -524,10 +527,10 @@ export default function SimpleTabs(props) {
           }
         });
       }
-      
-      if(totalLocalWatchlist == count) {
+
+      if (totalLocalWatchlist == count) {
         setDataNotFound(true);
-        return
+        return;
       }
 
       const data = {
@@ -553,7 +556,6 @@ export default function SimpleTabs(props) {
         }
       }
     }
-
 
     if (value === 1) {
       const searchValue = event.target.value;
@@ -602,6 +604,8 @@ export default function SimpleTabs(props) {
   const [totalCount1, setTotalCount1] = React.useState(5);
   const [totalCount2, setTotalCount2] = React.useState(5);
   const [totalCount3, setTotalCount3] = React.useState(5);
+  const [ageToggle, setAgeToggle] = React.useState("");
+  const [dateToggle, setDateToggle] = React.useState("");
 
   // Edit box Popup Handlers
   const [editBoxOpen, setEditBox] = React.useState(false);
@@ -645,11 +649,13 @@ export default function SimpleTabs(props) {
       request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
     );
     watchlists = JSON.parse(watchlists);
-    if(!watchlists) watchlists = [];
+    if (!watchlists) watchlists = [];
     response.watchlistContent = response.watchlistContent.map((obj) => {
-      obj.description = watchlists.map((item, index) =>{
-        return watchlists && watchlists[index][obj.address] ? watchlists[index][obj.address] : "";
-        })
+      obj.description = watchlists.map((item, index) => {
+        return watchlists && watchlists[index][obj.address]
+          ? watchlists[index][obj.address]
+          : "";
+      });
       return obj;
     });
     if (response.totalCount > 0) {
@@ -689,7 +695,7 @@ export default function SimpleTabs(props) {
           tempNoteCount++;
         }
       });
-      if(tempNoteCount == totalLocalNote){
+      if (tempNoteCount == totalLocalNote) {
         setDataNotFound(true);
       }
     }
@@ -733,7 +739,7 @@ export default function SimpleTabs(props) {
           tempTagCount++;
         }
       });
-      if(tempTagCount == totalLocaltag){
+      if (tempTagCount == totalLocaltag) {
         setDataNotFound(true);
       }
     }
@@ -751,13 +757,13 @@ export default function SimpleTabs(props) {
     let oldData = address;
     let newData;
     if (addedOnToggle === 0) {
-      newData = oldData.sort(
-        (index1, index2) => index1.trxLable.localeCompare(index2.trxLable)
+      newData = oldData.sort((index1, index2) =>
+        index1.trxLable.localeCompare(index2.trxLable)
       );
       setAddedOnToggle(1);
     } else {
-      newData = oldData.sort(
-        (index1, index2) => index2.trxLable.localeCompare(index1.trxLable)
+      newData = oldData.sort((index1, index2) =>
+        index2.trxLable.localeCompare(index1.trxLable)
       );
       setAddedOnToggle(0);
     }
@@ -772,11 +778,31 @@ export default function SimpleTabs(props) {
         (index1, index2) => index1?.balance - index2?.balance
       );
       setBalanceToggle(1);
+      setDateToggle("");
     } else {
       newData = oldData.sort(
         (index1, index2) => index2?.balance - index1?.balance
       );
       setBalanceToggle(-1);
+      setDateToggle("");
+    }
+    setWatchlist(newData);
+  };
+  const sortByDate = () => {
+    let oldData = watchlist;
+    let newData;
+    if (dateToggle === -1) {
+      newData = oldData.sort(
+        (index1, index2) => index1?.addedOn - index2?.addedOn
+      );
+      setDateToggle(1);
+      setBalanceToggle("");
+    } else {
+      newData = oldData.sort(
+        (index1, index2) => index2?.addedOn - index1?.addedOn
+      );
+      setDateToggle(-1);
+      setBalanceToggle("");
     }
     setWatchlist(newData);
   };
@@ -784,7 +810,7 @@ export default function SimpleTabs(props) {
   const sortByTagName = () => {
     let oldData = privateAddress;
     let newData;
-    if (nameToggle === 0) {
+    if (nameToggle === -1) {
       newData = oldData.sort((index1, index2) =>
         index1.tagName.localeCompare(index2.tagName)
       );
@@ -793,7 +819,26 @@ export default function SimpleTabs(props) {
       newData = oldData.sort((index1, index2) =>
         index2.tagName.localeCompare(index1.tagName)
       );
-      setNameToggle(0);
+      setNameToggle(-1);
+    }
+    setPrivateAddress(newData);
+  };
+
+  const sortByAge = () => {
+    let oldData = privateAddress;
+    let newData;
+    if (ageToggle === -1) {
+      newData = oldData.sort(
+        (index1, index2) => index2.modifiedOn - index1.modifiedOn
+      );
+      console.log(newData, "<<<");
+      setAgeToggle(1);
+    } else {
+      newData = oldData.sort(
+        (index1, index2) => index1.modifiedOn - index2.modifiedOn
+      );
+      console.log(newData, "<<<");
+      setAgeToggle(-1);
     }
     setPrivateAddress(newData);
   };
@@ -810,8 +855,7 @@ export default function SimpleTabs(props) {
     setTablevalue(1);
     setDownloadActive(0);
     setSearch("");
-    setBalanceToggle("")
-
+    setBalanceToggle("");
   };
   const handlePrivateNote = () => {
     setTablevalue(2);
@@ -1378,24 +1422,22 @@ export default function SimpleTabs(props) {
                                       : "Ascending"
                                   }
                                 >
-                                  {balanceToggle ==="" ? (
+                                  {balanceToggle === "" ? (
                                     <></>
+                                  ) : balanceToggle == 1 ? (
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon rotate-180"
+                                    />
                                   ) : (
-                                    balanceToggle == 1 ? (
-                                      <img
-                                        alt="question-mark"
-                                        src="/images/see-more.svg"
-                                        height={"14px"}
-                                        className="tooltipInfoIcon rotate-180"
-                                      />
-                                    ) : (
-                                      <img
-                                        alt="question-mark"
-                                        src="/images/see-more.svg"
-                                        height={"14px"}
-                                        className="tooltipInfoIcon"
-                                      />
-                                    )
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon"
+                                    />
                                   )}
                                 </Tooltip>
                               </button>
@@ -1555,30 +1597,31 @@ export default function SimpleTabs(props) {
                                     : "Ascending"
                                 }
                               >
-                                {balanceToggle ==="" ? (
-                                    <></>
-                                  ) : (
-                                    balanceToggle == 1 ? (
-                                      <img
-                                        alt="question-mark"
-                                        src="/images/see-more.svg"
-                                        height={"14px"}
-                                        className="tooltipInfoIcon rotate-180"
-                                      />
-                                    ) : (
-                                      <img
-                                        alt="question-mark"
-                                        src="/images/see-more.svg"
-                                        height={"14px"}
-                                        className="tooltipInfoIcon"
-                                      />
-                                    )
-                                  )}
+                                {balanceToggle === "" ? (
+                                  <></>
+                                ) : balanceToggle == 1 ? (
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/see-more.svg"
+                                    height={"14px"}
+                                    className="tooltipInfoIcon rotate-180"
+                                  />
+                                ) : (
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/see-more.svg"
+                                    height={"14px"}
+                                    className="tooltipInfoIcon"
+                                  />
+                                )}
                               </Tooltip>
                             </button>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1"}>
+                            <span
+                              className={"tableheaders-1 cursor-pointer"}
+                              onClick={sortByDate}
+                            >
                               Added On
                               <Tooltip
                                 placement="top"
@@ -1591,6 +1634,34 @@ export default function SimpleTabs(props) {
                                   className="tooltipInfoIcon"
                                 />
                               </Tooltip>
+                              <button className={classes.btn}>
+                                <Tooltip
+                                  placement="top"
+                                  title={
+                                    dateToggle == -1
+                                      ? "Descending"
+                                      : "Ascending"
+                                  }
+                                >
+                                  {dateToggle === "" ? (
+                                    <></>
+                                  ) : dateToggle == 1 ? (
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon rotate-180"
+                                    />
+                                  ) : (
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon"
+                                    />
+                                  )}
+                                </Tooltip>
+                              </button>
                             </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
@@ -1833,24 +1904,27 @@ export default function SimpleTabs(props) {
                                 </Tooltip>
                                 {/* <span> */}
                                 <button className={classes.btn}>
-                                { addedOnToggle == 0 ?
-                                  <ArrowUpwardIcon
-                                    onClick={sortByAddedOn}
-                                    style={{
-                                      color: "#3763dd",
-                                      height: "20px",
-                                      width: "15px",
-                                      marginLeft: "5px",
-                                    }}
-                                  />:<ArrowDownwardIcon
-                                  onClick={sortByAddedOn}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />}
+                                  {addedOnToggle == 0 ? (
+                                    <ArrowUpwardIcon
+                                      onClick={sortByAddedOn}
+                                      style={{
+                                        color: "#3763dd",
+                                        height: "20px",
+                                        width: "15px",
+                                        marginLeft: "5px",
+                                      }}
+                                    />
+                                  ) : (
+                                    <ArrowDownwardIcon
+                                      onClick={sortByAddedOn}
+                                      style={{
+                                        color: "#3763dd",
+                                        height: "20px",
+                                        width: "15px",
+                                        marginLeft: "5px",
+                                      }}
+                                    />
+                                  )}
                                 </button>
                               </span>
                               {/* </span> */}
@@ -1971,7 +2045,7 @@ export default function SimpleTabs(props) {
                               </Tooltip>
                               {/* <span> */}
                               <button className={classes.btn}>
-                              { addedOnToggle == 0 ?
+                                {addedOnToggle == 0 ? (
                                   <ArrowUpwardIcon
                                     onClick={sortByAddedOn}
                                     style={{
@@ -1980,15 +2054,18 @@ export default function SimpleTabs(props) {
                                       width: "15px",
                                       marginLeft: "5px",
                                     }}
-                                  />:<ArrowDownwardIcon
-                                  onClick={sortByAddedOn}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />}
+                                  />
+                                ) : (
+                                  <ArrowDownwardIcon
+                                    onClick={sortByAddedOn}
+                                    style={{
+                                      color: "#3763dd",
+                                      height: "20px",
+                                      width: "15px",
+                                      marginLeft: "5px",
+                                    }}
+                                  />
+                                )}
                               </button>
                             </span>
                             {/* </span> */}
@@ -2170,7 +2247,14 @@ export default function SimpleTabs(props) {
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
+                              <span
+                                className={"tableheaders-1"}
+                                onClick={() => {
+                                  sortByTagName();
+                                  setTagArrow(false);
+                                  setAgeArrow(true);
+                                }}
+                              >
                                 Name Tag
                                 <Tooltip
                                   placement="top"
@@ -2184,25 +2268,37 @@ export default function SimpleTabs(props) {
                                   />
                                 </Tooltip>
                                 <button className={classes.btn}>
-                                {nameToggle == 0 ?
-                                <ArrowUpwardIcon
-                                  onClick={sortByTagName}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />:
-                                <ArrowDownwardIcon 
-                                  onClick={sortByTagName}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />}
+                                  {nameToggle && tagArrow === false ? (
+                                    nameToggle == -1 ? (
+                                      // <ArrowUpwardIcon
+                                      // onClick={() => {
+                                      //   sortData("blockNumber");
+                                      // }}
+                                      //   className={classes.sortButton}
+                                      // />
+                                      <img
+                                        alt="question-mark"
+                                        src="/images/see-more.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon rotate-180"
+                                      />
+                                    ) : (
+                                      // <ArrowDownwardIcon
+                                      //   onClick={() => {
+                                      //     sortData("blockNumber");
+                                      //   }}
+                                      //   className={classes.sortButton}
+                                      // />
+                                      <img
+                                        alt="question-mark"
+                                        src="/images/see-more.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon"
+                                      />
+                                    )
+                                  ) : (
+                                    <></>
+                                  )}
                                 </button>
                               </span>
                             </TableCell>
@@ -2213,11 +2309,17 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
+                              <span
+                                className={"tableheaders-1"}
+                                onClick={() => {
+                                  sortByAge();
+                                  setAgeArrow(false);
+                                }}
+                              >
                                 Added On
                                 <Tooltip
                                   placement="top"
-                                  title={messages.TAG_ADDED_ON}
+                                  title={messages.NAME_TAG}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2226,6 +2328,39 @@ export default function SimpleTabs(props) {
                                     className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
+                                <button className={classes.btn}>
+                                  {ageToggle && ageArrow === false ? (
+                                    ageToggle == -1 ? (
+                                      // <ArrowUpwardIcon
+                                      // onClick={() => {
+                                      //   sortData("blockNumber");
+                                      // }}
+                                      //   className={classes.sortButton}
+                                      // />
+                                      <img
+                                        alt="question-mark"
+                                        src="/images/see-more.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon "
+                                      />
+                                    ) : (
+                                      // <ArrowDownwardIcon
+                                      //   onClick={() => {
+                                      //     sortData("blockNumber");
+                                      //   }}
+                                      //   className={classes.sortButton}
+                                      // />
+                                      <img
+                                        alt="question-mark"
+                                        src="/images/see-more.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon rotate-180"
+                                      />
+                                    )
+                                  ) : (
+                                    <></>
+                                  )}
+                                </button>
                               </span>
                             </TableCell>
 
@@ -2304,7 +2439,14 @@ export default function SimpleTabs(props) {
                             </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1"}>
+                            <span
+                              className={"tableheaders-1 cursor-pointer"}
+                              onClick={() => {
+                                sortByTagName();
+                                setTagArrow(false);
+                                setAgeArrow(true);
+                              }}
+                            >
                               Name Tag
                               <Tooltip
                                 placement="top"
@@ -2318,25 +2460,37 @@ export default function SimpleTabs(props) {
                                 />
                               </Tooltip>
                               <button className={classes.btn}>
-                                {nameToggle == 0 ?
-                                <ArrowUpwardIcon
-                                  onClick={sortByTagName}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />:
-                                <ArrowDownwardIcon 
-                                  onClick={sortByTagName}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />}
+                                {nameToggle && tagArrow === false ? (
+                                  nameToggle == -1 ? (
+                                    // <ArrowUpwardIcon
+                                    // onClick={() => {
+                                    //   sortData("blockNumber");
+                                    // }}
+                                    //   className={classes.sortButton}
+                                    // />
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon rotate-180"
+                                    />
+                                  ) : (
+                                    // <ArrowDownwardIcon
+                                    //   onClick={() => {
+                                    //     sortData("blockNumber");
+                                    //   }}
+                                    //   className={classes.sortButton}
+                                    // />
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon"
+                                    />
+                                  )
+                                ) : (
+                                  <></>
+                                )}
                               </button>
                             </span>
                           </TableCell>
@@ -2347,11 +2501,18 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1"}>
+                            <span
+                              className={"tableheaders-1 cursor-pointer"}
+                              onClick={() => {
+                                sortByAge();
+                                setAgeArrow(false);
+                                setTagArrow(true);
+                              }}
+                            >
                               Added On
                               <Tooltip
                                 placement="top"
-                                title={messages.TAG_ADDED_ON}
+                                title={messages.NAME_TAG}
                               >
                                 <img
                                   alt="question-mark"
@@ -2360,6 +2521,39 @@ export default function SimpleTabs(props) {
                                   className="tooltipInfoIcon"
                                 />
                               </Tooltip>
+                              <button className={classes.btn}>
+                                {ageToggle && ageArrow === false ? (
+                                  ageToggle == -1 ? (
+                                    // <ArrowUpwardIcon
+                                    // onClick={() => {
+                                    //   sortData("blockNumber");
+                                    // }}
+                                    //   className={classes.sortButton}
+                                    // />
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon rotate-180"
+                                    />
+                                  ) : (
+                                    // <ArrowDownwardIcon
+                                    //   onClick={() => {
+                                    //     sortData("blockNumber");
+                                    //   }}
+                                    //   className={classes.sortButton}
+                                    // />
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon"
+                                    />
+                                  )
+                                ) : (
+                                  <></>
+                                )}
+                              </button>
                             </span>
                           </TableCell>
                           {/* <TableCell

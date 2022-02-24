@@ -413,7 +413,7 @@ class BlockChainDataComponent extends Component {
       let gpCurrent = txnFeeAvgMultiple
         ? Utility.decimalDivison(txnFeeConverted, 8)
         : 0;
-      if (gpCurrent >= 0.000000000001 && this.state.gasPrice !== gpCurrent) {
+      if (gpCurrent >= 0.00000001 && this.state.gasPrice !== gpCurrent) {
         let blockAnimationClass = {
           [transactionData.hash]: "block-height-animation",
         };

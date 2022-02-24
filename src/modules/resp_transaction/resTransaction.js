@@ -377,7 +377,8 @@ export default function Transaction({ _handleChange }) {
   let avgTxnFeeFetch2 = avgTxnFeeFetch.toString().split(".")[1];
 
   let transactionValue =
-    transactions?.value < 100000000
+    transactions?.value <
+    100000000000 /*there are some transactions which are not in gwei in ou DB*/
       ? transactions?.value * 1000000000000000000
       : transactions?.value;
   const valueDiv =
@@ -1576,7 +1577,8 @@ const DivMiddleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 35px;
-  margin-bottom: 36px @media (min-width: 0 px) and (max-width: 767 px) {
+  margin-bottom: 36px;
+  @media (min-width: 0px) and (max-width: 767px) {
     margin-top: 25px;
     margin-bottom: 25px;
   }
@@ -1620,7 +1622,7 @@ const Heading = styled.span`
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-family: Inter;
-    font-size: 18px
+    font-size: 18px;
     text-align: left;
     color: #2a2a2a;
     margin-top: 19px;

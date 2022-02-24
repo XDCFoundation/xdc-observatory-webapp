@@ -82,7 +82,7 @@ export default function CommonTransactionsTable(props) {
           <TransactionTitle>Latest Transactions</TransactionTitle>
           <a
             className="nav_button margin-right-30px"
-            href="/view-all-transaction"
+            href="/view-all-transaction/1"
 
           >
             View All
