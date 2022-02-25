@@ -724,7 +724,11 @@ class BlockChainDataComponent extends Component {
                 </ValueName>
               </Value>
               <Value gridArea="gasPrice">
-                <TitleIcon src={priceLogo} />
+                { 
+                currencySymbol === "$" ?
+                <TitleIcon src={priceLogo} />:
+                <TitleIcon src="/images/Gas price euro.svg" />
+                }
                 <ValueName>
                   <Title>Txn Fee (Avg)</Title>
                   <TitleData

@@ -376,20 +376,20 @@ export default function AddressDetailsData() {
               >
                 Code
               </button>
+              {/* <button
+                className={
+                  toggleState === 3
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(3)}
+              >
+                XRC20
+              </button> */}
               {!responses ? (
                 ""
               ) : responses?.contractStatus !== "Unverified" ? (
                 <>
-                  <button
-                    className={
-                      toggleState === 3
-                        ? "token-data-tabs active-tabs-token"
-                        : "token-data-tabs"
-                    }
-                    onClick={() => toggleTab(3)}
-                  >
-                    Read Contract
-                  </button>
                   <button
                     className={
                       toggleState === 4
@@ -397,6 +397,16 @@ export default function AddressDetailsData() {
                         : "token-data-tabs"
                     }
                     onClick={() => toggleTab(4)}
+                  >
+                    Read Contract
+                  </button>
+                  <button
+                    className={
+                      toggleState === 5
+                        ? "token-data-tabs active-tabs-token"
+                        : "token-data-tabs"
+                    }
+                    onClick={() => toggleTab(5)}
                   >
                     Write Contract
                   </button>
@@ -436,7 +446,7 @@ export default function AddressDetailsData() {
           </div>
           <div
             className={
-              toggleState === 3
+              toggleState === 4
                 ? "content_sec  active-content_sec"
                 : "content_sec"
             }
@@ -451,7 +461,7 @@ export default function AddressDetailsData() {
           </div>
           <div
             className={
-              toggleState === 4
+              toggleState === 5
                 ? "content_sec  active-content_sec"
                 : "content_sec"
             }

@@ -162,6 +162,7 @@ export default function FormDialog(props) {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: privateNote,
       transactionHash: transactionsHash,
+      modifiedOn: Date.now()
     };
 
     let transactionLabel = localStorage.getItem(

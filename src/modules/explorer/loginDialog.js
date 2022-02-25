@@ -758,11 +758,6 @@ export default function FormDialog(props) {
       setLoading(false);
       return;
     }
-    if (userName.length < 5) {
-      setErrorUserName(genericConstants.USERNAME_CHARACTER_LIMIT);
-      setLoading(false);
-      return;
-    }
     if (!email) {
       setErrorEmail(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
@@ -777,6 +772,9 @@ export default function FormDialog(props) {
       setErrorConfirmPassword(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
       return;
+    } else if (userName.length < 5 || userName.length > 30) {
+      setErrorUserName(genericConstants.USERNAME_CHARACTER_LIMIT_5_30);
+      setLoading(false);
     } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid username");
       setLoading(false);
@@ -905,17 +903,19 @@ export default function FormDialog(props) {
       );
       setLoading(false);
       if (error || !authResponse) {
-        setEmailError("Please enter a valid email address");
+        setErrorEmail("Please enter a valid email address");
         setReCaptcha("");
         recaptchaRef.current.reset();
-        Utility.apiFailureToast("Wrong email");
+        // Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
+        setErrorEmail("");
+        setReCaptcha("");
         setValue(2);
         setCaptchaCheckbox(false);
-        Utility.apiSuccessToast(
-          "We have just sent you an email to reset your password."
-        );
+        // Utility.apiSuccessToast(
+        //   "We have just sent you an email to reset your password."
+        // );
         // window.location.href = "/";
       }
     }
@@ -1570,8 +1570,8 @@ export default function FormDialog(props) {
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  setEmailError("");
-                  setInputError(" ");
+                  setErrorEmail("");
+                  setInputError("");
                 }}
               />
               <div className={classes.error}>{errorEmail}</div>
