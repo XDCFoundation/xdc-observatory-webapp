@@ -15,6 +15,7 @@ import Loader from "../../assets/loader";
 import { messages } from "../../constants";
 import utility from "../../utility";
 import { useState } from "react";
+import PageSelector from "../../modules/common/pageSelector"
 
 const useStyles = makeStyles({
   container: {
@@ -22,6 +23,10 @@ const useStyles = makeStyles({
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#fff",
+  },
+  selectAmount: {
+    height: "70%",
+    marginRight: "8px",
   },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
@@ -307,7 +312,11 @@ export default function BlocksComponent(props) {
       <Grid container style={{ marginTop: "28px" }} className="Pagination">
         <Grid item className="Pagination_1">
           <span className="textShowRecordBlock">Show</span>
-          <select
+          <span className={classes.selectAmount}>
+          <PageSelector value={props.state.amount}
+                height={35}
+                handler={(event) => props._handleChange(event)} /></span>
+          {/* <select
             value={props.state.amount}
             className="select-amount"
             onChange={(event) => props._handleChange(event)}
@@ -316,7 +325,7 @@ export default function BlocksComponent(props) {
             <option value={25}>25</option>
             <option value={50}>50</option>
             <option value={100}>100</option>
-          </select>
+          </select> */}
           <span className="textShowRecordBlock">Records</span>
         </Grid>
 

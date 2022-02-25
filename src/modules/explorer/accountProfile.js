@@ -452,7 +452,7 @@ export default function SimpleTabs(props) {
   // const { state } = props;
   const [addedOnToggle, setAddedOnToggle] = React.useState(0);
   const [balanceToggle, setBalanceToggle] = React.useState("");
-  const [nameToggle, setNameToggle] = React.useState(""); 
+  const [nameToggle, setNameToggle] = React.useState("");
   const [tableValue, setTablevalue] = React.useState(1);
   const [downloadWatchlist, setDownloadWatchlist] = React.useState([]);
   const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
@@ -498,41 +498,62 @@ export default function SimpleTabs(props) {
 
   const isPrivacyAccepted =
     sessionManager.getDataFromCookies("isPrivacyAccepted");
+
   async function searchData(event) {
     if (value === 0) {
       const searchValue = event.target.value;
       setSearch(searchValue);
-      setDataNotFound(false);
+      setDataNotFound("");
+      if (!searchValue) {
+        getListOfWatchlist();
+        return;
+      }
+      let localWatchlists = localStorage.getItem(
+        sessionManager.getDataFromCookies("userId") +
+          cookiesConstants.USER_ADDRESS_WATCHLIST
+      );
+      localWatchlists = localWatchlists ? JSON.parse(localWatchlists) :"";
+      let count = 0;
+      let totalLocalWatchlist = localWatchlists ? localWatchlists.length : "";
+      if (searchValue && localWatchlists) {
+        localWatchlists = localWatchlists.filter((obj) => {
+          if (
+            obj.address.includes(searchValue) ||
+            obj.description.includes(searchValue)
+          ) {
+            return obj;
+          } else {
+            count++;
+          }
+        });
+      }
+
+      if (totalLocalWatchlist == count) {
+        setDataNotFound(true);
+        return;
+      }
+
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
-        searchValue: searchValue,
+        searchValue: localWatchlists[0].address,
         searchKeys: ["description", "address"],
         search: value.toString(),
       };
       if (!searchValue) {
         onChangeWatchlistPage(watchlistPageCount);
       } else {
-        const response = await getListOfWatchlist({
-          skip: 0,
-          limit: 5,
-          searchValue: searchValue,
-        });
-        // if (error || !response) {
-        //   setDataNotFound(true);
-        // } else {
-        //   let watchlists = localStorage.getItem(
-        //     data.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
-        //   );
-        //   watchlists = JSON.parse(watchlists);
-        //   response.watchlistContent = response.watchlistContent.map((obj) => {
-        //     obj.description =
-        //       watchlists && watchlists[obj.address]
-        //         ? watchlists[obj.address]
-        //         : "";
-        //     return obj;
-        //   });
-        // setWatchlist(response);
-        // }
+        let [error, response] = await Utils.parseResponse(
+          UserService.Search(data)
+        );
+        if (error || !response) {
+          setDataNotFound("Data not found");
+        } else {
+          response = response.map((obj) => {
+            obj.description = localWatchlists[0].description;
+            return obj;
+          });
+          setWatchlist(response);
+        }
       }
     }
 
@@ -585,7 +606,7 @@ export default function SimpleTabs(props) {
   const [totalCount3, setTotalCount3] = React.useState(5);
   const [ageToggle, setAgeToggle] = React.useState("");
   const [dateToggle, setDateToggle] = React.useState("");
-  
+
   // Edit box Popup Handlers
   const [editBoxOpen, setEditBox] = React.useState(false);
   const [selectedEditAddress, setSelectedAddress] = React.useState(false);
@@ -628,9 +649,13 @@ export default function SimpleTabs(props) {
       request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
     );
     watchlists = JSON.parse(watchlists);
+    if (!watchlists) watchlists = [];
     response.watchlistContent = response.watchlistContent.map((obj) => {
-      obj.description =
-        watchlists && watchlists[obj.address] ? watchlists[obj.address] : "";
+      obj.description = watchlists.map((item, index) => {
+        return watchlists && watchlists[index][obj.address]
+          ? watchlists[index][obj.address]
+          : "";
+      });
       return obj;
     });
     if (response.totalCount > 0) {
@@ -657,6 +682,8 @@ export default function SimpleTabs(props) {
       setTxnHashNotAdded(false);
     }
 
+    let tempNoteCount = 0;
+    let totalLocalNote = transactionLabels.length;
     if (request.searchValue) {
       transactionLabels = transactionLabels.filter((obj) => {
         if (
@@ -665,9 +692,12 @@ export default function SimpleTabs(props) {
         ) {
           return obj;
         } else {
-          setDataNotFound(true);
+          tempNoteCount++;
         }
       });
+      if (tempNoteCount == totalLocalNote) {
+        setDataNotFound(true);
+      }
     }
     setTotalCount2(transactionLabels.length);
     if (transactionLabels.length > requestData?.limit) {
@@ -696,6 +726,8 @@ export default function SimpleTabs(props) {
       setTagAddressNotAdded(false);
     }
 
+    let tempTagCount = 0;
+    let totalLocaltag = taggedAddress.length;
     if (request.searchValue) {
       taggedAddress = taggedAddress.filter((obj) => {
         if (
@@ -704,9 +736,12 @@ export default function SimpleTabs(props) {
         ) {
           return obj;
         } else {
-          setDataNotFound(true);
+          tempTagCount++;
         }
       });
+      if (tempTagCount == totalLocaltag) {
+        setDataNotFound(true);
+      }
     }
 
     setTotalCount3(taggedAddress.length);
@@ -743,13 +778,13 @@ export default function SimpleTabs(props) {
         (index1, index2) => index1?.balance - index2?.balance
       );
       setBalanceToggle(1);
-      setDateToggle("")
+      setDateToggle("");
     } else {
       newData = oldData.sort(
         (index1, index2) => index2?.balance - index1?.balance
       );
       setBalanceToggle(-1);
-      setDateToggle("")
+      setDateToggle("");
     }
     setWatchlist(newData);
   };
@@ -761,13 +796,13 @@ export default function SimpleTabs(props) {
         (index1, index2) => index1?.addedOn - index2?.addedOn
       );
       setDateToggle(1);
-      setBalanceToggle("")
+      setBalanceToggle("");
     } else {
       newData = oldData.sort(
         (index1, index2) => index2?.addedOn - index1?.addedOn
       );
       setDateToggle(-1);
-      setBalanceToggle("")
+      setBalanceToggle("");
     }
     setWatchlist(newData);
   };
@@ -793,16 +828,16 @@ export default function SimpleTabs(props) {
     let oldData = privateAddress;
     let newData;
     if (ageToggle === -1) {
-      newData = oldData.sort((index1, index2) =>
-      index2.modifiedOn - index1.modifiedOn
+      newData = oldData.sort(
+        (index1, index2) => index2.modifiedOn - index1.modifiedOn
       );
-      
+      console.log(newData, "<<<");
       setAgeToggle(1);
     } else {
-      newData = oldData.sort((index1, index2) =>
-      index1.modifiedOn - index2.modifiedOn
+      newData = oldData.sort(
+        (index1, index2) => index1.modifiedOn - index2.modifiedOn
       );
-      
+      console.log(newData, "<<<");
       setAgeToggle(-1);
     }
     setPrivateAddress(newData);
@@ -1583,7 +1618,10 @@ export default function SimpleTabs(props) {
                             </button>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1 cursor-pointer"}onClick={sortByDate}>
+                            <span
+                              className={"tableheaders-1 cursor-pointer"}
+                              onClick={sortByDate}
+                            >
                               Added On
                               <Tooltip
                                 placement="top"
@@ -1597,35 +1635,34 @@ export default function SimpleTabs(props) {
                                 />
                               </Tooltip>
                               <button className={classes.btn}>
-                              <Tooltip
-                                placement="top"
-                                title={
-                                  dateToggle == -1
-                                    ? "Descending"
-                                    : "Ascending"
-                                }
-                              >
-                                {dateToggle === "" ? (
-                                  <></>
-                                ) : dateToggle == 1 ? (
-                                  <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon rotate-180"
-                                  />
-                                ) : (
-                                  <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon"
-                                  />
-                                )}
-                              </Tooltip>
-                            </button>
+                                <Tooltip
+                                  placement="top"
+                                  title={
+                                    dateToggle == -1
+                                      ? "Descending"
+                                      : "Ascending"
+                                  }
+                                >
+                                  {dateToggle === "" ? (
+                                    <></>
+                                  ) : dateToggle == 1 ? (
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon rotate-180"
+                                    />
+                                  ) : (
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon"
+                                    />
+                                  )}
+                                </Tooltip>
+                              </button>
                             </span>
-                            
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <span className={"tableheaders-1"}>
@@ -2464,61 +2501,60 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                           <TableCell style={{ border: "none" }} align="left">
-                          <span
-                                className={"tableheaders-1 cursor-pointer"}
-                                onClick={() => {
-                                  sortByAge();
-                                  setAgeArrow(false);
+                            <span
+                              className={"tableheaders-1 cursor-pointer"}
+                              onClick={() => {
+                                sortByAge();
+                                setAgeArrow(false);
                                 setTagArrow(true);
-
-                                }}
+                              }}
+                            >
+                              Added On
+                              <Tooltip
+                                placement="top"
+                                title={messages.NAME_TAG}
                               >
-                                Added On
-                                <Tooltip
-                                  placement="top"
-                                  title={messages.NAME_TAG}
-                                >
-                                  <img
-                                    alt="question-mark"
-                                    src="/images/info.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon"
-                                  />
-                                </Tooltip>
-                                <button className={classes.btn}>
-                                  {ageToggle && ageArrow === false ? (
-                                    ageToggle == -1 ? (
-                                      // <ArrowUpwardIcon
-                                      // onClick={() => {
-                                      //   sortData("blockNumber");
-                                      // }}
-                                      //   className={classes.sortButton}
-                                      // />
-                                      <img
-                                        alt="question-mark"
-                                        src="/images/see-more.svg"
-                                        height={"14px"}
-                                        className="tooltipInfoIcon rotate-180"
-                                      />
-                                    ) : (
-                                      // <ArrowDownwardIcon
-                                      //   onClick={() => {
-                                      //     sortData("blockNumber");
-                                      //   }}
-                                      //   className={classes.sortButton}
-                                      // />
-                                      <img
-                                        alt="question-mark"
-                                        src="/images/see-more.svg"
-                                        height={"14px"}
-                                        className="tooltipInfoIcon"
-                                      />
-                                    )
+                                <img
+                                  alt="question-mark"
+                                  src="/images/info.svg"
+                                  height={"14px"}
+                                  className="tooltipInfoIcon"
+                                />
+                              </Tooltip>
+                              <button className={classes.btn}>
+                                {ageToggle && ageArrow === false ? (
+                                  ageToggle == -1 ? (
+                                    // <ArrowUpwardIcon
+                                    // onClick={() => {
+                                    //   sortData("blockNumber");
+                                    // }}
+                                    //   className={classes.sortButton}
+                                    // />
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon rotate-180"
+                                    />
                                   ) : (
-                                    <></>
-                                  )}
-                                </button>
-                              </span>
+                                    // <ArrowDownwardIcon
+                                    //   onClick={() => {
+                                    //     sortData("blockNumber");
+                                    //   }}
+                                    //   className={classes.sortButton}
+                                    // />
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon"
+                                    />
+                                  )
+                                ) : (
+                                  <></>
+                                )}
+                              </button>
+                            </span>
                           </TableCell>
                           {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
