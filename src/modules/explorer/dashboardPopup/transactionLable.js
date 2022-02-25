@@ -256,8 +256,8 @@ export default function FormDialog(props) {
       !(TransactionsHash.slice(0, 2) == "0x")
     ) {
       setError("Invalid transaction hash");
-    } else if (!PrivateNote) {
-      setPrivateNoteError("Please enter transaction label/note");
+    } else if (PrivateNote.length > 120) {
+      setPrivateNoteError("Transaction label/note cannot be longer than 120 characters");
     } else {
       // const [error, response] = await utility.parseResponse(
       //   UserService.postUserPrivateNote(data)
