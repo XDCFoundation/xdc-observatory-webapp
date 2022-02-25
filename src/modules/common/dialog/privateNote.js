@@ -51,6 +51,17 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
 
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px",
+  },
+  error1: {
+    color: "red",
+    marginLeft: "24px",
+    marginTop: "-14px",
+  },
+
   input: {
     width: "503px",
     height: "10px",
@@ -152,12 +163,34 @@ export default function FormDialog(props) {
   const { open, onClose } = props
   const [transactionsHash, setTransactionsHash] = React.useState("");
   const [privateNote, setPrivateNote] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [privateNoteError, setPrivateNoteError] = React.useState("");
+  const [errorEmptyField, setErrorEmptyField] = React.useState("");
 
   React.useEffect(() => {
     setTransactionsHash(props.hash)
     setPrivateNote(props.pvtNote)
   }, [props])
   async function transactionLable() {
+    setError("");
+    setPrivateNoteError("");
+    setErrorEmptyField("");
+    if (!transactionsHash && !privateNote) {
+        setErrorEmptyField("Please enter required fields");
+        return
+    }
+    if (!transactionsHash) {
+      setError("Please enter required field");
+    } else if (!privateNote) {
+      setPrivateNoteError("Please enter transaction label/note");
+    } else if (
+      !(transactionsHash && transactionsHash.length === 66) ||
+      !(transactionsHash.slice(0, 2) == "0x")
+    ) {
+      setError("Invalid transaction hash");
+    } else if (privateNote.length > 120) {
+      setPrivateNoteError("Transaction label/note cannot be longer than 120 characters");
+    } else {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: privateNote,
@@ -200,6 +233,7 @@ export default function FormDialog(props) {
     setTransactionsHash("");
     setPrivateNote("");
   }
+}
 
   const classes = useStyles();
 
@@ -216,6 +250,7 @@ export default function FormDialog(props) {
             Add Transaction Label
           </div>
         </Row>
+        {errorEmptyField ? <div className={classes.error1}>{errorEmptyField}</div> : <></>}
         <DialogContent>
           <DialogContentText className={classes.subCategory}>
             Transaction Hash
@@ -226,6 +261,7 @@ export default function FormDialog(props) {
             className={classes.input}
             onChange={(e) => setTransactionsHash(e.target.value)}
           ></input>
+          {error ? <div className={classes.error}>{error}</div> : <></>}
         </DialogContent>
         <DialogContent>
           <DialogContentText className={classes.subCategory}>
@@ -238,6 +274,11 @@ export default function FormDialog(props) {
             onChange={(e) => setPrivateNote(e.target.value)}
           ></textarea>
         </DialogContent>
+        {privateNoteError ? (
+            <div className={classes.error1}>{privateNoteError}</div>
+          ) : (
+            <></>
+          )}
         <DialogActions className={classes.buttons}>
           <span style={{ color: "white" }}>
             <button className={classes.cnlbtn} onClick={onClose}>
