@@ -711,6 +711,11 @@ input:focus {
   width: 100%;
   text-align: center;
 }
+.options-data, .options-data:hover{
+  font-size: 15px;
+  font-weight: 500;
+  color: #2149b9;
+}
 @media (min-width: 768px) and (max-width: 1240px) {
   .Shape {
     height: 1.75rem;
