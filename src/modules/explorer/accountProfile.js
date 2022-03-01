@@ -45,7 +45,7 @@ import PrivacyAlert from "../explorer/dashboardPopup/privacyAlert";
 import Utility from "../../utility";
 import { useSelector } from "react-redux";
 import format from "format-number";
-
+import CustomDropDownAddress from "../common/importDropdown"
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
@@ -430,6 +430,7 @@ const SubParentContainer = styled.div`
   }
 `;
 export default function SimpleTabs(props) {
+  let sampleData;
   const timezone = useSelector((state) => state.timezone);
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -989,7 +990,9 @@ export default function SimpleTabs(props) {
   const [countTag, setCountTag] = React.useState(-1);
   const [checkedTag, setCheckedTag] = React.useState(false);
   let tagAddrLength = privateAddress.length;
-
+const sampleRender =(res)=>{
+  console.log(res,"res")
+}
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
     if (name === "allselect" || countTag === tagAddrLength) {
@@ -1206,6 +1209,10 @@ export default function SimpleTabs(props) {
                 value={search}
               />
             </div>
+          <div className="display-flex align-items-center">
+            {tableValue === 3?
+            <CustomDropDownAddress
+            sampleRender={sampleRender}/>:""}
             {!isDownloadActive && tableValue === 1 ? (
               ""
             ) : isDownloadActive ? (
@@ -1300,6 +1307,7 @@ export default function SimpleTabs(props) {
                 Export
               </div>
             )}
+          </div>
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv add-root">
