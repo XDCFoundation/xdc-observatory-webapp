@@ -574,7 +574,9 @@ input:focus {
 .w-250 {
   width: 250px;
 }
-
+.p-l-0{
+  padding-left: 0 !important ;
+}
 .mar-top-15 {
   margin-top: 15px;
 }
