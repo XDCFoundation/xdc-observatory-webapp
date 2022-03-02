@@ -336,7 +336,7 @@
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
-  height: 70%;
+  height: 90%;
   width: 66px;
   font-size: 0.875rem !important;
   padding: 9px 6px 9px 6px;
@@ -895,6 +895,9 @@
 }
 @media only screen and (min-width: 767px) {
   .container-table {
+    overflow: auto;
+  }
+  .container-table-holder-mob {
     overflow: auto;
   }
   .Pagination_1 {
