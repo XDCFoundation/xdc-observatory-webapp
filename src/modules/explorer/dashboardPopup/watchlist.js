@@ -311,7 +311,7 @@ export default function FormDialog(props) {
       );
       watchlists = JSON.parse(watchlists);
       if(!watchlists)
-        watchlists = {}
+        watchlists = []
       // if (watchlists) {
       //   watchlists = JSON.parse(watchlists);
       //   const existingWatchList = response.find(
@@ -325,8 +325,13 @@ export default function FormDialog(props) {
       // } else {
       //   watchlists = [];
       // }
-      // watchlists.push(request);
-        watchlists[request.address] = description;
+      const data = {
+        description: description,
+        address: address,
+        [request.address] : description
+      };
+      watchlists.push(data);
+      //  {watchlists[request.address] = description;
         localStorage.setItem(
           request.userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
           JSON.stringify(watchlists)

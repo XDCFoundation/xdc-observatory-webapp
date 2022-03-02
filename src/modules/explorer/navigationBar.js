@@ -333,7 +333,7 @@ export default function Navbar() {
               redirectUrl: transactionurl,
             },
           });
-          window.location.href = transactionurl;
+          // window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
           if (responseData[0]?.token.length == 1) {
             let tokenDataUrl =
@@ -351,7 +351,7 @@ export default function Navbar() {
                 redirectUrl: tokenDataUrl,
               },
             });
-            window.location.href = tokenDataUrl;
+            // window.location.href = tokenDataUrl;
           } else if (responseData[0]?.token.length > 1) {
             let tokenListUrl =
               "/tokens/" + responseData[0]?.token[0]?.tokenName;

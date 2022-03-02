@@ -42,7 +42,7 @@ const Pagination = styled.div`
   flex-direction: row;
   margin: auto;
   width: 75.125rem;
-  align-items:center;
+  align-items: center;
   /* margin-right: 18%;
    margin-left: 18%; */
   @media (min-width: 0px) and (max-width: 767px) {
@@ -50,7 +50,7 @@ const Pagination = styled.div`
     flex-direction: column;
     width: 21rem;
     margin: 0 auto 23px auto;
-    align-items:flex-start;
+    align-items: flex-start;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 41.5rem;
@@ -69,13 +69,13 @@ const RightPagination = styled.div`
 const LeftPagination = styled.div`
   display: flex;
   flex-direction: row;
-max-width:95px
+  max-width: 95px;
   margin-top: 2.188rem;
   @media (min-width: 1024px) and (max-width: 1240px) {
     margin-right: 5%;
   }
-   @media (min-width: 0px) and (max-width: 767px) {
-    margin-top:1.188rem;
+  @media (min-width: 0px) and (max-width: 767px) {
+    margin-top: 1.188rem;
   }
 `;
 
@@ -95,18 +95,29 @@ class Contractlist extends React.Component {
       isColumnsModalOpen: null,
       tableColumns: {
         // "Address": {isActive: true, toolTipText: "Address of the contract"},
-        "Token Name": { isActive: true, toolTipText: "Name of the token associated with the contract." },
+        "Token Name": {
+          isActive: true,
+          toolTipText: "Name of the token associated with the contract.",
+        },
         // "Contract Name": { isActive: false, toolTipText: "Name of the Smart Contract." },
-        "Contract Type": { isActive: true, toolTipText: "Whether the token is associated with the Smart Contract or not" }
+        "Contract Type": {
+          isActive: true,
+          toolTipText:
+            "Whether the token is associated with the Smart Contract or not",
+        },
       },
       sortedByAddress: "",
       sortedByTokenName: "",
       sortedByContractName: "",
     };
   }
-  
+
   componentDidMount = () => {
-    let data = { pageNum: this.state.from, perpage: this.state.amount , sortKey :{tokenName : -1}};
+    let data = {
+      pageNum: this.state.from,
+      perpage: this.state.amount,
+      sortKey: { tokenName: -1 },
+    };
     this.getContractList(data);
     this.getTotalContractList();
     this.sortByTokenName();
@@ -152,9 +163,8 @@ class Contractlist extends React.Component {
         keywords: this.state.keywords,
       };
 
-
       if (this.state.keywords) {
-        data["keywords"] = this.state.keywords
+        data["keywords"] = this.state.keywords;
         this.getContractSearch(data);
       } else {
         data = { ...data, pageNum: page, perpage: this.state.amount };
@@ -163,7 +173,9 @@ class Contractlist extends React.Component {
       }
     }
     if (action === "last") {
-      let page = (Math.ceil(this.state.totalRecord / this.state.amount)-1) * this.state.amount;
+      let page =
+        (Math.ceil(this.state.totalRecord / this.state.amount) - 1) *
+        this.state.amount;
       this.setState({ from: page });
       if (this.state.keywords) {
         data = {
@@ -193,7 +205,6 @@ class Contractlist extends React.Component {
           };
           this.getContractSearch(data);
         } else {
-
           data = { ...data, pageNum: page, perpage: this.state.amount };
           this.getContractList(data);
           this.getTotalContractList();
@@ -223,17 +234,34 @@ class Contractlist extends React.Component {
 
   handleChangeRowsPerPage = async (event) => {
     this.setState({ amount: event.target.value });
-    if (this.state.keywords) {
-      let data = {
+    let data = {};
+    if (this.state.sortedByAddress)
+      data.sortKey = { address: this.state.sortedByAddress };
+    if (this.state.sortedByTokenName)
+      data.sortKey = { tokenName: this.state.sortedByTokenName };
+    if (this.state.sortedByContractName)
+      data.sortKey = { tokenName: this.state.sortedByContractName };
+      let datas = {
+        ...data,
         pageNum: this.state.from,
-        perpage: this.state.amount,
-        keywords: this.state.keywords,
+        perpage: event.target.value,
       };
-      await this.getContractSearch(data);
-    } else {
-      let data = { pageNum: this.state.from, perpage: event.target.value };
-      this.getContractList(data);
-    }
+      this.getContractList(datas);
+    // if (this.state.keywords) {
+    //   let data = {
+    //     pageNum: this.state.from,
+    //     perpage: this.state.amount,
+    //     keywords: this.state.keywords,
+    //   };
+    //   await this.getContractSearch(data);
+    // } else {
+    //   let data = {
+    //     ...data,
+    //     pageNum: this.state.from,
+    //     perpage: event.target.value,
+    //   };
+    //   this.getContractList(data);
+    // }
 
     //this.getTotalContractList()
   };
@@ -249,60 +277,59 @@ class Contractlist extends React.Component {
       pageNum: this.state.from,
       perpage: this.state.amount,
       keywords: this.state.keywords,
-    }
-    this.setState({ sortedByContractName: 0, sortedByTokenName: 0 })
+    };
+    this.setState({ sortedByContractName: 0, sortedByTokenName: 0 });
     if (!this.state.sortedByAddress) {
-      this.setState({ sortedByAddress: -1 })
-      data['sortKey'] = { "address": -1 }
+      this.setState({ sortedByAddress: -1 });
+      data["sortKey"] = { address: -1 };
     } else if (this.state.sortedByAddress === -1) {
-      this.setState({ sortedByAddress: 1 })
-      data['sortKey'] = { "address": 1 }
+      this.setState({ sortedByAddress: 1 });
+      data["sortKey"] = { address: 1 };
     } else {
-      this.setState({ sortedByAddress: -1 })
-      data['sortKey'] = { "address": -1 }
+      this.setState({ sortedByAddress: -1 });
+      data["sortKey"] = { address: -1 };
     }
     this.getContractList(data);
-  }
+  };
 
   sortByTokenName = async () => {
     let data = {
       pageNum: this.state.from,
       perpage: this.state.amount,
       keywords: this.state.keywords,
-    }
-    this.setState({ sortedByAddress: 0, sortedByContractName: 0 })
+    };
+    this.setState({ sortedByAddress: 0, sortedByContractName: 0 });
     if (!this.state.sortedByTokenName) {
-      this.setState({ sortedByTokenName: -1 })
-      data['sortKey'] = { "tokenName": -1 }
+      this.setState({ sortedByTokenName: -1 });
+      data["sortKey"] = { tokenName: -1 };
     } else if (this.state.sortedByTokenName === -1) {
-      this.setState({ sortedByTokenName: 1 })
-      data['sortKey'] = { "tokenName": 1 }
+      this.setState({ sortedByTokenName: 1 });
+      data["sortKey"] = { tokenName: 1 };
     } else {
-      this.setState({ sortedByTokenName: -1 })
-      data['sortKey'] = { "tokenName": -1 }
+      this.setState({ sortedByTokenName: -1 });
+      data["sortKey"] = { tokenName: -1 };
     }
     this.getContractList(data);
-  }
+  };
   sortByContractName = async () => {
     let data = {
       pageNum: this.state.from,
       perpage: this.state.amount,
       keywords: this.state.keywords,
-    }
-    this.setState({ sortedByTokenName: 0, sortedByAddress: 0 })
+    };
+    this.setState({ sortedByTokenName: 0, sortedByAddress: 0 });
     if (!this.state.sortedByContractName) {
-      this.setState({ sortedByContractName: -1 })
-      data['sortKey'] = { "contractName": -1 }
+      this.setState({ sortedByContractName: -1 });
+      data["sortKey"] = { contractName: -1 };
     } else if (this.state.sortedByContractName === -1) {
-      this.setState({ sortedByContractName: 1 })
-      data['sortKey'] = { "contractName": 1 }
+      this.setState({ sortedByContractName: 1 });
+      data["sortKey"] = { contractName: 1 };
     } else {
-      this.setState({ sortedByContractName: -1 })
-      data['sortKey'] = { "contractName": -1 }
+      this.setState({ sortedByContractName: -1 });
+      data["sortKey"] = { contractName: -1 };
     }
     this.getContractList(data);
-  }
-
+  };
 
   getContractList = async (data) => {
     this.setState({ isLoading: true });
@@ -405,36 +432,36 @@ class Contractlist extends React.Component {
       <div>
         <Tokensearchbar />
         <div className="contract-heading-container">
-        <div className="display-flex justify-content-between p-t-30 p-b-30 responsive-table-width-contract-list contact-list-tab">
-          <div className="contract-heading">Contracts</div>
-          <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
-            <img
-              onClick={this.handleSettingsClick}
-              className="p-r-5 h-20 w-20-px cursor-pointer"
-              src="/images/settings.svg"
-            />
-            <ConfigureColumnPopOver
-              isOpen={this.state.isSettingColumnOpen}
-              anchorEl={this.state.anchorEl}
-              handleOnClose={this.handleOnClose}
-              tableColumns={this.state.tableColumns}
-              toggleTableColumns={this.toggleTableColumns}
-            />
+          <div className="display-flex justify-content-between p-t-30 p-b-30 responsive-table-width-contract-list contact-list-tab">
+            <div className="contract-heading">Contracts</div>
+            <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
+              <img
+                onClick={this.handleSettingsClick}
+                className="p-r-5 h-20 w-20-px cursor-pointer"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnPopOver
+                isOpen={this.state.isSettingColumnOpen}
+                anchorEl={this.state.anchorEl}
+                handleOnClose={this.handleOnClose}
+                tableColumns={this.state.tableColumns}
+                toggleTableColumns={this.toggleTableColumns}
+              />
+            </div>
+            <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+              <img
+                onClick={this.toggleModal}
+                className="p-r-5 h-20 w-20-px cursor-pointer"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnsModal
+                isOpen={this.state.isColumnsModalOpen}
+                onModalClose={this.toggleModal}
+                tableColumns={this.state.tableColumns}
+                toggleTableColumns={this.toggleTableColumns}
+              />
+            </div>
           </div>
-          <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
-            <img
-              onClick={this.toggleModal}
-              className="p-r-5 h-20 w-20-px cursor-pointer"
-              src="/images/settings.svg"
-            />
-            <ConfigureColumnsModal
-              isOpen={this.state.isColumnsModalOpen}
-              onModalClose={this.toggleModal}
-              tableColumns={this.state.tableColumns}
-              toggleTableColumns={this.toggleTableColumns}
-            />
-          </div>
-        </div>
         </div>
         <Paper
           className={"responsive-table-width-contract-list contact-list-tab"}
@@ -466,7 +493,10 @@ class Contractlist extends React.Component {
                       onClick={this.sortByAddress}
                     >
                       Address
-                      <Tooltip placement="top" title={messages.CONTRACT_ADDRESS}>
+                      <Tooltip
+                        placement="top"
+                        title={messages.CONTRACT_ADDRESS}
+                      >
                         <img
                           alt="question-mark"
                           src="/images/info.svg"
@@ -474,18 +504,25 @@ class Contractlist extends React.Component {
                           className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
-                      {this.state.sortedByAddress ? (this.state.sortedByAddress === -1 ? <img
-                        alt="question-mark"
-                        src="/images/see-more.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      /> :
-                        <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon rotate-180"
-                        />) : ""}
+                      {this.state.sortedByAddress ? (
+                        this.state.sortedByAddress === -1 ? (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        ) : (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                          />
+                        )
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </TableCell>
                   {this.state.tableColumns["Token Name"].isActive && (
@@ -505,18 +542,25 @@ class Contractlist extends React.Component {
                           />
                         </Tooltip>
                       </span>
-                      {this.state.sortedByTokenName ? (this.state.sortedByTokenName === -1 ? <img
-                        alt="question-mark"
-                        src="/images/see-more.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      /> :
-                        <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon rotate-180"
-                        />) : ""}
+                      {this.state.sortedByTokenName ? (
+                        this.state.sortedByTokenName === -1 ? (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        ) : (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                          />
+                        )
+                      ) : (
+                        ""
+                      )}
                     </TableCell>
                   )}
                   {/* {this.state.tableColumns["Contract Name"].isActive && (
@@ -584,13 +628,10 @@ class Contractlist extends React.Component {
                 <TableBody>
                   {this.state.rows.map((row, index) => {
                     let isToken = "";
-                     if(row.ERC === 2)
-                      isToken = "XRC20";
-                      else if(row.ERC === 721)
-                      isToken = "XRC721";
-                     else 
-                      isToken = "Others";
-                    
+                    if (row.ERC === 2) isToken = "XRC20";
+                    else if (row.ERC === 721) isToken = "XRC721";
+                    else isToken = "Others";
+
                     return (
                       <TableRow
                         key={row.name}
@@ -608,7 +649,7 @@ class Contractlist extends React.Component {
                             style={{
                               color: "#2149b9",
                               fontSize: 14,
-                              marginLeft: "1.375rem",
+                              marginLeft: "1rem",
                             }}
                             href={`/address/${row.address}`}
                           >
@@ -689,27 +730,35 @@ class Contractlist extends React.Component {
           //   marginLeft: "18%",
           //   marginTop: "20px",
           // }}
-          >{!this.state.isLoading && !this.state.noData ?
-            (<><p
-              style={{
-                fontSize: "0.875rem",
-                fontWeight: "600",
-              }}
-            >
-              Show
-            </p>
-              <PageSelector value={this.state.amount}
-                height={35}
-                handler={this.handleChangeRowsPerPage} />
-              <p
-                style={{
-                  fontSize: "0.875rem",
-                  fontWeight: "600",
-                }}
-              >
-                {" "}
-                Records
-              </p></>) : ("")}
+          >
+            {!this.state.isLoading && !this.state.noData ? (
+              <>
+                <p
+                  style={{
+                    fontSize: "0.875rem",
+                    fontWeight: "600",
+                  }}
+                >
+                  Show
+                </p>
+                <PageSelector
+                  value={this.state.amount}
+                  height={35}
+                  handler={this.handleChangeRowsPerPage}
+                />
+                <p
+                  style={{
+                    fontSize: "0.875rem",
+                    fontWeight: "600",
+                  }}
+                >
+                  {" "}
+                  Records
+                </p>
+              </>
+            ) : (
+              ""
+            )}
           </LeftPagination>
 
           <RightPagination
@@ -743,7 +792,10 @@ class Contractlist extends React.Component {
               }
               onClick={() => this.handleChangePage("prev")}
             >
-              <img className="navigation-arrow rotate-180" src={"/images/next.svg"} />
+              <img
+                className="navigation-arrow rotate-180"
+                src={"/images/next.svg"}
+              />
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
             <div className="pagebox-contract">
@@ -752,7 +804,7 @@ class Contractlist extends React.Component {
                 {Math.ceil(this.state.totalRecord / this.state.amount) -
                   Math.ceil(
                     (this.state.totalRecord - this.state.from) /
-                    this.state.amount
+                      this.state.amount
                   ) +
                   1}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
@@ -760,7 +812,8 @@ class Contractlist extends React.Component {
             </div>
             <div
               className={
-                this.state.from + this.state.rows.length === this.state.totalRecord
+                this.state.from + this.state.rows.length ===
+                this.state.totalRecord
                   ? "nextbox-contract disabled"
                   : "nextbox-contract"
               }
@@ -776,7 +829,8 @@ class Contractlist extends React.Component {
             </div>
             <div
               className={
-                +this.state.from + this.state.rows.length === this.state.totalRecord
+                +this.state.from + this.state.rows.length ===
+                this.state.totalRecord
                   ? "lastbox-contract disabled"
                   : "lastbox-contract"
               }
