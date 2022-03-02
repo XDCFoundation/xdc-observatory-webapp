@@ -1692,7 +1692,7 @@ const StatusContainerInside = styled.div`
 `;
 const StatusImg = styled.img`
   width: 58px;
-  align-item: center;
+  align-items: center;
 `;
 const StatusTextSuccess = styled.div`
   font-family: Inter;
