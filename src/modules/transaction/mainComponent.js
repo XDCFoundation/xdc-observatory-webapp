@@ -188,7 +188,7 @@ export default class LatestTransactionList extends BaseComponent {
   };
 
   render() {
-    console.log(this.state.pageParam,"opopo")
+    
     return (
       <div>
         <TransactionComponent

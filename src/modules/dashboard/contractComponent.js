@@ -649,7 +649,7 @@ class Contractlist extends React.Component {
                             style={{
                               color: "#2149b9",
                               fontSize: 14,
-                              marginLeft: "1.375rem",
+                              marginLeft: "1rem",
                             }}
                             href={`/address/${row.address}`}
                           >
