@@ -319,6 +319,7 @@ class BlockChainDataComponent extends Component {
       addressTT: false,
       nodes: 0,
       activeNodes: 0,
+      nodeLoading:true,
     };
   }
   componentWillUnmount() {
@@ -400,6 +401,7 @@ class BlockChainDataComponent extends Component {
           ? transactionData.filter((node) => node?.stats?.active).length
           : [];
       this.setState({ activeNodes: nodesActive });
+      this.setState({nodeLoading:false})
       let bestStats = _.maxBy(transactionData, function (node) {
         return parseInt(node.stats.block.number);
       }).stats;
@@ -731,11 +733,13 @@ class BlockChainDataComponent extends Component {
                 }
                 <ValueName>
                   <Title>Txn Fee (Avg)</Title>
+                  {this.state.nodeLoading === true ? <div className="animated-background"></div>:
                   <TitleData
                     className={TxanimationClass ? TxanimationClass : ""}
                   >
                     {this.state.gasPrice > 0 ? this.state.gasPrice : ""}
                   </TitleData>
+  }
                 </ValueName>
               </Value>
               <Value gridArea="transactions">
@@ -791,10 +795,12 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Nodes</Title>
                   {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
+                  {this.state.nodeLoading === true ? <div className="animated-background"></div>:
                   <TitleValue>
                     {this.state.activeNodes > 0 ? this.state.activeNodes : ""}
                     {this.state.nodes > 0 ? "/" + this.state.nodes : ""}{" "}
                   </TitleValue>
+  }
                 </ValueName>
               </Value>
 
