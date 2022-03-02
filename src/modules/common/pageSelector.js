@@ -14,32 +14,21 @@ const PageSelect = styled(Select)`
 `;
 const PageSelector = ({ value, handler, height = 35 }) => {
   return (
-    // <PageSelect
-    //   value={value}
-    //   onChange={(event) => handler(event)}
-    //   displayEmpty
-    //   height={height}
-    // >
-    //   <MenuItem disabled value="">
-    //     <em>Select</em>
-    //   </MenuItem>
-    //   <MenuItem value={10}>10</MenuItem>
-    //   <MenuItem value={25}>25</MenuItem>
-    //   <MenuItem value={50}>50</MenuItem>
-    //   <MenuItem value={75}>75</MenuItem>
-    //   <MenuItem value={100}>100</MenuItem>
-    // </PageSelect>
-    <select
-    value={value}
-    className="select-amount cursor-pointer"
-    onChange={(event) => handler(event)}
-  >
-    <option value={10}>10</option>
-    <option value={25}>25</option>
-    <option value={50}>50</option>
-    <option value={75}>75</option>
-    <option value={100}>100</option>
-  </select>
+    <PageSelect
+      value={value}
+      onChange={(event) => handler(event)}
+      displayEmpty
+      height={height}
+    >
+      <MenuItem disabled value="">
+        <em>Select</em>
+      </MenuItem>
+      <MenuItem value={10}>10</MenuItem>
+      <MenuItem value={25}>25</MenuItem>
+      <MenuItem value={50}>50</MenuItem>
+      <MenuItem value={75}>75</MenuItem>
+      <MenuItem value={100}>100</MenuItem>
+    </PageSelect>
   );
 };
 export default PageSelector;
