@@ -182,7 +182,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
@@ -1014,7 +1014,7 @@ export default function Navbar() {
         </AppBar>
       </MobileView>
       <main className={clsx(classes.content)}>
-        <div className="exp-parent">
+        <div className={props.theme === "dark" ? "exp-parent-dark" : "exp-parent"}>
           <div className={classes.xdcLogoContainer}>
           <img
             className="Shape3"
@@ -1027,7 +1027,7 @@ export default function Navbar() {
         {/* ------------ Search bar ----------------- */}
 
         <div className="centerbox-parent">
-          <div className="centerbox">
+          <div className={props.theme === "dark" ? "centerbox-dark" : "centerbox"}>
             <div className="main-form-container">
               <form
                 method="post"
@@ -1056,7 +1056,7 @@ export default function Navbar() {
                     />
                     {browserName === "Chrome" ? (
                       <div
-                        className="white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
+                        className={props.theme === "dark" ? "white-space-no-wrap bg-192a59 br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab" : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"}
                         onClick={searchMyAddress}
                       >
                         <img
@@ -1075,7 +1075,7 @@ export default function Navbar() {
                   <div className="search-dashboard-select">
                     <select
                       onChange={(event) => handleSearchOption(event)}
-                      className="select"
+                      className={props.theme === "dark" ? "select-dark" : "select"}
                       id="SearchOption"
                       ref={SelectOptRef}
                     >

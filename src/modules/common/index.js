@@ -1,11 +1,17 @@
 import React from "react";
 import BaseComponent from "../baseComponent";
 import Footer from "./footerComponent"
+import { connect } from "react-redux";
+import { dispatchAction } from "../../utility";
+import { eventConstants } from "../../constants"
 
 
 
-export default class FooterComponent extends BaseComponent {
+class FooterComponent extends BaseComponent {
 
+    handleThemeSwitch = () => {
+        this.props.dispatchAction(eventConstants.TOGGLE_THEME, this.props.theme.currentTheme === "dark" ? "light" : "dark")
+    }
 
 
     render() {
@@ -14,6 +20,7 @@ export default class FooterComponent extends BaseComponent {
 
                 <Footer
                     _handleChange={this.props._handleChange}
+                    handleThemeSwitch={this.handleThemeSwitch}
                 />
 
             </div>
@@ -21,3 +28,9 @@ export default class FooterComponent extends BaseComponent {
 
     }
 }
+
+const mapStateToProps = (state) => {
+    return { theme: state.theme };
+};
+
+export default connect(mapStateToProps, { dispatchAction })(FooterComponent);

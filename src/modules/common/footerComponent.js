@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/styles";
 import TimeZoneSelector from "./timeZoneSlector";
 import { useDispatch, useSelector } from "react-redux";
 import timezone from "../../reducers/timezone";
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
 
 const useStyles = makeStyles((theme) => ({
     currencyPopup: {
@@ -241,6 +242,9 @@ export default function FooterComponent(props) {
 
                             <option>inr</option>
                         </select> */}
+                        <div className="theme-switch-icon-container" onClick={() => props.handleThemeSwitch()}>
+                            <WbSunnyIcon className="theme-switch-icon"/>
+                        </div>
                         </div>
                     </Grid>
                 </FirstCloumn>

@@ -105,12 +105,13 @@ class BlockChainClass extends BaseComponent {
     return (
       <>
         {this.state.isLoading ? <Loader /> : ""}
-        <div>
-          <NavigationBar />
+        <div className={this.props.theme.currentTheme === "dark" ? "dark-theme-bg" : ""}>
+          <NavigationBar theme={this.props.theme.currentTheme}/>
           <BlockChainDataComponent
             currency={activeCurrency}
             socket={this.props.socket}
             nodeSocket={this.props.socketNode}
+            theme={this.props.theme.currentTheme}
           />
           <MarketTable currency={activeCurrency} />
           <LatestBlocksComponent socket={this.props.socket} />
@@ -129,6 +130,6 @@ class BlockChainClass extends BaseComponent {
 }
 
 const mapStateToProps = (state) => {
-  return { user: state.user };
+  return { user: state.user, theme: state.theme };
 };
 export default connect(mapStateToProps, { dispatchAction })(BlockChainClass);
