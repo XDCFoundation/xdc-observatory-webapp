@@ -486,3 +486,21 @@ a:hover {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
 }
+
+.theme-switch-icon-container{
+  width: 32px;
+  height: 32px;
+  margin: 19.7px 0 0 1px;
+  background-color: rgb(33, 73, 185);
+  border-radius: 4px;
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.theme-switch-icon{
+  color: #ffffff;
+  width: 61% !important;
+  height: 61% !important;
+}
