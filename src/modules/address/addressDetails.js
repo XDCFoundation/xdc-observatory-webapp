@@ -18,7 +18,6 @@ import {
   CoinMarketService,
   UserService,
   WatchListService,
-  
 } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
@@ -35,7 +34,7 @@ import EditTagAddress from "../../modules/common/dialog/editTagPopup";
 import toast, { Toaster } from "react-hot-toast";
 import utility from "../../utility";
 import CustomDropDownAddress from "./customDropdownAddress";
-import TokenData from "../../services/token"
+import TokenData from "../../services/token";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -358,6 +357,25 @@ const RankValue = styled.div`
     margin-left: 101px;
   }
 `;
+const TokenValue = styled.div`
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.87;
+  color: #3a3a3a;
+  margin-left: 111px;
+
+  @media (max-width: 767px) {
+    font-size: 13px;
+    margin-left: 93px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
+    margin-left: 101px;
+  }
+`;
 const AddTagButton = styled.button`
   width: 95px;
   height: 28px;
@@ -541,7 +559,7 @@ export default function AddressDetails(props) {
   const [watchlistDetails, setWatchListDetails] = React.useState(null);
   const [existingWatchList, setExistingWatchList] = React.useState(null);
   const [type, setType] = useState("");
-  const [tokenForAddres,setTokenForAddres] = useState([])
+  const [tokenForAddres, setTokenForAddres] = useState([]);
   const closeDialogPvtTag = () => {
     setDialogPvtTagIsOpen(false);
     setDailogValue(0);
@@ -678,7 +696,7 @@ export default function AddressDetails(props) {
         setLoading(false);
       }
       if (responseData) {
-        setTokenForAddres(responseData)
+        setTokenForAddres(responseData);
         setLoading(false);
       } else {
         setLoading(false);
@@ -1047,15 +1065,21 @@ export default function AddressDetails(props) {
                     <Rank>Rank</Rank>
                     <RankValue>Not available</RankValue>
                   </RankDiv>
-                  <div>
-                    {tokenForAddres.length>0?<CustomDropDownAddress
-                      name="Tokens"
-                      
-                      onSelect={(data) => setType(data)}
-                      options={tokenForAddres}
-                    />:""}
-                    
-                  </div>
+
+                  {tokenForAddres.length > 0 ? (
+                    <RankDiv>
+                      <Rank>Tokens</Rank>
+                      <TokenValue>
+                        <CustomDropDownAddress
+                          name="Tokens"
+                          onSelect={(data) => setType(data)}
+                          options={tokenForAddres}
+                        />
+                      </TokenValue>
+                    </RankDiv>
+                  ) : (
+                    ""
+                  )}
                 </AddressDetailDiv>
                 <ButtonDiv>
                   {sessionManager.getDataFromCookies("isLoggedIn") ? (

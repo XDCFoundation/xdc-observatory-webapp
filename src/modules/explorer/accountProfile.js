@@ -45,7 +45,8 @@ import PrivacyAlert from "../explorer/dashboardPopup/privacyAlert";
 import Utility from "../../utility";
 import { useSelector } from "react-redux";
 import format from "format-number";
-import CustomDropDownAddress from "../common/importDropdown"
+import CustomDropDownAddress from "../common/importDropdown";
+import { forEach } from "lodash";
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
@@ -444,6 +445,7 @@ export default function SimpleTabs(props) {
   const [watchlist, setWatchlist] = React.useState([]);
   // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
+  console.log(privateAddress, "private");
   // const [exports, exportAddress] = React.useState({});
   // const [toggle, handleToggle] = React.useState(false);
   // const [isLoading, setLoading] = React.useState(false);
@@ -453,7 +455,7 @@ export default function SimpleTabs(props) {
   // const { state } = props;
   const [addedOnToggle, setAddedOnToggle] = React.useState(0);
   const [balanceToggle, setBalanceToggle] = React.useState("");
-  const [nameToggle, setNameToggle] = React.useState(""); 
+  const [nameToggle, setNameToggle] = React.useState("");
   const [tableValue, setTablevalue] = React.useState(1);
   const [downloadWatchlist, setDownloadWatchlist] = React.useState([]);
   const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
@@ -586,7 +588,7 @@ export default function SimpleTabs(props) {
   const [totalCount3, setTotalCount3] = React.useState(5);
   const [ageToggle, setAgeToggle] = React.useState("");
   const [dateToggle, setDateToggle] = React.useState("");
-  
+
   // Edit box Popup Handlers
   const [editBoxOpen, setEditBox] = React.useState(false);
   const [selectedEditAddress, setSelectedAddress] = React.useState(false);
@@ -744,13 +746,13 @@ export default function SimpleTabs(props) {
         (index1, index2) => index1?.balance - index2?.balance
       );
       setBalanceToggle(1);
-      setDateToggle("")
+      setDateToggle("");
     } else {
       newData = oldData.sort(
         (index1, index2) => index2?.balance - index1?.balance
       );
       setBalanceToggle(-1);
-      setDateToggle("")
+      setDateToggle("");
     }
     setWatchlist(newData);
   };
@@ -762,13 +764,13 @@ export default function SimpleTabs(props) {
         (index1, index2) => index1?.addedOn - index2?.addedOn
       );
       setDateToggle(1);
-      setBalanceToggle("")
+      setBalanceToggle("");
     } else {
       newData = oldData.sort(
         (index1, index2) => index2?.addedOn - index1?.addedOn
       );
       setDateToggle(-1);
-      setBalanceToggle("")
+      setBalanceToggle("");
     }
     setWatchlist(newData);
   };
@@ -794,16 +796,16 @@ export default function SimpleTabs(props) {
     let oldData = privateAddress;
     let newData;
     if (ageToggle === -1) {
-      newData = oldData.sort((index1, index2) =>
-      index2.modifiedOn - index1.modifiedOn
+      newData = oldData.sort(
+        (index1, index2) => parseInt(index2.modifiedOn) - parseInt(index1.modifiedOn)
       );
-      
+
       setAgeToggle(1);
     } else {
-      newData = oldData.sort((index1, index2) =>
-      index1.modifiedOn - index2.modifiedOn
+      newData = oldData.sort(
+        (index1, index2) => parseInt(index1.modifiedOn) - parseInt(index2.modifiedOn)
       );
-      
+
       setAgeToggle(-1);
     }
     setPrivateAddress(newData);
@@ -990,9 +992,45 @@ export default function SimpleTabs(props) {
   const [countTag, setCountTag] = React.useState(-1);
   const [checkedTag, setCheckedTag] = React.useState(false);
   let tagAddrLength = privateAddress.length;
-const sampleRender =(res)=>{
-  console.log(res,"res")
-}
+  const sampleRender = (res) => {
+    // console.log(res, "res");
+  };
+  const updateListTags = (res) => {
+    console.log(res, "lll");
+    const request = {
+      userId: sessionManager.getDataFromCookies("userId"),
+    };
+    let taggedAddress = localStorage.getItem(
+      request.userId + cookiesConstants.USER_TAGGED_ADDRESS
+    );
+    taggedAddress = JSON.parse(taggedAddress);
+    // const existingAddress = privateAddress.filter((x1) =>
+    //   res.some((x2) => x1.address === x2.address)
+    // );
+    let updatedPrivateAddress = [];
+    res.map((item) => {
+      let existingAddressIndex = privateAddress.findIndex(
+        (i2) => i2.address === item.address
+      );
+      if (existingAddressIndex !== -1) {
+        updatedPrivateAddress.push({
+          ...privateAddress[existingAddressIndex],
+          ...item,
+        });
+        privateAddress.splice(existingAddressIndex, 1);
+        return;
+      }
+      updatedPrivateAddress.push({ userId: request?.userId, ...item });
+    });
+
+    setPrivateAddress([...updatedPrivateAddress, ...privateAddress]);
+    console.log(updatedPrivateAddress, "jjj");
+    localStorage.setItem(
+      request.userId + cookiesConstants.USER_TAGGED_ADDRESS,
+      JSON.stringify([...updatedPrivateAddress, ...privateAddress])
+    );
+  };
+
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
     if (name === "allselect" || countTag === tagAddrLength) {
@@ -1024,9 +1062,9 @@ const sampleRender =(res)=>{
       setDownloadTagAddress(
         tempAddress.map((item) => {
           return {
-            Address: item.address,
-            NameTag: item.tagName,
-            AddedOn: moment(item.addedOn),
+            address: item.address,
+            tagName: item.tagName,
+            modifiedOn: item?.modifiedOn,
           };
         })
       );
@@ -1209,69 +1247,23 @@ const sampleRender =(res)=>{
                 value={search}
               />
             </div>
-          <div className="display-flex align-items-center">
-            {tableValue === 3?
-            <CustomDropDownAddress
-            sampleRender={sampleRender}/>:""}
-            {!isDownloadActive && tableValue === 1 ? (
-              ""
-            ) : isDownloadActive ? (
-              tableValue === 1 ? (
-                ""
-              ) : // <CSVLink
-              //   filename={"watchlist.csv"}
-              //   data={downloadWatchlist}
-              //   style={{
-              //     fontSize: "0.938rem",
-              //     textAlign: "center",
-              //     color: "#ffffff",
-              //     backgroundColor: "rgb(7 125 245)",
-              //     borderRadius: "0.25rem",
-              //     width: "5.875rem",
-              //     height: "2.125rem",
-              //     marginRight: "1.5rem",
-              //     paddingTop: "0.125rem",
-              //   }}
-              // >
-              //   Export
-              // </CSVLink>
-              tableValue === 2 ? (
-                // <div
-                //   onClick={downloadTxnPvtNotePDF}
-                //   filename={"private_note.csv"}
-                //   data={downloadTxnPvtNote}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export test
-                // </div>
-                <PDFDownloadLink
-                  style={styles.pdfDownloadLink}
-                  document={<TransactionPDF data={downloadTxnPvtNote} />}
-                  fileName="transactionPvtNote.pdf"
-                >
-                  Export
-                </PDFDownloadLink>
+            <div className="display-flex align-items-center">
+              {tableValue === 3 ? (
+                <CustomDropDownAddress
+                  sampleRender={sampleRender}
+                  updateListTags={updateListTags}
+                />
               ) : (
-                <PDFDownloadLink
-                  style={styles.pdfDownloadLink}
-                  document={<AddressPDF data={downloadTagAddress} />}
-                  fileName="tagAddresses.pdf"
-                >
-                  Export
-                </PDFDownloadLink>
-                // <CSVLink
-                //   filename={"tag_address.csv"}
-                //   data={downloadTagAddress}
+                ""
+              )}
+              {!isDownloadActive && tableValue === 1 ? (
+                ""
+              ) : isDownloadActive ? (
+                tableValue === 1 ? (
+                  ""
+                ) : // <CSVLink
+                //   filename={"watchlist.csv"}
+                //   data={downloadWatchlist}
                 //   style={{
                 //     fontSize: "0.938rem",
                 //     textAlign: "center",
@@ -1286,28 +1278,79 @@ const sampleRender =(res)=>{
                 // >
                 //   Export
                 // </CSVLink>
-              )
-            ) : (
-              <div
-                filename={"tag_address.csv"}
-                data={downloadTagAddress}
-                style={{
-                  pointerEvents: "none",
-                  fontSize: "0.938rem",
-                  textAlign: "center",
-                  color: "#ffffff",
-                  backgroundColor: "#9fa9ba",
-                  borderRadius: "0.25rem",
-                  width: "5.875rem",
-                  height: "2.125rem",
+                tableValue === 2 ? (
+                  // <div
+                  //   onClick={downloadTxnPvtNotePDF}
+                  //   filename={"private_note.csv"}
+                  //   data={downloadTxnPvtNote}
+                  //   style={{
+                  //     fontSize: "0.938rem",
+                  //     textAlign: "center",
+                  //     color: "#ffffff",
+                  //     backgroundColor: "rgb(7 125 245)",
+                  //     borderRadius: "0.25rem",
+                  //     width: "5.875rem",
+                  //     height: "2.125rem",
+                  //     marginRight: "1.5rem",
+                  //     paddingTop: "0.125rem",
+                  //   }}
+                  // >
+                  //   Export test
+                  // </div>
+                  <PDFDownloadLink
+                    style={styles.pdfDownloadLink}
+                    document={<TransactionPDF data={downloadTxnPvtNote} />}
+                    fileName="transactionPvtNote.pdf"
+                  >
+                    Export
+                  </PDFDownloadLink>
+                ) : (
+                  // <PDFDownloadLink
+                  //   style={styles.pdfDownloadLink}
+                  //   document={<AddressPDF data={downloadTagAddress} />}
+                  //   fileName="tagAddresses.pdf"
+                  // >
+                  //   Export
+                  // </PDFDownloadLink>
+                  <CSVLink
+                    filename={"tag_address.csv"}
+                    data={downloadTagAddress}
+                    style={{
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "rgb(7 125 245)",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      marginRight: "1.5rem",
+                      paddingTop: "0.125rem",
+                    }}
+                  >
+                    Export
+                  </CSVLink>
+                )
+              ) : (
+                <div
+                  filename={"tag_address.csv"}
+                  data={downloadTagAddress}
+                  style={{
+                    pointerEvents: "none",
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "#9fa9ba",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
 
-                  paddingTop: "0.4rem",
-                }}
-              >
-                Export
-              </div>
-            )}
-          </div>
+                    paddingTop: "0.4rem",
+                  }}
+                >
+                  Export
+                </div>
+              )}
+            </div>
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv add-root">
@@ -1591,7 +1634,10 @@ const sampleRender =(res)=>{
                             </button>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1 cursor-pointer"}onClick={sortByDate}>
+                            <span
+                              className={"tableheaders-1 cursor-pointer"}
+                              onClick={sortByDate}
+                            >
                               Added On
                               <Tooltip
                                 placement="top"
@@ -1605,35 +1651,34 @@ const sampleRender =(res)=>{
                                 />
                               </Tooltip>
                               <button className={classes.btn}>
-                              <Tooltip
-                                placement="top"
-                                title={
-                                  dateToggle == -1
-                                    ? "Descending"
-                                    : "Ascending"
-                                }
-                              >
-                                {dateToggle === "" ? (
-                                  <></>
-                                ) : dateToggle == 1 ? (
-                                  <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon rotate-180"
-                                  />
-                                ) : (
-                                  <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon"
-                                  />
-                                )}
-                              </Tooltip>
-                            </button>
+                                <Tooltip
+                                  placement="top"
+                                  title={
+                                    dateToggle == -1
+                                      ? "Descending"
+                                      : "Ascending"
+                                  }
+                                >
+                                  {dateToggle === "" ? (
+                                    <></>
+                                  ) : dateToggle == 1 ? (
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon rotate-180"
+                                    />
+                                  ) : (
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon"
+                                    />
+                                  )}
+                                </Tooltip>
+                              </button>
                             </span>
-                            
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <span className={"tableheaders-1"}>
@@ -1729,7 +1774,7 @@ const sampleRender =(res)=>{
                                   <span className="tabledata-1">
                                     {`${
                                       (row?.modifiedOn &&
-                                        moment(row?.modifiedOn)
+                                        moment(parseInt(row?.modifiedOn)) 
                                           .tz(timezone)
                                           .format("MMM DD, YYYY, hh:mm A")) ||
                                       ""
@@ -2120,7 +2165,7 @@ const sampleRender =(res)=>{
                                 <span className="tabledata-1">
                                   {`${
                                     (row?.modifiedOn &&
-                                      moment(row?.modifiedOn)
+                                      moment(parseInt(row?.modifiedOn))
                                         .tz(timezone)
                                         .format("MMM DD, YYYY, hh:mm A")) ||
                                     ""
@@ -2472,61 +2517,60 @@ const sampleRender =(res)=>{
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                           <TableCell style={{ border: "none" }} align="left">
-                          <span
-                                className={"tableheaders-1 cursor-pointer"}
-                                onClick={() => {
-                                  sortByAge();
-                                  setAgeArrow(false);
+                            <span
+                              className={"tableheaders-1 cursor-pointer"}
+                              onClick={() => {
+                                sortByAge();
+                                setAgeArrow(false);
                                 setTagArrow(true);
-
-                                }}
+                              }}
+                            >
+                              Added On
+                              <Tooltip
+                                placement="top"
+                                title={messages.NAME_TAG}
                               >
-                                Added On
-                                <Tooltip
-                                  placement="top"
-                                  title={messages.NAME_TAG}
-                                >
-                                  <img
-                                    alt="question-mark"
-                                    src="/images/info.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon"
-                                  />
-                                </Tooltip>
-                                <button className={classes.btn}>
-                                  {ageToggle && ageArrow === false ? (
-                                    ageToggle == -1 ? (
-                                      // <ArrowUpwardIcon
-                                      // onClick={() => {
-                                      //   sortData("blockNumber");
-                                      // }}
-                                      //   className={classes.sortButton}
-                                      // />
-                                      <img
-                                        alt="question-mark"
-                                        src="/images/see-more.svg"
-                                        height={"14px"}
-                                        className="tooltipInfoIcon rotate-180"
-                                      />
-                                    ) : (
-                                      // <ArrowDownwardIcon
-                                      //   onClick={() => {
-                                      //     sortData("blockNumber");
-                                      //   }}
-                                      //   className={classes.sortButton}
-                                      // />
-                                      <img
-                                        alt="question-mark"
-                                        src="/images/see-more.svg"
-                                        height={"14px"}
-                                        className="tooltipInfoIcon"
-                                      />
-                                    )
+                                <img
+                                  alt="question-mark"
+                                  src="/images/info.svg"
+                                  height={"14px"}
+                                  className="tooltipInfoIcon"
+                                />
+                              </Tooltip>
+                              <button className={classes.btn}>
+                                {ageToggle && ageArrow === false ? (
+                                  ageToggle == -1 ? (
+                                    // <ArrowUpwardIcon
+                                    // onClick={() => {
+                                    //   sortData("blockNumber");
+                                    // }}
+                                    //   className={classes.sortButton}
+                                    // />
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon rotate-180"
+                                    />
                                   ) : (
-                                    <></>
-                                  )}
-                                </button>
-                              </span>
+                                    // <ArrowDownwardIcon
+                                    //   onClick={() => {
+                                    //     sortData("blockNumber");
+                                    //   }}
+                                    //   className={classes.sortButton}
+                                    // />
+                                    <img
+                                      alt="question-mark"
+                                      src="/images/see-more.svg"
+                                      height={"14px"}
+                                      className="tooltipInfoIcon"
+                                    />
+                                  )
+                                ) : (
+                                  <></>
+                                )}
+                              </button>
+                            </span>
                           </TableCell>
                           {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
@@ -2599,7 +2643,7 @@ const sampleRender =(res)=>{
                                 <span className="tabledata-1">
                                   {`${
                                     (row?.modifiedOn &&
-                                      moment(row?.modifiedOn)
+                                      moment((parseInt(row?.modifiedOn)))
                                         .tz(timezone)
                                         .format("MMM DD, YYYY, hh:mm A")) ||
                                     ""
