@@ -113,14 +113,15 @@ class BlockChainClass extends BaseComponent {
             nodeSocket={this.props.socketNode}
             theme={this.props.theme.currentTheme}
           />
-          <MarketTable currency={activeCurrency} />
-          <LatestBlocksComponent socket={this.props.socket} />
-          <RecentSearchList />
-          <BuyStoreTradeXDC />
-          <StorageMessage />
+          <MarketTable theme={this.props.theme.currentTheme} currency={activeCurrency} />
+          <LatestBlocksComponent socket={this.props.socket} theme={this.props.theme.currentTheme}/>
+          <RecentSearchList theme={this.props.theme.currentTheme}/>
+          <BuyStoreTradeXDC theme={this.props.theme.currentTheme}/>
+          <StorageMessage theme={this.props.theme.currentTheme}/>
           <FooterComponent
             _handleChange={this._handleChange}
             currency={this.state.amount}
+            theme={this.props.theme.currentTheme}
           />
           {/* showDropDown={this.state.showDropDown} */}
         </div>

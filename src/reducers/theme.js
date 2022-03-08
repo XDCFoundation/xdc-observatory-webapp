@@ -4,7 +4,7 @@ import {sessionManager} from "../managers/sessionManager";
 let theme = sessionManager.getDataFromLocalStorage(cookiesConstants.OBSERVER_THEME) || "";
 
 let initialState = {
-    currentTheme: theme
+    currentTheme: theme.replace(/['"]+/g, '')
 };
 
 export default function Theme(state = initialState, action) {
