@@ -376,6 +376,9 @@ input:focus {
 .flex-direction-column {
   flex-direction: column;
 }
+.flex-direction-row-imp {
+  flex-direction: row !important;
+}
 
 .display-inline {
   display: inline;
