@@ -447,9 +447,16 @@
   color: #2149b9;
   text-decoration: none;
 }
+.linkTable-dark:hover {
+  color: #4874f4;
+  text-decoration: none;
+}
 
 .linkTable {
   color: #2149b9;
+}
+.linkTable-dark {
+  color: #4874f4;
 }
 
 .text {
@@ -623,6 +630,14 @@
   color: #2149b9;
   font-size: 15px;
 }
+.linkTableDetails-transaction-dark {
+  color: #4878ff;
+  font-size: 15px;
+}
+.linkTableDetails-transaction-dark:hover {
+  color: #4878ff;
+  font-size: 15px;
+}
 .linkTableDetails-transaction:hover {
   color: #2149b9;
   font-size: 15px;
@@ -641,6 +656,11 @@
   .linkTableDetails-transaction {
     font-size: 0.875rem;
     color: #2149b9;
+    line-height: 1.3;
+  }
+  .linkTableDetails-transaction-dark {
+    font-size: 0.875rem;
+    color: #4878ff;
     line-height: 1.3;
   }
   .linkTableDetails-address {
@@ -667,6 +687,9 @@
 
 @media (min-width: 768px) and (max-width: 1240px) {
   .linkTableDetails-transaction {
+    font-size: 0.875rem;
+  }
+  .linkTableDetails-transaction-dark {
     font-size: 0.875rem;
   }
   .linkTableDetails-address {

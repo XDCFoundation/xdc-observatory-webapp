@@ -23,6 +23,13 @@ const useStyles = makeStyles({
     overflowX: "auto",
     background: "#fff",
   },
+  containerDark: {
+    borderRadius: "0.875rem",
+    boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    overflowX: "auto",
+    background: "#192a59",
+  },
 });
 
 const TransactionHeaderContainer = styled.div`
@@ -41,6 +48,9 @@ const TransactionTitle = styled.div`
   font-family: Inter;
   font-size: 1.125rem;
   font-weight: 600;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   //@media (min-width: 0px) and (max-width: 767px) {
   //  margin-left: 12px;
   //}
@@ -54,10 +64,13 @@ const TransactionSubTitle = styled.div`
   font-family: Inter;
   font-size: 0.75rem;
   margin-left: 15px;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
 `;
 const TableSubContainer = styled.div`
     @media (min-width: 0px) and (max-width: 767px) {
-        max-width: 767px
+        max-width: 767px;
         width: 100%;
         overflow-x: auto;
     }
@@ -71,7 +84,7 @@ const LatestBlockView = (props) => {
   const [timeStampTT, setTimeStampTT] = useState(false);
 
   return (
-    <Paper
+    <div
       className={"table-list"}
       style={{
         borderRadius: "0.875rem",
@@ -80,9 +93,14 @@ const LatestBlockView = (props) => {
       elevation={0}
     >
       <TableContainer
-        className={classes.container}
+        className={props.theme === "dark" ? classes.containerDark : classes.container}
         id="container-table-token"
-        style={{
+        style={props.theme === "dark" ? {
+          borderRadius: "0",
+          boxShadow: "none",
+          backgroundColor: "#192a59",
+          minHeight: "100%",
+        } : {
           borderTop: "solid 0.063rem #e3e7eb",
           borderRadius: "0",
           boxShadow: "none",
@@ -94,12 +112,12 @@ const LatestBlockView = (props) => {
         }}
       >
         <TransactionHeaderContainer>
-          <TransactionTitle>Latest Blocks</TransactionTitle>
-          <a className="linkTable cursor-pointer" href="/view-all-blocks">
+          <TransactionTitle theme={props.theme}>Latest Blocks</TransactionTitle>
+          <a className={props.theme === "dark" ? "linkTable-dark cursor-pointer" : "linkTable cursor-pointer"} href="/view-all-blocks">
             View All
           </a>
         </TransactionHeaderContainer>
-        <TransactionSubTitle>
+        <TransactionSubTitle theme={props.theme}>
           {"The most recently mined blocks"}
         </TransactionSubTitle>
 
@@ -112,7 +130,7 @@ const LatestBlockView = (props) => {
                   align="left"
                 >
                   <span
-                    className={"tablehead-token-details"}
+                    className={props.theme === "dark" ? "tablehead-token-details-dark" : "tablehead-token-details"}
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
@@ -140,7 +158,7 @@ const LatestBlockView = (props) => {
 
                 <TableCell style={{ border: "none" }} align="left">
                   <span
-                    className={"tablehead-token-details"}
+                    className={props.theme === "dark" ? "tablehead-token-details-dark" : "tablehead-token-details"}
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
@@ -167,7 +185,7 @@ const LatestBlockView = (props) => {
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span
-                    className={"tablehead-token-details"}
+                    className={props.theme === "dark" ? "tablehead-token-details-dark" : "tablehead-token-details"}
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
@@ -235,8 +253,8 @@ const LatestBlockView = (props) => {
                         key={row.hash}
                         style={
                           index % 2 !== 1
-                            ? { background: "white" }
-                            : { background: "white" }
+                            ? props.theme === "dark" ? {background: "#192a59"} : { background: "white" }
+                            : props.theme === "dark" ? {background: "#192a59"} : { background: "white" }
                         }
                       >
                         <TableCell
@@ -245,7 +263,7 @@ const LatestBlockView = (props) => {
                           style={{ paddingLeft: "15px", width: "150px" }}
                         >
                           <a
-                            className="linkTable cursor-pointer"
+                            className={props.theme === "dark" ? "linkTable-dark cursor-pointer" : "linkTable cursor-pointer"}
                             href={"/block-details/" + row.number}
                           >
                             <span
@@ -269,8 +287,8 @@ const LatestBlockView = (props) => {
                             <span
                               className={
                                 ageAnimationClass
-                                  ? ageAnimationClass
-                                  : "tabledata"
+                                  ? props.theme === "dark" ? `${ageAnimationClass} latest-blocks-table-data-dark` : ageAnimationClass
+                                  :  props.theme === "dark" ? "tabledata latest-blocks-table-data-dark" : "tabledata"
                               }
                             >
                               {moment(row.timestamp * 1000)
@@ -292,8 +310,8 @@ const LatestBlockView = (props) => {
                           <span
                             className={
                               ageAnimationClass
-                                ? ageAnimationClass
-                                : "tabledata"
+                                ? props.theme === "dark" ? `${ageAnimationClass} latest-blocks-table-data-dark` : ageAnimationClass
+                                : props.theme === "dark" ? "tabledata latest-blocks-table-data-dark" : "tabledata"
                             }
                           >
                             {row.transactions.length}
@@ -314,7 +332,7 @@ const LatestBlockView = (props) => {
           </Table>
         </TableSubContainer>
       </TableContainer>
-    </Paper>
+    </div>
   );
 };
 

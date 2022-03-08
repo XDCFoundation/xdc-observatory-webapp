@@ -48,6 +48,15 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+  appBarDark: {
+    position: "unset !important",
+    backgroundColor: "#132a69",
+    height: "4.875rem",
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: "10.8rem !important",
@@ -159,10 +168,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
+
+  const currentTheme = props.theme;
 
   const [state, setState] = React.useState({
     top: false,
@@ -770,6 +781,7 @@ export default function Navbar() {
     list-style: none;
   @media (min-width: 0px) and (max-width: 767px){
     font-size: 0.875rem;
+  }
   `;
 
   const MobileNavigationContainer = styled.div`
@@ -854,7 +866,7 @@ export default function Navbar() {
       <AppBar
         // className="mob-height"
         elevation={0}
-        className={clsx(classes.appBar)}
+        className={props.theme === "dark" ? clsx(classes.appBarDark) : clsx(classes.appBar)}
       >
         <MobileToolBar className={clsx(classes.toolBar)}>
           <div className="tab-search">
@@ -915,7 +927,7 @@ export default function Navbar() {
             </Row>
             <DeskTopView>
               <div className="parentCenterbox">
-                <div className="centerbox-td">
+                <div className={props.theme === "dark" ? "centerbox-td-dark" : "centerbox-td"}>
                   {SearchBox({
                     classes,
                     filter,
@@ -924,6 +936,7 @@ export default function Navbar() {
                     SelectOptRef,
                     handleSearchOption,
                     list,
+                    currentTheme
                   })}
                   <div className="token-error-message-div">
                     <span className="token-error-message">{errorMessage}</span>
@@ -988,6 +1001,7 @@ export default function Navbar() {
               SelectOptRef,
               handleSearchOption,
               list,
+              currentTheme
             })}
             <div className="token-error-message-div">
               <span className="token-error-message">{errorMessage}</span>
@@ -1004,6 +1018,7 @@ export default function Navbar() {
               SelectOptRef,
               handleSearchOption,
               list,
+              currentTheme
             })}
             <div className="token-error-message-div">
               <span className="token-error-message">{errorMessage}</span>
@@ -1024,6 +1039,7 @@ const SearchBox = ({
   SelectOptRef,
   handleSearchOption,
   list,
+  currentTheme
 }) => {
   return (
     <div>
@@ -1046,14 +1062,14 @@ const SearchBox = ({
                   handleSearch(event);
                 }
               }} */
-              className="main-input-td "
+              className={currentTheme === "dark" ? "main-input-td-dark" : "main-input-td "}
               src={"/images/Search.png"}
               placeholder="Search by Address / Txn Hash / Block"
             />
             {/* name="NAME" */}
             <div className="mobFilter">
               <select
-                className="select-td"
+                className={currentTheme === "dark" ? "select-td-dark" : "select-td"}
                 onChange={(event) => handleSearchOption(event)}
                 ref={SelectOptRef}
               >
