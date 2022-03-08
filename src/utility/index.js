@@ -67,7 +67,7 @@ const utility = {
   timeDiff,
   convertToInternationalCurrencySystem,
   getNumberUnit, decimalDivison, decimalDivisonOnly, divideByDecimalValue, getNumber,
-  getUtcOffset
+  getUtcOffset,shortenAddress
 };
 export default utility;
 
@@ -238,6 +238,14 @@ function shortenUserName(b, amountL = 25, amountR = 0, stars = 3) {
 }
 
 function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
+  if (b.length > 12)
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 4,
+      b.length
+    )}`;
+  else return b;
+}
+function shortenAddress(b, amountL = 23, amountR = 0, stars = 3) {
   if (b.length > 12)
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 4,

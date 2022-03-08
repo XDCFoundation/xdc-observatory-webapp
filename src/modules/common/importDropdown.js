@@ -24,6 +24,7 @@ import TransactionDetailTooltip from "../common/transactionDetailTooltip";
 import moment from "moment-timezone";
 import { useSelector } from "react-redux";
 import "../../assets/styles/custom.css";
+import toast, { Toaster } from "react-hot-toast";
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -55,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     width: "553px",
     position: "absolute",
     borderRadius: "12px",
+    maxHeight: "476px",
   },
   buttons: {
     justifyContent: "flex-end",
@@ -94,6 +96,41 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     margin: "14px 8px 15px 2px",
   },
+  sibtn: {
+    height: "34px",
+    borderRadius: "4px",
+    border: "solid 1px #3763dd",
+    margin: "14px 8px 15px 2px",
+    fontSize: "15px",
+    fontWeight: 600,
+
+    textAlign: "center",
+    color: "#3763dd",
+  },
+  sabtn: {
+    height: "34px",
+    width: "94px",
+    borderRadius: "4px",
+    borderRadius: "4px",
+    backgroundColor: "#3763dd",
+    color: "#fff",
+    fontSize: "15px",
+    fontWeight: 600,
+    margin: "14px 8px 15px 2px",
+  },
+  disabled: {
+    height: "34px",
+    borderRadius: "4px",
+    margin: "14px 8px 15px 2px",
+    border: "1px solid #999999",
+    backgroundColor: "#cccccc",
+    color: "#666666",
+    pointerEvents: "none",
+    fontSize: "15px",
+    fontWeight: 600,
+
+    textAlign: "center",
+  },
   subCategory: {
     marginTop: "-12px",
     marginBottom: "2px",
@@ -125,7 +162,6 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
-    marginLeft: "24px",
     fontFamily: "Inter",
     fontWeight: "600",
     fontSize: "18px",
@@ -133,7 +169,8 @@ const useStyles = makeStyles((theme) => ({
   },
   "@media (max-width: 767px)": {
     heading: {
-      fontSize: "16px",
+      fontSize: "22px",
+      fontWeight: "600",
     },
     dialogBox: {
       width: "100%",
@@ -209,9 +246,8 @@ const DropdownContainer = styled.div`
   background-color: white;
   max-height: 250px;
   margin-top: 3px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
-  border: solid 1px #d4d4d4;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   min-width: ${(props) => props.containerWidth}px;
 
   span {
@@ -269,22 +305,21 @@ const TableSubContainer = styled.div`
 `;
 
 const CustomDropDownAddress = (props) => {
-  const { sampleRender } = props;
+  const { sampleRender, updateListTags } = props;
   const classes = useStyles();
   const [isDropdownOpen, toggleDropdown] = useState(false);
   const mainDiv = useRef(null);
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
   const hiddenFileInput = React.useRef(null);
+  const allChecked = React.useRef(null);
   const [importAddress, setImportAddress] = React.useState(false);
-  console.log(importAddress, "opop");
   const [importValue, setImportValue] = React.useState(0);
-  const { transactionList } = props;
   const timezone = useSelector((state) => state.timezone);
-  const [hashTT, setHashTT] = useState(false);
-  const [amountTT, setAmountTT] = useState(false);
-  const [timeStampTT, setTimeStampTT] = useState(false);
 
+  const [masterChecked, setMasterChecked] = useState(false);
+  const [selectedList, setSelectedList] = useState([]);
+  // console.log(masterChecked, selectedList, "<<<");
   const closeDialogImport = () => {
     setImportAddress(false);
   };
@@ -292,10 +327,46 @@ const CustomDropDownAddress = (props) => {
     setImportAddress(true);
   };
 
-  useEffect(() => {
-    if (data.length >= 1) sampleRender(data);
-  }, [data]);
+  // useEffect(() => {
+  //   if (data.length >= 1) sampleRender(data);
+  // }, [data]);
+  const notify = () =>
+    toast.success("Address Tags imported.", {
+      duration: 4000,
+      position: "top-center",
+      className: "toast-div-address",
+    });
+  const onMasterCheck = (e) => {
+    let tempList = data;
+    // Check/ UnCheck All Items
+    tempList.map((user) => (user.selected = e.target.checked));
 
+    //Update State
+    setMasterChecked(e.target.checked);
+    setData(tempList);
+    setSelectedList(data.filter((e) => e.selected));
+    sampleRender(data.filter((e) => e.selected));
+  };
+
+  const onItemCheck = (e, item) => {
+    let tempList = data;
+    tempList.map((user) => {
+      if (user.address === item.address) {
+        user.selected = e.target.checked;
+      }
+      return user;
+    });
+
+    //To Control Master Checkbox State
+    const totalItems = data.length;
+    const totalCheckedItems = tempList.filter((e) => e.selected).length;
+
+    // Update State
+    setMasterChecked(totalItems === totalCheckedItems);
+    setData(tempList);
+    setSelectedList(data.filter((e) => e.selected));
+    sampleRender(data.filter((e) => e.selected));
+  };
   // process CSV data
   const processData = (dataString) => {
     const dataStringLines = dataString.split(/\r\n|\n/);
@@ -377,8 +448,24 @@ const CustomDropDownAddress = (props) => {
     hiddenFileInput.current.click();
   };
 
+  const selectAll = async () => {
+    // allChecked.current.click();
+    await updateListTags(data);
+    await closeDialogImport();
+    await notify();
+  };
+
+  const selectedOnly = async () => {
+    await updateListTags(selectedList);
+    await closeDialogImport();
+    await notify();
+  };
+
   return (
     <div>
+      <div>
+        <Toaster />
+      </div>
       <Container ref={mainDiv}>
         <SelectedValueContainer onClick={onFilterClicked}>
           <FilterName>
@@ -437,15 +524,35 @@ const CustomDropDownAddress = (props) => {
                   <TableHead>
                     <TableRow>
                       <TableCell
-                        style={{ border: "none", paddingLeft: "25px" }}
+                        style={{
+                          border: "none",
+                          display: "flex",
+                          alignItems: "center",
+                          marginLeft: 0,
+                          padding: "2.5px 3px",
+                        }}
                         align="left"
                       >
-                        <span className={"tablehead-token-details"}>
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          checked={masterChecked}
+                          id="mastercheck"
+                          ref={allChecked}
+                          onChange={(e) => onMasterCheck(e)}
+                        />
+                        <span
+                          className={"tablehead-token-details"}
+                          style={{ opacity: 1 }}
+                        >
                           Name Tag
                         </span>
                       </TableCell>
                       <TableCell style={{ border: "none" }} align="left">
-                        <span className={"tablehead-token-details"}>
+                        <span
+                          className={"tablehead-token-details"}
+                          style={{ opacity: 1 }}
+                        >
                           Address
                         </span>
                       </TableCell>
@@ -465,10 +572,23 @@ const CustomDropDownAddress = (props) => {
                             <TableCell
                               id="td"
                               className="w-150 bord-none"
-                              style={{ paddingLeft: "25px" }}
+                              style={{
+                                margin: 0,
+                                display: "flex",
+                                alignItems: "center",
+                                padding: "10.5px 3px 8.5px",
+                              }}
                             >
                               <div className="display-flex">
-                                <span className={"tabledata p-l-0"}>{row.Block}</span>
+                                <input
+                                  type="checkbox"
+                                  className="form-check-input"
+                                  checked={row.selected}
+                                  onChange={(e) => onItemCheck(e, row)}
+                                />
+                                <span className={"tabledata p-l-0"}>
+                                  {row.tagName}
+                                </span>
                               </div>
                             </TableCell>
                             <TableCell
@@ -476,7 +596,9 @@ const CustomDropDownAddress = (props) => {
                               style={{ paddingRight: "25px" }}
                             >
                               <div className="display-flex">
-                                <span className="tabledata p-l-0">{row.Block}</span>
+                                <span className="tabledata p-l-0">
+                                  {Utility.shortenAddress(row.address)}
+                                </span>
                               </div>
                             </TableCell>
                           </TableRow>
@@ -487,6 +609,29 @@ const CustomDropDownAddress = (props) => {
               </TableSubContainer>
             </TableContainer>
           </Paper>
+          <div className="display-flex justify-content-md-between">
+            <button className={classes.cnlbtn} onClick={closeDialogImport}>
+              Cancel
+            </button>
+
+            <div className="display-flex">
+              <div>
+                <button
+                  onClick={selectedOnly}
+                  className={
+                    selectedList.length > 0 ? classes.sibtn : classes.disabled
+                  }
+                >
+                  Import Selected
+                </button>
+              </div>
+              <div>
+                <button className={classes.sabtn} onClick={selectAll}>
+                  Import All
+                </button>
+              </div>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
