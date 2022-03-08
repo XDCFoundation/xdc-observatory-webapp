@@ -31,9 +31,9 @@ async function postWatchlist(reqObj) {
 }
 
 async function deleteWatchlist(reqObj, req) {
-    if (!isLocalStorage || !req || !req.userId || !req.address) {
-        return []
-    }
+    // if (!isLocalStorage || !req || !req.userId || !req.address) {
+    //     return []
+    // }
     let addressTags = localStorage.getItem(
         req.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
     );

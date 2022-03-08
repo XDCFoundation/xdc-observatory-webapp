@@ -537,6 +537,7 @@ export default function AddressDetails(props) {
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
   const [stop, setStop] = React.useState(false);
   const [watchlistDetails, setWatchListDetails] = React.useState(null);
+  console.log(watchlistDetails,"ASDF")
   const [existingWatchList, setExistingWatchList] = React.useState(null);
   const closeDialogPvtTag = () => {
     setDialogPvtTagIsOpen(false);
@@ -735,7 +736,7 @@ export default function AddressDetails(props) {
       limit:10
     }
 
-const res = await UserService.getWatchlistList(request)
+    const res = await UserService.getWatchlistList(request)
     if(res && res.watchlistContent && res.watchlistContent.length){
       setWatchListDetails(res.watchlistContent[0]);
         setExistingWatchList(true);
@@ -781,13 +782,20 @@ const res = await UserService.getWatchlistList(request)
     // watchList &&
     // watchList?.filter((item) => item.address == addr && item.userId == userId);
   async function remove() {
-    delete watchList[addr];
-    // var i = watchList.findIndex((obj) => obj.address === addr);
-    // if (i !== -1) {
-    //   watchList.splice(i, 1);
+    var i = watchList.findIndex((obj) => obj.address === addr);
+    if (i !== -1) {
+      watchList.splice(i, 1);
+    }
     const [error, response] = await utility.parseResponse(
-        WatchListService.deleteWatchlist({ _id: watchlistDetails._id }, watchlistDetails)
+        WatchListService.deleteWatchlist({ _id: watchlistDetails?._id }, watchlistDetails)
     );
+    if (error || !response) {
+        utility.apiFailureToast(
+          error?.message || genericConstants.CANNOT_DELETE_WATCHLIST
+        );
+        return;
+      }
+    console.log(response,"<<<<<<<<<<<<")
       localStorage.setItem(
         userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchList)
@@ -1044,6 +1052,7 @@ const res = await UserService.getWatchlistList(request)
                             open={dialogWatchListIsOpen}
                             setExistingWatchList={setExistingWatchList}
                             onClose={closeDialogWatchList}
+                            getWatchList={getWatchList}
                             fromAddr={transactions.from}
                             value={dialogValue}
                             hash={addr}
