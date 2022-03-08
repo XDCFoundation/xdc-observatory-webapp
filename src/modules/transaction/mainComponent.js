@@ -18,6 +18,8 @@ export default class LatestTransactionList extends BaseComponent {
     this.state = {
       from: 0,
       amount: 10,
+      sortKey: -1,
+      lastFrom: 0,
       tableName: "Latest Transactions",
       transactionList: [],
       totalTransaction: 0,
@@ -25,7 +27,8 @@ export default class LatestTransactionList extends BaseComponent {
       hashAnimation: {},
       isLoading: true,
       isData: false,
-      pageParam:this.props?.match?.params?.pageNo,
+      lastPage: false,
+      pageParam: this.props?.match?.params?.pageNo,
       tableColumns: {
         // "Transaction Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
         Amount: { isActive: true, toolTipText: toolTipMessages.value },
@@ -47,20 +50,24 @@ export default class LatestTransactionList extends BaseComponent {
     await this.getListOfTransactions();
     await this.getTotalTransaction();
     await this.socketData(socket);
-    await this.setGetListOfTransactionsInterval();
+    // if(this.state.lastPage === false){
+    //   await this.setGetListOfTransactionsInterval();
+    // }
+  
   }
 
-  async setGetListOfTransactionsInterval() {
-    setInterval(() => {
-      this.getListOfTransactions();
-    }, 90000);
-  }
+  // async setGetListOfTransactionsInterval() {
+  //   setInterval(() => {
+  //     this.getListOfTransactions();
+  //   }, 90000);
+  // }
 
-  async getListOfTransactions(from, amount) {
+  async getListOfTransactions(from, amount, sortKey) {
     // debugger;
     from = from || from === 0 ? from : this.state.from;
     amount = amount ? amount : this.state.amount;
-    let urlPath = `?skip=${from}&limit=${amount}`;
+    sortKey = sortKey ? sortKey : this.state.sortKey;
+    let urlPath = `?skip=${from}&limit=${amount}&sortKey=${sortKey}`;
     let [error, listOfTransactions] = await Utils.parseResponse(
       TransactionService.getLatestTransaction(urlPath, {})
     );
@@ -107,7 +114,11 @@ export default class LatestTransactionList extends BaseComponent {
         return item.hash === transactionData.hash;
       });
 
-      if (transactionDataExist === -1 && this.state.from === 0) {
+      if (
+        transactionDataExist === -1 &&
+        this.state.from === 0 &&
+        this.state.lastPage === false
+      ) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
         let hashAnimationClass = {
@@ -130,7 +141,11 @@ export default class LatestTransactionList extends BaseComponent {
 
   _handleChange = (event) => {
     this.setState({ amount: event.target.value });
-    this.getListOfTransactions(this.state.from, event.target.value);
+    if (this.state.lastPage === true) {
+      this.getListOfTransactions(this.state.lastFrom, event.target.value, 1);
+    } else {
+      this.getListOfTransactions(this.state.from, event.target.value, -1);
+    }
   };
 
   // _handleChange = (value, name) => {
@@ -140,25 +155,49 @@ export default class LatestTransactionList extends BaseComponent {
 
   _FirstPage = (event) => {
     this.setState({ from: 0 });
-    this.getListOfTransactions(0, this.state.amount);
+    this.setState({ lastPage: false });
+    this.getListOfTransactions(0, this.state.amount, -1);
   };
   _LastPage = (event) => {
     let from = this.state.totalTransaction - this.state.amount;
     this.setState({ from });
-    this.getListOfTransactions(from, this.state.amount);
+    this.setState({ sortKey: 1 });
+    this.setState({ lastFrom: 0 });
+    let lastFrom = 0;
+    this.getListOfTransactions(lastFrom, this.state.amount, 1);
+    this.setState({ lastPage: true });
   };
   _NextPage = async (event) => {
-    if (+this.state.amount + +this.state.from < this.state.totalTransaction) {
-      let from = +this.state.amount + +this.state.from;
-      this.setState({ from });
-      this.getListOfTransactions(from, this.state.amount);
+    let from = +this.state.amount + +this.state.from;
+    this.setState({ from });
+    if (this.state.lastPage === true) {
+      if (this.state.lastFrom - this.state.amount >= 0) {
+        let from = this.state.lastFrom - this.state.amount;
+        this.setState({ lastFrom: from });
+        this.getListOfTransactions(from, this.state.amount, 1);
+      }
+    } else {
+      if (+this.state.amount + +this.state.from < this.state.totalTransaction) {
+        let from = +this.state.amount + +this.state.from;
+        this.setState({ from });
+        this.setState({ sortKey: -1 });
+        this.getListOfTransactions(from, this.state.amount, -1);
+      }
     }
   };
   _PrevPage = (event) => {
-    if (this.state.from - this.state.amount >= 0) {
-      let from = this.state.from - this.state.amount;
-      this.setState({ from });
-      this.getListOfTransactions(from, this.state.amount);
+    let from = this.state.from - this.state.amount;
+    this.setState({ from });
+    if (this.state.lastPage === true) {
+      let from = +this.state.amount + +this.state.lastFrom;
+      this.setState({ lastFrom: from });
+      this.getListOfTransactions(from, this.state.amount, 1);
+    } else {
+      if (this.state.from - this.state.amount >= 0) {
+        let from = this.state.from - this.state.amount;
+        this.setState({ from });
+        this.getListOfTransactions(from, this.state.amount, -1);
+      }
     }
   };
 
@@ -188,7 +227,7 @@ export default class LatestTransactionList extends BaseComponent {
   };
 
   render() {
-    
+    console.log(this.state.sortKey, this.state.lastPage, ">>");
     return (
       <div>
         <TransactionComponent

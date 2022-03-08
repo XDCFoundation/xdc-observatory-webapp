@@ -101,7 +101,7 @@ const LatestTransactionView = (props) => {
               <TransactionTitle>Latest Transactions</TransactionTitle>
               <a
                 className="linkTable cursor-pointer"
-                href="/view-all-transaction/1"
+                href="/view-all-transaction"
               >
                 View All
               </a>
