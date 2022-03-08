@@ -597,7 +597,7 @@ const CustomDropDownAddress = (props) => {
                             >
                               <div className="display-flex">
                                 <span className="tabledata p-l-0">
-                                  {Utility.shortenAddress(row.address)}
+                                  {Utility.shortenAddressImport(row.address)}
                                 </span>
                               </div>
                             </TableCell>
