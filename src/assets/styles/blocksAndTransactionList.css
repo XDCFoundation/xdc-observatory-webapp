@@ -144,6 +144,16 @@
   text-align: center;
   color: #2a2a2a;
 }
+.TableHeadersTransactionDark {
+  font-size: 0.875rem;
+  font-weight: 600 !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: center;
+  color: #ffffff;
+}
 .tableheaders-dark {
   font-size: 0.875rem;
   font-weight: 600 !important;
@@ -248,6 +258,16 @@
   text-align: center;
   color: #2a2a2a;
 }
+.tableheaders-hash-dark {
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: center;
+  color: #ffffff;
+}
 .tableheader-all {
   font-size: 13px;
   font-weight: bold;
@@ -291,6 +311,17 @@
   color: #2a2a2a;
   margin-right: 50px;
 }
+.tableheaders-all-dark {
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: center;
+  color: #ffffff;
+  margin-right: 50px;
+}
 @media (max-width: 767px) {
   .tableheaders-hash {
     font-size: 0.875rem;
@@ -304,6 +335,18 @@
 
     margin-right: 115px;
   }
+  .tableheaders-hash-dark {
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
+
+    margin-right: 115px;
+  }
   .tableheaders-all {
     font-size: 0.875rem;
     font-weight: bold;
@@ -313,6 +356,16 @@
 
     text-align: center;
     color: #2a2a2a;
+  }
+  .tableheaders-all-dark {
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
   }
 }
 .tableheaders-txn-fee {
@@ -349,6 +402,18 @@
 
     margin-right: 115px;
   }
+  .tableheaders-hash-dark {
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
+
+    margin-right: 115px;
+  }
 }
 @media (max-width: 1023px) {
   .Height-mobile-tab {
@@ -365,6 +430,17 @@
 
   text-align: center;
   color: #2a2a2a;
+  /*margin-right: 50px;*/
+}
+.tableheaders-age-dark {
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: center;
+  color: #ffffff;
   /*margin-right: 50px;*/
 }
 
@@ -524,6 +600,20 @@
   font-weight: bold;
   padding-top: 5px;
 }
+.text-dark {
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: left;
+  color: #adc4e4 !important;
+  border-radius: 4px;
+  font-weight: bold;
+  padding-top: 5px;
+}
 .textShowRecord {
   font-family: Inter;
   font-size: 0.875rem;
@@ -553,6 +643,10 @@
 }
 @media (max-width: 767px) {
   .text {
+    font-size: 12px;
+    padding-top: 0;
+  }
+  .text-dark {
     font-size: 12px;
     padding-top: 0;
   }
@@ -769,6 +863,9 @@
   .latestTransactionHeading {
     font-size: 14px !important;
   }
+  .latestTransactionHeadingDark {
+    font-size: 14px !important;
+  }
 }
 
 .width-fit-content {
@@ -828,6 +925,17 @@
 
     text-align: center;
     color: #2a2a2a;
+    /* margin-right: 164px; */
+  }
+  .TableHeadersTransactionDark {
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
     /* margin-right: 164px; */
   }
   .tableheaders-dark {
@@ -994,6 +1102,12 @@
   font-size: 24px;
   font-weight: 600;
   color: #2a2a2a;
+}
+.latestTransactionHeadingDark {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

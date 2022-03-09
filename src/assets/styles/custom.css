@@ -3092,6 +3092,18 @@ p {
   text-align: center;
   color: #686868;
 }
+.TableHeadersTransactionDark {
+  margin-top: 10px;
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: center;
+  color: #ffffff;
+}
 
 @media (max-width: 767px) {
   .TableHeaders {
