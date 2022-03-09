@@ -2623,9 +2623,21 @@ p {
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
+.firstbox-contract-dark {
+  height: 35px;
+  width: 60px;
+  margin: -6px 6px 0px 0px;
+  padding: 1px;
+  border-radius: 4px;
+  border: solid 1px #3552a5;
+  background-color: #283966;
+}
 
 @media (max-width: 1023px) {
   .firstbox-contract {
+    margin-left: 5%;
+  }
+  .firstbox-contract-dark {
     margin-left: 5%;
   }
 }
@@ -2653,6 +2665,20 @@ p {
   text-align: center;
   color: #4f4f4f;
 }
+.First-contract-dark {
+  width: 37px;
+  height: 17px;
+  opacity: 0.5;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: center;
+  color: #adc4e4;
+}
 
 .previousbox-contract {
   width: 60px;
@@ -2663,6 +2689,16 @@ p {
   cursor: pointer;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
+}
+.previousbox-contract-dark {
+  width: 60px;
+  height: 35px;
+  margin: -6px 6px 0px 0px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: solid 1px #3552a5;
+  background-color: #283966;
 }
 
 .path-contract {
@@ -2708,6 +2744,22 @@ p {
   color: #2a2a2a;
   margin: 4px 0;
 }
+.Last-contract-dark {
+  width: 37px;
+  height: 17px;
+  font-family: Inter;
+  margin-right: "10px";
+  /* font-size: 10px; */
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: center;
+  color: #adc4e4;
+  background-color: #283966;
+  margin: 4px 0;
+}
 
 .pagebox-contract {
   width: 100%;
@@ -2717,6 +2769,15 @@ p {
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
+}
+.pagebox-contract-dark {
+  width: 100%;
+  height: 35px;
+  margin: -6px 6px 0px 0px;
+  padding: 8px 0px;
+  border-radius: 4px;
+  border: solid 1px #3552a5;
+  background-color: #283966;
 }
 
 @media (max-width: 640px) {
@@ -2730,6 +2791,16 @@ p {
     border: solid 1px #e5e8f0;
     background-color: #ffffff;
   }
+  .pagebox-contract-dark {
+    width: auto;
+    white-space: nowrap;
+    height: 35px;
+    margin: -6px 6px 0px 0px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: solid 1px #3552a5;
+    background-color: #283966;
+  }
 }
 
 .Page-1-of-5-contract {
@@ -2739,6 +2810,14 @@ p {
 
   text-align: center;
   color: #2a2a2a;
+}
+.Page-1-of-5-contract-dark {
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  text-align: center;
+  color: #adc4e4;
 }
 
 /* .Page-1-of-5 {
@@ -2760,6 +2839,14 @@ p {
   color: #2a2a2a;
   margin: 4px 0;
 }
+.last-contract-dark {
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  color: #adc4e4;
+  margin: 4px 0;
+  background-color: #283966;
+}
 
 .last-contract-disabled {
   font-size: 10px;
@@ -2775,6 +2862,13 @@ p {
   font-weight: 600;
 
   color: #2a2a2a;
+}
+.first-contract-dark {
+  margin: 4px 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #adc4e4;
+  background-color: #283966;
 }
 
 .last {
@@ -2801,6 +2895,16 @@ p {
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
+.nextbox-contract-dark {
+  width: 60px;
+  height: 35px;
+  margin: -6px 6px 0px 0px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: solid 1px #3552a5;
+  background-color: #283966;
+}
 
 .lastbox-contract {
   width: 60px;
@@ -2810,6 +2914,15 @@ p {
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
+}
+.lastbox-contract-dark {
+  width: 60px;
+  height: 35px;
+  margin: -6px 6px 0px 0px;
+  padding: 1px;
+  border-radius: 4px;
+  border: solid 1px #3552a5;
+  background-color: #283966;
 }
 
 .main-input-td {
@@ -3128,6 +3241,15 @@ p {
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
   }
+  .firstbox-contract {
+    height: 34px;
+    width: 47px;
+    margin: -6px 6px 0px 0px;
+    padding: 1px;
+    border-radius: 6px;
+    border: solid 1px #3552a5;
+    background-color: #283966;
+  }
   .lastbox-contract {
     width: 47px;
     height: 34px;
@@ -3136,6 +3258,15 @@ p {
     border-radius: 6px;
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
+  }
+  .lastbox-contract-dark {
+    width: 47px;
+    height: 34px;
+    margin: -6px 6px 0px 0px;
+    padding: 1px;
+    border-radius: 6px;
+    border: solid 1px #3552a5;
+    background-color: #283966;
   }
   .clear-single-notification-btn {
     display: block;
@@ -3264,9 +3395,25 @@ p {
   background-color: #ffffff;
   align-items: center;
 }
+.searchelement-input-dark {
+  display: flex;
+  flex-direction: row;
+  width: 207px;
+  height: 100%;
+  padding: 5px 0px 5px 12px;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #3552a5;
+  background-color: #091b4e;
+  align-items: center;
+}
 
 @media (max-width: 1023px) {
   .searchelement-input {
+    margin-left: 5%;
+  }
+  .searchelement-input-dark {
     margin-left: 5%;
   }
 }
@@ -3971,6 +4118,16 @@ body {
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
   }
+  .previousbox-contract-dark {
+    width: 29px;
+    height: 34px;
+    margin: -6px 6px 0px 0px;
+    padding: 9px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: solid 1px #3552a5;
+    background-color: #283966;
+  }
   .nextbox-contract {
     width: 29px;
     height: 34px;
@@ -3980,6 +4137,16 @@ body {
     cursor: pointer;
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
+  }
+  .nextbox-contract-dark {
+    width: 29px;
+    height: 34px;
+    margin: -6px 6px 0px 0px;
+    padding: 9px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: solid 1px #3552a5;
+    background-color: #283966;
   }
 
   .block {
@@ -4594,8 +4761,27 @@ body {
   color: #2a2a2a;
   white-space: nowrap;
 }
+#container-table-token-dark td {
+  padding-top: 10.5px;
+  padding-bottom: 8.5px;
+  text-align: left;
+  margin: 19px 49px 1.8px 69px;
+  font-family: "Inter" !important;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: left;
+  color: #adc4e4;
+  white-space: nowrap;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table-token td {
+    padding-left: 13px;
+    white-space: nowrap;
+  }
+  #container-table-token-dark td {
     padding-left: 13px;
     white-space: nowrap;
   }
@@ -5743,6 +5929,9 @@ button {
     margin-left: auto;
   }
   .searchelement-input {
+    width: 21rem;
+  }
+  .searchelement-input-dark {
     width: 21rem;
   }
 }
@@ -9859,6 +10048,19 @@ button {
   opacity: 0.8;
   display: flex;
 }
+.tablehead-token-details-dark-2 {
+  font-family: "Fira Sans";
+  font-size: 0.875rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 40px;
+
+  text-align: center;
+  color: #ffffff;
+  opacity: 1;
+  display: flex;
+}
 /* @media (min-width: 0px) and (max-width: 767px) {
   .tablehead-token-details {
     padding-left: 16px;
@@ -10611,6 +10813,9 @@ button {
   .searchelement-input {
     margin-left: 0% !important;
   }
+  .searchelement-input-dark {
+    margin-left: 0% !important;
+  }
 }
 
 .Notification-header-color {
@@ -11049,7 +11254,22 @@ button {
   margin: 1px;
   width: 10rem;
 }
+.account-searchbar-dark {
+  font-size: 15px;
+  color: #ffffff;
+  font-family: "Inter";
+  outline: none;
+  border-width: 0;
+  padding-top: 3px;
+  margin: 1px;
+  width: 10rem;
+  background: transparent;
+}
 .account-searchbar:focus {
+  outline: none !important;
+  border: none !important;
+}
+.account-searchbar-dark:focus {
   outline: none !important;
   border: none !important;
 }
@@ -11147,6 +11367,14 @@ button {
   color: #2149b9;
   font-size: 0.875rem;
 }
+.token-details-address-link-dark {
+  color: #4874f4;
+  font-size: 0.875rem;
+}
+.token-details-address-link-dark:hover {
+  color: #4874f4;
+  font-size: 0.875rem;
+}
 .userName-internal {
   margin-left: 4px;
   margin-right: 9px;
@@ -11159,6 +11387,10 @@ button {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .token-details-address-link {
+    color: #2149b9;
+    font-size: 14px;
+  }
+  .token-details-address-link-dark {
     color: #2149b9;
     font-size: 14px;
   }
