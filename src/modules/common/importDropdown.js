@@ -25,6 +25,7 @@ import moment from "moment-timezone";
 import { useSelector } from "react-redux";
 import "../../assets/styles/custom.css";
 import toast, { Toaster } from "react-hot-toast";
+import CustomLoader from "../../assets/customLoader"
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -166,6 +167,48 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "18px",
     color: "#2a2a2a",
+  },
+  connectXdcDialogBox: {
+    width: "500px",
+    position: "absolute",
+    borderRadius: "12px",
+  },
+  importXdcHeading: {
+    margin: "28px auto 10px auto",
+    fontFamily: "Inter",
+    fontSize: "22px",
+    fontWeight: "600",
+    textAlign: "center",
+    color: "#2a2a2a",
+  },
+  importXdcText: {
+    maxWidth: "353px",
+    width: "100%",
+    margin: "0px auto 68px auto",
+    fontFamily: "Inter",
+    fontSize: "15px",
+    textAlign: "center",
+    color: "#585858"
+  },
+  importXdcLogo: {
+    width: "100px",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  connectWalletButton: {
+    maxWidth: "178px",
+    width: "100%",
+    height: "34px",
+    margin: "86px auto 49px auto",
+    paddingTop: "7px",
+    borderRadius: "4px",
+    backgroundColor: "#3763dd",
+    textAlign: "center",
+    fontFamily: "Inter",
+    fontSize: "15px",
+    fontWeight: "600",
+    color: "#ffffff",
+    cursor: "pointer",
   },
   "@media (max-width: 767px)": {
     heading: {
@@ -314,6 +357,7 @@ const CustomDropDownAddress = (props) => {
   const hiddenFileInput = React.useRef(null);
   const allChecked = React.useRef(null);
   const [importAddress, setImportAddress] = React.useState(false);
+  const [connectXDCPay, setConnectXDCPay] = React.useState(false);
   const [importValue, setImportValue] = React.useState(0);
   const timezone = useSelector((state) => state.timezone);
 
@@ -461,6 +505,18 @@ const CustomDropDownAddress = (props) => {
     await notify();
   };
 
+  const handleOpenXDCPay = () => {
+    setConnectXDCPay(true);
+  }
+  const handleConnectWallet = () => {
+    closeConnectXDCPay()
+    openDialogImport()
+  }
+  const closeConnectXDCPay = () => {
+    setConnectXDCPay(false);
+  }
+  
+
   return (
     <div>
       <div>
@@ -481,12 +537,25 @@ const CustomDropDownAddress = (props) => {
               ref={hiddenFileInput}
               style={{ display: "none" }}
             />
-            <OptionDiv>Import from XDCPay</OptionDiv>
+            <OptionDiv onClick={handleOpenXDCPay}>Import from XDCPay</OptionDiv>
             <OptionDiv onClick={handleClick}>Import from CSV file</OptionDiv>
           </DropdownContainer>
         )}
       </Container>
-
+    
+{/* -----------------------------------------------------connect XDC Pay--------------------------------------------- */}
+      <Dialog classes={{ paperWidthSm: classes.connectXdcDialogBox }}
+        open={connectXDCPay}
+        onClose={closeConnectXDCPay}
+        aria-labelledby="form-dialog-title"
+      >
+        <div className={classes.importXdcHeading}>Import from XDC Pay</div>
+        <div className={classes.importXdcText}>You can import the contact saved in XDCPay into you Observer Account.</div>
+        {/* <CustomLoader classes={{root: classes.root}}/> */}
+        <img className={classes.importXdcLogo} src="/images/xdc-icon-blue-color.svg"></img>
+        <div className={classes.connectWalletButton} onClick={handleConnectWallet}>Connect Wallet</div>
+        </Dialog>
+{/* ------------------------------------------------------------------------------------------------------------------*/}
       <Dialog
         classes={{ paperWidthSm: classes.dialogBox }}
         open={importAddress}
