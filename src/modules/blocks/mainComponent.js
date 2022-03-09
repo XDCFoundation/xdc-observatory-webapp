@@ -155,6 +155,7 @@ export default class LatestBlocksList extends React.PureComponent {
                     _LastPage={this._LastPage}
                     _FirstPage={this._FirstPage}
                     _handleChange={this._handleChange}
+                    theme={this.props.theme}
                  />
             </div>
         )

@@ -11665,3 +11665,17 @@ button {
 .connect-wallet-dark-xdc-url:hover{
   color: #4874f4;
 }
+.tabletop-heading-dark {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: left;
+  color: #ffffff !important;
+  margin-bottom: 15px;
+  margin-top: 30px;
+  padding-left: 3px;
+}

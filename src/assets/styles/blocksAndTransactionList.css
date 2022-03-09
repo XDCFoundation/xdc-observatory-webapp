@@ -144,6 +144,16 @@
   text-align: center;
   color: #2a2a2a;
 }
+.tableheaders-dark {
+  font-size: 0.875rem;
+  font-weight: 600 !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  text-align: center;
+  color: #ffffff;
+}
 .tableheaders-contract {
   font-size: 0.875rem;
   font-weight: bold;
@@ -167,6 +177,18 @@
     color: #2a2a2a;
     font-weight: 500;
   }
+  .table-headers-dark {
+    height: 1.063rem;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    display: flex;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 500;
+  }
 }
 
 .hash-transaction-list-all {
@@ -188,6 +210,19 @@
     display: flex;
     text-align: center;
     color: #2a2a2a;
+    font-weight: 500;
+    margin-right: 130px;
+  }
+  .table-headers-dark {
+    height: 1.063rem;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    display: flex;
+    text-align: center;
+    color: #ffffff;
     font-weight: 500;
     margin-right: 130px;
   }
@@ -366,6 +401,9 @@
   .tabledata {
     padding-right: 30px !important;
   }
+  .latest-blocks-tabledata-dark {
+    padding-right: 30px !important;
+  }
 }
 
 .tabledata {
@@ -380,6 +418,19 @@
   text-align: left;
   opacity: 1;
   padding-left: 2px;
+}
+.latest-blocks-tabledata-dark {
+  width: 10%;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: left;
+  opacity: 1;
+  padding-left: 2px;
+  color: #adc4e4;
 }
 
 @media (min-width: 1240px) {
@@ -491,12 +542,25 @@
   font-weight: bold;
   padding-top: 8px;
 }
+.textShowRecordBlockDark {
+  font-family: Inter;
+  font-size: 0.875rem;
+  text-align: left;
+  color: #adc4e4;
+  border-radius: 4px;
+  font-weight: bold;
+  padding-top: 8px;
+}
 @media (max-width: 767px) {
   .text {
     font-size: 12px;
     padding-top: 0;
   }
   .textShowRecordBlock {
+    font-size: 12px;
+    padding-top: 0px;
+  }
+  .textShowRecordBlockDark {
     font-size: 12px;
     padding-top: 0px;
   }
@@ -535,6 +599,23 @@
   margin: 2px;
   font-weight: bold;
 }
+.btn-latest-block-dark {
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  height: 60%;
+  padding: 7px 10px 25px 9px;
+  text-align: left;
+  color: #adc4e4;
+  border-radius: 4px;
+  border: solid 1px #3552a5;
+  background-color: #283966;
+  margin: 2px;
+  font-weight: bold;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .btn-first {
     width: 3.063rem;
@@ -565,9 +646,18 @@
     font-weight: bold;
     font-size: 12px;
   }
+  .disabled-dark {
+    color: #adc4e4;
+    font-weight: bold;
+    font-size: 12px;
+  }
 }
 .disabled {
   color: #939499;
+  font-weight: bold;
+}
+.disabled-dark {
+  color: #adc4e4;
   font-weight: bold;
 }
 
@@ -738,6 +828,17 @@
 
     text-align: center;
     color: #2a2a2a;
+    /* margin-right: 164px; */
+  }
+  .tableheaders-dark {
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
     /* margin-right: 164px; */
   }
   .tableheaders-contract {
