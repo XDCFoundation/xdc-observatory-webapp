@@ -2416,7 +2416,13 @@ p {
   .parent_hash {
     font-size: 0.875rem !important;
   }
+  .parent_hash_dark {
+    font-size: 0.875rem !important;
+  }
   .parent_hash:hover {
+    font-size: 0.875rem !important;
+  }
+  .parent_hash_dark:hover {
     font-size: 0.875rem !important;
   }
 }
@@ -8093,12 +8099,36 @@ button {
   line-height: normal;
   text-align: left;
 }
+.parent_hash_dark {
+  font-family: Inter !important;
+  font-size: 0.938rem;
+
+  color: #4878ff !important;
+  height: 1.125rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: left;
+}
 
 .parent_hash:hover {
   font-family: Inter !important;
   font-size: 0.938rem;
 
   color: #2149b9 !important;
+  height: 1.125rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: left;
+}
+.parent_hash_dark:hover {
+  font-family: Inter !important;
+  font-size: 0.938rem;
+
+  color: #4878ff !important;
   height: 1.125rem;
   font-weight: normal;
   font-stretch: normal;
@@ -8115,6 +8145,17 @@ button {
   border: solid 1px #9fa9ba;
   background-color: #e3e7eb;
   color: #3a3a3a;
+  margin-left: 0px;
+  padding: 8px 10px;
+}
+.text-area-dark {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  outline: none;
+  border: solid 1px #9fa9ba;
+  background-color: #9fa9ba;
+  color: #ffffff;
   margin-left: 0px;
   padding: 8px 10px;
 }
@@ -11314,6 +11355,12 @@ button {
     color: #4878ff;
     margin-left: 0px !important;
   }
+  .copy-icon-block-details-dark {
+    font-size: 14px;
+    background-color: #192a59;
+    color: #b1c3e1;
+    margin-left: 0px !important;
+  }
   .account-searchbar {
     width: 8rem;
   }
@@ -11400,6 +11447,12 @@ button {
     color: #4878ff;
     margin-left: 0px !important;
   }
+  .copy-icon-block-details-dark {
+    font-size: 14px;
+    background-color: #192a59;
+    color: #b1c3e1;
+    margin-left: 0px !important;
+  }
   .account-searchbar {
     max-width: 43rem;
     width: 100%;
@@ -11409,6 +11462,12 @@ button {
   font-size: 14px;
   background-color: white;
   color: #4878ff;
+  margin-left: 280px;
+}
+.copy-icon-block-details-dark {
+  font-size: 14px;
+  background-color: #192a59;
+  color: #b1c3e1;
   margin-left: 280px;
 }
 

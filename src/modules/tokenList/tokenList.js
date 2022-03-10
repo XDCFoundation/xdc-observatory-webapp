@@ -115,7 +115,7 @@ const useStyles = makeStyles({
     borderRadius: "0.875rem",
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
-    background: "#1e326a",
+    background: "#192a59",
   },
   tableFirstHeading: {
     border: "none",
