@@ -364,12 +364,23 @@ export default function Transaction({ _handleChange }) {
   const gasPrice = parseFloat(gasP)?.toFixed(12).replace(/0+$/, "");
   let gasPrice1 = gasPrice.toString().split(".")[0];
   let gasPrice2 = gasPrice.toString().split(".")[1];
+  const avgTxnFeeConverted =
+    CurrencyValue === "INR"
+      ? gasP * price
+      : CurrencyValue === "USD"
+      ? gasP * price
+      : gasP * price;
+  const avgTxnFeeFetch = !avgTxnFeeConverted
+    ? 0
+    : parseFloat(avgTxnFeeConverted)?.toFixed(14);
+  let avgTxnFeeFetch1 = avgTxnFeeFetch.toString().split(".")[0];
+  let avgTxnFeeFetch2 = avgTxnFeeFetch.toString().split(".")[1];
+
   let transactionValue =
     transactions?.value <
     1000000000000 /*there are some transactions which are not in gwei in ou DB*/
       ? transactions?.value * 1000000000000000000
       : transactions?.value;
-
   const valueDiv =
     transactions?.value > 0 && transactions?.value < 1
       ? (valueFetch * transactionValue).toFixed(8)
@@ -506,7 +517,7 @@ export default function Transaction({ _handleChange }) {
                             </button>
                           </Tooltip>
                         </CopyToClipboard>
-                        {userInfo ? (
+                        {userInfo ? ( privateNote ?<></>:
                           <>
                             {
                               <PrivateNote
@@ -998,6 +1009,7 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Avg Transaction Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
+                    <Content>
                     {gasPrice2 == 0 ? (
                       <span>{gasPrice1}</span>
                     ) : (
@@ -1007,6 +1019,18 @@ export default function Transaction({ _handleChange }) {
                         <span style={{ color: "#9FA9BA" }}>{gasPrice2}</span>
                       </span>
                     )}
+                    &nbsp;XDC ({currencySymbol}
+                      {avgTxnFeeFetch2 == null ? (
+                        <span>{avgTxnFeeFetch1}</span>
+                      ) : (
+                        <span>
+                          {avgTxnFeeFetch1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{avgTxnFeeFetch2}</span>
+                        </span>
+                      )}
+                      )
+                      </Content>
                     {/* <Content> {gasP}</Content> */}
                   </MiddleContainer>
                 </Spacing>
@@ -1278,7 +1302,7 @@ const MiddleContainerPrivateNote = styled.div`
     margin-left: unset;
     line-height: 1.5;
     height: auto;
-    padding: 1px 9px 1px 6px;
+    padding: 1px 6px 1px 6px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
@@ -1865,7 +1889,9 @@ const MobileDesktopTag = styled.div`
 `;
 const AddLabel = styled.div`
   display: flex;
+  flex-flow: wrap;
 `;
 const AddLabelText = styled.div`
   margin-right: 8px;
+  white-space: nowrap;
 `;

@@ -155,7 +155,17 @@ export default function TransferTransaction({ _handleChange }) {
 
 
   const gasP = !transactions.gasPrice ? 0 : Utils.decimalDivison(transactions.gasPrice, 2);
-
+  const avgTxnFeeConverted =
+    CurrencyValue === "INR"
+      ? gasP * coinmarketcap.price
+      : CurrencyValue === "USD"
+      ? gasP * coinmarketcap.price
+      : gasP * coinmarketcap.price;
+  const avgTxnFeeFetch = !avgTxnFeeConverted
+    ? 0
+    : parseFloat(avgTxnFeeConverted)?.toFixed(14);
+  let avgTxnFeeFetch1 = avgTxnFeeFetch.toString().split(".")[0];
+  let avgTxnFeeFetch2 = avgTxnFeeFetch.toString().split(".")[1];
 
 
   const valueDiv = !valueFetch ? 0 : Utils.decimalDivison(valueFetch, 2);
@@ -968,6 +978,7 @@ export default function TransferTransaction({ _handleChange }) {
                     <Hash>Avg Transaction Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
+                    <Content>
                     {/* {gasPrice2 == 0 ? (
                       <span>{gasPrice1}</span>
                     ) : (
@@ -977,7 +988,18 @@ export default function TransferTransaction({ _handleChange }) {
                         <span style={{ color: "#9FA9BA" }}>{gasPrice2}</span>
                       </span>
                     )} */}
-                    {gasP}
+                    {gasP}&nbsp;XDC ({currencySymbol}
+                      {avgTxnFeeFetch2 == null ? (
+                        <span>{avgTxnFeeFetch1}</span>
+                      ) : (
+                        <span>
+                          {avgTxnFeeFetch1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{avgTxnFeeFetch2}</span>
+                        </span>
+                      )}
+                      )
+                      </Content>
                   </MiddleContainer>
                 </Spacing>
                 {/* --------------------------------------------gas used--------------------------- */}

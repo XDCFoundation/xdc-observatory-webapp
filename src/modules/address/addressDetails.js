@@ -508,7 +508,7 @@ const LoginMobile = styled.div`
   }
 `;
 const Tag = styled.div`
-  min-width: 95px;
+  min-width: 70px;
   height: 28px;
   border-radius: 4px;
   border: solid 1px #d2deff;
@@ -522,9 +522,10 @@ const Tag = styled.div`
   padding: 4px;
   color: #4878ff;
   margin-left: 10px;
+  white-space: nowrap;
   @media (max-width: 767px) {
     margin-top: 10px;
-    min-width: 95px;
+    min-width: 70px;
     width: fit-content;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -558,6 +559,7 @@ export default function AddressDetails(props) {
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
   const [stop, setStop] = React.useState(false);
   const [watchlistDetails, setWatchListDetails] = React.useState(null);
+  console.log(watchlistDetails,"ASDF")
   const [existingWatchList, setExistingWatchList] = React.useState(null);
   const [type, setType] = useState("");
   const [tokenForAddres, setTokenForAddres] = useState([]);
@@ -826,20 +828,24 @@ export default function AddressDetails(props) {
   // watchList &&
   // watchList?.filter((item) => item.address == addr && item.userId == userId);
   async function remove() {
-    delete watchList[addr];
-    // var i = watchList.findIndex((obj) => obj.address === addr);
-    // if (i !== -1) {
-    //   watchList.splice(i, 1);
+    var i = watchList.findIndex((obj) => obj.address === addr);
+    if (i !== -1) {
+      watchList.splice(i, 1);
+    }
     const [error, response] = await utility.parseResponse(
-      WatchListService.deleteWatchlist(
-        { _id: watchlistDetails._id },
-        watchlistDetails
-      )
+        WatchListService.deleteWatchlist({ _id: watchlistDetails?._id }, watchlistDetails)
     );
-    localStorage.setItem(
-      userId + cookiesConstants.USER_ADDRESS_WATCHLIST,
-      JSON.stringify(watchList)
-    );
+    if (error || !response) {
+        utility.apiFailureToast(
+          error?.message || genericConstants.CANNOT_DELETE_WATCHLIST
+        );
+        return;
+      }
+    console.log(response,"<<<<<<<<<<<<")
+      localStorage.setItem(
+        userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
+        JSON.stringify(watchList)
+      );
     // }
     setExistingWatchList(null);
     setStop("");
@@ -1106,6 +1112,7 @@ export default function AddressDetails(props) {
                             open={dialogWatchListIsOpen}
                             setExistingWatchList={setExistingWatchList}
                             onClose={closeDialogWatchList}
+                            getWatchList={getWatchList}
                             fromAddr={transactions.from}
                             value={dialogValue}
                             hash={addr}
