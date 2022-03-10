@@ -264,8 +264,14 @@ function EditWatchList(props) {
         );
         watchlists = JSON.parse(watchlists);
         if (!watchlists)
-          watchlists = {}
-        watchlists[request.address] = description;
+          watchlists = []
+          const data = {
+            description: description,
+            address: address,
+            [request.address] : description
+          };
+          watchlists.push(data);
+        // watchlists[request.address] = description;
         localStorage.setItem(
             sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST,
             JSON.stringify(watchlists)

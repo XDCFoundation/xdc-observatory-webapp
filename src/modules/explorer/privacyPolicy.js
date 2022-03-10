@@ -1902,7 +1902,7 @@ function PrivacyPolicy() {
             CHANGES
           </PointHeading>
           <Para>
-            This privacy policy was last updated on 2021 Nov. __. If we make
+            This privacy policy was last updated on 2022 Feb. If we make
             substantial changes to this privacy notice, we will inform you in
             advance by e-mail if you are registered with us or on the Website;
             otherwise, you may view updated versions of this policy on the

@@ -2838,6 +2838,14 @@ p {
   background-color: #102e84;
   padding: 0 10px 0px 10px !important;
 }
+.clear-single-notification-btn {
+  display: none;
+}
+.side-box:hover .clear-single-notification-btn {
+  display: inline-block;
+  transition:height .5s ease-out 0s;
+}
+
 
 .account_details_button {
   font-size: 15px;
@@ -3004,6 +3012,9 @@ p {
     border-radius: 6px;
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
+  }
+  .clear-single-notification-btn {
+    display: block;
   }
 }
 
@@ -4186,6 +4197,13 @@ body {
   border: none;
   padding: 0 20px;
 }
+.container-table-holder-mob {
+  border-radius: 12px;
+  width: 95%;
+  background: #fff;
+  border: none;
+  padding: 0 20px;
+}
 
 #container-table table {
   /* height: 120px;
@@ -4250,6 +4268,11 @@ body {
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
     padding: 17px 0px 15px 20px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  #container-table-holder-mob th {
+    padding: 17px 0px 15px 0px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -10116,6 +10139,12 @@ button {
   .boxfirst {
     margin-left: 0% !important;
   }
+  .first-row-table_address-mob {
+    font-family: Inter !important;
+    font-size: 0.938rem !important;
+    font-weight: 600 !important;
+    padding-left: 0px !important;
+  }
 }
 
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -10214,6 +10243,7 @@ button {
   font-family: Inter;
   margin-left: 15px !important;
   margin-top: 23px;
+  white-space: nowrap;
 }
 .Notification-text-color-fade {
   color: #81b4ff;
@@ -10235,6 +10265,8 @@ button {
   font-size: 0.938rem !important;
   color: #ffffff;
   margin-bottom: 10px;
+  display: flex;
+  flex-flow: wrap;
 }
 @media (max-width: 767px) {
   .details-margin-30 {
@@ -11211,6 +11243,27 @@ button {
   .global-id-image {
     width: 70px;
     height: 70px;
+  }
+}
+.animated-background {
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: linear-gradient(to left, #f6f6f6 90%, #e5e5e5 46%, #eae8e8 7%);
+  background-size: 800px 104px;
+  position: relative;
+  width: 65.5px;
+  height: 8.5px;
+}
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -800px 0
+  }
+
+  100% {
+    background-position: 800px 0
   }
 }
 .form-check-input{
