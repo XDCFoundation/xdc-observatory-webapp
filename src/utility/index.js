@@ -134,7 +134,7 @@ function divideByDecimalValue(num, decimals) {
   if (num === 0) {
     return num;
   } else {
-    return (num / Math.pow(10, decimals)).toFixed(decimals)
+    return (num / Math.pow(10, decimals)).toFixed(decimals).replace(/\.?0+$/, "")
   }
 
 }

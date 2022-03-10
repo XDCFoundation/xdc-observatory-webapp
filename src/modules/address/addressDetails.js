@@ -288,7 +288,7 @@ const LastActivity = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-
+white-space:nowrap ;
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
@@ -306,12 +306,13 @@ const LastActivityValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-
+white-space:nowrap ;
   color: #3a3a3a;
   margin-left: 73px;
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 46px;
+    white-space: break-spaces;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
@@ -369,11 +370,11 @@ const TokenValue = styled.div`
 
   @media (max-width: 767px) {
     font-size: 13px;
-    margin-left: 93px;
+    margin-left: 79px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
-    margin-left: 101px;
+    margin-left: 86px;
   }
 `;
 const AddTagButton = styled.button`
@@ -1074,6 +1075,7 @@ export default function AddressDetails(props) {
                           name="Tokens"
                           onSelect={(data) => setType(data)}
                           options={tokenForAddres}
+                          price={price}
                         />
                       </TokenValue>
                     </RankDiv>

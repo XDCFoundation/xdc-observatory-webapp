@@ -1,35 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import format from "format-number";
-const Users = [
-  {
-    id: 1,
-    name: "xdc",
-    balance: "205241524",
-  },
-
-  {
-    id: 1,
-    name: "xxfd",
-    balance: "205241524",
-  },
-  {
-    id: 2,
-    name: "XDC",
-    balance: "205241524",
-  },
-
-  {
-    id: 2,
-    name: "xxfd",
-    balance: "205241524",
-  },
-  {
-    id: 2,
-    name: "ecof",
-    balance: "205241524",
-  },
-];
+import Utility from "../../utility";
 
 const Container = styled.div`
   margin-right: 0px;
@@ -98,7 +70,7 @@ const SearchBox = styled.div`
   border-radius: 4px;
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
-  width: 311px;
+  min-width: 311px;
   height: 34px;
   padding: 6px 8px;
   display: flex;
@@ -140,7 +112,7 @@ const TokenBalance = styled.div`
   opacity: 0.8;
 `;
 const TokenHeading = styled.div`
-  width: 311px;
+  min-width: 311px;
   height: 33px;
   margin-left: 4px;
   background-color: #f9f9f9;
@@ -167,11 +139,11 @@ const FirstColumnToken = styled.div`
 `;
 const LastLine = styled.div`
   margin: 0 auto;
-  width: 313px;
+  min-width: 311px;
   border: solid 0.5px #e3e7eb;
 `;
 const CustomDropDownAddress = (props) => {
-  const { name, options, onSelect, selectedOption } = props;
+  const { price, options, onSelect } = props;
   const [isDropdownOpen, toggleDropdown] = useState(false);
   const mainDiv = useRef(null);
   const [search, setSearch] = useState("");
@@ -203,15 +175,19 @@ const CustomDropDownAddress = (props) => {
   }, []);
   useEffect(() => {
     setFilteredData(
-      Users.filter((data) => {
-        return data.name
+      options.filter((data) => {
+        return data.tokenName
           .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase());
+          .includes(search?.toLocaleLowerCase());
       })
     );
-  }, [search, Users]);
-  let filterXrc = Users?.filter((obj) => obj.id == 2);
-  console.log(filterXrc, "<<<<");
+  }, [search, options]);
+  let filterXrc20 = options?.filter((obj) => !obj.ERC || obj.ERC == 2);
+  let filterXrc721 = options.filter((obj) => obj.ERC > 2);
+
+  let activeCurrency = window.localStorage.getItem("currency");
+  const currencySymbol = !price ? "" : activeCurrency === "USD" ? "$" : "€";
+
   return (
     <Container ref={mainDiv}>
       <SelectedValueContainer onClick={onFilterClicked}>
@@ -230,7 +206,6 @@ const CustomDropDownAddress = (props) => {
         </div>
       </SelectedValueContainer>
       {isDropdownOpen && search.length == 0 ? (
-        
         <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
           <SearchBox>
             <img src="/images/Search.svg" />
@@ -240,102 +215,170 @@ const CustomDropDownAddress = (props) => {
             />
           </SearchBox>
           <TokenHeading>
-            <span>XRC-20 Token (2)</span>
+            <span>XRC-20 Token ({filterXrc20.length})</span>
           </TokenHeading>
-          {filteredData?.map((data, index) => {
+          {filterXrc20?.map((data, index) => {
+            let px = data.balance * price;
+            let balance = !price
+              ? ""
+              : Utility.divideByDecimalValue(data.balance, data?.decimals);
+            let priceConverted = !price
+              ? ""
+              : Utility.divideByDecimalValue(px, data?.decimals);
             return (
               <a
                 className="options-data"
-                href={`/token-data/${data.address}/${
-                  data?.name ? data?.name : "NA"
+                href={`/token-data/${data.tokenContract}/${
+                  data?.symbol ? data?.symbol : "NA"
                 }`}
               >
                 <OptionDiv>
                   <FirstColumnToken>
                     <TokenLogo>
-                      <img src="/images/XRC20-Icon.svg" />
+                      {data?.tokenImage ? (
+                        <img
+                          style={{ height: "20px", width: "20px" }}
+                          src={data?.tokenImage}
+                        ></img>
+                      ) : (
+                        <img
+                          style={{ height: "20px", width: "20px" }}
+                          src={"/images/XRC20-Icon.svg"}
+                        ></img>
+                      )}
                     </TokenLogo>
                     <SecondColumnToken>
-                      <TokenName>{data?.name ? data?.name : "NA"}</TokenName>
+                      <TokenName>
+                        {data?.tokenName ? data?.tokenName : "NA"}
+                      </TokenName>
 
                       <TokenBalance>
-                        {format({})(data.balance)}&nbsp;{data.name}
+                        {format({})(balance)}&nbsp;{data.tokenName}
                       </TokenBalance>
                     </SecondColumnToken>
                   </FirstColumnToken>
-                  <TokenUsdBalance>$1,380.56</TokenUsdBalance>
+                  <TokenUsdBalance>
+                    {currencySymbol}
+                    {priceConverted}
+                  </TokenUsdBalance>
                 </OptionDiv>
               </a>
             );
           })}
           <TokenHeading>
-            <span>XRC-721 Token (4)</span>
+            <span>XRC-721 Token ({filterXrc721.length})</span>
           </TokenHeading>
-          {filterXrc?.map((data, index) => {
+          {filterXrc721?.map((data, index) => {
+            let px = data.balance * price;
+            let balance = !price
+              ? ""
+              : Utility.divideByDecimalValue(data.balance, data?.decimals);
+            let priceConverted = !price
+              ? ""
+              : Utility.divideByDecimalValue(px, data?.decimals);
             return (
               <a
                 className="options-data"
-                href={`/token-data/${data.address}/${
-                  data?.name ? data?.name : "NA"
+                href={`/token-data/${data.tokenContract}/${
+                  data?.symbol ? data?.symbol : "NA"
                 }`}
               >
                 <OptionDiv>
                   <FirstColumnToken>
                     <TokenLogo>
-                      <img src="/images/XRC20-Icon.svg" />
+                      {data?.tokenImage ? (
+                        <img
+                          style={{ height: "20px", width: "20px" }}
+                          src={data?.tokenImage}
+                        ></img>
+                      ) : (
+                        <img
+                          style={{ height: "20px", width: "20px" }}
+                          src={"/images/XRC20-Icon.svg"}
+                        ></img>
+                      )}
                     </TokenLogo>
                     <SecondColumnToken>
-                      <TokenName>{data?.name ? data?.name : "NA"}</TokenName>
+                      <TokenName>
+                        {data?.tokenName ? data?.tokenName : "NA"}
+                      </TokenName>
 
                       <TokenBalance>
-                        {format({})(data.balance)}&nbsp;{data.name}
+                        {format({})(balance)}&nbsp;{data.symbol}
                       </TokenBalance>
                     </SecondColumnToken>
                   </FirstColumnToken>
-                  <TokenUsdBalance>$1,380.56</TokenUsdBalance>
+                  <TokenUsdBalance>
+                    {currencySymbol}
+                    {priceConverted}
+                  </TokenUsdBalance>
                 </OptionDiv>
               </a>
             );
           })}
           <LastLine></LastLine>
         </DropdownContainer>
-      ):
-      isDropdownOpen &&(
-      <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
-          <SearchBox>
-            <img src="/images/Search.svg" />
-            <input
-              placeholder="Search"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </SearchBox>
-          {filteredData?.map((data, index) => {
-            return (
-              <a
-                className="options-data"
-                href={`/token-data/${data.address}/${
-                  data?.name ? data?.name : "NA"
-                }`}
-              >
-                <OptionDiv>
-                  <FirstColumnToken>
-                    <TokenLogo>
-                      <img src="/images/XRC20-Icon.svg" />
-                    </TokenLogo>
-                    <SecondColumnToken>
-                      <TokenName>{data?.name ? data?.name : "NA"}</TokenName>
+      ) : (
+        isDropdownOpen && (
+          <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
+            <SearchBox>
+              <img src="/images/Search.svg" />
+              <input
+                placeholder="Search"
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </SearchBox>
+            {filteredData?.map((data, index) => {
+              let px = data.balance * price;
+              let balance = !price
+                ? ""
+                : Utility.divideByDecimalValue(data.balance, data?.decimals);
+              let priceConverted = !price
+                ? ""
+                : Utility.divideByDecimalValue(px, data?.decimals);
+              return (
+                <a
+                  className="options-data"
+                  href={`/token-data/${data.tokenContract}/${
+                    data?.symbol ? data?.symbol : "NA"
+                  }`}
+                >
+                  <OptionDiv>
+                    <FirstColumnToken>
+                      <TokenLogo>
+                        {data?.tokenImage ? (
+                          <img
+                            style={{ height: "20px", width: "20px" }}
+                            src={data?.tokenImage}
+                          ></img>
+                        ) : (
+                          <img
+                            style={{ height: "20px", width: "20px" }}
+                            src={"/images/XRC20-Icon.svg"}
+                          ></img>
+                        )}
+                      </TokenLogo>
+                      <SecondColumnToken>
+                        <TokenName>
+                          {data?.tokenName ? data?.tokenName : "NA"}
+                        </TokenName>
 
-                      <TokenBalance>
-                        {format({})(data.balance)}&nbsp;{data.name}
-                      </TokenBalance>
-                    </SecondColumnToken>
-                  </FirstColumnToken>
-                  <TokenUsdBalance>$1,380.56</TokenUsdBalance>
-                </OptionDiv>
-              </a>
-            );
-          })}
-        </DropdownContainer>)}
+                        <TokenBalance>
+                          {format({})(balance)}&nbsp;{data.symbol}
+                        </TokenBalance>
+                      </SecondColumnToken>
+                    </FirstColumnToken>
+                    <TokenUsdBalance>
+                      {currencySymbol}
+                      {priceConverted}
+                    </TokenUsdBalance>
+                  </OptionDiv>
+                </a>
+              );
+            })}
+          </DropdownContainer>
+        )
+      )}
     </Container>
   );
 };
