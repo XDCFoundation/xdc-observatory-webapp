@@ -13,11 +13,8 @@ import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import Tooltip from "@material-ui/core/Tooltip";
-import { messages } from "../../constants";
 import TableBody from "@material-ui/core/TableBody";
 import Loader from "../../assets/loader";
-import utility from "../../utility";
 import Paper from "@material-ui/core/Paper";
 import Utility from "../../utility";
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
@@ -26,6 +23,7 @@ import { useSelector } from "react-redux";
 import "../../assets/styles/custom.css";
 import toast, { Toaster } from "react-hot-toast";
 import CustomLoader from "../../assets/customLoader"
+import Web3 from "web3";
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -515,7 +513,30 @@ const CustomDropDownAddress = (props) => {
   const closeConnectXDCPay = () => {
     setConnectXDCPay(false);
   }
-  
+  const searchMyAddress = async () => {
+
+    let web3;
+    web3 = new Web3(window.web3.currentProvider);
+    window.ethereum.enable();
+    const chainId = await web3.eth.net.getId();
+    if (chainId == 50 || chainId == 51) {
+      // Utils.apixFailureToast("Please login to XDCPay extension");
+      await web3.eth.getAccounts().then((accounts) => {
+        if (!accounts || !accounts.length) {
+          Utility.apiFailureToast("Please login to XDCPay extension");
+          return;
+        }
+        console.log(accounts,"<<<<<<<<<<<<<<<<<<")
+        let acc = accounts[0];
+        acc = acc.replace("0x", "xdc");
+        acc = acc.toLowerCase();
+        // window.location.href = "/address-details/" + acc;
+      });
+    } else { 
+      return;
+    }
+    
+  };
 
   return (
     <div>
@@ -551,9 +572,9 @@ const CustomDropDownAddress = (props) => {
       >
         <div className={classes.importXdcHeading}>Import from XDC Pay</div>
         <div className={classes.importXdcText}>You can import the contact saved in XDCPay into you Observer Account.</div>
-        {/* <CustomLoader classes={{root: classes.root}}/> */}
-        <img className={classes.importXdcLogo} src="/images/xdc-icon-blue-color.svg"></img>
-        <div className={classes.connectWalletButton} onClick={handleConnectWallet}>Connect Wallet</div>
+        <CustomLoader classes={{root: classes.root}}/>
+        {/* <img className={classes.importXdcLogo} src="/images/xdc-icon-blue-color.svg"></img> */}
+        <div className={classes.connectWalletButton} onClick={searchMyAddress}>Connect Wallet</div>
         </Dialog>
 {/* ------------------------------------------------------------------------------------------------------------------*/}
       <Dialog
