@@ -975,6 +975,18 @@
 
     margin-right: 50px;
   }
+  .tableheaders_Transfer-table-hash-dark {
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
+
+    margin-right: 50px;
+  }
   .tableheaders_Transfer-table-age {
     font-size: 0.875rem;
     font-weight: bold;
@@ -984,6 +996,18 @@
 
     text-align: center;
     color: #2a2a2a;
+
+    margin-right: 50px;
+  }
+  .tableheaders_Transfer-table-age-dark {
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
 
     margin-right: 50px;
   }
@@ -999,6 +1023,18 @@
 
     margin-right: 50px;
   }
+  .tableheaders_Transfer-table-block-dark {
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
+
+    margin-right: 50px;
+  }
   .tableheaders_Transfer-table-from {
     font-size: 0.875rem;
     font-weight: bold;
@@ -1011,6 +1047,18 @@
 
     margin-right: 50px;
   }
+  .tableheaders_Transfer-table-from-dark {
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
+
+    margin-right: 50px;
+  }
   .tableheaders_Transfer-table-to {
     font-size: 0.875rem;
     font-weight: bold;
@@ -1020,6 +1068,18 @@
 
     text-align: center;
     color: #2a2a2a;
+
+    margin-right: 50px;
+  }
+  .tableheaders_Transfer-table-to-dark {
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    text-align: center;
+    color: #ffffff;
 
     margin-right: 50px;
   }
@@ -1115,21 +1175,41 @@
   font-weight: bold !important;
   color: #2a2a2a;
 }
+.tableheaders_Transfer-table-hash-dark {
+  font-weight: bold !important;
+  color: #ffffff;
+}
 .tableheaders_Transfer-table-age {
   font-weight: bold !important;
   color: #2a2a2a;
+}
+.tableheaders_Transfer-table-age-dark {
+  font-weight: bold !important;
+  color: #ffffff;
 }
 .tableheaders_Transfer-table-block {
   font-weight: bold !important;
   color: #2a2a2a;
 }
+.tableheaders_Transfer-table-block-dark {
+  font-weight: bold !important;
+  color: #ffffff;
+}
 .tableheaders_Transfer-table-from {
   font-weight: bold !important;
   color: #2a2a2a;
 }
+.tableheaders_Transfer-table-from-dark {
+  font-weight: bold !important;
+  color: #ffffff;
+}
 .tableheaders_Transfer-table-to {
   font-weight: bold !important;
   color: #2a2a2a;
+}
+.tableheaders_Transfer-table-to-dark {
+  font-weight: bold !important;
+  color: #ffffff;
 }
 @media only screen and (min-width: 767px) {
   .container-table {
