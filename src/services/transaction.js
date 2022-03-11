@@ -10,6 +10,7 @@ export default {
   getUserAddressTagUsingAddressHash,
   deleteTransactionPrivateNote,
   getCoinMarketDetailForTransaction,
+  getTransactionMethodType,
 };
 function getHeaders() {
   return {
@@ -215,6 +216,21 @@ async function getCoinMarketDetailForTransaction(path, data) {
       )
         return Promise.reject();
       return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+
+async function getTransactionMethodType(path, data) {
+  let url = "https://raw.githubusercontent.com/ethereum-lists/4bytes/master/signatures/a9059cbb"
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
+    .then((response) => {
+      if (
+        !response
+      )
+        return Promise.resolve("");
+      return Promise.resolve(response);
     })
     .catch(function (err) {
       return Promise.reject(err);
