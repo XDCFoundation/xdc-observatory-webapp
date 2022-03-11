@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 import React from "react";
 import ToastService from "react-material-toast";
 import AwsService from "../services/awsService";
-import { decimalDivisionValue } from "../constants";
+import { decimalDivisionValue, MethodFromByte } from "../constants";
 
 const toast = ToastService.new({
   place: "topRight",
@@ -66,24 +66,44 @@ const utility = {
   shortenHashTab,
   timeDiff,
   convertToInternationalCurrencySystem,
-  getNumberUnit, decimalDivison, decimalDivisonOnly, divideByDecimalValue, getNumber,
+  getNumberUnit,
+  decimalDivison,
+  decimalDivisonOnly,
+  divideByDecimalValue,
+  getNumber,
   getUtcOffset,
   shortenAddress,
-  shortenAddressImport
+  shortenAddressImport,
+  getMethodType,
 };
 export default utility;
 
+function getMethodType(transactionData) {
+  const input = transactionData.input ? transactionData.input.slice(2, 10) : "";
+  return MethodFromByte[input] ? MethodFromByte[input] : "-";
+}
+
 function getUtcOffset(timezone) {
-  let min = momentZone.tz(timezone).utcOffset()
-  return min > 0 ? `UTC+${Math.abs(parseInt(min / 60)) > 9 ? Math.abs(parseInt(min / 60)) : `0${Math.abs(parseInt(min / 60))}`}:${Math.abs(parseInt(min % 60)) || '00'}` : `UTC-${Math.abs(parseInt(min / 60)) > 9 ? Math.abs(parseInt(min / 60)) : `0${Math.abs(parseInt(min / 60))}`}:${Math.abs(parseInt(min % 60)) || '00'}`
+  let min = momentZone.tz(timezone).utcOffset();
+  return min > 0
+    ? `UTC+${
+        Math.abs(parseInt(min / 60)) > 9
+          ? Math.abs(parseInt(min / 60))
+          : `0${Math.abs(parseInt(min / 60))}`
+      }:${Math.abs(parseInt(min % 60)) || "00"}`
+    : `UTC-${
+        Math.abs(parseInt(min / 60)) > 9
+          ? Math.abs(parseInt(min / 60))
+          : `0${Math.abs(parseInt(min / 60))}`
+      }:${Math.abs(parseInt(min % 60)) || "00"}`;
 }
 
 function getNumber(num) {
-  const units = ["M", "B", "T", "Q"]
-  const unit = Math.floor((num / 1.0e+1).toFixed(0).toString().length)
-  const r = unit % 3
-  const x = Math.abs(Number(num)) / Number('1.0e+' + (unit - r)).toFixed(2)
-  return x.toFixed(2) + ' ' + units[Math.floor(unit / 3) - 2]
+  const units = ["M", "B", "T", "Q"];
+  const unit = Math.floor((num / 1.0e1).toFixed(0).toString().length);
+  const r = unit % 3;
+  const x = Math.abs(Number(num)) / Number("1.0e+" + (unit - r)).toFixed(2);
+  return x.toFixed(2) + " " + units[Math.floor(unit / 3) - 2];
 }
 
 function convertToInternationalCurrencySystem(num) {
@@ -103,20 +123,27 @@ function convertToInternationalCurrencySystem(num) {
 }
 
 function decimalDivison(num, tofixed) {
-  num = Number(num)
-  if (num === 0)
-    return num;
+  num = Number(num);
+  if (num === 0) return num;
   if (num < decimalDivisionValue.DECIMAL_DIVISON_VALUE)
-    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, "");
-  return this.convertToInternationalCurrencySystem((num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, ""));
+    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)
+      ?.toFixed(tofixed)
+      .replace(/\.?0+$/, "");
+  return this.convertToInternationalCurrencySystem(
+    (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)
+      ?.toFixed(tofixed)
+      .replace(/\.?0+$/, "")
+  );
 }
 
 function decimalDivisonOnly(num, tofixed) {
-  num = Number(num)
+  num = Number(num);
   if (num === 0) {
     return num;
   } else {
-    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, "");
+    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)
+      ?.toFixed(tofixed)
+      .replace(/\.?0+$/, "");
   }
 }
 
@@ -132,13 +159,12 @@ function getNumberUnit(num) {
 }
 
 function divideByDecimalValue(num, decimals) {
-  num = Number(num)
+  num = Number(num);
   if (num === 0) {
     return num;
   } else {
     return (num / Math.pow(10, decimals)).toFixed(decimals).replace(/\.?0+$/, "")
   }
-
 }
 
 function timeDiff(curr, prev) {
@@ -163,7 +189,6 @@ function timeDiff(curr, prev) {
     } else {
       return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
     }
-
 
     // If the diff is less then milliseconds in a day
   } else if (diff < ms_Day) {
@@ -221,8 +246,8 @@ async function uploadImage(request) {
       throw error && error.message
         ? error.message
         : error
-          ? error
-          : "Upload file Failed";
+        ? error
+        : "Upload file Failed";
     }
     return response.responseData[0];
   } catch (error) {
@@ -630,8 +655,8 @@ function getAddedByObject(propsOfComponent) {
       user.firstName || user.lastName
         ? user.firstName + " " + user.lastName
         : user.company && user.company.name
-          ? user.company.name
-          : "",
+        ? user.company.name
+        : "",
     _id: user._id,
   };
 }
@@ -711,8 +736,8 @@ function isCompanyBalanceLow(company) {
     new Date(company.tokenEconomy.endDate).getMonth() -
     new Date().getMonth() +
     12 *
-    (new Date(company.tokenEconomy.endDate).getFullYear() -
-      new Date().getFullYear());
+      (new Date(company.tokenEconomy.endDate).getFullYear() -
+        new Date().getFullYear());
   if (
     company.tokenEconomy.PERCBalance <
     company.tokenEconomy.monthlyPERCAllocation * remainingMonth
