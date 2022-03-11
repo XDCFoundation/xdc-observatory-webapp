@@ -228,7 +228,7 @@ const CustomDropDownAddress = (props) => {
             return (
               <a
                 className="options-data"
-                href={`/token-data/${data.tokenContract}/${
+                href={`/token-data/${data.address}/${
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
@@ -279,7 +279,7 @@ const CustomDropDownAddress = (props) => {
             return (
               <a
                 className="options-data"
-                href={`/token-data/${data.tokenContract}/${
+                href={`/token-data/${data.address}/${
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
@@ -339,7 +339,7 @@ const CustomDropDownAddress = (props) => {
               return (
                 <a
                   className="options-data"
-                  href={`/token-data/${data.tokenContract}/${
+                  href={`/token-data/${data.address}/${
                     data?.symbol ? data?.symbol : "NA"
                   }`}
                 >
