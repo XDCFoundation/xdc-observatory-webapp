@@ -12,6 +12,7 @@ export default {
   getTotalTransferTransactionsForToken,
   getListOfTransferTransactionsForToken,
   getListOfHoldersForToken,
+  getListOfTokenForAddress,
 };
 function getHeaders() {
   return {
@@ -185,6 +186,24 @@ async function getListOfHoldersForToken(data) {
 async function getTransferTransactionDetailsUsingHash(path, data) {
   let url =
     process.env.REACT_APP_GET_TRANSFER_TRANSACTION_DETAIL_USING_ADDRESS + path;
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
+    .then((response) => {
+      if (
+        !response.success ||
+        response.responseCode !== 200 ||
+        !response.responseData ||
+        response.responseData.length === 0
+      )
+        return Promise.reject();
+      return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+async function getListOfTokenForAddress(path, data) {
+  let url =
+    process.env.REACT_APP_GET_LIST_OF_TOKENS_FOR_ADDRESS+ path;
   return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
     .then((response) => {
       if (

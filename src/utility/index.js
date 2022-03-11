@@ -73,6 +73,7 @@ const utility = {
   getNumber,
   getUtcOffset,
   shortenAddress,
+  shortenAddressImport,
   getMethodType,
 };
 export default utility;
@@ -162,7 +163,7 @@ function divideByDecimalValue(num, decimals) {
   if (num === 0) {
     return num;
   } else {
-    return (num / Math.pow(10, decimals)).toFixed(decimals);
+    return (num / Math.pow(10, decimals)).toFixed(decimals).replace(/\.?0+$/, "")
   }
 }
 
@@ -264,6 +265,14 @@ function shortenUserName(b, amountL = 25, amountR = 0, stars = 3) {
 }
 
 function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
+  if (b.length > 12)
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 4,
+      b.length
+    )}`;
+  else return b;
+}
+function shortenAddressImport(b, amountL = 23, amountR = 0, stars = 3) {
   if (b.length > 12)
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 4,
