@@ -154,12 +154,22 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    listDark: {
+      width: "21.25rem",
+      backgroundColor: "#283966",
+      height: "100%",
+    },
   },
 
   "@media (min-width: 0px) and (max-width: 767px)": {
     list: {
       width: "153px",
       backgroundColor: "#102e84",
+      height: "100%",
+    },
+    listDark: {
+      width: "21.25rem",
+      backgroundColor: "#283966",
       height: "100%",
     },
   },
@@ -323,14 +333,16 @@ export default function Navbar(props) {
 
   const lists = (anchor) => (
     <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
+    className={props.theme === "dark" ? clsx(classes.listDark, {
+      [classes.fullList]: anchor === "top" || anchor === "bottom",
+    }) : clsx(classes.list, {
+      [classes.fullList]: anchor === "top" || anchor === "bottom",
+    })}
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div className={classes.firstContainer}>
-        <p className="inside-side-box-browse">Browse</p>
+        <p className={props.theme === "dark" ? "inside-side-box-browse fc-white" : "inside-side-box-browse"}>Browse</p>
         <div className={classes.drawerHeader}>
           <IconButton
             style={{ color: "white" }}
@@ -341,7 +353,7 @@ export default function Navbar(props) {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="inside-side-box">
           <a className="account_details_button" href="/account-details">
             <div className="xinfin_account_button">Accounts</div>
@@ -458,7 +470,9 @@ export default function Navbar(props) {
   const contracts = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
       role="presentation"
@@ -501,7 +515,7 @@ export default function Navbar(props) {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="Live-Network-list">
           <a
             style={{
@@ -547,7 +561,9 @@ export default function Navbar(props) {
     <div
       className="scrollbar"
       style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
       role="presentation"
@@ -962,6 +978,7 @@ export default function Navbar(props) {
             contracts,
             openPasswordBox,
             open,
+            currentTheme
           })}
 
           {/* <div className="display-none-mobile">
@@ -1118,13 +1135,14 @@ const LoginComponent = ({
   contracts,
   openPasswordBox,
   open,
+  currentTheme
 }) => {
   return (
     <Row className={classes.popover} alignItems="center">
       {openPasswordBox && (
         <ChangePassword openChangePassword={openChangePassword} />
       )}
-      <Popover openChangePassword={openChangePassword} />
+      <Popover theme={currentTheme} openChangePassword={openChangePassword} />
 
       <React.Fragment className="rigt-line" key={"right"}>
         <IconButton

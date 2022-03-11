@@ -915,7 +915,7 @@ export default function Navbar(props) {
               </div>
             </Row>
             <Row alignItems="center">
-              <Login />
+              <Login theme={props.theme}/>
 
               <React.Fragment key={"right"}>
                 <IconButton

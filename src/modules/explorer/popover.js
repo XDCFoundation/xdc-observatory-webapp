@@ -118,7 +118,7 @@ let p =sessionManager.getDataFromCookies(
     <div>
       {!isloggedIn ? (
         <ProfileContainer>
-          {<LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} />}
+          {<LoginDialog theme={props.theme} open={loginDialogIsOpen} onClose={closeLoginDialog} />}
         </ProfileContainer>
       ) : (
         <ProfileContainer onClick={handleClick} Open Popover>
