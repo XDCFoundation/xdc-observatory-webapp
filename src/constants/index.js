@@ -45,8 +45,8 @@ export const httpConstants = {
 export const userCookiesConstants = {
   FUNCTIONAL_COOKIES: "functionalCookies",
   PERFORMANCE_COOKIES: "performanceCookies",
-  ANALYTICAL_COOKIES: "analyticalCookies"
-}
+  ANALYTICAL_COOKIES: "analyticalCookies",
+};
 
 export const cookiesConstants = {
   USER: "USER",
@@ -59,26 +59,26 @@ export const cookiesConstants = {
   USER_TRASACTION_LABELS: "USER_TRASACTION_LABELS",
   USER_ADDRESS_WATCHLIST: "USER_ADDRESS_WATCHLIST",
   USER_COOKIES: "userCookies",
-  USER_INFO:"userInfo",
+  USER_INFO: "userInfo",
 
- IS_LOGGEDIN:"isLoggedIn",
+  IS_LOGGEDIN: "isLoggedIn",
   USER_PICTURE: "USER_PICTURE",
   USER_ID: "USER_ID",
   EMAIL_ID: "EMAIL_ID",
   AUTH0_ID_TOKEN: "AUTH0_ID_TOKEN",
   JWT_TOKEN: "JWT_TOKEN",
 
-  ACCESS_TOKEN:"ACCESS_TOKEN",
-  ID_TOKEN:"ID_TOKEN",
-  AUTHENTICATION_PROVIDER:"AUTHENTICATION_PROVIDER"
+  ACCESS_TOKEN: "ACCESS_TOKEN",
+  ID_TOKEN: "ID_TOKEN",
+  AUTHENTICATION_PROVIDER: "AUTHENTICATION_PROVIDER",
 };
 
 export const eventConstants = {
   HIDE_LOADER: "HIDE_LOADER",
   SHOW_LOADER: "SHOW_LOADER",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
-  ADD_TO_SEARCH_LIST: 'ADD_TO_SEARCH_LIST',
-  CLEAR_SEARCH_LIST: 'CLEAR_SEARCH_LIST',
+  ADD_TO_SEARCH_LIST: "ADD_TO_SEARCH_LIST",
+  CLEAR_SEARCH_LIST: "CLEAR_SEARCH_LIST",
 };
 
 export const genericConstants = {
@@ -127,13 +127,16 @@ export const messages = {
     "A measure of how much of a cryptocurrency was traded in the last 24 hours.",
   FDMP: "Fully Diluted Market Cap = Price x Total supply.",
   HASH: "Unique transaction identifier, also known as the Transaction ID.",
-  BLOCK_HEIGHT: "It indicates the length of the blockchain, increases after the addition of the new block.",
-  NO_OF_TRANSACTION: "Number of transactions associated with a particular block.",
+  BLOCK_HEIGHT:
+    "It indicates the length of the blockchain, increases after the addition of the new block.",
+  NO_OF_TRANSACTION:
+    "Number of transactions associated with a particular block.",
   AMOUNT: "The number of tokens being transferred.",
   DATE: "Transaction creation date.",
   BLOCK_CREATION_TIME_STAMP: "Block creation timestamp.",
   TRANSACTION_CREATION_TIME_STAMP: "Transaction creation timestamp.",
   AGE: "Time when was the transaction created.",
+  METHOD: "Function executed based on decoded input data.",
   BLOCK: "Block number associated with the transaction.",
   DIFFICULTY: "Difficulty.",
   GAS_USED: "The exact unit of gas that was used for the transactions.",
@@ -182,7 +185,8 @@ export const messages = {
   Txn_Fee: "Total transaction fee paid by the user",
   Tokens: "Number of XRC20 tokens available in the user's wallet",
   AVERAGE_BALANCE: "Average daily balance",
-  PASSWORD: "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
+  PASSWORD:
+    "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
   DOWNLOAD_CSV: "Select the transactions from table to download data",
 };
 
@@ -210,7 +214,7 @@ export const toolTipMessages = {
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
   privatenote: "Private notes",
   age: "Time when was the transaction created.",
-  date: "Transaction creation date."
+  date: "Transaction creation date.",
 };
 
 export const decimalDivisionValue = {
@@ -221,15 +225,51 @@ export const contractMethodTypes = {
   view: "view",
 };
 
-
 export const recentSearchTypeConstants = {
-  TRANSACTION: 'TRANSACTION',
-  ACCOUNT: 'WALLET',
-  WALLET: 'WALLET',
-  BLOCK: 'TOKEN',
-  TOKEN: 'TOKEN',
+  TRANSACTION: "TRANSACTION",
+  ACCOUNT: "WALLET",
+  WALLET: "WALLET",
+  BLOCK: "TOKEN",
+  TOKEN: "TOKEN",
 };
 
 export const authenticationProvider = {
-  AUTH0: "AUTH0"
-}
+  AUTH0: "AUTH0",
+};
+
+export const MethodFromByte = {
+  e341eaa4: "sign()",
+  "3b1cd713": "approve()",
+  "9059cbb": "transfer()",
+  "978501e": "transferFrom()",
+  d6718db8: "_symbol()",
+  "49e65440 ": "setSymbol()",
+  a3895fff: "changeSymbol()",
+  efa74f1f: "getTokenBySymbol()",
+  "313ce567": "decimals()",
+  c112dfa3: "changeDecimals()",
+  "8c8885c8": "setDecimals()",
+  a44b47f7: "totalSUpply()",
+  "72dd529b": "totalSupply()",
+  "9707f708": "totalSupply()",
+  "94a08c69": "totalSupply()",
+  "5fd4b08a": "getName()",
+  "773bc712": "changeName()",
+  c47f0027: "setName()",
+  "5ac801fe": "setName()",
+  "48f97f9a": "setName()",
+  ba863fae: "balanceOf()",
+  "2980a5d3": "balanceOf()",
+  bd4b0b13: "balanceOfContract()",
+  "9a3174a0": "BalanceOf()",
+  "722713f7": "balanceOf()",
+  "3d64125b": "balanceOf()",
+  fa094954: "setTokenAllowance()",
+  c2f373d2: "allowance()",
+  "1777fc89": "setAllowance()",
+  "6aeac363": "_allowance()",
+  de242ff4: "allowance()",
+  de242ff4: "allowance()",
+  "7040f3e5": "Allowance()",
+  "9c315aa8": "setAllowance()",
+};
