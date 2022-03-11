@@ -5,7 +5,7 @@ import Utils from "../../utility";
 import { TransactionService } from "../../services";
 import TokenSearchComponent from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import { toolTipMessages } from "../../constants";
+import { MethodFromByte, toolTipMessages } from "../../constants";
 import socketClient from "socket.io-client";
 import { withRouter } from "react-router";
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
@@ -53,7 +53,6 @@ export default class LatestTransactionList extends BaseComponent {
     // if(this.state.lastPage === false){
     //   await this.setGetListOfTransactionsInterval();
     // }
-  
   }
 
   // async setGetListOfTransactionsInterval() {
@@ -73,6 +72,12 @@ export default class LatestTransactionList extends BaseComponent {
     );
     if (error || !listOfTransactions)
       return this.setState({ isLoader: false, isData: false });
+    listOfTransactions = listOfTransactions.map((item) => {
+      return {
+        ...item,
+        method: Utils.getMethodType(item.input),
+      };
+    });
     this.setState({
       transactionList: listOfTransactions,
       isLoading: false,
@@ -108,6 +113,7 @@ export default class LatestTransactionList extends BaseComponent {
   socketData(socket) {
     socket.on("transaction-socket", (transactionData, error) => {
       // this.setState({ transactionSocketConnected: true })
+      transactionData["method"] = Utils.getMethodType(transactionData);
       let transactions = this.state.transactionList;
 
       let transactionDataExist = transactions.findIndex((item) => {
@@ -227,7 +233,6 @@ export default class LatestTransactionList extends BaseComponent {
   };
 
   render() {
-    console.log(this.state.sortKey, this.state.lastPage, ">>");
     return (
       <div>
         <TransactionComponent

@@ -577,7 +577,9 @@ input:focus {
 .w-250 {
   width: 250px;
 }
-
+.p-l-0{
+  padding-left: 0 !important ;
+}
 .mar-top-15 {
   margin-top: 15px;
 }
@@ -592,7 +594,14 @@ input:focus {
 .txt-center {
   text-align: center;
 }
-
+.arrow-rotate-animation-up{
+  transform: rotateZ(-180deg);
+  transition: all 0.4s ease;
+}
+.arrow-rotate-animation-down{
+  transform: rotateZ(0deg);
+  transition: all 0.4s ease;
+}
 @media (max-width: 640px) {
   .w-100 {
     width: 100%;
@@ -713,6 +722,11 @@ input:focus {
   max-width: 1201px;
   width: 100%;
   text-align: center;
+}
+.options-data, .options-data:hover{
+  font-size: 15px;
+  font-weight: 500;
+  color: #2a2a2a;
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .Shape {
@@ -11254,4 +11268,7 @@ button {
   100% {
     background-position: 800px 0
   }
+}
+.form-check-input{
+  margin: 0 10px 0 0;
 }
