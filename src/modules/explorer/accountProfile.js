@@ -46,6 +46,7 @@ import Utility from "../../utility";
 import { useSelector } from "react-redux";
 import format from "format-number";
 import CustomDropDownAddress from "../common/importDropdown";
+import ExportButton from "../common/exportButton";
 import { forEach } from "lodash";
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -445,7 +446,6 @@ export default function SimpleTabs(props) {
   const [watchlist, setWatchlist] = React.useState([]);
   // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
-  console.log(privateAddress, "private");
   // const [exports, exportAddress] = React.useState({});
   // const [toggle, handleToggle] = React.useState(false);
   // const [isLoading, setLoading] = React.useState(false);
@@ -1031,7 +1031,6 @@ export default function SimpleTabs(props) {
     // console.log(res, "res");
   };
   const updateListTags = (res) => {
-    console.log(res, "lll");
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
     };
@@ -1059,7 +1058,6 @@ export default function SimpleTabs(props) {
     });
 
     setPrivateAddress([...updatedPrivateAddress, ...privateAddress]);
-    console.log(updatedPrivateAddress, "jjj");
     localStorage.setItem(
       request.userId + cookiesConstants.USER_TAGGED_ADDRESS,
       JSON.stringify([...updatedPrivateAddress, ...privateAddress])
@@ -1123,9 +1121,9 @@ export default function SimpleTabs(props) {
       setDownloadTagAddress(
         tempAddr.map((item) => {
           return {
-            Address: item.address,
-            NameTag: item.tagName,
-            AddedOn: moment(item.addedOn),
+            address: item.address,
+            nameTag: item.tagName,
+            modified:item?.addedOn,
           };
         })
       );
@@ -1296,42 +1294,9 @@ export default function SimpleTabs(props) {
               ) : isDownloadActive ? (
                 tableValue === 1 ? (
                   ""
-                ) : // <CSVLink
-                //   filename={"watchlist.csv"}
-                //   data={downloadWatchlist}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export
-                // </CSVLink>
+                ) : 
                 tableValue === 2 ? (
-                  // <div
-                  //   onClick={downloadTxnPvtNotePDF}
-                  //   filename={"private_note.csv"}
-                  //   data={downloadTxnPvtNote}
-                  //   style={{
-                  //     fontSize: "0.938rem",
-                  //     textAlign: "center",
-                  //     color: "#ffffff",
-                  //     backgroundColor: "rgb(7 125 245)",
-                  //     borderRadius: "0.25rem",
-                  //     width: "5.875rem",
-                  //     height: "2.125rem",
-                  //     marginRight: "1.5rem",
-                  //     paddingTop: "0.125rem",
-                  //   }}
-                  // >
-                  //   Export test
-                  // </div>
+                  
                   <PDFDownloadLink
                     style={styles.pdfDownloadLink}
                     document={<TransactionPDF data={downloadTxnPvtNote} />}
@@ -1340,30 +1305,9 @@ export default function SimpleTabs(props) {
                     Export
                   </PDFDownloadLink>
                 ) : (
-                  // <PDFDownloadLink
-                  //   style={styles.pdfDownloadLink}
-                  //   document={<AddressPDF data={downloadTagAddress} />}
-                  //   fileName="tagAddresses.pdf"
-                  // >
-                  //   Export
-                  // </PDFDownloadLink>
-                  <CSVLink
-                    filename={"tag_address.csv"}
-                    data={downloadTagAddress}
-                    style={{
-                      fontSize: "0.938rem",
-                      textAlign: "center",
-                      color: "#ffffff",
-                      backgroundColor: "rgb(7 125 245)",
-                      borderRadius: "0.25rem",
-                      width: "5.875rem",
-                      height: "2.125rem",
-                      marginRight: "1.5rem",
-                      paddingTop: "0.125rem",
-                    }}
-                  >
-                    Export
-                  </CSVLink>
+                  <ExportButton 
+                  downloadData={downloadTagAddress}
+                  />
                 )
               ) : (
                 <div
