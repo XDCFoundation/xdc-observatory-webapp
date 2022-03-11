@@ -19,6 +19,7 @@ import { sessionManager } from "../../managers/sessionManager";
 import { Row } from "simple-flexbox";
 import { eventConstants, recentSearchTypeConstants } from "../../constants";
 import { useDispatch } from "react-redux";
+import TokenPopover from "./tokenPopover";
 
 const drawerWidth = 240;
 const Cut = styled.div`
@@ -179,10 +180,17 @@ export default function Navbar() {
   const SearchDataRef = React.useRef(null);
 
   const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
+  const [isTokenPopver, setTokenPopover] = React.useState(false);
 
   const openChangePassword = () => {
     setOpenPasswordBox(!openPasswordBox);
   };
+  const handleTokenPopover = () =>{
+    setTokenPopover(true);
+  } 
+  const closeTokenPopover = () =>{
+    setTokenPopover(false);
+  }
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -754,8 +762,26 @@ export default function Navbar() {
   );
 
   // ..................
-  const NavigationButton = styled.a`
+  const NavigationButton1 = styled.a`
   text-decoration :  none;
+  padding: 5px 20px;
+  border-bottom: ${(props) =>
+      props.active ? "0.15rem solid #ffffff !important" : ""};
+    padding-bottom: 3px;
+    font-size: 0.938rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    
+    color: #ffffff;
+    list-style: none;
+  @media (min-width: 0px) and (max-width: 767px){
+    font-size: 0.875rem;
+  `;
+  const NavigationButton = styled.div`
+  text-decoration :  none;
+  cursor: pointer;
   padding: 5px 20px;
   border-bottom: ${(props) =>
       props.active ? "0.15rem solid #ffffff !important" : ""};
@@ -885,16 +911,18 @@ export default function Navbar() {
                   </NavLink>
 
                   {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
+                  <TokenPopover open={isTokenPopver} handleClose={closeTokenPopover}/>
                 </div>
                 <div>
-                  <NavLink
+                  <div
                     exact
                     activeClassName="active-t"
-                    to={"/tokens"}
-                    className="Token"
+                    // to={"/tokens"}
+                    className="Token cursor-pointer"
+                    onClick={handleTokenPopover}
                   >
                     Tokens
-                  </NavLink>
+                  </div>
 
                   <a href="/">
                     <p className="Network-explorer" id="Network-explorer">
@@ -903,11 +931,11 @@ export default function Navbar() {
                   </a>
                 </div>
                 <div>
-                  <a href="/tokens">
-                    <div className="Token" id="Token">
+                  <div >
+                    <div onClick={handleTokenPopover} className="Token cursor-pointer" id="Token">
                       Tokens
                     </div>
-                  </a>
+                  </div>
                 </div>
               </DeskTopView>
 
@@ -969,12 +997,12 @@ export default function Navbar() {
         </MobileToolBar>
         <MobileView>
           <MobileNavigationContainer>
-            <NavigationButton active={window.location.pathname == "/"} href="/">
+            <NavigationButton1 active={window.location.pathname == "/"} href="/">
               XDC Observatory
-            </NavigationButton>
+            </NavigationButton1>
             <NavigationButton
               active={window.location.pathname.includes("token")}
-              href="/tokens"
+              onClick={handleTokenPopover}
             >
               Tokens
             </NavigationButton>
