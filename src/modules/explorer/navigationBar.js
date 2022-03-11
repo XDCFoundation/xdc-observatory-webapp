@@ -27,6 +27,7 @@ import Utils from "../../utility";
 import { useDispatch } from "react-redux";
 import { eventConstants, recentSearchTypeConstants } from "../../constants";
 import { browserName } from "react-device-detect";
+import TokenPopover from "./tokenPopover";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -201,6 +202,7 @@ export default function Navbar() {
   
   const [opencontracts, setOpencontracts] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isTokenPopver, setTokenPopover] = React.useState(false);
   const handleSearch = (event) => {
     if (event.target.value.length == 0) setErrorMessage("");
     if (event.key === "Enter") {
@@ -219,7 +221,12 @@ export default function Navbar() {
     }
   };
 
-  
+  const handleTokenPopover = () =>{
+    setTokenPopover(true);
+  } 
+  const closeTokenPopover = () =>{
+    setTokenPopover(false);
+  }
   
   // useEffect(() => {
   //   sessionManager.setDataInCookies("NotVisited");
@@ -819,8 +826,27 @@ export default function Navbar() {
   );
 
   // ..................
-  const NavigationButton = styled.a`
+  const NavigationButton1 = styled.a`
     text-decoration: none;
+    padding: 5px 20px;
+    border-bottom: ${(props) =>
+      props.active ? "0.15rem solid #ffffff !important" : ""};
+    padding-bottom: 3px;
+    font-size: 0.938rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    color: #ffffff;
+    list-style: none;
+    @media (min-width: 0px) and (max-width: 767px) {
+      font-size: 0.875rem;
+    }
+  `;
+  const NavigationButton = styled.div`
+    text-decoration: none;
+    cursor: pointer;
     padding: 5px 20px;
     border-bottom: ${(props) =>
       props.active ? "0.15rem solid #ffffff !important" : ""};
@@ -879,7 +905,7 @@ export default function Navbar() {
                 {" "}
                 XDC{" "}
               </a>
-
+              <TokenPopover open={isTokenPopver} handleClose={closeTokenPopover}/>
               <div>
                 <NavLink
                   exact
@@ -893,14 +919,14 @@ export default function Navbar() {
                 {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
               </div>
               <div>
-                <a
+                <div
                   exact
                   activeClassName="active-t"
-                  href={"/tokens"}
-                  className="Token"
+                  onClick={handleTokenPopover}
+                  className="Token cursor-pointer"
                 >
                   Tokens
-                </a>
+                </div>
               </div>
             </Row>
             <Row alignItems="center">
@@ -1006,10 +1032,10 @@ export default function Navbar() {
             </Row>
           </MobileToolBar>
           <MobileNavigationContainer>
-            <NavigationButton active={window.location.pathname == "/"} href="/">
+            <NavigationButton1 active={window.location.pathname == "/"} href="/">
               XDC Observatory
-            </NavigationButton>
-            <NavigationButton href="/tokens">Tokens</NavigationButton>
+            </NavigationButton1>
+            <NavigationButton onClick={handleTokenPopover}>Tokens</NavigationButton>
           </MobileNavigationContainer>
         </AppBar>
       </MobileView>

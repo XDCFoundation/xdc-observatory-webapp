@@ -147,6 +147,8 @@ export const messages = {
   CONTRACT: "Smart Contract associated with the particular token.",
   HOLDER: "The total number of unique addresses that hold the token",
   TOKEN_TOTAL_SUPPLY: "The number of coins that have been already created, minus any coins that have been burned",
+  TOKEN_TRANSFER_24_HOURS: "Transfer in 24 hours.",
+  TOKEN_TRANSFER_3_DAYS: "Transfer in 3 days.",
   STATUS: "The token is either verified or unverified.",
   ACCOUNT_ADDRESS: "The unique address of a particular account.",
   ACCOUNT_TYPE: "Account type is either Account, Contract or Token.",
