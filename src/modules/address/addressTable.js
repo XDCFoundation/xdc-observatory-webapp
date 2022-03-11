@@ -106,8 +106,17 @@ export default function AddressTableComponent(props) {
     value: 0,
   });
 
-  const [sortingKey, setSortingKey] = React.useState("value");
-  
+  const [sortingKey, setSortingKey] = React.useState("");
+  if (sortToggle["value"] === 1 && sortingKey ==="value") {
+    address.sort(function (a, b) {
+      return Number(b.Value) - Number(a.Value);
+    });
+  } else if (sortToggle["value"] === -1 && sortingKey ==="value") {
+    address.sort(function (a, b) {
+      return Number(a.Value) - Number(b.Value);
+    });
+  }
+
   function handleSettingsClick(event) {
     setOpen(true);
     setAnchorEl(event?.currentTarget);
@@ -131,7 +140,7 @@ export default function AddressTableComponent(props) {
           perpage: rowsPerPage,
           addrr: addr,
           sortKey: sortingKey,
-            sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+          sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
         };
         getAddressDetails(datas);
       }
@@ -148,14 +157,13 @@ export default function AddressTableComponent(props) {
         };
         getTransactionSearch(datas);
       } else {
-      let  datas = {
+        let datas = {
           pageNum: pagecount,
           perpage: rowsPerPage,
           addrr: addr,
           sortKey: sortingKey,
-            sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+          sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
         };
-        console.log(datas,"oppp")
         getAddressDetails(datas);
       }
     }
@@ -198,14 +206,13 @@ export default function AddressTableComponent(props) {
           };
           getTransactionSearch(datas);
         } else {
-         let datas = {
+          let datas = {
             pageNum: pagecount,
             perpage: rowsPerPage,
             addrr: addr,
             sortKey: sortingKey,
             sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
           };
-          console.log(datas,"io")
           getAddressDetails(datas);
         }
       }
@@ -219,14 +226,14 @@ export default function AddressTableComponent(props) {
       perpage: event.target.value,
       addrr: addr,
       sortKey: sortingKey,
-            sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+      sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
     };
     getAddressDetails(datas);
   };
 
   const getAddressDetails = async (data, filters) => {
-    const skip = data?.pageNum || 0;
-    const limit = data?.perpage || 10;
+    const skip =Number(data?.pageNum) || 0;
+    const limit = Number(data?.perpage) || 10;
     const sortKey = data?.sortKey || "blockNumber";
     const sortType = data?.sortType;
     const requestData = { skip, limit, sortKey, sortType };
@@ -305,6 +312,7 @@ export default function AddressTableComponent(props) {
     sortData("blockNumber");
   }, []);
   const sortData = async (sortKey) => {
+    
     setArrowUpDown(false);
     let sortType = sortToggle[sortKey];
     if (sortType === 1) {
@@ -317,8 +325,10 @@ export default function AddressTableComponent(props) {
         sortType: sortType,
       });
       setSortToggle({ ...sortToggle, [sortKey]: -1 });
+      
       setSortingKey(sortKey);
-      setArrowUpDown(true);
+    
+     setArrowUpDown(true);
     } else {
       // setLoading(true)
       getAddressDetails({
@@ -330,6 +340,7 @@ export default function AddressTableComponent(props) {
       });
       setSortToggle({ ...sortToggle, [sortKey]: 1 });
       setSortingKey(sortKey);
+      
       setArrowUpDown(true);
     }
   };
@@ -369,7 +380,10 @@ export default function AddressTableComponent(props) {
           Block_Hash: d.blockHash,
           From: d.from,
           To: d.to,
-          Value: d.value,
+          Value:
+            Number(d?.value) < 1000000000000
+              ? Number(d?.value * 1000000000000000000)
+              : d.value,
           id: d._id,
         };
       })
@@ -396,7 +410,10 @@ export default function AddressTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: Utility.decimalDivison(d.Value, 8),
+          Value:
+            d?.value < 1000000000000
+              ? Number(d?.value * 1000000000000000000)
+              : Utility.decimalDivison(d.value, 8),
         };
       })
     );
@@ -452,7 +469,10 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: Utility.decimalDivison(d.Value, 8),
+            Value:
+              d?.Value < 1000000000000
+                ? Number(d?.Value * 1000000000000000000)
+                : Utility.decimalDivison(d.Value, 8),
           };
         })
       );
@@ -480,7 +500,10 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: Utility.decimalDivison(d.Value, 8),
+            Value:
+              d?.Value < 1000000000000
+                ? Number(d?.Value * 1000000000000000000) /*there are some transactions which are not in gwei in ou DB*/
+                : Utility.decimalDivison(d.Value, 8),
           };
         })
       );
@@ -963,18 +986,17 @@ export default function AddressTableComponent(props) {
                 noData == false && (
                   <TableBody>
                     {address.map((row, index) => {
+                      
                       const TimeAge = !row.Age
                         ? ""
                         : moment(row.Age * 1000).format("MMM DD, YYYY h:mm A");
 
-                      let transactionValue =
-                        row?.Value < 100000000000
-                          ? row?.Value * 1000000000000000000
-                          : row?.Value; /*there are some transactions which are not in gwei in ou DB*/
+
                       const value =
                         row.Value > 0 && row.Value < 1
                           ? row.Value
-                          : Utility.decimalDivison(transactionValue, 8);
+                          : Utility.decimalDivison(Number(row?.Value), 8);
+                    
                       var value1 = value.toString().split(".")[0];
                       var value2 = value.toString().split(".")[1];
 

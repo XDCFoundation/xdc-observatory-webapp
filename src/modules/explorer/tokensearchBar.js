@@ -355,6 +355,15 @@ export default function Navbar() {
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
+            href="https://origin.xdc.org/" target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Origin</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
             href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
           >
             <div className="xinfin_account_button">XDCPay</div>

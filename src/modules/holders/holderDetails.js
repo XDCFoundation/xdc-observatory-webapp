@@ -68,6 +68,11 @@ const useStyles = makeStyles({
     background: "#fff",
     // width: "75.125rem"
   },
+  "@media (max-width: 767px)": {
+    container: {
+      padding: "0 15px",
+    },
+  }
 });
 export default function HoldersDetails(props) {
   const urlParams = new URLSearchParams(window.location.search);
@@ -136,8 +141,9 @@ export default function HoldersDetails(props) {
               >
                 <Table>
                   <TableHead>
-                    <TableRow>
+                    <TableRow >
                       <TableCell
+                        className={classes.tableCell}
                         style={{
                           width: "0px",
                           paddingRight: "1px",
@@ -326,7 +332,7 @@ export default function HoldersDetails(props) {
             >
               <TableContainer
                 className={classes.container}
-                id="container-table"
+                id="container-table-holder-mob"
               >
                 <Table>
                   <TableHead>

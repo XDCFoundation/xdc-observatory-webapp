@@ -155,7 +155,17 @@ export default function TransferTransaction({ _handleChange }) {
 
 
   const gasP = !transactions.gasPrice ? 0 : Utils.decimalDivison(transactions.gasPrice, 2);
-
+  const avgTxnFeeConverted =
+    CurrencyValue === "INR"
+      ? gasP * coinmarketcap.price
+      : CurrencyValue === "USD"
+      ? gasP * coinmarketcap.price
+      : gasP * coinmarketcap.price;
+  const avgTxnFeeFetch = !avgTxnFeeConverted
+    ? 0
+    : parseFloat(avgTxnFeeConverted)?.toFixed(14);
+  let avgTxnFeeFetch1 = avgTxnFeeFetch.toString().split(".")[0];
+  let avgTxnFeeFetch2 = avgTxnFeeFetch.toString().split(".")[1];
 
 
   const valueDiv = !valueFetch ? 0 : Utils.decimalDivison(valueFetch, 2);
@@ -968,6 +978,7 @@ export default function TransferTransaction({ _handleChange }) {
                     <Hash>Avg Transaction Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
+                    <Content>
                     {/* {gasPrice2 == 0 ? (
                       <span>{gasPrice1}</span>
                     ) : (
@@ -977,7 +988,18 @@ export default function TransferTransaction({ _handleChange }) {
                         <span style={{ color: "#9FA9BA" }}>{gasPrice2}</span>
                       </span>
                     )} */}
-                    {gasP}
+                    {gasP}&nbsp;XDC ({currencySymbol}
+                      {avgTxnFeeFetch2 == null ? (
+                        <span>{avgTxnFeeFetch1}</span>
+                      ) : (
+                        <span>
+                          {avgTxnFeeFetch1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{avgTxnFeeFetch2}</span>
+                        </span>
+                      )}
+                      )
+                      </Content>
                   </MiddleContainer>
                 </Spacing>
                 {/* --------------------------------------------gas used--------------------------- */}
@@ -1602,7 +1624,8 @@ const DivMiddleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 35px;
-  margin-bottom: 36px @media (min-width: 0 px) and (max-width: 767 px) {
+  margin-bottom: 36px;
+   @media (min-width: 0px) and (max-width: 767px) {
     margin-top: 25px;
     margin-bottom: 25px;
   }
@@ -1643,10 +1666,10 @@ const Heading = styled.span`
     color: #252525;
     margin-top: 12px;
     margin-bottom: 17px;
-  }
+  };
   @media (min-width: 768px) and (max-width: 1240px) {
     font-family: Inter;
-    font-size: 18px
+    font-size: 18px;
     text-align: left;
     color: #2a2a2a;
     margin-top: 19px;

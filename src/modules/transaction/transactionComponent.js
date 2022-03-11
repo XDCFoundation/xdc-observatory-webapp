@@ -15,13 +15,12 @@ import Loader from "../../assets/loader";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import moment from "moment";
-import { messages } from "../../constants"
+import { messages } from "../../constants";
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
 import format from "format-number";
 import utility from "../../utility";
 import PageSelector from "../common/pageSelector";
 import { useParams } from "react-router";
-
 
 const useStyles = makeStyles({
   container: {
@@ -97,7 +96,11 @@ export default function TransactionComponent(props) {
   const tableColumns = { "Transaction Hash": { isActive: true } };
   const { blockNumber } = useParams();
 
-  
+  if (props.state.lastPage === true) {
+    props.state.transactionList.sort(function (a, b) {
+      return Number(b.blockNumber) - Number(a.blockNumber);
+    });
+  }
   return (
     <div className="responsive-table-width-transactions-list contact-list-tab ">
       <div className="display-flex justify-content-between p-t-30 p-b-15">
@@ -132,7 +135,12 @@ export default function TransactionComponent(props) {
       </div>
 
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
-        <TableContainer className={!props.state.isData ? classes.container1 : classes.container} id="container-table-transaction-list">
+        <TableContainer
+          className={
+            !props.state.isData ? classes.container1 : classes.container
+          }
+          id="container-table-transaction-list"
+        >
           <Table>
             <TableHead>
               <TableRow>
@@ -161,6 +169,25 @@ export default function TransactionComponent(props) {
                     <span className={("tableheaders", "tableheaders-all")}>
                       Amount
                       <Tooltip placement="top" title={messages.AMOUNT}>
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    </span>
+                  </TableCell>
+                )}
+                {props.state.tableColumns["Age"].isActive && (
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "2.813rem" }}
+                    className="table-head-all"
+                    align="left"
+                  >
+                    <span className={("tableheaders", "tableheaders-age")}>
+                      Method
+                      <Tooltip placement="top" title={messages.METHOD}>
                         <img
                           alt="question-mark"
                           src="/images/info.svg"
@@ -298,6 +325,7 @@ export default function TransactionComponent(props) {
                     let amt = utility.decimalDivison(row.value, 8);
                     const Hash = row.hash;
                     let animationClass = props.state.hashAnimation?.[Hash];
+
                     return (
                       <TableRow
                         key={row.name}
@@ -307,10 +335,19 @@ export default function TransactionComponent(props) {
                             : { background: "white" }
                         }
                       >
-                        <TableCell style={{ border: "none", width: "190px", margin: 0, display: "flex", alignItems: "center" }}>
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "190px",
+                            margin: 0,
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
                           <div>
                             <TransactionDetailTooltip
-                              transactionAddress={row.hash} />
+                              transactionAddress={row.hash}
+                            />
                           </div>
                           <a
                             className="linkTable"
@@ -345,6 +382,16 @@ export default function TransactionComponent(props) {
                             </span>
                           </TableCell>
                         )}
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "120px",
+                            paddingLeft: "2.813rem",
+                          }}
+                          align="left"
+                        >
+                          {row.method ? row.method : ""}
+                        </TableCell>
                         {props.state.tableColumns["Age"].isActive && (
                           <TableCell
                             style={{
@@ -438,7 +485,7 @@ export default function TransactionComponent(props) {
                             border: "none",
                             width: "155px",
                             paddingLeft: "2.813rem",
-                            paddingRight: "15px"
+                            paddingRight: "15px",
                           }}
                           align="left"
                         >
@@ -495,12 +542,19 @@ export default function TransactionComponent(props) {
       <Grid container style={{ marginTop: "1.75rem" }} className="Pagination">
         {/* <Pagination> */}
         <Grid className="Pagination_1">
-          {!props.state.isLoading && props.state.isData ?
-            (<><span className="text">Show</span>
-              <PageSelector value={props.state.amount}
+          {!props.state.isLoading && props.state.isData ? (
+            <>
+              <span className="text">Show</span>
+              <PageSelector
+                value={props.state.amount}
                 height={35}
-                handler={props._handleChange} />
-              <span className="text">Records</span></>) : ("")}
+                handler={props._handleChange}
+              />
+              <span className="text">Records</span>
+            </>
+          ) : (
+            ""
+          )}
         </Grid>
 
         <Grid item className="Pagination_2">
@@ -534,8 +588,12 @@ export default function TransactionComponent(props) {
           <button
             onClick={(event) => props._NextPage(event)}
             className={
-              props.state.from + props.state.amount ===
-                props.state.totalTransaction
+              props.state.lastPage === false
+                ? props.state.from + props.state.amount ===
+                  props.state.totalTransaction
+                  ? "btn disabled"
+                  : "btn btn-next"
+                : props.state.lastFrom - props.state.amount < 0
                 ? "btn disabled"
                 : "btn btn-next"
             }
@@ -546,7 +604,7 @@ export default function TransactionComponent(props) {
             onClick={(event) => props._LastPage(event)}
             className={
               props.state.from + props.state.amount ===
-                props.state.totalTransaction
+              props.state.totalTransaction
                 ? "btn disabled"
                 : "btn btn-last"
             }
