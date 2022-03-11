@@ -105,7 +105,7 @@ class Routes extends BaseComponent {
               { }
               <Route
                 exact
-                path={"/view-all-transaction/:pageNo"}
+                path={"/view-all-transaction"}
                 component={LatestTransactionList}
               />
               <Route
