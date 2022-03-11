@@ -97,7 +97,11 @@ export default function TransactionComponent(props) {
   const tableColumns = { "Transaction Hash": { isActive: true } };
   const { blockNumber } = useParams();
 
-  
+  if(props.state.lastPage===true){
+    props.state.transactionList.sort(function (a, b) {
+      return Number(b.blockNumber) - Number(a.blockNumber);
+    });
+  }
   return (
     <div className="responsive-table-width-transactions-list contact-list-tab ">
       <div className="display-flex justify-content-between p-t-30 p-b-15">
@@ -285,7 +289,8 @@ export default function TransactionComponent(props) {
               </TableBody>
             ) : (
               <TableBody>
-                {props.state.transactionList &&
+                { 
+                props.state.transactionList &&
                   props.state.transactionList.length >= 1 &&
                   props.state.transactionList.map((row, index) => {
                     const currentTime = new Date();
@@ -298,6 +303,7 @@ export default function TransactionComponent(props) {
                     let amt = utility.decimalDivison(row.value, 8);
                     const Hash = row.hash;
                     let animationClass = props.state.hashAnimation?.[Hash];
+                    
                     return (
                       <TableRow
                         key={row.name}
@@ -534,8 +540,13 @@ export default function TransactionComponent(props) {
           <button
             onClick={(event) => props._NextPage(event)}
             className={
-              props.state.from + props.state.amount ===
-                props.state.totalTransaction
+              props.state.lastPage === false
+                ? props.state.from + props.state.amount ===
+                  props.state.totalTransaction
+                  ? "btn disabled"
+                  : "btn btn-next"
+                : props.state.lastFrom - props.state.amount <0
+                 
                 ? "btn disabled"
                 : "btn btn-next"
             }
