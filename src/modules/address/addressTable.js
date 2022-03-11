@@ -232,8 +232,8 @@ export default function AddressTableComponent(props) {
   };
 
   const getAddressDetails = async (data, filters) => {
-    const skip = data?.pageNum || 0;
-    const limit = data?.perpage || 10;
+    const skip =Number(data?.pageNum) || 0;
+    const limit = Number(data?.perpage) || 10;
     const sortKey = data?.sortKey || "blockNumber";
     const sortType = data?.sortType;
     const requestData = { skip, limit, sortKey, sortType };

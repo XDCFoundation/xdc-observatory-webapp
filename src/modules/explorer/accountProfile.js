@@ -45,7 +45,9 @@ import PrivacyAlert from "../explorer/dashboardPopup/privacyAlert";
 import Utility from "../../utility";
 import { useSelector } from "react-redux";
 import format from "format-number";
-
+import CustomDropDownAddress from "../common/importDropdown";
+import ExportButton from "../common/exportButton";
+import { forEach } from "lodash";
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
@@ -430,6 +432,7 @@ const SubParentContainer = styled.div`
   }
 `;
 export default function SimpleTabs(props) {
+  let sampleData;
   const timezone = useSelector((state) => state.timezone);
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -829,15 +832,15 @@ export default function SimpleTabs(props) {
     let newData;
     if (ageToggle === -1) {
       newData = oldData.sort(
-        (index1, index2) => index2.modifiedOn - index1.modifiedOn
+        (index1, index2) => parseInt(index2.modifiedOn) - parseInt(index1.modifiedOn)
       );
-      console.log(newData, "<<<");
+
       setAgeToggle(1);
     } else {
       newData = oldData.sort(
-        (index1, index2) => index1.modifiedOn - index2.modifiedOn
+        (index1, index2) => parseInt(index1.modifiedOn) - parseInt(index2.modifiedOn)
       );
-      console.log(newData, "<<<");
+
       setAgeToggle(-1);
     }
     setPrivateAddress(newData);
@@ -1024,6 +1027,42 @@ export default function SimpleTabs(props) {
   const [countTag, setCountTag] = React.useState(-1);
   const [checkedTag, setCheckedTag] = React.useState(false);
   let tagAddrLength = privateAddress.length;
+  const sampleRender = (res) => {
+    // console.log(res, "res");
+  };
+  const updateListTags = (res) => {
+    const request = {
+      userId: sessionManager.getDataFromCookies("userId"),
+    };
+    let taggedAddress = localStorage.getItem(
+      request.userId + cookiesConstants.USER_TAGGED_ADDRESS
+    );
+    taggedAddress = JSON.parse(taggedAddress);
+    // const existingAddress = privateAddress.filter((x1) =>
+    //   res.some((x2) => x1.address === x2.address)
+    // );
+    let updatedPrivateAddress = [];
+    res.map((item) => {
+      let existingAddressIndex = privateAddress.findIndex(
+        (i2) => i2.address === item.address
+      );
+      if (existingAddressIndex !== -1) {
+        updatedPrivateAddress.push({
+          ...privateAddress[existingAddressIndex],
+          ...item,
+        });
+        privateAddress.splice(existingAddressIndex, 1);
+        return;
+      }
+      updatedPrivateAddress.push({ userId: request?.userId, ...item });
+    });
+
+    setPrivateAddress([...updatedPrivateAddress, ...privateAddress]);
+    localStorage.setItem(
+      request.userId + cookiesConstants.USER_TAGGED_ADDRESS,
+      JSON.stringify([...updatedPrivateAddress, ...privateAddress])
+    );
+  };
 
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
@@ -1056,9 +1095,9 @@ export default function SimpleTabs(props) {
       setDownloadTagAddress(
         tempAddress.map((item) => {
           return {
-            Address: item.address,
-            NameTag: item.tagName,
-            AddedOn: moment(item.addedOn),
+            address: item.address,
+            tagName: item.tagName,
+            modifiedOn: item?.modifiedOn,
           };
         })
       );
@@ -1082,9 +1121,9 @@ export default function SimpleTabs(props) {
       setDownloadTagAddress(
         tempAddr.map((item) => {
           return {
-            Address: item.address,
-            NameTag: item.tagName,
-            AddedOn: moment(item.addedOn),
+            address: item.address,
+            nameTag: item.tagName,
+            modified:item?.addedOn,
           };
         })
       );
@@ -1241,100 +1280,56 @@ export default function SimpleTabs(props) {
                 value={search}
               />
             </div>
-            {!isDownloadActive && tableValue === 1 ? (
-              ""
-            ) : isDownloadActive ? (
-              tableValue === 1 ? (
-                ""
-              ) : // <CSVLink
-              //   filename={"watchlist.csv"}
-              //   data={downloadWatchlist}
-              //   style={{
-              //     fontSize: "0.938rem",
-              //     textAlign: "center",
-              //     color: "#ffffff",
-              //     backgroundColor: "rgb(7 125 245)",
-              //     borderRadius: "0.25rem",
-              //     width: "5.875rem",
-              //     height: "2.125rem",
-              //     marginRight: "1.5rem",
-              //     paddingTop: "0.125rem",
-              //   }}
-              // >
-              //   Export
-              // </CSVLink>
-              tableValue === 2 ? (
-                // <div
-                //   onClick={downloadTxnPvtNotePDF}
-                //   filename={"private_note.csv"}
-                //   data={downloadTxnPvtNote}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export test
-                // </div>
-                <PDFDownloadLink
-                  style={styles.pdfDownloadLink}
-                  document={<TransactionPDF data={downloadTxnPvtNote} />}
-                  fileName="transactionPvtNote.pdf"
-                >
-                  Export
-                </PDFDownloadLink>
+            <div className="display-flex align-items-center">
+              {tableValue === 3 ? (
+                <CustomDropDownAddress
+                  sampleRender={sampleRender}
+                  updateListTags={updateListTags}
+                />
               ) : (
-                <PDFDownloadLink
-                  style={styles.pdfDownloadLink}
-                  document={<AddressPDF data={downloadTagAddress} />}
-                  fileName="tagAddresses.pdf"
+                ""
+              )}
+              {!isDownloadActive && tableValue === 1 ? (
+                ""
+              ) : isDownloadActive ? (
+                tableValue === 1 ? (
+                  ""
+                ) : 
+                tableValue === 2 ? (
+                  
+                  <PDFDownloadLink
+                    style={styles.pdfDownloadLink}
+                    document={<TransactionPDF data={downloadTxnPvtNote} />}
+                    fileName="transactionPvtNote.pdf"
+                  >
+                    Export
+                  </PDFDownloadLink>
+                ) : (
+                  <ExportButton 
+                  downloadData={downloadTagAddress}
+                  />
+                )
+              ) : (
+                <div
+                  filename={"tag_address.csv"}
+                  data={downloadTagAddress}
+                  style={{
+                    pointerEvents: "none",
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "#9fa9ba",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+
+                    paddingTop: "0.4rem",
+                  }}
                 >
                   Export
-                </PDFDownloadLink>
-                // <CSVLink
-                //   filename={"tag_address.csv"}
-                //   data={downloadTagAddress}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export
-                // </CSVLink>
-              )
-            ) : (
-              <div
-                filename={"tag_address.csv"}
-                data={downloadTagAddress}
-                style={{
-                  pointerEvents: "none",
-                  fontSize: "0.938rem",
-                  textAlign: "center",
-                  color: "#ffffff",
-                  backgroundColor: "#9fa9ba",
-                  borderRadius: "0.25rem",
-                  width: "5.875rem",
-                  height: "2.125rem",
-
-                  paddingTop: "0.4rem",
-                }}
-              >
-                Export
-              </div>
-            )}
+                </div>
+              )}
+            </div>
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv add-root">
@@ -1758,7 +1753,7 @@ export default function SimpleTabs(props) {
                                   <span className="tabledata-1">
                                     {`${
                                       (row?.modifiedOn &&
-                                        moment(row?.modifiedOn)
+                                        moment(parseInt(row?.modifiedOn)) 
                                           .tz(timezone)
                                           .format("MMM DD, YYYY, hh:mm A")) ||
                                       ""
@@ -2149,7 +2144,7 @@ export default function SimpleTabs(props) {
                                 <span className="tabledata-1">
                                   {`${
                                     (row?.modifiedOn &&
-                                      moment(row?.modifiedOn)
+                                      moment(parseInt(row?.modifiedOn))
                                         .tz(timezone)
                                         .format("MMM DD, YYYY, hh:mm A")) ||
                                     ""
@@ -2627,7 +2622,7 @@ export default function SimpleTabs(props) {
                                 <span className="tabledata-1">
                                   {`${
                                     (row?.modifiedOn &&
-                                      moment(row?.modifiedOn)
+                                      moment((parseInt(row?.modifiedOn)))
                                         .tz(timezone)
                                         .format("MMM DD, YYYY, hh:mm A")) ||
                                     ""
