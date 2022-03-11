@@ -251,14 +251,14 @@ const SelectedValueContainer = styled.div`
   width: 100%;
   flex-direction: row;
   cursor: pointer;
-  background: white;
   padding: 7px 10px;
-  background-color: #2149b9;
+  background-color: #fff;
   border-radius: 0.25rem;
   width: 5.875rem;
   height: 2.125rem;
+  border-radius: 4px;
+  border: solid 1px #3763dd;
   justify-content: center;
-
   img {
     width: 11px;
     margin-left: 8px;
@@ -270,13 +270,12 @@ const FilterName = styled.div`
   flex-direction: row;
   font-size: 15px;
   font-weight: 500;
-  color: #fff;
+  color: #4878ff;
   gap: 25px;
 
   span {
     font-weight: 500;
-    color: #fff;
-  }
+    color: #4878ff;  }
 `;
 const DropdownContainer = styled.div`
   display: flex;
@@ -522,11 +521,11 @@ const CustomDropDownAddress = (props) => {
     if (chainId == 50 || chainId == 51) {
       // Utils.apixFailureToast("Please login to XDCPay extension");
       await web3.eth.getAccounts().then((accounts) => {
+        console.log(accounts,"<<")
         if (!accounts || !accounts.length) {
           Utility.apiFailureToast("Please login to XDCPay extension");
           return;
         }
-        console.log(accounts,"<<<<<<<<<<<<<<<<<<")
         let acc = accounts[0];
         acc = acc.replace("0x", "xdc");
         acc = acc.toLowerCase();

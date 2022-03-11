@@ -250,7 +250,6 @@ export default function Navbar() {
     web3 = new Web3(window.web3.currentProvider);
     window.ethereum.enable();
     const chainId = await web3.eth.net.getId();
-    console.log(chainId,"chain")
     if (chainId == 50 || chainId == 51) {
       // Utils.apixFailureToast("Please login to XDCPay extension");
       await web3.eth.getAccounts().then((accounts) => {

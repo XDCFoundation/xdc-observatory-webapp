@@ -227,7 +227,6 @@ export default class LatestTransactionList extends BaseComponent {
   };
 
   render() {
-    console.log(this.state.sortKey, this.state.lastPage, ">>");
     return (
       <div>
         <TransactionComponent

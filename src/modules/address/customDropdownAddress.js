@@ -147,10 +147,7 @@ const CustomDropDownAddress = (props) => {
   const [isDropdownOpen, toggleDropdown] = useState(false);
   const mainDiv = useRef(null);
   const [search, setSearch] = useState("");
-  console.log(search, "lolo");
   const [filteredData, setFilteredData] = useState([]);
-  console.log(options, "options");
-  const selectedOptionData = options.length;
 
   const onOptionSelected = (selected) => {
     onSelect(selected);
