@@ -8,7 +8,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tooltip from "@material-ui/core/Tooltip";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import { useParams } from "react-router";
-import Utils from "../../utility";
+import Utils, { dispatchAction } from "../../utility";
 import FooterComponent from "../common/footerComponent";
 import moment from "moment";
 import TokenData from "../../services/token";
@@ -20,6 +20,7 @@ import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag";
 import PrivateNote from "../../modules/common/dialog/privateNote";
 import { cookiesConstants } from "../../constants";
 import LoginDialog from "../explorer/loginDialog";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,9 +56,13 @@ const useStyles = makeStyles((theme) => ({
   mainContainer: {
     width: "100%",
   },
+  mainContainerDark: {
+    width: "100%",
+    backgroundColor: "#091b4e"
+  },
 }));
 
-export default function TransferTransaction({ _handleChange }) {
+function TransferTransaction({ _handleChange,theme }) {
   const classes = useStyles();
   function shorten(b, amountL = 25, amountR = 0, stars = 3) {
     return `${b?.slice(0, amountL)} ${".".repeat(stars)} ${b?.slice(
@@ -276,20 +281,20 @@ export default function TransferTransaction({ _handleChange }) {
   
 
   return (
-    <div className={classes.mainContainer}>
-      <Tokensearchbar />
+    <div className={theme.currentTheme === "dark" ? classes.mainContainerDark : classes.mainContainer}>
+      <Tokensearchbar theme={theme.currentTheme}/>
       <div className={classes.root}>
         <Grid>
           <div className={isLoading === true ? "cover-spin-2" : ""}>
             <div className={isLoading === true ? "cover-spin" : ""}>
               <Container>
-                <Heading>Transaction Details</Heading>
+                <Heading theme={theme.currentTheme}>Transaction Details</Heading>
               </Container>
 
-              <Div>
+              <Div theme={theme.currentTheme}>
               {transactions ? (
                   transactions.status == true ? (
-                    <StatusContainer>
+                    <StatusContainer theme={theme.currentTheme}>
                       <StatusContainerInside>
                         <StatusImgContainer>
                           <StatusImg src="/images/success.svg"></StatusImg>
@@ -298,7 +303,7 @@ export default function TransferTransaction({ _handleChange }) {
                       </StatusContainerInside>
                     </StatusContainer>
                   ) : (
-                    <StatusContainer>
+                    <StatusContainer theme={theme.currentTheme}>
                       <StatusImgContainer>
                         <StatusImg src="/images/failed.svg"></StatusImg>
                       </StatusImgContainer>
@@ -313,10 +318,10 @@ export default function TransferTransaction({ _handleChange }) {
                         <ImageView src={"/images/info.svg"} />
                       </Tooltip>
 
-                      <Hash>Transaction Hash</Hash>
+                      <Hash theme={theme.currentTheme}>Transaction Hash</Hash>
                     </Container>
                     <DetailsMiddleContainer isTextArea={false}>
-                      <ContentHash>
+                      <ContentHash theme={theme.currentTheme}>
                         {address}
                       </ContentHash>
                       <span
@@ -341,8 +346,8 @@ export default function TransferTransaction({ _handleChange }) {
                             <button
                               className={
                                 width > 1240
-                                  ? "copyToClipboardHash"
-                                  : "copyToClipboardHashMobile"
+                                  ? theme.currentTheme === "dark" ? "copyToClipboardHash table-bg-dark" : "copyToClipboardHash"
+                                  : theme.currentTheme === "dark" ? "copyToClipboardHashMobile table-bg-dark" : "copyToClipboardHashMobile"
                               }
                             >
                               <img
@@ -367,10 +372,10 @@ export default function TransferTransaction({ _handleChange }) {
                         <Tooltip title={value}>
                           <ImageView src={"/images/info.svg"} />
                         </Tooltip>
-                        <Hash>Transaction Value</Hash>
+                        <Hash theme={theme.currentTheme}>Transaction Value</Hash>
                       </Container>
                       <Tooltip title={transactions?.value}>
-                        <DetailsMiddleContainer isTextArea={false}>
+                        <DetailsMiddleContainer isTextArea={false} theme={theme.currentTheme}>
                           {!transactions?.transactionValue
                             ? 0
                             : Utils.decimalDivison(transactions?.transactionValue, 2)}{" "}
@@ -401,9 +406,9 @@ export default function TransferTransaction({ _handleChange }) {
                           <ImageView src={"/images/info.svg"} />
                         </Tooltip>
 
-                        <Hash>Transaction Timestamp</Hash>
+                        <Hash theme={theme.currentTheme}>Transaction Timestamp</Hash>
                       </Container>
-                      <DetailsMiddleContainer isTextArea={false}>
+                      <DetailsMiddleContainer isTextArea={false} theme={theme.currentTheme}>
                         {/* {`${
                           (transactions?.timestamp &&
                             moment(transactions.timestamp * 1000)
@@ -446,12 +451,12 @@ export default function TransferTransaction({ _handleChange }) {
                           <ImageView src={"/images/info.svg"} />
                         </Tooltip>
 
-                        <Hash>Block Number</Hash>
+                        <Hash theme={theme.currentTheme}>Block Number</Hash>
                       </Container>
                       <DetailsMiddleContainer isTextArea={false}>
                         <Content>
                           <a
-                            className="linkTableDetails-transaction"
+                            className={theme.currentTheme === "dark" ? "linkTableDetails-transaction fc-4878ff" : "linkTableDetails-transaction"}
                             href={"/block-details/" + transactions.blockNumber}
                           >
                             {" "}
@@ -460,7 +465,7 @@ export default function TransferTransaction({ _handleChange }) {
                               : ""}
                           </a>
                           &nbsp;{" "}
-                          <BlockConfirmation>
+                          <BlockConfirmation theme={theme.currentTheme}>
                           {latestBlocks && latestBlocks > 0 ? latestBlocks - parseInt(transactions?.blockNumber) : 0} Blocks Confirmation
                           </BlockConfirmation>
                         </Content>
@@ -538,20 +543,20 @@ export default function TransferTransaction({ _handleChange }) {
                     </Content>
                   </MiddleContainer>
                 </Spacing> */}
-                <DivMiddle>
+                <DivMiddle theme={theme.currentTheme}>
                   <Container>
                     <Tooltip title={from}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
 
-                    <Hash>From</Hash>
+                    <Hash theme={theme.currentTheme}>From</Hash>
                   </Container>
                   <DetailsMiddleContainer isTextArea={false}>
                     <Content>
                       {" "}
                       <div style={{ display: width >= 768 ? "flex" : "block" }}>
                         <a
-                          className="linkTableDetails-transaction"
+                          className={theme.currentTheme === "dark" ? "linkTableDetails-transaction fc-4878ff" : "linkTableDetails-transaction"}
                           href={"/address-details/" + transactions.from}
                         >
                           {transactions.from}
@@ -578,8 +583,8 @@ export default function TransferTransaction({ _handleChange }) {
                               <button
                                 className={
                                   width > 1240
-                                    ? "copyToClipboardHash"
-                                    : "copyToClipboardFromMobile"
+                                  ? theme.currentTheme === "dark" ? "copyToClipboardHash table-bg-dark" : "copyToClipboardHash"
+                                  : theme.currentTheme === "dark" ? "copyToClipboardHashMobile table-bg-dark" : "copyToClipboardHashMobile"
                                 }
                               >
                                 <img
@@ -687,7 +692,7 @@ export default function TransferTransaction({ _handleChange }) {
                   </ImgNextArrow>
                 </DivCircle>
                 {/* --------------------------------------------------------------------to--------------------- */}
-                <DivMiddle>
+                <DivMiddle theme={theme.currentTheme}>
                 {/* <Spacing>
                   <Container>
                     <Tooltip title={to}>
@@ -735,7 +740,7 @@ export default function TransferTransaction({ _handleChange }) {
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
 
-                    <Hash>To</Hash>
+                    <Hash theme={theme.currentTheme}>To</Hash>
                   </Container>
                   <DetailsMiddleContainer isTextArea={false}>
                     <Content>
@@ -743,7 +748,7 @@ export default function TransferTransaction({ _handleChange }) {
                         style={{ display: width >= 768 ? "flex" : "block" }}
                       >
                         <a
-                          className="linkTableDetails-transaction"
+                          className={theme.currentTheme === "dark" ? "linkTableDetails-transaction fc-4878ff" : "linkTableDetails-transaction"}
                           href={"/address-details/" + transactions.to}
                         >
                           {transactions.to
@@ -772,8 +777,8 @@ export default function TransferTransaction({ _handleChange }) {
                               <button
                                 className={
                                   width > 1240
-                                    ? "copyToClipboardHash"
-                                    : "copyToClipboardFromMobile"
+                                  ? theme.currentTheme === "dark" ? "copyToClipboardHash table-bg-dark" : "copyToClipboardHash"
+                                  : theme.currentTheme === "dark" ? "copyToClipboardFromMobile table-bg-dark" : "copyToClipboardFromMobile"
                                 }
                               >
                                 <img
@@ -872,7 +877,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </DivMiddle>
               </DivMiddleContainer>
 
-              <Div__>
+              <Div__ theme={theme.currentTheme}>
                 {/* -------------------------------------------------------------txn fee----------------------- */}
                 {/* <Spacing>
                   <Container>
@@ -896,10 +901,10 @@ export default function TransferTransaction({ _handleChange }) {
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
 
-                    <Hash>Transaction Fee</Hash>
+                    <Hash theme={theme.currentTheme}>Transaction Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>
+                    <Content theme={theme.currentTheme}>
                       {/* {" "}
                       {txnFee2 == 0 ? (
                         <span>{txnFee1}</span>
@@ -948,9 +953,9 @@ export default function TransferTransaction({ _handleChange }) {
                     <Tooltip align="right" title={gasprovided}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
-                    <Hash>Gas Provided</Hash>
+                    <Hash theme={theme.currentTheme}>Gas Provided</Hash>
                   </Container>
-                  <MiddleContainer isTextArea={false}>
+                  <MiddleContainer isTextArea={false} theme={theme.currentTheme}>
                     {format({})(transactions.gas)}
                   </MiddleContainer>
                 </Spacing>
@@ -975,10 +980,10 @@ export default function TransferTransaction({ _handleChange }) {
                     <Tooltip align="right" title={gasprice}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
-                    <Hash>Avg Transaction Fee</Hash>
+                    <Hash theme={theme.currentTheme}>Avg Transaction Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>
+                    <Content theme={theme.currentTheme}>
                     {/* {gasPrice2 == 0 ? (
                       <span>{gasPrice1}</span>
                     ) : (
@@ -1023,10 +1028,10 @@ export default function TransferTransaction({ _handleChange }) {
                     <Tooltip align="right" title={gasused}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
-                    <Hash>Gas Used</Hash>
+                    <Hash theme={theme.currentTheme}>Gas Used</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>{format({})(transactions?.gasUsed)}</Content>
+                    <Content theme={theme.currentTheme}>{format({})(transactions?.gasUsed)}</Content>
                   </MiddleContainer>
                 </Spacing>
 
@@ -1045,13 +1050,13 @@ export default function TransferTransaction({ _handleChange }) {
                       <Tooltip title={transferToken}>
                         <ImageView src={"/images/info.svg"} />
                       </Tooltip>
-                    <Hash> Interacted With (To)</Hash>
+                    <Hash theme={theme.currentTheme}> Interacted With (To)</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <ContentInteractedWith>
-                      <div>Contract</div>
+                      <div className={theme.currentTheme === "dark" ? "fc-b1c3e1" : ""}>Contract</div>
                       &nbsp;
-                      <span>(<a className="linkTableDetails-transaction" href={"/address/" + transactions?.contract}>
+                      <span>(<a className={theme.currentTheme === "dark" ? "linkTableDetails-transaction fc-4878ff" : "linkTableDetails-transaction"} href={"/address/" + transactions?.contract}>
                         {transactions?.contract}
                       </a>)</span>
                     </ContentInteractedWith>
@@ -1062,10 +1067,10 @@ export default function TransferTransaction({ _handleChange }) {
                     <Tooltip title={transferToken}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>            
-                    <Hash> Token Transfer</Hash>
+                    <Hash theme={theme.currentTheme}> Token Transfer</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>
+                    <Content theme={theme.currentTheme}>
                       {tokenTransferValue}
 
                     </Content>
@@ -1076,10 +1081,10 @@ export default function TransferTransaction({ _handleChange }) {
                         <Tooltip align="right" title={nounced}>
                           <ImageView src={"/images/info.svg"} />
                         </Tooltip>
-                        <Hash>Nonce</Hash>
+                        <Hash theme={theme.currentTheme}>Nonce</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
-                        <Content> {transactions.nonce}</Content>
+                        <Content theme={theme.currentTheme}> {transactions.nonce}</Content>
                       </MiddleContainer>
                     </Spacing>
                     <SpacingInputData>
@@ -1087,12 +1092,12 @@ export default function TransferTransaction({ _handleChange }) {
                         <Tooltip align="right" title={input}>
                           <ImageViewInputData src={"/images/info.svg"} />
                         </Tooltip>
-                        <HashInputData>Input Data</HashInputData>
+                        <HashInputData theme={theme.currentTheme}>Input Data</HashInputData>
                       </Container>
-                      <MiddleContainerInputData isTextArea={true}>
-                        <div className="transaction-details-input-data">
+                      <MiddleContainerInputData isTextArea={true} theme={theme.currentTheme}>
+                        <div className={theme.currentTheme === "dark" ? "bg-transparent-dark" : "transaction-details-input-data"}>
                           <textarea
-                            className="text-area-transaction"
+                            className={theme.currentTheme === "dark" ? "text-area-transaction-details-dark" : "text-area-transaction"}
                             readOnly
                             value={transactions.input}
                           />
@@ -1112,11 +1117,11 @@ export default function TransferTransaction({ _handleChange }) {
                     <Tooltip align="right" title={privatenote}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
-                    <Hash>Private Note</Hash>
+                    <Hash theme={theme.currentTheme}>Private Note</Hash>
                   </Container>
                   <MiddleContainerPrivateNote>
                     {!userInfo ? (
-                      <PrivateText>
+                      <PrivateText theme={theme.currentTheme}>
                         {
                           <LoginDialog
                             open={loginDialogIsOpen}
@@ -1126,7 +1131,7 @@ export default function TransferTransaction({ _handleChange }) {
                         }
                         To access the private note feature, you must be
                         <a
-                          className="linkTableDetails-transaction"
+                          className={ theme.currentTheme === "dark" ? "linkTableDetails-transaction fc-4878ff" : "linkTableDetails-transaction"}
                           style={{ marginLeft: "5px", cursor: "pointer" }}
                           onClick={openLoginDialog}
                         >
@@ -1182,6 +1187,12 @@ export default function TransferTransaction({ _handleChange }) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(TransferTransaction);
+
 const Input = styled.input`
   border-radius: 5px;
   border: solid 1px #e3e7eb;
@@ -1201,6 +1212,9 @@ const Content = styled.div`
   line-height: 22px;
   display: flex;
   align-items: center;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
@@ -1210,6 +1224,9 @@ const Content = styled.div`
     opacity: 1;
     line-height: 18px !important;
     word-break: break-all;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1241px) {
     font-size: 0.875rem;
@@ -1218,6 +1235,9 @@ const Content = styled.div`
 
     color: #3a3a3a;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
 `;
 const ContentHash = styled.div`
@@ -1229,6 +1249,9 @@ const ContentHash = styled.div`
   line-height: 22px;
   display: flex;
   align-items: center;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
@@ -1238,6 +1261,9 @@ const ContentHash = styled.div`
     opacity: 1;
     line-height: 18px !important;
     word-break: break-all;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1241px) {
     font-size: 0.875rem;
@@ -1247,6 +1273,9 @@ const ContentHash = styled.div`
     color: #3a3a3a;
     opacity: 1;
     width: 33rem;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
 `;
 const ContentInteractedWith = styled.div`
@@ -1295,6 +1324,9 @@ const TextArea = styled.textarea`
 `;
 const PrivateText = styled.p`
   display: contents;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff !important;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     display: contents;
   }
@@ -1312,6 +1344,9 @@ const Div__ = styled.div`
   padding-left: 27px;
   padding-right: 25px;
   margin-top: 35px;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #192a59;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     max-width: 22.563rem;
     width: 100%;
@@ -1366,6 +1401,10 @@ const MiddleContainerInputData = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
+  ${({ theme }) => theme === "dark" && `
+    border: none;
+    background-color: #9fa9ba;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     text-align: left;
@@ -1394,6 +1433,9 @@ const MiddleContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
@@ -1406,6 +1448,9 @@ const MiddleContainer = styled.div`
     margin-left: unset;
     margin-top: 10px;
     padding-left: 5px;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
@@ -1415,6 +1460,9 @@ const MiddleContainer = styled.div`
     color: #3a3a3a;
     opacity: 1;
     margin-left: 100px;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
 `;
 
@@ -1462,6 +1510,9 @@ const HashInputData = styled.span`
 
   color: #2a2a2a;
   padding-bottom: 30px;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
@@ -1471,6 +1522,9 @@ const HashInputData = styled.span`
     color: #2a2a2a;
     opacity: 1;
     padding-bottom: 20px;
+    ${({ theme }) => theme === "dark" && `
+      color: #fff;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-family: "Inter", sans-serif;
@@ -1480,6 +1534,9 @@ const HashInputData = styled.span`
 
     color: #2a2a2a;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #fff;
+    `}
   }
 `;
 
@@ -1490,6 +1547,9 @@ const Hash = styled.span`
   font-size: 15px;
 
   color: #252525;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
@@ -1498,6 +1558,9 @@ const Hash = styled.span`
 
     color: #252525;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #fff;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-family: "Inter", sans-serif;
@@ -1507,6 +1570,9 @@ const Hash = styled.span`
 
     color: #2a2a2a;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #fff;
+    `}
   }
 `;
 const SpacingInputData = styled.div`
@@ -1610,6 +1676,9 @@ const Div = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-bottom: 15px;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #192a59;
+  `}
   // @media (min-width: 0px) and (max-width: 767px) {
   //   width: 22.563rem;
   //   height: 6.813rem;
@@ -1640,6 +1709,9 @@ const DivMiddle = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   // margin-bottom: 15px;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #192a59;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     padding: 10px;
   }
@@ -1658,6 +1730,9 @@ const Heading = styled.span`
   font-size: 1.5rem;
   margin-top: 46px;
   margin-bottom: 12px;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: Inter;
     font-size: 14px;
@@ -1665,6 +1740,9 @@ const Heading = styled.span`
     color: #252525;
     margin-top: 12px;
     margin-bottom: 17px;
+    ${({ theme }) => theme === "dark" && `
+      color: #fff;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-family: Inter;
@@ -1673,6 +1751,9 @@ const Heading = styled.span`
     color: #2a2a2a;
     margin-top: 19px;
     margin-bottom: 28px;
+    ${({ theme }) => theme === "dark" && `
+      color: #fff;
+    `}
   }
 `;
 const ImageViewInputData = styled.img`
@@ -1704,6 +1785,9 @@ const StatusContainer = styled.div`
   max-width: 10.75rem;
   width: 100%;
   border-right: 1px solid #e3e7eb;
+  ${({ theme }) => theme === "dark" && `
+    border-right: 1px solid #4a5d94;
+  `}
   // @media (min-width: 0px) and (max-width: 767px) {
   //   width: 14px;
   //   height: 14px;
@@ -1714,6 +1798,9 @@ const StatusContainer = styled.div`
     border-right: none;
     border-bottom: 1px solid #e3e7eb;
     padding-bottom: 30px;
+    ${({ theme }) => theme === "dark" && `
+      border-right: 1px solid #4a5d94;
+    `}
   }
 `;
 const StatusImgContainer = styled.div`
@@ -1830,6 +1917,9 @@ const DetailsMiddleContainer = styled.div`
   font-size: 15px;
 
   color: #3a3a3a;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (min-width: 768px) and (max-width: 1240px) {
     justify-content: space-between;
     padding-top: 10px;
@@ -1840,6 +1930,9 @@ const DetailsMiddleContainer = styled.div`
     padding-top: 10px;
     color: #2a2a2a;
     padding-right: 15px;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
 `;
 const BlockConfirmation = styled.div`
@@ -1855,6 +1948,11 @@ const BlockConfirmation = styled.div`
   border-radius: 4px;
   padding-top: 4px;
   padding-bottom: 4px;
+  ${({ theme }) => theme === "dark" && `
+    border: solid 1px #3552a5;
+    background-color: #091b4e;
+    color: #4878ff;
+  `}
 `;
 
 const DivCircle = styled.div`
