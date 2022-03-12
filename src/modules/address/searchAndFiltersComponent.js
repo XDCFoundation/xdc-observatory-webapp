@@ -18,10 +18,18 @@ const SearchBox = styled.div`
   padding: 7px 10px;
   margin-bottom: 4px;
   margin-right: 10px;
+  ${({ theme }) => theme === "dark" && `
+    border: solid 1px #3552a5;
+    background-color: #091b4e;
+  `}
 
   input {
     outline: none;
     border: none !important;
+    ${({ theme }) => theme === "dark" && `
+        background-color: transparent;
+        color: #fff;
+    `}
   }
 
   img {
@@ -75,17 +83,17 @@ const SearchAndFiltersComponent = (props) => {
 
     return (
         <Container>
-            <SearchBox>
+            <SearchBox theme={props.theme}>
                 <img src="/images/Search.svg" />
                 <input placeholder="Search" onChange={e => onSearchQueryChange(e.target.value)} />
             </SearchBox>
             {/*<CustomDateDropDown name="Date" setStartDates={onStartDateUpdated} setEndDates={onEndDateUpdated}
                                 startDate={startDate} endDate={endDate}/>*/}
-            <CustomDropDown name="Status" selectedOption={status} onSelect={data => setStatus(data)}
+            <CustomDropDown theme={props.theme} name="Status" selectedOption={status} onSelect={data => setStatus(data)}
                 options={[{ key: 'all', value: 'Show All Txns', name: 'All' },
                 { key: 'true', value: 'Show Completed Txns', name: 'Completed Txns' },
                 { key: 'false', value: 'Show Failed Txns', name: 'Failed Txns' }]} />
-            <CustomDropDown name="Type" selectedOption={type} onSelect={data => setType(data)}
+            <CustomDropDown theme={props.theme} name="Type" selectedOption={type} onSelect={data => setType(data)}
                 options={[{ key: 'ALL', value: 'All Txns', name: 'All' }, { key: 'IN', value: 'In Txns' },
                 { key: 'OUT', value: 'Out Txns' }]} />
         </Container>

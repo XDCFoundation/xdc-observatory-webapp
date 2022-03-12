@@ -32,6 +32,7 @@ import { genericConstants, cookiesConstants } from "../../constants";
 import EditTagAddress from "../../modules/common/dialog/editTagPopup";
 import toast, { Toaster } from "react-hot-toast";
 import utility from "../../utility";
+import { connect } from "react-redux";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -91,6 +92,10 @@ const MainContanier = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   padding: 18px;
+  ${({ theme }) => theme === "dark" && `
+    border: solid 1px #1e326a;
+    background-color: #192a59;
+  `}
   // margin-bottom: 35px;
   // @media (max-width: 767px) {
   //   height: 427px;
@@ -113,6 +118,10 @@ const QrDiv = styled.div`
   border-radius: 6px;
   border: solid 1px #f5f5f5;
   background-color: var(--white-two);
+  ${({ theme }) => theme === "dark" && `
+    background-color: #fff;
+    border: solid 1px #f5f5f5;
+  `}
   @media (max-width: 767px) {
     width: 121px;
     height: 121px;
@@ -184,6 +193,9 @@ const AddressHash = styled.div`
   line-height: normal;
   
   color: #3a3a3a;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
     text-align: center;
@@ -207,6 +219,9 @@ const BalanceDiv = styled.div`
   
   color: #2149b9;
   margin-top: 7px;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (max-width: 767px) {
     font-size: 18px;
     margin: 10px auto;
@@ -225,6 +240,9 @@ const BalanceUsdDiv = styled.div`
   
   color: #585858;
   margin-top: 5px;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 14px;
     margin: 2px auto;
@@ -287,6 +305,9 @@ const LastActivity = styled.div`
   line-height: 1.87;
   
   color: #252525;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
     white-space: nowrap;
@@ -306,6 +327,9 @@ const LastActivityValue = styled.div`
   
   color: #3a3a3a;
   margin-left: 73px;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 46px;
@@ -328,6 +352,9 @@ const Rank = styled.div`
   line-height: 1.87;
   
   color: #252525;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
   }
@@ -345,6 +372,9 @@ const RankValue = styled.div`
   
   color: #3a3a3a;
   margin-left: 126px;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 93px;
@@ -388,6 +418,9 @@ const Heading = styled.div`
   line-height: normal;
   
   color: #2a2a2a;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 14px;
     
@@ -459,6 +492,9 @@ const LoginText = styled.span`
   
   text-align: right;
   color: #3a3a3a;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
 `;
 const LoginTextMobile = styled.span`
   width: 150px;
@@ -510,7 +546,7 @@ const Tag = styled.div`
     margin-left: 0px;
   }
 `;
-export default function AddressDetails(props) {
+function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
   const [addressData, setAddressData] = useState(0);
   const [txtAddress, setTxtAddress] = useState("");
@@ -800,15 +836,15 @@ const res = await UserService.getWatchlistList(request)
 
   return (
     <>
-      <div style={{ backgroundColor: "#fff" }}>
-        <Tokensearchbar />
+      <div style={props.theme.currentTheme === "dark" ? { backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
+        <Tokensearchbar theme={props.theme.currentTheme}/>
 
         <Grid className="table-grid-block grid-block-table">
           <div>
             <Toaster />
           </div>
           <HeadingDiv>
-            <Heading>Address Details</Heading>
+            <Heading theme={props.theme.currentTheme}>Address Details</Heading>
             {sessionManager.getDataFromCookies("isLoggedIn") ? (
               <>
                 {
@@ -926,9 +962,9 @@ const res = await UserService.getWatchlistList(request)
               </LoginMobile>
             )}
           </HeadingDiv>
-          <MainContanier>
+          <MainContanier theme={props.theme.currentTheme}>
             <MainDiv>
-              <QrDiv>
+              <QrDiv theme={props.theme.currentTheme}>
                 <QRCode
                   className="qrcode-address-details"
                   value={addr}
@@ -938,7 +974,7 @@ const res = await UserService.getWatchlistList(request)
                 <AddressDetailDiv>
                   <AddressHashDiv>
                     <AddressLine>
-                      <AddressHash>{addr}</AddressHash>
+                      <AddressHash theme={props.theme.currentTheme}>{addr}</AddressHash>
                       <CopyButton>
                         <CopyToClipboard
                           text={addr}
@@ -952,7 +988,7 @@ const res = await UserService.getWatchlistList(request)
                             }
                             placement="top"
                           >
-                            <button className="copyToClipboardAddress">
+                            <button className={props.theme.currentTheme === "dark" ? "copyToClipboardAddress table-bg-dark" : "copyToClipboardAddress"}>
                               <img
                                 className="copyIconAddress"
                                 src={"/images/copy-grey.svg"}
@@ -971,21 +1007,21 @@ const res = await UserService.getWatchlistList(request)
                     )}
                   </AddressHashDiv>
 
-                  <BalanceDiv>
+                  <BalanceDiv theme={props.theme.currentTheme}>
                     {balanceChanged2 == null ? (
                       <span>{format({})(balanceChanged1)}</span>
                     ) : (
                       <span>
                         {format({})(balanceChanged1)}
                         {"."}
-                        <span style={{ color: "#95acef" }}>
+                        <span style={props.theme.currentTheme === "dark" ? { color: "#b1c3e1" } : { color: "#95acef" }}>
                           {balanceChanged2}
                         </span>
                       </span>
                     )}
                     &nbsp;XDC
                   </BalanceDiv>
-                  <BalanceUsdDiv>
+                  <BalanceUsdDiv theme={props.theme.currentTheme}>
                     {" "}
                     {currencySymbol}
                     {priceChanged2 == null ? (
@@ -994,7 +1030,7 @@ const res = await UserService.getWatchlistList(request)
                       <span>
                         {priceChanged1}
                         {"."}
-                        <span style={{ color: "#9FA9BA" }}>
+                        <span style={props.theme.currentTheme === "dark" ? { color: "#fff" } : { color: "#9FA9BA" }}>
                           {priceChanged2}
                         </span>
                       </span>
@@ -1009,16 +1045,16 @@ const res = await UserService.getWatchlistList(request)
 
 */}
                   <AddressAgeDiv> {/* TODO: REVERT THE CSS TAG BACK TO LASTACTIVITY ONCE ADDRESS AGE IS FIXED*/}
-                    <LastActivity>Last Activity</LastActivity>
-                    <LastActivityValue>
+                    <LastActivity theme={props.theme.currentTheme}>Last Activity</LastActivity>
+                    <LastActivityValue theme={props.theme.currentTheme}>
                       {lastAct}&nbsp;
                       {!lastActConverted ? "" : "(" + (lastActConverted) + ")"}
 
                     </LastActivityValue>
                   </AddressAgeDiv>
                   <RankDiv>
-                    <Rank>Rank</Rank>
-                    <RankValue>Not available</RankValue>
+                    <Rank theme={props.theme.currentTheme}>Rank</Rank>
+                    <RankValue theme={props.theme.currentTheme}>Not available</RankValue>
                   </RankDiv>
                 </AddressDetailDiv>
                 <ButtonDiv>
@@ -1097,11 +1133,11 @@ const res = await UserService.getWatchlistList(request)
                           dataHashOrAddress={addr}
                         />
                       }
-                      <LoginText>
+                      <LoginText theme={props.theme.currentTheme}>
                         Want to tag and add this address to watchlist?
                       </LoginText>
                       <a
-                        className="linkTableDetails-address"
+                        className={props.theme.currentTheme === "dark" ? "linkTableDetails-address fc-4878ff" : "linkTableDetails-address"}
                         onClick={openLoginDialog}
                       >
                         &nbsp;Login
@@ -1116,13 +1152,16 @@ const res = await UserService.getWatchlistList(request)
             statData={addressStats}
             price={price}
             currency={amount}
+            theme={props.theme.currentTheme}
           />
           <div className="container_sec sec-contain">
-            <div className="block_sec sec-block sec-block-mb">
+            <div className={props.theme.currentTheme === "dark" ? "block_sec_dark sec-block sec-block-mb" : "block_sec sec-block sec-block-mb"}>
               <div className="bloc-tabs_sec_addressDetail">
                 <button
                   className={
-                    toggleState === 1 ? "tabs_sec_address_details active-tabs_sec" : "tabs_sec_address_details"
+                    toggleState === 1 
+                    ? props.theme.currentTheme === "dark" ? "tabs_sec_address_details active-tabs_sec fc-4878ff" : "tabs_sec_address_details active-tabs_sec" 
+                    : "tabs_sec_address_details"
                   }
                   onClick={() => toggleTab(1)}
                   id="transaction-btn"
@@ -1132,7 +1171,7 @@ const res = await UserService.getWatchlistList(request)
                 <button
                   className={
                     toggleState === 2
-                      ? "tabs_sec active-tabs_sec_analytics"
+                      ? props.theme.currentTheme === "dark" ? "tabs_sec active-tabs_sec_analytics fc-4878ff" : "tabs_sec active-tabs_sec_analytics"
                       : "tabs_sec"
                   }
                   onClick={() => toggleTab(2)}
@@ -1157,17 +1196,18 @@ const res = await UserService.getWatchlistList(request)
                       coinadd={addr}
                       tag={addressTag}
                     />
-                  ) : (
+                  ) : ( 
                     <AddressTableComponent
                       trans={transactions}
                       coinadd={addr}
                       currency={amount}
+                      theme={props.theme.currentTheme}
                     />
                   )}
                 </div>
               </div>
             )}
-            {toggleState === 2 && <AddressDetailsAnalytics />}
+            {toggleState === 2 && <AddressDetailsAnalytics theme={props.theme.currentTheme}/>}
           </div>
         </Grid>
         <FooterComponent _handleChange={_handleChange} currency={amount} />
@@ -1175,3 +1215,8 @@ const res = await UserService.getWatchlistList(request)
     </>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {  theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(AddressDetails);
