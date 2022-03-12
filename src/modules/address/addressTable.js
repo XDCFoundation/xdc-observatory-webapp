@@ -41,6 +41,12 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
   },
+  containerDark: {
+    borderRadius: "0.875rem",
+    boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#192a59",
+  },
   btn: {
     textAlign: "start",
     padding: "0px",
@@ -548,12 +554,22 @@ export default function AddressTableComponent(props) {
         <SearchAndFiltersComponent
           searchAndFilters={searchAndFilters}
           updateFiltersAndGetAccounts={updateFiltersAndGetAccounts}
+          theme={props.theme}
         />
         {isDownloadActive ? (
           <CSVLink
             filename={"transactions.csv"}
             data={downloadaddress}
-            style={{
+            style={props.theme === "dark" ? {
+              fontSize: "0.938rem",
+              color: "#ffffff",
+              textAlign: "center",
+              backgroundColor: "#283966",
+              borderRadius: "0.25rem",
+              width: "5.875rem",
+              height: "2.125rem",
+              paddingTop: "0.125rem",
+            } : {
               fontSize: "0.938rem",
               color: "#ffffff",
               textAlign: "center",
@@ -570,7 +586,18 @@ export default function AddressTableComponent(props) {
           <CSVLink
             filename={"transactions.csv"}
             data={downloadaddress}
-            style={{
+            style={props.theme === "dark" ? {
+              pointerEvents: "none",
+              fontSize: "0.938rem",
+              textAlign: "center",
+              color: "#ffffff",
+              backgroundColor: "#283966",
+              borderRadius: "0.25rem",
+              width: "5.875rem",
+              height: "2.125rem",
+              paddingTop: "0.125rem",
+              opacity: 0.7
+            } : {
               pointerEvents: "none",
               fontSize: "0.938rem",
               textAlign: "center",
@@ -588,13 +615,13 @@ export default function AddressTableComponent(props) {
       </SearchAndExportDiv>
 
       <Grid lg={13} className="tablegrid_address_details">
-        <Paper
+        <div
           style={{ borderRadius: "0.75rem" }}
           elevation={0}
           className="table-paper paper-table"
         >
           <TableContainer
-            className={classes.container}
+            className={props.theme === "dark" ? classes.containerDark : classes.container}
             id="container-table table-cont"
           >
             <Table className="table-trans">
@@ -615,7 +642,7 @@ export default function AddressTableComponent(props) {
                       // }
                       style={{ marginRight: "0.5rem", verticalAlign: "middle" }}
                     />
-                    <span className={"tableheaders table-hash"}>
+                    <span className={props.theme === "dark" ? "tableheaders table-hash fc-white" : "tableheaders table-hash"}>
                       Transaction Hash
                       <Tooltip
                         open={hashTT}
@@ -644,7 +671,7 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={"tableheaders table-age cursor-pointer"}
+                      className={props.theme === "dark" ? "tableheaders table-age cursor-pointer fc-white" : "tableheaders table-age cursor-pointer"}
                       onClick={() => {
                         sortData("blockNumber");
                         setAgeArrow(true);
@@ -705,7 +732,7 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={"tableheaders table-block cursor-pointer"}
+                      className={props.theme === "dark" ? "tableheaders table-block-dark cursor-pointer fc-white" : "tableheaders table-block cursor-pointer"}
                       onClick={() => {
                         sortData("blockNumber");
                         setAgeArrow(false);
@@ -778,7 +805,7 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={"tableheaders table-from cursor-pointer"}
+                      className={props.theme === "dark" ? "tableheaders table-from cursor-pointer fc-white" : "tableheaders table-from cursor-pointer"}
                       onClick={() => {
                         sortData("from");
                       }}
@@ -857,7 +884,7 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={"tableheaders table-to cursor-pointer"}
+                      className={props.theme === "dark" ? "tableheaders table-to cursor-pointer fc-white" : "tableheaders table-to cursor-pointer"}
                       onClick={() => {
                         sortData("to");
                       }}
@@ -925,7 +952,7 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={"tableheaders table-value cursor-pointer"}
+                      className={props.theme === "dark" ? "tableheaders table-value cursor-pointer fc-white" : "tableheaders table-value cursor-pointer"}
                       onClick={() => {
                         sortData("value");
                         setValueArrow(true);
@@ -1014,8 +1041,8 @@ export default function AddressTableComponent(props) {
                         <TableRow
                           style={
                             index % 2 !== 1
-                              ? { background: "#f9f9f9" }
-                              : { background: "white" }
+                              ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
+                              : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
                           }
                         >
                           <TableCell
@@ -1043,7 +1070,7 @@ export default function AddressTableComponent(props) {
                             </div>
 
                             <a
-                              className="linkTable"
+                              className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                               href={"/transaction-details/" + row.Txn_Hash}
                             >
                               <Tooltip placement="top" title={row.Txn_Hash}>
@@ -1057,14 +1084,14 @@ export default function AddressTableComponent(props) {
                             style={{ border: "none", color: "#2a2a2a" }}
                             align="left"
                           >
-                            <span className="tabledata">{TimeAge}</span>
+                            <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>{TimeAge}</span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <a
                               className="linkTable"
                               href={"/block-details/" + row.Block}
                             >
-                              <span className="tabledata">{row.Block}</span>
+                              <span className={props.theme === "dark" ? "tabledata fc-4878ff" : "tabledata"}>{row.Block}</span>
                             </a>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
@@ -1073,7 +1100,7 @@ export default function AddressTableComponent(props) {
                               href={"/address-details/" + row.From}
                             >
                               <Tooltip placement="top" title={row.From}>
-                                <span className="tabledata">
+                                <span className={props.theme === "dark" ? "tabledata fc-4878ff" : "tabledata"}>
                                   {" "}
                                   {shorten(row.From)}
                                   {/* {let fromAddress = row.From} */}
@@ -1083,7 +1110,10 @@ export default function AddressTableComponent(props) {
                           </TableCell>
 
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={row.From === addr ? "out" : "in"}>
+                            <span className={row.From === addr 
+                              ? props.theme === "dark" ? "out_dark" : "out" 
+                              :  props.theme === "dark" ? "in_dark" : "in"
+                              }>
                               {row.From === addr ? "Out" : "In"}
                             </span>
                           </TableCell>
@@ -1093,7 +1123,7 @@ export default function AddressTableComponent(props) {
                               href={"/address-details/" + row.To}
                             >
                               <Tooltip placement="top" title={row.To}>
-                                <span className="tabledata">
+                                <span className={props.theme === "dark" ? "tabledata fc-4878ff" : "tabledata"}>
                                   {shorten(row.To)}
                                 </span>
                               </Tooltip>
@@ -1105,12 +1135,12 @@ export default function AddressTableComponent(props) {
                           >
                             <Tooltip placement="top" title={format({})(value)}>
                               {value2 == null ? (
-                                <span className="tabledata cursor-pointer">
+                                <span className={props.theme === "dark" ? "tabledata fc-b1c3e1 cursor-pointer" : "tabledata cursor-pointer"}>
                                   {row.Value == 0 ? 0 : value1}
                                   {} &nbsp;XDC
                                 </span>
                               ) : (
-                                <span className="tabledata cursor-pointer">
+                                <span className={props.theme === "dark" ? "tabledata fc-b1c3e1 cursor-pointer" : "tabledata cursor-pointer"}>
                                   {row.Value == 0 ? 0 : value1}
                                   {"."}
                                   <span style={{ color: "#9FA9BA" }}>
@@ -1150,11 +1180,11 @@ export default function AddressTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div className="not-found">No Transaction Found</div>
+                <div className={props.theme === "dark" ? "not-found fc-b1c3e1" : "not-found"}>No Transaction Found</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
-        </Paper>
+        </div>
         <Grid
           container
           style={{
@@ -1169,13 +1199,14 @@ export default function AddressTableComponent(props) {
               ""
             ) : (
               <>
-                <span className="textShowRecord">Show</span>
+                <span className={props.theme === "dark" ? "textShowRecord fc-b1c3e1" : "textShowRecord"}>Show</span>
                 <PageSelector
                   value={rowsPerPage}
                   height={30}
                   handler={handleChangeRowsPerPage}
+                  theme={props.theme}
                 />
-                <span className="textShowRecord">Records</span>
+                <span className={props.theme === "dark" ? "textShowRecord fc-b1c3e1" : "textShowRecord"}>Records</span>
               </>
             )}
           </Grid>
@@ -1197,7 +1228,9 @@ export default function AddressTableComponent(props) {
                     style={{ marginLeft: "0rem" }}
                     onClick={() => handleChangePage("first")}
                     className={
-                      page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                      page === 0 || totalRecord === 0 
+                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
+                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
                     }
                   >
                     First
@@ -1205,7 +1238,9 @@ export default function AddressTableComponent(props) {
                   <button
                     onClick={() => handleChangePage("prev")}
                     className={
-                      page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                      page === 0 || totalRecord === 0 
+                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
+                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
                     }
                   >
                     <img
@@ -1213,15 +1248,15 @@ export default function AddressTableComponent(props) {
                       src={"/images/next.svg"}
                     />
                   </button>
-                  <button className="btn">Page 0 of 0</button>
+                  <button className={props.theme === "dark" ? "btn-latest-block-dark" : "btn"}>Page 0 of 0</button>
                   <button
                     onClick={() => handleChangePage("next")}
                     className={
                       page + rowsPerPage === totalRecord ||
                       +page + +rowsPerPage > totalRecord ||
                       totalRecord === 0
-                        ? "btn disabled"
-                        : "btn"
+                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
+                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
                     }
                   >
                     <img className="back-arrow" src={"/images/next.svg"} />
@@ -1232,8 +1267,8 @@ export default function AddressTableComponent(props) {
                       page + rowsPerPage === totalRecord ||
                       +page + +rowsPerPage > totalRecord ||
                       totalRecord === 0
-                        ? "btn disabled"
-                        : "btn"
+                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
+                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
                     }
                   >
                     Last
@@ -1255,7 +1290,9 @@ export default function AddressTableComponent(props) {
                     style={{ marginLeft: "0rem" }}
                     onClick={() => handleChangePage("first")}
                     className={
-                      page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                      page === 0 || totalRecord === 0 
+                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
+                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
                     }
                   >
                     First
@@ -1263,7 +1300,9 @@ export default function AddressTableComponent(props) {
                   <button
                     onClick={() => handleChangePage("prev")}
                     className={
-                      page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                      page === 0 || totalRecord === 0 
+                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
+                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
                     }
                   >
                     <img
@@ -1272,7 +1311,7 @@ export default function AddressTableComponent(props) {
                       alt="back"
                     />
                   </button>
-                  <button className="btn">
+                  <button className={props.theme === "dark" ? "btn-latest-block-dark" : "btn"}>
                     Page{" "}
                     {Math.ceil(totalRecord / rowsPerPage) -
                       Math.ceil((totalRecord - page) / rowsPerPage) +
@@ -1285,8 +1324,8 @@ export default function AddressTableComponent(props) {
                       page + rowsPerPage === totalRecord ||
                       +page + +rowsPerPage > totalRecord ||
                       totalRecord === 0
-                        ? "btn disabled"
-                        : "btn"
+                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
+                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
                     }
                   >
                     <img className="back-arrow" src={"/images/next.svg"} />
@@ -1297,8 +1336,8 @@ export default function AddressTableComponent(props) {
                       page + rowsPerPage === totalRecord ||
                       +page + +rowsPerPage > totalRecord ||
                       totalRecord === 0
-                        ? "btn disabled"
-                        : "btn"
+                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
+                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
                     }
                   >
                     Last
@@ -1310,7 +1349,7 @@ export default function AddressTableComponent(props) {
             ""
           )}
         </Grid>
-        <div className="transaction-synchronization-text">
+        <div className={props.theme === "dark" ? "transaction-synchronization-text mb-60" : "transaction-synchronization-text"}>
           Some transactions might not be visible as transaction synchronization
           is in progress
         </div>
