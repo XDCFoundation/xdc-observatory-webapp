@@ -35,7 +35,7 @@ import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import { sessionManager } from "../../managers/sessionManager";
 import { cookiesConstants } from "../../constants";
-import Utils from "../../utility";
+import Utils, { dispatchAction } from "../../utility";
 import { Column, Row } from "simple-flexbox";
 import TransactionPDF from "../../common/components/transactionPDF";
 import AddressPDF from "../../common/components/tagAddressPDF";
@@ -43,7 +43,7 @@ import { PDFDownloadLink, StyleSheet } from "@react-pdf/renderer";
 import { messages } from "../../constants";
 import PrivacyAlert from "../explorer/dashboardPopup/privacyAlert";
 import Utility from "../../utility";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import format from "format-number";
 
 const PaginationDiv = styled.div`
@@ -243,8 +243,18 @@ const useStyles = makeStyles((theme) => ({
       textTransform: "initial",
       fontSize: "0.722rem",
     },
+    tab1Dark: {
+      color: "#4874f4 !important",
+      textTransform: "initial",
+      fontSize: "0.722rem",
+    },
     tab2: {
       color: "#6b7482",
+      textTransform: "initial",
+      fontSize: "0.722rem",
+    },
+    tab2Dark: {
+      color: "#b1c3e1",
       textTransform: "initial",
       fontSize: "0.722rem",
     },
@@ -327,8 +337,22 @@ const useStyles = makeStyles((theme) => ({
       padding: "0px 6px",
     },
   },
+  tab1Dark: {
+    color: "#4874f4 !important",
+    textTransform: "initial",
+    "@media (max-width: 767px)": {
+      padding: "0px 6px",
+    },
+  },
   tab2: {
     color: "#6b7482",
+    textTransform: "initial",
+    "@media (max-width: 714px)": {
+      padding: "0px 6px",
+    },
+  },
+  tab2Dark: {
+    color: "#b1c3e1",
     textTransform: "initial",
     "@media (max-width: 714px)": {
       padding: "0px 6px",
@@ -429,7 +453,7 @@ const SubParentContainer = styled.div`
     margin: auto;
   }
 `;
-export default function SimpleTabs(props) {
+function SimpleTabs(props) {
   const timezone = useSelector((state) => state.timezone);
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -1095,8 +1119,8 @@ export default function SimpleTabs(props) {
   //   else return "Descending";
   // };
   return (
-    <div>
-      <Tokensearchbar />
+    <div className={props.theme.currentTheme === "dark" ? "dark-theme-bg" : ""}>
+      <Tokensearchbar theme={props.theme.currentTheme}/>
 
       <SubParentContainer>
         {/* <div className="heading"> */}
@@ -1128,7 +1152,7 @@ export default function SimpleTabs(props) {
                 }
               /> */}
               <Column style={{ margin: "0 15px" }}>
-                <Row className={classes.profileName} style={{ gap: "15px" }}>
+                <Row className={classes.profileName} style={props.theme.currentTheme === "dark" ? { gap: "15px", color: "#fff" } : { gap: "15px" }}>
                   Welcome, {setUserName()}
                 </Row>
 
@@ -1156,17 +1180,20 @@ export default function SimpleTabs(props) {
           </span> */}
         {/* </div> */}
         <UserNameContainer isWallet={true}>
-          <Watchlist
+          <Watchlist 
             getWatchlistList={getListOfWatchlist}
             getTotalCountWatchlist={getUserWatchlist}
+            theme={props.theme.currentTheme}
           />
           <Transaction
             getListOfTxnLabel={getListOfTxnLabel}
             getTotalCountTxnLabel={getUserTxnLabel}
+            theme={props.theme.currentTheme}
           />
           <Private
             getListOfTagAddress={getListOfTagAddress}
             getTotalCountTagAddress={getPvtTagAddress}
+            theme={props.theme.currentTheme}
           />
         </UserNameContainer>
 
@@ -1188,7 +1215,10 @@ export default function SimpleTabs(props) {
               <Tab
                 label="My Watchlist"
                 // className={classes.mywatch}
-                className={value === 0 ? classes.tab1 : classes.tab2}
+                className={value === 0 
+                  ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
+                  : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
+                }
                 style={{
                   borderBottom:
                     value === 0 ? "2px solid rgb(33, 73, 185)" : "none",
@@ -1199,7 +1229,10 @@ export default function SimpleTabs(props) {
               <Tab
                 label="Transaction Private Note"
                 className={classes.txnprivate}
-                className={value === 1 ? classes.tab1 : classes.tab2}
+                className={value === 1 
+                  ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
+                  : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
+                }
                 style={{
                   borderBottom:
                     value === 1 ? "2px solid rgb(33, 73, 185)" : "none",
@@ -1210,7 +1243,10 @@ export default function SimpleTabs(props) {
               <Tab
                 label="Tagged Address"
                 className={classes.address}
-                className={value === 2 ? classes.tab1 : classes.tab2}
+                className={value === 2 
+                  ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
+                  : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
+                }
                 style={{
                   borderBottom:
                     value === 2 ? "2px solid rgb(33, 73, 185)" : "none",
@@ -1220,9 +1256,9 @@ export default function SimpleTabs(props) {
               />
             </Tabs>
           </AppBar>
-          <div className="line"></div>
+          <div className={props.theme.currentTheme === "dark" ? "line_dark" : "line"}></div>
           <div className="searchdiv">
-            <div className="searchBar">
+            <div className={props.theme.currentTheme === "dark" ? "searchBarDark" : "searchBar"}>
               <SearchIcon
                 style={{
                   color: "#9fa9ba",
@@ -1233,7 +1269,7 @@ export default function SimpleTabs(props) {
               <input
                 type="text"
                 placeholder="Search"
-                className="searchinput"
+                className={props.theme.currentTheme === "dark" ? "searchinputDark" : "searchinput"}
                 onChange={searchData}
                 // onChange={(e) => {
                 //   setSearch(e.target.value.toLowerCase());
@@ -1337,16 +1373,17 @@ export default function SimpleTabs(props) {
             )}
           </div>
           <TabPanel value={value} index={0}>
-            <div className="griddiv add-root">
+            <div className={props.theme.currentTheme === "dark" ? "border-none-dark bg-transparent-dark griddiv add-root" : "griddiv add-root"}>
               {watchlistAddressNotAdded || dataNotFound ? (
-                <div style={{ height: "512px" }}>
+                <div style={{ height: "512px" }} className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}>
                   <Grid
                     className="tablegrid_no_data"
-                    style={{ borderBottom: "2px solid #f9f9f9" }}
+                    style={props.theme.currentTheme === "dark" ? { borderBottom: "solid 1px #4a5d94" } : { borderBottom: "2px solid #f9f9f9" }}
                   >
                     <Grid
                       component={Paper}
                       style={{ boxShadow: "0px 0px 0px 0px", overflow: "auto" }}
+                      className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                     >
                       <Table
                         className="table w-700-a w-1500-a"
@@ -1354,9 +1391,9 @@ export default function SimpleTabs(props) {
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
                         <TableHead>
-                          <TableRow>
+                          <TableRow className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheadersWatchlist"}>
+                              <span className={props.theme.currentTheme === "dark" ? "tableheadersWatchlist fc-white" : "tableheadersWatchlist"}>
                                 Address
                                 <Tooltip
                                   placement="top"
@@ -1372,7 +1409,7 @@ export default function SimpleTabs(props) {
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
+                              <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                                 Description
                                 <Tooltip
                                   placement="top"
@@ -1396,7 +1433,7 @@ export default function SimpleTabs(props) {
                               align="left"
                             >
                               <span
-                                className={"tableheaders-1"}
+                                className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}
                                 style={{ cursor: "pointer" }}
                                 onClick={sortByBalance}
                               >
@@ -1443,7 +1480,7 @@ export default function SimpleTabs(props) {
                               </button>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
+                              <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                                 Added On
                                 <Tooltip
                                   placement="top"
@@ -1462,7 +1499,7 @@ export default function SimpleTabs(props) {
                               style={{ border: "none", marginBottom: "160px" }}
                               align="left"
                             >
-                              <span className={"tableheaders-1"}>
+                              <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                                 Notification
                                 <Tooltip
                                   placement="top"
@@ -2680,3 +2717,9 @@ export default function SimpleTabs(props) {
     </div>
   );
 }
+
+
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(SimpleTabs);
