@@ -676,6 +676,23 @@
   margin: 2px;
   font-weight: bold;
 }
+.btn-contract-dark {
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  height: 60%;
+  padding: 7px 10px 25px 9px;
+  text-align: left;
+  color: #b1c3e1 ;
+  border-radius: 4px;
+  border: solid 1px #3552a5;
+  margin: 2px;
+  font-weight: bold;
+  background-color: #283966;
+}
 .btn {
   font-family: Inter;
   font-size: 0.875rem;
