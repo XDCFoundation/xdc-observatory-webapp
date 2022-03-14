@@ -24,6 +24,7 @@ import { messages } from "../../constants";
 
 import { useParams } from "react-router-dom";
 import PageSelector from "../common/pageSelector";
+import { sessionManager } from "../../managers/sessionManager";
 
 const Responsive = styled.div`
   max-width: 1220px;
@@ -113,6 +114,17 @@ const useStyles = makeStyles({
     borderTop: "0rem solid #bbb",
     width: "100%",
   },
+  tokenTag: {
+    height: "20px",
+    padding: "1px 6px 2px 7px",
+    borderRadius: "4px",
+    backgroundColor: "#dfe3e8",
+    fontSize: "14px",
+    color: "#2a2a2a",
+    marginTop: "8px",
+    marginLeft: "8px",
+    fontWeight: "normal"
+  },
 
   // "@media (max-width: 1240px)": {
   //     container: {
@@ -152,8 +164,11 @@ export default function StickyHeadTable(props) {
   let { token } = useParams();
 
   const [noData, setNoData] = React.useState(true);
+  let ercvalue = sessionManager.getDataFromCookies("xrc20")
+  ercvalue = ercvalue==="true"
+
   const handleChangePage = (action) => {
-    let data = { searchKey: keywords ? keywords : "" };
+    let data = {isERC: ercvalue, searchKey: keywords ? keywords : "" };
     if (sortKey && sortOrder)
       data.sortKey = { [sortKey]: sortOrder };
     // if (sortedByHolderCount)
@@ -199,6 +214,7 @@ export default function StickyHeadTable(props) {
     // setSortOrder(-1);
     // setFrom(0);
     let data = {
+      isERC: ercvalue,
       skip: 0,
       limit: event.target.value,
       searchKey: keywords ? keywords : '',
@@ -215,7 +231,7 @@ export default function StickyHeadTable(props) {
     if (searchkeyword?.length > 1) {
       setKeywords(searchkeyword);
       setLoading(false);
-      let data = { skip: 0, limit: amount, searchKey: searchkeyword };
+      let data = { isERC: ercvalue, skip: 0, limit: amount, searchKey: searchkeyword };
       data['sortKey'] = { "holdersCount": -1 }
       getTokenList(data);
     }
@@ -223,7 +239,7 @@ export default function StickyHeadTable(props) {
       setKeywords("");
       setLoading(false);
       setNoData(false);
-      let data = { skip: from, limit: amount, searchKey: '' };
+      let data = { isERC: ercvalue, skip: from, limit: amount, searchKey: '' };
       data['sortKey'] = { "holdersCount": -1 }
       getTokenList(data);
     }
@@ -303,7 +319,7 @@ export default function StickyHeadTable(props) {
 
   React.useEffect(() => {
     let unmounted = false;
-    let data = { skip: from, limit: amount, searchKey: token ? token : '' };
+    let data = {isERC: ercvalue, skip: from, limit: amount, searchKey: token ? token : '' };
     data['sortKey'] = { "holdersCount": -1 }
     getTokenList(data);
     // return () => {
@@ -320,7 +336,7 @@ export default function StickyHeadTable(props) {
   }
 
   async function sortTable(_sortKey) {
-    let data = { skip: from, limit: amount, searchKey: keywords }
+    let data = {isERC: ercvalue, skip: from, limit: amount, searchKey: keywords }
     if (sortKey && sortKey.includes(_sortKey)) {
       data['sortKey'] = { [_sortKey]: -1 * sortOrder }
       setSortOrder(-1 * sortOrder);
@@ -402,7 +418,11 @@ export default function StickyHeadTable(props) {
           >
             {window.innerWidth >= 768 ?
               <>
-                <TokenTitle>Tokens</TokenTitle>
+                <TokenTitle>
+                  <div className="display-flex">Tokens
+                   {ercvalue ? <div className={classes.tokenTag}>XRC-721</div> : <div className={classes.tokenTag}>XRC-20</div>}
+                  </div>
+                </TokenTitle>
                 <Row justifyContent="space-between" alignItems="center">
                   <div className="searchelement-input input-searchelement_11">
                     <img
@@ -636,7 +656,7 @@ export default function StickyHeadTable(props) {
                     </span>
                                     </TableCell>
                                 )} */}
-                  <TableCell style={{ border: "none" }} align="left">
+                  {!ercvalue  && <TableCell style={{ border: "none" }} align="left">
                     <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("address")}>
                       Contract
                       <Tooltip placement="top" title={messages.CONTRACT}>
@@ -661,9 +681,9 @@ export default function StickyHeadTable(props) {
                             className="tooltipInfoIcon rotate-180"
                           />) : ""}
                     </span>
-                  </TableCell>
+                  </TableCell>}
 
-                  <TableCell
+                  {!ercvalue  && <TableCell
                     style={{ border: "none", whiteSpace: "nowrap" }}
                     align="left"
                   >
@@ -694,8 +714,27 @@ export default function StickyHeadTable(props) {
                             className="tooltipInfoIcon rotate-180"
                           />) : ""}
                     </span>
-                  </TableCell>
-                  {props?.state?.tableColumns["Total Holders"].isActive && (
+                  </TableCell>}
+                  {ercvalue  && <TableCell
+                    style={{ border: "none", whiteSpace: "nowrap" }}
+                    align="left"
+                  >
+                    <span className={"tablehead-token-details cursor-pointer"}>
+                      Transfers (24h)
+                      <Tooltip
+                        placement="top"
+                        title={messages.TOKEN_TRANSFER_24_HOURS}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    </span>
+                  </TableCell>}
+                  {!ercvalue  && (props?.state?.tableColumns["Total Holders"].isActive && (
                     <TableCell
                       style={{ border: "none", whiteSpace: "nowrap" }}
                       align="left"
@@ -725,7 +764,26 @@ export default function StickyHeadTable(props) {
                             />) : ""}
                       </span>
                     </TableCell>
-                  )}
+                  ))}
+                  {ercvalue  && <TableCell
+                    style={{ border: "none", whiteSpace: "nowrap" }}
+                    align="left"
+                  >
+                    <span className={"tablehead-token-details cursor-pointer"}>
+                      Transfers (3d)
+                      <Tooltip
+                        placement="top"
+                        title={messages.TOKEN_TRANSFER_3_DAYS}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    </span>
+                  </TableCell>}
                 </TableRow>
               </TableHead>
               {isLoading == true ? (
@@ -811,7 +869,7 @@ export default function StickyHeadTable(props) {
                                                     <TableCell id="td">{row.type}</TableCell>
                                                 )} */}
 
-                          <TableCell>
+                          {!ercvalue  && <TableCell>
                             <a
                               className="token-details-address-link"
                               href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
@@ -819,10 +877,10 @@ export default function StickyHeadTable(props) {
                             >
                               {shorten(row.address)}
                             </a>
-                          </TableCell>
+                          </TableCell>}
 
 
-                          <TableCell id="td" style={{ paddingleft: "15" }}>
+                          {!ercvalue  && <TableCell id="td" style={{ paddingleft: "15" }}>
                             <Tooltip
                               placement="top"
                               title={format({})(
@@ -848,13 +906,23 @@ export default function StickyHeadTable(props) {
                                 )}
                               </span>
                             </Tooltip>
-                          </TableCell>
-                          {props?.state?.tableColumns["Total Holders"]
+                          </TableCell>}
+                          {ercvalue  && 
+                              <TableCell id="td" style={{ paddingleft: "15" }}>
+                                {format({})(row.transfers.last24Hour)}
+                              </TableCell>
+                            }
+                          {!ercvalue  && (props?.state?.tableColumns["Total Holders"]
                             .isActive && (
                               <TableCell id="td" style={{ paddingleft: "15" }}>
                                 {format({})(row.holdersCount)}
                               </TableCell>
-                            )}
+                            ))}
+                            {ercvalue  && 
+                              <TableCell id="td" style={{ paddingleft: "15" }}>
+                                {format({})(row.transfers.last3days)}
+                              </TableCell>
+                            }
                         </TableRow>
                       );
                     })}
