@@ -1547,6 +1547,7 @@ function SimpleTabs(props) {
                   <Grid
                     component={Paper}
                     style={{ boxShadow: "0px 0px 0px 0px" }}
+                    className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                   >
                     <Table
                       className="table w-700-a w-1500-a"
@@ -1554,7 +1555,7 @@ function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
                       <TableHead>
-                        <TableRow>
+                        <TableRow className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}>
                           {/* <TableCell style={{ border: "none" }} align="left">
                           <input
                             onChange={handleWatchlistCheckbox}
@@ -1568,7 +1569,7 @@ function SimpleTabs(props) {
                           />
                           </TableCell> */}
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheadersWatchlist"}>
+                            <span className={props.theme.currentTheme === "dark" ? "tableheadersWatchlist fc-white" : "tableheadersWatchlist"}>
                               Address
                               <Tooltip
                                 placement="top"
@@ -1584,7 +1585,7 @@ function SimpleTabs(props) {
                             </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1"}>
+                            <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                               Description
                               <Tooltip
                                 placement="top"
@@ -1608,7 +1609,7 @@ function SimpleTabs(props) {
                             align="left"
                           >
                             <span
-                              className={"tableheaders-1"}
+                              className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}
                               onClick={sortByBalance}
                               style={{ cursor: "pointer" }}
                             >
@@ -1656,7 +1657,7 @@ function SimpleTabs(props) {
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <span
-                              className={"tableheaders-1 cursor-pointer"}
+                              className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white cursor-pointer" : "tableheaders-1 cursor-pointer"}
                               onClick={sortByDate}
                             >
                               Added On
@@ -1702,7 +1703,7 @@ function SimpleTabs(props) {
                             </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1"}>
+                            <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                               Notification
                               <Tooltip
                                 placement="top"
@@ -1736,8 +1737,8 @@ function SimpleTabs(props) {
                               <TableRow
                                 style={
                                   index % 2 !== 1
-                                    ? { background: "#f9f9f9" }
-                                    : { background: "white" }
+                                    ? props.theme.currentTheme === "dark" ? { background: "#192a59", border: "none" } : { background: "#f9f9f9" }
+                                    : props.theme.currentTheme === "dark" ? { background: "#192a59" } : { background: "white" }                                  
                                 }
                               >
                                 {/* <TableCell
@@ -1758,7 +1759,7 @@ function SimpleTabs(props) {
                                   align="left"
                                 >
                                   <a
-                                    className="linkTable1"
+                                    className={props.theme.currentTheme === "dark" ? "linkTable1 fc-4878ff" : "linkTable1"}
                                     href={"/address-details/" + row.address}
                                   >
                                     <Tooltip
@@ -1775,7 +1776,7 @@ function SimpleTabs(props) {
                                   style={{ border: "none" }}
                                   align="left"
                                 >
-                                  <span className="tabledata-1">
+                                  <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {row.description}
                                   </span>
                                 </TableCell>
@@ -1783,7 +1784,7 @@ function SimpleTabs(props) {
                                   style={{ border: "none" }}
                                   align="left"
                                 >
-                                  <span className="tabledata-1">
+                                  <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {format({})(balanceToShow)}&nbsp;XDC
                                   </span>
                                   {/* </a> */}
@@ -1792,7 +1793,7 @@ function SimpleTabs(props) {
                                   style={{ border: "none" }}
                                   align="left"
                                 >
-                                  <span className="tabledata-1">
+                                  <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {`${
                                       (row?.modifiedOn &&
                                         moment(row?.modifiedOn)
@@ -1811,7 +1812,7 @@ function SimpleTabs(props) {
                                   style={{ border: "none" }}
                                   align="left"
                                 >
-                                  <span className="tabledata-1">
+                                  <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {row.notification.type === "NO"
                                       ? "Off"
                                       : "Email"}
@@ -1821,7 +1822,7 @@ function SimpleTabs(props) {
                                   style={{ border: "none" }}
                                   align="left"
                                 >
-                                  <EditWatchList
+                                  <EditWatchList 
                                     row={row}
                                     getWatchlistList={getListOfWatchlist}
                                     getTotalCountWatchlist={getUserWatchlist}
@@ -1852,16 +1853,17 @@ function SimpleTabs(props) {
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <div className="griddiv">
+            <div className={props.theme.currentTheme === "dark" ? "border-none-dark bg-transparent-dark griddiv" : "griddiv"}>
               {txnHashNotAdded || dataNotFound ? (
-                <div style={{ height: "512px" }}>
+                <div style={{ height: "512px" }} className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}>
                   <Grid
                     className="tablegrid_no_data"
-                    style={{ borderBottom: "2px solid #f9f9f9" }}
+                    style={props.theme.currentTheme === "dark" ? { borderBottom: "solid 1px #4a5d94" } : { borderBottom: "2px solid #f9f9f9" }}
                   >
                     <Grid
                       component={Paper}
                       style={{ boxShadow: "0px 0px 0px 0px", overflow: "auto" }}
+                      className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                     >
                       <Table
                         className="table w-700-a w-1500-a"
@@ -1869,7 +1871,7 @@ function SimpleTabs(props) {
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
                         <TableHead>
-                          <TableRow>
+                          <TableRow className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}>
                             <TableCell style={{ border: "none" }} align="left">
                               <input
                                 // className={classes.Rectangle}
@@ -1891,7 +1893,7 @@ function SimpleTabs(props) {
                               align="left"
                               paddingBottom="0"
                             >
-                              <span className={"tableheaders-1"}>
+                              <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                                 Transaction Hash
                                 <Tooltip placement="top" title={messages.HASH}>
                                   <img
@@ -1904,7 +1906,7 @@ function SimpleTabs(props) {
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
+                              <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                                 Note
                                 <Tooltip
                                   placement="top"
@@ -1926,7 +1928,7 @@ function SimpleTabs(props) {
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
+                              <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                                 Added On
                                 <Tooltip
                                   placement="top"
@@ -2232,16 +2234,17 @@ function SimpleTabs(props) {
             </PaginationDiv>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <div className="griddiv">
+            <div className={props.theme.currentTheme === "dark" ? "border-none-dark bg-transparent-dark griddiv" : "griddiv"}>
               {tagAddressNotAdded || dataNotFound ? (
-                <div style={{ height: "512px" }}>
+                <div style={{ height: "512px" }} className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}>
                   <Grid
                     className="tablegrid_no_data"
-                    style={{ borderBottom: "2px solid #f9f9f9" }}
+                    style={props.theme.currentTheme === "dark" ? { borderBottom: "solid 1px #4a5d94" } : { borderBottom: "2px solid #f9f9f9" }}
                   >
                     <Grid
                       component={Paper}
                       style={{ boxShadow: "0px 0px 0px 0px" }}
+                      className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                     >
                       <Table
                         className="table"
@@ -2249,7 +2252,7 @@ function SimpleTabs(props) {
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
                         <TableHead>
-                          <TableRow>
+                          <TableRow className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}>
                             <TableCell style={{ border: "none" }} align="left">
                               <input
                                 onChange={handleTagAddressCheckbox}
@@ -2268,7 +2271,7 @@ function SimpleTabs(props) {
                               />
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
+                              <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                                 Address
                                 <Tooltip
                                   placement="top"
@@ -2285,7 +2288,7 @@ function SimpleTabs(props) {
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span
-                                className={"tableheaders-1"}
+                                className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}
                                 onClick={() => {
                                   sortByTagName();
                                   setTagArrow(false);
@@ -2347,7 +2350,7 @@ function SimpleTabs(props) {
                             </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               <span
-                                className={"tableheaders-1"}
+                                className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}
                                 onClick={() => {
                                   sortByAge();
                                   setAgeArrow(false);

@@ -5126,6 +5126,16 @@ body {
   border: solid 1px #9fa9ba;
   background-color: #efefef;
 }
+.input-area-bytecode-dark {
+  width: 100%;
+  height: 158px;
+  font-size: 13px;
+  color: #fff;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 4px;
+  background-color: #3f4966;
+}
 
 .contract-source {
   font-family: "Inter";
@@ -9151,6 +9161,21 @@ button {
   font-weight: bold;
   background-color: transparent;
 }
+.btn-contract-dark {
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: left;
+  color: #b1c3e1 ;
+  border-radius: 4px;
+  border: solid 1px #3552a5;
+  margin: 2px;
+  font-weight: bold;
+  background-color: #283966;
+}
 
 .disabled {
   color: #939499;
@@ -9701,6 +9726,15 @@ button {
   color: #252525 !important;
   border-bottom: none !important;
 }
+.left-table-contract-last-dark {
+  font-weight: 600 !important;
+
+  font-size: 0.938rem !important;
+  padding: 10px 6px 10px 0px !important;
+  height: 2.938rem;
+  color: #fff !important;
+  border-bottom: none !important;
+}
 
 .left-table-contract-data-last {
   padding: 10px 6px 10px 0px !important;
@@ -9719,6 +9753,15 @@ button {
   height: 2.938rem;
   color: #252525 !important;
   border-bottom: 1px solid rgb(227, 231, 235) !important;
+}
+.left-table-contract-dark {
+  font-weight: 600 !important;
+
+  font-size: 0.938rem !important;
+  padding: 10px 6px 10px 0px !important;
+  height: 2.938rem;
+  color: #fff !important;
+  border-bottom: 1px solid #4a5d94 !important;
 }
 
 .left-table-contract-data {
@@ -10034,12 +10077,18 @@ button {
     font-size: 0.938rem !important;
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
-    color: #252525 !important;
+    color: #252525;
   }
   .left-table-contract-data-mobile {
     margin-top: 0;
     padding: 0px 6px 10px 0px !important;
     border-bottom: 1px solid rgb(227, 231, 235) !important;
+    font-size: 14px !important;
+  }
+  .left-table-contract-data-mobile-dark {
+    margin-top: 0;
+    padding: 0px 6px 10px 0px !important;
+    border-bottom: 1px solid #4a5d94 !important;
     font-size: 14px !important;
   }
   .main-input-td {
@@ -10275,7 +10324,7 @@ button {
   }
 }
 .left-table-contract-mobile {
-  color: #252525 !important;
+  color: #252525;
 }
 @media (min-width: 767px) {
   .contract-summary-mobile {
@@ -10289,11 +10338,16 @@ button {
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
     border-bottom: 1px solid rgb(227, 231, 235) !important;
-    color: #252525 !important;
+    color: #252525;
   }
   .left-table-contract-data-mobile {
     padding: 10px 6px 10px 0px !important;
     border-bottom: 1px solid rgb(227, 231, 235) !important;
+    font-size: 14px !important;
+  }
+  .left-table-contract-data-mobile-dark {
+    padding: 10px 6px 10px 0px !important;
+    border-bottom: 1px solid #4a5d94 !important;
     font-size: 14px !important;
   }
 }
@@ -11248,6 +11302,9 @@ button {
     padding: 7px 6px 10px 10px !important;
   }
   .btn-contract {
+    padding: 7px 10px 25px 9px !important;
+  }
+  .btn-contract-dark {
     padding: 7px 10px 25px 9px !important;
   }
   .div-searchelement {
@@ -12565,4 +12622,7 @@ button {
 }
 .bg-transparent-dark {
   background: transparent !important;
+}
+.border-bottom-dark {
+  border-bottom: solid 1px #4a5d94 !important;
 }
