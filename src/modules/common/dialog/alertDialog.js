@@ -15,6 +15,14 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     borderRadius: "12px",
   },
+  dialogBoxDark: {
+    top: "79px",
+    width: "503px",
+    padding: "0 11px",
+    position: "absolute",
+    borderRadius: "12px",
+    backgroundColor: "#192a59"
+  },
   globalTextContainer: {
     width: "433px",
     borderRadius: "6px",
@@ -54,6 +62,19 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "auto",
       marginRight: "auto",
       borderRadius: "0px",
+    },
+    dialogBoxDark: {
+      top: "30px",
+      width: "100%",
+      height: "100%",
+      opacity: "0px",
+      padding: "0px 15px",
+      position: "absolute",
+      maxWidth: "767px",
+      marginLeft: "auto",
+      marginRight: "auto",
+      borderRadius: "0px",
+      backgroundColor: "#192a59"
     },
     globalTextContainer: {
         padding: "10px",
@@ -119,7 +140,7 @@ export default function AlertDialog(props) {
     <div>
       { !closeForNowAlert || !alertChecked ?
       <Dialog
-        classes={{ paperWidthSm: classes.dialogBox }}
+        classes={props.theme === "dark" ? { paperWidthSm: classes.dialogBoxDark } : { paperWidthSm: classes.dialogBox }}
         open={props.openAlert}
         // onClose={handleClose}
         aria-labelledby="form-dialog-title"
@@ -150,7 +171,7 @@ export default function AlertDialog(props) {
               <input type="checkbox"
                 onClick={handleAlertChecked}
                 className="main-checkbox" />
-              <div className="main-end-text">Don't show this message again</div>
+              <div className={props.theme === "dark" ? "main-end-text fc-adc4e4 " : "main-end-text"}>Don't show this message again</div>
             </div>
             </div>
           </div> 

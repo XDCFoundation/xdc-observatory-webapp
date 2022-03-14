@@ -1140,9 +1140,9 @@ const LoginComponent = ({
   return (
     <Row className={classes.popover} alignItems="center">
       {openPasswordBox && (
-        <ChangePassword openChangePassword={openChangePassword} />
+        <ChangePassword openChangePassword={openChangePassword} theme={currentTheme}/>
       )}
-      <Popover theme={currentTheme} openChangePassword={openChangePassword} />
+      <Popover theme={currentTheme} openChangePassword={openChangePassword} /> 
 
       <React.Fragment className="rigt-line" key={"right"}>
         <IconButton

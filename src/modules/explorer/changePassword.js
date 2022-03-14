@@ -45,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
         width: "503px",
         borderRadius: "12px",
     },
+    dialogBoxDark: {
+        position: "absolute",
+        top: "65px",
+        width: "503px",
+        borderRadius: "12px",
+        backgroundColor: "#192a59"
+    },
     closeContainer: {
         top: "26px",
         fontWeight: "500",
@@ -139,6 +146,16 @@ const useStyles = makeStyles((theme) => ({
             top: "33px",
             marginLeft: "auto",
             marginRight: "auto",
+        },
+        dialogBoxDark: {
+            width: "100% !important",
+            height: "100% !important",
+            borderRadius: "0px !important",
+            maxWidth: "768px !important",
+            top: "33px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            backgroundColor: "#192a59"
         },
         backButtonMobile: {
             position: "absolute",
@@ -247,7 +264,7 @@ export default function ChangePassword(props) {
     return (
         <Dialog
             // className={classes.dialog}
-            classes={{ paperWidthSm: classes.dialogBox }}
+            classes={props.theme === "dark" ? { paperWidthSm: classes.dialogBoxDark } : { paperWidthSm: classes.dialogBox }}
             open
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
@@ -257,7 +274,7 @@ export default function ChangePassword(props) {
                     <img src="/images/backButton.svg" alt="back"/>
                 </div>
                 <Row justifyContent="center" marginTop="8px">
-                    <DialogContentText className={classes.text}>
+                    <DialogContentText className={props.theme === "dark" ? `${classes.text} fc-white` : classes.text}>
                         <b className={classes.mobileHeader}>Change Password</b>
                     </DialogContentText>
                     <span
@@ -273,12 +290,12 @@ export default function ChangePassword(props) {
                 <Column>
                 {errorEmptyField ? <div className={classes.error}>{errorEmptyField}</div> : <></>}
                     <DialogContentText className={classes.subCategory}>
-                        <span className={classes.pass}>Current Password</span>
+                        <span className={props.theme === "dark" ? `${classes.pass} fc-white` : classes.pass}>Current Password</span>
                         <input
                             type={passwordShown1 ? "text" : "password"}
                             id="password"
                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                            className="change-password-input"
+                            className={props.theme === "dark" ? "change-password-input-dark" : "change-password-input"}
                             onChange={(e) => {
                                 {
                                     setCurrentInput(e.target.value);
@@ -302,12 +319,12 @@ export default function ChangePassword(props) {
                         <div className={classes.error}>{error}</div>
                     </DialogContentText>
                     <DialogContentText className={classes.subCategory}>
-                        <span className={classes.pass}>New Password</span>
+                        <span className={props.theme === "dark" ? `${classes.pass} fc-white` : classes.pass}>New Password</span>
                         <input
                             type={passwordShown2 ? "text" : "password"}
                             id="password"
                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                            className="change-password-input"
+                            className={props.theme === "dark" ? "change-password-input-dark" : "change-password-input"}
                             onChange={(e) => {
                                 {
                                     setNewInput(e.target.value);
@@ -331,12 +348,12 @@ export default function ChangePassword(props) {
                         <div className={classes.error}>{errorPassword}</div>
                     </DialogContentText>
                     <DialogContentText className={classes.subCategory}>
-                        <span className={classes.pass}>Confirm Password</span>
+                        <span className={props.theme === "dark" ? `${classes.pass} fc-white` : classes.pass}>Confirm Password</span>
                         <input
                             type={passwordShown3 ? "text" : "password"}
                             id="password"
                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                            className="change-password-input"
+                            className={props.theme === "dark" ? "change-password-input-dark" : "change-password-input"}
                             onChange={(e) => {
                                 {
                                     setConfirmPassword(e.target.value);

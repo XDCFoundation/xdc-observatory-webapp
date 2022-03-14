@@ -978,6 +978,19 @@ input:focus {
   line-height: 19px;
   margin-right: 14px;
 }
+.nameLabel2-dark {
+  display: flex;
+  font-size: 14px;
+  font-family: Inter;
+  color: #adc4e4;
+  background-color: #283966;
+  border-radius: 4px;
+  height: 20px;
+  padding-left: 7px;
+  padding-right: 7px;
+  line-height: 19px;
+  margin-right: 14px;
+}
 
 .tabledata-2 {
   display: flex;
@@ -12278,7 +12291,22 @@ button {
   background-color: #fff;
   outline: none;
 }
+.change-password-input-dark {
+  width: 433px;
+  height: 40px;
+  font-size: 14px !important;
+  font-weight: 500;
+  padding: 12px 19px 11px 19px;
+  border-radius: 6px;
+  border: solid 1px #091b4e !important;
+  background-color: #091b4e !important;
+  outline: none;
+  color: #fff !important;
+}
 .change-password-input::placeholder {
+  color: #e3e7eb;
+}
+.change-password-input-dark::placeholder {
   color: #e3e7eb;
 }
 
@@ -12625,4 +12653,8 @@ button {
 }
 .border-bottom-dark {
   border-bottom: solid 1px #4a5d94 !important;
+}
+.popup-dark-theme-bg {
+  border: solid 1px #3552a5 !important;
+  background-color: #192a59 !important;
 }

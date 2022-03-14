@@ -49,6 +49,9 @@ import format from "format-number";
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
+  ${({ theme }) => theme === "dark" && `
+    margin-bottom: 60px;
+  `}
   @media (max-width: 1240px) {
     margin-bottom: 77px;
   }
@@ -93,6 +96,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#ffffff",
     backgroundColor: "rgb(7 125 245)",
+    borderRadius: "0.25rem",
+    width: "5.875rem",
+    height: "2.125rem",
+    marginRight: "1.5rem",
+    paddingTop: "0.125rem",
+  },
+  pdfDownloadLinkDark: {
+    fontSize: "0.938rem",
+    textAlign: "center",
+    color: "#b1c3e1",
+    backgroundColor: "#283966",
     borderRadius: "0.25rem",
     width: "5.875rem",
     height: "2.125rem",
@@ -1185,7 +1199,7 @@ function SimpleTabs(props) {
             getTotalCountWatchlist={getUserWatchlist}
             theme={props.theme.currentTheme}
           />
-          <Transaction
+          <Transaction 
             getListOfTxnLabel={getListOfTxnLabel}
             getTotalCountTxnLabel={getUserTxnLabel}
             theme={props.theme.currentTheme}
@@ -1319,7 +1333,7 @@ function SimpleTabs(props) {
                 //   Export test
                 // </div>
                 <PDFDownloadLink
-                  style={styles.pdfDownloadLink}
+                  style={props.theme.currentTheme === "dark" ? styles.pdfDownloadLinkDark : styles.pdfDownloadLink}
                   document={<TransactionPDF data={downloadTxnPvtNote} />}
                   fileName="transactionPvtNote.pdf"
                 >
@@ -1327,7 +1341,7 @@ function SimpleTabs(props) {
                 </PDFDownloadLink>
               ) : (
                 <PDFDownloadLink
-                  style={styles.pdfDownloadLink}
+                style={props.theme.currentTheme === "dark" ? styles.pdfDownloadLinkDark : styles.pdfDownloadLink}
                   document={<AddressPDF data={downloadTagAddress} />}
                   fileName="tagAddresses.pdf"
                 >
@@ -1355,7 +1369,17 @@ function SimpleTabs(props) {
               <div
                 filename={"tag_address.csv"}
                 data={downloadTagAddress}
-                style={{
+                style={props.theme.currentTheme === "dark" ? {
+                  pointerEvents: "none",
+                  fontSize: "0.938rem",
+                  textAlign: "center",
+                  color: "#b1c3e1",
+                  backgroundColor: "#283966",
+                  borderRadius: "0.25rem",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                  paddingTop: "0.4rem",
+                } : {
                   pointerEvents: "none",
                   fontSize: "0.938rem",
                   textAlign: "center",
@@ -1364,7 +1388,6 @@ function SimpleTabs(props) {
                   borderRadius: "0.25rem",
                   width: "5.875rem",
                   height: "2.125rem",
-
                   paddingTop: "0.4rem",
                 }}
               >
@@ -1837,8 +1860,8 @@ function SimpleTabs(props) {
                 </Grid>
               )}
             </div>
-            <PaginationDiv>
-              <ReactPaginate
+            <PaginationDiv theme={props.theme.currentTheme}>
+              <ReactPaginate 
                 previousLabel={"Prev"}
                 nextLabel={"Next"}
                 pageCount={totalCount1 / 5}
@@ -2005,6 +2028,7 @@ function SimpleTabs(props) {
                   <Grid
                     component={Paper}
                     style={{ boxShadow: "0px 0px 0px 0px" }}
+                    className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                   >
                     <Table
                       className="table w-700-a w-1500-a"
@@ -2012,7 +2036,7 @@ function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
                       <TableHead>
-                        <TableRow>
+                        <TableRow className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}>
                           <TableCell
                             style={{ border: "none" }}
                             align="left"
@@ -2034,7 +2058,7 @@ function SimpleTabs(props) {
                             />
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1"}>
+                            <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                               Transaction Hash
                               <Tooltip placement="top" title={messages.HASH}>
                                 <img
@@ -2047,7 +2071,7 @@ function SimpleTabs(props) {
                             </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1"}>
+                            <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                               Note
                               <Tooltip
                                 placement="top"
@@ -2069,7 +2093,7 @@ function SimpleTabs(props) {
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1"}>
+                            <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                               Added On
                               <Tooltip
                                 placement="top"
@@ -2129,8 +2153,8 @@ function SimpleTabs(props) {
                             <TableRow
                               style={
                                 index % 2 !== 1
-                                  ? { background: "#f9f9f9" }
-                                  : { background: "white" }
+                                ? props.theme.currentTheme === "dark" ? { background: "#192a59", border: "none" } : { background: "#f9f9f9" }
+                                : props.theme.currentTheme === "dark" ? { background: "#192a59" } : { background: "white" }  
                               }
                             >
                               <TableCell
@@ -2152,7 +2176,7 @@ function SimpleTabs(props) {
                                 align="left"
                               >
                                 <a
-                                  className="linkTable1"
+                                  className={props.theme.currentTheme === "dark" ? "linkTable1 fc-4878ff" : "linkTable1"}
                                   href={
                                     "/transaction-details/" +
                                     row.transactionHash
@@ -2172,7 +2196,7 @@ function SimpleTabs(props) {
                                 style={{ border: "none" }}
                                 align="left"
                               >
-                                <span className="tabledata-1">
+                                <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                   {row.trxLable}
                                 </span>
                               </TableCell>
@@ -2185,7 +2209,7 @@ function SimpleTabs(props) {
                                 style={{ border: "none" }}
                                 align="left"
                               >
-                                <span className="tabledata-1">
+                                <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                   {`${
                                     (row?.modifiedOn &&
                                       moment(row?.modifiedOn)
@@ -2219,7 +2243,7 @@ function SimpleTabs(props) {
                 </Grid>
               )}
             </div>
-            <PaginationDiv>
+            <PaginationDiv theme={props.theme.currentTheme}>
               <ReactPaginate
                 previousLabel={"Prev"}
                 nextLabel={"Next"}
@@ -2438,6 +2462,7 @@ function SimpleTabs(props) {
                   <Grid
                     component={Paper}
                     style={{ boxShadow: "0px 0px 0px 0px" }}
+                    className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                   >
                     <Table
                       className="table"
@@ -2445,7 +2470,7 @@ function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
                       <TableHead>
-                        <TableRow>
+                        <TableRow className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}>
                           <TableCell style={{ border: "none" }} align="left">
                             <input
                               onChange={handleTagAddressCheckbox}
@@ -2463,7 +2488,7 @@ function SimpleTabs(props) {
                             />
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tableheaders-1"}>
+                            <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                               Address
                               <Tooltip
                                 placement="top"
@@ -2480,7 +2505,7 @@ function SimpleTabs(props) {
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <span
-                              className={"tableheaders-1 cursor-pointer"}
+                              className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white cursor-pointer" : "tableheaders-1 cursor-pointer"}
                               onClick={() => {
                                 sortByTagName();
                                 setTagArrow(false);
@@ -2542,7 +2567,7 @@ function SimpleTabs(props) {
                             </TableCell> */}
                           <TableCell style={{ border: "none" }} align="left">
                             <span
-                              className={"tableheaders-1 cursor-pointer"}
+                              className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white cursor-pointer" : "tableheaders-1 cursor-pointer"}
                               onClick={() => {
                                 sortByAge();
                                 setAgeArrow(false);
@@ -2618,8 +2643,8 @@ function SimpleTabs(props) {
                             <TableRow
                               style={
                                 index % 2 !== 1
-                                  ? { background: "#f9f9f9" }
-                                  : { background: "white" }
+                                ? props.theme.currentTheme === "dark" ? { background: "#192a59", border: "none" } : { background: "#f9f9f9" }
+                                : props.theme.currentTheme === "dark" ? { background: "#192a59" } : { background: "white" } 
                               }
                             >
                               <TableCell
@@ -2641,7 +2666,7 @@ function SimpleTabs(props) {
                                 align="left"
                               >
                                 <a
-                                  className="linkTable1"
+                                  className={props.theme.currentTheme === "dark" ? "linkTable1 fc-4878ff" : "linkTable1"}
                                   href={"/address-details/" + row.address}
                                 >
                                   <Tooltip placement="top" title={row.address}>
@@ -2655,8 +2680,8 @@ function SimpleTabs(props) {
                                 style={{ border: "none" }}
                                 align="left"
                               >
-                                <span className="tabledata-2">
-                                  <div className="nameLabel2">{tag}</div>
+                                <span className={props.theme.currentTheme === "dark" ? "tabledata-2 fc-b1c3e1" : "tabledata-2"}>
+                                  <div className={props.theme.currentTheme === "dark" ? "nameLabel2-dark" : "nameLabel2"}>{tag}</div>
                                 </span>
                               </TableCell>
 
@@ -2664,7 +2689,7 @@ function SimpleTabs(props) {
                                 style={{ border: "none" }}
                                 align="left"
                               >
-                                <span className="tabledata-1">
+                                <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                   {`${
                                     (row?.modifiedOn &&
                                       moment(row?.modifiedOn)
@@ -2699,7 +2724,7 @@ function SimpleTabs(props) {
                 </Grid>
               )}
             </div>
-            <PaginationDiv>
+            <PaginationDiv theme={props.theme.currentTheme}>
               <ReactPaginate
                 previousLabel={"Prev"}
                 nextLabel={"Next"}
