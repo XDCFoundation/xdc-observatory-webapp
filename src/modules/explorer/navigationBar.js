@@ -27,6 +27,7 @@ import Utils from "../../utility";
 import { useDispatch } from "react-redux";
 import { eventConstants, recentSearchTypeConstants } from "../../constants";
 import { browserName } from "react-device-detect";
+import TokenPopover from "./tokenPopover";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -206,6 +207,7 @@ export default function Navbar(props) {
   
   const [opencontracts, setOpencontracts] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isTokenPopver, setTokenPopover] = React.useState(false);
   const handleSearch = (event) => {
     if (event.target.value.length == 0) setErrorMessage("");
     if (event.key === "Enter") {
@@ -224,7 +226,12 @@ export default function Navbar(props) {
     }
   };
 
-  
+  const handleTokenPopover = () =>{
+    setTokenPopover(true);
+  } 
+  const closeTokenPopover = () =>{
+    setTokenPopover(false);
+  }
   
   // useEffect(() => {
   //   sessionManager.setDataInCookies("NotVisited");
@@ -255,21 +262,23 @@ export default function Navbar(props) {
     web3 = new Web3(window.web3.currentProvider);
     window.ethereum.enable();
     const chainId = await web3.eth.net.getId();
-    if (chainId !== 50) {
+    if (chainId == 50 || chainId == 51) {
       // Utils.apixFailureToast("Please login to XDCPay extension");
+      await web3.eth.getAccounts().then((accounts) => {
+        if (!accounts || !accounts.length) {
+          Utils.apiFailureToast("Please login to XDCPay extension");
+          return;
+        }
+        let acc = accounts[0];
+        acc = acc.replace("0x", "xdc");
+        acc = acc.toLowerCase();
+        window.location.href = "/address-details/" + acc;
+      });
+    } else { 
       setWeb3DialogOpen(true);
       return;
     }
-    await web3.eth.getAccounts().then((accounts) => {
-      if (!accounts || !accounts.length) {
-        Utils.apiFailureToast("Please login to XDCPay extension");
-        return;
-      }
-      let acc = accounts[0];
-      acc = acc.replace("0x", "xdc");
-      acc = acc.toLowerCase();
-      window.location.href = "/address-details/" + acc;
-    });
+    
   };
 
   const handleSearchOption = (event) => {
@@ -338,7 +347,7 @@ export default function Navbar(props) {
               redirectUrl: transactionurl,
             },
           });
-          // window.location.href = transactionurl;
+          window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
           if (responseData[0]?.token.length == 1) {
             let tokenDataUrl =
@@ -356,7 +365,7 @@ export default function Navbar(props) {
                 redirectUrl: tokenDataUrl,
               },
             });
-            // window.location.href = tokenDataUrl;
+            window.location.href = tokenDataUrl;
           } else if (responseData[0]?.token.length > 1) {
             let tokenListUrl =
               "/tokens/" + responseData[0]?.token[0]?.tokenName;
@@ -830,8 +839,27 @@ export default function Navbar(props) {
   );
 
   // ..................
-  const NavigationButton = styled.a`
+  const NavigationButton1 = styled.a`
     text-decoration: none;
+    padding: 5px 20px;
+    border-bottom: ${(props) =>
+      props.active ? "0.15rem solid #ffffff !important" : ""};
+    padding-bottom: 3px;
+    font-size: 0.938rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    color: #ffffff;
+    list-style: none;
+    @media (min-width: 0px) and (max-width: 767px) {
+      font-size: 0.875rem;
+    }
+  `;
+  const NavigationButton = styled.div`
+    text-decoration: none;
+    cursor: pointer;
     padding: 5px 20px;
     border-bottom: ${(props) =>
       props.active ? "0.15rem solid #ffffff !important" : ""};
@@ -890,7 +918,7 @@ export default function Navbar(props) {
                 {" "}
                 XDC{" "}
               </a>
-
+              <TokenPopover open={isTokenPopver} handleClose={closeTokenPopover}/>
               <div>
                 <NavLink
                   exact
@@ -904,14 +932,14 @@ export default function Navbar(props) {
                 {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
               </div>
               <div>
-                <a
+                <div
                   exact
                   activeClassName="active-t"
-                  href={"/tokens"}
-                  className="Token"
+                  onClick={handleTokenPopover}
+                  className="Token cursor-pointer"
                 >
                   Tokens
-                </a>
+                </div>
               </div>
             </Row>
             <Row alignItems="center">
@@ -1017,10 +1045,10 @@ export default function Navbar(props) {
             </Row>
           </MobileToolBar>
           <MobileNavigationContainer>
-            <NavigationButton active={window.location.pathname == "/"} href="/">
+            <NavigationButton1 active={window.location.pathname == "/"} href="/">
               XDC Observatory
-            </NavigationButton>
-            <NavigationButton href="/tokens">Tokens</NavigationButton>
+            </NavigationButton1>
+            <NavigationButton onClick={handleTokenPopover}>Tokens</NavigationButton>
           </MobileNavigationContainer>
         </AppBar>
       </MobileView>

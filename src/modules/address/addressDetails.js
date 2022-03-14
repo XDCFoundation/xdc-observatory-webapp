@@ -16,7 +16,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import {
   TransactionService,
   CoinMarketService,
-  UserService, WatchListService,
+  UserService,
+  WatchListService,
 } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
@@ -33,6 +34,8 @@ import EditTagAddress from "../../modules/common/dialog/editTagPopup";
 import toast, { Toaster } from "react-hot-toast";
 import utility from "../../utility";
 import { connect } from "react-redux";
+import CustomDropDownAddress from "./customDropdownAddress";
+import TokenData from "../../services/token";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -191,7 +194,7 @@ const AddressHash = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #3a3a3a;
   ${({ theme }) => theme === "dark" && `
     color: #fff;
@@ -216,7 +219,7 @@ const BalanceDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #2149b9;
   margin-top: 7px;
   ${({ theme }) => theme === "dark" && `
@@ -237,7 +240,7 @@ const BalanceUsdDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #585858;
   margin-top: 5px;
   ${({ theme }) => theme === "dark" && `
@@ -265,7 +268,7 @@ const AddressAge = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
@@ -281,7 +284,7 @@ const AddressAgeValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+
   color: #3a3a3a;
   margin-left: 70px;
   @media (max-width: 767px) {
@@ -303,7 +306,7 @@ const LastActivity = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+white-space:nowrap ;
   color: #252525;
   ${({ theme }) => theme === "dark" && `
     color: #fff;
@@ -324,7 +327,7 @@ const LastActivityValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+white-space:nowrap ;
   color: #3a3a3a;
   margin-left: 73px;
   ${({ theme }) => theme === "dark" && `
@@ -333,6 +336,7 @@ const LastActivityValue = styled.div`
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 46px;
+    white-space: break-spaces;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
@@ -350,7 +354,7 @@ const Rank = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+
   color: #252525;
   ${({ theme }) => theme === "dark" && `
     color: #fff;
@@ -369,7 +373,7 @@ const RankValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+
   color: #3a3a3a;
   margin-left: 126px;
   ${({ theme }) => theme === "dark" && `
@@ -382,6 +386,25 @@ const RankValue = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
     margin-left: 101px;
+  }
+`;
+const TokenValue = styled.div`
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.87;
+  color: #3a3a3a;
+  margin-left: 111px;
+
+  @media (max-width: 767px) {
+    font-size: 13px;
+    margin-left: 79px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
+    margin-left: 86px;
   }
 `;
 const AddTagButton = styled.button`
@@ -416,14 +439,13 @@ const Heading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #2a2a2a;
   ${({ theme }) => theme === "dark" && `
     color: #fff;
   `}
   @media (max-width: 767px) {
     font-size: 14px;
-    
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 18px;
@@ -489,7 +511,7 @@ const LoginText = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   text-align: right;
   color: #3a3a3a;
   ${({ theme }) => theme === "dark" && `
@@ -503,7 +525,7 @@ const LoginTextMobile = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -574,6 +596,8 @@ function AddressDetails(props) {
   const [stop, setStop] = React.useState(false);
   const [watchlistDetails, setWatchListDetails] = React.useState(null);
   const [existingWatchList, setExistingWatchList] = React.useState(null);
+  const [type, setType] = useState("");
+  const [tokenForAddres, setTokenForAddres] = useState([]);
   const closeDialogPvtTag = () => {
     setDialogPvtTagIsOpen(false);
     setDailogValue(0);
@@ -611,8 +635,7 @@ function AddressDetails(props) {
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-  const currencySymbol = !price ? "" :
-    activeCurrency === "USD" ? "$" : "€";
+  const currencySymbol = !price ? "" : activeCurrency === "USD" ? "$" : "€";
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -697,6 +720,30 @@ function AddressDetails(props) {
     }
   };
 
+  const getListOfHoldersForToken = async () => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        TokenData.getListOfTokenForAddress(addr)
+      );
+      if (
+        !responseData ||
+        responseData.length === 0 ||
+        responseData === "" ||
+        responseData === null
+      ) {
+        setLoading(false);
+      }
+      if (responseData) {
+        setTokenForAddres(responseData);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const coinMarketCapDetails = async () => {
     let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
       CoinMarketService?.getCoinMarketData(activeCurrency, {})
@@ -732,7 +779,7 @@ function AddressDetails(props) {
       userId: sessionManager.getDataFromCookies("userId"),
     };
     let taggedAddress = localStorage.getItem(
-        data.userId + cookiesConstants.USER_TAGGED_ADDRESS
+      data.userId + cookiesConstants.USER_TAGGED_ADDRESS
     );
 
     // let existingTagsIndex=null;
@@ -761,31 +808,29 @@ function AddressDetails(props) {
     // getListOfTagAddress();
     getAddressStats();
     getWatchList();
+    getListOfHoldersForToken();
   }, [amount]);
 
-  const getWatchList = async ()=>{
+  const getWatchList = async () => {
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: addr,
-      skip:0,
-      limit:10
-    }
+      skip: 0,
+      limit: 10,
+    };
 
-const res = await UserService.getWatchlistList(request)
-    if(res && res.watchlistContent && res.watchlistContent.length){
+    const res = await UserService.getWatchlistList(request);
+    if (res && res.watchlistContent && res.watchlistContent.length) {
       setWatchListDetails(res.watchlistContent[0]);
-        setExistingWatchList(true);
+      setExistingWatchList(true);
     }
-  }
+  };
 
   const currentTime = new Date();
   const previousTime = new Date(addressData?.timestamp * 1000);
   const ti = !addressData?.timestamp
     ? ""
-    :
-    moment(addressData?.timestamp * 1000).format(
-      "MMM DD, YYYY h:mm A"
-    )
+    : moment(addressData?.timestamp * 1000).format("MMM DD, YYYY h:mm A");
 
   const lastActivityTime = new Date(
     addressStats?.lastTransactionTimestamp * 1000
@@ -793,37 +838,44 @@ const res = await UserService.getWatchlistList(request)
   const lastAct = !addressStats?.lastTransactionTimestamp
     ? ""
     : Utility.timeDiff(currentTime, lastActivityTime);
-  let lastActConverted = !addressStats?.lastTransactionTimestamp ? "" : ((moment(
-    Number(addressStats?.lastTransactionTimestamp) *
-    1000
-  )
-    .utc()
-    .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"))
+  let lastActConverted = !addressStats?.lastTransactionTimestamp
+    ? ""
+    : moment(Number(addressStats?.lastTransactionTimestamp) * 1000)
+        .utc()
+        .format("MMM-DD-YYYY h:mm:ss A") + "  UTC";
   let userId = sessionManager.getDataFromCookies("userId");
   let taggedAddressfetched = localStorage.getItem(
-      userId+cookiesConstants.USER_TAGGED_ADDRESS
+    userId + cookiesConstants.USER_TAGGED_ADDRESS
   );
   let tags =
     taggedAddressfetched && taggedAddressfetched.length > 0
       ? JSON.parse(taggedAddressfetched)
       : "";
 
-  var tagValue = tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addr && obj.userId == userId) : "";
+  var tagValue =
+    tags && tags.length > 0
+      ? tags?.filter((obj) => obj.address === addr && obj.userId == userId)
+      : "";
   let watchlists = localStorage.getItem(
-      userId+cookiesConstants.USER_ADDRESS_WATCHLIST
+    userId + cookiesConstants.USER_ADDRESS_WATCHLIST
   );
-  let watchList =
-    watchlists ? JSON.parse(watchlists) : "";
-    // watchList &&
-    // watchList?.filter((item) => item.address == addr && item.userId == userId);
+  let watchList = watchlists ? JSON.parse(watchlists) : "";
+  // watchList &&
+  // watchList?.filter((item) => item.address == addr && item.userId == userId);
   async function remove() {
-    delete watchList[addr];
-    // var i = watchList.findIndex((obj) => obj.address === addr);
-    // if (i !== -1) {
-    //   watchList.splice(i, 1);
+    var i = watchList.findIndex((obj) => obj.address === addr);
+    if (i !== -1) {
+      watchList.splice(i, 1);
+    }
     const [error, response] = await utility.parseResponse(
-        WatchListService.deleteWatchlist({ _id: watchlistDetails._id }, watchlistDetails)
+        WatchListService.deleteWatchlist({ _id: watchlistDetails?._id }, watchlistDetails)
     );
+    if (error || !response) {
+        utility.apiFailureToast(
+          error?.message || genericConstants.CANNOT_DELETE_WATCHLIST
+        );
+        return;
+      }
       localStorage.setItem(
         userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchList)
@@ -999,8 +1051,8 @@ const res = await UserService.getWatchlistList(request)
                       </CopyButton>
                     </AddressLine>
                     {sessionManager.getDataFromCookies("isLoggedIn") &&
-                      tagValue &&
-                      tagValue?.length > 0 ? (
+                    tagValue &&
+                    tagValue?.length > 0 ? (
                       <Tag>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
                     ) : (
                       ""
@@ -1048,14 +1100,29 @@ const res = await UserService.getWatchlistList(request)
                     <LastActivity theme={props.theme.currentTheme}>Last Activity</LastActivity>
                     <LastActivityValue theme={props.theme.currentTheme}>
                       {lastAct}&nbsp;
-                      {!lastActConverted ? "" : "(" + (lastActConverted) + ")"}
-
+                      {!lastActConverted ? "" : "(" + lastActConverted + ")"}
                     </LastActivityValue>
                   </AddressAgeDiv>
                   <RankDiv>
                     <Rank theme={props.theme.currentTheme}>Rank</Rank>
                     <RankValue theme={props.theme.currentTheme}>Not available</RankValue>
                   </RankDiv>
+
+                  {tokenForAddres.length > 0 ? (
+                    <RankDiv>
+                      <Rank>Tokens</Rank>
+                      <TokenValue>
+                        <CustomDropDownAddress
+                          name="Tokens"
+                          onSelect={(data) => setType(data)}
+                          options={tokenForAddres}
+                          price={price}
+                        />
+                      </TokenValue>
+                    </RankDiv>
+                  ) : (
+                    ""
+                  )}
                 </AddressDetailDiv>
                 <ButtonDiv>
                   {sessionManager.getDataFromCookies("isLoggedIn") ? (
@@ -1080,6 +1147,7 @@ const res = await UserService.getWatchlistList(request)
                             open={dialogWatchListIsOpen}
                             setExistingWatchList={setExistingWatchList}
                             onClose={closeDialogWatchList}
+                            getWatchList={getWatchList}
                             fromAddr={transactions.from}
                             value={dialogValue}
                             hash={addr}
