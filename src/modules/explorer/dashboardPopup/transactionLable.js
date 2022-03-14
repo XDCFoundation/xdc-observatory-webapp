@@ -547,7 +547,7 @@ export default function FormDialog(props) {
             </div>
         </Dialog>
         {/* </div> */}
-        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
+        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert} theme={props.theme}/>:("")} 
       </div>
     </>
   );

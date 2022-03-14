@@ -257,7 +257,7 @@ export default function StorageMessage(props) {
                     </div>
                 </div>
                 ) : 
-                (<NewFeature setIsCookiesAccepted={setIsCookiesAccepted} />)
+                (<NewFeature setIsCookiesAccepted={setIsCookiesAccepted} theme={props.theme}/>)
                 ) :
                 (<ManageCookiesDialog open={openDialog} close={closeDialog} setIsCookiesAccepted={setIsCookiesAccepted} theme={props.theme}/>)}
         </>

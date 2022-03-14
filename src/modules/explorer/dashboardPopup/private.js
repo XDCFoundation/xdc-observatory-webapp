@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     marginBottom: "21px",
     outline: "none",
+    color: "#fff"
   },
 
   addbtn: {
@@ -550,6 +551,7 @@ export default function FormDialog(props) {
                 // onKeyDown={onKeyDown}
                 // onKeyUp={onKeyUp}
                 onChange={onChange}
+                className={props.theme === "dark" ? "fc-white" :""}
               />
             </div>
             {errorTag ? (
