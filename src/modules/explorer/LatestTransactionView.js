@@ -119,7 +119,7 @@ const LatestTransactionView = (props) => {
               <TransactionTitle theme={props.theme}>Latest Transactions</TransactionTitle>
               <a
                 className={props.theme === "dark" ? "linkTable-dark cursor-pointer" : "linkTable cursor-pointer"}
-                href="/view-all-transaction/1"
+                href="/view-all-transaction"
               >
                 View All
               </a>

@@ -58,6 +58,11 @@ export default function BlocksComponent(props) {
   const [difficultyTT, setDifficultyTT] = useState(false);
   const [gasUsedTT, setGasUsedTT] = useState(false);
 
+  if(props.state.lastPage===true){
+    props.state.blocksList.sort(function (a, b) {
+      return Number(b.number) - Number(a.number);
+    });
+  }
   return (
     <Grid className="table_1 ">
       <Grid class={props.theme === "dark" ? "tabletop-heading-dark table-top-header" : "tabletop-header table-top-header"}>{state.tableName}</Grid>

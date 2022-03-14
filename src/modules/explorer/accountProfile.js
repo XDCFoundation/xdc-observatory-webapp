@@ -45,7 +45,9 @@ import PrivacyAlert from "../explorer/dashboardPopup/privacyAlert";
 import Utility from "../../utility";
 import { connect, useSelector } from "react-redux";
 import format from "format-number";
-
+import CustomDropDownAddress from "../common/importDropdown";
+import ExportButton from "../common/exportButton";
+import { forEach } from "lodash";
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
@@ -468,6 +470,7 @@ const SubParentContainer = styled.div`
   }
 `;
 function SimpleTabs(props) {
+  let sampleData;
   const timezone = useSelector((state) => state.timezone);
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -867,15 +870,15 @@ function SimpleTabs(props) {
     let newData;
     if (ageToggle === -1) {
       newData = oldData.sort(
-        (index1, index2) => index2.modifiedOn - index1.modifiedOn
+        (index1, index2) => parseInt(index2.modifiedOn) - parseInt(index1.modifiedOn)
       );
-      console.log(newData, "<<<");
+
       setAgeToggle(1);
     } else {
       newData = oldData.sort(
-        (index1, index2) => index1.modifiedOn - index2.modifiedOn
+        (index1, index2) => parseInt(index1.modifiedOn) - parseInt(index2.modifiedOn)
       );
-      console.log(newData, "<<<");
+
       setAgeToggle(-1);
     }
     setPrivateAddress(newData);
@@ -1062,6 +1065,42 @@ function SimpleTabs(props) {
   const [countTag, setCountTag] = React.useState(-1);
   const [checkedTag, setCheckedTag] = React.useState(false);
   let tagAddrLength = privateAddress.length;
+  const sampleRender = (res) => {
+    // console.log(res, "res");
+  };
+  const updateListTags = (res) => {
+    const request = {
+      userId: sessionManager.getDataFromCookies("userId"),
+    };
+    let taggedAddress = localStorage.getItem(
+      request.userId + cookiesConstants.USER_TAGGED_ADDRESS
+    );
+    taggedAddress = JSON.parse(taggedAddress);
+    // const existingAddress = privateAddress.filter((x1) =>
+    //   res.some((x2) => x1.address === x2.address)
+    // );
+    let updatedPrivateAddress = [];
+    res.map((item) => {
+      let existingAddressIndex = privateAddress.findIndex(
+        (i2) => i2.address === item.address
+      );
+      if (existingAddressIndex !== -1) {
+        updatedPrivateAddress.push({
+          ...privateAddress[existingAddressIndex],
+          ...item,
+        });
+        privateAddress.splice(existingAddressIndex, 1);
+        return;
+      }
+      updatedPrivateAddress.push({ userId: request?.userId, ...item });
+    });
+
+    setPrivateAddress([...updatedPrivateAddress, ...privateAddress]);
+    localStorage.setItem(
+      request.userId + cookiesConstants.USER_TAGGED_ADDRESS,
+      JSON.stringify([...updatedPrivateAddress, ...privateAddress])
+    );
+  };
 
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
@@ -1094,9 +1133,9 @@ function SimpleTabs(props) {
       setDownloadTagAddress(
         tempAddress.map((item) => {
           return {
-            Address: item.address,
-            NameTag: item.tagName,
-            AddedOn: moment(item.addedOn),
+            address: item.address,
+            tagName: item.tagName,
+            modifiedOn: item?.modifiedOn,
           };
         })
       );
@@ -1120,9 +1159,9 @@ function SimpleTabs(props) {
       setDownloadTagAddress(
         tempAddr.map((item) => {
           return {
-            Address: item.address,
-            NameTag: item.tagName,
-            AddedOn: moment(item.addedOn),
+            address: item.address,
+            nameTag: item.tagName,
+            modified:item?.addedOn,
           };
         })
       );
@@ -1819,7 +1858,7 @@ function SimpleTabs(props) {
                                   <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {`${
                                       (row?.modifiedOn &&
-                                        moment(row?.modifiedOn)
+                                        moment(parseInt(row?.modifiedOn)) 
                                           .tz(timezone)
                                           .format("MMM DD, YYYY, hh:mm A")) ||
                                       ""
@@ -2212,7 +2251,7 @@ function SimpleTabs(props) {
                                 <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                   {`${
                                     (row?.modifiedOn &&
-                                      moment(row?.modifiedOn)
+                                      moment(parseInt(row?.modifiedOn))
                                         .tz(timezone)
                                         .format("MMM DD, YYYY, hh:mm A")) ||
                                     ""
@@ -2692,7 +2731,7 @@ function SimpleTabs(props) {
                                 <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                   {`${
                                     (row?.modifiedOn &&
-                                      moment(row?.modifiedOn)
+                                      moment((parseInt(row?.modifiedOn)))
                                         .tz(timezone)
                                         .format("MMM DD, YYYY, hh:mm A")) ||
                                     ""
