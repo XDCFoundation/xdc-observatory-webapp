@@ -154,6 +154,9 @@ const CustomDropDownAddress = (props) => {
     toggleDropdown(false);
   };
   const onFilterClicked = () => {
+    if(isDropdownOpen)
+    toggleDropdown(false)
+    else
     toggleDropdown(true);
   };
 
