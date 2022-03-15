@@ -35,6 +35,7 @@ import toast, { Toaster } from "react-hot-toast";
 import utility from "../../utility";
 import CustomDropDownAddress from "./customDropdownAddress";
 import TokenData from "../../services/token";
+import XRC20Transactions from "./xrc20Transactions";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -288,7 +289,7 @@ const LastActivity = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-white-space:nowrap ;
+  white-space: nowrap;
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
@@ -306,7 +307,7 @@ const LastActivityValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-white-space:nowrap ;
+  white-space: nowrap;
   color: #3a3a3a;
   margin-left: 73px;
   @media (max-width: 767px) {
@@ -541,6 +542,9 @@ export default function AddressDetails(props) {
   const [coinValue, setCoinValue] = useState(0);
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [isLoadingDropDown, setLoadingDropDown] = useState(0);
+
+  console.log(isLoading, ">>>>>");
   const [copiedText, setCopiedText] = useState("");
   let nowCurrency = window.localStorage.getItem("currency");
   const [addressTag, setAddressTag] = useState([]);
@@ -697,9 +701,10 @@ export default function AddressDetails(props) {
       ) {
         setLoading(false);
       }
-      if (responseData) {
-        setTokenForAddres(responseData);
-        setLoading(false);
+      if (responseData.length > 0) {
+        await setTokenForAddres(responseData);
+        await setLoading(false);
+        await setLoadingDropDown(1);
       } else {
         setLoading(false);
       }
@@ -832,18 +837,21 @@ export default function AddressDetails(props) {
       watchList.splice(i, 1);
     }
     const [error, response] = await utility.parseResponse(
-        WatchListService.deleteWatchlist({ _id: watchlistDetails?._id }, watchlistDetails)
+      WatchListService.deleteWatchlist(
+        { _id: watchlistDetails?._id },
+        watchlistDetails
+      )
     );
     if (error || !response) {
-        utility.apiFailureToast(
-          error?.message || genericConstants.CANNOT_DELETE_WATCHLIST
-        );
-        return;
-      }
-      localStorage.setItem(
-        userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
-        JSON.stringify(watchList)
+      utility.apiFailureToast(
+        error?.message || genericConstants.CANNOT_DELETE_WATCHLIST
       );
+      return;
+    }
+    localStorage.setItem(
+      userId + cookiesConstants.USER_ADDRESS_WATCHLIST,
+      JSON.stringify(watchList)
+    );
     // }
     setExistingWatchList(null);
     setStop("");
@@ -1071,21 +1079,21 @@ export default function AddressDetails(props) {
                     <RankValue>Not available</RankValue>
                   </RankDiv>
 
-                  {tokenForAddres.length > 0 ? (
-                    <RankDiv>
-                      <Rank>Tokens</Rank>
-                      <TokenValue>
+                  <RankDiv>
+                    <Rank>Tokens</Rank>
+                    <TokenValue>
+                      {isLoadingDropDown === 1 && tokenForAddres.length > 0 ? (
                         <CustomDropDownAddress
                           name="Tokens"
                           onSelect={(data) => setType(data)}
                           options={tokenForAddres}
                           price={price}
                         />
-                      </TokenValue>
-                    </RankDiv>
-                  ) : (
-                    ""
-                  )}
+                      ) : (
+                        "No Tokens Available"
+                      )}
+                    </TokenValue>
+                  </RankDiv>
                 </AddressDetailDiv>
                 <ButtonDiv>
                   {sessionManager.getDataFromCookies("isLoggedIn") ? (
@@ -1198,6 +1206,7 @@ export default function AddressDetails(props) {
                 >
                   Transactions
                 </button>
+
                 <button
                   className={
                     toggleState === 2
@@ -1208,6 +1217,17 @@ export default function AddressDetails(props) {
                   id="transaction-btn"
                 >
                   Analytics
+                </button>
+                <button
+                  className={
+                    toggleState === 3
+                      ? "tabs_third_address_details active-tabs_sec_xrc"
+                      : "tabs_third_address_details"
+                  }
+                  onClick={() => toggleTab(3)}
+                  id="transaction-btn"
+                >
+                  XRC20 Transactions
                 </button>
               </div>
             </div>
@@ -1237,6 +1257,7 @@ export default function AddressDetails(props) {
               </div>
             )}
             {toggleState === 2 && <AddressDetailsAnalytics />}
+            {toggleState === 3 && <XRC20Transactions />}
           </div>
         </Grid>
         <FooterComponent _handleChange={_handleChange} currency={amount} />

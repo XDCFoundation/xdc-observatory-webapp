@@ -1031,6 +1031,7 @@ export default function SimpleTabs(props) {
     // console.log(res, "res");
   };
   const updateListTags = (res) => {
+    console.log(res,">>>>>")
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
     };
@@ -1095,9 +1096,9 @@ export default function SimpleTabs(props) {
       setDownloadTagAddress(
         tempAddress.map((item) => {
           return {
-            address: item.address,
-            tagName: item.tagName,
-            modifiedOn: item?.modifiedOn,
+            Address: item.address,
+            NameTag: item.tagName,
+            AddedOn: item?.modifiedOn,
           };
         })
       );
@@ -1121,9 +1122,9 @@ export default function SimpleTabs(props) {
       setDownloadTagAddress(
         tempAddr.map((item) => {
           return {
-            address: item.address,
-            nameTag: item.tagName,
-            modified:item?.addedOn,
+            Address: item.address,
+            NameTag: item.tagName,
+            AddedOn:item?.addedOn,
           };
         })
       );

@@ -7,6 +7,7 @@ import TokenTransfertab from "./tokenTransfertab";
 import TokenHoldertab from "./tokenHoldersTab";
 import TokenContracttab from "./tokenContractTab";
 import TokenUnverifiedContract from "./tokenUnverifiedContract";
+import TotalTokenTransactions from "./allTokenTransactions"
 import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
@@ -17,7 +18,6 @@ import ReadContract from "../contractMethods/read";
 import WriteContract from "../contractMethods/write";
 import { Row } from "simple-flexbox";
 
-let li = 0;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs(props) {
   const classes = useStyles();
-  const [toggleState, setToggleState] = useState(1);
+  const [toggleState, setToggleState] = useState(7);
   const { tn, address } = useParams();
   const toggleTab = (index) => {
     setToggleState(index);
@@ -115,13 +115,23 @@ export default function SimpleTabs(props) {
             >
               <button
                 className={
+                  toggleState === 7
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(7)}
+              >
+                All Txns
+              </button>
+              <button
+                className={
                   toggleState === 1
                     ? "token-data-tabs active-tabs-token"
                     : "token-data-tabs"
                 }
                 onClick={() => toggleTab(1)}
               >
-                Transfers
+                XRC 20 Txns
               </button>
               <button
                 className={
@@ -191,6 +201,15 @@ export default function SimpleTabs(props) {
           </div>
 
           <div>
+            <div
+              className={
+                toggleState === 7 ? "content  active-content" : "content"
+              }
+            >
+              <div style={{ marginTop: "10px", width: "auto" }}>
+                <TotalTokenTransactions />
+              </div>
+            </div>
             <div
               className={
                 toggleState === 1 ? "content  active-content" : "content"
