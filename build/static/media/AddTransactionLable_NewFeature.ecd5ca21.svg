@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="AddTransactionLable_NewFeature" transform="translate(-225 -27)">
+    <rect id="Rectangle_4" data-name="Rectangle 4" width="60" height="60" transform="translate(225 27)" fill="none"/>
+    <g id="Group_5" data-name="Group 5" transform="translate(-957 -380.779)">
+      <g id="Group_3" data-name="Group 3" transform="translate(541 157)">
+        <path id="Path_1" data-name="Path 1" d="M8.961,51A.973.973,0,0,1,8,50.055V41.771a14.093,14.093,0,0,1,14.208-13.89h4.5a14.094,14.094,0,0,1,14.208,13.89v8.284a.98.98,0,0,1-.962.945H8.962ZM22.208,29.716A12.252,12.252,0,0,0,9.848,41.771v7.394h29.22V41.771A12.252,12.252,0,0,0,26.709,29.716Z" transform="translate(640 250.779)" fill="#203d8b" stroke="#213d8b" stroke-width="0.6"/>
+        <path id="Path_3" data-name="Path 3" d="M15.866,19.4A8.439,8.439,0,0,1,24.333,11h.24a8.395,8.395,0,1,1,.01,16.789h-.25a8.439,8.439,0,0,1-8.467-8.4Zm8.708,6.56a6.56,6.56,0,1,0,0-13.12h-.25a6.56,6.56,0,1,0,0,13.12Z" transform="translate(640.134 248.779)" fill="#203d8b" stroke="#213d8b" stroke-width="0.6"/>
+        <path id="Path_5" data-name="Path 5" d="M33.5,28.107a.994.994,0,0,1,1-1.015H50v2.03H34.5a.994.994,0,0,1-1-1.015ZM33,42.569V29.447a1.99,1.99,0,0,0,1.266.674l17.484.016A1.256,1.256,0,0,1,53,31.405v2.284H45.25A1.268,1.268,0,0,0,44,34.958v4.06a1.268,1.268,0,0,0,1.25,1.268H53v2.283a1.257,1.257,0,0,1-1.25,1.27H34.25A1.257,1.257,0,0,1,33,42.569ZM45.25,34.7a.241.241,0,0,0-.25.254v4.06a.241.241,0,0,0,.25.253H53V34.7Zm3.25,2.283a.75.75,0,1,0-.75.762A.756.756,0,0,0,48.5,36.987Z" transform="translate(640.4 250.779)" fill="#02adff"/>
+      </g>
+    </g>
+  </g>
+</svg>
