@@ -13,24 +13,28 @@ export default function TokenUnverifiedContract(props) {
   return (
     <>
       <Paper
-        style={{
+        style={props.theme === "dark" ? { 
+          borderRadius: "14px",
+          boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#192a59"
+        } : {
           borderRadius: "14px",
           boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
         }}
         elevation={0}
       >
-        <div className="container">
+        <div className={props.theme === "dark" ? "container-dark" : "container"}>
           <div className="source-code-unverified">
             <div className="contract-source-code">
-              <div className="contract-text">Contract Source Code</div>
+              <div className={props.theme === "dark" ? "contract-text fc-white" : "contract-text"}>Contract Source Code</div>
               <div className="contract-unverified-text">
                 <IoIosWarning className="danger-logo" />
                 <div style={{ color: "rgb(222,105,165)" }}>Unverified</div>
               </div>
             </div>
-            <hr className="hr-line"></hr>
+            <hr className={props.theme === "dark" ? "hr-dark hr-line" : "hr-line"}></hr>
             <div className="contract-source-code-verify">
-              <div className="contract-text">Verify</div>
+              <div className={props.theme === "dark" ? "contract-text fc-white" : "contract-text"}>Verify</div>
               <div className="btn-click-div">
                 <a href={"/verify-contracts/" + unverifiedData.address}>
                   <button className="click-here-btn">
@@ -38,7 +42,7 @@ export default function TokenUnverifiedContract(props) {
                     Click here
                   </button>
                 </a>
-                <div className="to-verify-text">
+                <div className={props.theme === "dark" ? "to-verify-text fc-white" : "to-verify-text"}>
                   to Verify and Publish Source Code
                 </div>
               </div>
@@ -46,7 +50,7 @@ export default function TokenUnverifiedContract(props) {
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", marginTop: 15 }}>
-            <div className="contract-source-2">
+            <div className={props.theme === "dark" ? "contract-source-2 fc-white" : "contract-source-2"}>
               <img className="code-logo" src={"/images/bytecode.svg"} />{" "}
               Contract Byte-Code
             </div>
@@ -64,7 +68,11 @@ export default function TokenUnverifiedContract(props) {
                   placement="top"
                 >
                   <button
-                    style={{
+                    style={props.theme === "dark" ? {
+                      color: "blue",
+                      backgroundColor: "#192a59",
+                      fontSize: 14,
+                    } : {
                       color: "blue",
                       backgroundColor: "white",
                       fontSize: 14,
@@ -79,7 +87,12 @@ export default function TokenUnverifiedContract(props) {
 
           <div>
             <textarea
-              style={{
+              style={props.theme === "dark" ? {
+                outline: "none",
+                border: "none",
+                backgroundColor: "#3f4966",
+                color: "#fff",
+              } : {
                 borderLeftWidth: "6px",
                 borderLeftColor: "#2149b9",
                 outline: "none",
@@ -87,6 +100,7 @@ export default function TokenUnverifiedContract(props) {
               readOnly
               value={unverifiedData.byteCode}
               className="input-area-bytecode"
+              id={props.theme === "dark" ? "contract-code-textarea" : ""}
             />
           </div>
         </div>

@@ -85,7 +85,15 @@ function TokenAnalytics(props) {
 
   return (
     <Paper
-      style={{
+      style={props.theme === "dark" ? {
+        padding: "15px 10px 0 0",
+        borderRadius: "14px",
+        boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+        display: "flex",
+        flexFlow: "column",
+        gap: "10px",
+        backgroundColor: "#192a59"
+      } : {
         padding: "15px 10px 0 0",
         borderRadius: "14px",
         boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
@@ -126,6 +134,7 @@ function TokenAnalytics(props) {
           graphData={graphData}
           loading={loading}
           ProgressBarContainer={ProgressBarContainer}
+          theme={props.theme}
         />
       )}
       {activeTab === "tokenTransferAmounts" && (
@@ -133,6 +142,7 @@ function TokenAnalytics(props) {
           graphData={graphData}
           loading={loading}
           ProgressBarContainer={ProgressBarContainer}
+          theme={props.theme}
         />
       )}
       {activeTab === "tokenTransferCounts" && (
@@ -140,10 +150,11 @@ function TokenAnalytics(props) {
           contractAddress={contractAdd}
           loading={loading}
           ProgressBarContainer={ProgressBarContainer}
+          theme={props.theme}
         />
       )}
       {activeTab === "historicalPrice" && (
-        <TokeHistoryAnalytics contractAddress={contractAdd} loading={loading} />
+        <TokeHistoryAnalytics contractAddress={contractAdd} loading={loading} theme={props.theme}/>
       )}
     </Paper>
   );

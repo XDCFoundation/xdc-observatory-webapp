@@ -68,17 +68,19 @@ export const cookiesConstants = {
   AUTH0_ID_TOKEN: "AUTH0_ID_TOKEN",
   JWT_TOKEN: "JWT_TOKEN",
 
-  ACCESS_TOKEN: "ACCESS_TOKEN",
-  ID_TOKEN: "ID_TOKEN",
-  AUTHENTICATION_PROVIDER: "AUTHENTICATION_PROVIDER",
+  ACCESS_TOKEN:"ACCESS_TOKEN",
+  ID_TOKEN:"ID_TOKEN",
+  AUTHENTICATION_PROVIDER:"AUTHENTICATION_PROVIDER",
+  OBSERVER_THEME: "OBSERVER_THEME"
 };
 
 export const eventConstants = {
   HIDE_LOADER: "HIDE_LOADER",
   SHOW_LOADER: "SHOW_LOADER",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
-  ADD_TO_SEARCH_LIST: "ADD_TO_SEARCH_LIST",
-  CLEAR_SEARCH_LIST: "CLEAR_SEARCH_LIST",
+  ADD_TO_SEARCH_LIST: 'ADD_TO_SEARCH_LIST',
+  CLEAR_SEARCH_LIST: 'CLEAR_SEARCH_LIST',
+  TOGGLE_THEME: 'TOGGLE_THEME',
 };
 
 export const genericConstants = {
@@ -149,8 +151,9 @@ export const messages = {
   TOKEN_TYPE: "Token type may include XRC20, XRC721 or XRC1155.",
   CONTRACT: "Smart Contract associated with the particular token.",
   HOLDER: "The total number of unique addresses that hold the token",
-  TOKEN_TOTAL_SUPPLY:
-    "The number of coins that have been already created, minus any coins that have been burned",
+  TOKEN_TOTAL_SUPPLY: "The number of coins that have been already created, minus any coins that have been burned",
+  TOKEN_TRANSFER_24_HOURS: "Transfer in 24 hours.",
+  TOKEN_TRANSFER_3_DAYS: "Transfer in 3 days.",
   STATUS: "The token is either verified or unverified.",
   ACCOUNT_ADDRESS: "The unique address of a particular account.",
   ACCOUNT_TYPE: "Account type is either Account, Contract or Token.",

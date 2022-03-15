@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Releases from "./list.json";
 import contractverify from "../../services/contractverify";
-export default function VerifyContract() {
+export default function VerifyContract(props) {
     let address = useParams();
 
     if (address.address !== undefined) {
@@ -76,39 +76,39 @@ export default function VerifyContract() {
             <form onSubmit={handleSubmit(onSubmitHandler)} >
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }} className={isLoading == true ? "cover-spin-5" : ""}>
 
-                    <div className="paper-verify-contracts" elevation={3}>
+                    <div className={props.theme === "dark" ? "paper-verify-contracts table-bg-dark border-none-dark mb-60" : "paper-verify-contracts"} elevation={3}>
 
-                        <div className="verify-contracts-head">Verify and Publish Contract Source Code</div><br />
+                        <div className={props.theme === "dark" ? "verify-contracts-head fc-white" : "verify-contracts-head"}>Verify and Publish Contract Source Code</div><br />
                         <div className="textarea-verify-contract">
-                            <p className="verify-contract-first-div">Enter Contract Source Code below.</p>
-                            <p className="verify-contract-first-div-text">If the compiled bytecode matches the Creation Address bytecode, the contract is then Verified and will be published online.</p>
+                            <p className={props.theme === "dark" ? "verify-contract-first-div fc-black" : "verify-contract-first-div"}>Enter Contract Source Code below.</p>
+                            <p className={props.theme === "dark" ? "verify-contract-first-div-text fc-black" : "verify-contract-first-div-text"}>If the compiled bytecode matches the Creation Address bytecode, the contract is then Verified and will be published online.</p>
                         </div>
                         <br />
                         {msg ? <p className="validation-error-message txt-center">{msg}</p> : ""}
                         <br />
 
                         <div className="flex-row">
-                            <div className="vc-contract-add">Contract Address
+                            <div className={props.theme === "dark" ? "vc-contract-add fc-white" : "vc-contract-add"}>Contract Address
                                 {
                                     address.length ? <div>
-                                        <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange} value={address.length ? address : ""} />
+                                        <input {...register("addr")} name="addr" className={props.theme === "dark" ? "vc-input-contract-add-dark" : "vc-input-contract-add"} type="text" placeholder="Contract Address" onChange={handleChange} value={address.length ? address : ""} />
                                     </div> : <div>
-                                        <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange} value={inputValue} />
+                                        <input {...register("addr")} name="addr" className={props.theme === "dark" ? "vc-input-contract-add-dark" : "vc-input-contract-add"} type="text" placeholder="Contract Address" onChange={handleChange} value={inputValue} />
                                     </div>
                                 }
                                 <p className="validation-error-message">{errors?.addr?.message}</p>
                             </div>
-                            <div className="vc-contract-name" >Contract Name
+                            <div className={props.theme === "dark" ? "vc-contract-name fc-white" : "vc-contract-name"} >Contract Name
                                 <div>
-                                    <input {...register("contractname")} name="contractname" className="vc-input-contract-name" type="text" placeholder="Contract Name" />
+                                    <input {...register("contractname")} name="contractname" className={props.theme === "dark" ? "vc-input-contract-name-dark" : "vc-input-contract-name"} type="text" placeholder="Contract Name" />
                                 </div>
                                 <p className="validation-error-message">{errors?.contractname?.message}</p>
                             </div>
 
-                            <div className="vc-contract-compiler">Compiler
+                            <div className={props.theme === "dark" ? "vc-contract-compiler fc-white" : "vc-contract-compiler"}>Compiler
                                 <div>
 
-                                    <select {...register("version")} name="version" className="vc-contract-add-select"  >
+                                    <select {...register("version")} name="version" className={props.theme === "dark" ? "vc-contract-add-select-dark" : "vc-contract-add-select"}  >
                                         <option value="">Select compiler</option>
                                         <option value="latest">Latest</option>
                                         {Releases.builds.map((row, index) => {
@@ -134,22 +134,22 @@ export default function VerifyContract() {
 
                         </div>
                         {/* <br /> */}
-                        <div className="verify-contracts-head">Contract Code</div>
-                        <textarea {...register("code")} name="code" className="textarea-contract-code" placeholder="Contract Code" ></textarea>
+                        <div className={props.theme === "dark" ? "verify-contracts-head fc-white" : "verify-contracts-head"}>Contract Code</div>
+                        <textarea {...register("code")} name="code" className={props.theme === "dark" ? "textarea-contract-code-dark" : "textarea-contract-code"} placeholder="Contract Code" ></textarea>
                         <p className="validation-error-message">{errors?.code?.message}</p>
                         <br />
-                        <div className="verify-contracts-head">
+                        <div className={props.theme === "dark" ? "verify-contracts-head fc-b1c3e1" : "verify-contracts-head"}>
                             <input type="checkbox" value="1" name="optimise" {...register("optimise")} />
                             &nbsp;Optimization Enabled</div>
                         <br />
 
-                        <div className="constructor-arg">Constructor arguments ABI-encoded (OPTIONAL required for certain contracts only)</div>
-                        <input {...register("argument")} name="argument" sreadOnly className="textarea-constructor-arg" placeholder="Constructor Arguments" />
+                        <div className={props.theme === "dark" ? "constructor-arg fc-white" : "constructor-arg"}>Constructor arguments ABI-encoded (OPTIONAL required for certain contracts only)</div>
+                        <input {...register("argument")} name="argument" sreadOnly className={props.theme === "dark" ? "textarea-constructor-arg-dark" : "textarea-constructor-arg"} placeholder="Constructor Arguments" />
                         <br /><br />
 
                         <div>
                             <button style={{ backgroundColor: '#3763dd', borderRadius: '4px' }} className="validate-button">Validate Code</button>
-                            <button type="button" onClick={() => { reset(); clearMessage(); }} style={{ backgroundColor: '#9fa9ba', borderRadius: '4px' }} className="reset-button">Reset</button>
+                            <button type="button" onClick={() => { reset(); clearMessage(); }} style={props.theme === "dark" ? { backgroundColor: 'transparent', borderRadius: '4px' } : { backgroundColor: '#9fa9ba', borderRadius: '4px' }} className={props.theme === "dark" ? "reset-button pagination-btn-dark-border" : "reset-button"}>Reset</button>
                         </div>
 
                     </div>

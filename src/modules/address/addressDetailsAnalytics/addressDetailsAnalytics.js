@@ -21,6 +21,17 @@ const AnalyticsTabButton = styled.button`
     color: #fff;
     border: none;
   `}
+
+  ${({ theme, active }) => theme === "dark" && !active && `
+    background: transparent;
+    border: solid 1px #3552a5;
+    color: #b1c3e1;
+  `}
+
+  ${({ theme, active }) => theme === "dark" && active && `
+    background: #2149b9;
+    color: #fff;
+  `}
 `;
 
 const Buttonscontainer = styled.div`
@@ -43,42 +54,58 @@ const PaperStyles = {
   flexFlow: "column",
   width: "100%",
 };
+const PaperStylesDark = {
+  padding: "15px",
+  borderRadius: "14px",
+  boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+  margin: "35px 0",
+  display: "flex",
+  gap: "10px",
+  flexFlow: "column",
+  width: "100%",
+  backgroundColor: "#192a59",
+  marginBottom: "60px",
+};
 
-function AddressDetailsAnalytics() {
+function AddressDetailsAnalytics(props) {
   let [activeTab, setActiveTab] = useState("xdcBalance");
 
   return (
-    <Paper style={PaperStyles} elevation={0}>
+    <Paper style={props.theme === "dark" ? PaperStylesDark : PaperStyles} elevation={0}>
       <Buttonscontainer>
         <AnalyticsTabButton
           active={activeTab === "xdcBalance"}
           onClick={() => setActiveTab("xdcBalance")}
+          theme={props.theme}
         >
           XDC Balance
         </AnalyticsTabButton>
         <AnalyticsTabButton
           active={activeTab === "transactions"}
           onClick={() => setActiveTab("transactions")}
+          theme={props.theme}
         >
           Transactions
         </AnalyticsTabButton>
         <AnalyticsTabButton
           active={activeTab === "xdcTransfer"}
           onClick={() => setActiveTab("xdcTransfer")}
+          theme={props.theme}
         >
           XDC Transfer
         </AnalyticsTabButton>
         <AnalyticsTabButton
           active={activeTab === "tokenTransfer"}
           onClick={() => setActiveTab("tokenTransfer")}
+          theme={props.theme}
         >
           Token Transfer
         </AnalyticsTabButton>
       </Buttonscontainer>
-      {activeTab === "xdcBalance" && <XDCBalanceAnalytics />}
-      {activeTab === "transactions" && <TransactionAnalytics />}
-      {activeTab === "xdcTransfer" && <XDCTransferAnalytics />}
-      {activeTab === "tokenTransfer" && <TokenTransferAnalytics />}
+      {activeTab === "xdcBalance" && <XDCBalanceAnalytics theme={props.theme}/>}
+      {activeTab === "transactions" && <TransactionAnalytics theme={props.theme}/>}
+      {activeTab === "xdcTransfer" && <XDCTransferAnalytics theme={props.theme}/>}
+      {activeTab === "tokenTransfer" && <TokenTransferAnalytics theme={props.theme}/>}
     </Paper>
   );
 }

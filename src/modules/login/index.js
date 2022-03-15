@@ -105,6 +105,7 @@ class Login extends BaseComponent {
         onChangeEvent={this.onChangeEvent}
         togglePassword={this.togglePassword}
         onLoginClicked={this.onLoginClicked}
+        theme={this.props.theme}
       />
     );
   }
