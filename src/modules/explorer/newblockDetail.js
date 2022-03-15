@@ -15,10 +15,11 @@ import moment from "moment-timezone";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import queryString from "query-string";
-import utility from "../../utility";
-import { useSelector } from "react-redux";
+import utility,{ dispatchAction } from "../../utility";
+import { connect, useSelector } from "react-redux";
 import Utility from "../../utility";
 import format from "format-number";
+import { transparent } from "material-ui/styles/colors";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -53,9 +54,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     width: "100%",
   },
+  mainContainerDark: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    backgroundColor: "#091b4e"
+  },
 }));
 
-export default function BlockDetails() {
+function BlockDetails(props) {
   const classes = useStyles();
   const [height, setHeight] = useState([]);
   const [count, setcount] = useState(0);
@@ -196,19 +203,19 @@ export default function BlockDetails() {
 
   return (
     <div>
-      <Tokensearchbar />
-      <div className={classes.mainContainer}>
+      <Tokensearchbar theme={props.theme.currentTheme}/>
+      <div className={props.theme.currentTheme === "dark" ? classes.mainContainerDark : classes.mainContainer}>
         <div className={classes.root}>
           <Grid item xs={12}>
             <div className={isLoading == true ? "cover-spin-2" : ""}>
               <div className={isLoading == true ? "cover-spin" : ""}>
                 <Spacing style={{ borderBottom: "none" }}>
                   <Container>
-                    <Heading>Block Details</Heading>
+                    <Heading theme={props.theme.currentTheme}>Block Details</Heading>
                   </Container>
                 </Spacing>
 
-                <Div>
+                <Div theme={props.theme.currentTheme}>
                   <HashDiv>
                     <Container className="pad-left-6 pad-left-7">
                       <Tooltip 
@@ -222,11 +229,11 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Hash ID</Hash>
+                      <Hash theme={props.theme.currentTheme}>Hash ID</Hash>
                     </Container>
 
                     <MiddleContainerHash>
-                      <Content>
+                      <Content theme={props.theme.currentTheme}>
                         {/* {height.hash} */}
                         {width > 1240 ? height.hash : (width <= 1240 && width >= 768 ? Utils.shortenHashTab(height.hash) : height.hash)}
                         <CopyToClipboard
@@ -241,7 +248,7 @@ export default function BlockDetails() {
                             }
                             placement="top"
                           >
-                            <button className="copy-icon-block-details">
+                            <button className={props.theme.currentTheme === "dark" ? "copy-icon-block-details-dark" : "copy-icon-block-details"}>
                               <ImgView
                                 src="/images/copy-grey.svg"
                               />
@@ -252,8 +259,8 @@ export default function BlockDetails() {
                     </MiddleContainerHash>
                   </HashDiv>
                 </Div>
-                <Div__>
-                  <Spacing>
+                <Div__ theme={props.theme.currentTheme}>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip 
                         open={blockHeightTT}
@@ -267,10 +274,10 @@ export default function BlockDetails() {
                         />
                       </Tooltip>
 
-                      <Hash>Block Height</Hash>
+                      <Hash theme={props.theme.currentTheme}>Block Height</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content>
+                      <Content theme={props.theme.currentTheme}>
                         <ArrowBackIosIcon
                           style={{
                             marginRight: "10px",
@@ -307,7 +314,7 @@ export default function BlockDetails() {
                       </Content>
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip 
                         open={transactionTT}
@@ -320,15 +327,15 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Transaction</Hash>
+                      <Hash theme={props.theme.currentTheme}>Transaction</Hash>
                     </Container>
-                    <MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>
                       {height.transactions && height.transactions.length
                         ? height.transactions.length
                         : 0}
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip 
                         open={timeStampTT}
@@ -341,16 +348,16 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Time Stamp</Hash>
+                      <Hash theme={props.theme.currentTheme}>Time Stamp</Hash>
                     </Container>
-                    <MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>
                       {height?.timestamp && getHoursAgo(height.timestamp * 1000)}
                       (
                       {`${height?.timestamp && moment(height.timestamp * 1000).tz(timezone).format(
                         "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`})
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip 
                         open={parentHashTT}
@@ -363,13 +370,13 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Parent Hash</Hash>
+                      <Hash theme={props.theme.currentTheme}>Parent Hash</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content>
+                      <Content theme={props.theme.currentTheme}>
                         <a
                           onClick={decrement}
-                          className="parent_hash"
+                          className={props.theme.currentTheme === "dark" ? "parent_hash_dark" : "parent_hash"}
                           style={{ cursor: "pointer" }}
                         >
                           {/* {height.parentHash} */}
@@ -389,7 +396,11 @@ export default function BlockDetails() {
                             placement="top"
                           >
                             <button
-                              style={{
+                              style={props.theme.currentTheme === "dark" ? {
+                                color: "blue",
+                                fontSize: 14,
+                                background: "transparent",
+                              }: {
                                 color: "blue",
                                 backgroundColor: "white",
                                 fontSize: 14,
@@ -404,7 +415,7 @@ export default function BlockDetails() {
                       </Content>
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip 
                         open={sha3UnclesTT}
@@ -417,10 +428,10 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Sha3Uncles</Hash>
+                      <Hash theme={props.theme.currentTheme}>Sha3Uncles</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content>
+                      <Content theme={props.theme.currentTheme}>
                         {/* {height.sha3Uncles} */}
                         {width > 1240 ? height.sha3Uncles : (width <= 1240 && width >= 768 ? Utils.shortenHashTab(height.sha3Uncles) : height.sha3Uncles)}
                         <CopyToClipboard
@@ -436,7 +447,11 @@ export default function BlockDetails() {
                             placement="top"
                           >
                             <button
-                              style={{
+                              style={props.theme.currentTheme === "dark" ? {
+                                color: "blue",
+                                fontSize: 14,
+                                background: "transparent"
+                              }: {
                                 color: "blue",
                                 backgroundColor: "white",
                                 fontSize: 14,
@@ -451,7 +466,7 @@ export default function BlockDetails() {
                       </Content>
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip 
                         open={difficultyTT}
@@ -464,11 +479,11 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Difficulty</Hash>
+                      <Hash theme={props.theme.currentTheme}>Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{format({})(difficulty)}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>{format({})(difficulty)}</MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip 
                         open={totalDifficultyTT}
@@ -481,11 +496,11 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Total Difficulty</Hash>
+                      <Hash theme={props.theme.currentTheme}>Total Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{format({})(td)}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>{format({})(td)}</MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip 
                         open={gasUsedTT}
@@ -498,11 +513,11 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Gas Used</Hash>
+                      <Hash theme={props.theme.currentTheme}>Gas Used</Hash>
                     </Container>
-                    <MiddleContainer>{format({})(parseInt(height?.gasUsed))}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>{format({})(parseInt(height?.gasUsed))}</MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip
                         open={gasLimitTT}
@@ -515,11 +530,11 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Gas Limit</Hash>
+                      <Hash theme={props.theme.currentTheme}>Gas Limit</Hash>
                     </Container>
-                    <MiddleContainer>{format({})(parseInt(height?.gasLimit))}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>{format({})(parseInt(height?.gasLimit))}</MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
                       <Tooltip 
                         open={nonceTT}
@@ -532,11 +547,11 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Nonce</Hash>
+                      <Hash theme={props.theme.currentTheme}>Nonce</Hash>
                     </Container>
-                    <MiddleContainer>{height.nonce}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>{height.nonce}</MiddleContainer>
                   </Spacing>
-                  <Spacing style={{ height: "unset" }}>
+                  <Spacing lastBorder={true} theme={props.theme.currentTheme} style={{ height: "unset" }}>
                     <Container className="pad-bottom-34">
                       <Tooltip 
                         open={extraDataTT}
@@ -549,11 +564,11 @@ export default function BlockDetails() {
                           src="/images/info.svg"
                         />
                       </Tooltip>
-                      <Hash>Extra Data</Hash>
+                      <Hash theme={props.theme.currentTheme}>Extra Data</Hash>
                     </Container>
                     <div className="block-details-extraData">
                       <textarea
-                        className="text-area"
+                        className={props.theme.currentTheme === "dark" ? "text-area-dark" : "text-area"}
                         readOnly
                         value={height.extraData}
                       />
@@ -569,6 +584,11 @@ export default function BlockDetails() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(BlockDetails);
 
 const Input = styled.input`
   border-radius: 5px;
@@ -587,6 +607,9 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
@@ -594,6 +617,9 @@ const Content = styled.span`
     
     color: #3a3a3a;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
@@ -602,6 +628,9 @@ const Content = styled.span`
     
     color: #3a3a3a;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 1241px) {
     height: 1.125rem;
@@ -614,6 +643,9 @@ const Content = styled.span`
     
     text-align: left;
     color: #3a3a3a;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
 `;
 const TextArea = styled.textarea`
@@ -654,6 +686,10 @@ const Div__ = styled.div`
   margin-top: 20px;
   background-color: #fff;
   padding: 0rem 2.188rem 0rem 2.188rem;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #192a59;
+    margin-bottom: 60px;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     padding-right: 10px;
     padding-left: 10px;
@@ -668,6 +704,9 @@ const MiddleContainer = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     margin-left: unset;
     margin-top: 8px;
@@ -677,6 +716,9 @@ const MiddleContainer = styled.div`
     
     color: #3a3a3a;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
@@ -685,6 +727,9 @@ const MiddleContainer = styled.div`
     
     color: #3a3a3a;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 1241px) {
     height: 1.125rem;
@@ -697,6 +742,9 @@ const MiddleContainer = styled.div`
     
     text-align: left;
     color: #3a3a3a;
+    ${({ theme }) => theme === "dark" && `
+      color: #b1c3e1;
+    `}
   }
 `;
 const MiddleContainerHash = styled.div`
@@ -721,6 +769,9 @@ const Hash = styled.span`
   font-size: 13px;
   
   color: #2a2a2a;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
@@ -729,6 +780,9 @@ const Hash = styled.span`
     
     color: #2a2a2a;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #ffffff;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-family: "Inter", sans-serif;
@@ -738,6 +792,9 @@ const Hash = styled.span`
     
     color: #2a2a2a;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #ffffff;
+    `}
   }
   @media (min-width: 1241px) {
     height: 1.125rem;
@@ -750,6 +807,9 @@ const Hash = styled.span`
     
     text-align: left;
     color: #2a2a2a;
+    ${({ theme }) => theme === "dark" && `
+      color: #ffffff;
+    `}
   }
 `;
 const Spacing = styled.div`
@@ -761,6 +821,12 @@ const Spacing = styled.div`
   padding: 11px 6px 11px 0px;
   border-bottom: solid 1px #e3e7eb;
   height: 4.063rem;
+  ${({ theme }) => theme === "dark" && `
+    border-bottom: solid 1px #4a5d94;
+  `}
+  ${({ lastBorder, theme }) => theme === "dark" &&  lastBorder === true && `
+    border-bottom: none;
+  `}
 
   @media (min-width: 0px) and (max-width: 767px) {
     display: block;
@@ -804,6 +870,10 @@ const Div = styled.div`
   background-color: #fff;
   margin-bottom: 15px;
   padding: 5px;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #192a59;
+    border: none;
+  `}
 `;
 
 const Heading = styled.span`
@@ -814,6 +884,9 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 18px;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
 
   @media (min-width: 1241px) {
     height: 1.813rem;
@@ -826,6 +899,9 @@ const Heading = styled.span`
     
     text-align: left;
     color: #2a2a2a;
+    ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   }
   @media (min-width: 0px) and (max-width: 767px) {
     height: 1rem;
@@ -840,6 +916,9 @@ const Heading = styled.span`
     color: #2a2a2a;
     margin-top: 15px;
     margin-bottom: 10px;
+    ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     height: 1rem;
@@ -852,6 +931,9 @@ const Heading = styled.span`
     
     text-align: left;
     color: #2a2a2a;
+    ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   }
 `;
 

@@ -24,6 +24,12 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
   },
+  containerDark: {
+    borderRadius: "14px",
+    boxShadow: "none",
+    borderBottom: "none",
+    background: "#192a59",
+  },
   selectAmount: {
     height: "70%",
     marginRight: "8px",
@@ -59,14 +65,14 @@ export default function BlocksComponent(props) {
   }
   return (
     <Grid className="table_1 ">
-      <Grid class="tabletop-header table-top-header">{state.tableName}</Grid>
-      <Paper style={{ borderRadius: "14px" }} elevation={0}>
-        <TableContainer className={classes.container} id="container-table">
+      <Grid class={props.theme === "dark" ? "tabletop-heading-dark table-top-header" : "tabletop-header table-top-header"}>{state.tableName}</Grid>
+      <div style={{ borderRadius: "14px"}} elevation={0}>
+        <TableContainer className={props.theme === "dark" ? classes.containerDark : classes.container} id="container-table">
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders table-headers block-list-all"}>
+                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark block-list-all" : "tableheaders table-headers block-list-all"}>
                     Hash
                     <Tooltip
                       open={hashTT}
@@ -84,7 +90,7 @@ export default function BlocksComponent(props) {
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders table-headers"}>
+                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
                     Height
                     <Tooltip
                       open={heightTT}
@@ -102,7 +108,7 @@ export default function BlocksComponent(props) {
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders table-headers"}>
+                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
                     Age
                     <Tooltip 
                       open={ageTT}
@@ -120,7 +126,7 @@ export default function BlocksComponent(props) {
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders table-headers"}>
+                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
                     Transactions
                     <Tooltip 
                       open={transactionTT}
@@ -138,7 +144,7 @@ export default function BlocksComponent(props) {
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders table-headers"}>
+                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
                     Difficulty
                     <Tooltip 
                       open={difficultyTT}
@@ -156,7 +162,7 @@ export default function BlocksComponent(props) {
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders table-headers"}>
+                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
                     Gas Used
                     <Tooltip 
                       open={gasUsedTT}
@@ -202,8 +208,8 @@ export default function BlocksComponent(props) {
                         key={row.name}
                         style={
                           index % 2 !== 1
-                            ? { background: "#f9f9f9" }
-                            : { background: "white" }
+                            ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
+                            : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
                         }
                       >
                         <TableCell
@@ -221,8 +227,8 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ? animationClass
-                                : "tabledata table-data"
+                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
+                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata table-data"
                             }
                           >
                             {shorten(row.hash)}{" "}
@@ -234,7 +240,7 @@ export default function BlocksComponent(props) {
                           align="left"
                         >
                           <a
-                            className="linkTable"
+                            className={props.theme === "dark" ? "linkTable-dark" : "linkTable"}
                             href={"/block-details/" + row.number}
                           >
                             <span
@@ -256,8 +262,8 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ? animationClass
-                                : "tabledata table-data "
+                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
+                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata table-data"
                             }
                           >
                             {ti < 0 ? "0 secs ago" : ti}
@@ -271,8 +277,8 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ? animationClass
-                                : "tabledata table-data pad-left-6"
+                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
+                                : props.theme === "dark" ? "latest-blocks-tabledata-dark pad-left-6" : "tabledata table-data pad-left-6"
                             }
                           >
                             {" "}
@@ -287,8 +293,8 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ? animationClass
-                                : "tabledata table-data pad-left-4"
+                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
+                                : props.theme === "dark" ? "latest-blocks-tabledata-dark pad-left-4" : "tabledata table-data pad-left-4"
                             }
                           >
                             {row.difficulty}
@@ -298,8 +304,8 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ? animationClass
-                                : "tabledata pad-left-7"
+                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
+                                : props.theme === "dark" ? "latest-blocks-tabledata-dark pad-left-7" : "tabledata table-data pad-left-7"
                             }
                           >
                             {row.gasUsed}
@@ -313,14 +319,16 @@ export default function BlocksComponent(props) {
             )}
           </Table>
         </TableContainer>
-      </Paper>
+      </div>
       <Grid container style={{ marginTop: "28px" }} className="Pagination">
         <Grid item className="Pagination_1">
-          <span className="textShowRecordBlock">Show</span>
+          <span className={props.theme === "dark" ? "textShowRecordBlockDark" : "textShowRecordBlock"}>Show</span>
           <span className={classes.selectAmount}>
           <PageSelector value={props.state.amount}
                 height={35}
-                handler={(event) => props._handleChange(event)} /></span>
+                handler={(event) => props._handleChange(event)} 
+                theme={props.theme}
+                /></span>
           {/* <select
             value={props.state.amount}
             className="select-amount"
@@ -331,7 +339,7 @@ export default function BlocksComponent(props) {
             <option value={50}>50</option>
             <option value={100}>100</option>
           </select> */}
-          <span className="textShowRecordBlock">Records</span>
+          <span className={props.theme === "dark" ? "textShowRecordBlockDark" : "textShowRecordBlock"}>Records</span>
         </Grid>
 
         <Grid item className="Pagination_2">
@@ -339,8 +347,8 @@ export default function BlocksComponent(props) {
             onClick={(event) => props._FirstPage(event)}
             className={
               props.state.from === 0
-                ? "btn disabled btn-first"
-                : "btn btn-first"
+                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-first" : "btn disabled btn-first"
+                : props.theme === "dark" ? "btn-latest-block-dark btn-first" : "btn btn-first"
             }
           >
             First
@@ -348,12 +356,14 @@ export default function BlocksComponent(props) {
           <button
             onClick={(event) => props._PrevPage(event)}
             className={
-              props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"
+              props.state.from === 0 
+              ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-back" : "btn disabled btn-back" 
+              : props.theme === "dark" ? "btn-latest-block-dark  btn-back" : "btn btn-back"
             }
           >
             <img className="rotate-180" src={"/images/next.svg"} width="10px" />
           </button>
-          <button className="btn btn-page">
+          <button className={props.theme === "dark" ? "btn-latest-block-dark  btn-page" : "btn btn-page"}>
             Page{" "}
             {Math.round(state.totalblocks / state.amount) +
               1 -
@@ -364,8 +374,8 @@ export default function BlocksComponent(props) {
             onClick={(event) => props._NextPage(event)}
             className={
               props.state.from + props.state.amount === props.state.totalblocks
-                ? "btn disabled"
-                : "btn btn-next"
+                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
+                : props.theme === "dark" ? "btn-latest-block-dark  btn-next" : "btn btn-next"
             }
           >
             <img src={"/images/next.svg"} width="10px" />
@@ -374,8 +384,8 @@ export default function BlocksComponent(props) {
             onClick={(event) => props._LastPage(event)}
             className={
               props.state.from + props.state.amount === props.state.totalblocks
-                ? "btn disabled"
-                : "btn btn-last"
+                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
+                : props.theme === "dark" ? "btn-latest-block-dark  btn-last" : "btn btn-last"
             }
           >
             Last

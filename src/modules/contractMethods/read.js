@@ -16,6 +16,9 @@ const QuestionContainer = styled.div`
   border-radius: 4px;
   height: ${(props) => (props.isActive ? "auto" : "50px")};
   transition: height 0.5s ease-out;
+  ${({ theme }) => theme === "dark" && `
+    border: none;
+  `}
 `;
 const QuestionNameContainer = styled.div`
   color: #343a40 !important;
@@ -28,6 +31,11 @@ const QuestionNameContainer = styled.div`
   border-radius: 4px;
   justify-content: space-between;
   align-items: center;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #3f4966 !important;
+    border: solid 1px #3552a5;
+    outline: none;
+  `}
 `;
 
 const QuestionName = styled.div`
@@ -36,6 +44,9 @@ const QuestionName = styled.div`
   font-size: 15px;
   font-weight: 600;
   text-align: left;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
   }
@@ -52,12 +63,18 @@ const OutputContainer = styled.div`
   gap: 15px;
   background-color: white;
   padding: 15px;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #3f4966 !important;
+  `}
 `;
 
 const MainTitle = styled.div`
   color: #343a40 !important;
   font-weight: bold;
   font-size: 15px;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff !important;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
   }
@@ -68,6 +85,9 @@ const Output = styled.div`
   font-size: 15px;
   color: #3a3a3a;
   font-weight: 500;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1 !important;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
   }
@@ -76,6 +96,9 @@ const Output = styled.div`
 const Devider = styled.div`
   background-color: #dfe2e8;
   height: 1px;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #4a5d94;
+  `}
 `;
 
 const ParentContainer = styled.div`
@@ -103,6 +126,9 @@ const InputName = styled.div`
   font-weight: 600;
   text-align: left;
   color: #3a3a3a;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1 !important;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 13px;
   }
@@ -117,9 +143,17 @@ const ParamInput = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 5px;
   padding: 5px;
+  ${({ theme }) => theme === "dark" && `
+    border: solid 1px #3552a5 !important;
+    background-color: #192a59 !important;
+    color: #fff !important;
+  `}
 
   :active {
     outline: none;
+    ${({ theme }) => theme === "dark" && `
+      border: solid 1px #3552a5 !important;
+    `}
   }
   :hover {
     outline: none;
@@ -156,6 +190,9 @@ const HighlightedText = styled.div`
   font-weight: 600;
   text-align: left;
   color: #2149b9;
+  ${({ theme }) => theme === "dark" && `
+    color: #4878ff;
+  `}
 `;
 
 const HeaderContainer = styled.div`
@@ -322,7 +359,11 @@ export default function ContractRead(props) {
 
   return (
     <Paper
-      style={{
+      style={props.theme === "dark" ? {
+        borderRadius: "14px",
+        boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+        backgroundColor: "#192a59"
+      } : {
         borderRadius: "14px",
         boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
       }}
@@ -331,22 +372,22 @@ export default function ContractRead(props) {
       <HeaderContainer>
         <HeaderItemsContainer>
           <img src="/images/contract.svg" />
-          <MainTitle>Read Contract Information</MainTitle>
+          <MainTitle theme={props.theme}>Read Contract Information</MainTitle>
         </HeaderItemsContainer>
         <Row style={{ gap: 20 }} alignItems="center">
           {state.loading ? (
             <CircularProgress size={20} />
           ) : !state.isExpand ? (
-            <HighlightedText onClick={() => handleExpandAllClick()}>
+            <HighlightedText theme={props.theme} onClick={() => handleExpandAllClick()}>
               Expand all
             </HighlightedText>
           ) : (
-            <HighlightedText onClick={() => handleCollpaseClick()}>
+            <HighlightedText theme={props.theme} onClick={() => handleCollpaseClick()}>
               Collapse all
             </HighlightedText>
           )}
           <HeaderItemsContainer onClick={() => handleResetClick()}>
-            <HighlightedText>Reset</HighlightedText>
+            <HighlightedText theme={props.theme}>Reset</HighlightedText>
             <img src="/images/reset.svg" />
           </HeaderItemsContainer>
         </Row>
@@ -361,6 +402,7 @@ export default function ContractRead(props) {
                 setState={setState}
                 state={state}
                 handleFunctionClick={handleFunctionClick}
+                theme={props.theme}
               />
             );
           })
@@ -376,10 +418,12 @@ const FunctionContainer = ({
   state,
   handleFunctionClick,
   setState,
+  theme
 }) => {
   return (
-    <QuestionContainer isActive={item.isActive} key={index}>
+    <QuestionContainer theme={theme} isActive={item.isActive} key={index}>
       <QuestionNameContainer
+        theme={theme}
         onClick={() =>
           handleFunctionClick(
             index,
@@ -391,7 +435,7 @@ const FunctionContainer = ({
           )
         }
       >
-        <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
+        <QuestionName theme={theme}>{`${index + 1}. ${item.name}`}</QuestionName>
         <Row style={{ gap: 10 }} alignItems="center">
           {item.loading && item.inputs.length === 0 ? (
             <CircularProgress size={10} />
@@ -402,7 +446,7 @@ const FunctionContainer = ({
         </Row>
       </QuestionNameContainer>
       {item.isActive ? (
-        <OutputContainer>
+        <OutputContainer theme={theme}>
           {item.inputs.length > 0 ? (
             <InputTypeFunctions
               itemIndex={index}
@@ -410,9 +454,10 @@ const FunctionContainer = ({
               setState={setState}
               functionDetail={item}
               handleSubmit={handleFunctionClick}
+              theme={theme}
             />
           ) : (
-            <OutPutComponent item={item} />
+            <OutPutComponent item={item} theme={theme}/>
           )}
         </OutputContainer>
       ) : (
@@ -428,6 +473,7 @@ const InputTypeFunctions = ({
   itemIndex,
   setState,
   state,
+  theme
 }) => {
   const [params, setParams] = React.useState({});
   const error = functionDetail.error ? functionDetail.error : "";
@@ -493,13 +539,14 @@ const InputTypeFunctions = ({
       {functionDetail.inputs.map((item, idx) => {
         return (
           <InputTypeFunctionsContainer key={idx}>
-            <InputName>{item.name}</InputName>
+            <InputName theme={theme}>{item.name}</InputName>
             <ParamInput
               placeholder={item.type}
               value={params[item.name]}
               onChange={(event) =>
                 handleParamsInput(event.target.value, item.name, item.type)
               }
+              theme={theme}
             />
           </InputTypeFunctionsContainer>
         );
@@ -528,14 +575,14 @@ const checkNumberType = (number) => {
   }
 };
 
-const OutPutComponent = ({ item }) => {
+const OutPutComponent = ({ item,theme }) => {
   return (
     <>
       {/* <Title>Output:</Title> */}
-      <Output>{item?.response?.response}</Output>
-      <Devider />
-      <InputName>Return:</InputName>
-      <Output>{item.outputs.map((it) => it.type).join(",")}</Output>
+      <Output theme={theme}>{item?.response?.response}</Output>
+      <Devider theme={theme}/>
+      <InputName theme={theme}>Return:</InputName>
+      <Output theme={theme}>{item.outputs.map((it) => it.type).join(",")}</Output>
     </>
   );
 };
