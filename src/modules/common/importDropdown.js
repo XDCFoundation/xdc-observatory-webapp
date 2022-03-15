@@ -446,7 +446,15 @@ const CustomDropDownAddress = (props) => {
       selector: c,
     }));
 
-    setData(list);
+    const newArrayOfObj = list.map(({
+      Address: address,
+      NameTag:tagName,
+      AddedOn:modifiedOn
+    }) => ({
+      address,
+      tagName,modifiedOn
+    }));
+    setData(newArrayOfObj);
     setColumns(columns);
     if (list.length >= 1) openDialogImport();
   };

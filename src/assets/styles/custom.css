@@ -7859,7 +7859,7 @@ button {
 
 .bloc-tabs_sec_addressDetail {
   display: flex;
-  width: 13rem;
+  width: 25rem;
   justify-content: space-between;
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -7891,6 +7891,18 @@ button {
   font-size: 0.938rem;
   cursor: pointer;
   padding-left: 1.188rem;
+}
+.tabs_third_address_details {
+  padding-bottom: 0.438rem;
+  color: #6b7482;
+  background-color: transparent;
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  font-size: 0.938rem;
+  cursor: pointer;
+  padding-left: 2.188rem;
+  white-space: nowrap;
 }
 
 .tabs_sec_contract {
@@ -7928,6 +7940,18 @@ button {
   border: solid 1px #2149b9;
   background: #2149b9;
 }
+.active-tabs_sec_xrc::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 17%;
+    width: 9.563rem;
+    height: 1px;
+    border: solid 1px #2149b9;
+    background: #2149b9;
+  }
+
 .active-tabs_sec_analytics::before {
   content: "";
   display: block;

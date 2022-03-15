@@ -73,6 +73,7 @@ class TokenContractOverviewGraph extends BaseComponent {
         });
 
         const TransferAmount = [];
+        console.log(TransferAmount,"<<<<<<")
         const TransferCount = [];
         const UniqueAddress = [];
         const UniqueSender = [];
@@ -273,6 +274,7 @@ class TokenContractOverviewGraph extends BaseComponent {
     };
 
     render() {
+        
         return (
             <div>
                 {this.state.loading ? (
