@@ -32,6 +32,7 @@ export default function WrappedComponent(props) {
     <TokenPriceHistoryGraph
       contractAddress={props.contractAddress}
       tokenName={tn}
+      theme={props.theme}
     />
   );
 }
@@ -227,7 +228,7 @@ class TokenPriceHistoryGraph extends BaseComponent {
 
   render() {
     return (
-      <div>
+      <div className={this.props.theme === "dark" ? "bg-192a59" : ""}>
         {this.state.loading ? (
           <ProgressBarContainer>
             <CircularProgress size={40} />
@@ -240,7 +241,7 @@ class TokenPriceHistoryGraph extends BaseComponent {
                   src={require("../../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div>No Data found.</div>
+                <div className={this.props.theme === "dark" ? "fc-b1c3e1" : ""}>No Data found.</div>
               </NoDataFoundContainer>
               :
               <Graph options={this.state.options} />

@@ -5,8 +5,10 @@ import { TransactionService } from "../../services";
 import TokenSearchComponent from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import { toolTipMessages } from "../../constants";
+import { connect } from "react-redux";
+import { dispatchAction } from "../../utility"
 
-export default class LatestTransactionList extends BaseComponent {
+class LatestTransactionList extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +40,13 @@ export default class LatestTransactionList extends BaseComponent {
       <TokenListComponent
         state={this.state}
         toggleTableColumns={this.toggleTableColumns}
+        theme={this.props.theme.currentTheme}
       />
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(LatestTransactionList);

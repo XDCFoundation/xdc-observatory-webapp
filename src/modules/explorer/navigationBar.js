@@ -27,6 +27,7 @@ import Utils from "../../utility";
 import { useDispatch } from "react-redux";
 import { eventConstants, recentSearchTypeConstants } from "../../constants";
 import { browserName } from "react-device-detect";
+import TokenPopover from "./tokenPopover";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -154,6 +155,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    listDark: {
+      width: "21.25rem",
+      backgroundColor: "#283966",
+      height: "100%",
+    },
   },
 
   "@media (min-width: 0px) and (max-width: 767px)": {
@@ -182,7 +188,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
@@ -201,6 +207,7 @@ export default function Navbar() {
   
   const [opencontracts, setOpencontracts] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isTokenPopver, setTokenPopover] = React.useState(false);
   const handleSearch = (event) => {
     if (event.target.value.length == 0) setErrorMessage("");
     if (event.key === "Enter") {
@@ -219,7 +226,12 @@ export default function Navbar() {
     }
   };
 
-  
+  const handleTokenPopover = () =>{
+    setTokenPopover(true);
+  } 
+  const closeTokenPopover = () =>{
+    setTokenPopover(false);
+  }
   
   // useEffect(() => {
   //   sessionManager.setDataInCookies("NotVisited");
@@ -390,14 +402,16 @@ export default function Navbar() {
 
   const lists = (anchor) => (
     <div
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: anchor === "top" || anchor === "bottom",
       })}
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div className="menu-sidebar-top">
-        <div className="browse-text-sidebar">Browse</div>
+        <div className={props.theme === "dark" ? "browse-text-sidebar-dark" : "browse-text-sidebar"}>Browse</div>
         <div className={classes.drawerHeaderImage}>
           <IconButton
             style={{ color: "white" }}
@@ -408,7 +422,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="inside-side-box">
           <a className="account_details_button" href="/account-details">
             <div className="xinfin_account_button">Accounts</div>
@@ -514,7 +528,9 @@ export default function Navbar() {
   const contracts = (subanchor) => (
     <div
       // style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
       role="presentation"
@@ -554,7 +570,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="Live-Network-list">
           <a
             style={{
@@ -601,7 +617,9 @@ export default function Navbar() {
   const items = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
       role="presentation"
@@ -821,8 +839,27 @@ export default function Navbar() {
   );
 
   // ..................
-  const NavigationButton = styled.a`
+  const NavigationButton1 = styled.a`
     text-decoration: none;
+    padding: 5px 20px;
+    border-bottom: ${(props) =>
+      props.active ? "0.15rem solid #ffffff !important" : ""};
+    padding-bottom: 3px;
+    font-size: 0.938rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    color: #ffffff;
+    list-style: none;
+    @media (min-width: 0px) and (max-width: 767px) {
+      font-size: 0.875rem;
+    }
+  `;
+  const NavigationButton = styled.div`
+    text-decoration: none;
+    cursor: pointer;
     padding: 5px 20px;
     border-bottom: ${(props) =>
       props.active ? "0.15rem solid #ffffff !important" : ""};
@@ -862,7 +899,7 @@ export default function Navbar() {
   `;
   return (
     <div className={classes.root}>
-      <Web3Dialog open={web3DialogOpen} setWeb3DialogOpen={setWeb3DialogOpen} />
+      <Web3Dialog open={web3DialogOpen} setWeb3DialogOpen={setWeb3DialogOpen} theme={props.theme}/>
       <CssBaseline />
       
       {/* {viewPopUp == false ? <NewFeature></NewFeature> : <div />} */}
@@ -881,7 +918,7 @@ export default function Navbar() {
                 {" "}
                 XDC{" "}
               </a>
-
+              <TokenPopover open={isTokenPopver} handleClose={closeTokenPopover}/>
               <div>
                 <NavLink
                   exact
@@ -895,18 +932,18 @@ export default function Navbar() {
                 {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
               </div>
               <div>
-                <a
+                <div
                   exact
                   activeClassName="active-t"
-                  href={"/tokens"}
-                  className="Token"
+                  onClick={handleTokenPopover}
+                  className="Token cursor-pointer"
                 >
                   Tokens
-                </a>
+                </div>
               </div>
             </Row>
             <Row alignItems="center">
-              <Login />
+              <Login theme={props.theme}/>
 
               <React.Fragment key={"right"}>
                 <IconButton
@@ -1008,15 +1045,15 @@ export default function Navbar() {
             </Row>
           </MobileToolBar>
           <MobileNavigationContainer>
-            <NavigationButton active={window.location.pathname == "/"} href="/">
+            <NavigationButton1 active={window.location.pathname == "/"} href="/">
               XDC Observatory
-            </NavigationButton>
-            <NavigationButton href="/tokens">Tokens</NavigationButton>
+            </NavigationButton1>
+            <NavigationButton onClick={handleTokenPopover}>Tokens</NavigationButton>
           </MobileNavigationContainer>
         </AppBar>
       </MobileView>
       <main className={clsx(classes.content)}>
-        <div className="exp-parent">
+        <div className={props.theme === "dark" ? "exp-parent-dark" : "exp-parent"}>
           <div className={classes.xdcLogoContainer}>
           <img
             className="Shape3"
@@ -1029,7 +1066,7 @@ export default function Navbar() {
         {/* ------------ Search bar ----------------- */}
 
         <div className="centerbox-parent">
-          <div className="centerbox">
+          <div className={props.theme === "dark" ? "centerbox-dark" : "centerbox"}>
             <div className="main-form-container">
               <form
                 method="post"
@@ -1048,7 +1085,7 @@ export default function Navbar() {
                       onKeyUp={(event) => handleSearch(event)}
                       type="text"
                       ref={SearchDataRef}
-                      className="main-input"
+                      className={props.theme === "dark" ? "main-input-dark" : "main-input"}
                       // onKeyPress={(event) => {
                       //     if (event.key === "Enter") {
                       //         handleSearch(event);
@@ -1058,7 +1095,7 @@ export default function Navbar() {
                     />
                     {browserName === "Chrome" ? (
                       <div
-                        className="white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
+                        className={props.theme === "dark" ? "white-space-no-wrap bg-192a59 br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab" : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"}
                         onClick={searchMyAddress}
                       >
                         <img
@@ -1077,7 +1114,7 @@ export default function Navbar() {
                   <div className="search-dashboard-select">
                     <select
                       onChange={(event) => handleSearchOption(event)}
-                      className="select"
+                      className={props.theme === "dark" ? "select-dark" : "select"}
                       id="SearchOption"
                       ref={SelectOptRef}
                     >
