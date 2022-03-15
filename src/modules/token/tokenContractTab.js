@@ -36,7 +36,11 @@ export default function TokenContracttab(props) {
   return (
     <>
       <Paper
-        style={{
+        style={props.theme === "dark" ? {
+          borderRadius: "14px",
+          boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#192a59"
+        }:{
           borderRadius: "14px",
           boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
         }}
@@ -91,8 +95,8 @@ const ContractDetails = (props) => {
   const [copiedText, setCopiedText] = useState("");
 
   return (
-    <div className="container">
-      <div className="contract-source">
+    <div className={props.theme === "dark" ? "container-dark" : "container"}>
+      <div className={props.theme === "dark" ? "contract-source-dark" : "contract-source"}>
         <span
           style={{ color: "#03be46", fontSize: "14", alignItems: "center" }}
         >
@@ -109,46 +113,46 @@ const ContractDetails = (props) => {
       <div className="source-code-verified-container">
         <div className="source-code-first-container">
           <div className="source-code-content">
-            <div className="source-code-content-heading">Contract Name</div>
-            <div className="source-code-content-value-name">
+            <div className={props.theme === "dark" ? "source-code-content-heading fc-white" : "source-code-content-heading"}>Contract Name</div>
+            <div className={props.theme === "dark" ? "source-code-content-value-name fc-b1c3e1" : "source-code-content-value-name"}>
               {verifiedData?.contractName}
             </div>
           </div>
-          <hr className="source-code-line"></hr>
+          <hr className={props.theme === "dark" ? "source-code-line hr-dark" : "source-code-line"}></hr>
           <div className="source-code-content">
-            <div className="source-code-content-heading">Compiler Version</div>
-            <div className="source-code-content-value">
+            <div className={props.theme === "dark" ? "source-code-content-heading fc-white" : "source-code-content-heading"}>Compiler Version</div>
+            <div className={props.theme === "dark" ? "source-code-content-value fc-b1c3e1" : "source-code-content-value"}>
               {verifiedData?.compilerVersion}
             </div>
           </div>
-          <hr className="source-code-line"></hr>
+          <hr className={props.theme === "dark" ? "source-code-line hr-dark" : "source-code-line"}></hr>
           <br />
         </div>
         <div className="source-code-first-container">
           <div className="source-code-content">
-            <div className="source-code-content-heading">
+            <div className={props.theme === "dark" ? "source-code-content-heading fc-white" : "source-code-content-heading"}>
               Optimization Enabled
             </div>
-            <div className="source-code-content-value-optimization">
+            <div className={props.theme === "dark" ? "source-code-content-value-optimization fc-b1c3e1" : "source-code-content-value-optimization"}>
               {props?.contractData?.optimization?.toString() === "false"
                 ? "No"
                 : "Yes"}
             </div>
           </div>
-          <hr className="source-code-line"></hr>
+          <hr className={props.theme === "dark" ? "source-code-line hr-dark" : "source-code-line"}></hr>
           <div className="source-code-content">
-            <div className="source-code-content-heading">
+            <div className={props.theme === "dark" ? "source-code-content-heading fc-white" : "source-code-content-heading"}>
               Share On Socialmedia
             </div>
-            <div className="source-code-content-value">Not available</div>
+            <div className={props.theme === "dark" ? "source-code-content-value fc-b1c3e1" : "source-code-content-value"}>Not available</div>
           </div>
-          <hr className="source-code-line"></hr>
+          <hr className={props.theme === "dark" ? "source-code-line hr-dark" : "source-code-line"}></hr>
         </div>
       </div>
 
       <br />
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className="contract-source-2">
+        <div className={props.theme === "dark" ? "contract-source-2 fc-white" : "contract-source-2"}>
           <img className="code-logo" src={"/images/code.svg"} /> Contract Source
           Code Verified{" "}
         </div>
@@ -166,7 +170,11 @@ const ContractDetails = (props) => {
               placement="top"
             >
               <button
-                style={{
+                style={props.theme === "dark" ? {
+                  color: "blue",
+                  backgroundColor: "#192a59",
+                  fontSize: 14,
+                }:{
                   color: "blue",
                   backgroundColor: "white",
                   fontSize: 14,
@@ -181,7 +189,13 @@ const ContractDetails = (props) => {
 
       <div>
         <textarea
-          style={{
+          style={props.theme === "dark" ? {
+            outline: "none",
+            border: "none",
+            paddingLeft: "18px",
+            backgroundColor: "#3f4966",
+            color: "#fff",
+          } : {
             borderLeftWidth: "6px",
             borderLeftColor: "#2149b9",
             outline: "none",
@@ -190,13 +204,14 @@ const ContractDetails = (props) => {
           readOnly
           className="input-area-3"
           value={verifiedData?.sourceCode}
+          id={props.theme === "dark" ? "contract-code-textarea" : ""}
         />
       </div>
 
       <br />
 
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className="contract-source-2">
+        <div className={props.theme === "dark" ? "contract-source-2 fc-white" : "contract-source-2"}>
           <img className="code-logo" src={"/images/abi.svg"} />
           Contract ABI
         </div>
@@ -214,7 +229,11 @@ const ContractDetails = (props) => {
               placement="top"
             >
               <button
-                style={{
+                style={props.theme === "dark" ? {
+                  color: "blue",
+                  backgroundColor: "#192a59",
+                  fontSize: 14,
+                } : {
                   color: "blue",
                   backgroundColor: "white",
                   fontSize: 14,
@@ -230,7 +249,13 @@ const ContractDetails = (props) => {
       <div>
         <textarea
           value={verifiedData?.abi}
-          style={{
+          style={props.theme === "dark" ? {
+            outline: "none",
+            border: "none",
+            paddingLeft: "18px",
+            backgroundColor: "#3f4966",
+            color: "#fff"
+          } : {
             borderLeftWidth: "6px",
             borderLeftColor: "#2149b9",
             outline: "none",
@@ -238,13 +263,14 @@ const ContractDetails = (props) => {
           }}
           readOnly
           className="input-area-3"
+          id={props.theme === "dark" ? "contract-code-textarea" : ""}
         />
       </div>
 
       <br />
 
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className="contract-source-2">
+        <div className={props.theme === "dark" ? "contract-source-2 fc-white" : "contract-source-2"}>
           <img className="code-logo" src={"/images/bytecode.svg"} />
           Contract Byte-Code
         </div>
@@ -262,7 +288,11 @@ const ContractDetails = (props) => {
               placement="top"
             >
               <button
-                style={{
+                style={props.theme === "dark" ? {
+                  color: "blue",
+                  backgroundColor: "#192a59",
+                  fontSize: 14,
+                } : {
                   color: "blue",
                   backgroundColor: "white",
                   fontSize: 14,
@@ -278,13 +308,19 @@ const ContractDetails = (props) => {
       <div>
         <textarea
           value={verifiedData?.byteCode}
-          style={{
+          style={props.theme === "dark" ? {
+            outline: "none",
+            border: "none",
+            backgroundColor: "#3f4966",
+            color: "#fff"
+          } : {
             borderLeftWidth: "6px",
             borderLeftColor: "#2149b9",
             outline: "none",
           }}
           readOnly
           className="input-area-4"
+          id={props.theme === "dark" ? "contract-code-textarea" : ""}
         />
       </div>
     </div>

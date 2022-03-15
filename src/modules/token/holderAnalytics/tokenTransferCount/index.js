@@ -35,6 +35,7 @@ export default function WrappedComponent(props) {
     <TokenTransferCountGraph
       address={addr}
       contractAddress={props.contractAddress}
+      theme={props.theme}
     />
   );
 }
@@ -281,7 +282,7 @@ class TokenTransferCountGraph extends BaseComponent {
 
   render() {
     return (
-      <div>
+      <div className={this.props.theme === "dark" ? "bg-192a59" : ""}>
         {this.state.loading ? (
           <ProgressBarContainer>
             <CircularProgress size={40} />
@@ -294,7 +295,7 @@ class TokenTransferCountGraph extends BaseComponent {
                         src={require("../../../../../src/assets/images/XDC-Alert.svg")}
                     ></img>
 
-                    <div>No Data found.</div>
+                    <div className={this.props.theme === "dark" ? "fc-b1c3e1" : ""}>No Data found.</div>
                   </NoDataFoundContainer>
                   :
                   <Graph options={this.state.options}/>

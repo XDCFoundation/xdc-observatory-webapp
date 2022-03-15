@@ -1,12 +1,13 @@
 import React from "react";
 import BaseComponent from "../baseComponent";
 import AccountComponent from "./accountComponent";
-import Utils from "../../utility";
+import Utils,{ dispatchAction } from "../../utility";
 import { AccountService } from "../../services";
 import { CoinMarketService } from "../../services";
 import { toolTipMessages } from "../../constants";
+import { connect } from "react-redux";
 
-export default class LatestAccountsList extends BaseComponent {
+class LatestAccountsList extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -184,8 +185,14 @@ export default class LatestAccountsList extends BaseComponent {
                 getSortTitle={this.getSortTitle}
                 updateFiltersAndGetAccounts={this.updateFiltersAndGetAccounts}
                 getListOfAccounts={this.getListOfAccounts}
+                theme={this.props.theme.currentTheme}
             />
         )
 
     }
 }
+
+const mapStateToProps = (state) => {
+    return { user: state.user, theme: state.theme };
+  };
+  export default connect(mapStateToProps, { dispatchAction })(LatestAccountsList);

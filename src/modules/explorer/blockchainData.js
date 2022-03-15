@@ -35,6 +35,10 @@ const MainContainer = styled.div`
   border-top: solid 1px #ffffff;
   background-color: #ffffff;
   display: flex;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #192a59;
+    border-top: none
+  `}
   @media (min-width: 767px) and (max-width: 1240px) {
     flex-direction: column;
     /* width: auto; */
@@ -166,6 +170,9 @@ const Title = styled.div`
   line-height: normal;
 
   margin-bottom: 5px;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
 `;
 const TitleValue = styled.div`
   font-size: 1rem;
@@ -174,6 +181,9 @@ const TitleValue = styled.div`
   line-height: normal;
 
   color: #252525;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (max-width: 767px) {
     font-size: 0.875rem;
   }
@@ -197,6 +207,9 @@ const TransactionValue = styled.div`
   line-height: normal;
 
   color: #252525;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
 `;
 const TitleData = styled.div`
   font-size: 1rem;
@@ -205,6 +218,9 @@ const TitleData = styled.div`
   line-height: normal;
 
   color: #2a2a2a;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (max-width: 767px) {
     white-space: nowrap;
     // width: 110px;
@@ -238,12 +254,17 @@ const LeftTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-
   color: #2a2a2a;
+  ${({ theme }) => theme === "dark" && `
+    color: #b9c2da;
+  `}
   @media (max-width: 767px) {
     font-size: 1.375rem;
     font-weight: 700;
     color: #252525;
+    ${({ theme }) => theme === "dark" && `
+    color: #b9c2da;
+    `}
   }
   @media (min-width: 768px) {
     font-size: 1.5rem;
@@ -268,8 +289,10 @@ const LeftTopSec = styled.div`
   font-size: 1.375rem;
   font-weight: 800;
   font-family: Inter;
-
   color: #252525;
+  ${({ theme }) => theme === "dark" && `
+    color: #b9c2da;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
   }
@@ -666,16 +689,17 @@ class BlockChainDataComponent extends Component {
     return (
       <MainContainer
         className={this.state.loading == true ? "cover-spin-3" : ""}
+        theme={this.props.theme}
       >
         <LeftContainer>
           <DeskTopDesign>
             <LeftFirst>
               <LeftTop>
                 <IconLogo src={logo} />
-                <LeftTitle>XDC</LeftTitle>
+                <LeftTitle theme={this.props.theme}>XDC</LeftTitle>
               </LeftTop>
               <LeftTopSecMain>
-                <LeftTopSec>
+                <LeftTopSec theme={this.props.theme}>
                   {currencySymbol}
                   {changeDecimals}
                 </LeftTopSec>
@@ -715,8 +739,8 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="blockHeight">
                 <TitleIcon src={blockHeightImg} />
                 <ValueName>
-                  <Title>Block Height</Title>
-                  <TitleValue className={animationClass ? animationClass : ""}>
+                  <Title theme={this.props.theme}>Block Height</Title>
+                  <TitleValue theme={this.props.theme} className={animationClass ? animationClass : ""}>
                     {this.state &&
                     this.state.blockdataNumber &&
                     this.state.blockdataNumber?.length
@@ -732,10 +756,11 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src="/images/Gas price euro.svg" />
                 }
                 <ValueName>
-                  <Title>Txn Fee (Avg)</Title>
+                  <Title theme={this.props.theme}>Txn Fee (Avg)</Title>
                   {this.state.nodeLoading === true ? <div className="animated-background"></div>:
                   <TitleData
                     className={TxanimationClass ? TxanimationClass : ""}
+                    theme={this.props.theme}
                   >
                     {this.state.gasPrice > 0 ? this.state.gasPrice : ""}
                   </TitleData>
@@ -745,7 +770,7 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="transactions">
                 <TitleIcon src={transactionLogo} />
                 <ValueName>
-                  <Title>Transactions</Title>
+                  <Title theme={this.props.theme}>Transactions</Title>
 
                   <TransactionTitleValue>
                     {" "}
@@ -753,7 +778,7 @@ class BlockChainDataComponent extends Component {
                       placement="top"
                       title={this.state.totalTransaction}
                     >
-                      <TransactionValue>
+                      <TransactionValue theme={this.props.theme}>
                         {utility.convertToInternationalCurrencySystem(
                           this.state.totalTransaction
                         )}
@@ -793,10 +818,10 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="nodes">
                 <TitleIcon src="/images/nodes.svg" />
                 <ValueName>
-                  <Title>Nodes</Title>
+                  <Title theme={this.props.theme}>Nodes</Title>
                   {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
                   {this.state.nodeLoading === true ? <div className="animated-background"></div>:
-                  <TitleValue>
+                  <TitleValue theme={this.props.theme}>
                     {this.state.activeNodes > 0 ? this.state.activeNodes : ""}
                     {this.state.nodes > 0 ? "/" + this.state.nodes : ""}{" "}
                   </TitleValue>
@@ -807,9 +832,9 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="accounts">
                 <TitleIcon src={accountLogo} />
                 <ValueName>
-                  <Title>Accounts</Title>
+                  <Title theme={this.props.theme}>Accounts</Title>
                   <div className="last_value">
-                    <TitleValue>
+                    <TitleValue theme={this.props.theme}>
                       {format({})(this.state.totalAccount)}
                     </TitleValue>
                     <div
@@ -856,8 +881,8 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="tps">
                 <TitleIcon />
                 <ValueName>
-                  <Title></Title>
-                  <TitleValue></TitleValue>
+                  <Title theme={this.props.theme}></Title>
+                  <TitleValue theme={this.props.theme}></TitleValue>
                 </ValueName>
               </Value>
               {/* <Value gridArea="tps">
@@ -896,10 +921,10 @@ class BlockChainDataComponent extends Component {
             <LeftFirst>
               <LeftTop>
                 <IconLogo src={logo} />
-                <LeftTitle>XDC</LeftTitle>
+                <LeftTitle theme={this.props.theme}>XDC</LeftTitle>
               </LeftTop>
               <LeftTopSecMain>
-                <LeftTopSec>
+                <LeftTopSec theme={this.props.theme}>
                   {currencySymbol}
                   {changeDecimals}
                 </LeftTopSec>
@@ -933,7 +958,7 @@ class BlockChainDataComponent extends Component {
               </LeftTopSecMain>
             </LeftFirst>
           </MobileDesign>
-          <Tab />
+          <Tab theme={this.props.theme}/>
         </RightContainer>
       </MainContainer>
     );
