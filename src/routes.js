@@ -59,7 +59,8 @@ const Test = withRouter(lazy(() => import('./modules/explorer/dashboardPopup/Tes
 const TestTwo = withRouter(lazy(() => import('./modules/explorer/dashboardPopup/TestTwo')));
 const TestAddress = withRouter(lazy(() => import('./modules/explorer/dashboardPopup/TestAddress')));
 const ContractRead = withRouter(lazy(() => import('./modules/contractMethods/read')));
-const SearchNotFound = withRouter(lazy(() => import('./common/components/dataNotFound')))
+const SearchNotFound = withRouter(lazy(() => import('./common/components/dataNotFound')));
+const BlockchainIdentity = withRouter(lazy(() => import('./modules/explorer/blockchainIdentity/blockchainIdentity')));
 // const GlobalIdContinue = withRouter(lazy(() => import('./modules/explorer/globalIdContinue')));
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
@@ -193,6 +194,7 @@ class Routes extends BaseComponent {
               <Route exact path={"/read"} component={ContractRead} />
               <Route exact path={"/testTrancation"} component={TestTwo} />
               <Route exact path={"/test-address"} component={TestAddress} />
+              <Route exact path={"/blockchain-identity"} component={BlockchainIdentity} />
               <Redirect exact from="*" to="/" />
             </Switch>
           </Suspense>

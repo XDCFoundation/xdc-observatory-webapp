@@ -433,6 +433,15 @@ export default function Navbar() {
                 <ul className="Network-list-nav">
                     <a
                         className="sidebar-links"
+                        href="/blockchain-identity"
+                    >
+                        <div className="xinfin_account_button">Blockchain Identity</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
                         href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
                     >
                         <div className="xinfin_account_button">XDCPay</div>
