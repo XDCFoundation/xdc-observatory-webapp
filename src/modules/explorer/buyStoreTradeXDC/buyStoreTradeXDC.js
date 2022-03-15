@@ -42,6 +42,9 @@ const Heading = styled.div`
   color: #2a2a2a;
   text-align: center;
   margin-bottom: 20px;
+  ${({ theme }) => theme === "dark" && `
+     color: #b9c2da;
+  `}
 `;
 const Description = styled.div`
   font-family: Inter;
@@ -49,6 +52,9 @@ const Description = styled.div`
   color: #2a2a2a;
   margin-top: 11px;
   margin-bottom: 27px;
+  ${({ theme }) => theme === "dark" && `
+     color: #b9c2da;
+  `}
 `;
 const Button = styled.div`
   // padding: 10px 16px 9px 19px;
@@ -91,16 +97,16 @@ const CoinImg = styled.div`
   margin-right: 11px;
 `;
 
-function BuyStoreTradeXDC() {
+function BuyStoreTradeXDC(props) {
   return (
     <MainContainer>
       <BuyStoreContainer>
-        <Heading>Store XDC</Heading>
+        <Heading theme={props.theme}>Store XDC</Heading>
         <ImgContainer>
           <img src="/images/buy-store.svg" alt="buy-store-img" />
         </ImgContainer>
         <ContentContainer>
-          <Description>
+          <Description theme={props.theme}>
           Install the secure XDCPay Extension to store XDC and other XRC20 tokens.
           </Description>
           <div className="display-flex justify-content-center">

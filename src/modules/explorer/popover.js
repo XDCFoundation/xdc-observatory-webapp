@@ -118,7 +118,7 @@ let p =sessionManager.getDataFromCookies(
     <div>
       {!isloggedIn ? (
         <ProfileContainer>
-          {<LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} />}
+          {<LoginDialog theme={props.theme} open={loginDialogIsOpen} onClose={closeLoginDialog} />}
         </ProfileContainer>
       ) : (
         <ProfileContainer onClick={handleClick} Open Popover>
@@ -135,6 +135,7 @@ let p =sessionManager.getDataFromCookies(
             open={manageCookiesPopup}
             close={closeCookiesDialog}
             setIsCookiesAccepted={() => {}}
+            theme={props.theme}
           />
           <Avatar
             className="profile"
@@ -167,9 +168,10 @@ let p =sessionManager.getDataFromCookies(
           horizontal: "right",
         }}
       >
-        <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
+        <div className={props.theme === "dark" ? "table-btn-bg-dark" : ""}>
+        <Contents style={props.theme === "dark" ? { borderBottom: "none" } : { borderBottom: " solid 1px #f9f9f9" }}>
           <Text style={{ marginRight: "auto" }}>
-            <a href="/loginprofile" className="profile-links">
+            <a href="/loginprofile" className={props.theme === "dark" ? "profile-links fc-white" : "profile-links"}>
               {" "}
               My Profile
             </a>
@@ -181,9 +183,9 @@ let p =sessionManager.getDataFromCookies(
         sessionManager.getDataFromCookies(
           cookiesConstants.AUTHENTICATION_PROVIDER
         ) === "AUTH0" ? (
-          <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
-            <Text style={{ marginRight: "20px" }} onClick={openChangePassword}>
-              Change Password
+          <Contents style={props.theme === "dark" ? { borderBottom: "none" } : { borderBottom: " solid 1px #f9f9f9" }}>
+            <Text className={props.theme === "dark" ? "fc-white" : ""} style={{ marginRight: "20px" }} onClick={openChangePassword}>
+              Change Password 
             </Text>
           </Contents>
         ) : (
@@ -193,15 +195,17 @@ let p =sessionManager.getDataFromCookies(
           <Text
             style={{ marginRight: "auto" }}
             onClick={() => openCookiesDialog()}
+            className={props.theme === "dark" ? "fc-white" : ""}
           >
             Manage Cookies
           </Text>
         </Contents>
         <Contents>
-          <Text style={{ marginRight: "auto" }} onClick={() => logOut()}>
+          <Text className={props.theme === "dark" ? "fc-white" : ""} style={{ marginRight: "auto" }} onClick={() => logOut()}>
             Log out
           </Text>
         </Contents>
+        </div>
       </Popover>
     </div>
   );

@@ -27,9 +27,9 @@ const NoDataFoundContainer = styled.div`
   }
 `;
 
-export default function WrappedComponent() {
+export default function WrappedComponent(props) {
     const {addr} = useParams();
-    return <TransactionGraph address={addr}/>;
+    return <TransactionGraph address={addr} theme={props.theme}/>;
 }
 
 class TransactionGraph extends BaseComponent {
@@ -37,7 +37,8 @@ class TransactionGraph extends BaseComponent {
         super(props);
         this.state = {
             loading: false,
-            graphData: []
+            graphData: [],
+            optionsDark : {},
         };
     }
 
@@ -232,7 +233,190 @@ class TransactionGraph extends BaseComponent {
                 },
             ],
         };
+
+        let optionsDark = {
+            title: {
+                text: "",
+            },
+            chart: {
+                type: "line",
+                zoomType: {
+                    enabled: false,
+                },
+                backgroundColor: "#192a59 ",
+            },
+            legend: {
+                layout: "horizontal",
+                align: "center",
+                enabled: true,
+                symbolPadding: 0,
+                symbolWidth: 0,
+                symbolHeight: 0,
+                squareSymbol: false,
+                backgroundColor: "#091b4e",
+                useHTML: true,
+                itemStyle:{
+                    'color': '#b1c3e1',
+                },
+                itemHoverStyle: {
+                    color: '#b1c3e1'
+                },
+                labelFormatter: function () {
+                    let legend = "<div style='display:flex; align-items:center;'>";
+                    if (this.name == "XDC Transactions") {
+                        legend +=
+                            "<img style='margin:5px' src='/images/graph-circle-blue.svg' />";
+                    }
+                    if (this.name == "Unique incoming Address") {
+                        legend +=
+                            "<img style='margin:5px' src='/images/graph-triangle-red.svg' />";
+                    }
+                    if (this.name == "Unique Outgoing Address") {
+                        legend +=
+                            "<img style='margin:5px' src='/images/graph-triangle.svg' />";
+                    }
+                    return (legend +=
+                        "<div style='margin:5px 5px 5px 0'>" +
+                        this.name +
+                        "</div>" +
+                        "</div>");
+                },
+            },
+            navigator: {
+                enabled: false,
+            },
+            scrollbar: {
+                enabled: false,
+            },
+
+            rangeSelector: {
+                labelStyle: {
+                    display: "none",
+                },
+                enabled: true,
+                selected: 1,
+                buttons: [
+                    {
+                        type: "all",
+                        text: "All",
+                    },
+                    {
+                        type: "year",
+                        count: 1,
+                        text: "1y",
+                    },
+                    {
+                        type: "month",
+                        count: 6,
+                        text: "6m",
+                    },
+                    {
+                        type: "month",
+                        count: 3,
+                        text: "3m",
+                    },
+                    {
+                        type: "month",
+                        count: 1,
+                        text: "1m",
+                    },
+                ],
+                buttonSpacing: 10,
+
+                buttonTheme: {
+                    style: {
+                        fill: "none",
+                    },
+                    stroke: "none",
+                    fontWeight: "bold",
+                    width: null,
+                    height: 25,
+                    "stroke-width": 0,
+                    r: 5,
+                    states: {
+                        hover: {
+                            fill: "#4878ff",
+                            style: {
+                                color: "white",
+                            },
+                        },
+                        select: {
+                            fill: "#4878ff",
+                            style: {
+                                color: "white",
+                            },
+                        },
+                    },
+                },
+                inputBoxBorderColor: "#3552a5",
+                inputBoxWidth: 85,
+                inputBoxHeight: 25,
+                inputDateFormat: "%d-%m-%Y",
+                inputStyle: {
+                    color: "#b1c3e1",
+                },
+                labelStyle: {
+                    color: "#b1c3e1",
+                    fontWeight: "bold",
+                },
+            },
+            tooltip: {
+                split: false,
+                shared: true,
+            },
+            series: [
+                {
+                    data: xdcTransactions,
+                    color: "rgb(124, 181, 236)",
+                    name: "XDC Transactions",
+                },
+                {
+                    data: uniqueSent,
+                    color: "rgb(67, 67, 72)",
+                    name: "Unique Outgoing Addresses",
+                },
+                {
+                    data: uniqueReceived,
+                    color: "rgb(144, 237, 125)",
+                    name: "Unique Incoming Addresses",
+                },
+            ],
+            credits: {enabled: false},
+            yAxis: [
+                {
+                    opposite: false,
+                    title: {
+                        text: "Values",
+                        style: {
+                            color: '#b1c3e1'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            color: '#b1c3e1'
+                        }
+                    },
+                    minorGridLineColor: '#4a5d94',
+                    gridLineColor: '#4a5d94',
+                },
+            ],
+            xAxis: [
+                {
+                    showInLegend: false,
+                    opposite: false,
+                    title: {text: ""},
+                    labels: {
+                        style: {
+                            color: '#b1c3e1'
+                        }
+                      },
+                    minorGridLineColor: '#4a5d94',
+                    gridLineColor: '#4a5d94',
+                },
+            ],
+        };
         this.setState({options});
+        this.setState({optionsDark});
     };
 
     render() {
@@ -253,7 +437,7 @@ class TransactionGraph extends BaseComponent {
                       <div>No Data found.</div>
                   </NoDataFoundContainer>
                   :
-                  <Graph options={this.state.options}/>
+                  <Graph options={this.props.theme === "dark" ? this.state.optionsDark : this.state.options}/>
               }
             </span>
                 )}

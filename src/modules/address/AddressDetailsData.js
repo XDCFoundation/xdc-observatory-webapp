@@ -24,6 +24,7 @@ import AddressData from "../../services/address";
 import ReadContract from "../contractMethods/read";
 import WriteContract from "../contractMethods/write";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   rootUI: {
@@ -68,12 +69,15 @@ const TabContainerParent = styled.div`
   border-bottom: solid 1px #e3e7eb;
   width: 100%;
   margin: auto;
+  ${({ theme }) => theme === "dark" && `
+    border-bottom: solid 1px #4a5d94;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     width: 21rem;
   }
 `;
 
-export default function AddressDetailsData() {
+function AddressDetailsData(props) {
   const [toggleState, setToggleState] = useState(1);
   let { addressNumber } = useParams();
   const toggleTab = (index) => {
@@ -191,37 +195,38 @@ export default function AddressDetailsData() {
   }, []);
 
   return (
-    <div style={{ backgroundColor: "#fff" }}>
-      <Tokensearchbar />
+    <div style={props.theme.currentTheme === "dark" ? { backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
+      <Tokensearchbar theme={props.theme.currentTheme}/>
       <Grid className="table-grid-block-contract ">
         <div>
           <div
             className="contract_details_heading p-t-30 display-flex justify-content-betwe"
           >
-            <div className="contract-address-heading">Contract Address{" "}</div>
+            <div className={props.theme.currentTheme === "dark" ? "contract-address-heading fc-white" : "contract-address-heading"}>Contract Address{" "}</div>
 
-            <div className="AddressTitle">{addressNumber}</div>
+            <div className={props.theme.currentTheme === "dark" ? "AddressTitle fc-4878ff" : "AddressTitle"}>{addressNumber}</div>
 
 
           </div>
           <div className="address_block_main">
-            <div className="contractOverview">
+            <div className={props.theme.currentTheme === "dark" ? "contractOverview table-bg-dark border-none-dark" : "contractOverview"}>
               <div className="latest">
-                <h1>Contract Overview</h1>
+                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : "" }>Contract Overview</h1>
               </div>
               <div className="data">
                 <TableContainer
                   component={Paper}
                   elevation={0}
                   style={{ padding: "0 1.5rem" }}
+                  className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                 >
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                       <TableRow>
-                        <TableCell className="left-table-contract">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-dark" : "left-table-contract"}>
                           Balance
                         </TableCell>
-                        <TableCell className="left-table-contract-data">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
                           {balance2 == null ? (
                             <span>{balance1} XDC</span>
                           ) : (
@@ -237,10 +242,10 @@ export default function AddressDetailsData() {
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className="left-table-contract">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-dark" : "left-table-contract"}>
                           USD Value
                         </TableCell>
-                        <TableCell className="left-table-contract-data">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
                           {ReactHtmlParser(data.currencySymbol)}
                           {value2 == null ? (
                             <span>{value1} </span>
@@ -268,18 +273,18 @@ export default function AddressDetailsData() {
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className="left-table-contract">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-dark" : "left-table-contract"}>
                           Transactions
                         </TableCell>
-                        <TableCell className="left-table-contract-data">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
                           {count}
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className="left-table-contract-last">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-last-dark" : "left-table-contract-last"}>
                           Contract Name
                         </TableCell>
-                        <TableCell className="left-table-contract-data-last">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-last fc-b1c3e1" : "left-table-contract-data-last"}>
                           {!data.contractName
                             ? "Not Available"
                             : data.contractName}
@@ -292,27 +297,28 @@ export default function AddressDetailsData() {
               </div>
             </div>
 
-            <div className="contractSummary">
+            <div className={props.theme.currentTheme === "dark" ? "contractSummary table-bg-dark border-none-dark" : "contractSummary"}>
               <div className="latest">
-                <h1>Contract Summary</h1>
+                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : "" }>Contract Summary</h1>
               </div>
               <div className="data">
                 <TableContainer
                   component={Paper}
                   elevation={0}
                   style={{ padding: "0 1.5rem" }}
+                  className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                 >
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                       <TableRow>
                         <div className="contract-summary-mobile">
-                          <TableCell className="left-table-contract-mobile">
+                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-mobile fc-white border-bottom-dark" : "left-table-contract-mobile"}>
                             Creator
                           </TableCell>
-                          <TableCell className="left-table-contract-data-mobile">
+                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
                             {data.creator != "" && (
                               <a
-                                className="linkTable"
+                              className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                 href={"/address-details/" + data.creator}
                               >
                                 <span className="tabledata">
@@ -325,13 +331,13 @@ export default function AddressDetailsData() {
                       </TableRow>
                       <TableRow>
                         <div className="contract-summary-mobile">
-                          <TableCell className="left-table-contract-mobile">
+                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-mobile fc-white border-bottom-dark" : "left-table-contract-mobile"}>
                             Transaction
                           </TableCell>
-                          <TableCell className="left-table-contract-data-mobile">
+                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
                             {data.transaction != "" && (
                               <a
-                                className="linkTable"
+                                className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                 href={
                                   "/transaction-details/" + data.transaction
                                 }
@@ -353,13 +359,13 @@ export default function AddressDetailsData() {
 
           <br />
           <br />
-          <TabContainerParent>
+          <TabContainerParent theme={props.theme.currentTheme}>
             <TabContainer>
               <button
                 className={
                   toggleState === 1
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                    ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                    : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(1)}
               >
@@ -369,8 +375,8 @@ export default function AddressDetailsData() {
               <button
                 className={
                   toggleState === 2
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                  ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                  : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(2)}
               >
@@ -393,8 +399,8 @@ export default function AddressDetailsData() {
                   <button
                     className={
                       toggleState === 4
-                        ? "token-data-tabs active-tabs-token"
-                        : "token-data-tabs"
+                      ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                      : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                     }
                     onClick={() => toggleTab(4)}
                   >
@@ -403,8 +409,8 @@ export default function AddressDetailsData() {
                   <button
                     className={
                       toggleState === 5
-                        ? "token-data-tabs active-tabs-token"
-                        : "token-data-tabs"
+                      ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                      : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                     }
                     onClick={() => toggleTab(5)}
                   >
@@ -425,7 +431,7 @@ export default function AddressDetailsData() {
                 : "content_sec"
             }
           >
-            <TransactionTableComponent />
+            <TransactionTableComponent theme={props.theme.currentTheme}/>
           </div>
           <div
             className={
@@ -439,9 +445,10 @@ export default function AddressDetailsData() {
             ) : responses?.contractStatus === "Unverified" ? (
               <TokenUnverifiedContract
                 contractData={responses?.contractResponse}
+                theme={props.theme.currentTheme}
               />
             ) : (
-              <TokenContracttab contractData={responses?.contractResponse} />
+              <TokenContracttab contractData={responses?.contractResponse} theme={props.theme.currentTheme}/>
             )}
           </div>
           <div
@@ -457,6 +464,7 @@ export default function AddressDetailsData() {
                   ? { ...responses?.contractResponse }
                   : {}
               }
+              theme={props.theme.currentTheme}
             />
           </div>
           <div
@@ -472,6 +480,7 @@ export default function AddressDetailsData() {
                   ? { ...responses?.contractResponse }
                   : {}
               }
+              theme={props.theme.currentTheme}
             />
           </div>
           {/* </div> */}
@@ -481,3 +490,9 @@ export default function AddressDetailsData() {
     </div>
   );
 }
+
+
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(AddressDetailsData);
