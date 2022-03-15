@@ -18,10 +18,18 @@ const SearchBox = styled.div`
   padding: 7px 10px;
   margin-bottom: 4px;
   margin-right: 10px;
+  ${({ theme }) => theme === "dark" && `
+    background: transparent;
+    border: solid 1px #3552a5;
+    color: "#ffffff";
+  `}
 
   input {
     outline: none;
     border: none !important;
+    ${({ theme }) => theme === "dark" && `
+        background: transparent;
+  `}
   }
 
   img {
@@ -74,16 +82,17 @@ const SearchAndFiltersComponent = (props) => {
     }
     return (
         <Container>
-            <SearchBox>
+            <SearchBox theme={props.theme}>
                 <img src="/images/Search.svg" alt="search"/>
-                <input placeholder="Search" onChange={e => onSearchQueryChange(e.target.value)}/>
+                <input className={props.theme === "dark" ? "fc-white" : ""} placeholder="Search" onChange={e => onSearchQueryChange(e.target.value)}/>
             </SearchBox>
             <CustomDropDown name="Age" selectedOption={age} onSelect={data => setAge(data)}
                             options={[
                                 {key: "all", value: 'All Time'},
                                 {key: "1d", value: 'In Last 1d'}, {key: "1m", value: 'In Last 1M'},
                                 {key: "6m", value: 'In Last 6M'}, {key: "1y", value: 'In Last 1Y'}
-                            ]}/>
+                            ]}
+                            theme={props.theme}/>
         </Container>
     )
 }

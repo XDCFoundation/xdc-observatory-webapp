@@ -29,17 +29,35 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
   },
+  containerDark: {
+    borderRadius: "14px",
+    boxShadow: "none",
+    borderBottom: "none",
+    background: "#192a59",
+  },
   container1: {
     borderRadius: "14px",
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#fff",
   },
+  containerDark1: {
+    borderRadius: "14px",
+    boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#192a59",
+  },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
       height: "36.375rem",
     },
+    containerDark: {
+      height: "36.375rem",
+    },
     container1: {
+      height: "23.375rem",
+    },
+    containerDark1: {
       height: "23.375rem",
     },
   },
@@ -104,7 +122,7 @@ export default function TransactionComponent(props) {
   return (
     <div className="responsive-table-width-transactions-list contact-list-tab ">
       <div className="display-flex justify-content-between p-t-30 p-b-15">
-        <div class="latestTransactionHeading">{state.tableName}</div>
+        <div class={props.theme === "dark" ? "latestTransactionHeadingDark" :"latestTransactionHeading"}>{state.tableName}</div>
         <div class=" display-none-mobile display-flex flex-direction-column justify-content-center">
           <img
             onClick={handleSettingsClick}
@@ -134,13 +152,8 @@ export default function TransactionComponent(props) {
         </div>
       </div>
 
-      <Paper style={{ borderRadius: "14px" }} elevation={0}>
-        <TableContainer
-          className={
-            !props.state.isData ? classes.container1 : classes.container
-          }
-          id="container-table-transaction-list"
-        >
+      <div style={{ borderRadius: "14px" }} elevation={0}>
+        <TableContainer className={!props.state.isData ? props.theme === "dark" ? classes.containerDark1 : classes.container1 : props.theme === "dark" ? classes.containerDark : classes.container} id="container-table-transaction-list">
           <Table>
             <TableHead>
               <TableRow>
@@ -148,7 +161,7 @@ export default function TransactionComponent(props) {
                   className="table-head-hash hash-transaction-list-all"
                   align="left"
                 >
-                  <span className={("tableheaders-hash", "tableheaders")}>
+                  <span className={props.theme === "dark" ? "tableheaders-hash-dark TableHeadersTransactionDark" : ("tableheaders-hash", "tableheaders")}>
                     Hash
                     <Tooltip placement="top" title={messages.HASH}>
                       <img
@@ -166,7 +179,7 @@ export default function TransactionComponent(props) {
                     className="table-head-all"
                     align="left"
                   >
-                    <span className={("tableheaders", "tableheaders-all")}>
+                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-all-dark" : ("tableheaders", "tableheaders-all")}>
                       Amount
                       <Tooltip placement="top" title={messages.AMOUNT}>
                         <img
@@ -204,7 +217,7 @@ export default function TransactionComponent(props) {
                     className="table-head-all"
                     align="left"
                   >
-                    <span className={("tableheaders", "tableheaders-age")}>
+                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-age-dark" : ("tableheaders", "tableheaders-age")}>
                       Age
                       <Tooltip placement="top" title={messages.AGE}>
                         <img
@@ -223,7 +236,7 @@ export default function TransactionComponent(props) {
                     className="table-head-all"
                     align="left"
                   >
-                    <span className={("tableheaders", "tableheaders-age")}>
+                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-age-dark" : ("tableheaders", "tableheaders-age")}>
                       Date
                       <Tooltip placement="top" title={messages.DATE}>
                         <img
@@ -242,7 +255,7 @@ export default function TransactionComponent(props) {
                     className="table-head-all"
                     align="left"
                   >
-                    <span className={("tableheaders", "tableheaders-all")}>
+                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-all-dark" : ("tableheaders", "tableheaders-all")}>
                       Block
                       <Tooltip placement="top" title={messages.BLOCK}>
                         <img
@@ -260,7 +273,7 @@ export default function TransactionComponent(props) {
                   className="table-head-all"
                   align="left"
                 >
-                  <span className={("tableheaders", "tableheaders-all")}>
+                  <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-all-dark" : ("tableheaders", "tableheaders-all")}>
                     From
                     <Tooltip placement="top" title={messages.FROM}>
                       <img
@@ -277,7 +290,7 @@ export default function TransactionComponent(props) {
                   className="table-head-all"
                   align="left"
                 >
-                  <span className={("tableheaders", "tableheaders-all")}>
+                  <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-all-dark" : ("tableheaders", "tableheaders-all")}>
                     To
                     <Tooltip placement="top" title={messages.TO}>
                       <img
@@ -331,8 +344,8 @@ export default function TransactionComponent(props) {
                         key={row.name}
                         style={
                           index % 2 !== 1
-                            ? { background: "#f9f9f9" }
-                            : { background: "white" }
+                            ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
+                            : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
                         }
                       >
                         <TableCell
@@ -356,7 +369,9 @@ export default function TransactionComponent(props) {
                             {" "}
                             <span
                               className={
-                                animationClass ? animationClass : "tabledata"
+                                animationClass 
+                                ? props.theme === "dark" ? `${animationClass} connect-wallet-dark-xdc-url` : animationClass 
+                                : props.theme === "dark" ? "connect-wallet-dark-xdc-url tabledata" : "tabledata"
                               }
                             >
                               {" "}
@@ -375,7 +390,9 @@ export default function TransactionComponent(props) {
                           >
                             <span
                               className={
-                                animationClass ? animationClass : "tabledata"
+                                animationClass 
+                                ? props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass 
+                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata"
                               }
                             >
                               {amt}
@@ -403,7 +420,9 @@ export default function TransactionComponent(props) {
                           >
                             <span
                               className={
-                                animationClass ? animationClass : "tabledata"
+                                animationClass 
+                                ? props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass 
+                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata"
                               }
                             >
                               {ti}
@@ -421,7 +440,9 @@ export default function TransactionComponent(props) {
                           >
                             <span
                               className={
-                                animationClass ? animationClass : "tabledata"
+                                animationClass 
+                                ? props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass 
+                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata"
                               }
                             >
                               {moment(row.timestamp * 1000).format(
@@ -446,9 +467,11 @@ export default function TransactionComponent(props) {
                             >
                               {" "}
                               <span
-                                className={
-                                  animationClass ? animationClass : "tabledata"
-                                }
+                               className={
+                                animationClass 
+                                ? props.theme === "dark" ? `${animationClass} connect-wallet-dark-xdc-url` : animationClass 
+                                : props.theme === "dark" ? "connect-wallet-dark-xdc-url tabledata" : "tabledata"
+                              }
                               >
                                 {" "}
                                 {row.blockNumber}
@@ -472,7 +495,9 @@ export default function TransactionComponent(props) {
                             <Tooltip placement="top" title={row.from}>
                               <span
                                 className={
-                                  animationClass ? animationClass : "tabledata"
+                                  animationClass 
+                                  ? props.theme === "dark" ? `${animationClass} connect-wallet-dark-xdc-url` : animationClass 
+                                  : props.theme === "dark" ? "connect-wallet-dark-xdc-url tabledata" : "tabledata"
                                 }
                               >
                                 {shorten(row.from)}
@@ -497,7 +522,9 @@ export default function TransactionComponent(props) {
                             <Tooltip placement="top" title={row.to}>
                               <span
                                 className={
-                                  animationClass ? animationClass : "tabledata"
+                                  animationClass 
+                                  ? props.theme === "dark" ? `${animationClass} connect-wallet-dark-xdc-url` : animationClass 
+                                  : props.theme === "dark" ? "connect-wallet-dark-xdc-url tabledata" : "tabledata"
                                 }
                               >
                                 {!row.to
@@ -537,24 +564,19 @@ export default function TransactionComponent(props) {
             ""
           )}
         </TableContainer>
-      </Paper>
+      </div>
 
       <Grid container style={{ marginTop: "1.75rem" }} className="Pagination">
         {/* <Pagination> */}
         <Grid className="Pagination_1">
-          {!props.state.isLoading && props.state.isData ? (
-            <>
-              <span className="text">Show</span>
-              <PageSelector
-                value={props.state.amount}
+          {!props.state.isLoading && props.state.isData ?
+            (<><span className={props.theme === "dark" ? "text-dark" : "text"}>Show</span>
+              <PageSelector value={props.state.amount}
                 height={35}
-                handler={props._handleChange}
-              />
-              <span className="text">Records</span>
-            </>
-          ) : (
-            ""
-          )}
+                handler={props._handleChange} 
+                theme={props.theme}
+                />
+              <span className={props.theme === "dark" ? "text-dark" : "text"}>Records</span></>) : ("")}
         </Grid>
 
         <Grid item className="Pagination_2">
@@ -562,8 +584,8 @@ export default function TransactionComponent(props) {
             onClick={(event) => props._FirstPage(event)}
             className={
               props.state.from === 0
-                ? "btn disabled btn-first"
-                : "btn btn-first"
+                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-first" : "btn disabled btn-first"
+                : props.theme === "dark" ? "btn-latest-block-dark btn-first" : "btn btn-first"
             }
           >
             First
@@ -571,12 +593,14 @@ export default function TransactionComponent(props) {
           <button
             onClick={(event) => props._PrevPage(event)}
             className={
-              props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"
+              props.state.from === 0 
+              ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-back" : "btn disabled btn-back" 
+              : props.theme === "dark" ? "btn-latest-block-dark  btn-back" : "btn btn-back"
             }
           >
             <img className="rotate-180" alt="back" src={"/images/next.svg"} />{" "}
           </button>
-          <button className="btn btn-page">
+          <button className={props.theme === "dark" ? "btn-latest-block-dark  btn-page" : "btn btn-page"}>
             Page{" "}
             {Math.round(state.totalTransaction / state.amount) +
               1 -
@@ -591,11 +615,11 @@ export default function TransactionComponent(props) {
               props.state.lastPage === false
                 ? props.state.from + props.state.amount ===
                   props.state.totalTransaction
-                  ? "btn disabled"
-                  : "btn btn-next"
+                  ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
+                : props.theme === "dark" ? "btn-latest-block-dark  btn-next" : "btn btn-next"
                 : props.state.lastFrom - props.state.amount < 0
-                ? "btn disabled"
-                : "btn btn-next"
+                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
+                : props.theme === "dark" ? "btn-latest-block-dark  btn-next" : "btn btn-next"
             }
           >
             <img alt="next" src={"/images/next.svg"} />
@@ -604,9 +628,9 @@ export default function TransactionComponent(props) {
             onClick={(event) => props._LastPage(event)}
             className={
               props.state.from + props.state.amount ===
-              props.state.totalTransaction
-                ? "btn disabled"
-                : "btn btn-last"
+                props.state.totalTransaction
+                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
+                : props.theme === "dark" ? "btn-latest-block-dark  btn-last" : "btn btn-last"
             }
           >
             Last

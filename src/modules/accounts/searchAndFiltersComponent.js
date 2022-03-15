@@ -17,10 +17,18 @@ const SearchBox = styled.div`
   padding: 7px 10px;
   margin-bottom: 4px;
   margin-right: 10px;
+  ${({ theme }) => theme === "dark" && `
+    border: solid 1px #3552a5;
+    background-color: #091b4e;
+  `}
 
   input {
     outline: none;
     border: none !important;
+    ${({ theme }) => theme === "dark" && `
+      background: transparent;
+      color: #fff;
+    `}
   }
 
   img {
@@ -54,7 +62,7 @@ const SearchAndFiltersComponent = (props) => {
   };
   return (
     <Container>
-      <SearchBox>
+      <SearchBox theme={props.theme}>
         <img src="/images/Search.svg" alt="search" />
         <input
           placeholder="Search"
@@ -62,6 +70,7 @@ const SearchAndFiltersComponent = (props) => {
         />
       </SearchBox>
       <CustomDropDown
+        theme={props.theme}
         name="Type"
         selectedOption={type}
         onSelect={(data) => setType(data)}

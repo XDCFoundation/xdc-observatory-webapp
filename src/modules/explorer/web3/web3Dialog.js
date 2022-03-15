@@ -430,6 +430,10 @@ const InstructionCard = styled.div`
   background-color: #f6f7fa;
   width: 212px;
   height: 209px;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #192a59;
+    border: solid 2px #1e326a;
+  `}
 `;
 
 const CardText = styled.div`
@@ -443,6 +447,9 @@ const CardText = styled.div`
   text-align: center;
   padding: 0 15px 0 15px;
   color: #686868;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
 `;
 
 const ImageContainer = styled.div`
@@ -462,6 +469,9 @@ const CardTitle = styled.div`
   text-align: left;
   color: #2a2a2a;
   text-align: center;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
 `;
 
 const CloseIconContainer = styled.div`
@@ -493,9 +503,9 @@ function Web3Dialog(props) {
       aria-labelledby="form-dialog-title"
       id="web3Dialog"
     >
-      <div className="main-box">
+      <div className={props.theme === "dark" ? "main-box-dark" : "main-box"}>
         <Row className="main-row">
-          <div className="main-title">Connect Wallet</div>
+          <div className={props.theme === "dark" ? "main-title-dark" : "main-title"}>Connect Wallet</div>
           <CloseIconContainer onClick={handleClose}>
             <img alt="Cross" src={"/images/XDC-Cross.svg"} />
           </CloseIconContainer>
@@ -509,8 +519,8 @@ function Web3Dialog(props) {
             gap: "45px",
           }}
         >
-          <InstructionCard>
-            <div className="fs-14 color-9fa9ba" style={{ textAlign: "center" }}>
+          <InstructionCard theme={props.theme}>
+            <div className={props.theme === "dark" ? "connect-wallet-dark-sub-heading fs-14" : "fs-14 color-9fa9ba"} style={{ textAlign: "center" }}>
               Step 1
             </div>
             <ImageContainer>
@@ -520,19 +530,20 @@ function Web3Dialog(props) {
                 src={"/images/xdc-icon-blue-color.svg"}
               />
             </ImageContainer>
-            <CardTitle>Install XDCPay</CardTitle>
-            <CardText>
+            <CardTitle theme={props.theme}>Install XDCPay</CardTitle>
+            <CardText theme={props.theme}>
               Install the XDCPay Chrome extension
               <a
                 href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-GB"
                 target="_blank"
+                className={props.theme === "dark" ? "connect-wallet-dark-xdc-url" : "" }
               >
                 &nbsp;here.
               </a>
             </CardText>
           </InstructionCard>
-          <InstructionCard>
-            <div className="fs-14 color-9fa9ba" style={{ textAlign: "center" }}>
+          <InstructionCard theme={props.theme}>
+            <div className={props.theme === "dark" ? "connect-wallet-dark-sub-heading fs-14" : "fs-14 color-9fa9ba"} style={{ textAlign: "center" }}>
               Step 2
             </div>
             <ImageContainer>
@@ -542,13 +553,13 @@ function Web3Dialog(props) {
                 src={"/images/login-2.svg"}
               />
             </ImageContainer>
-            <CardTitle>Login to XDCPay</CardTitle>
-            <CardText>
+            <CardTitle theme={props.theme}>Login to XDCPay</CardTitle>
+            <CardText theme={props.theme}>
               Log in to your account on the XDCPay Chrome extension
             </CardText>
           </InstructionCard>
-          <InstructionCard>
-            <div className="fs-14 color-9fa9ba" style={{ textAlign: "center" }}>
+          <InstructionCard theme={props.theme}>
+            <div className={props.theme === "dark" ? "connect-wallet-dark-sub-heading fs-14" : "fs-14 color-9fa9ba"} style={{ textAlign: "center" }}>
               Step 3
             </div>
             <ImageContainer>
@@ -558,8 +569,8 @@ function Web3Dialog(props) {
                 src={"/images/wallet-3.svg"}
               />
             </ImageContainer>
-            <CardTitle>Connect Wallet</CardTitle>
-            <CardText>
+            <CardTitle theme={props.theme}>Connect Wallet</CardTitle>
+            <CardText theme={props.theme}>
               {props.connectToWalletMessage
                 ? props.connectToWalletMessage
                 : "Click on “Search My Wallet” to see your wallet transactions"}

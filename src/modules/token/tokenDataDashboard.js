@@ -11,10 +11,11 @@ import Tokentabs from "./tokentabs";
 import TokentabsForAnalyics from "./tokentabsForAnalyics";
 import { useParams } from "react-router-dom";
 import TokenData from "../../services/token";
-import Utility from "../../utility";
+import Utility, { dispatchAction } from "../../utility";
 import Utils from "../../utility";
 import ReactHtmlParser from "react-html-parser";
 import ContractData from "../../services/contract";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   transfer: {
@@ -22,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
   },
   websiteLink: {
     color: "#2149b9 !important",
+    fontFamily: "Inter",
+    fontWeight: "600",
+  },
+  websiteLinkDark: {
+    color: "#4878ff !important",
     fontFamily: "Inter",
     fontWeight: "600",
   },
@@ -40,6 +46,10 @@ const MainContainer = styled.div`
   background-color: #ffffff;
   display: flex;
   margin: 30px auto auto auto;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #192a59;
+    border: none;
+  `}
 
   @media (min-width: 767px) and (max-width: 1240px) {
     flex-direction: column;
@@ -140,6 +150,9 @@ const Title = styled.div`
   line-height: normal;
 
   margin-bottom: 5px;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.75rem;
   }
@@ -154,6 +167,9 @@ const TitleValue = styled.div`
   line-height: normal;
 
   color: #2a2a2a;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
   }
@@ -178,6 +194,9 @@ const LeftTitle = styled.div`
   font-weight: bold;
   font-family: Inter;
   color: #2a2a2a;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1.1875rem;
     font-weight: bold;
@@ -210,6 +229,9 @@ const LeftTopSec = styled.div`
   font-family: Inter;
 
   color: #2a2a2a;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
   }
@@ -263,17 +285,26 @@ const RightTitle = styled.div`
   line-height: normal;
 
   color: #2a2a2a;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     text-align: left;
 
     color: #2a2a2a;
+    ${({ theme }) => theme === "dark" && `
+     color: #ffffff;
+    `}
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 0.875rem;
     text-align: left;
 
     color: #2a2a2a;
+    ${({ theme }) => theme === "dark" && `
+      color: #ffffff;
+    `}
   }
 `;
 const Line2 = styled.hr`
@@ -305,6 +336,10 @@ const RightTopSec = styled.div`
   font-family: "Inter" !important;
   font-weight: 600;
   padding-top: 1px;
+  ${({ theme }) => theme === "dark" && `
+     background-color: #091b4e;
+     color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.75rem;
     //width: 3.438rem;
@@ -350,7 +385,7 @@ const SocialMediaIcon = styled.img`
   cursor: pointer;
 `;
 
-export default function TokenDataComponent() {
+function TokenDataComponent(props) {
   const classes = useStyles();
   // let changePrice = 5.21;
   // let tokenName = 'XDC'
@@ -466,9 +501,9 @@ export default function TokenDataComponent() {
 
   return (
     <>
-      <div style={{ backgroundColor: "#fff" }}>
-        <Tokensearchbar />
-        <MainContainer>
+      <div style={props.theme.currentTheme === "dark" ? { backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
+        <Tokensearchbar theme={props.theme.currentTheme}/>
+        <MainContainer theme={props.theme.currentTheme}>
           <LeftContainer>
             {/*{window.innerWidth >= 768 ? (*/}
             <ShowTopHeaderForNonMobileOnly>
@@ -480,6 +515,7 @@ export default function TokenDataComponent() {
                 numberStatus={numberStatus}
                 tokenChanges24hr={tokenChanges24hr}
                 isLoading={isLoading}
+                theme={props.theme.currentTheme}
               />
             </ShowTopHeaderForNonMobileOnly>
             {/*) : (*/}
@@ -492,9 +528,9 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={blockHeightImg} /> */}
 
                     <ValueName>
-                      <Title>Holders</Title>
+                      <Title theme={props.theme.currentTheme}>Holders</Title>
                       <div className="last_value">
-                        <TitleValue>{holders?.responseCount}</TitleValue>
+                        <TitleValue theme={props.theme.currentTheme}>{holders?.responseCount}</TitleValue>
                         <div className="last_value">
                           <div
                             className={
@@ -523,9 +559,9 @@ export default function TokenDataComponent() {
                   <Value>
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
-                      <Title>Transfer</Title>
+                      <Title theme={props.theme.currentTheme}>Transfer</Title>
                       {}
-                      <TitleValue>
+                      <TitleValue theme={props.theme.currentTheme}>
                         {!transfer ? "" : transfer}
                       </TitleValue>
                     </ValueName>
@@ -533,10 +569,10 @@ export default function TokenDataComponent() {
                   <Value>
                     {/* <TitleIcon src={transactionLogo} /> */}
                     <ValueName>
-                      <Title>Contract</Title>
+                      <Title theme={props.theme.currentTheme}>Contract</Title>
                       <ContractButton>
                         {" "}
-                        <a className="token-link" href={`/address/${address}`}>
+                        <a className={props.theme.currentTheme ? "token-link-dark" : "token-link"} href={`/address/${address}`}>
                           {" "}
                           {shorten(address)}
                         </a>
@@ -548,8 +584,8 @@ export default function TokenDataComponent() {
                   <Value>
                     {/* <TitleIcon src={difficultyLogo} /> */}
                     <ValueName>
-                      <Title>Decimal</Title>
-                      <TitleValue>
+                      <Title theme={props.theme.currentTheme}>Decimal</Title>
+                      <TitleValue theme={props.theme.currentTheme}>
                         {contractData?.contractResponse?.decimals}
                       </TitleValue>
                     </ValueName>
@@ -557,19 +593,19 @@ export default function TokenDataComponent() {
                   <Value>
                     {/* <TitleIcon src={maxLogo} /> */}
                     <ValueName>
-                      <Title>Website</Title>
+                      <Title theme={props.theme.currentTheme}>Website</Title>
                       {!isLoading ? (contractData?.contractResponse?.website ?
-                      (<a className={classes.websiteLink} href={contractData?.contractResponse?.website} target="_blank">
+                      (<a className={props.theme.currentTheme === "dark" ? classes.websiteLinkDark : classes.websiteLink} href={contractData?.contractResponse?.website} target="_blank">
                         {contractData?.contractResponse?.website}
                       </a>):
-                      (<TitleValue>Not available</TitleValue>)):("")}
+                      (<TitleValue theme={props.theme.currentTheme}>Not available</TitleValue>)):("")}
                       {/* <ContractButton>www.usdc.com</ContractButton> */}
                     </ValueName>
                   </Value>
                   <Value>
                     {/* <TitleIcon src={accountLogo} /> */}
                     <ValueName>
-                      <Title>Social Media</Title>
+                      <Title theme={props.theme.currentTheme}>Social Media</Title>
                       {!isLoading ? ((contractData?.contractResponse?.telegram ||
                         contractData?.contractResponse?.facebook ||
                         contractData?.contractResponse?.twitter) ?
@@ -588,7 +624,7 @@ export default function TokenDataComponent() {
                             (<a href={contractData?.contractResponse?.twitter}  target="_blank">
                               <SocialMediaIcon src="/images/twitter.svg" alt="twitter"></SocialMediaIcon>
                             </a>):("")}
-                      </Icons>:<TitleValue>Not available</TitleValue>):("")}
+                      </Icons>:<TitleValue theme={props.theme.currentTheme}>Not available</TitleValue>):("")}
                     </ValueName>
                   </Value>
                 </MobileScreen>
@@ -598,8 +634,8 @@ export default function TokenDataComponent() {
 
           <RightContainer>
             <RightTop>
-              <RightTitle>Holders</RightTitle>
-              <RightTopSec>14 Days</RightTopSec>
+              <RightTitle theme={props.theme.currentTheme}>Holders</RightTitle>
+              <RightTopSec theme={props.theme.currentTheme}>14 Days</RightTopSec>
               <Line2></Line2>
             </RightTop>
             <GraphContainer>
@@ -616,6 +652,7 @@ export default function TokenDataComponent() {
               numberStatus={numberStatus}
               tokenChanges24hr={tokenChanges24hr}
               isLoading={isLoading}
+              theme={props.theme.currentTheme}
             />
           </ShowTopHeaderForMobileOnly>
           {/*) : (*/}
@@ -625,14 +662,14 @@ export default function TokenDataComponent() {
         {marketCapVal == 0 ? (
           ""
         ) : (
-          <TokenMarketDataTable marketCap={marketCapVal} />
+          <TokenMarketDataTable marketCap={marketCapVal} theme={props.theme.currentTheme}/>
         )}
         <br />
-        <br />
+        <br /> 
         {isAnalticsTab ? (
-          <TokentabsForAnalyics contractStatusData={contractData} />
+          <TokentabsForAnalyics contractStatusData={contractData} theme={props.theme.currentTheme}/>
         ) : (
-          <Tokentabs contractStatusData={contractData} />
+          <Tokentabs contractStatusData={contractData} theme={props.theme.currentTheme}/>
         )}
         <br />
         <br />
@@ -642,6 +679,11 @@ export default function TokenDataComponent() {
   );
 }
 
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(TokenDataComponent);
+
 const TopHeaderSection = ({
   tn,
   tokenImage,
@@ -650,6 +692,7 @@ const TopHeaderSection = ({
   numberStatus,
   tokenChanges24hr,
   isLoading,
+  theme
 }) => {
   return (
     <>
@@ -673,11 +716,11 @@ const TopHeaderSection = ({
             ""
           )}
 
-          <LeftTitle>{tn.toUpperCase()}</LeftTitle>
+          <LeftTitle theme={theme}>{tn.toUpperCase()}</LeftTitle>
         </LeftTop>
 
         <LeftTopSecMain>
-          <LeftTopSec>
+          <LeftTopSec theme={theme}>
             {CurrencySymbol}
             {!tokenPriceVal ? "" : tokenPriceVal.toFixed(10)}
           </LeftTopSec>
@@ -711,7 +754,7 @@ const TopHeaderSection = ({
           </div>
         </LeftTopSecMain>
       </LeftFirst>
-      <hr></hr>
+      <hr className={theme === "dark" ? "hr-dark" : ""}></hr>
     </>
   );
 };
