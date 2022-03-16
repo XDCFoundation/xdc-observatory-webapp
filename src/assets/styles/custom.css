@@ -5515,6 +5515,11 @@ button {
   color: #02c227;
   margin-top: -2px;
 }
+.arrow_right_grey {
+  color: #9fa9ba;
+  margin-top: -2px;
+  margin-right: 5px;
+}
 
 .arrow_down {
   color: #f70a0a;
