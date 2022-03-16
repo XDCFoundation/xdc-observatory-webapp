@@ -20,6 +20,7 @@ import format from "format-number";
 import { connect, useSelector } from "react-redux";
 import Utility from "../../utility";
 import { cookiesConstants } from "../../constants";
+import { BsCaretRightFill } from "react-icons/bs";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -959,6 +960,115 @@ function Transaction({ _handleChange,theme }) {
               </DivMiddleContainer>
 
               <Div__ theme={theme.currentTheme}>
+              <Spacing>
+                  <Container>
+                    <Tooltip align="right" title={gasprovided}>
+                      <ImageView src={"/images/info.svg"} />
+                    </Tooltip>
+                    <Hash>Token Transferred</Hash>
+                  </Container>
+                  <MiddleContainer isTextArea={false}>
+                    <TokenTransferredMiddleContainer>
+                      <TokenTransferredContent>
+                    <BlackText>XRC-721</BlackText>
+                    <GreyText>Token ID</GreyText>
+                    <GreyText>[</GreyText>
+                    <BlueText>1256</BlueText>
+                    <GreyText>]</GreyText>
+                    <BlueText>CunningFox.. (CFX)</BlueText>
+                    </TokenTransferredContent>
+                    <ImgProfileIcon src="/images/xyz.svg" />
+                    </TokenTransferredMiddleContainer>
+                  </MiddleContainer>
+                </Spacing>
+                <SpacingTxnAction>
+                  <ContainerTxnAction>
+                    <Tooltip align="right" title={gasprovided}>
+                      <ImageView src={"/images/info.svg"} />
+                    </Tooltip>
+                    <Hash>Txn Action</Hash>
+                  </ContainerTxnAction>
+                  <MiddleContainer isTextArea={false}>
+                  <MainContainerTxnAction>
+                    <TxnActionNextRow>
+                      <div className="arrow_right_grey">
+                        <BsCaretRightFill size={10}/>
+                      </div>
+                      <GreyText>Sale:</GreyText>
+                      <BlackText>1 NFT</BlackText>
+                      <GreyText>For</GreyText>
+                      <BlackText>2500.00 XDC</BlackText>
+                      <ImgNextRed src="/images/xyz.svg" />
+                      <BlackText>FleekApp</BlackText>
+                    </TxnActionNextRow>
+                    <TxnActionNextRow>
+                      <Gap1 />
+                      <div className="arrow_right_grey">
+                        <BsCaretRightFill size={10}/>
+                      </div>
+                      <BlackText>Transfer of</BlackText>
+                      <BlueText>CunningFox.. (CFX)</BlueText>
+                      <GreyText>from</GreyText>
+                      <BlueText>xdcc4e69958…5b9c</BlueText>
+                      <GreyText>to</GreyText>
+                      <BlueText>xdcc4e69958…9e9a</BlueText>
+                    </TxnActionNextRow>
+                    <TxnActionNextRow>
+                      <Gap2 />
+                      <div className="arrow_right_grey">
+                        <BsCaretRightFill size={10}/>
+                      </div>
+                      <BlackText>1 of</BlackText>
+                      <GreyText>Token ID</GreyText>
+                      <GreyText>[</GreyText>
+                      <BlueText>1256</BlueText>
+                      <GreyText>]</GreyText>
+                    </TxnActionNextRow>  
+                  </MainContainerTxnAction>
+                  </MiddleContainer>
+                </SpacingTxnAction>
+                <SpacingInteractedWith>
+                  <ContainerInteractedWith>
+                    <Tooltip align="right" title={gasprovided}>
+                      <ImageView src={"/images/info.svg"} />
+                    </Tooltip>
+                    <Hash>Interacted With (To)</Hash>
+                  </ContainerInteractedWith>
+                  <MiddleContainer isTextArea={false}>
+                  <MainContainerInteractedWith>
+                    <ContentInteractedWith>
+                      <div>Contract</div>
+                      &nbsp;
+                      <span><a className="linkTableDetails-transaction" href={"#"}>
+                      xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
+                      </a></span>
+                      &nbsp;&nbsp;
+                      (<div>FleekApp</div>)
+                      <ImgInteracted src="/images/success.svg" />
+                      <ImgCopyGrey src="/images/copy-grey.svg" />
+                    </ContentInteractedWith>
+                    <InteractedWithNextRow>
+                      <ImgNewLine src="/images/xyz.svg" />
+                      <GreyText>TRANSFER</GreyText>
+                      <BlackText>0.000000006 XDC</BlackText>
+                      <GreyText>From</GreyText>
+                      <BlueText>Fleek: NFT App</BlueText>
+                      <GreyText>to</GreyText>
+                      <BlackText>Fleek:</BlackText>
+                      <BlueText>NFT App</BlueText>
+                    </InteractedWithNextRow>
+                    <InteractedWithNextRow>
+                      <ImgNewLine src="/images/xyz.svg" />
+                      <GreyText>TRANSFER</GreyText>
+                      <BlackText>0.000000006 XDC</BlackText>
+                      <GreyText>From</GreyText>
+                      <BlueText>Fleek: NFT App</BlueText>
+                      <GreyText>to</GreyText>
+                      <BlueText>xdcc4e6995811141…eb9a</BlueText>
+                    </InteractedWithNextRow>
+                    </MainContainerInteractedWith>
+                  </MiddleContainer>
+                </SpacingInteractedWith>
                 {/* -------------------------------------------------------------txn fee----------------------- */}
                 <Spacing theme={theme.currentTheme}>
                   <Container>
@@ -1991,4 +2101,147 @@ const AddLabel = styled.div`
 const AddLabelText = styled.div`
   margin-right: 8px;
   white-space: nowrap;
+`;
+const MainContainerInteractedWith = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const MainContainerTxnAction = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const ContentInteractedWith = styled.div`
+  font-family: Inter;
+  font-size: 0.935rem;
+  text-align: left;
+  color: #3a3a3a;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 0.875rem;
+    text-align: left;
+    color: #3a3a3a;
+    opacity: 1;
+    line-height: 7px !important;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 10px;
+    padding-top: 5px;
+  }
+  @media (min-width: 768px) and (max-width: 1241px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+
+    color: #3a3a3a;
+    opacity: 1;
+  }
+`;
+const InteractedWithNextRow = styled.div`
+  display: flex;
+`;
+const TxnActionNextRow = styled.div`
+  display: flex;
+`;
+const TokenTransferredMiddleContainer = styled.div`
+  display: flex;
+`;
+const TokenTransferredContent = styled.div`
+  display: flex;
+  margin-top: 5px;
+  margin-right: 12px;
+`;
+
+const ImgInteracted = styled.img`
+  width: 19px;
+  margin-left: 13px;
+  margin-right: 9px;
+`;
+
+const ImgProfileIcon = styled.img`
+  width: 32px;
+  height: 32px;
+`;
+
+const ImgCopyGrey = styled.img`
+  width: 25px;
+`;
+
+const ImgNextArrowLine = styled.img`
+  width: 18px;
+`;
+const ImgNextRed = styled.img`
+  width: 18px;
+  margin-left: 10px;
+  margin-right: 20px;
+`;
+const ImgNewLine = styled.img`
+  width: 25px;
+`;
+
+const GreyText = styled.span`
+  color: #9fa9ba;
+  margin-left: 2px;
+`;
+
+const BlackText = styled.span`
+  color: #2a2a2a;
+  margin-left: 2px;
+`;
+
+const BlueText = styled.span`
+  color: #2149b9;
+  margin-left: 2px;
+`;
+
+const Gap1 = styled.span`
+  margin-left: 15px;
+`;
+const Gap2 = styled.span`
+  margin-left: 30px;
+`;
+const SpacingInteractedWith = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  align-items: center;
+  border-bottom: solid 1px #e3e7eb;
+  height: 7rem;
+
+  @media (max-width: 767px) {
+    display: block;
+    height: auto;
+    padding: 12px 0 17px 0;
+  }
+`;
+const SpacingTxnAction = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  align-items: center;
+  border-bottom: solid 1px #e3e7eb;
+  height: 7rem;
+
+  @media (max-width: 767px) {
+    display: block;
+    height: auto;
+    padding: 12px 0 17px 0;
+  }
+`;
+
+
+const ContainerInteractedWith = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  max-width: 165px;
+  margin-top: -40px;
+`;
+const ContainerTxnAction = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  max-width: 165px;
+  margin-top: -40px;
 `;

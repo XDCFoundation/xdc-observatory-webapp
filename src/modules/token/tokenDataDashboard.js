@@ -542,7 +542,7 @@ function TokenDataComponent(props) {
                             <div className="value_p">
                               {changeHolders === 0 ? ("") :(changeHolders > 0 ? (
                                 <div className="arrow_up_token">
-                                  <BsFillCaretUpFill size={10} />
+                                  <BsFillCaretUpFill size={10} rotate={90}/>
                                 </div>
                               ) : (
                                 <div className="arrow_down">
