@@ -988,7 +988,6 @@ export default function AddressTableComponent(props) {
                 noData == false && (
                   <TableBody>
                     {address.map((row, index) => {
-                      console.log(row,"<<<<<<<<")
                       const TimeAge = !row.Age
                         ? ""
                         : moment(row.Age * 1000).format("MMM DD, YYYY h:mm A");

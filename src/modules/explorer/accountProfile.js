@@ -1031,7 +1031,6 @@ export default function SimpleTabs(props) {
     // console.log(res, "res");
   };
   const updateListTags = (res) => {
-    console.log(res,">>>>>")
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
     };
