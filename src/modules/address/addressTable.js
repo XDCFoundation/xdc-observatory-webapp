@@ -390,7 +390,9 @@ export default function AddressTableComponent(props) {
             Number(d?.value) < 1000000000000
               ? Number(d?.value * 1000000000000000000)
               : d.value,
+          contractAddress : d.contractAddress,
           id: d._id,
+
         };
       })
     );
@@ -419,7 +421,7 @@ export default function AddressTableComponent(props) {
           Value:
             d?.value < 1000000000000
               ? Number(d?.value * 1000000000000000000)
-              : Utility.decimalDivison(d.value, 8),
+              : Utility.decimalDivisonOnly(d.value, 8),
         };
       })
     );
@@ -478,7 +480,7 @@ export default function AddressTableComponent(props) {
             Value:
               d?.Value < 1000000000000
                 ? Number(d?.Value * 1000000000000000000)
-                : Utility.decimalDivison(d.Value, 8),
+                : Utility.decimalDivisonOnly(d.Value, 8),
           };
         })
       );
@@ -509,7 +511,7 @@ export default function AddressTableComponent(props) {
             Value:
               d?.Value < 1000000000000
                 ? Number(d?.Value * 1000000000000000000) /*there are some transactions which are not in gwei in ou DB*/
-                : Utility.decimalDivison(d.Value, 8),
+                : Utility.decimalDivisonOnly(d.Value, 8),
           };
         })
       );
@@ -1013,7 +1015,6 @@ export default function AddressTableComponent(props) {
                 noData == false && (
                   <TableBody>
                     {address.map((row, index) => {
-                      
                       const TimeAge = !row.Age
                         ? ""
                         : moment(row.Age * 1000).format("MMM DD, YYYY h:mm A");
@@ -1120,11 +1121,11 @@ export default function AddressTableComponent(props) {
                           <TableCell style={{ border: "none" }} align="left">
                             <a
                               className="linkTable"
-                              href={"/address-details/" + row.To}
+                              href={"/address-details/" + row.To ? row.To : row.contractAddress}
                             >
-                              <Tooltip placement="top" title={row.To}>
-                                <span className={props.theme === "dark" ? "tabledata fc-4878ff" : "tabledata"}>
-                                  {shorten(row.To)}
+                              <Tooltip placement="top" title={row.To ? row.To : row.contractAddress}>
+                              <span className={props.theme === "dark" ? "tabledata fc-4878ff" : "tabledata"}>
+                                  {row.To ? shorten(row.To):shorten(row.contractAddress).toLocaleLowerCase()}
                                 </span>
                               </Tooltip>
                             </a>
