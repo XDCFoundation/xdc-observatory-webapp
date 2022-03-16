@@ -4,6 +4,8 @@ import Tokensearchbar from '../tokensearchBar';
 import FooterComponent from '../../common/footerComponent'
 import NetworkCard from './networkCard'
 import { NetworkService } from '../../../services';
+import { dispatchAction } from "../../../utility";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((themes) => ({
     mainContainer: {
@@ -17,6 +19,12 @@ const useStyles = makeStyles((themes) => ({
         fontWeight: "bold",
         color: "#2a2a2a",
     },
+    darkheading: {
+        marginTop: "46px",
+        fontSize: "24px",
+        fontWeight: "bold",
+        color: "#ffffff",
+    },
     contentRow: {
         marginTop: "12px",
         marginBottom: "20px",
@@ -27,7 +35,8 @@ const useStyles = makeStyles((themes) => ({
     
 }))
 
-export default function BlockchainIdentity() {
+function BlockchainIdentity(props) {
+    console.log("blockchain-identity-props",props)
     const classes = useStyles();
     const [blockchainIdentityResponse, setBlockchainIdentityResponse] = useState([])
 
@@ -40,10 +49,10 @@ export default function BlockchainIdentity() {
         setBlockchainIdentityResponse(response)
       }
   return (
-    <div>
-        <Tokensearchbar />
+    <div style={props?.theme.currentTheme === "dark" ? {backgroundColor: "#091b4e"} : { backgroundColor: "#fff" }} className={props?.theme.currentTheme === "dark" ? "dark-theme-bg" : ""}>
+        <Tokensearchbar theme={props.theme.currentTheme === "dark" ? "dark" : ""} />
         <div className={classes.mainContainer}>
-            <div className={classes.heading}>Blockchain Identity</div>
+            <div className={props?.theme.currentTheme === "dark" ? classes.darkheading : classes.heading}>Blockchain Identity</div>
             <div className={classes.contentRow}>
             {blockchainIdentityResponse && blockchainIdentityResponse.map((row, index) => {
                 return (<NetworkCard
@@ -53,6 +62,7 @@ export default function BlockchainIdentity() {
                     chainID={row.chainID}
                     currencySymbol={row.currencySymbol}
                     blockExplorer={row.blockExplorer}
+                    theme={props?.theme.currentTheme}
                 />)
                 })}
             </div>
@@ -61,3 +71,8 @@ export default function BlockchainIdentity() {
     </div>
   )
 }
+
+const mapStateToProps = (state) => {
+    return { user: state.user, theme: state.theme };
+  };
+  export default connect(mapStateToProps, { dispatchAction })(BlockchainIdentity);
