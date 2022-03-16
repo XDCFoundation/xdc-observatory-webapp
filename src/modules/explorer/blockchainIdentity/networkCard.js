@@ -12,13 +12,28 @@ const useStyles = makeStyles((themes) => ({
     border: "solid 1px #e3e7eb",
     backgroundColor: "var(--white)",
     marginBottom: "32px",
-},
+  },
+  darkContentContainer: {
+    width: "581px",
+    padding: "23px 10px 23px 40px",
+    borderRadius: "12px",
+    // boxShadow: "0 2px 15px 0 rgba(0, 0, 0, 0.1)",
+    // border: "solid 1px #e3e7eb",
+    backgroundColor: "#283966",
+    marginBottom: "32px",
+  },
   contentHeading: {
       fontSize: "18px",
       fontWeight: "600",
       color: "#2149b9",
       marginBottom: "20px",
   },
+  darkContentHeading: {
+    fontSize: "18px",
+    fontWeight: "600",
+    color: "#ffffff",
+    marginBottom: "20px",
+},
   subContentRow: {
     display: "flex",
     padding:" 3px 0"
@@ -30,6 +45,13 @@ const useStyles = makeStyles((themes) => ({
     color: "#252525",
     marginRight: "14px"
   },
+  darkSubcontentHeading: {
+    width: "134px",
+    fontSize: "15px",
+    fontWeight: "600",
+    color: "#ffffff",
+    marginRight: "14px"
+  },
   dataContainer: {
     display: "flex",
   },
@@ -38,6 +60,12 @@ const useStyles = makeStyles((themes) => ({
     fontSize: "15px",
     fontWeight: "normal",
     color: "#3a3a3a",
+  },
+  darkSubContentData: {
+    fontFamily: "Inter",
+    fontSize: "15px",
+    fontWeight: "normal",
+    color: "#adc4e4",
   },
   copyicon: {
     width: "16px",
@@ -48,20 +76,21 @@ const useStyles = makeStyles((themes) => ({
 }))
 
 export default function NetworkCard(props) {
+  console.log("props",props)
   const classes = useStyles();
   const [copiedText, setCopiedText] = useState("");
   return (
     <div>
-      <div className={classes.contentContainer}>
-      <div className={classes.contentHeading}>{props.cardHeading}</div>
+      <div className={props.theme==="dark" ? classes.darkContentContainer : classes.contentContainer}>
+      <div className={props.theme==="dark" ? classes.darkContentHeading : classes.contentHeading}>{props.cardHeading}</div>
         <div className={classes.subContentRow}>
-          <div className={classes.subcontentHeading}>Network name</div>
-          <div className={classes.subContentData}>{props.networkName}</div>
+          <div className={props.theme==="dark" ? classes.darkSubcontentHeading : classes.subcontentHeading}>Network name</div>
+          <div className={props.theme==="dark" ? classes.darkSubContentData : classes.subContentData}>{props.networkName}</div>
         </div>
         <div className={classes.subContentRow}>
-          <div className={classes.subcontentHeading}>New RPC URL</div>
+          <div className={props.theme==="dark" ? classes.darkSubcontentHeading : classes.subcontentHeading}>New RPC URL</div>
           <div className={classes.dataContainer}>
-            <div className={classes.subContentData}>{props.RPC_URL}</div>
+            <div className={props.theme==="dark" ? classes.darkSubContentData : classes.subContentData}>{props.RPC_URL}</div>
             <CopyToClipboard
                 text={props.RPC_URL}
                 onCopy={() => setCopiedText(props.RPC_URL)}
@@ -76,17 +105,17 @@ export default function NetworkCard(props) {
           </div>
         </div>
         <div className={classes.subContentRow}>
-          <div className={classes.subcontentHeading}>Chain ID</div>
-          <div className={classes.subContentData}>{props.chainID}</div>
+          <div className={props.theme==="dark" ? classes.darkSubcontentHeading : classes.subcontentHeading}>Chain ID</div>
+          <div className={props.theme==="dark" ? classes.darkSubContentData : classes.subContentData}>{props.chainID}</div>
         </div>
         <div className={classes.subContentRow}>
-          <div className={classes.subcontentHeading}>Currency Symbol</div>
-          <div className={classes.subContentData}>{props.currencySymbol}</div>
+          <div className={props.theme==="dark" ? classes.darkSubcontentHeading : classes.subcontentHeading}>Currency Symbol</div>
+          <div className={props.theme==="dark" ? classes.darkSubContentData : classes.subContentData}>{props.currencySymbol}</div>
         </div>
         <div className={classes.subContentRow}>
-          <div className={classes.subcontentHeading}>Block Explorer</div>
+          <div className={props.theme==="dark" ? classes.darkSubcontentHeading : classes.subcontentHeading}>Block Explorer</div>
           <div className={classes.dataContainer}>
-            <div className={classes.subContentData}>{props.blockExplorer}</div>
+            <div className={props.theme==="dark" ? classes.darkSubContentData : classes.subContentData}>{props.blockExplorer}</div>
             <CopyToClipboard
                 text={props.blockExplorer}
                 onCopy={() => setCopiedText(props.blockExplorer)}

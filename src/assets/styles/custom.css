@@ -12558,6 +12558,11 @@ button {
   background-color: #2149b9;
   min-height: 100vh;
 }
+.dark-global-id {
+  /* background-image: url("../images/banner_bg.png"); */
+  background-color: #0b205a;
+  min-height: 100vh;
+}
 @media (max-width: 767px) {
   .global-id {
     background-image: none;
