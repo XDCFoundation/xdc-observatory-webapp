@@ -45,6 +45,12 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
   },
+  containerDark: {
+    borderRadius: "0.875rem",
+    boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#192a59",
+  },
   RankColumn: {
     border: "none !important",
     borderBottom: "none !important",
@@ -112,6 +118,9 @@ const useStyles = makeStyles({
     container: {
       height: 600,
     },
+    containerDark: {
+      height: 600,
+    },
   },
 });
 
@@ -162,11 +171,11 @@ export default function AccountComponent(props) {
   let rantValue = state.from;
 
   return (
-    <div>
-      <Tokensearchbar />
+    <div className={props.theme === "dark" ? "dark-theme-bg" : ""}>
+      <Tokensearchbar theme={props.theme}/>
       <div className="responsive-table-width-contract-list contact-list-tab ">
         <div className={classes.headingContainer}>
-          <div className={classes.heading}>{state.tableName}</div>
+          <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading}>{state.tableName}</div>
           <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
             <img
               onClick={handleSettingsClick}
@@ -200,15 +209,16 @@ export default function AccountComponent(props) {
         <SearchAndFiltersComponent searchAndFilters={props.state.searchAndFilters}
           updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts} 
           getListOfAccounts={props.getListOfAccounts}
+          theme={props.theme}
           />
-        <Paper style={{ borderRadius: "0.875rem" }} elevation={0}>
-          <TableContainer className={classes.container} id="container-table">
+        <div style={{ borderRadius: "0.875rem" }} elevation={0}>
+          <TableContainer className={props.theme === "dark" ? classes.containerDark : classes.container} id="container-table">
             <Table>
               <TableHead>
                 <TableRow>
                   {props.state.tableColumns["Rank"].isActive && (
                     <TableCell className={classes.RankColumn} align="center">
-                      <span className={"tableheaders_1 pl--1"}>
+                      <span className={props.theme === "dark" ? "tableheaders_1 pl--1 fc-white" : "tableheaders_1 pl--1"}>
                         Rank
                         <Tooltip
                           open={rankTT}
@@ -234,7 +244,7 @@ export default function AccountComponent(props) {
                       props.sortData("address");
                     }}
                   >
-                    <span className={"tableheaders_1_address cursor-pointer"}>
+                    <span className={props.theme === "dark" ? "tableheaders_1_address cursor-pointer fc-white" : "tableheaders_1_address cursor-pointer"}>
                       Address
                       <Tooltip
                         open={addressTT}
@@ -277,7 +287,7 @@ export default function AccountComponent(props) {
                       style={{ border: "none", paddingLeft: "5.4%" }}
                       align="center"
                     >
-                      <span className={"tableheaders_1 pl--1"}>
+                      <span className={props.theme === "dark" ? "tableheaders_1 pl--1 fc-white" : "tableheaders_1 pl--1"}>
                         Type
                         <Tooltip
                           open={typeTT}
@@ -308,7 +318,7 @@ export default function AccountComponent(props) {
                         props.sortData("balance");
                       }}
                     >
-                      <span className={"tableheaders_1 cursor-pointer"}>
+                      <span className={props.theme === "dark" ? "tableheaders_1 cursor-pointer fc-white" : "tableheaders_1 cursor-pointer"}>
                         Balance
                         <Tooltip
                           open={balanceTT}
@@ -356,7 +366,7 @@ export default function AccountComponent(props) {
                         props.sortData("percentage");
                       }}
                     >
-                      <span className={"tableheaders_1 cursor-pointer"}>
+                      <span className={props.theme === "dark" ? "tableheaders_1 cursor-pointer fc-white" : "tableheaders_1 cursor-pointer"}>
                         Percentage
                         <Tooltip
                           open={percentageTT}
@@ -452,13 +462,13 @@ export default function AccountComponent(props) {
                             key={row.name}
                             style={
                               index % 2 !== 1
-                                ? { background: "#f9f9f9" }
-                                : { background: "white" }
+                                ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
+                                : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
                             }
                           >
                             {props.state.tableColumns["Rank"].isActive && (
                               <TableCell
-                                className={` ${classes.RankColumnVal}`}
+                                className={props.theme === "dark" ? `${classes.RankColumnVal} fc-b1c3e1` : ` ${classes.RankColumnVal}`}
                                 align="center"
                               >
                                 <span className="tabledata">{rantValue}</span>
@@ -473,7 +483,7 @@ export default function AccountComponent(props) {
                               }}
                             >
                               <a
-                                className="linkTable"
+                                className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                 href={"/address-details/" + row.address}
                               >
                                 <span className="tabledata">{row.address}</span>
@@ -486,7 +496,7 @@ export default function AccountComponent(props) {
                                 style={{ border: "none", paddingLeft: "5%" }}
                                 align="center"
                               >
-                                <span className="tabledata">
+                                <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
                                   {row.accountType == 0
                                     ? "Account"
                                     : "Contract"}
@@ -508,9 +518,9 @@ export default function AccountComponent(props) {
                                   title={format({})(finalBal)}
                                 >
                                   {bal3 >= 0 || bal3 == null ? (
-                                    <span className="tabledata">{bal2}</span>
+                                    <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>{bal2}</span>
                                   ) : (
-                                    <span className="tabledata">
+                                    <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
                                       {bal2}
                                       {"."}
                                       <span style={{ color: "#9FA9BA" }}>
@@ -528,7 +538,7 @@ export default function AccountComponent(props) {
                                   className={`w-2 ${classes.PercentageColumnVal}`}
                                   align="center"
                                 >
-                                  <span className="tabledata">
+                                  <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
                                     {(!percentageValue2) ? <span>{percentageValue1}%</span> :
                                       <span>
                                         {percentageValue1}
@@ -556,21 +566,23 @@ export default function AccountComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div>No data found.</div>
+                <div className={props.theme === "dark" ? "fc-b1c3e1" : ""}>No data found.</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
-        </Paper>
+        </div>
 
         <Grid container style={{ marginTop: "28px" }} className="Pagination">
           <Grid item className="Pagination_1">
             {!props.state.isLoading && props.state.noData ? (
               <>
-                <span className="text">Show</span>
+                <span className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}>Show</span>
                 <PageSelector value={props.state.amount}
                   height={30}
-                  handler={props._handleChange} />
-                <span className="text">Records</span>
+                  handler={props._handleChange} 
+                  theme={props.theme}
+                  />
+                <span className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}>Records</span>
               </>
             ) : (
               ""
@@ -582,18 +594,24 @@ export default function AccountComponent(props) {
               id="btn_12"
               style={{ marginLeft: "0px" }}
               onClick={(event) => props._FirstPage(event)}
-              className={props.state.from === 0 ? "btn disabled" : "btn"}
+              className={props.state.from === 0 
+                ? props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled" : "btn disabled" 
+                : props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn" 
+              }
             >
               First
             </button>
             <button
               id="btn_12"
               onClick={(event) => props._PrevPage(event)}
-              className={props.state.from === 0 ? "btn disabled" : "btn"}
+              className={props.state.from === 0 
+                ? props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled" : "btn disabled" 
+                : props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn" 
+              }
             >
               <img className="back-arrow rotate-180" src={"/images/next.svg"} alt="back"/>
             </button>
-            <button id="btn_12" className="btn">
+            <button id="btn_12" className={props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn"}>
               Page{" "}
               {Math.ceil(state.totalAccounts / state.amount) -
                 Math.ceil((state.totalAccounts - state.from) / state.amount) +
@@ -606,8 +624,8 @@ export default function AccountComponent(props) {
               className={
                 props.state.from + props.state.accountList.length ===
                   props.state.totalAccounts
-                  ? "btn disabled"
-                  : "btn"
+                  ? props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled" : "btn disabled" 
+                  : props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn" 
               }
             >
               <img className="back-arrow" src={"/images/next.svg"} />
@@ -618,8 +636,8 @@ export default function AccountComponent(props) {
               className={
                 props.state.from + props.state.accountList.length ===
                   props.state.totalAccounts
-                  ? "btn disabled"
-                  : "btn"
+                  ? props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled" : "btn disabled" 
+                  : props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn" 
               }
             >
               Last

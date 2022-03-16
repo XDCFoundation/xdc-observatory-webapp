@@ -240,6 +240,7 @@ class LatestBlocks extends Component {
               showDetail={false}
               showBlock={true}
               isHomePage={true}
+              theme={this.props.theme}
             />
             <LatestTransactionView
               state={this.state}
@@ -248,6 +249,7 @@ class LatestBlocks extends Component {
               showDetails={false}
               showDate={true}
               isHomePage={true}
+              theme={this.props.theme}
             />
             {/*{!hideBlock ? (*/}
             {/*  <div className="block_main">*/}

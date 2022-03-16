@@ -49,6 +49,15 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+  appBarDark: {
+    position: "unset !important",
+    backgroundColor: "#132a69",
+    height: "4.875rem",
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: "10.8rem !important",
@@ -146,6 +155,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    listDark: {
+      width: "21.25rem",
+      backgroundColor: "#283966",
+      height: "100%",
+    },
   },
 
   "@media (min-width: 0px) and (max-width: 767px)": {
@@ -154,16 +168,23 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    listDark: {
+      width: "21.25rem",
+      backgroundColor: "#283966",
+      height: "100%",
+    },
   },
   fullList: {
     width: "auto",
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
+
+  const currentTheme = props.theme;
 
   const [state, setState] = React.useState({
     top: false,
@@ -320,14 +341,16 @@ export default function Navbar() {
 
   const lists = (anchor) => (
     <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
+    className={props.theme === "dark" ? clsx(classes.listDark, {
+      [classes.fullList]: anchor === "top" || anchor === "bottom",
+    }) : clsx(classes.list, {
+      [classes.fullList]: anchor === "top" || anchor === "bottom",
+    })}
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div className={classes.firstContainer}>
-        <p className="inside-side-box-browse">Browse</p>
+        <p className={props.theme === "dark" ? "inside-side-box-browse fc-white" : "inside-side-box-browse"}>Browse</p>
         <div className={classes.drawerHeader}>
           <IconButton
             style={{ color: "white" }}
@@ -338,7 +361,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="inside-side-box">
           <a className="account_details_button" href="/account-details">
             <div className="xinfin_account_button">Accounts</div>
@@ -366,6 +389,15 @@ export default function Navbar() {
             href="https://origin.xdc.org/" target="_blank"
           >
             <div className="xinfin_account_button">XDC Origin</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="/blockchain-identity"
+          >
+            <div className="xinfin_account_button">Blockchain Identity</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -455,7 +487,9 @@ export default function Navbar() {
   const contracts = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
       role="presentation"
@@ -498,7 +532,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="Live-Network-list">
           <a
             style={{
@@ -544,7 +578,9 @@ export default function Navbar() {
     <div
       className="scrollbar"
       style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
       role="presentation"
@@ -778,6 +814,7 @@ export default function Navbar() {
     list-style: none;
   @media (min-width: 0px) and (max-width: 767px){
     font-size: 0.875rem;
+  }
   `;
   const NavigationButton = styled.div`
   text-decoration :  none;
@@ -880,7 +917,7 @@ export default function Navbar() {
       <AppBar
         // className="mob-height"
         elevation={0}
-        className={clsx(classes.appBar)}
+        className={props.theme === "dark" ? clsx(classes.appBarDark) : clsx(classes.appBar)}
       >
         <MobileToolBar className={clsx(classes.toolBar)}>
           <div className="tab-search">
@@ -943,7 +980,7 @@ export default function Navbar() {
             </Row>
             <DeskTopView>
               <div className="parentCenterbox">
-                <div className="centerbox-td">
+                <div className={props.theme === "dark" ? "centerbox-td-dark" : "centerbox-td"}>
                   {SearchBox({
                     classes,
                     filter,
@@ -952,6 +989,7 @@ export default function Navbar() {
                     SelectOptRef,
                     handleSearchOption,
                     list,
+                    currentTheme
                   })}
                   <div className="token-error-message-div">
                     <span className="token-error-message">{errorMessage}</span>
@@ -977,6 +1015,7 @@ export default function Navbar() {
             contracts,
             openPasswordBox,
             open,
+            currentTheme
           })}
 
           {/* <div className="display-none-mobile">
@@ -1016,6 +1055,7 @@ export default function Navbar() {
               SelectOptRef,
               handleSearchOption,
               list,
+              currentTheme
             })}
             <div className="token-error-message-div">
               <span className="token-error-message">{errorMessage}</span>
@@ -1032,6 +1072,7 @@ export default function Navbar() {
               SelectOptRef,
               handleSearchOption,
               list,
+              currentTheme
             })}
             <div className="token-error-message-div">
               <span className="token-error-message">{errorMessage}</span>
@@ -1052,6 +1093,7 @@ const SearchBox = ({
   SelectOptRef,
   handleSearchOption,
   list,
+  currentTheme
 }) => {
   return (
     <div>
@@ -1074,14 +1116,14 @@ const SearchBox = ({
                   handleSearch(event);
                 }
               }} */
-              className="main-input-td "
+              className={currentTheme === "dark" ? "main-input-td-dark" : "main-input-td "}
               src={"/images/Search.png"}
               placeholder="Search by Address / Txn Hash / Block"
             />
             {/* name="NAME" */}
             <div className="mobFilter">
               <select
-                className="select-td"
+                className={currentTheme === "dark" ? "select-td-dark" : "select-td"}
                 onChange={(event) => handleSearchOption(event)}
                 ref={SelectOptRef}
               >
@@ -1130,13 +1172,14 @@ const LoginComponent = ({
   contracts,
   openPasswordBox,
   open,
+  currentTheme
 }) => {
   return (
     <Row className={classes.popover} alignItems="center">
       {openPasswordBox && (
-        <ChangePassword openChangePassword={openChangePassword} />
+        <ChangePassword openChangePassword={openChangePassword} theme={currentTheme}/>
       )}
-      <Popover openChangePassword={openChangePassword} />
+      <Popover theme={currentTheme} openChangePassword={openChangePassword} /> 
 
       <React.Fragment className="rigt-line" key={"right"}>
         <IconButton

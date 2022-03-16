@@ -3,15 +3,22 @@ import React from "react";
 import FooterComponent from "../common/index";
 import TokenSearchComponent from "../explorer/tokensearchBar";
 import TransactionComponent from "./mainComponent";
+import { connect } from "react-redux";
+import { dispatchAction } from "../../utility"
 
-export default class TransactionListMainComponent extends BaseComponent {
+class TransactionListMainComponent extends BaseComponent {
   render() {
     return (
       <>
-        <TokenSearchComponent />
-        <TransactionComponent />
+        <TokenSearchComponent theme={this.props.theme.currentTheme}/>
+        <TransactionComponent theme={this.props.theme.currentTheme}/>
         <FooterComponent />
       </>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(TransactionListMainComponent);

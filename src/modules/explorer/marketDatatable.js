@@ -40,6 +40,9 @@ const MarketDataPointTitle = styled.div`
   flex-flow: row;
   //align-item: center;
   gap: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
 
   @media (min-width: 768px) and (max-width: 1239px) {
     font-family: Inter;
@@ -186,10 +189,10 @@ class MarketDatatable extends Component {
       <>
         <DeskTopView>
           <div className={this.state.loading === true ? "cover-spin-4" : ""}>
-            <div className="main_mid">
+            <div className={this.props.theme === "dark" ? "main_mid_dark" : "main_mid"}>
               <div className="main_child">
-                <div className="cont1">
-                  <MarketDataPointTitle>
+                <div className={this.props.theme === "dark" ? "cont1-dark" : "cont1"}>
+                  <MarketDataPointTitle theme={this.props.theme}>
                     Market Cap
                     <Tooltip placement="top" title={messages.MARKET_CAP}>
                       <img
@@ -234,8 +237,8 @@ class MarketDatatable extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="cont1">
-                  <MarketDataPointTitle>
+                <div className={this.props.theme === "dark" ? "cont1-dark" : "cont1"}>
+                  <MarketDataPointTitle  theme={this.props.theme}>
                     Fully Diluted Market Cap
                     <Tooltip placement="top" title={messages.FDMP}>
                       <img
@@ -282,8 +285,8 @@ class MarketDatatable extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="cont1">
-                  <MarketDataPointTitle>
+                <div className={this.props.theme === "dark" ? "cont1-dark" : "cont1"}>
+                  <MarketDataPointTitle  theme={this.props.theme}>
                     Volume (24hr)
                     <Tooltip placement="top" title={messages.VOLUMEX24}>
                       <img
@@ -329,9 +332,9 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="main_sec">
-                <div className="cont1">
+                <div className={this.props.theme === "dark" ? "cont1-dark" : "cont1"}>
                   <div className="cont1-child">
-                    <MarketDataPointTitle>
+                    <MarketDataPointTitle  theme={this.props.theme}>
                       Circulating Supply
                       <Tooltip
                         placement="top"
@@ -350,9 +353,9 @@ class MarketDatatable extends Component {
                   </div>
                 </div>
 
-                <div className="cont1 cont1_align">
+                <div className={this.props.theme === "dark" ? "cont1-dark cont1_align" : "cont1 cont1_align"}>
                   <div className="cont1-child2">
-                    <MarketDataPointTitle>
+                    <MarketDataPointTitle  theme={this.props.theme}>
                       Total Supply
                       <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
                         <img
@@ -381,7 +384,7 @@ class MarketDatatable extends Component {
             <div className="second_mid">
               <div className="second_cont">
                 <div className="">
-                  <MarketDataPointTitle>
+                  <MarketDataPointTitle  theme={this.props.theme}>
                     Market Cap
                     <Tooltip placement="top" title={messages.MARKET_CAP}
                       open={this.state.marketCapTT}
@@ -438,7 +441,7 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="">
                   {" "}
-                  <MarketDataPointTitle>
+                  <MarketDataPointTitle  theme={this.props.theme}>
                     Fully Diluted Market Cap
                     <Tooltip placement="top" title={messages.FDMP}
                       open={this.state.fullDilutedMarketCapTT}
@@ -498,7 +501,7 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="">
                   {" "}
-                  <MarketDataPointTitle>
+                  <MarketDataPointTitle  theme={this.props.theme}>
                     Volume (24hr)
                     <Tooltip placement="top" title={messages.VOLUMEX24}
                       open={this.state.volume24TT}
@@ -553,7 +556,7 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="">
                   {" "}
-                  <MarketDataPointTitle>
+                  <MarketDataPointTitle  theme={this.props.theme}>
                     Circulating Supply
                     <Tooltip
                       placement="top"
@@ -582,7 +585,7 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="">
                   {" "}
-                  <MarketDataPointTitle>
+                  <MarketDataPointTitle  theme={this.props.theme}>
                     Total Supply
                     <Tooltip placement="top" title={messages.TOTAL_SUPPLY}
                       open={this.state.totalSupplyTT}

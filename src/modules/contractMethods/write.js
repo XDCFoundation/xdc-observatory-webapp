@@ -18,6 +18,9 @@ const QuestionContainer = styled.div`
   border-radius: 4px;
   height: ${(props) => (props.isActive ? "auto" : "50px")};
   transition: height 0.5s ease-out;
+  ${({ theme }) => theme === "dark" && `
+    border: none !important;
+  `}
 `;
 const QuestionNameContainer = styled.div`
   color: #343a40 !important;
@@ -30,6 +33,12 @@ const QuestionNameContainer = styled.div`
   border-radius: 4px;
   justify-content: space-between;
   align-items: center;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #3f4966 !important;
+    // border: solid 1px #3552a5;
+    border-bottom: solid 2px #6C7895;
+    outline: none;
+  `}
 `;
 
 const QuestionName = styled.div`
@@ -38,6 +47,9 @@ const QuestionName = styled.div`
   font-size: 15px;
   font-weight: 600;
   text-align: left;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
   }
@@ -54,6 +66,9 @@ const OutputContainer = styled.div`
   gap: 15px;
   background-color: white;
   padding: 15px;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #3f4966 !important;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
   }
@@ -95,6 +110,9 @@ const InputName = styled.div`
   font-weight: 600;
   text-align: left;
   color: #3a3a3a;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 13px;
   }
@@ -109,9 +127,17 @@ const ParamInput = styled.input`
   border-radius: 4px;
   border: solid 1px #dfe2e8;
   padding: 5px;
+  ${({ theme }) => theme === "dark" && `
+    border: solid 1px #3552a5 !important;
+    background-color: #192a59 !important;
+    color: #fff !important;
+  `}
 
   :active {
     outline: none;
+    ${({ theme }) => theme === "dark" && `
+      border: solid 1px #3552a5 !important;
+    `}
   }
   :hover {
     outline: none;
@@ -161,6 +187,9 @@ const HighlightedText = styled.div`
   font-weight: 600;
   text-align: left;
   color: #2149b9;
+  ${({ theme }) => theme === "dark" && `
+    color: #4878ff;
+  `}
 `;
 
 const HeaderContainer = styled.div`
@@ -217,6 +246,10 @@ const ConnectToWalletButton = styled.div`
   cursor: ${(props) => (props.isActive ? "" : "pointer")};
   text-align: left;
   color: ${(props) => (props.isActive ? "white" : "#3763dd")};
+  ${({ theme }) => theme === "dark" && `
+    background: transparent;
+    color: #b1c3e1
+  `}
 `;
 
 export default function ContractWriteMethods(props) {
@@ -467,10 +500,14 @@ export default function ContractWriteMethods(props) {
 
   return (
     <Paper
-      style={{
-        borderRadius: "14px",
-        boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
-      }}
+    style={props.theme === "dark" ? { 
+      borderRadius: "14px",
+      boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+      backgroundColor: "#192a59"
+    } : {
+      borderRadius: "14px",
+      boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+    }}
       elevation={0}
     >
       <HeaderContainer>
@@ -479,6 +516,7 @@ export default function ContractWriteMethods(props) {
             onClick={() => handleWeb3ConnectClick()}
             isActive={state.accountAddress.length > 0}
             disabled={state.accountAddress.length}
+            theme={props.theme}
           >
             {!state.accountAddress.length ? (
               <>
@@ -497,16 +535,16 @@ export default function ContractWriteMethods(props) {
           {state.loading ? (
             <CircularProgress size={20} />
           ) : !state.isExpand ? (
-            <HighlightedText onClick={() => handleExpandAllClick()}>
+            <HighlightedText theme={props.theme} onClick={() => handleExpandAllClick()}>
               Expand all
             </HighlightedText>
           ) : (
-            <HighlightedText onClick={() => handleCollpaseClick()}>
+            <HighlightedText theme={props.theme} onClick={() => handleCollpaseClick()}>
               Collapse all
             </HighlightedText>
           )}
           <HeaderItemsContainer onClick={() => handleResetClick()}>
-            <HighlightedText>Reset</HighlightedText>
+            <HighlightedText theme={props.theme}>Reset</HighlightedText>
             <img src="/images/reset.svg" />
           </HeaderItemsContainer>
         </Row>
@@ -530,8 +568,9 @@ export default function ContractWriteMethods(props) {
                       item.inputs.length > 0
                     )
                   }
+                  theme={props.theme}
                 >
-                  <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
+                  <QuestionName theme={props.theme}>{`${index + 1}. ${item.name}`}</QuestionName>
                   <Row style={{ gap: 10 }} alignItems="center">
                     {item.loading && item.inputs.length === 0 ? (
                       <CircularProgress size={12} />
@@ -545,7 +584,7 @@ export default function ContractWriteMethods(props) {
                   </Row>
                 </QuestionNameContainer>
                 {item.isActive ? (
-                  <OutputContainer>
+                  <OutputContainer theme={props.theme}>
                     {item.inputs.length > 0 ? (
                       <InputTypeFunctions
                         error={state.error}
@@ -555,6 +594,7 @@ export default function ContractWriteMethods(props) {
                         writeFunctions={state.writeFunctions}
                         functionDetail={item}
                         handleSubmit={handleFunctionClick}
+                        theme={props.theme}
                       />
                     ) : (
                       <OutPutComponent item={item} />
@@ -579,6 +619,7 @@ const InputTypeFunctions = ({
   writeFunctions,
   setState,
   state,
+  theme
 }) => {
   const [params, setParams] = React.useState({});
   React.useEffect(() => {
@@ -643,13 +684,14 @@ const InputTypeFunctions = ({
       {functionDetail.inputs.map((item, idx) => {
         return (
           <InputTypeFunctionsContainer key={idx}>
-            <InputName>{item.name}</InputName>
+            <InputName theme={theme}>{item.name}</InputName>
             <ParamInput
               placeholder={item.type}
               value={params[item.name]}
               onChange={(event) =>
                 handleParamsInput(event.target.value, item.name, item.type)
               }
+              theme={theme}
             />
           </InputTypeFunctionsContainer>
         );

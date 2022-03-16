@@ -41,6 +41,9 @@ const MarketDataPointTitle = styled.div`
   flex-flow: row;
   align-items: center;
   gap: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
 
   @media (min-width: 768px) and (max-width: 1239px) {
     font-family: Inter;
@@ -52,6 +55,9 @@ const MarketDataPointTitle = styled.div`
     color: #686868;
     font-size: 0.75rem;
     opacity: 1;
+    ${({ theme }) => theme === "dark" && `
+      color: #fff;
+    `}
   }
   @media (min-width: 350px) and (max-width: 1239px) {
     justify-content: left;
@@ -63,10 +69,16 @@ const MarketDataPointTitle = styled.div`
     display: flex;
     gap: 10px;
     width: 60%;
+    ${({ theme }) => theme === "dark" && `
+     color: #fff;
+    `}
   }
 `;
 const Value = styled.p`
   font-size: 18px !important;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1 !important;
+  `}
 `;
 const ThirdRowValue = styled.div`
   display: flex;
@@ -120,6 +132,9 @@ const InValue = styled.span`
   text-align: center !important;
   color: #585858 !important;
   padding: 4px 10px 5px 2px !important;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff !important;
+  `}
   @media (min-width: 768px) and (max-width: 1240px) {
     padding: 2px 10px 5px 2px !important;
     height: 1.5rem !important;
@@ -136,6 +151,9 @@ const OutValue = styled.span`
   text-align: center;
   padding: 4px 0px 5px 2px;
   color: #585858;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
 `;
 let convertToInternationalCurrencySystem = function givenCurrency(num) {
   if (num > 999.99999999 && num < 1000000) {
@@ -200,10 +218,10 @@ class AddressStatsData extends Component {
     return (
       <>
         <DeskTopView>
-          <div className="main_mid_address">
+          <div className={this.props.theme === "dark" ? "main_mid_address_dark" : "main_mid_address"}>
             <div className="main_child_address">
               <div className="cont1 p-t-0">
-                <MarketDataPointTitle>
+                <MarketDataPointTitle theme={this.props.theme}>
                   <Tooltip placement="top" title={messages.Total_Txn}>
                     <img
                       alt="question-mark"
@@ -215,19 +233,19 @@ class AddressStatsData extends Component {
                   Total Txn(s)
                 </MarketDataPointTitle>
 
-                <Value>{this.props?.statData?.totalTransactionsCount}</Value>
+                <Value theme={this.props.theme}>{this.props?.statData?.totalTransactionsCount}</Value>
                 <ThirdRowValue>
                   <InDiv>In</InDiv>
-                  <InValue>{this.props?.statData?.toTransactionsCount}</InValue>
+                  <InValue theme={this.props.theme}>{this.props?.statData?.toTransactionsCount}</InValue>
                   <OutDiv>Out</OutDiv>
-                  <OutValue>
+                  <OutValue theme={this.props.theme}>
                     {this.props?.statData?.fromTransactionsCount}
                   </OutValue>
                 </ThirdRowValue>
               </div>
 
               <div className="cont1 p-t-0">
-                <MarketDataPointTitle>
+                <MarketDataPointTitle theme={this.props.theme}>
                   <Tooltip placement="top" title={messages.Highest_Txn}>
                     <img
                       alt="question-mark"
@@ -238,9 +256,9 @@ class AddressStatsData extends Component {
                   </Tooltip>
                   Highest Txn
                 </MarketDataPointTitle>
-                <Value>{highestTxn}&nbsp;XDC</Value>
+                <Value theme={this.props.theme}>{highestTxn}&nbsp;XDC</Value>
                 <ThirdRowValue>
-                  <OutValue>
+                  <OutValue theme={this.props.theme}>
                     {currencySymbol}
                     {!highestTransactionConverted
                       ? ""
@@ -249,7 +267,7 @@ class AddressStatsData extends Component {
                 </ThirdRowValue>
               </div>
               <div className="cont1 p-t-0">
-                <MarketDataPointTitle>
+                <MarketDataPointTitle theme={this.props.theme}>
                   <Tooltip placement="top" title={messages.AVERAGE_BALANCE}>
                     <img
                       alt="question-mark"
@@ -260,12 +278,12 @@ class AddressStatsData extends Component {
                   </Tooltip>
                   Average Balance
                 </MarketDataPointTitle>
-                <Value>
+                <Value theme={this.props.theme}>
                   {avgBalance}
                   &nbsp;XDC
                 </Value>
                 <ThirdRowValue>
-                  <OutValue>
+                  <OutValue theme={this.props.theme}>
                     {currencySymbol}
                     {avgBalanceConverted}
                   </OutValue>
@@ -276,7 +294,7 @@ class AddressStatsData extends Component {
             <div className="main_sec_address">
               <div className="cont1 p-t-0">
                 <div className="cont1-child">
-                  <MarketDataPointTitle>
+                  <MarketDataPointTitle theme={this.props.theme}>
                     <Tooltip placement="top" title={messages.Txn_Fee}>
                       <img
                         alt="question-mark"
@@ -287,12 +305,12 @@ class AddressStatsData extends Component {
                     </Tooltip>
                     Txn Fee Paid
                   </MarketDataPointTitle>
-                  <Value>
+                  <Value theme={this.props.theme}>
                     {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
                     &nbsp;XDC
                   </Value>
                   <ThirdRowValue>
-                    <OutValue>
+                    <OutValue theme={this.props.theme}>
                       {currencySymbol}
                       {gasPriceConverted > 0
                         ? Number(gasPriceConverted).toFixed(12)
@@ -329,10 +347,10 @@ class AddressStatsData extends Component {
           </div>
         </DeskTopView>
         <MobileView>
-          <div className="second_mid_address">
+          <div className={this.props.theme === "dark" ? "second_mid_address_dark" : "second_mid_address"}>
             <div className="second_cont_address">
               <div className="w-45-per">
-                <MarketDataPointTitle>
+                <MarketDataPointTitle theme={this.props.theme}>
                   <Tooltip placement="top" title={messages.Total_Txn}>
                     <img
                       alt="question-mark"
@@ -344,14 +362,14 @@ class AddressStatsData extends Component {
                   Total Txn(s)
                 </MarketDataPointTitle>
               </div>
-              <div className="mid_cont_address ">
+              <div className={this.props.theme === "dark" ? "mid_cont_address_dark" : "mid_cont_address "}>
                 <p>{this.props?.statData?.totalTransactionsCount}</p>
 
                 <ThirdRowValue>
                   <InDiv>In</InDiv>
-                  <InValue>{this.props?.statData?.toTransactionsCount}</InValue>
+                  <InValue theme={this.props.theme}>{this.props?.statData?.toTransactionsCount}</InValue>
                   <OutDiv>Out</OutDiv>
-                  <OutValue>
+                  <OutValue theme={this.props.theme}>
                     {this.props?.statData?.fromTransactionsCount}
                   </OutValue>
                 </ThirdRowValue>
@@ -361,7 +379,7 @@ class AddressStatsData extends Component {
             <div className="second_cont_address">
               <div className="w-45-per">
                 {" "}
-                <MarketDataPointTitle>
+                <MarketDataPointTitle theme={this.props.theme}>
                   <Tooltip placement="top" title={messages.Highest_Txn}>
                     <img
                       alt="question-mark"
@@ -373,11 +391,11 @@ class AddressStatsData extends Component {
                   Highest Txn
                 </MarketDataPointTitle>
               </div>
-              <div className="mid_cont_address ">
+              <div className={this.props.theme === "dark" ? "mid_cont_address_dark" : "mid_cont_address "}>
                 {" "}
                 <p>{highestTxn}&nbsp;XDC</p>
                 <ThirdRowValue>
-                  <OutValue>
+                  <OutValue theme={this.props.theme}>
                     {" "}
                     {currencySymbol}
                     {!highestTransactionConverted
@@ -391,7 +409,7 @@ class AddressStatsData extends Component {
             <div className="second_cont_address">
               <div className="w-45-per">
                 {" "}
-                <MarketDataPointTitle>
+                <MarketDataPointTitle theme={this.props.theme}>
                   <Tooltip placement="top" title={messages.VOLUMEX24}>
                     <img
                       alt="question-mark"
@@ -403,11 +421,11 @@ class AddressStatsData extends Component {
                   Average Balance
                 </MarketDataPointTitle>
               </div>
-              <div className="mid_cont_address ">
+              <div className={this.props.theme === "dark" ? "mid_cont_address_dark" : "mid_cont_address "}>
                 {" "}
                 <p>{avgBalance}&nbsp;XDC</p>
                 <ThirdRowValue>
-                  <OutValue>
+                  <OutValue theme={this.props.theme}>
                     {" "}
                     {currencySymbol}
                     {!avgBalanceConverted ? "" : avgBalanceConverted}
@@ -419,7 +437,7 @@ class AddressStatsData extends Component {
             <div className="second_cont_address">
               <div className="w-45-per">
                 {" "}
-                <MarketDataPointTitle>
+                <MarketDataPointTitle theme={this.props.theme}>
                   <Tooltip placement="top" title={messages.Txn_Fee}>
                     <img
                       alt="question-mark"
@@ -431,14 +449,14 @@ class AddressStatsData extends Component {
                   Txn Fee Paid
                 </MarketDataPointTitle>
               </div>
-              <div className="mid_cont_address">
+              <div className={this.props.theme === "dark" ? "mid_cont_address_dark" : "mid_cont_address "}>
                 {" "}
                 <p>
                   {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
                   &nbsp;XDC
                 </p>
                 <ThirdRowValue>
-                  <OutValue>
+                  <OutValue theme={this.props.theme}>
                     {currencySymbol}
                     {gasPriceConverted > 0
                       ? Number(gasPriceConverted).toFixed(12)
