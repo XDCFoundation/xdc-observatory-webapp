@@ -80,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TemporaryDrawer(props) {
-  console.log("props",props)
   const classes = useStyles();
   const theme = useTheme();
   const [state, setState] = React.useState({
@@ -163,7 +162,6 @@ function TemporaryDrawer(props) {
     deletableNotification.map((notification) => {
       notificationIdArray.push(notification.id);
     });
-    console.log("notificationIdArray",notificationIdArray);
     props.dispatchAction(eventConstants.SHOW_LOADER, true);
     const [error] = await utility.parseResponse(
       NotificationService.markNotificationCleared({
@@ -303,7 +301,6 @@ function TemporaryDrawer(props) {
                       <span>{notification.description.splitted[2]}&nbsp;</span>
                       <span>{notification.description.splitted[3]}&nbsp;</span>
                       <span>{notification.description.splitted[4]}&nbsp;</span>
-                      {console.log("deletable-notification",deletableNotification)}
                       <span>
                         {window.innerWidth > 767
                           ? utility.shortenAddress(

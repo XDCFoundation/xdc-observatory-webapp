@@ -543,8 +543,6 @@ export default function AddressDetails(props) {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isLoadingDropDown, setLoadingDropDown] = useState(0);
-
-  console.log(isLoading, ">>>>>");
   const [copiedText, setCopiedText] = useState("");
   let nowCurrency = window.localStorage.getItem("currency");
   const [addressTag, setAddressTag] = useState([]);
