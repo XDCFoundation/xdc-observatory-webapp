@@ -529,6 +529,7 @@ const CustomDropDownAddress = (props) => {
     if (chainId == 50 || chainId == 51) {
       // Utils.apixFailureToast("Please login to XDCPay extension");
       await web3.eth.getAccounts().then((accounts) => {
+
         if (!accounts || !accounts.length) {
           Utility.apiFailureToast("Please login to XDCPay extension");
           return;
