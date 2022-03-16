@@ -41,6 +41,9 @@ const Pagination = styled.div`
   flex-direction: row;
   width: 75.125rem;
   margin: 28px auto 0 auto;
+  ${({ theme }) => theme === "dark" && `
+    margin: 28px auto 60px auto;
+  `}
 
   @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
@@ -80,12 +83,18 @@ const Show = styled.div`
   font-weight: 600;
   margin: auto;
   padding-bottom: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #adc4e4;
+  `}
 `;
 const Record = styled.div`
   font-size: 0.875rem;
   font-weight: 600;
   margin: auto;
   padding-bottom: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #adc4e4;
+  `}
 `;
 // function capitalize(text) {
 //   return text.charAt(0).toUpperCase() + text.slice(1);
@@ -102,6 +111,12 @@ const useStyles = makeStyles({
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#fff",
+  },
+  containerDark: {
+    borderRadius: "0.875rem",
+    boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#192a59",
   },
   tableFirstHeading: {
     border: "none",
@@ -135,6 +150,9 @@ const useStyles = makeStyles({
     container: {
       marginTop: "0px",
     },
+    containerDark: {
+      marginTop: "0px",
+    },
   },
 
   "@media (max-width: 1240px)": {
@@ -147,7 +165,14 @@ const useStyles = makeStyles({
     container: {
       marginTop: "7px",
     },
+    containerDark: {
+      marginTop: "7px",
+    },
   },
+
+  token_table_border_dark: {
+    borderBottom: "1px solid #4a5d94"
+  }
 });
 
 export default function StickyHeadTable(props) {
@@ -375,6 +400,9 @@ export default function StickyHeadTable(props) {
     font-weight: 600;
     color: #2a2a2a;
     margin-bottom: 22px;
+    ${({ theme }) => theme === "dark" && `
+      color: #ffffff;
+    `}
       @media (max-width: 1250px) {
         font-size: 18px;
         margin-bottom: 12px;
@@ -383,8 +411,11 @@ export default function StickyHeadTable(props) {
         font-size: 14px;
         color: #252525;
         margin-bottom: 12px;
+        ${({ theme }) => theme === "dark" && `
+          color: #ffffff;
+        `}
       }
-    `;
+  `;
 
   const NoDataFoundContainer = styled.div`
       display: flex;
@@ -399,8 +430,8 @@ export default function StickyHeadTable(props) {
     `;
 
   return (
-    <div style={{ backgroundColor: "#fff" }}>
-      <Tokensearchbar />
+    <div style={props.theme === "dark" ? {backgroundColor: "#091b4e"} : { backgroundColor: "#fff" }} className={props.theme === "dark" ? "dark-theme-bg" : ""}>
+      <Tokensearchbar theme={props.theme}/>
       <Responsive>
         <form
           method="post"
@@ -418,13 +449,13 @@ export default function StickyHeadTable(props) {
           >
             {window.innerWidth >= 768 ?
               <>
-                <TokenTitle>
+                <TokenTitle theme={props.theme}>
                   <div className="display-flex">Tokens
                    {ercvalue ? <div className={classes.tokenTag}>XRC-721</div> : <div className={classes.tokenTag}>XRC-20</div>}
                   </div>
                 </TokenTitle>
                 <Row justifyContent="space-between" alignItems="center">
-                  <div className="searchelement-input input-searchelement_11">
+                  <div className={props.theme === "dark" ? "searchelement-input-dark input-searchelement_11" : "searchelement-input input-searchelement_11"}>
                     <img
                       style={{
                         width: 18,
@@ -446,7 +477,7 @@ export default function StickyHeadTable(props) {
                       //   }
                       // }}
                       id="tokenSearch"
-                      className="account-searchbar"
+                      className={props.theme === "dark" ? "account-searchbar-dark" : "account-searchbar"}
                       type="text"
                       placeholder="Search"
                     />
@@ -480,7 +511,7 @@ export default function StickyHeadTable(props) {
                   </div>
                 </Row></> : (<>
                   <Row justifyContent="space-between" alignItems="center">
-                    <TokenTitle>Tokens</TokenTitle>
+                    <TokenTitle theme={props.theme}>Tokens</TokenTitle>
                     <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
                       <img
                         onClick={handleSettingsClick}
@@ -556,12 +587,16 @@ export default function StickyHeadTable(props) {
           elevation={0}
         >
           <TableContainer
-            className={classes.container}
-            id="container-table-token"
-            style={{
+            className={props.theme === "dark" ? classes.containerDark : classes.container}
+            id={props.theme === "dark" ? "container-table-token-dark" : "container-table-token"}
+            style={props.theme === "dark" ? {
+              borderRadius: "0.75rem",
+              // backgroundColor: "#ffffff",
+              boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+            } : {
               borderRadius: "0.75rem",
               border: "solid 0.063rem #e3e7eb",
-              backgroundColor: "#ffffff",
+              // backgroundColor: "#ffffff",
               boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
             }}
           >
@@ -572,7 +607,7 @@ export default function StickyHeadTable(props) {
                     style={{ border: "none", }}
                     align="left"
                   >
-                    <span className={"tablehead-token-details"}>
+                    <span className={props.theme === "dark" ? "tablehead-token-details-dark-2" : "tablehead-token-details"}>
                       #
                       <Tooltip placement="top" title={messages.SI_NO}>
                         <img
@@ -586,7 +621,7 @@ export default function StickyHeadTable(props) {
                   </TableCell>
                   {props?.state?.tableColumns["Symbol"].isActive && (
                     <TableCell style={{ border: "none" }} align="left">
-                      <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("symbol")}>
+                      <span className={props.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("symbol")}>
                         Symbol
                         <Tooltip placement="top" title={messages.SYMBOL}>
                           <img
@@ -613,7 +648,7 @@ export default function StickyHeadTable(props) {
                     </TableCell>
                   )}
                   <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("tokenName")}>
+                    <span className={props.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("tokenName")}>
                       Name
                       <Tooltip placement="top" title={messages.NAME}>
                         <img
@@ -657,7 +692,7 @@ export default function StickyHeadTable(props) {
                                     </TableCell>
                                 )} */}
                   {!ercvalue  && <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("address")}>
+                    <span className={props.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("address")} onClick={() => sortTable("address")}>
                       Contract
                       <Tooltip placement="top" title={messages.CONTRACT}>
                         <img
@@ -687,7 +722,7 @@ export default function StickyHeadTable(props) {
                     style={{ border: "none", whiteSpace: "nowrap" }}
                     align="left"
                   >
-                    <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("totalSupply")}>
+                    <span className={props.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("totalSupply")}>
                       Total Supply
                       <Tooltip
                         placement="top"
@@ -739,7 +774,7 @@ export default function StickyHeadTable(props) {
                       style={{ border: "none", whiteSpace: "nowrap" }}
                       align="left"
                     >
-                      <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("holdersCount")}>
+                      <span className={props.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("holdersCount")}>
                         Total Holders
                         <Tooltip placement="top" title={messages.HOLDER}>
                           <img
@@ -843,12 +878,12 @@ export default function StickyHeadTable(props) {
                           key={row._id}
                           onClick={() => navigateToTokenDetails(row)}
                         >
-                          <TableCell id="td">
+                          <TableCell className={props.theme === "dark" ? classes.token_table_border_dark : ""} id="td">
                             {index + 1}
                           </TableCell>
 
                           {props?.state?.tableColumns["Symbol"].isActive && (
-                            <TableCell id="td">
+                            <TableCell className={props.theme === "dark" ? classes.token_table_border_dark : ""} id="td">
                               {row?.tokenImage ?
                                 <img
                                   style={{ height: "20px", width: "20px" }}
@@ -862,16 +897,16 @@ export default function StickyHeadTable(props) {
                             </TableCell>
                           )}
 
-                          <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
+                          <TableCell className={props.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ whiteSpace: "nowrap" }}>
                             {tokenName}
                           </TableCell>
                           {/* {props?.state?.tableColumns["Type"].isActive && (
                                                     <TableCell id="td">{row.type}</TableCell>
                                                 )} */}
 
-                          {!ercvalue  && <TableCell>
+                          {!ercvalue  && <TableCell className={props.theme === "dark" ? classes.token_table_border_dark : ""}>
                             <a
-                              className="token-details-address-link"
+                              className={props.theme === "dark" ? "token-details-address-link-dark" : "token-details-address-link"}
                               href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
                                 }`}
                             >
@@ -880,7 +915,7 @@ export default function StickyHeadTable(props) {
                           </TableCell>}
 
 
-                          {!ercvalue  && <TableCell id="td" style={{ paddingleft: "15" }}>
+                          {!ercvalue  && <TableCell className={props.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ paddingleft: "15" }}>
                             <Tooltip
                               placement="top"
                               title={format({})(
@@ -914,7 +949,7 @@ export default function StickyHeadTable(props) {
                             }
                           {!ercvalue  && (props?.state?.tableColumns["Total Holders"]
                             .isActive && (
-                              <TableCell id="td" style={{ paddingleft: "15" }}>
+                              <TableCell className={props.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ paddingleft: "15" }}>
                                 {format({})(row.holdersCount)}
                               </TableCell>
                             ))}
@@ -958,16 +993,18 @@ export default function StickyHeadTable(props) {
           {/* <Divider className={classes.divider}/>*/}
         </Paper>
 
-        <Pagination>
+        <Pagination theme={props.theme}>
           <LeftPagination>
             {!noData == true && !isLoading ? (<>
-              <Show>
+              <Show theme={props.theme}>
                 Show
               </Show>
               <PageSelector value={amount}
                 height={30}
-                handler={handleChangeRowsPerPage} />
-              <Record>
+                handler={handleChangeRowsPerPage} 
+                theme={props.theme}  
+              />
+              <Record theme={props.theme}>
                 Records
               </Record></>) : ("")}
           </LeftPagination>
@@ -975,13 +1012,15 @@ export default function StickyHeadTable(props) {
           <RightPagination>
             <div
               className={
-                from === 0 ? "firstbox-contract disabled" : "firstbox-contract"
+                from === 0 
+                  ? props.theme === "dark" ? "firstbox-contract-dark disabled" : "firstbox-contract disabled" 
+                  : props.theme === "dark" ? "firstbox-contract-dark" : "firstbox-contract"
               }
               onClick={() => handleChangePage("first")}
             >
               <button
-                style={{ backgroundColor: "white" }}
-                className="first-contract"
+                style={props.theme === "dark" ? {} : { backgroundColor: "white" }}
+                className={props.theme === "dark" ? "first-contract-dark" : "first-contract"}
               >
                 First
               </button>
@@ -989,8 +1028,8 @@ export default function StickyHeadTable(props) {
             <div
               className={
                 from === 0
-                  ? "previousbox-contract disabled"
-                  : "previousbox-contract"
+                  ? props.theme === "dark" ? "previousbox-contract-dark disabled" : "previousbox-contract disabled"
+                  : props.theme === "dark" ? "previousbox-contract-dark" : "previousbox-contract"
               }
               onClick={() => handleChangePage("prev")}
             >
@@ -998,8 +1037,8 @@ export default function StickyHeadTable(props) {
 
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
-            <div className="pagebox-contract">
-              <p className="Page-1-of-5-contract">
+            <div className={props.theme === "dark" ? "pagebox-contract-dark" : "pagebox-contract"}>
+              <p className={props.theme === "dark" ? "Page-1-of-5-contract-dark" : "Page-1-of-5-contract"}>
                 Page{" "}
                 {Math.ceil(totalToken / amount) -
                   Math.ceil((totalToken - from) / amount) +
@@ -1011,8 +1050,8 @@ export default function StickyHeadTable(props) {
               className={
                 from + visibleTokenCount === totalToken
                 
-                  ? "nextbox-contract disabled"
-                  : "nextbox-contract"
+                  ? props.theme === "dark" ? "nextbox-contract-dark disabled" : "nextbox-contract disabled"
+                  : props.theme === "dark" ? "nextbox-contract-dark" : "nextbox-contract"
               }
               onClick={() => handleChangePage("next")}
             >
@@ -1021,14 +1060,14 @@ export default function StickyHeadTable(props) {
             <div
               className={
                 from + visibleTokenCount === totalToken
-                  ? "lastbox-contract disabled"
-                  : "lastbox-contract"
+                  ? props.theme === "dark" ? "lastbox-contract-dark disabled" : "lastbox-contract disabled"
+                  : props.theme === "dark" ? "lastbox-contract-dark" : "lastbox-contract"
               }
               onClick={() => handleChangePage("last")}
             >
               <button
-                style={{ backgroundColor: "white" }}
-                className="last-contract"
+                style={props.theme === "dark" ? {} : { backgroundColor: "white" }}
+                className={props.theme === "dark" ? "Last-contract-dark" : "last-contract"}
               >
                 Last
               </button>

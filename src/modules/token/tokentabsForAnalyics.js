@@ -65,6 +65,22 @@ const useStyles = makeStyles((theme) => ({
       margin: "auto",
     },
   },
+  rootDark: {
+    minWidth: 650,
+    width: "100%",
+    flexGrow: 1,
+    backgroundColor: "#091b4e",
+    "@media (min-width:0px) and (max-width:767px)": {
+      minWidth: 280,
+      width: "22.563rem",
+      margin: "auto",
+    },
+    "@media (min-width:767px) and (max-width:1240px)": {
+      minWidth: 280,
+      width: "41.5rem",
+      margin: "auto",
+    },
+  },
 }));
 
 export default function SimpleTabs(props) {
@@ -79,7 +95,7 @@ export default function SimpleTabs(props) {
     <div>
       {/* <Grid lg={10} className="table-grid-block3"> */}
       <Grid className="table-grid-block3">
-        <div className={classes.root}>
+        <div className={props.theme === "dark" ? classes.rootDark : classes.root}>
           <div
             style={{
               width: "auto",
@@ -101,8 +117,8 @@ export default function SimpleTabs(props) {
                 <button
                   className={
                     toggleState === 1
-                      ? "tabs-data active-tabs-token"
-                      : "tabs-data"
+                      ? props.theme === "dark" ? "tabs-data-dark active-tabs-token-dark" : "tabs-data active-tabs-token"
+                      : props.theme === "dark" ? "tabs-data-dark" : "tabs-data"
                   }
                   onClick={() => toggleTab(1)}
                 >
@@ -111,8 +127,8 @@ export default function SimpleTabs(props) {
                 <button
                   className={
                     toggleState === 2
-                      ? "tabs-data active-tabs-token-holder"
-                      : "tabs-data"
+                      ? props.theme === "dark" ? "tabs-data-dark active-tabs-token-holder-dark" : "tabs-data active-tabs-token-holder"
+                      : props.theme === "dark" ? "tabs-data-dark" : "tabs-data"
                   }
                   onClick={() => toggleTab(2)}
                 >
@@ -121,8 +137,8 @@ export default function SimpleTabs(props) {
                 <button
                   className={
                     toggleState === 3
-                      ? "tabs-data active-tabs-token"
-                      : "tabs-data"
+                      ? props.theme === "dark" ? "tabs-data-dark active-tabs-token-dark" : "tabs-data active-tabs-token"
+                      : props.theme === "dark" ? "tabs-data-dark" : "tabs-data"
                   }
                   onClick={() => toggleTab(3)}
                 >
@@ -131,8 +147,8 @@ export default function SimpleTabs(props) {
                 <button
                   className={
                     toggleState === 4
-                      ? "tabs-data active-tabs-token"
-                      : "tabs-data"
+                      ? props.theme === "dark" ? "tabs-data-dark active-tabs-token-dark" : "tabs-data active-tabs-token"
+                      : props.theme === "dark" ? "tabs-data-dark" : "tabs-data"
                   }
                   onClick={() => toggleTab(4)}
                 >
@@ -149,9 +165,9 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px", width: "auto" }}>
-                <TokenTransfertab />
+                <TokenTransfertab theme={props.theme}/>
               </div>
-            </div>
+            </div> 
 
             <div
               className={
@@ -159,7 +175,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenHoldertab contractData={props?.contractStatusData} />
+                <TokenHoldertab contractData={props?.contractStatusData} theme={props.theme}/>
               </div>
             </div>
 
@@ -175,10 +191,12 @@ export default function SimpleTabs(props) {
                   "Unverified" ? (
                   <TokenUnverifiedContract
                     contractData={props?.contractStatusData?.contractResponse}
+                    theme={props.theme}
                   />
                 ) : (
                   <TokenContracttab
                     contractData={props?.contractStatusData?.contractResponse}
+                    theme={props.theme}
                   />
                 )}
               </div>
@@ -189,7 +207,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenAnalytics />
+                <TokenAnalytics theme={props.theme}/>
               </div>
             </div>
           </div>

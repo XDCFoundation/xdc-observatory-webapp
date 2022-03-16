@@ -234,7 +234,7 @@ export default class LatestTransactionList extends BaseComponent {
 
   render() {
     return (
-      <div>
+      <div className={this.props.theme === "dark" ? "dark-theme-bg" : ""}>
         <TransactionComponent
           create_data={this.create_data}
           toggleTableColumns={this.toggleTableColumns}
@@ -246,6 +246,7 @@ export default class LatestTransactionList extends BaseComponent {
           _LastPage={this._LastPage}
           _FirstPage={this._FirstPage}
           _handleChange={this._handleChange}
+          theme={this.props.theme}
         />
       </div>
     );

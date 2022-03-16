@@ -8,8 +8,11 @@ import { MenuItem } from "material-ui";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/styles";
 import TimeZoneSelector from "./timeZoneSlector";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import timezone from "../../reducers/timezone";
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import { eventConstants } from "../../constants";
+import { dispatchAction } from "../../utility"
 
 const useStyles = makeStyles((theme) => ({
     currencyPopup: {
@@ -115,10 +118,14 @@ const ThirdCloumnWithoutFlex = styled.div`
     width: 66%;
   }
 `;
-export default function FooterComponent(props) {
+function FooterComponent(props) {
     const classes = useStyles();
     const [activeCurrency, setActiveCurrency] = useState("USD");
     const [timeZone, setActiveTimeZone] = useState("");
+
+    const handleThemeSwitch = () => {
+        props.dispatchAction(eventConstants.TOGGLE_THEME, props.theme.currentTheme === "dark" ? "light" : "dark")
+    }
 
     useEffect(() => {
         let CurrencyValue = window.localStorage.getItem("currency");
@@ -142,7 +149,7 @@ export default function FooterComponent(props) {
 
     let CurrencyNow = window.localStorage.getItem("currency");
     return (
-        <div className={"footer_base"}>
+        <div className={props.theme.currentTheme=== "dark" ? "footer_base-dark" : "footer_base"}>
             <Grid className="footer" container alignContent="center" justify="center">
                 <FirstCloumn>
                     <Grid
@@ -160,7 +167,7 @@ export default function FooterComponent(props) {
                                         alt={'logo'} />
                                     <p className="XDC-Header">XDC</p>
                                 </div>
-                                <p className="xdc-desc">
+                                <p className={props.theme.currentTheme=== "dark" ? "xdc-desc-dark" : "xdc-desc"}>
                                     The XDC Observatory is a feature-rich block explorer and analytics platform for the
                                     XDC Network.
                                 </p>
@@ -241,6 +248,9 @@ export default function FooterComponent(props) {
 
                             <option>inr</option>
                         </select> */}
+                        <div className="theme-switch-icon-container" onClick={() => handleThemeSwitch()}>
+                            <WbSunnyIcon className="theme-switch-icon"/>
+                        </div>
                         </div>
                     </Grid>
                 </FirstCloumn>
@@ -266,13 +276,13 @@ export default function FooterComponent(props) {
                             </a>
                         </div> */}
                         <div className="Table-Comp">
-                            <a href="https://medium.com/xdc-foundation-communications" target="_blank">
+                            <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://medium.com/xdc-foundation-communications" target="_blank">
                                 XDC Foundation Medium
                             </a>
                         </div>
 
                         <div className="Table-Comp">
-                            <a href="https://stats.xdc.org/" target="_blank">
+                            <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://stats.xdc.org/" target="_blank">
                                 XDC Network Stats
                             </a>
                         </div>
@@ -290,13 +300,13 @@ export default function FooterComponent(props) {
                         </div> */}
 
                         <div className="Table-Comp">
-                            <a href="https://xinfin.org/setup-masternode.php" target="_blank">
+                            <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://xinfin.org/setup-masternode.php" target="_blank">
                                 Setup MasterNode
                             </a>
                         </div>
 
                         <div className="Table-Comp">
-                            <a href="https://xdcroadmap.org/" target="_blank">
+                            <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://xdcroadmap.org/" target="_blank">
                                 XDC Roadmap
                             </a>
                         </div>
@@ -307,7 +317,7 @@ export default function FooterComponent(props) {
                             </a>
                         </div> */}
                         <div className="Table-Comp">
-                            <a href="https://docs.xdc.org/" target="_blank">
+                            <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://docs.xdc.org/" target="_blank">
                                 XDC Docs
                             </a>
                         </div>
@@ -338,6 +348,7 @@ export default function FooterComponent(props) {
                                 <a
                                     href="https://xinfin.org/exchange-listing-resource.php"
                                     target="_blank"
+                                    className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} 
                                 >
                                     Exchange Listing Resource
                                 </a>
@@ -356,22 +367,22 @@ export default function FooterComponent(props) {
                                 </a>
                             </li> */}
                             <li className="Table-Comp">
-                                <a href="https://observer.xdc.org/privacy-policy" target="_blank">
+                                <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://observer.xdc.org/privacy-policy" target="_blank">
                                     Privacy Policy
                                 </a>
                             </li>
                             <li className="Table-Comp">
-                                <a href="https://observer.xdc.org/term-conditions" target="_blank">
+                                <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://observer.xdc.org/term-conditions" target="_blank">
                                     Terms of Use
                                 </a>
                             </li>
                             <li className="Table-Comp">
-                                <a href="https://docs.xdc.org/sdks-and-examples" target="_blank">
+                                <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://docs.xdc.org/sdks-and-examples" target="_blank">
                                     XDC SDKs
                                 </a>
                             </li>
                             <li className="Table-Comp">
-                                <a href="https://docs.xdc.org/resources/faqs" target="_blank">
+                                <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://docs.xdc.org/resources/faqs" target="_blank">
                                     Read FAQ
                                 </a>
                             </li>
@@ -401,6 +412,7 @@ export default function FooterComponent(props) {
                                 <a
                                     href="https://xinfin.org/exchange-listing-resource.php"
                                     target="_blank"
+                                    className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} 
                                 >
                                     Exchange Listing Resource
                                 </a>
@@ -419,22 +431,22 @@ export default function FooterComponent(props) {
                                 </a>
                             </li> */}
                             <li className="Table-Comp">
-                                <a href="https://observer.xdc.org/privacy-policy" target="_blank">
+                                <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://observer.xdc.org/privacy-policy" target="_blank">
                                     Privacy Policy
                                 </a>
                             </li>
                             <li className="Table-Comp">
-                                <a href="https://observer.xdc.org/term-conditions" target="_blank">
+                                <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://observer.xdc.org/term-conditions" target="_blank">
                                     Terms of Use
                                 </a>
                             </li>
                             <li className="Table-Comp">
-                                <a href="https://docs.xdc.org/sdks-and-examples" target="_blank">
+                                <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://docs.xdc.org/sdks-and-examples" target="_blank">
                                     XDC SDKs
                                 </a>
                             </li>
                             <li className="Table-Comp">
-                                <a href="https://medium.com/xdc-foundation-communications" target="_blank">
+                                <a className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a" : ""} href="https://medium.com/xdc-foundation-communications" target="_blank">
                                     Read FAQ
                                 </a>
                             </li>
@@ -463,7 +475,7 @@ export default function FooterComponent(props) {
                             <ul>
                                 <li className="Table-Comp">
                                     <a
-                                        className="a-style"
+                                        className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a a-style" : "a-style"}
                                         href="https://github.com/XDCFoundation/"
                                         rel="nofollow"
                                         target="_blank"
@@ -476,7 +488,7 @@ export default function FooterComponent(props) {
                                 </li>
                                 <li className="Table-Comp">
                                     <a
-                                        className="a-style"
+                                        className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a a-style" : "a-style"}
                                         href="https://github.com/XinFinorg"
                                         rel="nofollow"
                                         target="_blank"
@@ -489,7 +501,7 @@ export default function FooterComponent(props) {
                                 </li>
                                 <li className="Table-Comp">
                                     <a
-                                        className="a-style"
+                                        className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a a-style" : "a-style"}
                                         href="https://www.facebook.com/XDCFoundation"
                                         rel="nofollow"
                                         target="_blank"
@@ -502,7 +514,7 @@ export default function FooterComponent(props) {
                                 </li>
                                 <li className="Table-Comp">
                                     <a
-                                        className="a-style"
+                                        className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a a-style" : "a-style"}
                                         href="https://www.youtube.com/channel/UCXAAtlD-CRraNJKzDTF4pfg"
                                         rel="nofollow"
                                         target="_blank"
@@ -515,7 +527,7 @@ export default function FooterComponent(props) {
                                 </li>
                                 <li className="Table-Comp">
                                     <a
-                                        className="a-style"
+                                        className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a a-style" : "a-style"}
                                         href="https://twitter.com/XDCFoundation"
                                         rel="nofollow"
                                         target="_blank"
@@ -558,7 +570,7 @@ export default function FooterComponent(props) {
                                 </li> */}
                                 <li className="Table-Comp">
                                     <a
-                                        className="a-style"
+                                        className={props.theme.currentTheme=== "dark" ? "table-comp-dark-a a-style" : "a-style"}
                                         href="https://www.reddit.com/user/XDC_Foundation"
                                         rel="nofollow"
                                         target="_blank"
@@ -630,3 +642,9 @@ export default function FooterComponent(props) {
         </div>
     );
 }
+
+const mapStateToProps = (state) => {
+    return { theme: state.theme };
+};
+
+export default connect(mapStateToProps, { dispatchAction })(FooterComponent);

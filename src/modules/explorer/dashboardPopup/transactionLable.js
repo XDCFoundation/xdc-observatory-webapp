@@ -46,6 +46,16 @@ const useStyles = makeStyles((theme) => ({
     margin: "14px 8px 23px 2px",
     padding: "0 19px 0 20px",
   },
+  cnlbtnDark: {
+    width: "94px",
+    height: "34px",
+    borderRadius: "4px",
+    backgroundColor: "#192a59",
+    color: "white",
+    margin: "14px 8px 23px 2px",
+    padding: "0 19px 0 20px",
+    border: "solid 1px #3552a5",
+  },
   buttons: {
     padding: "0px 20px 0px 0px",
   },
@@ -83,6 +93,17 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     marginBottom: "21px",
   },
+  inputDark: {
+    width: "503px",
+    height: "10px",
+    border: "solid 1px #3552a5",
+    backgroundColor: "#091b4e",
+    borderRadius: "7px",
+    outline: "none",
+    padding: "20px",
+    marginBottom: "21px",
+    color: "#fff"
+  },
   textarea: {
     width: "503px",
     height: "90px",
@@ -92,6 +113,17 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     outline: "none",
     resize: "none",
+  },
+  textareaDark: {
+    width: "503px",
+    height: "90px",
+    border: "solid 1px #3552a5",
+    backgroundColor: "#091b4e",
+    borderRadius: "7px",
+    padding: "20px",
+    outline: "none",
+    resize: "none",
+    color: "#fff"
   },
   addbtn: {
     width: "94px",
@@ -168,6 +200,16 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     marginBottom: "25px",
   },
+  lastContainerDark: {
+    maxWidth: "534px",
+    width: "100%",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#C8C8C8",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
   lastContainerText: {
     fontSize: "12px",
     fontFamily: "Inter !important",
@@ -190,7 +232,16 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "503px",
       width: "100%",
     },
+    inputDark: {
+      maxWidth: "503px",
+      width: "100%",
+    },
     textarea: {
+      maxWidth: "503px",
+      width: "100%",
+      padding: "15px",
+    },
+    textareaDark: {
       maxWidth: "503px",
       width: "100%",
       padding: "15px",
@@ -345,7 +396,7 @@ export default function FormDialog(props) {
   return (
     <>
       <div className="w-33p">
-        <div className="div1 cursor-pointer">
+        <div className={props.theme === "dark" ? "div1_dark cursor-pointer" : "div1 cursor-pointer"}>
           <div
             className="imageParentDiv"
             onClick={
@@ -371,7 +422,7 @@ export default function FormDialog(props) {
             }
           >
             <div className="headingdiv1"><div>Add transaction label</div></div>
-            <div className="paradiv1">
+            <div className={props.theme === "dark" ? "paradiv1 fc-adc4e4" : "paradiv1"}>
               Add a personal note to the transacton hash to track it in future.
             </div>
           </div>
@@ -412,20 +463,20 @@ export default function FormDialog(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <div>
+          <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
           <Row>
-            <div className={classes.heading} id="form-dialog-title">
+            <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
               Add Transaction Label
             </div>
           </Row>
           {errorEmptyField ? <div className={classes.error1}>{errorEmptyField}</div> : <></>}
           <DialogContent className={classes.overflowNone}>
-            <DialogContentText className={classes.subCategory}>
+            <DialogContentText  className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
               Transaction Hash
             </DialogContentText>
             <input
               type="text"
-              className={classes.input}
+              className={props.theme === "dark" ? classes.inputDark : classes.input}
               onChange={(e) => {
                 setTransactionsHash(e.target.value);
                 setError("");
@@ -434,7 +485,7 @@ export default function FormDialog(props) {
             {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           <DialogContent className={classes.overflowNone}>
-            <DialogContentText className={classes.subCategory}>
+            <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
               Transaction Label/Note
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
@@ -443,7 +494,7 @@ export default function FormDialog(props) {
 
             <textarea
               type="text"
-              className={classes.textarea}
+              className={props.theme === "dark" ? classes.textareaDark : classes.textarea}
               onChange={(e) => {
                 setPrivateNote(e.target.value);
                 setPrivateNoteError("");
@@ -468,7 +519,7 @@ export default function FormDialog(props) {
           </DialogActions> */}
           <DialogActions className={classes.buttons}>
             <span style={{ color: "white" }}>
-              <button className={classes.cnlbtn} onClick={handleClose}>
+              <button className={props.theme === "dark" ? classes.cnlbtnDark : classes.cnlbtn} onClick={handleClose}>
                 {" "}
                 Cancel
               </button>
@@ -480,7 +531,7 @@ export default function FormDialog(props) {
             </span>
           </DialogActions>
           <div className="p-l-15 p-r-15">
-          <div className={classes.lastContainer}>
+          <div className={props.theme === "dark" ? classes.lastContainerDark : classes.lastContainer}>
             <div className={classes.lastContainerText}>
             Privacy is very important to us. To protect sensitive information,
               all custom tags and data related to the Watchlists are saved on
@@ -496,7 +547,7 @@ export default function FormDialog(props) {
             </div>
         </Dialog>
         {/* </div> */}
-        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
+        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert} theme={props.theme}/>:("")} 
       </div>
     </>
   );

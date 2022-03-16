@@ -24,6 +24,10 @@ const MainContainer = styled(Column)`
   background-color: #ffffff;
   padding: 20px 1px 16px 25px;
   width: 75.125rem;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #192a59;
+    border-top: none;
+  `}
   @media (min-width: 767px) and (max-width: 1240px) {
     width: 41.5rem;
   }
@@ -42,6 +46,9 @@ const Title = styled.span`
   font-weight: 600;
   //letter-spacing: 0.69px;
   color: #2a2a2a;
+  ${({ theme }) => theme === "dark" && `
+    color: #b9c2da;
+  `}
 `
 const ClearText = styled.span`
   font-family: Inter-Regular_;
@@ -69,6 +76,9 @@ const SearchValue = styled.span`
   font-size: 14px;
   //letter-spacing: 0.54px;
   color: #2149b9;
+  ${({ theme }) => theme === "dark" && `
+    color: #4874f4;
+  `}
 `
 const ResultValue = styled.span`
   margin: 0 0 4px 11px;
@@ -77,6 +87,9 @@ const ResultValue = styled.span`
   font-weight: 600;
   //letter-spacing: 0.46px;
   color: #2149b9;
+  ${({ theme }) => theme === "dark" && `
+    color: #4874f4;
+  `}
 `
 const RedirectIcon = styled.img`
   width: 8px;
@@ -105,9 +118,15 @@ const ItemContainer = styled(Column)`
   background-color: transparent;
   cursor: pointer;
   margin-right: 22px;
+  ${({ theme }) => theme === "dark" && `
+     border: solid 1px #3552a5;
+  `}
 
   &:hover {
     background-color: #fbfcff;
+    ${({ theme }) => theme === "dark" && `
+     background-color: #192a59;
+  `}
   }
 
   &:hover ${RedirectIcon} {
@@ -127,7 +146,7 @@ const NotFoundContainer = styled(Row)`
   justify-content: center;
 `
 
-const RecentSearchList = () => {
+const RecentSearchList = (props) => {
     const dispatch = useDispatch();
     const {height, width} = useWindowDimensions();
 
@@ -137,24 +156,24 @@ const RecentSearchList = () => {
         dispatch({type: eventConstants.CLEAR_SEARCH_LIST, payload: null})
     }
 
-    return (<MainContainer>
-        <TitleRow><Title>{'Recent Searches'}</Title>
+    return (<MainContainer theme={props.theme}>
+        <TitleRow><Title theme={props.theme}>{'Recent Searches'}</Title>
             <ClearText onClick={() => clearHandler()}>{'Clear'}</ClearText>
         </TitleRow>
         <Wrapper>
             {dataList?.length >0 &&
             <Carousel show={width < 768 && 1 || width >= 768 && width < 1280 && 2 || width >= 1280 && 3}>
-                {dataList?.length > 0 && dataList.map((obj, index) => <ItemContainer key={index}>
+                {dataList?.length > 0 && dataList.map((obj, index) => <ItemContainer theme={props.theme}key={index}>
                     <Row style={{alignItems: 'center'}}>
-                        <SearchTypeIcon src={recentSearchIconConstants[obj.type]} alt={'icon'}/>
+                        <SearchTypeIcon  src={recentSearchIconConstants[obj.type]} alt={'icon'}/>
                         <TextContainer onClick={() => {
                             window.location.href = obj.redirectUrl
                             // history.push(obj.redirectUrl)
                         }}>
-                            <SearchValue>{shorten(obj.searchValue)}</SearchValue>
-                            <ResultValue>{getAmount(obj.result)}</ResultValue>
+                            <SearchValue theme={props.theme}>{shorten(obj.searchValue)}</SearchValue>
+                            <ResultValue theme={props.theme}>{getAmount(obj.result)}</ResultValue>
                             <RedirectIcon src={'/images/up-arrow-recent-search.svg'}/>
-                            <ActiveRedirectIcon src={'/images/up-arrow-active-recent-search.svg'}/>
+                            <ActiveRedirectIcon  src={'/images/up-arrow-active-recent-search.svg'}/>
                         </TextContainer>
                     </Row>
                 </ItemContainer>)}
