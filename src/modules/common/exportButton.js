@@ -120,7 +120,7 @@ const ExportButton = (props) => {
                 document={<AddressPDF data={downloadData} />}
                 fileName="tagAddresses.pdf"
               >
-                  <OptionText>
+                  <OptionText onClick={() => toggleDropdown(false)}>
                 Export as PDF
                 </OptionText>
               </PDFDownloadLink>
@@ -128,7 +128,7 @@ const ExportButton = (props) => {
             </OptionDiv>
             <OptionDiv>
             <CSVLink filename={"tag_address.csv"} data={downloadData}>
-            <OptionText>
+            <OptionText onClick={() =>toggleDropdown(false)}>
                 Export as CSV File
                 </OptionText>
               </CSVLink>
