@@ -144,22 +144,22 @@ const PDF = ({ data }) => {
                   <View style={styles.bodyRow}>
                     <Link
                       style={[styles.transactionHash, styles.link]}
-                      src={`${process.env.REACT_APP_WEB_APP}address-details/${row.address}`}
+                      src={`${process.env.REACT_APP_WEB_APP}address-details/${row.Address}`}
                     >
-                      {row.address.match(/.{1,28}/g).join(" ")}
+                      {row.Address.match(/.{1,28}/g).join(" ")}
                     </Link>
                     <View style={styles.tableBodyText}>
                       <View>
-                        <Text> {row?.tagName} </Text>
+                        <Text> {row?.NameTag} </Text>
                       </View>
                     </View>
 
                     <View style={styles.tableBodyText}>
                       <Text>
-                        {moment.utc(moment(parseInt(row.modifiedOn))).format("MMM DD YYYY")}
+                        {moment.utc(moment(parseInt(row.AddedOn))).format("MMM DD YYYY")}
                       </Text>
                       <Text>
-                        {moment.utc(moment(parseInt(row.modifiedOn))).format("HH:mm:ss")}{" "}
+                        {moment.utc(moment(parseInt(row.AddedOn))).format("HH:mm:ss")}{" "}
                         UTC+
                       </Text>
                     </View>

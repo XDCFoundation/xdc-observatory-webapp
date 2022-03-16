@@ -481,6 +481,7 @@ class TokenContractOverviewGraph extends BaseComponent {
     };
 
     render() {
+        
         return (
             <div>
                 {this.state.loading ? (

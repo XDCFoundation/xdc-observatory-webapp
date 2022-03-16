@@ -446,7 +446,15 @@ const CustomDropDownAddress = (props) => {
       selector: c,
     }));
 
-    setData(list);
+    const newArrayOfObj = list.map(({
+      Address: address,
+      NameTag:tagName,
+      AddedOn:modifiedOn
+    }) => ({
+      address,
+      tagName,modifiedOn
+    }));
+    setData(newArrayOfObj);
     setColumns(columns);
     if (list.length >= 1) openDialogImport();
   };
@@ -521,7 +529,7 @@ const CustomDropDownAddress = (props) => {
     if (chainId == 50 || chainId == 51) {
       // Utils.apixFailureToast("Please login to XDCPay extension");
       await web3.eth.getAccounts().then((accounts) => {
-        console.log(accounts,"<<")
+
         if (!accounts || !accounts.length) {
           Utility.apiFailureToast("Please login to XDCPay extension");
           return;
