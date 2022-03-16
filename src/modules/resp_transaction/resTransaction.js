@@ -9,6 +9,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import { useParams } from "react-router";
 import { TransactionService, BlockService } from "../../services";
+import ContractData from "../../services/contract";
 import Utils, { dispatchAction } from "../../utility";
 import FooterComponent from "../common/footerComponent";
 import moment from "moment";
@@ -21,6 +22,7 @@ import { connect, useSelector } from "react-redux";
 import Utility from "../../utility";
 import { cookiesConstants } from "../../constants";
 import { BsCaretRightFill } from "react-icons/bs";
+import utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +64,9 @@ const useStyles = makeStyles((theme) => ({
 function Transaction({ _handleChange,theme }) {
   const classes = useStyles();
   const { hash } = useParams();
-  const [transactions, setTransactions] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+  transactions["method"] = Utils.getMethodType(transactions);
+  console.log(transactions,"<<<<")
   const [isPvtNote, setIsPvtNote] = useState(false);
   const [privateNote, setPrivateNote] = useState("");
   const [addressTag, setAddressTag] = useState("");
@@ -130,6 +134,8 @@ function Transaction({ _handleChange,theme }) {
   const [price, setPrice] = useState("");
   const [latestBlock, setLatestBlock] = useState(0);
   const [isSeeMore, setSeeMore] = useState(false);
+  const [contractData,setContractData] = useState(0)
+  console.log(contractData,"contractData")
   useEffect(async () => {
     await transactionDetail();
     getLatestBlock();
@@ -172,11 +178,20 @@ function Transaction({ _handleChange,theme }) {
   useEffect(() => {
     let ts = parseInt(timeStamp);
     getCoinMarketDetailForTransaction(ts);
+    getContractDetails()
   }, [timeStamp]);
   useEffect(() => {
     let ts = parseInt(timeStamp);
     getCoinMarketDetailForTransaction(ts);
   }, [amount]);
+  const getContractDetails = async () => {
+    let urlPath = transactions.to;
+    let [error, contractDecimal] = await Utils.parseResponse(
+      ContractData.getContractDetailsUsingAddress(urlPath, {})
+    );
+    if (error || !contractDecimal) return;
+    setContractData(contractDecimal.contractResponse);
+  };
   const getCoinMarketDetailForTransaction = async (ts) => {
     let urlPath = "?transactionTime=" + ts + "&fiatValue=" + CurrencyValue;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
@@ -970,14 +985,14 @@ function Transaction({ _handleChange,theme }) {
                   <MiddleContainer isTextArea={false}>
                     <TokenTransferredMiddleContainer>
                       <TokenTransferredContent>
-                    <BlackText>XRC-721</BlackText>
+                    <BlackText>{contractData?.ERC == 2 ? "XRC-20" : ContractData?.ERC > 2 ? "XRC-721":""}</BlackText>
                     <GreyText>Token ID</GreyText>
                     <GreyText>[</GreyText>
                     <BlueText>1256</BlueText>
                     <GreyText>]</GreyText>
-                    <BlueText>CunningFox.. (CFX)</BlueText>
+                    <BlueText>{contractData?.tokenName}</BlueText>
                     </TokenTransferredContent>
-                    <ImgProfileIcon src="/images/xyz.svg" />
+                    <ImgProfileIcon src={contractData?.tokenImage ? contractData?.tokenImage : "/images/XRC20-Icon.svg"} />
                     </TokenTransferredMiddleContainer>
                   </MiddleContainer>
                 </Spacing>
@@ -990,7 +1005,7 @@ function Transaction({ _handleChange,theme }) {
                   </ContainerTxnAction>
                   <MiddleContainer isTextArea={false}>
                   <MainContainerTxnAction>
-                    <TxnActionNextRow>
+                    {/* <TxnActionNextRow>
                       <div className="arrow_right_grey">
                         <BsCaretRightFill size={10}/>
                       </div>
@@ -1000,20 +1015,20 @@ function Transaction({ _handleChange,theme }) {
                       <BlackText>2500.00 XDC</BlackText>
                       <ImgNextRed src="/images/xyz.svg" />
                       <BlackText>FleekApp</BlackText>
-                    </TxnActionNextRow>
+                    </TxnActionNextRow> */}
                     <TxnActionNextRow>
-                      <Gap1 />
+                      {/* <Gap1 /> */}
                       <div className="arrow_right_grey">
                         <BsCaretRightFill size={10}/>
                       </div>
-                      <BlackText>Transfer of</BlackText>
-                      <BlueText>CunningFox.. (CFX)</BlueText>
-                      <GreyText>from</GreyText>
-                      <BlueText>xdcc4e69958…5b9c</BlueText>
-                      <GreyText>to</GreyText>
-                      <BlueText>xdcc4e69958…9e9a</BlueText>
+                      <BlackText>{transactions?.method?transactions?.method:""}</BlackText>
+                      <BlueText>&nbsp;{contractData?.tokenName ? contractData?.tokenName : ""}</BlueText>
+                      <GreyText>&nbsp;from</GreyText>
+                      <BlueText>&nbsp;{transactions?.from?utility.shortenAddress(transactions?.from,11,4,3):""}</BlueText>
+                      <GreyText>&nbsp;to</GreyText>
+                      <BlueText>&nbsp;{transactions?.to?utility.shortenAddress(transactions?.to,11,4,3):""}</BlueText>
                     </TxnActionNextRow>
-                    <TxnActionNextRow>
+                    {/* <TxnActionNextRow>
                       <Gap2 />
                       <div className="arrow_right_grey">
                         <BsCaretRightFill size={10}/>
@@ -1023,7 +1038,7 @@ function Transaction({ _handleChange,theme }) {
                       <GreyText>[</GreyText>
                       <BlueText>1256</BlueText>
                       <GreyText>]</GreyText>
-                    </TxnActionNextRow>  
+                    </TxnActionNextRow>   */}
                   </MainContainerTxnAction>
                   </MiddleContainer>
                 </SpacingTxnAction>
@@ -1049,7 +1064,7 @@ function Transaction({ _handleChange,theme }) {
                     </ContentInteractedWith>
                     <InteractedWithNextRow>
                       <ImgNewLine src="/images/xyz.svg" />
-                      <GreyText>TRANSFER</GreyText>
+                      <GreyText>{transactions?.method}</GreyText>
                       <BlackText>0.000000006 XDC</BlackText>
                       <GreyText>From</GreyText>
                       <BlueText>Fleek: NFT App</BlueText>
@@ -1059,12 +1074,12 @@ function Transaction({ _handleChange,theme }) {
                     </InteractedWithNextRow>
                     <InteractedWithNextRow>
                       <ImgNewLine src="/images/xyz.svg" />
-                      <GreyText>TRANSFER</GreyText>
+                      <GreyText>{transactions?.method}</GreyText>
                       <BlackText>0.000000006 XDC</BlackText>
                       <GreyText>From</GreyText>
                       <BlueText>Fleek: NFT App</BlueText>
                       <GreyText>to</GreyText>
-                      <BlueText>xdcc4e6995811141…eb9a</BlueText>
+                      <BlueText>&nbsp;{transactions?.to?utility.shortenAddress(transactions?.to,11,4,3):""}</BlueText>
                     </InteractedWithNextRow>
                     </MainContainerInteractedWith>
                   </MiddleContainer>
