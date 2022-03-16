@@ -11,6 +11,7 @@ const useStyles = makeStyles((themes) => ({
     boxShadow: "0 2px 15px 0 rgba(0, 0, 0, 0.1)",
     border: "solid 1px #e3e7eb",
     backgroundColor: "var(--white)",
+    marginBottom: "32px",
 },
   contentHeading: {
       fontSize: "18px",

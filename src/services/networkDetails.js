@@ -14,7 +14,6 @@ async function getNetworkDetails() {
   let url = process.env.REACT_APP_GET_NETWORK_DETAILS;
     return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
-      console.log("22222222222",response)
       if (
         !response.success ||
         response.responseCode !== 200 ||
