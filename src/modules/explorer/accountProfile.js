@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     borderRadius: "0.25rem",
     width: "5.875rem",
     height: "2.125rem",
-    marginRight: "1.5rem",
+    // marginRight: "1.5rem",
     paddingTop: "0.125rem",
   },
 });
@@ -1286,6 +1286,7 @@ export default function SimpleTabs(props) {
                 <CustomDropDownAddress
                   sampleRender={sampleRender}
                   updateListTags={updateListTags}
+                  getListOfTagAddress={getListOfTagAddress}
                 />
               ) : (
                 ""
