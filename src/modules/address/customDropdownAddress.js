@@ -250,13 +250,14 @@ const CustomDropDownAddress = (props) => {
                       </TokenName>
 
                       <TokenBalance>
-                        {format({})(balance)}&nbsp;{data.tokenName}
+                        {Number(balance).toFixed(2)}
+                        &nbsp;{data.tokenName}
                       </TokenBalance>
                     </SecondColumnToken>
                   </FirstColumnToken>
                   <TokenUsdBalance>
                     {currencySymbol}
-                    {priceConverted}
+                    {Number(priceConverted).toFixed(2)}
                   </TokenUsdBalance>
                 </OptionDiv>
               </a>
@@ -301,13 +302,13 @@ const CustomDropDownAddress = (props) => {
                       </TokenName>
 
                       <TokenBalance>
-                        {format({})(balance)}&nbsp;{data.symbol}
+                        {Number(balance).toFixed(2)}&nbsp;{data.symbol}
                       </TokenBalance>
                     </SecondColumnToken>
                   </FirstColumnToken>
                   <TokenUsdBalance>
                     {currencySymbol}
-                    {priceConverted}
+                    {Number(priceConverted).toFixed(2)}
                   </TokenUsdBalance>
                 </OptionDiv>
               </a>
@@ -361,13 +362,13 @@ const CustomDropDownAddress = (props) => {
                         </TokenName>
 
                         <TokenBalance>
-                          {format({})(balance)}&nbsp;{data.symbol}
+                          {Number(balance).toFixed(2)}&nbsp;{data.symbol}
                         </TokenBalance>
                       </SecondColumnToken>
                     </FirstColumnToken>
                     <TokenUsdBalance>
                       {currencySymbol}
-                      {priceConverted}
+                      {Number(priceConverted).toFixed(2)}
                     </TokenUsdBalance>
                   </OptionDiv>
                 </a>

@@ -244,7 +244,7 @@ export default function StickyHeadTable() {
                     className={
                       "tableheaders_Transfer-table-hash cursor-pointer"
                     }
-                    onClick={() => sortTable("blockHash")}
+                    onClick={() => sortTable("hash")}
                   >
                     Transaction Hash
                     <Tooltip
@@ -262,7 +262,7 @@ export default function StickyHeadTable() {
                         className="tooltipInfoIconAccount"
                       />
                     </Tooltip>
-                    {sortingKey && sortingOrder && sortingKey == "blockHash" ? (
+                    {sortingKey && sortingOrder && sortingKey == "hash" ? (
                       sortingOrder === -1 ? (
                         <img
                           alt="question-mark"
@@ -481,10 +481,10 @@ export default function StickyHeadTable() {
                     <TableCell id="td" style={{ border: "none" }}>
                       <a
                         style={{ color: "#2b51bc", fontSize: 11 }}
-                        href={"/transfer-transaction-details/" + row.blockHash}
+                        href={"/transfer-transaction-details/" + row.hash}
                       >
                         <span className="tabledata table-data">
-                          {shorten(row.blockHash)}
+                          {shorten(row.hash)}
                         </span>
                       </a>
                     </TableCell>
