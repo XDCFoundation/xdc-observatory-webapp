@@ -583,12 +583,16 @@ input:focus {
 .p-l-0{
   padding-left: 0 !important ;
 }
+.m-l-11 {
+  margin-left: 11px;
+}
 .mar-top-15 {
   margin-top: 15px;
 }
 .m-l-4 {
   margin-left: 4px !important;
 }
+
 
 .z-index-100 {
   z-index: 100;

@@ -208,6 +208,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
     cursor: "pointer",
   },
+  dialogContentTable: {
+    padding: "8px",
+  },
   "@media (max-width: 767px)": {
     heading: {
       fontSize: "22px",
@@ -345,7 +348,7 @@ const TableSubContainer = styled.div`
 `;
 
 const CustomDropDownAddress = (props) => {
-  const { sampleRender, updateListTags } = props;
+  const { sampleRender, updateListTags, getListOfTagAddress } = props;
   const classes = useStyles();
   const [isDropdownOpen, toggleDropdown] = useState(false);
   const mainDiv = useRef(null);
@@ -502,12 +505,14 @@ const CustomDropDownAddress = (props) => {
     await updateListTags(data);
     await closeDialogImport();
     await notify();
+    getListOfTagAddress()
   };
 
   const selectedOnly = async () => {
     await updateListTags(selectedList);
     await closeDialogImport();
     await notify();
+    getListOfTagAddress()
   };
 
   const handleOpenXDCPay = () => {
@@ -595,7 +600,7 @@ const CustomDropDownAddress = (props) => {
             Select Addresses to import
           </div>
         </Row>
-        <DialogContent>
+        <DialogContent classes={{root: classes.dialogContentTable}}>
           <Paper
             className={"table-list"}
             style={{
@@ -619,13 +624,13 @@ const CustomDropDownAddress = (props) => {
               <TableSubContainer>
                 <Table style={{ borderBottom: "none" }}>
                   <TableHead>
-                    <TableRow>
+                    <TableRow >
                       <TableCell
                         style={{
                           border: "none",
                           display: "flex",
                           alignItems: "center",
-                          marginLeft: 0,
+                          marginLeft: 11,
                           padding: "2.5px 3px",
                         }}
                         align="left"
@@ -654,10 +659,6 @@ const CustomDropDownAddress = (props) => {
                         </span>
                       </TableCell>
 
-                      <TableCell
-                        style={{ border: "none", whiteSpace: "nowrap" }}
-                        align="left"
-                      ></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -665,7 +666,12 @@ const CustomDropDownAddress = (props) => {
                       data.length >= 1 &&
                       data.map((row, index) => {
                         return (
-                          <TableRow>
+                          <TableRow 
+                          style={
+                            index % 2 !== 1
+                              ? { background: "#f9f9f9" }
+                              : { background: "white" }
+                          }>
                             <TableCell
                               id="td"
                               className="w-150 bord-none"
@@ -676,7 +682,7 @@ const CustomDropDownAddress = (props) => {
                                 padding: "10.5px 3px 8.5px",
                               }}
                             >
-                              <div className="display-flex">
+                              <div className="display-flex m-l-11">
                                 <input
                                   type="checkbox"
                                   className="form-check-input"
