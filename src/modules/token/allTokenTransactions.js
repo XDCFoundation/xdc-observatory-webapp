@@ -77,6 +77,16 @@ const useStyles = makeStyles({
     "@media (min-width: 0px) and (max-width: 1240px)": {
       // height: "12.563rem",
     },
+    containerDark: {
+      borderRadius: "14px",
+      boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+      backgroundColor: "#192a59",
+      background: "#192a59",
+      borderBottom: "none",
+      "@media (min-width: 0px) and (max-width: 1240px)": {
+        // height: "12.563rem",
+      },
+    },
   },
 
   divider: {
@@ -102,9 +112,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable(props) {
   const classes = useStyles();
-
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [transfer, settransfer] = useState({});
@@ -234,15 +243,15 @@ export default function StickyHeadTable() {
 
   return (
     <>
-      <Paper elevation={0}>
-        <TableContainer className={classes.container} id="container-table">
+      <Paper style={props.theme === "dark" ? {borderRadius: "14px", backgroundColor: "#192a59"} : { borderRadius: "14px" }} elevation={0}>
+        <TableContainer className={props.theme === "dark" ? classes.containerDark : classes.container} id="container-table">
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
                   <span
                     className={
-                      "tableheaders_Transfer-table-hash cursor-pointer"
+                      props.theme === "dark" ? "color-white tableheaders_Transfer-table-hash cursor-pointer":"tableheaders_Transfer-table-hash cursor-pointer"
                     }
                     onClick={() => sortTable("hash")}
                   >
@@ -285,7 +294,7 @@ export default function StickyHeadTable() {
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span
-                    className={"tableheaders_Transfer-table-age cursor-pointer"}
+                    className={props.theme === "dark" ? "tableheaders_Transfer-table-age cursor-pointer color-white":"tableheaders_Transfer-table-age cursor-pointer"}
                     onClick={() => sortTable("timestamp")}
                   >
                     Age
@@ -328,7 +337,7 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span
                     className={
-                      "tableheaders_Transfer-table-block cursor-pointer"
+                      props.theme === "dark" ? "tableheaders_Transfer-table-block cursor-pointer color-white":"tableheaders_Transfer-table-block cursor-pointer"
                     }
                     onClick={() => sortTable("blockNumber")}
                   >
@@ -374,7 +383,7 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span
                     className={
-                      "tableheaders_Transfer-table-from cursor-pointer"
+                      props.theme === "dark" ? "tableheaders_Transfer-table-from cursor-pointer color-white": "tableheaders_Transfer-table-from cursor-pointer"
                     }
                     onClick={() => sortTable("from")}
                   >
@@ -417,7 +426,7 @@ export default function StickyHeadTable() {
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span
-                    className={"tableheaders_Transfer-table-to cursor-pointer"}
+                    className={props.theme === "dark" ? "tableheaders_Transfer-table-to cursor-pointer color-white":"tableheaders_Transfer-table-to cursor-pointer"}
                     onClick={() => sortTable("to")}
                   >
                     To
@@ -480,7 +489,7 @@ export default function StickyHeadTable() {
                   <StyledTableRow tabIndex={-1} key={row.code}>
                     <TableCell id="td" style={{ border: "none" }}>
                       <a
-                        style={{ color: "#2b51bc", fontSize: 11 }}
+                        style={{ color: props.theme === "dark" ? "#4874f4" : "#2b51bc", fontSize: 11 }}
                         href={"/transfer-transaction-details/" + row.hash}
                       >
                         <span className="tabledata table-data">
@@ -490,7 +499,7 @@ export default function StickyHeadTable() {
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
                       <span
-                        style={{ color: "#2a2a2a" }}
+                        style={{ color: props.theme === "dark" ? "#b1c3e1" : "#2a2a2a" }}
                         className="tabledata table-data"
                       >
                         {ti}
@@ -498,7 +507,7 @@ export default function StickyHeadTable() {
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
                       <a
-                        style={{ color: "#2b51bc", fontSize: 11 }}
+                        style={{ color: props.theme === "dark" ? "#4874f4" : "#2b51bc", fontSize: 11 }}
                         href={"/block-details/" + row.blockNumber}
                       >
                         <span className="tabledata table-data">
@@ -509,7 +518,7 @@ export default function StickyHeadTable() {
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
                       <a
-                        style={{ color: "#2b51bc", fontSize: 11 }}
+                        style={{ color: props.theme === "dark" ? "#4874f4" : "#2b51bc", fontSize: 11 }}
                         href={"/address-details/" + row.from}
                       >
                         <Tooltip placement="top" title={row.from}>
@@ -521,7 +530,7 @@ export default function StickyHeadTable() {
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
                       <a
-                        style={{ color: "#2419b9", fontSize: 11 }}
+                        style={{ color: props.theme === "dark" ? "#4874f4" : "#2b51bc", fontSize: 11 }}
                         href={"/address-details/" + row.to}
                       >
                         <Tooltip
@@ -573,14 +582,15 @@ export default function StickyHeadTable() {
             ""
           ) : (
             <>
-              <p className="p-pagination">Show</p>
+              <p className={props.theme === "dark" ? "p-pagination fc-b1c3e1" : "p-pagination"}>Show</p>
               <PageSelector
                 value={rowsPerPage}
                 height={35}
                 handler={handleChangeRowsPerPage}
+                theme={props.theme}
               />
 
-              <p className="p-pagination">Records</p>
+              <p className={props.theme === "dark" ? "p-pagination fc-b1c3e1" : "p-pagination"}>Records</p>
             </>
           )}
         </LeftPagination>
@@ -593,23 +603,27 @@ export default function StickyHeadTable() {
             }}
           >
             <div
-              className={page === 0 ? "firstbox disabled" : "firstbox"}
+              className={page === 0  
+                ? props.theme === "dark" ? "firstbox-dark disabled" : "firstbox disabled" 
+                : props.theme === "dark" ? "firstbox-dark" : "firstbox" }
               onClick={() => handleChangePage("first")}
             >
-              <button style={{ backgroundColor: "white" }} className="first">
+              <button style={props.theme === "dark" ? {background: "transparent"} : { backgroundColor: "white" }} className={props.theme === "dark" ? "first-dark" : "first"}>
                 First
               </button>
             </div>
             <div
-              className={page === 0 ? "previousbox disabled" : "previousbox"}
+              className={page === 0 
+                ? props.theme === "dark" ? "previousbox-dark disabled" : "previousbox disabled" 
+                : props.theme === "dark" ? "previousbox-dark" : "previousbox"}
               onClick={() => handleChangePage("prev")}
             >
               <p className="path">
                 <img className="rotate-180" src={"/images/next.svg"} />
               </p>
             </div>
-            <div className="pagebox">
-              <p className="Page-1-of-5">
+            <div className={props.theme === "dark" ? "pagebox-dark" : "pagebox"}>
+              <p className={props.theme === "dark" ? "Page-1-of-5-dark" : "Page-1-of-5"}>
                 Page&nbsp;
                 {Math.ceil(totalTransactions / rowsPerPage) -
                   Math.ceil((totalTransactions - page) / rowsPerPage) +
@@ -620,8 +634,8 @@ export default function StickyHeadTable() {
             <div
               className={
                 page + transactions.length === totalTransactions
-                  ? "nextbox disabled"
-                  : "nextbox"
+                ? props.theme === "dark" ? "nextbox-dark disabled" : "nextbox disabled"
+                : props.theme === "dark" ? "nextbox-dark" : "nextbox"
               }
             >
               <p className="path-2" onClick={() => handleChangePage("next")}>
@@ -631,12 +645,12 @@ export default function StickyHeadTable() {
             <div
               className={
                 page + transactions.length === totalTransactions
-                  ? "lastbox disabled"
-                  : "lastbox"
+                ? props.theme === "dark" ? "lastbox-dark disabled" : "lastbox disabled"
+                : props.theme === "dark" ? "lastbox-dark" : "lastbox"
               }
               onClick={() => handleChangePage("last")}
             >
-              <button style={{ backgroundColor: "white" }} className="last">
+              <button style={props.theme === "dark" ? {background: "transparent"} : { backgroundColor: "white" }} className={props.theme === "dark" ? "last-dark" : "last"}>
                 Last
               </button>
             </div>
