@@ -1294,7 +1294,7 @@ function AddressDetails(props) {
               </div>
             )}
             {/* {toggleState === 2 && <AddressDetailsAnalytics />} */}
-            {toggleState === 3 && <XRC20Transactions />}
+            {toggleState === 3 && <XRC20Transactions theme={props.theme.currentTheme} />}
             {toggleState === 2 && <AddressDetailsAnalytics theme={props.theme.currentTheme}/>}
           </div>
         </Grid>
