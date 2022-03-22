@@ -52,15 +52,20 @@ export default function VerifyContract(props) {
     }
     const onSubmitHandler = async (data) => {
         let contractAddress = data.addr?.replace(/^.{2}/g, 'xdc');
+        let ifSCM = window.location.search.replace("?", "")
         try {
             setisLoading(true)
             const resp = await contractverify.getContractVerify(data)
-            if (resp[0].Error == 0) {
+            setisLoading(false)
+
+            if (resp[0].Error == 0 && !ifSCM) {
                 let url = "/address/" + contractAddress
-                setisLoading(false)
                 window.location.href = url;
-            } else {
-                setisLoading(false)
+            }
+            else if(resp[0].Error == 0 && ifSCM){
+                window.location.href = process.env.REACT_APP_SCM_WEBAPP + "?contractAddress=" + contractAddress;
+            }
+             else {
                 setMessage(resp[0].message)
             }
         } catch (err) {
@@ -68,7 +73,6 @@ export default function VerifyContract(props) {
             //setMessage(err)
         }
     };
-
 
     return (
         <>
