@@ -6,6 +6,10 @@ import FooterComponent from "../common/footerComponent";
 import { Grid } from "@material-ui/core";
 import { useHistory, Link } from "react-router-dom";
 import { useParams } from "react-router";
+import { dispatchAction } from "../../utility";
+import { connect } from "react-redux";
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import { eventConstants } from "../../constants";
 
 const MainContainer = styled.div`
   display: flex;
@@ -36,6 +40,9 @@ const RightContainer = styled.div`
   background-color: #fff;
   border-radius: 20px;
   height: 601px;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #283966;
+  `}
   @media (min-width: 768px) and (max-width: 1240px) {
     border-radius: 12px;
     width: 650px;
@@ -129,6 +136,9 @@ const ButtonGlobalid = styled.button`
   font-style: normal;
   line-height: 1.38;
   text-align: center;
+  ${({ theme }) => theme === "dark" && `
+    background-color: #091b4e;
+  `}
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 290px;
     height: 44px;
@@ -150,6 +160,9 @@ const RightTopText = styled.div`
   font-size: 22px;
   font-weight: 600;
   color: #242424;
+  ${({ theme }) => theme === "dark" && `
+    color: #fff;
+  `}
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 17px;
   }
@@ -165,6 +178,9 @@ const RightTopText2 = styled.span`
   font-style: normal;
   line-height: 1.38;
   margin: 15px 45px;
+  ${({ theme }) => theme === "dark" && `
+    color: #adc4e4;
+  `}
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
     margin: 15px 101px;
@@ -183,6 +199,9 @@ const RightBottomLogoText = styled.div`
   color: #2a2a2a;
   margin-left: 20px;
   width: 80%;
+  ${({ theme }) => theme === "dark" && `
+    color: #adc4e4;
+  `}
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
     width: 83%;
@@ -249,7 +268,8 @@ const GlobalIdButtonContinue = styled.div`
   display: flex;
   justify-content: center;
 `;
-export default function GlobalIdCon() {
+function GlobalIdCon(props) {
+  console.log("GlobalIdCon",props)
   const [LoginText, setLoginText] = useState(1);
   const history = useHistory();
   let { mode } = useParams();
@@ -259,13 +279,16 @@ export default function GlobalIdCon() {
   function btoa(str) {
     return Buffer.from(str, "binary").toString("base64");
   }
+  const handleThemeSwitch = () => {
+    props.dispatchAction(eventConstants.TOGGLE_THEME, props.theme.currentTheme === "dark" ? "light" : "dark")
+}
   var randomText = btoa(Math.random().toString()).substr(10, 10).toLowerCase();
   useEffect(() => {
     if (mode === "signup") setLoginText(2);
   }, []);
   return (
-    <div>
-      <div className="global-id">
+    <div style={props?.theme.currentTheme === "dark" ? {backgroundColor: "#091b4e"} : { backgroundColor: "#fff" }} className={props?.theme.currentTheme === "dark" ? "dark-theme-bg" : ""}>
+      <div className={props?.theme.currentTheme === "dark" ? "dark-global-id" : "global-id"}>
         <Header>
           <XdcLogo>
             <a className="logo_tokensearch" href={"/"}>
@@ -348,16 +371,16 @@ export default function GlobalIdCon() {
                 </SecondLineText>
               </IconDiv>
             </LeftContainer>
-            <RightContainer>
+            <RightContainer theme={props.theme.currentTheme}>
               <RightContainerMain>
                 <RightTopContainer>
                   <RightTopDiv>
                     <RightTopBack>
                       <img onClick={handleClick} src="/images/back.svg" />
                     </RightTopBack>
-                    <RightTopText>Continue with GlobaliD</RightTopText>
+                    <RightTopText theme={props?.theme.currentTheme}>Continue with GlobaliD</RightTopText>
                   </RightTopDiv>{" "}
-                  <RightTopText2>
+                  <RightTopText2 theme={props?.theme.currentTheme}>
                     We use GlobaliD to keep your personal information and the
                     XDC Network safe.
                   </RightTopText2>
@@ -376,7 +399,7 @@ export default function GlobalIdCon() {
                         src={"/images/group-27.svg"}
                       />
                     </IconLogo>
-                    <RightBottomLogoText>
+                    <RightBottomLogoText theme={props?.theme.currentTheme}>
                       Create a decentralized digital identity with GlobaliD to
                       securely connect to the XDC Network without passwords.
                     </RightBottomLogoText>
@@ -388,7 +411,7 @@ export default function GlobalIdCon() {
                         src={"/images/group-26.svg"}
                       />
                     </IconLogo>
-                    <RightBottomLogoText>
+                    <RightBottomLogoText theme={props?.theme.currentTheme}>
                       GlobaliD guarantees that your information remains private
                       and secure with the latest state of the art encryption.
                     </RightBottomLogoText>
@@ -406,7 +429,7 @@ export default function GlobalIdCon() {
                         randomText
                       }
                     >
-                      <ButtonGlobalid>Continue with GlobaliD</ButtonGlobalid>
+                      <ButtonGlobalid theme={props?.theme.currentTheme}>Continue with GlobaliD</ButtonGlobalid>
                     </a>
                   </GlobalIdButtonContinue>
 
@@ -439,7 +462,15 @@ export default function GlobalIdCon() {
             </RightContainer>
           </MainContainer>
         </Grid>
+        <div className="theme-switch-icon-container" onClick={() => handleThemeSwitch()}>
+        <WbSunnyIcon className="theme-switch-icon"/>
+      </div>
       </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { user: state.user, theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(GlobalIdCon);

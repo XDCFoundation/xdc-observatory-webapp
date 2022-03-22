@@ -176,7 +176,7 @@ const useStyles = makeStyles({
 });
 
 export default function StickyHeadTable(props) {
-  console.log("props",props.theme);
+  console.log("Token-list-props",props);
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
   const [amount, setAmount] = React.useState(10);
@@ -432,7 +432,7 @@ export default function StickyHeadTable(props) {
 
   return (
     <div style={props?.theme === "dark" ? {backgroundColor: "#091b4e"} : { backgroundColor: "#fff" }} className={props?.theme === "dark" ? "dark-theme-bg" : ""}>
-      <Tokensearchbar theme="dark"/>
+      <Tokensearchbar theme={props.theme === "dark" ? "dark" : ""}/>
       <Responsive>
         <form
           method="post"
