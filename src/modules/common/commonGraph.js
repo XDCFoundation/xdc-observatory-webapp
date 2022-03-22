@@ -13,6 +13,13 @@ const options = {
   ],
 };
 
+const toolTipElement = (props) => {
+  return (
+    <div>
+      hiii
+    </div>
+  );
+};
 export default function Chart(props) {
   Highcharts.setOptions({
     lang: {

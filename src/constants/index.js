@@ -189,7 +189,8 @@ export const messages = {
   AVERAGE_BALANCE: "Average daily balance",
   PASSWORD:
     "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
-  DOWNLOAD_CSV: "Select the transactions from table to download data",
+  DOWNLOAD_CSV: "Select address by clicking on checkbox to export data",
+  RANGE_SELECTOR:"Dates can be selected within the date range range of data available"
 };
 
 export const toolTipMessages = {

@@ -537,7 +537,7 @@ export default function AddressTableComponent(props) {
   const [blockTT, setblockTT] = React.useState(false);
   const [fromTT, setfromTT] = React.useState(false);
   const [toTT, settoTT] = React.useState(false);
-
+  const [downloadCsvTT, setDownloadCsvTT] = React.useState(false);
   const updateFiltersAndGetAccounts = async (filters) => {
     await setSearchAndFilters(filters);
     if (
@@ -585,34 +585,64 @@ export default function AddressTableComponent(props) {
             Export
           </CSVLink>
         ) : (
-          <CSVLink
-            filename={"transactions.csv"}
-            data={downloadaddress}
-            style={props.theme === "dark" ? {
-              pointerEvents: "none",
-              fontSize: "0.938rem",
-              textAlign: "center",
-              color: "#ffffff",
-              backgroundColor: "#283966",
-              borderRadius: "0.25rem",
-              width: "5.875rem",
-              height: "2.125rem",
-              paddingTop: "0.125rem",
-              opacity: 0.7
-            } : {
-              pointerEvents: "none",
-              fontSize: "0.938rem",
-              textAlign: "center",
-              color: "#ffffff",
-              backgroundColor: "#e3e7eb",
-              borderRadius: "0.25rem",
-              width: "5.875rem",
-              height: "2.125rem",
-              paddingTop: "0.125rem",
-            }}
-          >
-            Export
-          </CSVLink>
+          <Tooltip
+                open={downloadCsvTT}
+                onOpen={() => setDownloadCsvTT(true)}
+                onClose={() => setDownloadCsvTT(false)}
+                placement="top"
+                title={messages.DOWNLOAD_CSV}
+              >
+                <div
+                  onClick={() => setDownloadCsvTT(!downloadCsvTT)}
+                  style={
+                    props.theme === "dark"
+                      ? {
+                          fontSize: "0.938rem",
+                          textAlign: "center",
+                          color: "#ffffff",
+                          backgroundColor: "#283966",
+                          borderRadius: "0.25rem",
+                          width: "5.875rem",
+                          height: "2.125rem",
+                          paddingTop: "0.125rem",
+                          opacity: 0.7,
+                        }
+                      : {
+                          fontSize: "0.938rem",
+                          textAlign: "center",
+                          color: "#ffffff",
+                          backgroundColor: "#e3e7eb",
+                          borderRadius: "0.25rem",
+                          width: "5.875rem",
+                          height: "2.125rem",
+                          paddingTop: "0.125rem",
+                        }
+                  }
+                >
+                  <CSVLink
+                    filename={"transactions.csv"}
+                    data={downloadaddress}
+                    style={
+                      props.theme === "dark"
+                        ? {
+                            pointerEvents: "none",
+                            fontSize: "0.938rem",
+                            textAlign: "center",
+                            color: "#ffffff",
+                          }
+                        : {
+                            pointerEvents: "none",
+                            fontSize: "0.938rem",
+                            textAlign: "center",
+                            color: "#ffffff",
+                          }
+                    }
+                  >
+                    Export
+                  </CSVLink>
+                </div>
+              </Tooltip>
+          
         )}
       </SearchAndExportDiv>
 
