@@ -80,8 +80,8 @@ export default utility;
 
 function getMethodType(transactionData) {
   const input = transactionData.input ? transactionData.input.slice(2, 10) : "";
-  console.log(input,"<<<")
-  return MethodFromByte[input] ? MethodFromByte[input] : "-";
+
+  return MethodFromByte[input] ? MethodFromByte[input] : "";
 }
 
 function getUtcOffset(timezone) {
