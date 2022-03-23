@@ -105,6 +105,10 @@ const InDiv = styled.div`
   text-align: center;
   padding: 3px;
   color: #007b2c;
+  ${({ theme }) => theme === "dark" && `
+    color: #007b2c !important;
+    background-color: #153451;
+  `}
 `;
 const OutDiv = styled.div`
   width: 24px;
@@ -120,6 +124,10 @@ const OutDiv = styled.div`
   text-align: center;
   color: #ff4200;
   padding: 2px 1px;
+  ${({ theme }) => theme === "dark" && `
+    color: #ff4200 !important;
+    background-color: #36284d;
+  `}
 `;
 const InValue = styled.span`
   font-family: Inter !important;
@@ -235,9 +243,9 @@ class AddressStatsData extends Component {
 
                 <Value theme={this.props.theme}>{this.props?.statData?.totalTransactionsCount}</Value>
                 <ThirdRowValue>
-                  <InDiv>In</InDiv>
+                  <InDiv theme={this.props.theme}>In</InDiv>
                   <InValue theme={this.props.theme}>{this.props?.statData?.toTransactionsCount}</InValue>
-                  <OutDiv>Out</OutDiv>
+                  <OutDiv theme={this.props.theme}>Out</OutDiv>
                   <OutValue theme={this.props.theme}>
                     {this.props?.statData?.fromTransactionsCount}
                   </OutValue>
