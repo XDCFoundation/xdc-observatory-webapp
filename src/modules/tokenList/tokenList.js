@@ -176,7 +176,6 @@ const useStyles = makeStyles({
 });
 
 export default function StickyHeadTable(props) {
-  console.log("Token-list-props",props);
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
   const [amount, setAmount] = React.useState(10);
@@ -495,6 +494,7 @@ export default function StickyHeadTable(props) {
                       handleOnClose={handleOnClose}
                       tableColumns={props.state.tableColumns}
                       toggleTableColumns={props.toggleTableColumns}
+                      theme={props.theme}
                     />
                   </div>
                   <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
@@ -508,6 +508,7 @@ export default function StickyHeadTable(props) {
                       onModalClose={toggleModal}
                       tableColumns={props.state.tableColumns}
                       toggleTableColumns={props.toggleTableColumns}
+                      theme={props.theme}
                     />
                   </div>
                 </Row></> : (<>
@@ -755,7 +756,7 @@ export default function StickyHeadTable(props) {
                     style={{ border: "none", whiteSpace: "nowrap" }}
                     align="left"
                   >
-                    <span className={"tablehead-token-details cursor-pointer"}>
+                    <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"}>
                       Transfers (24h)
                       <Tooltip
                         placement="top"
@@ -805,7 +806,7 @@ export default function StickyHeadTable(props) {
                     style={{ border: "none", whiteSpace: "nowrap" }}
                     align="left"
                   >
-                    <span className={"tablehead-token-details cursor-pointer"}>
+                    <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"}>
                       Transfers (3d)
                       <Tooltip
                         placement="top"
@@ -944,7 +945,7 @@ export default function StickyHeadTable(props) {
                             </Tooltip>
                           </TableCell>}
                           {ercvalue  && 
-                              <TableCell id="td" style={{ paddingleft: "15" }}>
+                              <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ paddingleft: "15" }}>
                                 {format({})(row.transfers.last24Hour)}
                               </TableCell>
                             }
@@ -955,7 +956,7 @@ export default function StickyHeadTable(props) {
                               </TableCell>
                             ))}
                             {ercvalue  && 
-                              <TableCell id="td" style={{ paddingleft: "15" }}>
+                              <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ paddingleft: "15" }}>
                                 {format({})(row.transfers.last3days)}
                               </TableCell>
                             }

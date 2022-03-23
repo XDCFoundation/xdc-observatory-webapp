@@ -135,6 +135,7 @@ export default function TransactionComponent(props) {
             handleOnClose={handleOnClose}
             tableColumns={props.state.tableColumns}
             toggleTableColumns={props.toggleTableColumns}
+            theme={props.theme}
           />
         </div>
         <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
@@ -148,6 +149,7 @@ export default function TransactionComponent(props) {
             onModalClose={toggleModal}
             tableColumns={props.state.tableColumns}
             toggleTableColumns={props.toggleTableColumns}
+            theme={props.theme}
           />
         </div>
       </div>
@@ -198,7 +200,7 @@ export default function TransactionComponent(props) {
                     className="table-head-all"
                     align="left"
                   >
-                    <span className={("tableheaders", "tableheaders-age")}>
+                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-all-dark" : ("tableheaders", "tableheaders-all")}>
                       Method
                       <Tooltip placement="top" title={messages.METHOD}>
                         <img
@@ -407,7 +409,15 @@ export default function TransactionComponent(props) {
                           }}
                           align="left"
                         >
-                          {row.method ? row.method : ""}
+                          <span
+                              className={
+                                animationClass 
+                                ? props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass 
+                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata"
+                              }
+                            >
+                              {row.method ? row.method : ""}
+                            </span>
                         </TableCell>
                         {props.state.tableColumns["Age"].isActive && (
                           <TableCell

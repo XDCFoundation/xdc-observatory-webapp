@@ -449,6 +449,7 @@ class Contractlist extends React.Component {
                 handleOnClose={this.handleOnClose}
                 tableColumns={this.state.tableColumns}
                 toggleTableColumns={this.toggleTableColumns}
+                theme={this.props.theme}
               />
             </div>
             <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
@@ -462,6 +463,7 @@ class Contractlist extends React.Component {
                 onModalClose={this.toggleModal}
                 tableColumns={this.state.tableColumns}
                 toggleTableColumns={this.toggleTableColumns}
+                theme={this.props.theme}
               />
             </div>
           </div>

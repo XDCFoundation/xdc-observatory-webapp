@@ -72,6 +72,17 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "20px",
     outline: "none",
   },
+  inputDark: {
+    width: "503px",
+    height: "3px",
+    border: "solid 1px #3552a5",
+    backgroundColor: "#091b4e",
+    borderRadius: "7px",
+    padding: "20px",
+    marginBottom: "20px",
+    outline: "none",
+    color: "#fff"
+  },
 
   // addbtn: {
   //   width: "110px",
@@ -113,6 +124,16 @@ const useStyles = makeStyles((theme) => ({
 
     margin: "14px 8px 15px 2px",
     padding: "6px 19px 3px 20px",
+  },
+  cnlbtnDark: {
+    width: "94px",
+    height: "34px",
+    borderRadius: "4px",
+    backgroundColor: "#192a59",
+    color: "white",
+    margin: "14px 8px 15px 2px",
+    padding: "6px 19px 3px 20px",
+    border: "solid 1px #3552a5",
   },
   buttons: {
     padding: "15px 35px 0px 0px",
@@ -175,11 +196,24 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: "#2a2a2a",
   },
+  notifyLabelDark: {
+    fontSize: "14px",
+    color: "#adc4e4",
+  },
   lastContainer: {
     width: "504px",
     padding: "11px 12px 10px 13px",
     borderRadius: "6px",
     backgroundColor: "#fff3f3",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
+  lastContainerDark: {
+    width: "504px",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#C8C8C8",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "25px",
@@ -371,9 +405,10 @@ export default function FormDialog(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
+        <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
         <Row>
-          <div className={classes.heading} id="form-dialog-title">
-            Add a New Address to your Watchlist
+          <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
+            Add a New Address to your Watchlist1
           </div>
         </Row>
         {errorEmptyField ? (
@@ -382,12 +417,12 @@ export default function FormDialog(props) {
           <></>
         )}
         <DialogContent>
-          <DialogContentText className={classes.subCategory}>
+          <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
             Address
           </DialogContentText>
           <input
             value={address}
-            className={classes.input}
+            className={props.theme === "dark" ? classes.inputDark : classes.input}
             onChange={(e) => {
               setAddress(e.target.value);
               setError("");
@@ -396,7 +431,7 @@ export default function FormDialog(props) {
           {error ? <div className={classes.error}>{error}</div> : <></>}
         </DialogContent>
         <DialogContent>
-          <DialogContentText className={classes.subCategory}>
+          <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
             Description
             {/* <span  className={classes.forgotpass}>
               Forgot ?
@@ -405,7 +440,7 @@ export default function FormDialog(props) {
 
           <input
             type="text"
-            className={classes.input}
+            className={props.theme === "dark" ? classes.inputDark : classes.input}
             onChange={(e) => {
               setDescription(e.target.value);
               setDescriptionError("");
@@ -418,7 +453,7 @@ export default function FormDialog(props) {
           )}
         </DialogContent>
         <DialogContent>
-          <DialogContentText className={classes.subCategory}>
+          <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
             Notifications
           </DialogContentText>
 
@@ -439,7 +474,7 @@ export default function FormDialog(props) {
                 value="NO"
                 control={<Radio style={{ color: "#979797" }} />}
                 style={{ margin: "5px 2px -5px -5px" }}
-                classes={{ label: classes.notifyLabel }}
+                classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
                 label="No Notifications"
                 onClick={(e) => setNotification(e.target.value)}
               />
@@ -448,7 +483,7 @@ export default function FormDialog(props) {
                 value="INOUT"
                 control={<Radio style={{ color: "#979797" }} />}
                 style={{ margin: "-5px 26px -5px -5px" }}
-                classes={{ label: classes.notifyLabel }}
+                classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
                 label="Notify on Incoming & Outgoing Txns"
                 onClick={(e) => setNotification(e.target.value)}
               />
@@ -457,7 +492,7 @@ export default function FormDialog(props) {
                 value="IN"
                 control={<Radio style={{ color: "#979797" }} />}
                 style={{ margin: "-5px 26px -5px -5px" }}
-                classes={{ label: classes.notifyLabel }}
+                classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
                 label="Notify on Incoming (Receive) Txns Only"
                 onClick={(e) => setNotification(e.target.value)}
               />
@@ -467,7 +502,7 @@ export default function FormDialog(props) {
                 value="OUT"
                 control={<Radio style={{ color: "#979797" }} />}
                 style={{ margin: "-5px 26px -5px -5px" }}
-                classes={{ label: classes.notifyLabel }}
+                classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
                 label="Notify on Outgoing (Sent) Txns Only"
                 onClick={(e) => setNotification(e.target.value)}
               />
@@ -476,7 +511,7 @@ export default function FormDialog(props) {
         </DialogContent>
         <DialogActions className={classes.buttons}>
           <span onClick={handleClose}>
-            <button className={classes.cnlbtn} onClick={onClose}>
+            <button className={props.theme === "dark" ? classes.cnlbtnDark : classes.cnlbtn} onClick={onClose}>
               Cancel
             </button>
           </span>
@@ -486,13 +521,14 @@ export default function FormDialog(props) {
             </button>
           </span>
         </DialogActions>
-        <div className={classes.lastContainer}>
+        <div className={props.theme === "dark" ? classes.lastContainerDark : classes.lastContainer}>
           <div className={classes.lastContainerText}>
             Privacy is very important to us. To protect sensitive information,
             all custom tags and data related to the Watchlists are saved on your
             local device. Clearing the browsing history or cookies will remove
             the watchlist data saved in your profile.
           </div>
+        </div>
         </div>
       </Dialog>
     </div>

@@ -189,6 +189,7 @@ export default function AccountComponent(props) {
               handleOnClose={handleOnClose}
               tableColumns={props.state.tableColumns}
               toggleTableColumns={props.toggleTableColumns}
+              theme={props.theme}
             />
           </div>
           <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
@@ -203,6 +204,7 @@ export default function AccountComponent(props) {
               onModalClose={toggleModal}
               tableColumns={props.state.tableColumns}
               toggleTableColumns={props.toggleTableColumns}
+              theme={props.theme}
             />
           </div>
         </div>
