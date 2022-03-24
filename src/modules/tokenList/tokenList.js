@@ -41,7 +41,9 @@ const Pagination = styled.div`
   flex-direction: row;
   width: 75.125rem;
   margin: 28px auto 0 auto;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     margin: 28px auto 60px auto;
   `}
 
@@ -68,7 +70,7 @@ const LeftPagination = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex-flow: row nowrap; 
+  flex-flow: row nowrap;
 
   @media (min-width: 0px) and (max-width: 767px) {
     width: 180px;
@@ -83,7 +85,9 @@ const Show = styled.div`
   font-weight: 600;
   margin: auto;
   padding-bottom: 2px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #adc4e4;
   `}
 `;
@@ -92,7 +96,9 @@ const Record = styled.div`
   font-weight: 600;
   margin: auto;
   padding-bottom: 2px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #adc4e4;
   `}
 `;
@@ -138,7 +144,7 @@ const useStyles = makeStyles({
     color: "#2a2a2a",
     marginTop: "8px",
     marginLeft: "8px",
-    fontWeight: "normal"
+    fontWeight: "normal",
   },
 
   // "@media (max-width: 1240px)": {
@@ -171,12 +177,11 @@ const useStyles = makeStyles({
   },
 
   token_table_border_dark: {
-    borderBottom: "1px solid #4a5d94"
-  }
+    borderBottom: "1px solid #4a5d94",
+  },
 });
 
 export default function StickyHeadTable(props) {
-  console.log("props",props.theme);
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
   const [amount, setAmount] = React.useState(10);
@@ -190,22 +195,20 @@ export default function StickyHeadTable(props) {
   let { token } = useParams();
 
   const [noData, setNoData] = React.useState(true);
-  let ercvalue = sessionManager.getDataFromCookies("xrc20")
-  ercvalue = ercvalue==="true"
+  let ercvalue = sessionManager.getDataFromCookies("xrc20");
+  ercvalue = ercvalue === "true";
 
   const handleChangePage = (action) => {
-    let data = {isERC: ercvalue, searchKey: keywords ? keywords : "" };
-    if (sortKey && sortOrder)
-      data.sortKey = { [sortKey]: sortOrder };
+    let data = { isERC: ercvalue, searchKey: keywords ? keywords : "" };
+    if (sortKey && sortOrder) data.sortKey = { [sortKey]: sortOrder };
     // if (sortedByHolderCount)
     //     data.sortKey = {holdersCount: sortedByHolderCount};
-    if (!keywords)
-      setNoData(false);
+    if (!keywords) setNoData(false);
     if (action === "first") {
       setFrom(0);
       data.skip = 0;
       data.limit = amount;
-      sortKey= {[sortKey]: sortOrder};
+      sortKey = { [sortKey]: sortOrder };
     }
     if (action === "prev") {
       if (from - amount >= 0) {
@@ -243,11 +246,10 @@ export default function StickyHeadTable(props) {
       isERC: ercvalue,
       skip: 0,
       limit: event.target.value,
-      searchKey: keywords ? keywords : '',
-      sortKey: {[sortKey]: sortOrder}
+      searchKey: keywords ? keywords : "",
+      sortKey: { [sortKey]: sortOrder },
     };
-    if (!keywords)
-      setNoData(false);
+    if (!keywords) setNoData(false);
     getTokenList(data);
   };
   const handleSearchKeyUp = (event) => {
@@ -257,16 +259,21 @@ export default function StickyHeadTable(props) {
     if (searchkeyword?.length > 1) {
       setKeywords(searchkeyword);
       setLoading(false);
-      let data = { isERC: ercvalue, skip: 0, limit: amount, searchKey: searchkeyword };
-      data['sortKey'] = { "holdersCount": -1 }
+      let data = {
+        isERC: ercvalue,
+        skip: 0,
+        limit: amount,
+        searchKey: searchkeyword,
+      };
+      data["sortKey"] = { holdersCount: -1 };
       getTokenList(data);
     }
     if (searchkeyword?.length === 0) {
       setKeywords("");
       setLoading(false);
       setNoData(false);
-      let data = { isERC: ercvalue, skip: from, limit: amount, searchKey: '' };
-      data['sortKey'] = { "holdersCount": -1 }
+      let data = { isERC: ercvalue, skip: from, limit: amount, searchKey: "" };
+      data["sortKey"] = { holdersCount: -1 };
       getTokenList(data);
     }
   };
@@ -280,7 +287,7 @@ export default function StickyHeadTable(props) {
         setNoData(false);
         setLoading(false);
         setRows(responseData?.tokens);
-        setVisibleTokenCount(responseData?.tokens.length)
+        setVisibleTokenCount(responseData?.tokens.length);
         setTotalToken(responseData?.totalCount);
       } else {
         setLoading(false);
@@ -345,8 +352,13 @@ export default function StickyHeadTable(props) {
 
   React.useEffect(() => {
     let unmounted = false;
-    let data = {isERC: ercvalue, skip: from, limit: amount, searchKey: token ? token : '' };
-    data['sortKey'] = { "holdersCount": -1 }
+    let data = {
+      isERC: ercvalue,
+      skip: from,
+      limit: amount,
+      searchKey: token ? token : "",
+    };
+    data["sortKey"] = { holdersCount: -1 };
     getTokenList(data);
     // return () => {
     //     unmounted = true;
@@ -362,22 +374,28 @@ export default function StickyHeadTable(props) {
   }
 
   async function sortTable(_sortKey) {
-    let data = {isERC: ercvalue, skip: from, limit: amount, searchKey: keywords }
+    let data = {
+      isERC: ercvalue,
+      skip: from,
+      limit: amount,
+      searchKey: keywords,
+    };
     if (sortKey && sortKey.includes(_sortKey)) {
-      data['sortKey'] = { [_sortKey]: -1 * sortOrder }
+      data["sortKey"] = { [_sortKey]: -1 * sortOrder };
       setSortOrder(-1 * sortOrder);
     } else {
-      setSortKey(_sortKey)
-      setSortOrder(-1)
-      data['sortKey'] = { [_sortKey]: -1 }
+      setSortKey(_sortKey);
+      setSortOrder(-1);
+      data["sortKey"] = { [_sortKey]: -1 };
     }
     getTokenList(data);
   }
 
   const navigateToTokenDetails = (row) => {
-    window.location.href = `/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
-      }`
-  }
+    window.location.href = `/token-data/${row.address}/${
+      row?.symbol ? row?.symbol : "NA"
+    }`;
+  };
 
   // async function sortByHoldersCount() {
   //     setSortedByTotalSupply(0);
@@ -401,38 +419,49 @@ export default function StickyHeadTable(props) {
     font-weight: 600;
     color: #2a2a2a;
     margin-bottom: 22px;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
       color: #ffffff;
     `}
-      @media (max-width: 1250px) {
-        font-size: 18px;
-        margin-bottom: 12px;
-      }
-      @media (max-width: 767px) {
-        font-size: 14px;
-        color: #252525;
-        margin-bottom: 12px;
-        ${({ theme }) => theme === "dark" && `
+    @media (max-width: 1250px) {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 767px) {
+      font-size: 14px;
+      color: #252525;
+      margin-bottom: 12px;
+      ${({ theme }) =>
+        theme === "dark" &&
+        `
           color: #ffffff;
         `}
-      }
+    }
   `;
 
   const NoDataFoundContainer = styled.div`
-      display: flex;
-      flex-flow: column;
-      justify-content: center;
-      align-items: center;
-      margin-top: 100px;
-      gap: 10px;
-      @media (min-width: 767px) {
-        margin: 100px 0 !important;
-      }
-    `;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
+    }
+  `;
 
   return (
-    <div style={props?.theme === "dark" ? {backgroundColor: "#091b4e"} : { backgroundColor: "#fff" }} className={props?.theme === "dark" ? "dark-theme-bg" : ""}>
-      <Tokensearchbar theme="dark"/>
+    <div
+      style={
+        props?.theme === "dark"
+          ? { backgroundColor: "#091b4e" }
+          : { backgroundColor: "#fff" }
+      }
+      className={props?.theme === "dark" ? "dark-theme-bg" : ""}
+    >
+      <Tokensearchbar theme="dark" />
       <Responsive>
         <form
           method="post"
@@ -442,21 +471,31 @@ export default function StickyHeadTable(props) {
             }
           }}
         >
-
           <Column
             className={
               "responsive-table-width-token-list token-list-tab_11 search-container"
             }
           >
-            {window.innerWidth >= 768 ?
+            {window.innerWidth >= 768 ? (
               <>
                 <TokenTitle theme={props?.theme}>
-                  <div className="display-flex">Tokens
-                   {ercvalue ? <div className={classes.tokenTag}>XRC-721</div> : <div className={classes.tokenTag}>XRC-20</div>}
+                  <div className="display-flex">
+                    Tokens
+                    {ercvalue ? (
+                      <div className={classes.tokenTag}>XRC-721</div>
+                    ) : (
+                      <div className={classes.tokenTag}>XRC-20</div>
+                    )}
                   </div>
                 </TokenTitle>
                 <Row justifyContent="space-between" alignItems="center">
-                  <div className={props?.theme === "dark" ? "searchelement-input-dark input-searchelement_11" : "searchelement-input input-searchelement_11"}>
+                  <div
+                    className={
+                      props?.theme === "dark"
+                        ? "searchelement-input-dark input-searchelement_11"
+                        : "searchelement-input input-searchelement_11"
+                    }
+                  >
                     <img
                       style={{
                         width: 18,
@@ -468,9 +507,7 @@ export default function StickyHeadTable(props) {
 
                     <input
                       onChange={(e) => {
-
                         handleSearchKeyUp(e);
-
                       }}
                       // onChange={(e) => {
                       //   if (e.target.value == "") {
@@ -478,7 +515,11 @@ export default function StickyHeadTable(props) {
                       //   }
                       // }}
                       id="tokenSearch"
-                      className={props?.theme === "dark" ? "account-searchbar-dark" : "account-searchbar"}
+                      className={
+                        props?.theme === "dark"
+                          ? "account-searchbar-dark"
+                          : "account-searchbar"
+                      }
                       type="text"
                       placeholder="Search"
                     />
@@ -510,67 +551,68 @@ export default function StickyHeadTable(props) {
                       toggleTableColumns={props.toggleTableColumns}
                     />
                   </div>
-                </Row></> : (<>
-                  <Row justifyContent="space-between" alignItems="center">
-                    <TokenTitle theme={props?.theme}>Tokens</TokenTitle>
-                    <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
-                      <img
-                        onClick={handleSettingsClick}
-                        className="h-16 w-16-px cursor-pointer m-t_-7"
-                        src="/images/settings.svg"
-                      />
-                      <ConfigureColumnPopOver
-                        isOpen={isSettingColumnOpen}
-                        anchorEl={anchorEl}
-                        handleOnClose={handleOnClose}
-                        tableColumns={props.state.tableColumns}
-                        toggleTableColumns={props.toggleTableColumns}
-                      />
-                    </div>
-                    <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
-                      <img
-                        onClick={toggleModal}
-                        className="h-16 w-16-px cursor-pointer m-t_-7"
-                        src="/images/settings.svg"
-                      />
-                      <ConfigureColumnsModal
-                        isOpen={isColumnsModalOpen}
-                        onModalClose={toggleModal}
-                        tableColumns={props.state.tableColumns}
-                        toggleTableColumns={props.toggleTableColumns}
-                      />
-                    </div>
-                  </Row>
-                  <div className="searchelement-input input-searchelement_11">
+                </Row>
+              </>
+            ) : (
+              <>
+                <Row justifyContent="space-between" alignItems="center">
+                  <TokenTitle theme={props?.theme}>Tokens</TokenTitle>
+                  <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
                     <img
-                      style={{
-                        width: 18,
-                        height: 18,
-                        marginRight: 2,
-                        marginTop: -1,
-                      }}
-                      src={"/images/Search.svg"}
+                      onClick={handleSettingsClick}
+                      className="h-16 w-16-px cursor-pointer m-t_-7"
+                      src="/images/settings.svg"
                     />
-
-                    <input
-                      onChange={(e) => {
-
-                        handleSearchKeyUp(e);
-
-                      }}
-                      // onChange={(e) => {
-                      //   if (e.target.value == "") {
-                      //     handleSearchKeyUp(e);
-                      //   }
-                      // }}
-                      id="tokenSearch"
-                      className="account-searchbar"
-                      type="text"
-                      placeholder="Search"
+                    <ConfigureColumnPopOver
+                      isOpen={isSettingColumnOpen}
+                      anchorEl={anchorEl}
+                      handleOnClose={handleOnClose}
+                      tableColumns={props.state.tableColumns}
+                      toggleTableColumns={props.toggleTableColumns}
                     />
                   </div>
-                </>)}
+                  <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+                    <img
+                      onClick={toggleModal}
+                      className="h-16 w-16-px cursor-pointer m-t_-7"
+                      src="/images/settings.svg"
+                    />
+                    <ConfigureColumnsModal
+                      isOpen={isColumnsModalOpen}
+                      onModalClose={toggleModal}
+                      tableColumns={props.state.tableColumns}
+                      toggleTableColumns={props.toggleTableColumns}
+                    />
+                  </div>
+                </Row>
+                <div className="searchelement-input input-searchelement_11">
+                  <img
+                    style={{
+                      width: 18,
+                      height: 18,
+                      marginRight: 2,
+                      marginTop: -1,
+                    }}
+                    src={"/images/Search.svg"}
+                  />
 
+                  <input
+                    onChange={(e) => {
+                      handleSearchKeyUp(e);
+                    }}
+                    // onChange={(e) => {
+                    //   if (e.target.value == "") {
+                    //     handleSearchKeyUp(e);
+                    //   }
+                    // }}
+                    id="tokenSearch"
+                    className="account-searchbar"
+                    type="text"
+                    placeholder="Search"
+                  />
+                </div>
+              </>
+            )}
           </Column>
         </form>
         {/* </div> */}
@@ -588,27 +630,42 @@ export default function StickyHeadTable(props) {
           elevation={0}
         >
           <TableContainer
-            className={props?.theme === "dark" ? classes.containerDark : classes.container}
-            id={props?.theme === "dark" ? "container-table-token-dark" : "container-table-token"}
-            style={props?.theme === "dark" ? {
-              borderRadius: "0.75rem",
-              // backgroundColor: "#ffffff",
-              boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
-            } : {
-              borderRadius: "0.75rem",
-              border: "solid 0.063rem #e3e7eb",
-              // backgroundColor: "#ffffff",
-              boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
-            }}
+            className={
+              props?.theme === "dark"
+                ? classes.containerDark
+                : classes.container
+            }
+            id={
+              props?.theme === "dark"
+                ? "container-table-token-dark"
+                : "container-table-token"
+            }
+            style={
+              props?.theme === "dark"
+                ? {
+                    borderRadius: "0.75rem",
+                    // backgroundColor: "#ffffff",
+                    boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                  }
+                : {
+                    borderRadius: "0.75rem",
+                    border: "solid 0.063rem #e3e7eb",
+                    // backgroundColor: "#ffffff",
+                    boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                  }
+            }
           >
             <Table style={{ borderBottom: "none" }}>
               <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
                 <TableRow>
-                  <TableCell
-                    style={{ border: "none", }}
-                    align="left"
-                  >
-                    <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2" : "tablehead-token-details"}>
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span
+                      className={
+                        props?.theme === "dark"
+                          ? "tablehead-token-details-dark-2"
+                          : "tablehead-token-details"
+                      }
+                    >
                       #
                       <Tooltip placement="top" title={messages.SI_NO}>
                         <img
@@ -622,7 +679,14 @@ export default function StickyHeadTable(props) {
                   </TableCell>
                   {props?.state?.tableColumns["Symbol"].isActive && (
                     <TableCell style={{ border: "none" }} align="left">
-                      <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("symbol")}>
+                      <span
+                        className={
+                          props?.theme === "dark"
+                            ? "tablehead-token-details-dark-2 cursor-pointer"
+                            : "tablehead-token-details cursor-pointer"
+                        }
+                        onClick={() => sortTable("symbol")}
+                      >
                         Symbol
                         <Tooltip placement="top" title={messages.SYMBOL}>
                           <img
@@ -633,23 +697,36 @@ export default function StickyHeadTable(props) {
                           />
                         </Tooltip>
                         {sortKey && sortKey === "symbol" ? (
-                          sortOrder === -1 ? <img
-                            alt="question-mark"
-                            src="/images/see-more.svg"
-                            height={"14px"}
-                            className="tooltipInfoIcon"
-                          /> :
+                          sortOrder === -1 ? (
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          ) : (
                             <img
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
                               className="tooltipInfoIcon rotate-180"
-                            />) : ""}
+                            />
+                          )
+                        ) : (
+                          ""
+                        )}
                       </span>
                     </TableCell>
                   )}
                   <TableCell style={{ border: "none" }} align="left">
-                    <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("tokenName")}>
+                    <span
+                      className={
+                        props?.theme === "dark"
+                          ? "tablehead-token-details-dark-2 cursor-pointer"
+                          : "tablehead-token-details cursor-pointer"
+                      }
+                      onClick={() => sortTable("tokenName")}
+                    >
                       Name
                       <Tooltip placement="top" title={messages.NAME}>
                         <img
@@ -660,18 +737,24 @@ export default function StickyHeadTable(props) {
                         />
                       </Tooltip>
                       {sortKey && sortKey === "tokenName" ? (
-                        sortOrder === -1 ? <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        /> :
+                        sortOrder === -1 ? (
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        ) : (
                           <img
                             alt="question-mark"
                             src="/images/see-more.svg"
                             height={"14px"}
                             className="tooltipInfoIcon rotate-180"
-                          />) : ""}
+                          />
+                        )
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </TableCell>
                   {/* {props?.state?.tableColumns["Type"].isActive && (
@@ -692,92 +775,18 @@ export default function StickyHeadTable(props) {
                     </span>
                                     </TableCell>
                                 )} */}
-                  {!ercvalue  && <TableCell style={{ border: "none" }} align="left">
-                    <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("address")} onClick={() => sortTable("address")}>
-                      Contract
-                      <Tooltip placement="top" title={messages.CONTRACT}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
-                      {sortKey && sortKey === "address" ? (
-                        sortOrder === -1 ? <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        /> :
-                          <img
-                            alt="question-mark"
-                            src="/images/see-more.svg"
-                            height={"14px"}
-                            className="tooltipInfoIcon rotate-180"
-                          />) : ""}
-                    </span>
-                  </TableCell>}
-
-                  {!ercvalue  && <TableCell
-                    style={{ border: "none", whiteSpace: "nowrap" }}
-                    align="left"
-                  >
-                    <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("totalSupply")}>
-                      Total Supply
-                      <Tooltip
-                        placement="top"
-                        title={messages.TOKEN_TOTAL_SUPPLY}
+                  {!ercvalue && (
+                    <TableCell style={{ border: "none" }} align="left">
+                      <span
+                        className={
+                          props?.theme === "dark"
+                            ? "tablehead-token-details-dark-2 cursor-pointer"
+                            : "tablehead-token-details cursor-pointer"
+                        }
+                        onClick={() => sortTable("address")}
                       >
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
-                      {sortKey && sortKey === "totalSupply" ? (
-                        sortOrder === -1 ? <img
-                          alt="question-mark"
-                          src="/images/see-more.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        /> :
-                          <img
-                            alt="question-mark"
-                            src="/images/see-more.svg"
-                            height={"14px"}
-                            className="tooltipInfoIcon rotate-180"
-                          />) : ""}
-                    </span>
-                  </TableCell>}
-                  {ercvalue  && <TableCell
-                    style={{ border: "none", whiteSpace: "nowrap" }}
-                    align="left"
-                  >
-                    <span className={"tablehead-token-details cursor-pointer"}>
-                      Transfers (24h)
-                      <Tooltip
-                        placement="top"
-                        title={messages.TOKEN_TRANSFER_24_HOURS}
-                      >
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
-                    </span>
-                  </TableCell>}
-                  {!ercvalue  && (props?.state?.tableColumns["Total Holders"].isActive && (
-                    <TableCell
-                      style={{ border: "none", whiteSpace: "nowrap" }}
-                      align="left"
-                    >
-                      <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("holdersCount")}>
-                        Total Holders
-                        <Tooltip placement="top" title={messages.HOLDER}>
+                        Contract
+                        <Tooltip placement="top" title={messages.CONTRACT}>
                           <img
                             alt="question-mark"
                             src="/images/info.svg"
@@ -785,41 +794,167 @@ export default function StickyHeadTable(props) {
                             className="tooltipInfoIcon"
                           />
                         </Tooltip>
-                        {sortKey && sortKey === "holdersCount" ? (
-                          sortOrder === -1 ? <img
-                            alt="question-mark"
-                            src="/images/see-more.svg"
-                            height={"14px"}
-                            className="tooltipInfoIcon"
-                          /> :
+                        {sortKey && sortKey === "address" ? (
+                          sortOrder === -1 ? (
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          ) : (
                             <img
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
                               className="tooltipInfoIcon rotate-180"
-                            />) : ""}
+                            />
+                          )
+                        ) : (
+                          ""
+                        )}
                       </span>
                     </TableCell>
-                  ))}
-                  {ercvalue  && <TableCell
-                    style={{ border: "none", whiteSpace: "nowrap" }}
-                    align="left"
-                  >
-                    <span className={"tablehead-token-details cursor-pointer"}>
-                      Transfers (3d)
-                      <Tooltip
-                        placement="top"
-                        title={messages.TOKEN_TRANSFER_3_DAYS}
+                  )}
+
+                  {!ercvalue && (
+                    <TableCell
+                      style={{ border: "none", whiteSpace: "nowrap" }}
+                      align="left"
+                    >
+                      <span
+                        className={
+                          props?.theme === "dark"
+                            ? "tablehead-token-details-dark-2 cursor-pointer"
+                            : "tablehead-token-details cursor-pointer"
+                        }
+                        onClick={() => sortTable("totalSupply")}
                       >
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
-                    </span>
-                  </TableCell>}
+                        Total Supply
+                        <Tooltip
+                          placement="top"
+                          title={messages.TOKEN_TOTAL_SUPPLY}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                        {sortKey && sortKey === "totalSupply" ? (
+                          sortOrder === -1 ? (
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          ) : (
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                            />
+                          )
+                        ) : (
+                          ""
+                        )}
+                      </span>
+                    </TableCell>
+                  )}
+                  {ercvalue && (
+                    <TableCell
+                      style={{ border: "none", whiteSpace: "nowrap" }}
+                      align="left"
+                    >
+                      <span
+                        className={"tablehead-token-details cursor-pointer"}
+                      >
+                        Transfers (24h)
+                        <Tooltip
+                          placement="top"
+                          title={messages.TOKEN_TRANSFER_24_HOURS}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      </span>
+                    </TableCell>
+                  )}
+                  {!ercvalue &&
+                    props?.state?.tableColumns["Total Holders"].isActive && (
+                      <TableCell
+                        style={{ border: "none", whiteSpace: "nowrap" }}
+                        align="left"
+                      >
+                        <span
+                          className={
+                            props?.theme === "dark"
+                              ? "tablehead-token-details-dark-2 cursor-pointer"
+                              : "tablehead-token-details cursor-pointer"
+                          }
+                          onClick={() => sortTable("holdersCount")}
+                        >
+                          Total Holders
+                          <Tooltip placement="top" title={messages.HOLDER}>
+                            <img
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          </Tooltip>
+                          {sortKey && sortKey === "holdersCount" ? (
+                            sortOrder === -1 ? (
+                              <img
+                                alt="question-mark"
+                                src="/images/see-more.svg"
+                                height={"14px"}
+                                className="tooltipInfoIcon"
+                              />
+                            ) : (
+                              <img
+                                alt="question-mark"
+                                src="/images/see-more.svg"
+                                height={"14px"}
+                                className="tooltipInfoIcon rotate-180"
+                              />
+                            )
+                          ) : (
+                            ""
+                          )}
+                        </span>
+                      </TableCell>
+                    )}
+                  {ercvalue && (
+                    <TableCell
+                      style={{ border: "none", whiteSpace: "nowrap" }}
+                      align="left"
+                    >
+                      <span
+                        className={"tablehead-token-details cursor-pointer"}
+                      >
+                        Transfers (3d)
+                        <Tooltip
+                          placement="top"
+                          title={messages.TOKEN_TRANSFER_3_DAYS}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      </span>
+                    </TableCell>
+                  )}
                 </TableRow>
               </TableHead>
               {isLoading == true ? (
@@ -840,19 +975,18 @@ export default function StickyHeadTable(props) {
                         row?.totalSupply,
                         row?.decimals
                       );
-                      
-                      const supply =
-                      totalsupply >= 1
-                          ? format({})(
 
-                            utility.convertToInternationalCurrencySystem(
-                              Number(totalsupply)
+                      const supply =
+                        totalsupply >= 1
+                          ? format({})(
+                              utility.convertToInternationalCurrencySystem(
+                                Number(totalsupply)
+                              )
                             )
-                          )
                           : utility.divideByDecimalValue(
-                            row?.totalSupply,
-                            row?.decimals
-                          );
+                              row?.totalSupply,
+                              row?.decimals
+                            );
                       var supply1 = supply.toString().split(".")[0];
                       var supply2 = supply.toString().split(".")[1];
                       var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
@@ -868,7 +1002,7 @@ export default function StickyHeadTable(props) {
                           : 0;
                       let tokenName =
                         row?.tokenName?.length <= 15 ||
-                          row?.tokenName?.length == 0
+                        row?.tokenName?.length == 0
                           ? row?.tokenName
                           : shorten(row?.tokenName, 15, 0, 3);
                       return (
@@ -879,86 +1013,141 @@ export default function StickyHeadTable(props) {
                           key={row._id}
                           onClick={() => navigateToTokenDetails(row)}
                         >
-                          <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td">
+                          <TableCell
+                            className={
+                              props?.theme === "dark"
+                                ? classes.token_table_border_dark
+                                : ""
+                            }
+                            id="td"
+                          >
                             {index + 1}
                           </TableCell>
 
                           {props?.state?.tableColumns["Symbol"].isActive && (
-                            <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td">
-                              {row?.tokenImage ?
+                            <TableCell
+                              className={
+                                props?.theme === "dark"
+                                  ? classes.token_table_border_dark
+                                  : ""
+                              }
+                              id="td"
+                            >
+                              {row?.tokenImage ? (
                                 <img
                                   style={{ height: "20px", width: "20px" }}
                                   src={row?.tokenImage}
-                                ></img> :
+                                ></img>
+                              ) : (
                                 <img
                                   style={{ height: "20px", width: "20px" }}
                                   src={"/images/XRC20-Icon.svg"}
-                                ></img>}
+                                ></img>
+                              )}
                               &nbsp;{row.symbol}
                             </TableCell>
                           )}
 
-                          <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ whiteSpace: "nowrap" }}>
+                          <TableCell
+                            className={
+                              props?.theme === "dark"
+                                ? classes.token_table_border_dark
+                                : ""
+                            }
+                            id="td"
+                            style={{ whiteSpace: "nowrap" }}
+                          >
                             {tokenName}
                           </TableCell>
                           {/* {props?.state?.tableColumns["Type"].isActive && (
                                                     <TableCell id="td">{row.type}</TableCell>
                                                 )} */}
 
-                          {!ercvalue  && <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""}>
-                            <a
-                              className={props?.theme === "dark" ? "token-details-address-link-dark" : "token-details-address-link"}
-                              href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
-                                }`}
+                          {!ercvalue && (
+                            <TableCell
+                              className={
+                                props?.theme === "dark"
+                                  ? classes.token_table_border_dark
+                                  : ""
+                              }
                             >
-                              {shorten(row.address)}
-                            </a>
-                          </TableCell>}
+                              <a
+                                className={
+                                  props?.theme === "dark"
+                                    ? "token-details-address-link-dark"
+                                    : "token-details-address-link"
+                                }
+                                href={`/token-data/${row.address}/${
+                                  row?.symbol ? row?.symbol : "NA"
+                                }`}
+                              >
+                                {shorten(row.address)}
+                              </a>
+                            </TableCell>
+                          )}
 
-
-                          {!ercvalue  && <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ paddingleft: "15" }}>
-                            <Tooltip
-                              placement="top"
-                              title={format({})(
-                                totalsupply >= 1
-                                  ? parseFloat(totalsupply)
-                                  : totalsupply == 0
+                          {!ercvalue && (
+                            <TableCell
+                              className={
+                                props?.theme === "dark"
+                                  ? classes.token_table_border_dark
+                                  : ""
+                              }
+                              id="td"
+                              style={{ paddingleft: "15" }}
+                            >
+                              <Tooltip
+                                placement="top"
+                                title={format({})(
+                                  totalsupply >= 1
+                                    ? parseFloat(totalsupply)
+                                    : totalsupply == 0
                                     ? parseFloat(totalsupply)
                                     : totalsupply
-                              )}
-                            >
-                              <span>
-                                {supply4 === 0 || supply4 == null ? (
-                                  <span className="tabledata">{supply1}</span>
-                                ) : (
-                                  <span className="tabledata">
-                                    {supply1}
-                                    {"."}
-                                    <span style={{ color: "#9FA9BA" }}>
-                                      {supply4}
-                                    </span>
-                                    {text}
-                                  </span>
                                 )}
-                              </span>
-                            </Tooltip>
-                          </TableCell>}
-                          {ercvalue  && 
-                              <TableCell id="td" style={{ paddingleft: "15" }}>
-                                {format({})(row.transfers.last24Hour)}
-                              </TableCell>
-                            }
-                          {!ercvalue  && (props?.state?.tableColumns["Total Holders"]
-                            .isActive && (
-                              <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ paddingleft: "15" }}>
+                              >
+                                <span>
+                                  {supply4 === 0 || supply4 == null ? (
+                                    <span className="tabledata">{supply1}</span>
+                                  ) : (
+                                    <span className="tabledata">
+                                      {supply1}
+                                      {"."}
+                                      <span style={{ color: "#9FA9BA" }}>
+                                        {supply4}
+                                      </span>
+                                      {text}
+                                    </span>
+                                  )}
+                                </span>
+                              </Tooltip>
+                            </TableCell>
+                          )}
+                          {ercvalue && (
+                            <TableCell id="td" style={{ paddingleft: "15" }}>
+                              {format({})(row.transfers.last24Hour)}
+                            </TableCell>
+                          )}
+                          {!ercvalue &&
+                            props?.state?.tableColumns["Total Holders"]
+                              .isActive && (
+                              <TableCell
+                                className={
+                                  props?.theme === "dark"
+                                    ? classes.token_table_border_dark
+                                    : ""
+                                }
+                                id="td"
+                                style={{ paddingleft: "15" }}
+                              >
                                 {format({})(row.holdersCount)}
                               </TableCell>
-                            ))}
-                            {ercvalue  && 
-                              <TableCell id="td" style={{ paddingleft: "15" }}>
-                                {format({})(row.transfers.last3days)}
-                              </TableCell>
-                            }
+                            )}
+                          {ercvalue && (
+                            <TableCell id="td" style={{ paddingleft: "15" }}>
+                              {format({})(row.transfers.last3days)}
+                            </TableCell>
+                          )}
                         </TableRow>
                       );
                     })}
@@ -996,32 +1185,44 @@ export default function StickyHeadTable(props) {
 
         <Pagination theme={props?.theme}>
           <LeftPagination>
-            {!noData == true && !isLoading ? (<>
-              <Show theme={props?.theme}>
-                Show
-              </Show>
-              <PageSelector value={amount}
-                height={30}
-                handler={handleChangeRowsPerPage} 
-                theme={props?.theme}
-              />
-              <Record theme={props?.theme}>
-                Records
-              </Record></>) : ("")}
+            {!noData == true && !isLoading ? (
+              <>
+                <Show theme={props?.theme}>Show</Show>
+                <PageSelector
+                  value={amount}
+                  height={30}
+                  handler={handleChangeRowsPerPage}
+                  theme={props?.theme}
+                />
+                <Record theme={props?.theme}>Records</Record>
+              </>
+            ) : (
+              ""
+            )}
           </LeftPagination>
 
           <RightPagination>
             <div
               className={
-                from === 0 
-                  ? props?.theme === "dark" ? "firstbox-contract-dark disabled" : "firstbox-contract disabled"
-                  : props?.theme === "dark" ? "firstbox-contract-dark" : "firstbox-contract"
+                from === 0
+                  ? props?.theme === "dark"
+                    ? "firstbox-contract-dark disabled"
+                    : "firstbox-contract disabled"
+                  : props?.theme === "dark"
+                  ? "firstbox-contract-dark"
+                  : "firstbox-contract"
               }
               onClick={() => handleChangePage("first")}
             >
               <button
-                style={props?.theme === "dark" ? {} : { backgroundColor: "white" }}
-                className={props?.theme === "dark" ? "first-contract-dark" : "first-contract"}
+                style={
+                  props?.theme === "dark" ? {} : { backgroundColor: "white" }
+                }
+                className={
+                  props?.theme === "dark"
+                    ? "first-contract-dark"
+                    : "first-contract"
+                }
               >
                 First
               </button>
@@ -1029,17 +1230,36 @@ export default function StickyHeadTable(props) {
             <div
               className={
                 from === 0
-                  ? props?.theme === "dark" ? "previousbox-contract-dark disabled" : "previousbox-contract disabled"
-                  : props?.theme === "dark" ? "previousbox-contract-dark" : "previousbox-contract"
+                  ? props?.theme === "dark"
+                    ? "previousbox-contract-dark disabled"
+                    : "previousbox-contract disabled"
+                  : props?.theme === "dark"
+                  ? "previousbox-contract-dark"
+                  : "previousbox-contract"
               }
               onClick={() => handleChangePage("prev")}
             >
-              <img className="navigation-arrow rotate-180" src={"/images/next.svg"} />
+              <img
+                className="navigation-arrow rotate-180"
+                src={"/images/next.svg"}
+              />
 
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
-            <div className={props?.theme === "dark" ? "pagebox-contract-dark" : "pagebox-contract"}>
-              <p className={props?.theme === "dark" ? "Page-1-of-5-contract-dark" : "Page-1-of-5-contract"}>
+            <div
+              className={
+                props?.theme === "dark"
+                  ? "pagebox-contract-dark"
+                  : "pagebox-contract"
+              }
+            >
+              <p
+                className={
+                  props?.theme === "dark"
+                    ? "Page-1-of-5-contract-dark"
+                    : "Page-1-of-5-contract"
+                }
+              >
                 Page{" "}
                 {Math.ceil(totalToken / amount) -
                   Math.ceil((totalToken - from) / amount) +
@@ -1050,9 +1270,12 @@ export default function StickyHeadTable(props) {
             <div
               className={
                 from + visibleTokenCount === totalToken
-                
-                  ? props?.theme === "dark" ? "nextbox-contract-dark disabled" : "nextbox-contract disabled"
-                  : props?.theme === "dark" ? "nextbox-contract-dark" : "nextbox-contract"
+                  ? props?.theme === "dark"
+                    ? "nextbox-contract-dark disabled"
+                    : "nextbox-contract disabled"
+                  : props?.theme === "dark"
+                  ? "nextbox-contract-dark"
+                  : "nextbox-contract"
               }
               onClick={() => handleChangePage("next")}
             >
@@ -1061,14 +1284,24 @@ export default function StickyHeadTable(props) {
             <div
               className={
                 from + visibleTokenCount === totalToken
-                  ? props?.theme === "dark" ? "lastbox-contract-dark disabled" : "lastbox-contract disabled"
-                  : props?.theme === "dark" ? "lastbox-contract-dark" : "lastbox-contract"
+                  ? props?.theme === "dark"
+                    ? "lastbox-contract-dark disabled"
+                    : "lastbox-contract disabled"
+                  : props?.theme === "dark"
+                  ? "lastbox-contract-dark"
+                  : "lastbox-contract"
               }
               onClick={() => handleChangePage("last")}
             >
               <button
-                style={props?.theme === "dark" ? {} : { backgroundColor: "white" }}
-                className={props?.theme === "dark" ? "Last-contract-dark" : "last-contract"}
+                style={
+                  props?.theme === "dark" ? {} : { backgroundColor: "white" }
+                }
+                className={
+                  props?.theme === "dark"
+                    ? "Last-contract-dark"
+                    : "last-contract"
+                }
               >
                 Last
               </button>
