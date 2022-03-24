@@ -42,17 +42,17 @@ function Tab(props) {
 
             <div className="content-tabs" >
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
-                    <Graphbar />
+                    <Graphbar theme={props.theme}/>
 
 
                 </div>
 
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
-                    <Accountsgraphbar />
+                    <Accountsgraphbar theme={props.theme}/>
                 </div>
 
                 <div className={toggleState === 3 ? "content  active-content" : "content"}>
-                    <Gasgraphbar />
+                    <Gasgraphbar theme={props.theme}/>
 
                 </div>
             </div>

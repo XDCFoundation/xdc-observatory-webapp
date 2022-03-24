@@ -37,7 +37,6 @@ class XDCBalanceGraph extends BaseComponent {
     this.state = {
       loading: false,
       graphData:[],
-      optionsDark : {},
     };
   }
 
@@ -107,6 +106,7 @@ class XDCBalanceGraph extends BaseComponent {
         zoomType: {
           enabled: false,
         },
+        backgroundColor: "#ffffff",
       },
       legend: {
         layout: "horizontal",

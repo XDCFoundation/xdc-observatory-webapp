@@ -37,14 +37,12 @@ class XDCTransferGraph extends BaseComponent {
     this.state = {
       loading: false,
       graphData:[],
-      optionsDark : {},
     };
   }
 
   componentDidMount = () => {
     this.getXdcTransferData();
   };
-
   getXdcTransferData = async () => {
     this.setState({ loading: true });
     const address = this.props.address;
@@ -85,6 +83,7 @@ class XDCTransferGraph extends BaseComponent {
         zoomType: {
           enabled: false,
         },
+        backgroundColor: "#ffffff",
       },
       legend: {
         layout: "horizontal",
@@ -234,7 +233,7 @@ class XDCTransferGraph extends BaseComponent {
         zoomType: {
           enabled: false,
         },
-        backgroundColor: "#192a59 ",
+        backgroundColor: "#192a59",
       },
       legend: {
         layout: "horizontal",
