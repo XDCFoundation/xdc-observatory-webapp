@@ -444,7 +444,7 @@ export default function FormDialog() {
                 control={<Radio style={{ color: "#979797" }} />}
                 style={{ margin: "-5px 26px -5px -9px" }}
                 classes={{ label: classes.notifyLabel }}
-                label="Notify on Incoming (Recieve) Txns Only"
+                label="Notify on Incoming (Receive) Txns Only"
                 onClick={(e) => setNotification(e.target.value)}
               />
               {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}

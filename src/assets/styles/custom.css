@@ -536,6 +536,7 @@ input:focus {
 .bg-blue {
   background-color: #0052cc !important;
 }
+
 /*Width-CSS*/
 
 .outline-none {
@@ -583,12 +584,16 @@ input:focus {
 .p-l-0{
   padding-left: 0 !important ;
 }
+.m-l-11 {
+  margin-left: 11px;
+}
 .mar-top-15 {
   margin-top: 15px;
 }
 .m-l-4 {
   margin-left: 4px !important;
 }
+
 
 .z-index-100 {
   z-index: 100;
@@ -12549,9 +12554,17 @@ button {
     margin: 0 auto;
   }
 }
+.color-white {
+  color: #ffffff !important;
+}
 .global-id {
   background-image: url("../images/banner_bg.png");
   background-color: #2149b9;
+  min-height: 100vh;
+}
+.dark-global-id {
+  /* background-image: url("../images/banner_bg.png"); */
+  background-color: #0b205a;
   min-height: 100vh;
 }
 @media (max-width: 767px) {

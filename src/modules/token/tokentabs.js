@@ -132,8 +132,8 @@ export default function SimpleTabs(props) {
               <button
                 className={
                   toggleState === 7
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                    ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                    : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(7)}
               >
@@ -223,7 +223,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px", width: "auto" }}>
-                <TotalTokenTransactions />
+                <TotalTokenTransactions theme={props.theme} />
               </div>
             </div>
             <div
