@@ -66,7 +66,6 @@ function Transaction({ _handleChange, theme }) {
   const { hash } = useParams();
   const [transactions, setTransactions] = useState([]);
   transactions["method"] = Utils.getMethodType(transactions);
-  console.log(transactions, "<<<<");
   const [isPvtNote, setIsPvtNote] = useState(false);
   const [privateNote, setPrivateNote] = useState("");
   const [addressTag, setAddressTag] = useState("");
@@ -135,7 +134,6 @@ function Transaction({ _handleChange, theme }) {
   const [latestBlock, setLatestBlock] = useState(0);
   const [isSeeMore, setSeeMore] = useState(false);
   const [contractData, setContractData] = useState(0);
-  console.log(contractData, "contractData");
   useEffect(async () => {
     await transactionDetail();
     getLatestBlock();

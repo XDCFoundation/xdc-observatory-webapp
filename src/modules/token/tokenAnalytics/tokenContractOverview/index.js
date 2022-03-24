@@ -82,7 +82,7 @@ class TokenContractOverviewGraph extends BaseComponent {
             const x = data[index].addedOn;
             TransferAmount.push({
                 x,
-                y: data[index].sentAmount + data[index].receivedAmount,
+                y: (data[index].sentAmount + data[index].receivedAmount)/1000000000000000000,
             });
             TransferCount.push({x, y: data[index].transactionCount});
             UniqueAddress.push({x, y: data[index].uniqueAddress});

@@ -40,7 +40,6 @@ export default function BlockchainIdentity() {
       }
   return (
     <div>
-        {console.log("hit",blockchainIdentityResponse)}
         <Tokensearchbar />
         <div className={classes.mainContainer}>
             <div className={classes.heading}>Blockchain Identity</div>
