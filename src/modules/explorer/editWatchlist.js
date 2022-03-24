@@ -403,7 +403,7 @@ function EditWatchList(props) {
                   control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
-                  label="Notify on Incoming (Recieve) Transactions Only"
+                  label="Notify on Incoming (Receive) Transactions Only"
                 />
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Transactions Only" /> */}
                 <FormControlLabel

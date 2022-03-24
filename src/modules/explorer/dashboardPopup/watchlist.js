@@ -474,7 +474,7 @@ export default function FormDialog(props) {
             <LightToolTip
               open={tooltipIsOpen}
               onClose={tooltipClose}
-              title="An Email notification can be sent to you when an address on your watch list recieves an incoming/outgoing transaction."
+              title="An Email notification can be sent to you when an address on your watch list receives an incoming/outgoing transaction."
               arrow
               placement="top-start"
             >
@@ -590,7 +590,7 @@ export default function FormDialog(props) {
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
                     classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
-                    label="Notify on Incoming (Recieve) Transactions Only"
+                    label="Notify on Incoming (Receive) Transactions Only"
                     onClick={(e) => setNotification(e.target.value)}
                   />
                   {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}

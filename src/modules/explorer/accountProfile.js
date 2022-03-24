@@ -101,7 +101,18 @@ const styles = StyleSheet.create({
     borderRadius: "0.25rem",
     width: "5.875rem",
     height: "2.125rem",
-    marginRight: "1.5rem",
+    // marginRight: "1.5rem",
+    paddingTop: "0.125rem",
+  },
+  pdfDownloadLinkDark: {
+    fontSize: "0.938rem",
+    textAlign: "center",
+    color: "#b1c3e1",
+    backgroundColor: "#283966",
+    borderRadius: "0.25rem",
+    width: "5.875rem",
+    height: "2.125rem",
+    // marginRight: "1.5rem",
     paddingTop: "0.125rem",
   },
   pdfDownloadLinkDark: {
@@ -872,13 +883,13 @@ function SimpleTabs(props) {
       newData = oldData.sort(
         (index1, index2) => parseInt(index2.modifiedOn) - parseInt(index1.modifiedOn)
       );
-
+      console.log(newData, "<<<");
       setAgeToggle(1);
     } else {
       newData = oldData.sort(
         (index1, index2) => parseInt(index1.modifiedOn) - parseInt(index2.modifiedOn)
       );
-
+      console.log(newData, "<<<");
       setAgeToggle(-1);
     }
     setPrivateAddress(newData);
@@ -1335,6 +1346,7 @@ function SimpleTabs(props) {
                 <CustomDropDownAddress
                   sampleRender={sampleRender}
                   updateListTags={updateListTags}
+                  getListOfTagAddress={getListOfTagAddress}
                 />
               ) : (
                 ""
@@ -1346,9 +1358,9 @@ function SimpleTabs(props) {
                   ""
                 ) : 
                 tableValue === 2 ? (
-                  
+
                   <PDFDownloadLink
-                    style={styles.pdfDownloadLink}
+                    style={props.theme.currentTheme === "dark" ? styles.pdfDownloadLinkDark : styles.pdfDownloadLink}
                     document={<TransactionPDF data={downloadTxnPvtNote} />}
                     fileName="transactionPvtNote.pdf"
                   >
@@ -1363,7 +1375,17 @@ function SimpleTabs(props) {
                 <div
                   filename={"tag_address.csv"}
                   data={downloadTagAddress}
-                  style={{
+                  style={props.theme.currentTheme === "dark" ? {
+                  pointerEvents: "none",
+                  fontSize: "0.938rem",
+                  textAlign: "center",
+                  color: "#b1c3e1",
+                  backgroundColor: "#283966",
+                  borderRadius: "0.25rem",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                  paddingTop: "0.4rem",
+                } : {
                     pointerEvents: "none",
                     fontSize: "0.938rem",
                     textAlign: "center",

@@ -453,15 +453,8 @@ export default function StickyHeadTable(props) {
   `;
 
   return (
-    <div
-      style={
-        props?.theme === "dark"
-          ? { backgroundColor: "#091b4e" }
-          : { backgroundColor: "#fff" }
-      }
-      className={props?.theme === "dark" ? "dark-theme-bg" : ""}
-    >
-      <Tokensearchbar theme="dark" />
+    <div style={props?.theme === "dark" ? {backgroundColor: "#091b4e"} : { backgroundColor: "#fff" }} className={props?.theme === "dark" ? "dark-theme-bg" : ""}>
+      <Tokensearchbar theme={props.theme === "dark" ? "dark" : ""}/>
       <Responsive>
         <form
           method="post"
