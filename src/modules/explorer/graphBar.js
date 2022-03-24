@@ -24,6 +24,23 @@ const toolTipElement = (props) => {
     </div>
   );
 };
+const toolTipElementDarkMode = (props) => {
+  let transactionCount = Number(props.point?.data?.y);
+  return (
+    <div>
+      <div className="Tooltip-graph-dark">
+        <p className="Tooltip-graph-date-dark">{props.point?.data?.x}</p>
+        <p className="Tooltip-graph-tx-dark">
+          Transactions: {format({})(transactionCount)}
+        </p>
+      </div>
+      <div class="outer-oval-trans">
+        <div class="Oval"></div>
+      </div>
+      {/* <TriangleArrowDown /> */}
+    </div>
+  );
+};
 
 
 const MyResponsiveLine = ({ data }) => (
@@ -59,7 +76,7 @@ const MyResponsiveLine = ({ data }) => (
     enableGridY={false}
     enablePoints={false}
     pointSize={10}
-    pointColor={{ theme: "background" }}
+    pointColor={{ theme: "background"}}
     enableCrosshair={false}
     pointBorderWidth={2}
     pointBorderColor={{ from: "serieColor" }}
@@ -70,6 +87,51 @@ const MyResponsiveLine = ({ data }) => (
     theme={{ fontSize: 11, fontFamily: "Inter",textColor:"#9fa9ba" }}
   />
 );
+const MyResponsiveLineDarkMode = ({ data }) => (
+  <ResponsiveLine
+    margin={{ left: 55, bottom: 5,top: 5 }}
+    data={data}
+    tooltip={toolTipElementDarkMode}
+    colors="#4878ff"
+    xScale={{ type: "point" }}
+    yScale={{
+      type: "linear",
+      min: "-100",
+      max: "auto",
+      stacked: true,
+      reverse: false,
+    }}
+    yFormat=" >-.2f"
+    curve="monotoneX"
+    axisTop={null}
+    axisRight={null}
+    axisBottom={null}
+    axisLeft={{
+      orient: "left",
+      tickSize: 0,
+      tickPadding: 5,
+      tickValues: 5,
+      format: value =>
+              `${Number(value).toLocaleString('EN-US', {
+                  minimumFractionDigits: 0,
+              })}`
+    }}
+    enableGridX={false}
+    enableGridY={false}
+    enablePoints={false}
+    pointSize={10}
+    pointColor={{ theme: "background"}}
+    enableCrosshair={false}
+    pointBorderWidth={2}
+    pointBorderColor={{ from: "serieColor" }}
+    pointLabelYOffset={1}
+    enableArea={true}
+    useMesh={true}
+    legends={[]}
+    theme={{ fontSize: 11, fontFamily: "Inter",textColor:"#9fa9ba" }}
+  />
+);
+
 const GraphSize = styled.div`
   height: 8.75rem;
   width: auto;
@@ -78,7 +140,7 @@ const GraphSize = styled.div`
     height: 80px;
   }
 `;
-export default function App() {
+export default function App(props) {
   const [data, setData] = useState([]);
   const [graphTransactions, setGraphTransactions] = useState([]);
 
@@ -137,7 +199,8 @@ export default function App() {
 
   return (
     <GraphSize>
-      <MyResponsiveLine data={data} />
+      {props.theme==="dark"?<MyResponsiveLineDarkMode data={data}/>:<MyResponsiveLine data={data}/>}
+      
       <div className="dates">
         <p>{firstDate}</p>
         <p>{lastDate}</p>

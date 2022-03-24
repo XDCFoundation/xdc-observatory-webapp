@@ -7598,7 +7598,6 @@ button {
     /* height: 11.875rem; */
   }
 }
-
 @media (min-width: 1240px) {
   .main_mid {
     display: flex;
@@ -9424,6 +9423,12 @@ button {
   border: solid 1px #e3e7eb;
   background-color: #fff;
 }
+.Tooltip-graph-dark {
+  width: 100%;
+  padding: 4px 8px 7px;
+  border-radius: 6px;
+  background-color: #283966;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .Tooltip-graph {
     width: 80%;
@@ -9432,6 +9437,12 @@ button {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     border: solid 1px #e3e7eb;
     background-color: #fff;
+  }
+  .Tooltip-graph-dark {
+    width: 80%;
+    padding: 4px 8px 7px;
+    border-radius: 6px;
+    background-color: #283966;
   }
   .Tooltip-graph-tx {
     margin: 1px 0 0;
@@ -9444,6 +9455,13 @@ button {
 
     color: #2a2a2a;
   }
+  .Tooltip-graph-tx-dark {
+    margin: 1px 0 0;
+    font-family: Inter;
+    font-size: 9px;
+    font-weight: 600;
+    color: #b1c3e1;
+  }
   .Tooltip-graph-date {
     width: 80%;
     margin: 0 53px 1px 0;
@@ -9455,6 +9473,14 @@ button {
     line-height: normal;
 
     color: #9fa9ba;
+  }
+  .Tooltip-graph-date-dark {
+    width: 80%;
+    margin: 0 53px 1px 0;
+    font-family: Inter;
+    font-size: 9px;
+    font-weight: 600;
+    color: #ffffff;
   }
   .block_details_heading_left {
     margin-top: 0px;
@@ -9507,6 +9533,14 @@ button {
 
   color: #9fa9ba;
 }
+.Tooltip-graph-date-dark {
+  width: 100%;
+  margin: 0 53px 1px 0;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+}
 
 .Tooltip-graph-tx {
   margin: 1px 0 0;
@@ -9518,6 +9552,13 @@ button {
   line-height: normal;
 
   color: #2a2a2a;
+}
+.Tooltip-graph-tx-dark {
+  margin: 1px 0 0;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 600;
+  color: #b1c3e1;
 }
 
 .sidebar-links {

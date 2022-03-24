@@ -5,9 +5,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  menuItemDark: {
-    color: "#adc4e4 !important",
-  },
+  dropdownStyle: {
+    background: '#283966 !important',
+    color: "#ffffff !important",
+  }
 });
 
 const PageSelect = styled(Select)`
@@ -39,7 +40,7 @@ const PageSelector = ({ value, handler, height = 35, theme }) => {
           onChange={(event) => handler(event)}
           displayEmpty
           height={height}
-          className={theme === "dark" ? classes.menuItemDark : ""}
+          MenuProps={{ classes: { paper: classes.dropdownStyle } }}
         >
           <MenuItem disabled value="">
             <em>Select</em>
