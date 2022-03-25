@@ -190,7 +190,7 @@ export const messages = {
   PASSWORD:
     "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
   DOWNLOAD_CSV: "Select address by clicking on checkbox to export data",
-  RANGE_SELECTOR:"Dates can be selected within the date range range of data available"
+  RANGE_SELECTOR:"Dates can be selected within the date range of data available"
 };
 
 export const toolTipMessages = {
