@@ -80,7 +80,8 @@ export default utility;
 
 function getMethodType(transactionData) {
   const input = transactionData.input ? transactionData.input.slice(2, 10) : "";
-  return MethodFromByte[input] ? MethodFromByte[input] : "-";
+
+  return MethodFromByte[input] ? MethodFromByte[input] : "";
 }
 
 function getUtcOffset(timezone) {
@@ -282,17 +283,17 @@ function shortenAddressImport(b, amountL = 23, amountR = 0, stars = 3) {
 }
 
 function shortenHashTab(b, amountL = 40, amountR = 0, stars = 3) {
-  if (b && b.length > 12)
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
+  if (b && b?.length > 12)
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
+      b?.length - 0,
+      b?.length
     )}`;
   else return b;
 }
 function shortenAddress(b, amountL, amountR, stars) {
-  return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-    b.length - amountR,
-    b.length
+  return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
+    b?.length - amountR,
+    b?.length
   )}`;
 }
 

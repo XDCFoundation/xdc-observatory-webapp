@@ -115,6 +115,17 @@ const styles = StyleSheet.create({
     // marginRight: "1.5rem",
     paddingTop: "0.125rem",
   },
+  pdfDownloadLinkDark: {
+    fontSize: "0.938rem",
+    textAlign: "center",
+    color: "#b1c3e1",
+    backgroundColor: "#283966",
+    borderRadius: "0.25rem",
+    width: "5.875rem",
+    height: "2.125rem",
+    marginRight: "1.5rem",
+    paddingTop: "0.125rem",
+  },
 });
 
 function TabPanel(props) {
@@ -1069,7 +1080,6 @@ function SimpleTabs(props) {
     // console.log(res, "res");
   };
   const updateListTags = (res) => {
-    console.log(res,">>>>>")
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
     };
