@@ -201,6 +201,7 @@ export default function Navbar() {
   
   const [opencontracts, setOpencontracts] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [inputFieldValue, setInputFieldValue] = React.useState("");
   const handleSearch = (event) => {
     if (event.target.value.length == 0) setErrorMessage("");
     if (event.key === "Enter") {
@@ -266,7 +267,21 @@ export default function Navbar() {
       window.location.href = "/address-details/" + acc;
     });
   };
+  const handleSearchByButton = (searchData) => {
+    if (searchData.length == 0) setErrorMessage("");
+    let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
+    if (format.test(searchData)) {
+      window.location.href = `/data-not-found?searchString=${searchData}`;
+    } else {
+      let selectOptType = SelectOptRef.current?.value;
+      let requestdata = {
+        filter: selectOptType,
+        data: searchData,
+      };
+      BlockChainSearch(requestdata);
+    }
+  };
   const handleSearchOption = (event) => {
     var selectOptType = SelectOptRef.current?.value;
     var SearchDataInput = SearchDataRef.current?.value;
@@ -1047,6 +1062,9 @@ export default function Navbar() {
                       type="text"
                       ref={SearchDataRef}
                       className="main-input"
+                      onChange={(event) =>
+                        setInputFieldValue(event.target.value)
+                      }
                       // onKeyPress={(event) => {
                       //     if (event.key === "Enter") {
                       //         handleSearch(event);
@@ -1054,7 +1072,36 @@ export default function Navbar() {
                       // }}
                       placeholder="Search"
                     />
-                    {browserName === "Chrome" ? (
+                    {inputFieldValue.length == 0 ? (
+                      browserName === "Chrome" ? (
+                        <div
+                          className={
+                               "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
+                          }
+                          onClick={searchMyAddress}
+                        >
+                          <img
+                            className="p-r-6 p-b-4"
+                            src={"/images/search-by-wallet.svg"}
+                          ></img>
+                          <span className="color-4878ff fs-14 fw-500">
+                            Search My Wallet
+                          </span>
+                        </div>
+                      ) : (
+                        ""
+                      )
+                    ) : (
+                      <div
+                        className={ "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer"}
+                        onClick={() => handleSearchByButton(inputFieldValue)}
+                      >
+                        <span className="color-4878ff fs-14 fw-500">
+                          Search
+                        </span>
+                      </div>
+                    )}
+                    {/* {browserName === "Chrome" ? (
                       <div
                         className="white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
                         onClick={searchMyAddress}
@@ -1069,7 +1116,7 @@ export default function Navbar() {
                       </div>
                     ) : (
                       ""
-                    )}
+                    )} */}
                   </div>
 
                   <div className="search-dashboard-select">

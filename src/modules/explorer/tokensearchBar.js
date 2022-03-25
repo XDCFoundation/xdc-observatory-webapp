@@ -19,6 +19,7 @@ import { sessionManager } from "../../managers/sessionManager";
 import { Row } from "simple-flexbox";
 import { eventConstants, recentSearchTypeConstants } from "../../constants";
 import { useDispatch } from "react-redux";
+import SearchBox from "../../common/components/internalSearchBar";
 
 const drawerWidth = 240;
 const Cut = styled.div`
@@ -770,6 +771,7 @@ export default function Navbar() {
     list-style: none;
   @media (min-width: 0px) and (max-width: 767px){
     font-size: 0.875rem;
+  }
   `;
 
   const MobileNavigationContainer = styled.div`
@@ -1016,78 +1018,7 @@ export default function Navbar() {
   );
 }
 
-const SearchBox = ({
-  classes,
-  filter,
-  handleSearch,
-  SearchDataRef,
-  SelectOptRef,
-  handleSearchOption,
-  list,
-}) => {
-  return (
-    <div>
-      <form
-        method="post"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <Row alignItems="center">
-          <img className={classes.searchIcon} src={"/images/Search.svg"} />
-          <div className="search-responsive">
-            <input
-              defaultValue={filter}
-              type="text"
-              onKeyUp={(event) => handleSearch(event)}
-              ref={SearchDataRef}
-              /* onKeyPress={(event) => {
-                if (event.key === "Enter") {
-                  handleSearch(event);
-                }
-              }} */
-              className="main-input-td "
-              src={"/images/Search.png"}
-              placeholder="Search by Address / Txn Hash / Block"
-            />
-            {/* name="NAME" */}
-            <div className="mobFilter">
-              <select
-                className="select-td"
-                onChange={(event) => handleSearchOption(event)}
-                ref={SelectOptRef}
-              >
-                <option value="All filters" selected>
-                  All Filters
-                </option>
-                <option value="Address">Addresses</option>
-                <option value="Blocks">Blocks</option>
-                <option value="Tokens">Tokens</option>
-                <option value="Transaction">Transaction</option>
-                {/* <option value="Nametags">Nametags</option>
-                      <option value="Labels">Labels</option>
-                      <option value="Websites">Websites</option> */}
-              </select>
-            </div>
-          </div>
-        </Row>
-        <ul style={{ color: "black" }}>
-          {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
-          <li>
-            {list.map((name) => {
-              if (filter.length !== 0) {
-                if (name.toLowerCase().startsWith(filter.toLowerCase()))
-                  return <li>{name}</li>;
-              } else {
-                return null;
-              }
-            })}
-          </li>
-        </ul>
-      </form>
-    </div>
-  );
-};
+
 
 const LoginComponent = ({
   toggleDrawer,

@@ -831,13 +831,11 @@ export default function SimpleTabs(props) {
       newData = oldData.sort(
         (index1, index2) => index2.modifiedOn - index1.modifiedOn
       );
-      console.log(newData, "<<<");
       setAgeToggle(1);
     } else {
       newData = oldData.sort(
         (index1, index2) => index1.modifiedOn - index2.modifiedOn
       );
-      console.log(newData, "<<<");
       setAgeToggle(-1);
     }
     setPrivateAddress(newData);

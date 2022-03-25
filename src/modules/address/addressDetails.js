@@ -537,7 +537,6 @@ export default function AddressDetails(props) {
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
   const [stop, setStop] = React.useState(false);
   const [watchlistDetails, setWatchListDetails] = React.useState(null);
-  console.log(watchlistDetails,"ASDF")
   const [existingWatchList, setExistingWatchList] = React.useState(null);
   const closeDialogPvtTag = () => {
     setDialogPvtTagIsOpen(false);
@@ -795,7 +794,6 @@ export default function AddressDetails(props) {
         );
         return;
       }
-    console.log(response,"<<<<<<<<<<<<")
       localStorage.setItem(
         userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchList)
