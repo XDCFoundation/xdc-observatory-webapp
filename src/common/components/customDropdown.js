@@ -105,7 +105,7 @@ const CustomDropDown = (props) => {
                 <FilterName theme={props.theme}>
                     <span className={props.theme === "dark" ? "fc-b1c3e1" : ""}>{name || 'Filter'}</span>{selectedOption ? (selectedOptionData.name || selectedOptionData.value) : 'All'}
                 </FilterName>
-                <img src="/images/dropdown-arrow.svg"/>
+              <img className={props.theme === "dark" ? 'white-dropdown-arrow m-t-8': ""} src={props.theme === "dark" ? "/images/Dropdown.svg" : "/images/dropdown-arrow.svg"}/>
             </SelectedValueContainer>
             {isDropdownOpen &&
             <DropdownContainer  containerWidth={mainDiv.current.clientWidth}>

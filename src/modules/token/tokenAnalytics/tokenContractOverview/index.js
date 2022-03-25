@@ -38,7 +38,6 @@ class TokenContractOverviewGraph extends BaseComponent {
         this.state = {
             loading: false,
             graphData: [],
-            optionsDark : {},
         };
     }
 
@@ -100,6 +99,7 @@ class TokenContractOverviewGraph extends BaseComponent {
                     enabled: true,
                 },
                 spacing: [20, 10, 15, 10],
+                backgroundColor: "#ffffff",
             },
             legend: {
                 layout: "horizontal",

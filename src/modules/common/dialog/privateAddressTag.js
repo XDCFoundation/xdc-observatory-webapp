@@ -45,6 +45,17 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "21px",
     outline: "none"
   },
+  inputDark: {
+    width: "503px",
+    height: "15px",
+    border: "solid 1px #3552a5",
+    backgroundColor: "#091b4e",
+    borderRadius: "7px",
+    padding: "20px",
+    marginBottom: "21px",
+    outline: "none",
+    color: "#fff"
+  },
   addbtn: {
     width: "110px",
     height: "34px",
@@ -63,6 +74,16 @@ const useStyles = makeStyles((theme) => ({
 
     margin: "14px 8px 15px 2px",
     padding: "6px 19px 3px 20px",
+  },
+  cnlbtnDark: {
+    width: "94px",
+    height: "34px",
+    borderRadius: "6px",
+    backgroundColor: "#192a59",
+    color: "white",
+    margin: "14px 8px 15px 2px",
+    padding: "6px 19px 3px 20px",
+    border: "solid 1px #3552a5",
   },
   subCategory: {
     marginTop: "-12px",
@@ -114,6 +135,34 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "24px",
     marginTop: "-14px",
   },
+  lastContainer: {
+    maxWidth: "534px",
+    width: "100%",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#fff3f3",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
+  lastContainerDark: {
+    maxWidth: "534px",
+    width: "100%",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#C8C8C8",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
+  lastContainerText: {
+    fontSize: "12px",
+    fontFamily: "Inter !important",
+    color: "#ff0202",
+
+    lineHeight: "1.58",
+  },
+  
   "@media (max-width: 767px)": {
     heading: {
       fontSize: "16px",
@@ -284,9 +333,9 @@ export default function FormDialog(props) {
         open={open}
         aria-labelledby="form-dialog-title"
       >
-        <div>
+        <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
         <Row>
-          <DialogTitle className={classes.heading} id="form-dialog-title">
+          <DialogTitle className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
             Add a new Address Tag
           </DialogTitle>
         </Row>
@@ -296,13 +345,13 @@ export default function FormDialog(props) {
             <></>
           )}
         <DialogContent>
-          <DialogContentText className={classes.subCategory}>
+          <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
             Address
           </DialogContentText>
           <input
             value={privateAddress}
 
-            className={classes.input}
+            className={props.theme === "dark" ? classes.inputDark : classes.input}
             onChange={(e) => {
               setPrivateAddress(e.target.value)
               setError("");
@@ -312,10 +361,10 @@ export default function FormDialog(props) {
           {error ? <div className={classes.error}>{error}</div> : <></>}
         </DialogContent>
         <DialogContent>
-          <DialogContentText className={classes.subCategory}>
+          <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
             Name Tag
           </DialogContentText>
-          <div className="containerTag">
+          <div className={props.theme === "dark" ? "containerTagDark" : "containerTag"}>
             {/*{tags.map((tag, index) => (*/}
             {/*    <div className="tag">*/}
             {/*      {tag}*/}
@@ -327,6 +376,7 @@ export default function FormDialog(props) {
                 // onKeyDown={onKeyDown}
                 // onKeyUp={onKeyUp}
                 onChange={onChange}
+                className={props.theme === "dark" ? "fc-white p-l-22" :""}
             />
           </div>
           {errorTag ? (
@@ -342,7 +392,7 @@ export default function FormDialog(props) {
         </DialogContent>
         <DialogActions className={classes.buttons}>
           <span>
-            <button className={classes.cnlbtn} onClick={onClose}>
+            <button className={props.theme === "dark" ? classes.cnlbtnDark : classes.cnlbtn} onClick={onClose}>
               Cancel
             </button>
           </span>
@@ -352,6 +402,16 @@ export default function FormDialog(props) {
             </button>
           </span>
         </DialogActions>
+        <div className="p-l-15 p-r-15">
+          <div className={props.theme === "dark" ? classes.lastContainerDark : classes.lastContainer}>
+            <div className={classes.lastContainerText}>
+              Privacy is very important to us. To protect sensitive information,
+              all custom tags and data related to the Watchlists are saved on
+              your local device. Clearing the browsing history or cookies will
+              remove the watchlist data saved in your profile.
+            </div>
+            </div>
+          </div>
         </div>
       </Dialog>
     </div>

@@ -1372,11 +1372,15 @@ function SimpleTabs(props) {
                   />
                 )
               ) : (
+                <Tooltip
+                  placement="top"
+                  title={messages.EXPORT_DISABLE}
+                >
                 <div
                   filename={"tag_address.csv"}
                   data={downloadTagAddress}
                   style={props.theme.currentTheme === "dark" ? {
-                  pointerEvents: "none",
+                  cursor: "default",
                   fontSize: "0.938rem",
                   textAlign: "center",
                   color: "#b1c3e1",
@@ -1386,7 +1390,7 @@ function SimpleTabs(props) {
                   height: "2.125rem",
                   paddingTop: "0.4rem",
                 } : {
-                    pointerEvents: "none",
+                    cursor: "default",
                     fontSize: "0.938rem",
                     textAlign: "center",
                     color: "#ffffff",
@@ -1400,6 +1404,7 @@ function SimpleTabs(props) {
                 >
                   Export
                 </div>
+                </Tooltip>
               )}
             </div>
           </div>

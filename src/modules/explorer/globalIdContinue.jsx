@@ -269,7 +269,6 @@ const GlobalIdButtonContinue = styled.div`
   justify-content: center;
 `;
 function GlobalIdCon(props) {
-  console.log("GlobalIdCon",props)
   const [LoginText, setLoginText] = useState(1);
   const history = useHistory();
   let { mode } = useParams();
@@ -463,7 +462,7 @@ function GlobalIdCon(props) {
           </MainContainer>
         </Grid>
         <div className="theme-switch-icon-container" onClick={() => handleThemeSwitch()}>
-        <WbSunnyIcon className="theme-switch-icon"/>
+        {props.theme.currentTheme=== "dark" ? <WbSunnyIcon className="theme-switch-icon"/> : <img src='/images/moon-dark-mode.svg' />}
       </div>
       </div>
     </div>
