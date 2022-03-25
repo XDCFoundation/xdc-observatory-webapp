@@ -296,7 +296,6 @@ export default function FormDialog(props) {
       const [error, response] = await utility.parseResponse(
         AddWatchList.addWatchlist(request)
       );
-console.log(request,response,"IIII")
       if (error || !response) {
         setDescriptionError("Address already exist in table");
         return;
