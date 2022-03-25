@@ -192,6 +192,7 @@ export const messages = {
   DOWNLOAD_CSV: "Select address by clicking on checkbox to export data",
   RANGE_SELECTOR:"Dates can be selected within the date range of data available",
   EXPORT_DISABLE: "Select address by clicking on checkbox to export data",
+  RANGE_SELECT: "Dates can be selected within the date range of data available"
 };
 
 export const toolTipMessages = {
