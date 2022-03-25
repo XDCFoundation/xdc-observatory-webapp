@@ -68,11 +68,11 @@ const Carousel = (props) => {
                 </div>
                 <div className="right-arrow">
                     <button onClick={prev}
-                            className={currentIndex > 0 && "cursor-pointer bg-white p-0" || "cursor-not-allowed bg-white p-0"}>
+                            className={props.theme === "dark" ? currentIndex > 0 && "cursor-pointer bg-192a59 p-0" || "cursor-not-allowed bg-192a59 p-0" : currentIndex > 0 && "cursor-pointer bg-white p-0" || "cursor-not-allowed bg-white p-0"}>
                         <img src={currentIndex > 0 && '/images/back-active.svg' || '/images/back-inactive.svg'}/>
                     </button>
                     <button onClick={next}
-                            className={currentIndex < (length - show) && "cursor-pointer bg-white p-0" || " cursor-not-allowed bg-white p-0"}>
+                            className={props.theme === "dark" ? currentIndex < (length - show) && "cursor-pointer bg-192a59 p-0" || "cursor-not-allowed bg-192a59 p-0" : currentIndex < (length - show) && "cursor-pointer bg-white p-0" || " cursor-not-allowed bg-white p-0"}>
                         <img
                             src={currentIndex < (length - show) && '/images/next-active.svg' || '/images/next-inactive.svg'}/>
                     </button>

@@ -162,7 +162,7 @@ const RecentSearchList = (props) => {
         </TitleRow>
         <Wrapper>
             {dataList?.length >0 &&
-            <Carousel show={width < 768 && 1 || width >= 768 && width < 1280 && 2 || width >= 1280 && 3}>
+            <Carousel theme={props.theme} show={width < 768 && 1 || width >= 768 && width < 1280 && 2 || width >= 1280 && 3}>
                 {dataList?.length > 0 && dataList.map((obj, index) => <ItemContainer theme={props.theme}key={index}>
                     <Row style={{alignItems: 'center'}}>
                         <SearchTypeIcon  src={recentSearchIconConstants[obj.type]} alt={'icon'}/>

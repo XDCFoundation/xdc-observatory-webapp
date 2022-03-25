@@ -249,7 +249,7 @@ function FooterComponent(props) {
                             <option>inr</option>
                         </select> */}
                         <div className="theme-switch-icon-container" onClick={() => handleThemeSwitch()}>
-                            <WbSunnyIcon className="theme-switch-icon"/>
+                        {props.theme.currentTheme=== "dark" ? <WbSunnyIcon className="theme-switch-icon"/> : <img src='/images/moon-dark-mode.svg' />}
                         </div>
                         </div>
                     </Grid>

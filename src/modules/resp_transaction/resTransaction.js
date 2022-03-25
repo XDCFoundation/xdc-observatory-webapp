@@ -654,7 +654,7 @@ function Transaction({ _handleChange, theme }) {
                       >
                         <Content>
                           <a
-                            className="linkTableDetails-transaction"
+                            className={theme.currentTheme==="dark"?"linkTableDetails-transaction-dark":"linkTableDetails-transaction"}
                             href={"/block-details/" + transactions.blockNumber}
                           >
                             {" "}
@@ -1082,17 +1082,17 @@ function Transaction({ _handleChange, theme }) {
                 ) : (
                   contractData.ERC > 2 ? 
                   <>
-                  <Spacing>
+                  <Spacing theme={theme.currentTheme}>
                   <Container>
                     <Tooltip align="right" title={gasprovided}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
-                    <Hash>Token Transferred</Hash>
+                    <Hash theme={theme.currentTheme}>Token Transferred</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <TokenTransferredMiddleContainer>
                       <TokenTransferredContent>
-                        <BlackText>
+                        <BlackText theme={theme.currentTheme}>
                           {contractData?.ERC == 2
                             ? "XRC-20"
                             : ContractData?.ERC > 2
@@ -1101,9 +1101,9 @@ function Transaction({ _handleChange, theme }) {
                         </BlackText>
                         <GreyText>Token ID</GreyText>
                         <GreyText>[</GreyText>
-                        <BlueText>1256</BlueText>
+                        <BlueText theme={theme.currentTheme}>1256</BlueText>
                         <GreyText>]</GreyText>
-                        <BlueText>{contractData?.tokenName}</BlueText>
+                        <BlueText theme={theme.currentTheme}>{contractData?.tokenName}</BlueText>
                       </TokenTransferredContent>
                       <ImgProfileIcon
                         src={
@@ -1115,7 +1115,7 @@ function Transaction({ _handleChange, theme }) {
                     </TokenTransferredMiddleContainer>
                   </MiddleContainer>
                 </Spacing>
-                <SpacingTxnAction>
+                <SpacingTxnAction theme={theme.currentTheme}>
                 <ContainerTxnAction>
                   <Tooltip align="right" title={gasprovided}>
                     <ImageView src={"/images/info.svg"} />
@@ -1140,12 +1140,12 @@ function Transaction({ _handleChange, theme }) {
                     <div className="arrow_right_grey">
                       <BsCaretRightFill size={10}/>
                     </div>
-                    <BlackText>{transactions?.method?transactions?.method:""}</BlackText>
-                    <BlueText>&nbsp;{contractData?.tokenName ? contractData?.tokenName : ""}</BlueText>
+                    <BlackText theme={theme.currentTheme}>{transactions?.method?transactions?.method:""}</BlackText>
+                    <BlueText theme={theme.currentTheme}>&nbsp;{contractData?.tokenName ? contractData?.tokenName : ""}</BlueText>
                     <GreyText>&nbsp;from</GreyText>
-                    <BlueText>&nbsp;{transactions?.from?utility.shortenAddress(transactions?.from,11,4,3):""}</BlueText>
+                    <BlueText theme={theme.currentTheme}>&nbsp;{transactions?.from?utility.shortenAddress(transactions?.from,11,4,3):""}</BlueText>
                     <GreyText>&nbsp;to</GreyText>
-                    <BlueText>&nbsp;{transactions?.to?utility.shortenAddress(transactions?.to,11,4,3):""}</BlueText>
+                    <BlueText theme={theme.currentTheme}>&nbsp;{transactions?.to?utility.shortenAddress(transactions?.to,11,4,3):""}</BlueText>
                   </TxnActionNextRow>
                   {/* <TxnActionNextRow>
                     <Gap2 />
@@ -1161,7 +1161,7 @@ function Transaction({ _handleChange, theme }) {
                 </MainContainerTxnAction>
                 </MiddleContainer>
               </SpacingTxnAction>
-              <SpacingInteractedWith>
+              <SpacingInteractedWith theme={theme.currentTheme}>
                 <ContainerInteractedWith>
                   <Tooltip align="right" title={gasprovided}>
                     <ImageView src={"/images/info.svg"} />
@@ -1173,7 +1173,7 @@ function Transaction({ _handleChange, theme }) {
                   <ContentInteractedWith>
                     <div>Contract</div>
                     &nbsp;
-                    <span><a className="linkTableDetails-transaction" href={"#"}>
+                    <span><a className={theme.currentTheme==="dark"?"linkTableDetails-transaction-dark":"linkTableDetails-transaction"} href={"#"}>
                     xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                     </a></span>
                     &nbsp;&nbsp;
@@ -1184,21 +1184,21 @@ function Transaction({ _handleChange, theme }) {
                   <InteractedWithNextRow>
                     <ImgNewLine src="/images/xyz.svg" />
                     <GreyText>{transactions?.method}</GreyText>
-                    <BlackText>0.000000006 XDC</BlackText>
+                    <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
                     <GreyText>From</GreyText>
-                    <BlueText>Fleek: NFT App</BlueText>
+                    <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
                     <GreyText>to</GreyText>
-                    <BlackText>Fleek:</BlackText>
-                    <BlueText>NFT App</BlueText>
+                    <BlackText theme={theme.currentTheme}>Fleek:</BlackText>
+                    <BlueText theme={theme.currentTheme}>NFT App</BlueText>
                   </InteractedWithNextRow>
                   <InteractedWithNextRow>
                     <ImgNewLine src="/images/xyz.svg" />
                     <GreyText>{transactions?.method}</GreyText>
-                    <BlackText>0.000000006 XDC</BlackText>
+                    <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
                     <GreyText>From</GreyText>
-                    <BlueText>Fleek: NFT App</BlueText>
+                    <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
                     <GreyText>to</GreyText>
-                    <BlueText>&nbsp;{transactions?.to?utility.shortenAddress(transactions?.to,11,4,3):""}</BlueText>
+                    <BlueText theme={theme.currentTheme}>&nbsp;{transactions?.to?utility.shortenAddress(transactions?.to,11,4,3):""}</BlueText>
                   </InteractedWithNextRow>
                   </MainContainerInteractedWith>
                 </MiddleContainer>
@@ -1376,7 +1376,7 @@ function Transaction({ _handleChange, theme }) {
                         }
                         To access the private note feature, you must be
                         <a
-                          className="linkTableDetails-transaction"
+                          className={theme.currentTheme==="dark"?"linkTableDetails-transaction-dark":"linkTableDetails-transaction"}
                           style={{ marginLeft: "5px", cursor: "pointer" }}
                           onClick={openLoginDialog}
                         >
@@ -2401,11 +2401,17 @@ const GreyText = styled.span`
 const BlackText = styled.span`
   color: #2a2a2a;
   margin-left: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
 `;
 
 const BlueText = styled.span`
   color: #2149b9;
   margin-left: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #4878ff;
+  `}
 `;
 
 const Gap1 = styled.span`
@@ -2421,7 +2427,9 @@ const SpacingInteractedWith = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   height: 7rem;
-
+  ${({ theme }) => theme === "dark" && `
+  border-bottom: solid 1px #4a5d94;
+`}
   @media (max-width: 767px) {
     display: block;
     height: auto;
@@ -2435,7 +2443,9 @@ const SpacingTxnAction = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   height: 7rem;
-
+  ${({ theme }) => theme === "dark" && `
+  border-bottom: solid 1px #4a5d94;
+`}
   @media (max-width: 767px) {
     display: block;
     height: auto;

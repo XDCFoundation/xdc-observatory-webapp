@@ -130,6 +130,7 @@ class TokenPriceHistoryGraph extends BaseComponent {
         zoomType: {
           enabled: false,
         },
+        backgroundColor: "#ffffff",
       },
       legend: {
         layout: "horizontal",
