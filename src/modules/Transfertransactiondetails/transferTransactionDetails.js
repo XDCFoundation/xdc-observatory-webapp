@@ -878,34 +878,34 @@ function TransferTransaction({ _handleChange,theme }) {
                 </DivMiddle>
               </DivMiddleContainer>
 
-              <Div__>
-              <Spacing>
+              <Div__ theme={theme.currentTheme}>
+              <Spacing theme={theme.currentTheme}>
                   <Container>
                     <Tooltip align="right" title={gasprovided}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
-                    <Hash>Token Transferred</Hash>
+                    <Hash theme={theme.currentTheme}>Token Transferred</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <TokenTransferredMiddleContainer>
                       <TokenTransferredContent>
-                    <BlackText>XRC-721</BlackText>
+                    <BlackText theme={theme.currentTheme}>XRC-721</BlackText>
                     <GreyText>Token ID</GreyText>
                     <GreyText>[</GreyText>
-                    <BlueText>1256</BlueText>
+                    <BlueText theme={theme.currentTheme}>1256</BlueText>
                     <GreyText>]</GreyText>
-                    <BlueText>CunningFox.. (CFX)</BlueText>
+                    <BlueText theme={theme.currentTheme}>CunningFox.. (CFX)</BlueText>
                     </TokenTransferredContent>
                     <ImgProfileIcon src="/images/xyz.svg" />
                     </TokenTransferredMiddleContainer>
                   </MiddleContainer>
                 </Spacing>
-                <SpacingTxnAction>
+                <SpacingTxnAction theme={theme.currentTheme}>
                   <ContainerTxnAction>
                     <Tooltip align="right" title={gasprovided}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
-                    <Hash>Txn Action</Hash>
+                    <Hash theme={theme.currentTheme}>Txn Action</Hash>
                   </ContainerTxnAction>
                   <MiddleContainer isTextArea={false}>
                   <MainContainerTxnAction>
@@ -914,76 +914,76 @@ function TransferTransaction({ _handleChange,theme }) {
                         <BsCaretRightFill size={10}/>
                       </div>
                       <GreyText>Sale:</GreyText>
-                      <BlackText>1 NFT</BlackText>
+                      <BlackText theme={theme.currentTheme}>1 NFT</BlackText>
                       <GreyText>For</GreyText>
-                      <BlackText>2500.00 XDC</BlackText>
+                      <BlackText theme={theme.currentTheme}>2500.00 XDC</BlackText>
                       <ImgNextRed src="/images/xyz.svg" />
-                      <BlackText>FleekApp</BlackText>
+                      <BlackText theme={theme.currentTheme}>FleekApp</BlackText>
                     </TxnActionNextRow>
                     <TxnActionNextRow>
                       <Gap1 />
                       <div className="arrow_right_grey">
                         <BsCaretRightFill size={10}/>
                       </div>
-                      <BlackText>Transfer of</BlackText>
-                      <BlueText>CunningFox.. (CFX)</BlueText>
+                      <BlackText theme={theme.currentTheme}>Transfer of</BlackText>
+                      <BlueText theme={theme.currentTheme}>CunningFox.. (CFX)</BlueText>
                       <GreyText>from</GreyText>
-                      <BlueText>xdcc4e69958…5b9c</BlueText>
+                      <BlueText theme={theme.currentTheme}>xdcc4e69958…5b9c</BlueText>
                       <GreyText>to</GreyText>
-                      <BlueText>xdcc4e69958…9e9a</BlueText>
+                      <BlueText theme={theme.currentTheme}>xdcc4e69958…9e9a</BlueText>
                     </TxnActionNextRow>
                     <TxnActionNextRow>
                       <Gap2 />
                       <div className="arrow_right_grey">
                         <BsCaretRightFill size={10}/>
                       </div>
-                      <BlackText>1 of</BlackText>
+                      <BlackText theme={theme.currentTheme}>1 of</BlackText>
                       <GreyText>Token ID</GreyText>
                       <GreyText>[</GreyText>
-                      <BlueText>1256</BlueText>
+                      <BlueText theme={theme.currentTheme}>1256</BlueText>
                       <GreyText>]</GreyText>
                     </TxnActionNextRow>  
                   </MainContainerTxnAction>
                   </MiddleContainer>
                 </SpacingTxnAction>
-                <SpacingInteractedWith>
+                <SpacingInteractedWith theme={theme.currentTheme}>
                   <ContainerInteractedWith>
                     <Tooltip align="right" title={gasprovided}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
-                    <Hash>Interacted With (To)</Hash>
+                    <Hash theme={theme.currentTheme}>Interacted With (To)</Hash>
                   </ContainerInteractedWith>
                   <MiddleContainer isTextArea={false}>
                   <MainContainerInteractedWith>
                     <ContentInteractedWith>
-                      <div>Contract</div>
+                    <BlackText theme={theme.currentTheme}>Contract</BlackText>
                       &nbsp;
-                      <span><a className="linkTableDetails-transaction" href={"/address/" + transactions?.contract}>
-                      {transactions?.contract}
+                      <span><a className={theme.currentTheme==="dark"?"linkTableDetails-transaction-dark":"linkTableDetails-transaction"} href={"#"}>
+                      xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                       </a></span>
                       &nbsp;&nbsp;
-                      (<div>FleekApp</div>)
+                      <BlackText theme={theme.currentTheme}>(FleekApp)</BlackText>
                       <ImgInteracted src="/images/success.svg" />
                       <ImgCopyGrey src="/images/copy-grey.svg" />
                     </ContentInteractedWith>
                     <InteractedWithNextRow>
                       <ImgNewLine src="/images/xyz.svg" />
                       <GreyText>TRANSFER</GreyText>
-                      <BlackText>0.000000006 XDC</BlackText>
+                      <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
                       <GreyText>From</GreyText>
-                      <BlueText>Fleek: NFT App</BlueText>
+                      <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
                       <GreyText>to</GreyText>
-                      <BlackText>Fleek:</BlackText>
-                      <BlueText>NFT App</BlueText>
+                      <BlackText theme={theme.currentTheme}>Fleek:</BlackText>
+                      <BlueText theme={theme.currentTheme}>NFT App</BlueText>
                     </InteractedWithNextRow>
                     <InteractedWithNextRow>
                       <ImgNewLine src="/images/xyz.svg" />
                       <GreyText>TRANSFER</GreyText>
-                      <BlackText>0.000000006 XDC</BlackText>
+                      <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
                       <GreyText>From</GreyText>
-                      <BlueText>Fleek: NFT App</BlueText>
+                      <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
                       <GreyText>to</GreyText>
-                      <BlueText>xdcc4e6995811141…eb9a</BlueText>
+                      <BlueText theme={theme.currentTheme}>xdcc4e6995811141…eb9a</BlueText>
                     </InteractedWithNextRow>
                     </MainContainerInteractedWith>
                   </MiddleContainer>
@@ -2234,11 +2234,17 @@ const GreyText = styled.span`
 const BlackText = styled.span`
   color: #2a2a2a;
   margin-left: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
 `;
 
 const BlueText = styled.span`
   color: #2149b9;
   margin-left: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #4878ff;
+  `}
 `;
 
 const Gap1 = styled.span`
@@ -2254,7 +2260,9 @@ const SpacingInteractedWith = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   height: 7rem;
-
+  ${({ theme }) => theme === "dark" && `
+  border-bottom: solid 1px #4a5d94;
+`}
   @media (max-width: 767px) {
     display: block;
     height: auto;
@@ -2268,7 +2276,9 @@ const SpacingTxnAction = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   height: 7rem;
-
+  ${({ theme }) => theme === "dark" && `
+  border-bottom: solid 1px #4a5d94;
+`}
   @media (max-width: 767px) {
     display: block;
     height: auto;
