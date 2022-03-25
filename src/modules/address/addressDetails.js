@@ -398,7 +398,9 @@ const TokenValue = styled.div`
   line-height: 1.87;
   color: #3a3a3a;
   margin-left: 111px;
-
+  ${({ theme }) => theme === "dark" && `
+  color: #b1c3e1;
+`}
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 79px;
@@ -560,6 +562,11 @@ const Tag = styled.div`
   color: #4878ff;
   margin-left: 10px;
   white-space: nowrap;
+  ${({ theme }) => theme === "dark" && `
+    color: #4878ff;
+    background: #091b4e;
+    border: none;
+  `}
   @media (max-width: 767px) {
     margin-top: 10px;
     min-width: 70px;
@@ -1059,7 +1066,7 @@ function AddressDetails(props) {
                     {sessionManager.getDataFromCookies("isLoggedIn") &&
                     tagValue &&
                     tagValue?.length > 0 ? (
-                      <Tag>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
+                      <Tag theme={props.theme.currentTheme}>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
                     ) : (
                       ""
                     )}
@@ -1115,8 +1122,8 @@ function AddressDetails(props) {
                   </RankDiv>
 
                   <RankDiv>
-                    <Rank>Tokens</Rank>
-                    <TokenValue>
+                    <Rank theme={props.theme.currentTheme}>Tokens</Rank>
+                    <TokenValue theme={props.theme.currentTheme}>
                       {isLoadingDropDown === 1 && tokenForAddres.length > 0 ? (
                         <CustomDropDownAddress
                           name="Tokens"
@@ -1142,12 +1149,14 @@ function AddressDetails(props) {
                             tag={tagValue[tagValue?.length - 1]?.tagName}
                             id={tagValue[tagValue?.length - 1]?.userId}
                             value={dialogValue}
+                            theme={props.theme.currentTheme}
                           />
                           <PrivateAddressTag
                             open={dialogPvtTagIsOpen}
                             onClose={closeDialogPvtTag}
                             fromAddr={addr}
                             value={dialogValue}
+                            theme={props.theme.currentTheme}
                           />
                           <AddToWatchListPopup
                             open={dialogWatchListIsOpen}
@@ -1157,6 +1166,7 @@ function AddressDetails(props) {
                             fromAddr={transactions.from}
                             value={dialogValue}
                             hash={addr}
+                            theme={props.theme.currentTheme}
                           />
                         </>
                       }
