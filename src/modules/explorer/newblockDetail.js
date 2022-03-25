@@ -132,7 +132,7 @@ function BlockDetails(props) {
   const { width } = windowDimensions;
 
   const hashid = `Hash of the block header from the previous block`;
-  const blockheight = `Also known as Block Number. The block height, which indicates the length the length of the blockchain, increases after the addition of the new block.`;
+  const blockheight = `Also known as Block Number. The block height, which indicates the length of the blockchain, increases after the addition of the new block.`;
   const transactionT = `Number of transactions associated with a particular block`;
   const timestamp = `The date and time at which a transaction is mined.`;
   const parenthash = `The hash of the block from which this block was generated, also known as its parent block`;

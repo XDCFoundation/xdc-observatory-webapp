@@ -177,7 +177,7 @@ export default function TransactionComponent(props) {
                 </TableCell>
                 {props.state.tableColumns["Amount"].isActive && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "2.813rem" }}
+                    style={{ border: "none", paddingLeft: "2rem" }}
                     className="table-head-all"
                     align="left"
                   >
@@ -196,7 +196,7 @@ export default function TransactionComponent(props) {
                 )}
                 {props.state.tableColumns["Age"].isActive && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "2.813rem" }}
+                    style={{ border: "none", paddingLeft: "2rem" }}
                     className="table-head-all"
                     align="left"
                   >
@@ -215,7 +215,7 @@ export default function TransactionComponent(props) {
                 )}
                 {props.state.tableColumns["Age"].isActive && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "3rem" }}
+                    style={{ border: "none", paddingLeft: "2rem" }}
                     className="table-head-all"
                     align="left"
                   >
@@ -234,7 +234,7 @@ export default function TransactionComponent(props) {
                 )}
                 {props.state.tableColumns["Date"].isActive && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "3rem" }}
+                    style={{ border: "none", paddingLeft: "2rem" }}
                     className="table-head-all"
                     align="left"
                   >
@@ -271,7 +271,7 @@ export default function TransactionComponent(props) {
                   </TableCell>
                 )}
                 <TableCell
-                  style={{ border: "none", paddingLeft: "3rem" }}
+                  style={{ border: "none", paddingLeft: "1.25rem" }}
                   className="table-head-all"
                   align="left"
                 >
@@ -288,7 +288,7 @@ export default function TransactionComponent(props) {
                   </span>
                 </TableCell>
                 <TableCell
-                  style={{ border: "none", paddingLeft: "3rem" }}
+                  style={{ border: "none", paddingLeft: "1.813rem" }}
                   className="table-head-all"
                   align="left"
                 >
@@ -386,7 +386,7 @@ export default function TransactionComponent(props) {
                             style={{
                               border: "none",
                               width: "100px",
-                              paddingLeft: "2.813rem",
+                              paddingLeft: "1.813rem",
                             }}
                             align="left"
                           >
@@ -424,7 +424,7 @@ export default function TransactionComponent(props) {
                             style={{
                               border: "none",
                               width: "120px",
-                              paddingLeft: "2.813rem",
+                              paddingLeft: "1.813rem",
                             }}
                             align="left"
                           >
@@ -444,7 +444,7 @@ export default function TransactionComponent(props) {
                             style={{
                               border: "none",
                               width: "120px",
-                              paddingLeft: "2.813rem",
+                              paddingLeft: "1.813rem",
                             }}
                             align="left"
                           >
@@ -493,7 +493,7 @@ export default function TransactionComponent(props) {
                           style={{
                             border: "none",
                             width: "160px",
-                            paddingLeft: "2.813rem",
+                            paddingLeft: "1rem",
                           }}
                           align="left"
                         >
@@ -519,7 +519,7 @@ export default function TransactionComponent(props) {
                           style={{
                             border: "none",
                             width: "155px",
-                            paddingLeft: "2.813rem",
+                            paddingLeft: "1.813rem",
                             paddingRight: "15px",
                           }}
                           align="left"
