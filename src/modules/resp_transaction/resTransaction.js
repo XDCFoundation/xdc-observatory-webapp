@@ -9,6 +9,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import { useParams } from "react-router";
 import { TransactionService, BlockService } from "../../services";
+import ContractData from "../../services/contract";
 import Utils, { dispatchAction } from "../../utility";
 import FooterComponent from "../common/footerComponent";
 import moment from "moment";
@@ -21,6 +22,7 @@ import { connect, useSelector } from "react-redux";
 import Utility from "../../utility";
 import { cookiesConstants } from "../../constants";
 import { BsCaretRightFill } from "react-icons/bs";
+import utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,14 +57,15 @@ const useStyles = makeStyles((theme) => ({
   },
   mainContainerDark: {
     width: "100%",
-    backgroundColor: "#091b4e"
+    backgroundColor: "#091b4e",
   },
 }));
 
-function Transaction({ _handleChange,theme }) {
+function Transaction({ _handleChange, theme }) {
   const classes = useStyles();
   const { hash } = useParams();
-  const [transactions, setTransactions] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+  transactions["method"] = Utils.getMethodType(transactions);
   const [isPvtNote, setIsPvtNote] = useState(false);
   const [privateNote, setPrivateNote] = useState("");
   const [addressTag, setAddressTag] = useState("");
@@ -130,6 +133,7 @@ function Transaction({ _handleChange,theme }) {
   const [price, setPrice] = useState("");
   const [latestBlock, setLatestBlock] = useState(0);
   const [isSeeMore, setSeeMore] = useState(false);
+  const [contractData, setContractData] = useState(0);
   useEffect(async () => {
     await transactionDetail();
     getLatestBlock();
@@ -172,11 +176,20 @@ function Transaction({ _handleChange,theme }) {
   useEffect(() => {
     let ts = parseInt(timeStamp);
     getCoinMarketDetailForTransaction(ts);
+    getContractDetails();
   }, [timeStamp]);
   useEffect(() => {
     let ts = parseInt(timeStamp);
     getCoinMarketDetailForTransaction(ts);
   }, [amount]);
+  const getContractDetails = async () => {
+    let urlPath = transactions.to;
+    let [error, contractDecimal] = await Utils.parseResponse(
+      ContractData.getContractDetailsUsingAddress(urlPath, {})
+    );
+    if (error || !contractDecimal) return;
+    setContractData(contractDecimal.contractResponse);
+  };
   const getCoinMarketDetailForTransaction = async (ts) => {
     let urlPath = "?transactionTime=" + ts + "&fiatValue=" + CurrencyValue;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
@@ -434,15 +447,23 @@ function Transaction({ _handleChange,theme }) {
   const timezone = useSelector((state) => state.timezone);
 
   return (
-    <div className={theme.currentTheme === "dark" ? classes.mainContainerDark : classes.mainContainer}>
-      <Tokensearchbar theme={theme.currentTheme}/>
+    <div
+      className={
+        theme.currentTheme === "dark"
+          ? classes.mainContainerDark
+          : classes.mainContainer
+      }
+    >
+      <Tokensearchbar theme={theme.currentTheme} />
 
       <div className={classes.root}>
         <Grid>
           <div className={isLoading == true ? "cover-spin-2" : ""}>
             <div className={isLoading == true ? "cover-spin" : ""}>
               <Container>
-                <Heading theme={theme.currentTheme}>Transaction Details</Heading>
+                <Heading theme={theme.currentTheme}>
+                  Transaction Details
+                </Heading>
               </Container>
 
               <Div theme={theme.currentTheme}>
@@ -505,8 +526,12 @@ function Transaction({ _handleChange,theme }) {
                             <button
                               className={
                                 width > 1240
-                                  ? theme.currentTheme === "dark" ? "copyToClipboardHashDark" : "copyToClipboardHash"
-                                  : theme.currentTheme === "dark" ? "copyToClipboardHashMobileDark" : "copyToClipboardHashMobile"
+                                  ? theme.currentTheme === "dark"
+                                    ? "copyToClipboardHashDark"
+                                    : "copyToClipboardHash"
+                                  : theme.currentTheme === "dark"
+                                  ? "copyToClipboardHashMobileDark"
+                                  : "copyToClipboardHashMobile"
                               }
                             >
                               <img
@@ -522,33 +547,39 @@ function Transaction({ _handleChange,theme }) {
                             </button>
                           </Tooltip>
                         </CopyToClipboard>
-                        {userInfo ? ( privateNote ?<></>:
-                          <>
-                            {
-                              <PrivateNote
-                                open={dialogPvtNoteIsOpen}
-                                getListOfTxnLabel={getListOfTxnLabel}
-                                getTotalCountTxnLabel={() => {}}
-                                onClose={closeDialogPvtNote}
-                                hash={hash}
-                                pvtNote={privateNote[0]?.trxLable}
-                              />
-                            }
-                            {
-                              <Tooltip
-                                title="Add Transaction Label"
-                                placement="top"
-                              >
-                                <img
-                                  className={
-                                    width > 1240 ? "edit-icon" : "editIconHash"
-                                  }
-                                  onClick={openDialogPvtNote}
-                                  src={require("../../../src/assets/images/label.svg")}
+                        {userInfo ? (
+                          privateNote ? (
+                            <></>
+                          ) : (
+                            <>
+                              {
+                                <PrivateNote
+                                  open={dialogPvtNoteIsOpen}
+                                  getListOfTxnLabel={getListOfTxnLabel}
+                                  getTotalCountTxnLabel={() => {}}
+                                  onClose={closeDialogPvtNote}
+                                  hash={hash}
+                                  pvtNote={privateNote[0]?.trxLable}
                                 />
-                              </Tooltip>
-                            }
-                          </>
+                              }
+                              {
+                                <Tooltip
+                                  title="Add Transaction Label"
+                                  placement="top"
+                                >
+                                  <img
+                                    className={
+                                      width > 1240
+                                        ? "edit-icon"
+                                        : "editIconHash"
+                                    }
+                                    onClick={openDialogPvtNote}
+                                    src={require("../../../src/assets/images/label.svg")}
+                                  />
+                                </Tooltip>
+                              }
+                            </>
+                          )
                         ) : (
                           ""
                         )}
@@ -561,10 +592,15 @@ function Transaction({ _handleChange,theme }) {
                         <Tooltip title={value}>
                           <ImageView src={"/images/info.svg"} />
                         </Tooltip>
-                        <Hash theme={theme.currentTheme}>Transaction Value</Hash>
+                        <Hash theme={theme.currentTheme}>
+                          Transaction Value
+                        </Hash>
                       </Container>
                       <Tooltip title={transactions?.value}>
-                        <DetailsMiddleContainer isTextArea={false} theme={theme.currentTheme}>
+                        <DetailsMiddleContainer
+                          isTextArea={false}
+                          theme={theme.currentTheme}
+                        >
                           {ValueMain}&nbsp;XDC{" "}
                           {!valueDiv
                             ? " "
@@ -579,9 +615,14 @@ function Transaction({ _handleChange,theme }) {
                           <ImageView src={"/images/info.svg"} />
                         </Tooltip>
 
-                        <Hash theme={theme.currentTheme}>Transaction Timestamp</Hash>
+                        <Hash theme={theme.currentTheme}>
+                          Transaction Timestamp
+                        </Hash>
                       </Container>
-                      <DetailsMiddleContainer isTextArea={false} theme={theme.currentTheme}>
+                      <DetailsMiddleContainer
+                        isTextArea={false}
+                        theme={theme.currentTheme}
+                      >
                         {/*============================================= {" "}
                         {moment(transactions.timestamp * 1000).format(
                           "MMMM Do YYYY, h:mm:ss a"
@@ -607,8 +648,11 @@ function Transaction({ _handleChange,theme }) {
 
                         <Hash theme={theme.currentTheme}>Block Number</Hash>
                       </Container>
-                      <DetailsMiddleContainer isTextArea={false} theme={theme.currentTheme}>
-                        <Content >
+                      <DetailsMiddleContainer
+                        isTextArea={false}
+                        theme={theme.currentTheme}
+                      >
+                        <Content>
                           <a
                             className={theme.currentTheme==="dark"?"linkTableDetails-transaction-dark":"linkTableDetails-transaction"}
                             href={"/block-details/" + transactions.blockNumber}
@@ -644,7 +688,11 @@ function Transaction({ _handleChange,theme }) {
                       {" "}
                       <div style={{ display: width >= 768 ? "flex" : "block" }}>
                         <a
-                          className={theme.currentTheme === "dark" ? "linkTableDetails-transaction-dark" : "linkTableDetails-transaction"}
+                          className={
+                            theme.currentTheme === "dark"
+                              ? "linkTableDetails-transaction-dark"
+                              : "linkTableDetails-transaction"
+                          }
                           href={"/address-details/" + transactions.from}
                         >
                           {transactions.from}
@@ -671,8 +719,12 @@ function Transaction({ _handleChange,theme }) {
                               <button
                                 className={
                                   width > 1240
-                                    ? theme.currentTheme === "dark" ? "copyToClipboardHashDark" : "copyToClipboardHash"
-                                    : theme.currentTheme === "dark" ? "copyToClipboardHashMobileDark" : "copyToClipboardHashMobile"
+                                    ? theme.currentTheme === "dark"
+                                      ? "copyToClipboardHashDark"
+                                      : "copyToClipboardHash"
+                                    : theme.currentTheme === "dark"
+                                    ? "copyToClipboardHashMobileDark"
+                                    : "copyToClipboardHashMobile"
                                 }
                               >
                                 <img
@@ -812,7 +864,11 @@ function Transaction({ _handleChange,theme }) {
                         style={{ display: width >= 768 ? "flex" : "block" }}
                       >
                         <a
-                          className={theme.currentTheme === "dark" ? "linkTableDetails-transaction-dark" : "linkTableDetails-transaction"}
+                          className={
+                            theme.currentTheme === "dark"
+                              ? "linkTableDetails-transaction-dark"
+                              : "linkTableDetails-transaction"
+                          }
                           href={"/address-details/" + transactions.to}
                         >
                           {transactions.to
@@ -841,8 +897,12 @@ function Transaction({ _handleChange,theme }) {
                               <button
                                 className={
                                   width > 1240
-                                    ? theme.currentTheme === "dark" ? "copyToClipboardHashDark" : "copyToClipboardHash"
-                                    : theme.currentTheme === "dark" ? "copyToClipboardHashMobileDark" : "copyToClipboardHashMobile"
+                                    ? theme.currentTheme === "dark"
+                                      ? "copyToClipboardHashDark"
+                                      : "copyToClipboardHash"
+                                    : theme.currentTheme === "dark"
+                                    ? "copyToClipboardHashMobileDark"
+                                    : "copyToClipboardHashMobile"
                                 }
                               >
                                 <img
@@ -960,7 +1020,69 @@ function Transaction({ _handleChange,theme }) {
               </DivMiddleContainer>
 
               <Div__ theme={theme.currentTheme}>
-              <Spacing theme={theme.currentTheme}>
+                {contractData == 0 || contractData === undefined ? (
+                  ""
+                ) : contractData.ERC == 2 && contractData.ERC>0 ? (
+                  <SpacingInteractedWith>
+                    <ContainerInteractedWith>
+                      <Tooltip align="right" title={gasprovided}>
+                        <ImageView src={"/images/info.svg"} />
+                      </Tooltip>
+                      <Hash>Interacted With (To)</Hash>
+                    </ContainerInteractedWith>
+                    <MiddleContainer isTextArea={false}>
+                      <MainContainerInteractedWith>
+                        <ContentInteractedWith>
+                          <div>Contract</div>
+                          &nbsp;
+                          <span>
+                            <a
+                              className="linkTableDetails-transaction"
+                              href={"#"}
+                            >
+                              xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
+                            </a>
+                          </span>
+                          &nbsp;&nbsp; (<div>FleekApp</div>)
+                          <ImgInteracted src="/images/success.svg" />
+                          <ImgCopyGrey src="/images/copy-grey.svg" />
+                        </ContentInteractedWith>
+                        <InteractedWithNextRow>
+                          <ImgNewLine src="/images/xyz.svg" />
+                          <GreyText>{transactions?.method}</GreyText>
+                          <BlackText>0.000000006 XDC</BlackText>
+                          <GreyText>From</GreyText>
+                          <BlueText>Fleek: NFT App</BlueText>
+                          <GreyText>to</GreyText>
+                          <BlackText>Fleek:</BlackText>
+                          <BlueText>NFT App</BlueText>
+                        </InteractedWithNextRow>
+                        <InteractedWithNextRow>
+                          <ImgNewLine src="/images/xyz.svg" />
+                          <GreyText>{transactions?.method}</GreyText>
+                          <BlackText>0.000000006 XDC</BlackText>
+                          <GreyText>From</GreyText>
+                          <BlueText>Fleek: NFT App</BlueText>
+                          <GreyText>to</GreyText>
+                          <BlueText>
+                            &nbsp;
+                            {transactions?.to
+                              ? utility.shortenAddress(
+                                  transactions?.to,
+                                  11,
+                                  4,
+                                  3
+                                )
+                              : ""}
+                          </BlueText>
+                        </InteractedWithNextRow>
+                      </MainContainerInteractedWith>
+                    </MiddleContainer>
+                  </SpacingInteractedWith>
+                ) : (
+                  contractData.ERC > 2 ? 
+                  <>
+                  <Spacing theme={theme.currentTheme}>
                   <Container>
                     <Tooltip align="right" title={gasprovided}>
                       <ImageView src={"/images/info.svg"} />
@@ -970,105 +1092,120 @@ function Transaction({ _handleChange,theme }) {
                   <MiddleContainer isTextArea={false}>
                     <TokenTransferredMiddleContainer>
                       <TokenTransferredContent>
-                    <BlackText theme={theme.currentTheme}>XRC-721</BlackText>
-                    <GreyText>Token ID</GreyText>
-                    <GreyText>[</GreyText>
-                    <BlueText theme={theme.currentTheme}>1256</BlueText>
-                    <GreyText>]</GreyText>
-                    <BlueText theme={theme.currentTheme}>CunningFox.. (CFX)</BlueText>
-                    </TokenTransferredContent>
-                    <ImgProfileIcon src="/images/xyz.svg" />
+                        <BlackText theme={theme.currentTheme}>
+                          {contractData?.ERC == 2
+                            ? "XRC-20"
+                            : ContractData?.ERC > 2
+                            ? "XRC-721"
+                            : ""}
+                        </BlackText>
+                        <GreyText>Token ID</GreyText>
+                        <GreyText>[</GreyText>
+                        <BlueText theme={theme.currentTheme}>1256</BlueText>
+                        <GreyText>]</GreyText>
+                        <BlueText theme={theme.currentTheme}>{contractData?.tokenName}</BlueText>
+                      </TokenTransferredContent>
+                      <ImgProfileIcon
+                        src={
+                          contractData?.tokenImage
+                            ? contractData?.tokenImage
+                            : "/images/XRC20-Icon.svg"
+                        }
+                      />
                     </TokenTransferredMiddleContainer>
                   </MiddleContainer>
                 </Spacing>
                 <SpacingTxnAction theme={theme.currentTheme}>
-                  <ContainerTxnAction>
-                    <Tooltip align="right" title={gasprovided}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
-                    <Hash theme={theme.currentTheme}>Txn Action</Hash>
-                  </ContainerTxnAction>
-                  <MiddleContainer isTextArea={false}>
-                  <MainContainerTxnAction>
-                    <TxnActionNextRow>
-                      <div className="arrow_right_grey">
-                        <BsCaretRightFill size={10}/>
-                      </div>
-                      <GreyText>Sale:</GreyText>
-                      <BlackText theme={theme.currentTheme}>1 NFT</BlackText>
-                      <GreyText>For</GreyText>
-                      <BlackText theme={theme.currentTheme}>2500.00 XDC</BlackText>
-                      <ImgNextRed src="/images/xyz.svg" />
-                      <BlackText theme={theme.currentTheme}>FleekApp</BlackText>
-                    </TxnActionNextRow>
-                    <TxnActionNextRow>
-                      <Gap1 />
-                      <div className="arrow_right_grey">
-                        <BsCaretRightFill size={10}/>
-                      </div>
-                      <BlackText theme={theme.currentTheme}>Transfer of</BlackText>
-                      <BlueText theme={theme.currentTheme}>CunningFox.. (CFX)</BlueText>
-                      <GreyText>from</GreyText>
-                      <BlueText theme={theme.currentTheme}>xdcc4e69958…5b9c</BlueText>
-                      <GreyText>to</GreyText>
-                      <BlueText theme={theme.currentTheme}>xdcc4e69958…9e9a</BlueText>
-                    </TxnActionNextRow>
-                    <TxnActionNextRow>
-                      <Gap2 />
-                      <div className="arrow_right_grey">
-                        <BsCaretRightFill size={10}/>
-                      </div>
-                      <BlackText theme={theme.currentTheme}>1 of</BlackText>
-                      <GreyText>Token ID</GreyText>
-                      <GreyText>[</GreyText>
-                      <BlueText theme={theme.currentTheme}>1256</BlueText>
-                      <GreyText>]</GreyText>
-                    </TxnActionNextRow>  
-                  </MainContainerTxnAction>
-                  </MiddleContainer>
-                </SpacingTxnAction>
-                <SpacingInteractedWith theme={theme.currentTheme}>
-                  <ContainerInteractedWith>
-                    <Tooltip align="right" title={gasprovided}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
-                    <Hash theme={theme.currentTheme}>Interacted With (To)</Hash>
-                  </ContainerInteractedWith>
-                  <MiddleContainer isTextArea={false}>
-                  <MainContainerInteractedWith>
-                    <ContentInteractedWith>
-                    <BlackText theme={theme.currentTheme}>Contract</BlackText>
-                      &nbsp;
-                      <span><a className={theme.currentTheme==="dark"?"linkTableDetails-transaction-dark":"linkTableDetails-transaction"} href={"#"}>
-                      xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
-                      </a></span>
-                      &nbsp;&nbsp;
-                      <BlackText theme={theme.currentTheme}>(FleekApp)</BlackText>
-                      <ImgInteracted src="/images/success.svg" />
-                      <ImgCopyGrey src="/images/copy-grey.svg" />
-                    </ContentInteractedWith>
-                    <InteractedWithNextRow>
-                      <ImgNewLine src="/images/xyz.svg" />
-                      <GreyText>TRANSFER</GreyText>
-                      <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
-                      <GreyText>From</GreyText>
-                      <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
-                      <GreyText>to</GreyText>
-                      <BlackText theme={theme.currentTheme}>Fleek:</BlackText>
-                      <BlueText theme={theme.currentTheme}>NFT App</BlueText>
-                    </InteractedWithNextRow>
-                    <InteractedWithNextRow>
-                      <ImgNewLine src="/images/xyz.svg" />
-                      <GreyText>TRANSFER</GreyText>
-                      <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
-                      <GreyText>From</GreyText>
-                      <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
-                      <GreyText>to</GreyText>
-                      <BlueText theme={theme.currentTheme}>xdcc4e6995811141…eb9a</BlueText>
-                    </InteractedWithNextRow>
-                    </MainContainerInteractedWith>
-                  </MiddleContainer>
-                </SpacingInteractedWith>
+                <ContainerTxnAction>
+                  <Tooltip align="right" title={gasprovided}>
+                    <ImageView src={"/images/info.svg"} />
+                  </Tooltip>
+                  <Hash>Txn Action</Hash>
+                </ContainerTxnAction>
+                <MiddleContainer isTextArea={false}>
+                <MainContainerTxnAction>
+                  {/* <TxnActionNextRow>
+                    <div className="arrow_right_grey">
+                      <BsCaretRightFill size={10}/>
+                    </div>
+                    <GreyText>Sale:</GreyText>
+                    <BlackText>1 NFT</BlackText>
+                    <GreyText>For</GreyText>
+                    <BlackText>2500.00 XDC</BlackText>
+                    <ImgNextRed src="/images/xyz.svg" />
+                    <BlackText>FleekApp</BlackText>
+                  </TxnActionNextRow> */}
+                  <TxnActionNextRow>
+                    {/* <Gap1 /> */}
+                    <div className="arrow_right_grey">
+                      <BsCaretRightFill size={10}/>
+                    </div>
+                    <BlackText theme={theme.currentTheme}>{transactions?.method?transactions?.method:""}</BlackText>
+                    <BlueText theme={theme.currentTheme}>&nbsp;{contractData?.tokenName ? contractData?.tokenName : ""}</BlueText>
+                    <GreyText>&nbsp;from</GreyText>
+                    <BlueText theme={theme.currentTheme}>&nbsp;{transactions?.from?utility.shortenAddress(transactions?.from,11,4,3):""}</BlueText>
+                    <GreyText>&nbsp;to</GreyText>
+                    <BlueText theme={theme.currentTheme}>&nbsp;{transactions?.to?utility.shortenAddress(transactions?.to,11,4,3):""}</BlueText>
+                  </TxnActionNextRow>
+                  {/* <TxnActionNextRow>
+                    <Gap2 />
+                    <div className="arrow_right_grey">
+                      <BsCaretRightFill size={10}/>
+                    </div>
+                    <BlackText>1 of</BlackText>
+                    <GreyText>Token ID</GreyText>
+                    <GreyText>[</GreyText>
+                    <BlueText>1256</BlueText>
+                    <GreyText>]</GreyText>
+                  </TxnActionNextRow>   */}
+                </MainContainerTxnAction>
+                </MiddleContainer>
+              </SpacingTxnAction>
+              <SpacingInteractedWith theme={theme.currentTheme}>
+                <ContainerInteractedWith>
+                  <Tooltip align="right" title={gasprovided}>
+                    <ImageView src={"/images/info.svg"} />
+                  </Tooltip>
+                  <Hash>Interacted With (To)</Hash>
+                </ContainerInteractedWith>
+                <MiddleContainer isTextArea={false}>
+                <MainContainerInteractedWith>
+                  <ContentInteractedWith>
+                    <div>Contract</div>
+                    &nbsp;
+                    <span><a className={theme.currentTheme==="dark"?"linkTableDetails-transaction-dark":"linkTableDetails-transaction"} href={"#"}>
+                    xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
+                    </a></span>
+                    &nbsp;&nbsp;
+                    (<div>FleekApp</div>)
+                    <ImgInteracted src="/images/success.svg" />
+                    <ImgCopyGrey src="/images/copy-grey.svg" />
+                  </ContentInteractedWith>
+                  <InteractedWithNextRow>
+                    <ImgNewLine src="/images/xyz.svg" />
+                    <GreyText>{transactions?.method}</GreyText>
+                    <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
+                    <GreyText>From</GreyText>
+                    <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
+                    <GreyText>to</GreyText>
+                    <BlackText theme={theme.currentTheme}>Fleek:</BlackText>
+                    <BlueText theme={theme.currentTheme}>NFT App</BlueText>
+                  </InteractedWithNextRow>
+                  <InteractedWithNextRow>
+                    <ImgNewLine src="/images/xyz.svg" />
+                    <GreyText>{transactions?.method}</GreyText>
+                    <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
+                    <GreyText>From</GreyText>
+                    <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
+                    <GreyText>to</GreyText>
+                    <BlueText theme={theme.currentTheme}>&nbsp;{transactions?.to?utility.shortenAddress(transactions?.to,11,4,3):""}</BlueText>
+                  </InteractedWithNextRow>
+                  </MainContainerInteractedWith>
+                </MiddleContainer>
+              </SpacingInteractedWith>
+              </> : ""
+                )}
+
                 {/* -------------------------------------------------------------txn fee----------------------- */}
                 <Spacing theme={theme.currentTheme}>
                   <Container>
@@ -1111,7 +1248,10 @@ function Transaction({ _handleChange,theme }) {
                     </Tooltip>
                     <Hash theme={theme.currentTheme}>Gas Provided</Hash>
                   </Container>
-                  <MiddleContainer theme={theme.currentTheme} isTextArea={false}>
+                  <MiddleContainer
+                    theme={theme.currentTheme}
+                    isTextArea={false}
+                  >
                     {format({})(transactions.gas)}
                   </MiddleContainer>
                 </Spacing>
@@ -1124,27 +1264,29 @@ function Transaction({ _handleChange,theme }) {
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content theme={theme.currentTheme}>
-                    {gasPrice2 == 0 ? (
-                      <span>{gasPrice1}</span>
-                    ) : (
-                      <span>
-                        {gasPrice1}
-                        {"."}
-                        <span style={{ color: "#9FA9BA" }}>{gasPrice2}</span>
-                      </span>
-                    )}
-                    &nbsp;XDC ({currencySymbol}
+                      {gasPrice2 == 0 ? (
+                        <span>{gasPrice1}</span>
+                      ) : (
+                        <span>
+                          {gasPrice1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{gasPrice2}</span>
+                        </span>
+                      )}
+                      &nbsp;XDC ({currencySymbol}
                       {avgTxnFeeFetch2 == null ? (
                         <span>{avgTxnFeeFetch1}</span>
                       ) : (
                         <span>
                           {avgTxnFeeFetch1}
                           {"."}
-                          <span style={{ color: "#9FA9BA" }}>{avgTxnFeeFetch2}</span>
+                          <span style={{ color: "#9FA9BA" }}>
+                            {avgTxnFeeFetch2}
+                          </span>
                         </span>
                       )}
                       )
-                      </Content>
+                    </Content>
                     {/* <Content> {gasP}</Content> */}
                   </MiddleContainer>
                 </Spacing>
@@ -1156,7 +1298,9 @@ function Transaction({ _handleChange,theme }) {
                     <Hash theme={theme.currentTheme}>Gas Used</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content theme={theme.currentTheme}>{format({})(transactions?.gasUsed)}</Content>
+                    <Content theme={theme.currentTheme}>
+                      {format({})(transactions?.gasUsed)}
+                    </Content>
                   </MiddleContainer>
                 </Spacing>
                 {!isSeeMore ? (
@@ -1176,7 +1320,10 @@ function Transaction({ _handleChange,theme }) {
                         <Hash theme={theme.currentTheme}>Nonce</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
-                        <Content theme={theme.currentTheme}> {transactions.nonce}</Content>
+                        <Content theme={theme.currentTheme}>
+                          {" "}
+                          {transactions.nonce}
+                        </Content>
                       </MiddleContainer>
                     </Spacing>
                     <SpacingInputData theme={theme.currentTheme}>
@@ -1184,12 +1331,18 @@ function Transaction({ _handleChange,theme }) {
                         <Tooltip align="right" title={input}>
                           <ImageViewInputData src={"/images/info.svg"} />
                         </Tooltip>
-                        <HashInputData theme={theme.currentTheme}>Input Data</HashInputData>
+                        <HashInputData theme={theme.currentTheme}>
+                          Input Data
+                        </HashInputData>
                       </Container>
                       <MiddleContainerInputData isTextArea={true}>
                         <div className="transaction-details-input-data">
                           <textarea
-                            className={theme.currentTheme === "dark" ? "text-area-transaction-dark" : "text-area-transaction"}
+                            className={
+                              theme.currentTheme === "dark"
+                                ? "text-area-transaction-dark"
+                                : "text-area-transaction"
+                            }
                             readOnly
                             value={transactions.input}
                           />
@@ -1275,7 +1428,11 @@ function Transaction({ _handleChange,theme }) {
         </Grid>
       </div>
 
-      <FooterComponent theme={theme.currentTheme} _handleChange={_handleChange} currency={amount} />
+      <FooterComponent
+        theme={theme.currentTheme}
+        _handleChange={_handleChange}
+        currency={amount}
+      />
     </div>
   );
 }
@@ -1304,7 +1461,9 @@ const Content = styled.div`
   line-height: 22px;
   display: flex;
   align-items: center;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1316,7 +1475,9 @@ const Content = styled.div`
     opacity: 1;
     line-height: 18px !important;
     word-break: break-all;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
      color: #b1c3e1;
   `}
   }
@@ -1327,7 +1488,9 @@ const Content = styled.div`
 
     color: #3a3a3a;
     opacity: 1;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
      color: #b1c3e1;
   `}
   }
@@ -1341,7 +1504,9 @@ const ContentHash = styled.div`
   line-height: 22px;
   display: flex;
   align-items: center;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1353,7 +1518,9 @@ const ContentHash = styled.div`
     opacity: 1;
     line-height: 18px !important;
     word-break: break-all;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     color: #b1c3e1;
     `}
   }
@@ -1365,7 +1532,9 @@ const ContentHash = styled.div`
     color: #3a3a3a;
     opacity: 1;
     width: 33rem;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     color: #b1c3e1;
     `}
   }
@@ -1404,7 +1573,9 @@ const Div__ = styled.div`
   padding-left: 27px;
   padding-right: 25px;
   margin-top: 35px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
      background-color: #192a59;
      margin-bottom: 35px;
   `}
@@ -1434,7 +1605,9 @@ const MiddleContainerPrivateNote = styled.div`
   border: solid 1px #9fa9ba;
   height: auto;
   padding: 1px 9px 1px 18px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
      color: #ffffff;
      border: 1px solid #9fa9ba;
      background-color: #9fa9ba;
@@ -1495,7 +1668,9 @@ const MiddleContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1509,7 +1684,9 @@ const MiddleContainer = styled.div`
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
     margin-left: unset;
     margin-top: 10px;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
      color: #b1c3e1;
   `}
   }
@@ -1521,7 +1698,9 @@ const MiddleContainer = styled.div`
     color: #3a3a3a;
     opacity: 1;
     margin-left: 100px;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
      color: #b1c3e1;
   `}
   }
@@ -1571,7 +1750,9 @@ const HashInputData = styled.span`
 
   color: #2a2a2a;
   padding-bottom: 30px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
      color: #ffffff;
   `}
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1583,7 +1764,9 @@ const HashInputData = styled.span`
     color: #2a2a2a;
     opacity: 1;
     padding-bottom: 20px;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
      color: #ffffff;
   `}
   }
@@ -1595,7 +1778,9 @@ const HashInputData = styled.span`
 
     color: #2a2a2a;
     opacity: 1;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
      color: #ffffff;
   `}
   }
@@ -1608,7 +1793,9 @@ const Hash = styled.span`
   font-size: 15px;
 
   color: #252525;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1619,7 +1806,9 @@ const Hash = styled.span`
 
     color: #252525;
     opacity: 1;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     color: #ffffff;
   `}
   }
@@ -1641,7 +1830,9 @@ const SpacingInputData = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   padding: 13px 0 8px 0;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
      border-bottom: solid 1px #4a5d94;
   `}
   @media (max-width: 767px) {
@@ -1676,7 +1867,9 @@ const Spacing = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   height: 4.063rem;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
      border-bottom: solid 1px #4a5d94;
   `}
   @media (max-width: 767px) {
@@ -1739,7 +1932,9 @@ const Div = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-bottom: 15px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
      background-color: #192a59;
   `}
   // @media (min-width: 0px) and (max-width: 767px) {
@@ -1773,7 +1968,9 @@ const DivMiddle = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   // margin-bottom: 15px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     background-color: #192a59;
   `}
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1794,7 +1991,9 @@ const Heading = styled.span`
   font-size: 1.5rem;
   margin-top: 46px;
   margin-bottom: 12px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1804,7 +2003,9 @@ const Heading = styled.span`
     color: #252525;
     margin-top: 12px;
     margin-bottom: 17px;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     color: #ffffff;
   `}
   }
@@ -1815,7 +2016,9 @@ const Heading = styled.span`
     color: #2a2a2a;
     margin-top: 19px;
     margin-bottom: 28px;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     color: #ffffff;
   `}
   }
@@ -1849,7 +2052,9 @@ const StatusContainer = styled.div`
   max-width: 10.75rem;
   width: 100%;
   border-right: 1px solid #e3e7eb;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     border-right: 1px solid #4a5d94;
   `}
   // @media (min-width: 0px) and (max-width: 767px) {
@@ -1862,7 +2067,9 @@ const StatusContainer = styled.div`
     border-right: none;
     border-bottom: 1px solid #4a5d94;
     padding-bottom: 30px;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     border-right: 1px solid #091b4e;
   `}
   }
@@ -1981,7 +2188,9 @@ const DetailsMiddleContainer = styled.div`
   font-size: 15px;
 
   color: #3a3a3a;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -1994,7 +2203,9 @@ const DetailsMiddleContainer = styled.div`
     padding-top: 10px;
     color: #2a2a2a;
     padding-right: 15px;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     color: #b1c3e1;
   `}
   }
@@ -2012,7 +2223,9 @@ const BlockConfirmation = styled.div`
   border-radius: 4px;
   padding-top: 4px;
   padding-bottom: 4px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     background-color: #091b4e;
     border: solid 1px #3552a5;
   `}
@@ -2239,7 +2452,6 @@ const SpacingTxnAction = styled.div`
     padding: 12px 0 17px 0;
   }
 `;
-
 
 const ContainerInteractedWith = styled.div`
   display: flex;
