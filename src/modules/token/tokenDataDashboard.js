@@ -596,7 +596,7 @@ function TokenDataComponent(props) {
                       <Title theme={props.theme.currentTheme}>Website</Title>
                       {!isLoading ? (contractData?.contractResponse?.website ?
                       (<a className={props.theme.currentTheme === "dark" ? classes.websiteLinkDark : classes.websiteLink} href={contractData?.contractResponse?.website} target="_blank">
-                        {contractData?.contractResponse?.website}
+                        {Utility.shortenAddress(contractData?.contractResponse?.website, 15, 0, 3)}
                       </a>):
                       (<TitleValue theme={props.theme.currentTheme}>Not available</TitleValue>)):("")}
                       {/* <ContractButton>www.usdc.com</ContractButton> */}

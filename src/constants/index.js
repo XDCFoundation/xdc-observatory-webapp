@@ -190,6 +190,7 @@ export const messages = {
   PASSWORD:
     "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
   DOWNLOAD_CSV: "Select the transactions from table to download data",
+  EXPORT_DISABLE: "Select address by clicking on checkbox to export data",
 };
 
 export const toolTipMessages = {

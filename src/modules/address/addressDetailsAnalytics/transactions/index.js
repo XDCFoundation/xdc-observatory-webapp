@@ -38,7 +38,6 @@ class TransactionGraph extends BaseComponent {
         this.state = {
             loading: false,
             graphData: [],
-            optionsDark : {},
         };
     }
 
@@ -87,6 +86,7 @@ class TransactionGraph extends BaseComponent {
                 zoomType: {
                     enabled: false,
                 },
+                backgroundColor: "#ffffff",
             },
             legend: {
                 layout: "horizontal",
