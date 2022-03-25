@@ -424,7 +424,9 @@ input:focus {
 .p-wallet {
   padding: 4px 4px 3px 4px;
 }
-
+.p-wallet-search{
+  padding: 0 4px;
+}
 .bg-eaf0ff {
   background: #eaf0ff;
 }
@@ -1844,6 +1846,10 @@ div::-webkit-scrollbar-thumb {
     margin-left: 0rem !important;
     height: 16px;
     width: 16px;
+  }
+
+  .m-r-40-tab{
+    margin-right: 40px !important;
   }
 }
 .header-mobile-top {
@@ -9993,7 +9999,7 @@ button {
     font-size: 1.375rem;
   }
   .search-dashboard-input {
-    width: 70% !important;
+    width: 100% !important;
   }
   .search-dashboard-select {
     padding-right: 4px !important;

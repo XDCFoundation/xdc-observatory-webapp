@@ -490,7 +490,7 @@ export default function StickyHeadTable(props) {
                     <TableCell id="td" style={{ border: "none" }}>
                       <a
                         style={{ color: props.theme === "dark" ? "#4874f4" : "#2b51bc", fontSize: 11 }}
-                        href={"/transfer-transaction-details/" + row.hash}
+                        href={"/transaction-details/" + row.hash}
                       >
                         <span className="tabledata table-data">
                           {shorten(row.hash)}

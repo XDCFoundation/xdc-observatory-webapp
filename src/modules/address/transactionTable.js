@@ -143,7 +143,8 @@ export default function TransactionTableComponent(props) {
       }
     }
     if (action === "last") {
-      let pagecount = (Math.ceil(parseInt(totalRecord) / parseInt(amount))-1) * amount;
+      let pagecount =
+        (Math.ceil(parseInt(totalRecord) / parseInt(amount)) - 1) * amount;
       setFrom(parseInt(pagecount));
       if (keywords) {
         datas = {
@@ -251,7 +252,7 @@ export default function TransactionTableComponent(props) {
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: Utility.decimalDivison(d.Value, 18),
+            Value: d.Value,
           };
         })
       );
@@ -278,7 +279,7 @@ export default function TransactionTableComponent(props) {
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: Utility.decimalDivison(d.Value, 18),
+            Value: d.Value,
           };
         })
       );
@@ -342,42 +343,97 @@ export default function TransactionTableComponent(props) {
   />*/}
         </div>
         {noData == false ? (
-          <div className="csvDownloadParent">
+          <>
             {isDownloadActive ? (
-              <div className="csv">
-                <img src={"/images/rectangle-copy.svg"} />{" "}
-                <CSVLink
-                  className={props.theme === "dark" ? "ActiveDownload fc-4878ff" : "ActiveDownload"}
-                  filename={"transactions.csv"}
-                  data={downloadaddress}
-                >
-                  Download CSV
-                </CSVLink>
-              </div>
+              <CSVLink
+                filename={"transactions.csv"}
+                data={downloadaddress}
+                style={
+                  props.theme === "dark"
+                    ? {
+                        fontSize: "0.938rem",
+                        color: "#ffffff",
+                        textAlign: "center",
+                        backgroundColor: "#283966",
+                        borderRadius: "0.25rem",
+                        width: "5.875rem",
+                        height: "2.125rem",
+                        paddingTop: "0.125rem",
+                      }
+                    : {
+                        fontSize: "0.938rem",
+                        color: "#ffffff",
+                        textAlign: "center",
+                        backgroundColor: "rgb(7 125 245)",
+                        borderRadius: "0.25rem",
+                        width: "5.875rem",
+                        height: "2.125rem",
+                        paddingTop: "0.125rem",
+                      }
+                }
+              >
+                Export
+              </CSVLink>
             ) : (
-              <div className="csv-inactive">
-                <Tooltip
-                        open={downloadCsvTT}
-                        onOpen={() => setDownloadCsvTT(true)}
-                        onClose={() => setDownloadCsvTT(false)}
-                        placement="top"
-                        title={messages.DOWNLOAD_CSV}
-                      >
-                        <div onClick={() => setDownloadCsvTT(!downloadCsvTT)}>
-                          <img src={"/images/rectangle-copy.svg"} />{" "}
-                          <CSVLink
-                            className="InactiveDownload"
-                            filename={"transactions.csv"}
-                            data={downloadaddress}
-                          >
-                          Download CSV
-                          </CSVLink>
-                        </div>
-                      </Tooltip>
-                
-              </div>
+              <Tooltip
+                open={downloadCsvTT}
+                onOpen={() => setDownloadCsvTT(true)}
+                onClose={() => setDownloadCsvTT(false)}
+                placement="top"
+                title={messages.DOWNLOAD_CSV}
+              >
+                <div
+                  onClick={() => setDownloadCsvTT(!downloadCsvTT)}
+                  style={
+                    props.theme === "dark"
+                      ? {
+                          fontSize: "0.938rem",
+                          textAlign: "center",
+                          color: "#ffffff",
+                          backgroundColor: "#283966",
+                          borderRadius: "0.25rem",
+                          width: "5.875rem",
+                          height: "2.125rem",
+                          paddingTop: "0.125rem",
+                          opacity: 0.7,
+                        }
+                      : {
+                          fontSize: "0.938rem",
+                          textAlign: "center",
+                          color: "#ffffff",
+                          backgroundColor: "#e3e7eb",
+                          borderRadius: "0.25rem",
+                          width: "5.875rem",
+                          height: "2.125rem",
+                          paddingTop: "0.125rem",
+                        }
+                  }
+                >
+                  <CSVLink
+                    filename={"transactions.csv"}
+                    data={downloadaddress}
+                    style={
+                      props.theme === "dark"
+                        ? {
+                            pointerEvents: "none",
+                            fontSize: "0.938rem",
+                            textAlign: "center",
+                            color: "#ffffff",
+                          }
+                        : {
+                            pointerEvents: "none",
+                            fontSize: "0.938rem",
+                            textAlign: "center",
+                            color: "#ffffff",
+                          }
+                    }
+                  >
+                    Export
+                  </CSVLink>
+                </div>
+              </Tooltip>
             )}
-          </div>
+          </>
         ) : (
           ""
         )}
@@ -387,15 +443,25 @@ export default function TransactionTableComponent(props) {
         <Paper
           style={{ borderRadius: "14px" }}
           elevation={0}
-          className={props.theme === "dark" ? "table-paper-contract table-bg-dark" : "table-paper-contract"}
+          className={
+            props.theme === "dark"
+              ? "table-paper-contract table-bg-dark"
+              : "table-paper-contract"
+          }
         >
           <TableContainer
-            className={props.theme === "dark" ? `${classes.container} table-bg-dark` : classes.container}
+            className={
+              props.theme === "dark"
+                ? `${classes.container} table-bg-dark`
+                : classes.container
+            }
             id="container-table table-cont"
           >
             <Table className="table-trans-contract">
               <TableHead>
-                <TableRow className={props.theme === "dark" ? "table-bg-dark" : ""}>
+                <TableRow
+                  className={props.theme === "dark" ? "table-bg-dark" : ""}
+                >
                   <TableCell
                     className="w-31 w-850"
                     style={{ border: "none" }}
@@ -413,7 +479,13 @@ export default function TransactionTableComponent(props) {
                         style={{ marginRight: "8px" }}
                       />
                     )}
-                    <span className={props.theme === "dark" ? "tableheaders table-hash fc-white" : "tableheaders table-hash"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-hash fc-white"
+                          : "tableheaders table-hash"
+                      }
+                    >
                       Transaction Hash
                       <Tooltip
                         open={hashTT}
@@ -437,7 +509,13 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "tableheaders table-age fc-white" : "tableheaders table-age"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-age fc-white"
+                          : "tableheaders table-age"
+                      }
+                    >
                       Age
                       <Tooltip
                         open={ageTT}
@@ -461,7 +539,13 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "tableheaders table-block fc-white bg-transparent-dark" : "tableheaders table-block"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-block fc-white bg-transparent-dark"
+                          : "tableheaders table-block"
+                      }
+                    >
                       Block
                       <Tooltip
                         open={blockTT}
@@ -485,7 +569,13 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "tableheaders table-from fc-white" : "tableheaders table-from"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-from fc-white"
+                          : "tableheaders table-from"
+                      }
+                    >
                       From
                       <Tooltip
                         open={fromTT}
@@ -509,7 +599,13 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "tableheaders table-to fc-white" : "tableheaders table-to"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-to fc-white"
+                          : "tableheaders table-to"
+                      }
+                    >
                       To
                       <Tooltip
                         open={toTT}
@@ -533,7 +629,13 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "tableheaders table-value fc-white" : "tableheaders table-value"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-value fc-white"
+                          : "tableheaders table-value"
+                      }
+                    >
                       Value
                       <Tooltip
                         open={valueTT}
@@ -557,7 +659,13 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "tableheaders table-value fc-white" : "tableheaders table-value"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-value fc-white"
+                          : "tableheaders table-value"
+                      }
+                    >
                       Avg Txn Fee
                       <Tooltip
                         open={gasTT}
@@ -603,8 +711,12 @@ export default function TransactionTableComponent(props) {
                         <TableRow
                           style={
                             index % 2 !== 1
-                              ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
-                              : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
+                              ? props.theme === "dark"
+                                ? { background: "#192a59" }
+                                : { background: "#f9f9f9" }
+                              : props.theme === "dark"
+                              ? { background: "#192a59" }
+                              : { background: "white" }
                           }
                         >
                           <TableCell
@@ -622,7 +734,11 @@ export default function TransactionTableComponent(props) {
                             />
 
                             <a
-                              className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                              className={
+                                props.theme === "dark"
+                                  ? "linkTable fc-4878ff"
+                                  : "linkTable"
+                              }
                               href={"/transaction-details/" + row.hash}
                             >
                               <Tooltip placement="top" title={row.hash}>
@@ -633,11 +749,23 @@ export default function TransactionTableComponent(props) {
                             </a>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>{TimeAge}</span>
+                            <span
+                              className={
+                                props.theme === "dark"
+                                  ? "tabledata fc-b1c3e1"
+                                  : "tabledata"
+                              }
+                            >
+                              {TimeAge}
+                            </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <a
-                              className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                              className={
+                                props.theme === "dark"
+                                  ? "linkTable fc-4878ff"
+                                  : "linkTable"
+                              }
                               href={"/block-details/" + row.blockNumber}
                             >
                               <span className="tabledata">
@@ -648,7 +776,11 @@ export default function TransactionTableComponent(props) {
                           <TableCell style={{ border: "none" }} align="left">
                             {row.from != addr ? (
                               <a
-                                className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                                className={
+                                  props.theme === "dark"
+                                    ? "linkTable fc-4878ff"
+                                    : "linkTable"
+                                }
                                 href={"/address-details/" + row.from}
                               >
                                 <Tooltip placement="top" title={row.from}>
@@ -670,7 +802,11 @@ export default function TransactionTableComponent(props) {
                           <TableCell style={{ border: "none" }} align="left">
                             {row.to != addr ? (
                               <a
-                                className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                                className={
+                                  props.theme === "dark"
+                                    ? "linkTable fc-4878ff"
+                                    : "linkTable"
+                                }
                                 href={"/address-details/" + row.to}
                               >
                                 <Tooltip placement="top" title={row.to}>
@@ -692,7 +828,13 @@ export default function TransactionTableComponent(props) {
                               placement="top"
                               title={format({})(row.value)}
                             >
-                              <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
+                              <span
+                                className={
+                                  props.theme === "dark"
+                                    ? "tabledata fc-b1c3e1"
+                                    : "tabledata"
+                                }
+                              >
                                 {Utility.convertToInternationalCurrencySystem(
                                   row.value
                                 )}
@@ -700,7 +842,13 @@ export default function TransactionTableComponent(props) {
                             </Tooltip>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
+                            <span
+                              className={
+                                props.theme === "dark"
+                                  ? "tabledata fc-b1c3e1"
+                                  : "tabledata"
+                              }
+                            >
                               {format({})(row.gasUsed)}
                             </span>
                           </TableCell>
@@ -750,14 +898,22 @@ export default function TransactionTableComponent(props) {
           ) : (
             <>
               <Grid className="Pagination_1">
-                  <span className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}>Show</span>
+                <span
+                  className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}
+                >
+                  Show
+                </span>
                 <PageSelector
                   value={amount}
                   height={30}
                   handler={handleChangeRowsPerPage}
                   theme={props.theme}
                 />
-                <span className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}>Records</span>
+                <span
+                  className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}
+                >
+                  Records
+                </span>
               </Grid>
               <Grid xs="2"></Grid>
             </>
@@ -801,8 +957,12 @@ export default function TransactionTableComponent(props) {
                 onClick={() => handleChangePage("first")}
                 className={
                   from === 0 || totalRecord === 0
-                    ? props.theme === "dark" ? "btn-contract-dark disabled" : "btn-contract disabled"
-                    : props.theme === "dark" ? "btn-contract-dark" : "btn-contract"
+                    ? props.theme === "dark"
+                      ? "btn-contract-dark disabled"
+                      : "btn-contract disabled"
+                    : props.theme === "dark"
+                    ? "btn-contract-dark"
+                    : "btn-contract"
                 }
               >
                 First
@@ -811,14 +971,26 @@ export default function TransactionTableComponent(props) {
                 onClick={() => handleChangePage("prev")}
                 className={
                   from === 0 || totalRecord === 0
-                  ? props.theme === "dark" ? "btn-contract-dark disabled" : "btn-contract disabled"
-                  : props.theme === "dark" ? "btn-contract-dark" : "btn-contract"
+                    ? props.theme === "dark"
+                      ? "btn-contract-dark disabled"
+                      : "btn-contract disabled"
+                    : props.theme === "dark"
+                    ? "btn-contract-dark"
+                    : "btn-contract"
                 }
               >
-                <img className="rotate-180" src={"/images/next.svg"} alt="back" />
+                <img
+                  className="rotate-180"
+                  src={"/images/next.svg"}
+                  alt="back"
+                />
               </button>
 
-              <button className={props.theme === "dark" ? "btn-contract-dark" : "btn-contract"}>
+              <button
+                className={
+                  props.theme === "dark" ? "btn-contract-dark" : "btn-contract"
+                }
+              >
                 Page{" "}
                 {Math.ceil(parseInt(totalRecord) / parseInt(amount)) -
                   Math.ceil(
@@ -833,8 +1005,12 @@ export default function TransactionTableComponent(props) {
                   +from + visibleCount === totalRecord ||
                   +from + visibleCount > totalRecord ||
                   totalRecord === 0
-                  ? props.theme === "dark" ? "btn-contract-dark disabled" : "btn-contract disabled"
-                  : props.theme === "dark" ? "btn-contract-dark" : "btn-contract"
+                    ? props.theme === "dark"
+                      ? "btn-contract-dark disabled"
+                      : "btn-contract disabled"
+                    : props.theme === "dark"
+                    ? "btn-contract-dark"
+                    : "btn-contract"
                 }
               >
                 <img src={"/images/next.svg"} />
@@ -845,8 +1021,12 @@ export default function TransactionTableComponent(props) {
                   +from + visibleCount === totalRecord ||
                   +from + visibleCount > totalRecord ||
                   totalRecord === 0
-                  ? props.theme === "dark" ? "btn-contract-dark disabled" : "btn-contract disabled"
-                  : props.theme === "dark" ? "btn-contract-dark" : "btn-contract"
+                    ? props.theme === "dark"
+                      ? "btn-contract-dark disabled"
+                      : "btn-contract disabled"
+                    : props.theme === "dark"
+                    ? "btn-contract-dark"
+                    : "btn-contract"
                 }
               >
                 Last
