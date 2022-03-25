@@ -24,7 +24,7 @@ function Tab(props) {
                     <button
                         className={toggleState === 2 ? props.theme === "dark" ? "tabs-dark active-tabs-dark" : "tabs active-tabs" : "tabs"}
                         onClick={() => toggleTab(2)}
-                        style={{paddingLeft: "13px"}}
+                        style={{marginLeft: "13px"}}
                     >
                         Accounts
                     </button>

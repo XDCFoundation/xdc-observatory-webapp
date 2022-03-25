@@ -140,7 +140,7 @@ export const messages = {
   AGE: "Time when was the transaction created.",
   METHOD: "Function executed based on decoded input data.",
   BLOCK: "Block number associated with the transaction.",
-  DIFFICULTY: "Difficulty.",
+  DIFFICULTY: "The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time.",
   GAS_USED: "The exact unit of gas that was used for the transactions.",
   FROM: "Sender’s account.",
   TO: "Receiver’s account.",
