@@ -75,14 +75,14 @@ const useStyles = makeStyles((theme) => ({
         border: "solid 0.6px #00a1ed",
         backgroundColor: "#3763dd",
         // margin: "10px 0px 20px 0px",
-        margin: "10px 5px 10px 12px",
+        margin: "10px 6px 10px 10px",
         color: "white",
         '@media(max-width: 768px)': {
             width: "421px"
         }
     },
     subCategory: {
-        margin: "10px 5px 10px 5px",
+        margin: "10px 5px 10px 12px",
         fontFamily: "Inter",
         fontSize: "14px",
         fontWeight: "500",

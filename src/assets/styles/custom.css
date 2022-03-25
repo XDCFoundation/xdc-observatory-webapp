@@ -522,6 +522,9 @@ input:focus {
 .fc-blue-grey {
   color: #5e6c84;
 }
+.fc-9fa9ba {
+  color: #9fa9ba !important;
+}
 
 .fc-red {
   color: red;
