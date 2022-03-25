@@ -3,7 +3,8 @@ import { Paper } from "@material-ui/core";
 import styled from "styled-components";
 import TokenHistory from "../tokenHistoryAnalytics";
 import TokenContractOverviewGraph from "./tokenContractOverview";
-
+import Tooltip from "@material-ui/core/Tooltip";
+import { messages } from "../../../constants";
 const AnalyticsTabButton = styled.button`
   border-radius: 5px;
   border: 1px solid #d5dae2;
@@ -20,7 +21,8 @@ const AnalyticsTabButton = styled.button`
     border: none;
   `}
   ${({ theme, active }) =>
-    theme === "dark" && !active &&
+    theme === "dark" &&
+    !active &&
     `
     background: transparent;
     border: solid 1px #3552a5;
@@ -43,7 +45,7 @@ const PaperStyleDark = {
   flexFlow: "column",
   gap: "15px",
   padding: "0 15px 0 0",
-  backgroundColor: "#192a59"
+  backgroundColor: "#192a59",
 };
 
 const Buttonscontainer = styled.div`
@@ -62,7 +64,10 @@ function TokenAnalytics(props) {
 
   return (
     <div>
-      <Paper style={props.theme === "dark" ? PaperStyleDark : PaperStyle} elevation={0}>
+      <Paper
+        style={props.theme === "dark" ? PaperStyleDark : PaperStyle}
+        elevation={0}
+      >
         <Buttonscontainer>
           <AnalyticsTabButton
             active={activeTab === "tokenContractOverview" ? true : false}
@@ -80,10 +85,24 @@ function TokenAnalytics(props) {
           </AnalyticsTabButton>
         </Buttonscontainer>
         {activeTab === "tokenContractOverview" && (
-          <TokenContractOverviewGraph theme={props.theme}/>
+          <div>
+            <div className="display-flex flex-row-reverse m-r-9">
+              <Tooltip placement="top" title={messages.RANGE_SELECTOR}>
+                <img
+                  alt="question-mark"
+                  src="/images/info.svg"
+                  className="tooltipInfoIconMarketData"
+                />
+              </Tooltip>
+            </div>
+            <TokenContractOverviewGraph theme={props.theme} />
+          </div>
         )}
         {activeTab === "historicalPrice" && (
-          <TokenHistory contractAddress={props.contractAddress} theme={props.theme}/>
+          <TokenHistory
+            contractAddress={props.contractAddress}
+            theme={props.theme}
+          />
         )}
       </Paper>
     </div>
