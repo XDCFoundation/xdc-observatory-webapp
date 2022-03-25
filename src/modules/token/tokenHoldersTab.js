@@ -592,7 +592,7 @@ export default function StickyHeadTable(props) {
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <span className="tabledata table-data mar-lef-3">
-                          <a
+                          <a style={{ color: "#2149b9" }}
                             href={`/holder-details/${row?.Address}/${tn}?isAnalytics=true&tokenAddress=${address}`}
                           >
                             Analytics
