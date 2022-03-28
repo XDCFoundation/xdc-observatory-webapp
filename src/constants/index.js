@@ -217,9 +217,9 @@ export const toolTipMessages = {
   input: "Additional information that is required for the transaction",
   transferToken:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
-  privatenote: "Private notes",
   age: "Time when was the transaction created.",
   date: "Transaction creation date.",
+  privatenote : `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`
 };
 
 export const decimalDivisionValue = {
