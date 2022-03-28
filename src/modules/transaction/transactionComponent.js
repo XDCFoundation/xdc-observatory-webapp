@@ -194,7 +194,7 @@ export default function TransactionComponent(props) {
                     </span>
                   </TableCell>
                 )}
-                {props.state.tableColumns["Age"].isActive && (
+                {/* {props.state.tableColumns["Age"].isActive && ( */}
                   <TableCell
                     style={{ border: "none", paddingLeft: "2rem" }}
                     className="table-head-all"
@@ -212,7 +212,7 @@ export default function TransactionComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
-                )}
+                {/* )} */}
                 {props.state.tableColumns["Age"].isActive && (
                   <TableCell
                     style={{ border: "none", paddingLeft: "2rem" }}
