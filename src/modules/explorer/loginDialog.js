@@ -339,7 +339,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
@@ -1627,7 +1626,7 @@ export default function FormDialog(props) {
           // <------------------------------------------Forgot Password------------------------------------------------->
           <div>
             <Row>
-              <div className={classes.heading} id="form-dialog-title">
+              <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
                 Forgot Password
               </div>
               <span onClick={handleClose} className={classes.closeContainer}>
@@ -1637,7 +1636,7 @@ export default function FormDialog(props) {
                 ></img>
               </span>
             </Row>
-            <div className={classes.forgotText}>
+            <div className={props.theme === "dark" ? `${classes.forgotText} fc-9fa9ba` : classes.forgotText}>
               <p>
                 Enter your registered email address and we will send you a
                 password recovery link
@@ -1645,11 +1644,13 @@ export default function FormDialog(props) {
             </div>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategory}>
-                <span className={classes.fieldName}>Email Address</span>
+                <span className={props.theme === "dark" ? `${classes.fieldName} fc-white` : classes.fieldName}>
+                  Email Address
+                  </span>
               </DialogContentText>
               <input
                 type="email"
-                v
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -1667,7 +1668,6 @@ export default function FormDialog(props) {
                 alignItems: "center",
                 marginTop: "28px",
                 flexDirection: "column",
-                paddingLeft: "28px",
               }}
             >
               <ReCAPTCHA
@@ -1711,7 +1711,7 @@ export default function FormDialog(props) {
             </button>
 
             <div className={classes.backToSignIn}>
-              <div>
+              <div className={props.theme === "dark" ? "fc-white" : ""}>
                 Back to{" "}
                 <span
                   className={classes.signIn}
