@@ -77,6 +77,12 @@ const OptionDiv = styled.div`
     background-color: #f9f9f9;
   }
 `;
+const OptionsContainer = styled.div`
+  display: flex;
+`;
+const Image = styled.img`
+  margin-right: 2px;
+`;
 const OptionText = styled.span`
    font-size: 14px;
    color: #2a2a2a;
@@ -120,18 +126,20 @@ const ExportButton = (props) => {
                 document={<AddressPDF data={downloadData} />}
                 fileName="tagAddresses.pdf"
               >
-                  <OptionText onClick={() => toggleDropdown(false)}>
-                Export as PDF
-                </OptionText>
+                <OptionsContainer onClick={() => toggleDropdown(false)}>
+                  <Image src="/images/pdf.svg" />
+                  <OptionText>Export as PDF</OptionText>
+                </OptionsContainer>
               </PDFDownloadLink>
               
             </OptionDiv>
             <OptionDiv>
             <CSVLink filename={"tag_address.csv"} data={downloadData}>
-            <OptionText onClick={() =>toggleDropdown(false)}>
-                Export as CSV File
-                </OptionText>
-              </CSVLink>
+              <OptionsContainer onClick={() =>toggleDropdown(false)}>
+                <Image src="/images/csv.svg" />
+                <OptionText>Export as CSV File</OptionText>
+              </OptionsContainer>
+            </CSVLink>
             </OptionDiv>
           </DropdownContainer>
         )}

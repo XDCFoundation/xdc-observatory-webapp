@@ -524,6 +524,9 @@ input:focus {
 .fc-blue-grey {
   color: #5e6c84;
 }
+.fc-9fa9ba {
+  color: #9fa9ba !important;
+}
 
 .fc-red {
   color: red;
@@ -5339,6 +5342,16 @@ button {
 }
 .active-tabs-dark {
   color: #eeeff3
+}
+.active-tabs-dark::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 93%;
+  height: 1px;
+  border: solid 1px #eeeff3;
 }
 
 .max-div {

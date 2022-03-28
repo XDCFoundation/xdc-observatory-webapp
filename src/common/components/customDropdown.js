@@ -83,7 +83,10 @@ const CustomDropDown = (props) => {
         toggleDropdown(false)
     }
     const onFilterClicked = () => {
+      if(!isDropdownOpen)
         toggleDropdown(true)
+      else
+        toggleDropdown(false)
     }
 
     const handleClickOutside = (event) => {
