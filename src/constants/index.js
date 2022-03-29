@@ -140,7 +140,7 @@ export const messages = {
   AGE: "Time when was the transaction created.",
   METHOD: "Function executed based on decoded input data.",
   BLOCK: "Block number associated with the transaction.",
-  DIFFICULTY: "Difficulty.",
+  DIFFICULTY: "The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time.",
   GAS_USED: "The exact unit of gas that was used for the transactions.",
   FROM: "Sender’s account.",
   TO: "Receiver’s account.",
@@ -217,9 +217,9 @@ export const toolTipMessages = {
   input: "Additional information that is required for the transaction",
   transferToken:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
-  privatenote: "Private notes",
   age: "Time when was the transaction created.",
   date: "Transaction creation date.",
+  privatenote : `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`
 };
 
 export const decimalDivisionValue = {
