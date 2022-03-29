@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
   selectAmount: {
     height: "70%",
-    marginRight: "8px",
+    marginRight: "20px",
   },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {

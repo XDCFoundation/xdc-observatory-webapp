@@ -34,7 +34,7 @@ const SelectedValueContainer = styled.div`
 const FilterName = styled.div`
   width: 15px;
   height: 15px;
-  margin: 7px 230px 7px 4px;
+  margin: 7px 0px 7px 4px;
   border-radius: 3px;
   background-color: #253ec1;
   display: flex;
@@ -92,6 +92,9 @@ const SearchBox = styled.div`
     margin-right: 0;
   }
 `;
+const TokenBalanceContainer = styled.div`
+  display: flex;
+`;
 const OptionDiv = styled.div`
   padding: 6px 15px;
   cursor: pointer;
@@ -148,6 +151,8 @@ const CustomDropDownAddress = (props) => {
   const mainDiv = useRef(null);
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [isPriceVisibilty, setPriceVisibilty] = useState(false);
+  const [priceConvertedValue, setPriceConvertedValue] = useState(false);
 
   const onOptionSelected = (selected) => {
     onSelect(selected);
@@ -188,12 +193,27 @@ const CustomDropDownAddress = (props) => {
   let activeCurrency = window.localStorage.getItem("currency");
   const currencySymbol = !price ? "" : activeCurrency === "USD" ? "$" : "€";
 
+  function MouseOver(price) {
+    setPriceConvertedValue(price);
+    setPriceVisibilty(true)
+  }
+  function MouseOut(event){
+    event.target.style.background="";
+    setPriceVisibilty(false)
+  }
+
   return (
     <Container ref={mainDiv}>
       <SelectedValueContainer onClick={onFilterClicked}>
-        <FilterName>
-          <span>{options.length}</span>
-        </FilterName>
+        <TokenBalanceContainer>
+        {isPriceVisibilty && <TokenUsdBalance >
+            {currencySymbol}
+            {Number(priceConvertedValue).toFixed(2)}
+          </TokenUsdBalance>}
+          <FilterName>
+            <span>{options.length}</span>
+          </FilterName>
+          </TokenBalanceContainer>
         <div>
           <img
             className={
@@ -225,6 +245,7 @@ const CustomDropDownAddress = (props) => {
             let priceConverted = !price
               ? ""
               : Utility.divideByDecimalValue(px, data?.decimals);
+              // setPriceConvertedValue(priceConverted)
             return (
               <a
                 className="options-data"
@@ -232,7 +253,7 @@ const CustomDropDownAddress = (props) => {
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
-                <OptionDiv>
+                <OptionDiv onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
                   <FirstColumnToken>
                     <TokenLogo>
                       {data?.tokenImage ? (
@@ -284,7 +305,7 @@ const CustomDropDownAddress = (props) => {
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
-                <OptionDiv>
+                <OptionDiv onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
                   <FirstColumnToken>
                     <TokenLogo>
                       {data?.tokenImage ? (
@@ -344,7 +365,7 @@ const CustomDropDownAddress = (props) => {
                     data?.symbol ? data?.symbol : "NA"
                   }`}
                 >
-                  <OptionDiv>
+                  <OptionDiv onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
                     <FirstColumnToken>
                       <TokenLogo>
                         {data?.tokenImage ? (
