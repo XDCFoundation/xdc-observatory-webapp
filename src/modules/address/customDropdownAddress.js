@@ -99,6 +99,7 @@ const SearchBox = styled.div`
     border: none !important;
     ${({ theme }) => theme === "dark" && `
     background: #091b4e;
+    color: #ffffff;
   `}
   }
 
@@ -127,6 +128,9 @@ const OptionDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   :hover {
     background-color: #3763dd;
     color: #fff !important;
@@ -153,12 +157,14 @@ const TokenHeading = styled.div`
   padding-left: 4px;
   ${({ theme }) => theme === "dark" && `
     background: #091b4e;
-    color: #ffffff;
   `}
   span {
     font-size: 14px;
     font-weight: 600;
     color: #2a2a2a;
+    ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   }
   @media (max-width: 767px) {
     min-width: fit-content;
@@ -262,7 +268,7 @@ const CustomDropDownAddress = (props) => {
                 ? "arrow-rotate-animation-up"
                 : "arrow-rotate-animation-down"
             }
-            src="/images/dropdown-arrow.svg"
+            src={props.theme === "dark" ? "/images/Dropdown.svg":"/images/dropdown-arrow.svg"}
           />
         </div>
       </SelectedValueContainer>
@@ -294,7 +300,7 @@ const CustomDropDownAddress = (props) => {
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
-                <OptionDiv onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
+                <OptionDiv theme={props.theme} onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
                   <FirstColumnToken>
                     <TokenLogo>
                       {data?.tokenImage ? (
@@ -346,7 +352,7 @@ const CustomDropDownAddress = (props) => {
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
-                <OptionDiv onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
+                <OptionDiv theme={props.theme} onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
                   <FirstColumnToken>
                     <TokenLogo>
                       {data?.tokenImage ? (
@@ -406,7 +412,7 @@ const CustomDropDownAddress = (props) => {
                     data?.symbol ? data?.symbol : "NA"
                   }`}
                 >
-                  <OptionDiv onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
+                  <OptionDiv theme={props.theme} onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
                     <FirstColumnToken>
                       <TokenLogo>
                         {data?.tokenImage ? (
