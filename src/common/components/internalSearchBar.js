@@ -262,7 +262,8 @@ const SearchBox = (props) => {
         var selectOptType = SelectOptRef.current?.value;
 
         let requestdata = {
-          filter: selectOptType,
+          // filter: selectOptType,
+          filter: "All filters",
           data: event.target.value,
         };
         BlockChainSearch(requestdata);
@@ -282,7 +283,8 @@ const SearchBox = (props) => {
     } else {
       let selectOptType = SelectOptRef.current?.value;
       let requestdata = {
-        filter: selectOptType,
+        // filter: selectOptType,
+        filter: "All filters",
         data: searchData,
       };
       BlockChainSearch(requestdata);

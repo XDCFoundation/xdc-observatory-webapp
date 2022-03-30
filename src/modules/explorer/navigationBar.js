@@ -213,7 +213,8 @@ export default function Navbar() {
       } else {
         var selectOptType = SelectOptRef.current?.value;
         let requestdata = {
-          filter: selectOptType,
+          // filter: selectOptType,
+          filter: "All filters",
           data: event.target.value,
         };
         BlockChainSearch(requestdata);
@@ -277,7 +278,8 @@ export default function Navbar() {
     } else {
       let selectOptType = SelectOptRef.current?.value;
       let requestdata = {
-        filter: selectOptType,
+        // filter: selectOptType,
+        filter: "All filters",
         data: searchData,
       };
       BlockChainSearch(requestdata);
