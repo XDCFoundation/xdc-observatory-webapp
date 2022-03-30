@@ -374,6 +374,15 @@ export default function Navbar() {
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
+            href="https://stats.xdc.org/" target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Network Stats</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
             href="https://github.com/xdcfoundation" target="_blank"
           >
             <div className="xinfin_account_button">XDC Github</div>

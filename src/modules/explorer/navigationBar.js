@@ -143,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "305px",
     justifyContent: "flex-end",
+    marginTop: "18px",
   },
   xdcBeta: {
     marginTop: "96px",
@@ -446,9 +447,27 @@ export default function Navbar() {
                 <ul className="Network-list-nav">
                     <a
                         className="sidebar-links"
+                        href="https://origin.xdc.org/" target="_blank"
+                    >
+                        <div className="xinfin_account_button">XDC Origin</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
                         href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
                     >
                         <div className="xinfin_account_button">XDCPay</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
+                        href="https://stats.xdc.org/" target="_blank"
+                    >
+                        <div className="xinfin_account_button">XDC Network Stats</div>
                     </a>
                     <hr className="myhr" />
                 </ul>
@@ -1070,13 +1089,13 @@ export default function Navbar() {
                       //         handleSearch(event);
                       //     }
                       // }}
-                      placeholder="Search"
+                      placeholder="Search by Address / Txn Hash / Block / Token"
                     />
                     {inputFieldValue.length == 0 ? (
                       browserName === "Chrome" ? (
                         <div
                           className={
-                               "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
+                               "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-20 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
                           }
                           onClick={searchMyAddress}
                         >
@@ -1093,7 +1112,7 @@ export default function Navbar() {
                       )
                     ) : (
                       <div
-                        className={ "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer"}
+                        className={ "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-20 cursor-pointer"}
                         onClick={() => handleSearchByButton(inputFieldValue)}
                       >
                         <span className="color-4878ff fs-14 fw-500">
@@ -1119,7 +1138,7 @@ export default function Navbar() {
                     )} */}
                   </div>
 
-                  <div className="search-dashboard-select">
+                  {/* <div className="search-dashboard-select">
                     <select
                       onChange={(event) => handleSearchOption(event)}
                       className="select"
@@ -1133,11 +1152,8 @@ export default function Navbar() {
                       <option value="Blocks">Blocks</option>
                       <option value="Tokens">Tokens</option>
                       <option value="Transaction">Transaction</option>
-                      {/* <option value="Nametags">Nametags</option>
-                                    <option value="Labels">Labels</option>
-                                    <option value="Websites">Websites</option> */}
                     </select>
-                  </div>
+                  </div> */}
                 </div>
               </form>
 

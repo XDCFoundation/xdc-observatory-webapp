@@ -320,10 +320,10 @@ const SearchBox = (props) => {
               ref={SearchDataRef}
               className={"main-input-td "}
               src={"/images/Search.png"}
-              placeholder="Search by Address / Txn Hash / Block"
+              placeholder="Search by Address / Txn Hash / Block / Token"
             />
             <div
-              className={"white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet-search m-r-10 cursor-pointer m-r-40-tab"
+              className={"white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet-search cursor-pointer m-r-7-tab"
               }
               onClick={handleSearchByButton}
             >
@@ -331,7 +331,7 @@ const SearchBox = (props) => {
                 Search
               </span>
             </div>
-            <div className="mobFilter">
+            {/* <div className="mobFilter">
               <select
                 className={"select-td"}
                 onChange={(event) => handleSearchOption(event)}
@@ -345,7 +345,7 @@ const SearchBox = (props) => {
                 <option value="Tokens">Tokens</option>
                 <option value="Transaction">Transaction</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </Row>
 
