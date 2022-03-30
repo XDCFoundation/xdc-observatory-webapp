@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
+  padding-right: 0px !important;
+  overflow-y: auto !important;
 }
 a {
   text-decoration: none;
@@ -43,7 +45,7 @@ label {
 }
 
 .color-4878ff {
-  color: #4878ff;
+  color: #4878ff !important;
 }
 
 .color-9fa9ba {

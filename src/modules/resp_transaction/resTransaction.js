@@ -1089,7 +1089,6 @@ const ContainerTxnAction = styled.div`
   width: 100%;
   align-items: center;
   max-width: 165px;
-  margin-top: -40px;
 `;
 
 function Transaction({ _handleChange, theme }) {
@@ -1474,7 +1473,7 @@ function Transaction({ _handleChange, theme }) {
                 </Heading>
               </Container>
               <Div theme={theme.currentTheme}>
-                {transactions ? (
+                {transactions.status == true || transactions.status == false ? (
                   transactions.status == true ? (
                     <StatusContainer theme={theme.currentTheme}>
                       <StatusContainerInside>
@@ -1991,16 +1990,16 @@ function Transaction({ _handleChange, theme }) {
                     <ContainerInteractedWith>
                       <Tooltip
                         align="right"
-                        title={toolTipMessages.gasprovided}
+                        title={toolTipMessages.interactedWithTo}
                       >
                         <ImageView src={"/images/info.svg"} />
                       </Tooltip>
-                      <Hash>Interacted With (To)</Hash>
+                      <Hash theme={theme.currentTheme}>Interacted With (To)</Hash>
                     </ContainerInteractedWith>
                     <MiddleContainer isTextArea={false}>
                       <MainContainerInteractedWith>
                         <ContentInteractedWith>
-                          <div>Contract</div>
+                          <BlackText theme={theme.currentTheme}>Contract</BlackText>
                           &nbsp;
                           <span>
                             <a
@@ -2010,28 +2009,28 @@ function Transaction({ _handleChange, theme }) {
                               xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                             </a>
                           </span>
-                          &nbsp;&nbsp; (<div>FleekApp</div>)
+                          &nbsp;&nbsp; (<BlackText theme={theme.currentTheme}>FleekApp</BlackText>)
                           <ImgInteracted src="/images/success.svg" />
                           <ImgCopyGrey src="/images/copy-grey.svg" />
                         </ContentInteractedWith>
                         <InteractedWithNextRow>
                           <ImgNewLine src="/images/linked.svg" />
                           <GreyText>{transactions?.method}</GreyText>
-                          <BlackText>0.000000006 XDC</BlackText>
+                          <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
                           <GreyText>From</GreyText>
-                          <BlueText>Fleek: NFT App</BlueText>
+                          <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
                           <GreyText>to</GreyText>
-                          <BlackText>Fleek:</BlackText>
-                          <BlueText>NFT App</BlueText>
+                          <BlackText theme={theme.currentTheme}>Fleek:</BlackText>
+                          <BlueText theme={theme.currentTheme}>NFT App</BlueText>
                         </InteractedWithNextRow>
                         <InteractedWithNextRow>
                           <ImgNewLine src="/images/linked.svg" />
                           <GreyText>{transactions?.method}</GreyText>
-                          <BlackText>0.000000006 XDC</BlackText>
+                          <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
                           <GreyText>From</GreyText>
-                          <BlueText>Fleek: NFT App</BlueText>
+                          <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
                           <GreyText>to</GreyText>
-                          <BlueText>
+                          <BlueText theme={theme.currentTheme}>
                             &nbsp;
                             {transactions?.to
                               ? utility.shortenAddress(
@@ -2052,7 +2051,7 @@ function Transaction({ _handleChange, theme }) {
                       <Container>
                         <Tooltip
                           align="right"
-                          title={toolTipMessages.gasprovided}
+                          title={toolTipMessages.tokenTransferred}
                         >
                           <ImageView src={"/images/info.svg"} />
                         </Tooltip>
@@ -2092,11 +2091,11 @@ function Transaction({ _handleChange, theme }) {
                       <ContainerTxnAction>
                         <Tooltip
                           align="right"
-                          title={toolTipMessages.gasprovided}
+                          title={toolTipMessages.transactionAction}
                         >
                           <ImageView src={"/images/info.svg"} />
                         </Tooltip>
-                        <Hash>Txn Action</Hash>
+                        <Hash theme={theme.currentTheme}>Txn Action</Hash>
                       </ContainerTxnAction>
                       <MiddleContainer isTextArea={false}>
                         <MainContainerTxnAction>
@@ -2145,16 +2144,16 @@ function Transaction({ _handleChange, theme }) {
                       <ContainerInteractedWith>
                         <Tooltip
                           align="right"
-                          title={toolTipMessages.gasprovided}
+                          title={toolTipMessages.interactedWithTo}
                         >
                           <ImageView src={"/images/info.svg"} />
                         </Tooltip>
-                        <Hash>Interacted With (To)</Hash>
+                        <Hash theme={theme.currentTheme}>Interacted With (To)</Hash>
                       </ContainerInteractedWith>
                       <MiddleContainer isTextArea={false}>
                         <MainContainerInteractedWith>
                           <ContentInteractedWith>
-                            <div>Contract</div>
+                            <BlackText theme={theme.currentTheme}>Contract</BlackText>
                             &nbsp;
                             <span>
                               <a
@@ -2168,7 +2167,7 @@ function Transaction({ _handleChange, theme }) {
                                 xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                               </a>
                             </span>
-                            &nbsp;&nbsp; (<div>FleekApp</div>)
+                            &nbsp;&nbsp; (<BlackText theme={theme.currentTheme}>FleekApp</BlackText>)
                             <ImgInteracted src="/images/success.svg" />
                             <ImgCopyGrey src="/images/copy-grey.svg" />
                           </ContentInteractedWith>
