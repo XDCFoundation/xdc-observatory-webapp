@@ -74,7 +74,7 @@ const utility = {
   getUtcOffset,
   shortenAddress,
   shortenAddressImport,
-  getMethodType,
+  getMethodType, getTxnActionFromAndTo
 };
 export default utility;
 
@@ -83,20 +83,31 @@ function getMethodType(transactionData) {
 
   return MethodFromByte[input] ? MethodFromByte[input] : "";
 }
-
+function getTxnActionFromAndTo(res) {
+  let txnActionFrom = []
+  let txnActionTo = []
+  let txnLog = res ? res.logs : ""
+  let txnlog = txnLog?.map((res) => {
+    let topicsFrom = res ? res.topics[1].slice(-40) : ""
+    txnActionFrom.push(topicsFrom)
+    let topicsTo = res ? res.topics[2].slice(-40) : ""
+    txnActionTo.push(topicsTo)
+  })
+  let txnActionFromValue = "xdc" + txnActionFrom.pop();
+  let txnActionToValue = "xdc" + txnActionTo.pop();
+  return { txnActionFromValue, txnActionToValue }
+}
 function getUtcOffset(timezone) {
   let min = momentZone.tz(timezone).utcOffset();
   return min > 0
-    ? `UTC+${
-        Math.abs(parseInt(min / 60)) > 9
-          ? Math.abs(parseInt(min / 60))
-          : `0${Math.abs(parseInt(min / 60))}`
-      }:${Math.abs(parseInt(min % 60)) || "00"}`
-    : `UTC-${
-        Math.abs(parseInt(min / 60)) > 9
-          ? Math.abs(parseInt(min / 60))
-          : `0${Math.abs(parseInt(min / 60))}`
-      }:${Math.abs(parseInt(min % 60)) || "00"}`;
+    ? `UTC+${Math.abs(parseInt(min / 60)) > 9
+      ? Math.abs(parseInt(min / 60))
+      : `0${Math.abs(parseInt(min / 60))}`
+    }:${Math.abs(parseInt(min % 60)) || "00"}`
+    : `UTC-${Math.abs(parseInt(min / 60)) > 9
+      ? Math.abs(parseInt(min / 60))
+      : `0${Math.abs(parseInt(min / 60))}`
+    }:${Math.abs(parseInt(min % 60)) || "00"}`;
 }
 
 function getNumber(num) {
@@ -247,8 +258,8 @@ async function uploadImage(request) {
       throw error && error.message
         ? error.message
         : error
-        ? error
-        : "Upload file Failed";
+          ? error
+          : "Upload file Failed";
     }
     return response.responseData[0];
   } catch (error) {
@@ -656,8 +667,8 @@ function getAddedByObject(propsOfComponent) {
       user.firstName || user.lastName
         ? user.firstName + " " + user.lastName
         : user.company && user.company.name
-        ? user.company.name
-        : "",
+          ? user.company.name
+          : "",
     _id: user._id,
   };
 }
@@ -737,8 +748,8 @@ function isCompanyBalanceLow(company) {
     new Date(company.tokenEconomy.endDate).getMonth() -
     new Date().getMonth() +
     12 *
-      (new Date(company.tokenEconomy.endDate).getFullYear() -
-        new Date().getFullYear());
+    (new Date(company.tokenEconomy.endDate).getFullYear() -
+      new Date().getFullYear());
   if (
     company.tokenEconomy.PERCBalance <
     company.tokenEconomy.monthlyPERCAllocation * remainingMonth
