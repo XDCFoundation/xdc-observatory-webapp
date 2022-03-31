@@ -1452,8 +1452,9 @@ function Transaction({ _handleChange, theme }) {
     }
   };
   const timezone = useSelector((state) => state.timezone);
+  let txnActionValues = utility.getTxnActionFromAndTo(transactions)
+  let interectedWithValues = utility.getInterectedWithFromAndTo(transactions)
   
-  //0x6db66c1a48e3a8497d1b9dbe1b8aa46aaab5424d53502ca35137254f34b5db52
   return (
     <div
       className={
@@ -2114,9 +2115,9 @@ function Transaction({ _handleChange, theme }) {
                             <GreyText>&nbsp;from</GreyText>
                             <BlueText theme={theme.currentTheme}>
                               &nbsp;
-                              {transactions?.from
+                              {txnActionValues?.txnActionFromValue
                                 ? utility.shortenAddress(
-                                  transactions?.from,
+                                  txnActionValues?.txnActionFromValue,
                                   11,
                                   4,
                                   3
@@ -2126,9 +2127,9 @@ function Transaction({ _handleChange, theme }) {
                             <GreyText>&nbsp;to</GreyText>
                             <BlueText theme={theme.currentTheme}>
                               &nbsp;
-                              {transactions?.to
+                              {txnActionValues?.txnActionToValue
                                 ? utility.shortenAddress(
-                                  transactions?.to,
+                                  txnActionValues?.txnActionToValue,
                                   11,
                                   4,
                                   3
