@@ -2384,6 +2384,7 @@ function Transaction({ _handleChange, theme }) {
                             open={loginDialogIsOpen}
                             onClose={closeLoginDialog}
                             dataHashOrAddress={hash}
+                            theme={theme.currentTheme}
                           />
                         }
                         To access the private note feature, you must be

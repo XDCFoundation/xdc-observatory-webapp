@@ -1013,6 +1013,7 @@ function AddressDetails(props) {
                     open={loginDialogIsOpen}
                     onClose={closeLoginDialog}
                     dataHashOrAddress={addr}
+                    theme={props.theme.currentTheme}
                   />
                 }
                 <LoginTextMobile>
@@ -1216,6 +1217,7 @@ function AddressDetails(props) {
                           open={loginDialogIsOpen}
                           onClose={closeLoginDialog}
                           dataHashOrAddress={addr}
+                          theme={props.theme.currentTheme}
                         />
                       }
                       <LoginText theme={props.theme.currentTheme}>
