@@ -12,6 +12,7 @@ const Container = styled.div`
     margin-left: 0;
     margin-top: 4px;
     margin-bottom: 4px;
+    width: 180px;
   }
 `;
 const SelectedValueContainer = styled.div`
@@ -29,6 +30,10 @@ const SelectedValueContainer = styled.div`
     width: 11px;
     margin-left: 8px;
   }
+  ${({ theme }) => theme === "dark" && `
+    background: transparent;
+    border: solid 1px #3552a5;
+  `}
 `;
 
 const FilterName = styled.div`
@@ -61,9 +66,18 @@ const DropdownContainer = styled.div`
   min-width: ${(props) => props.containerWidth}px;
   max-height: 347px;
   padding-bottom: 10px;
+  ${({ theme }) => theme === "dark" && `
+    background: #283966;
+    border: solid 1px #3552a5;
+    color: #ffffff;
+  `}
   span {
     padding: 8px;
     cursor: pointer;
+  }
+  @media (max-width: 767px) {
+    max-width: 180px;
+    padding-right: 5px;
   }
 `;
 const SearchBox = styled.div`
@@ -76,9 +90,17 @@ const SearchBox = styled.div`
   display: flex;
   align-items: center;
   margin: 6px 3px;
+  ${({ theme }) => theme === "dark" && `
+    background: #091b4e;
+    border: solid 1px #3552a5;
+  `}
   input {
     outline: none;
     border: none !important;
+    ${({ theme }) => theme === "dark" && `
+    background: #091b4e;
+    color: #ffffff;
+  `}
   }
 
   img {
@@ -90,6 +112,11 @@ const SearchBox = styled.div`
   @media (max-width: 767px) {
     min-width: 100%;
     margin-right: 0;
+    input {
+      outline: none;
+      border: none !important;
+      width: 136px;
+    }
   }
 `;
 const TokenBalanceContainer = styled.div`
@@ -101,9 +128,15 @@ const OptionDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
   :hover {
     background-color: #3763dd;
     color: #fff !important;
+  }
+  @media (max-width: 767px) {
+    display: block;
   }
 `;
 const TokenName = styled.div`
@@ -122,11 +155,19 @@ const TokenHeading = styled.div`
   display: flex;
   align-items: center;
   padding-left: 4px;
-
+  ${({ theme }) => theme === "dark" && `
+    background: #091b4e;
+  `}
   span {
     font-size: 14px;
     font-weight: 600;
     color: #2a2a2a;
+    ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
+  }
+  @media (max-width: 767px) {
+    min-width: fit-content;
   }
 `;
 const TokenLogo = styled.div``;
@@ -144,6 +185,12 @@ const LastLine = styled.div`
   margin: 0 auto;
   min-width: 311px;
   border: solid 0.5px #e3e7eb;
+  ${({ theme }) => theme === "dark" && `
+    border: solid 0.5px #3552a5;
+  `}
+  @media (max-width: 767px) {
+    min-width: fit-content;
+  }
 `;
 const CustomDropDownAddress = (props) => {
   const { price, options, onSelect } = props;
@@ -204,7 +251,7 @@ const CustomDropDownAddress = (props) => {
 
   return (
     <Container ref={mainDiv}>
-      <SelectedValueContainer onClick={onFilterClicked}>
+      <SelectedValueContainer theme={props.theme} onClick={onFilterClicked}>
         <TokenBalanceContainer>
         {isPriceVisibilty && <TokenUsdBalance >
             {currencySymbol}
@@ -221,20 +268,20 @@ const CustomDropDownAddress = (props) => {
                 ? "arrow-rotate-animation-up"
                 : "arrow-rotate-animation-down"
             }
-            src="/images/dropdown-arrow.svg"
+            src={props.theme === "dark" ? "/images/Dropdown.svg":"/images/dropdown-arrow.svg"}
           />
         </div>
       </SelectedValueContainer>
       {isDropdownOpen && search.length == 0 ? (
-        <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
-          <SearchBox>
+        <DropdownContainer theme={props.theme} containerWidth={mainDiv.current.clientWidth}>
+          <SearchBox theme={props.theme}>
             <img src="/images/Search.svg" />
             <input
               placeholder="Search"
               onChange={(e) => setSearch(e.target.value)}
             />
           </SearchBox>
-          <TokenHeading>
+          <TokenHeading theme={props.theme}>
             <span>XRC-20 Token ({filterXrc20.length})</span>
           </TokenHeading>
           {filterXrc20?.map((data, index) => {
@@ -253,7 +300,7 @@ const CustomDropDownAddress = (props) => {
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
-                <OptionDiv onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
+                <OptionDiv theme={props.theme} onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
                   <FirstColumnToken>
                     <TokenLogo>
                       {data?.tokenImage ? (
@@ -287,7 +334,7 @@ const CustomDropDownAddress = (props) => {
               </a>
             );
           })}
-          <TokenHeading>
+          <TokenHeading theme={props.theme}>
             <span>XRC-721 Token ({filterXrc721.length})</span>
           </TokenHeading>
           {filterXrc721?.map((data, index) => {
@@ -305,7 +352,7 @@ const CustomDropDownAddress = (props) => {
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
-                <OptionDiv onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
+                <OptionDiv theme={props.theme} onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
                   <FirstColumnToken>
                     <TokenLogo>
                       {data?.tokenImage ? (
@@ -338,12 +385,12 @@ const CustomDropDownAddress = (props) => {
               </a>
             );
           })}
-          <LastLine></LastLine>
+          <LastLine theme={props.theme}></LastLine>
         </DropdownContainer>
       ) : (
         isDropdownOpen && (
-          <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
-            <SearchBox>
+          <DropdownContainer theme={props.theme} containerWidth={mainDiv.current.clientWidth}>
+            <SearchBox theme={props.theme}>
               <img src="/images/Search.svg" />
               <input
                 placeholder="Search"
@@ -365,7 +412,7 @@ const CustomDropDownAddress = (props) => {
                     data?.symbol ? data?.symbol : "NA"
                   }`}
                 >
-                  <OptionDiv onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
+                  <OptionDiv theme={props.theme} onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
                     <FirstColumnToken>
                       <TokenLogo>
                         {data?.tokenImage ? (
