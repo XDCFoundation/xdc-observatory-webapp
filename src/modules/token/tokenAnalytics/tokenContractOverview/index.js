@@ -22,6 +22,11 @@ const NoDataFoundContainer = styled.div`
   align-items: center;
   margin-top: 100px;
   gap: 10px;
+  color: #c6cbcf;
+  ${({ theme }) =>
+    theme === "dark" && `
+     color: #b1c3e1;
+  `}
   @media (min-width: 767px) {
     margin: 100px !important;
   }
@@ -491,7 +496,7 @@ class TokenContractOverviewGraph extends BaseComponent {
                 ) : (
                     <span>
              {this.state.graphData.length == 0 ?
-                 <NoDataFoundContainer>
+                 <NoDataFoundContainer theme={this.props.theme}>
                      <img
                          src={require("../../../../../src/assets/images/XDC-Alert.svg")}
                      ></img>

@@ -119,6 +119,7 @@ const ThirdCloumnWithoutFlex = styled.div`
   }
 `;
 function FooterComponent(props) {
+    console.log("footer-props",props)
     const classes = useStyles();
     const [activeCurrency, setActiveCurrency] = useState("USD");
     const [timeZone, setActiveTimeZone] = useState("");
