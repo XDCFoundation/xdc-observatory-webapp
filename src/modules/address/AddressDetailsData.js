@@ -25,7 +25,8 @@ import ReadContract from "../contractMethods/read";
 import WriteContract from "../contractMethods/write";
 import styled from "styled-components";
 import { connect } from "react-redux";
-
+import { CoinMarketService } from "../../services";
+import format from "format-number";
 const useStyles = makeStyles({
   rootUI: {
     minWidth: 650,
@@ -91,7 +92,12 @@ function AddressDetailsData(props) {
   }
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
-  const [amount, setAmount] = React.useState(50);
+  const [amount, setAmount] = React.useState("");
+  const [price, setPrice] = useState("");
+  function _handleChange(event) {
+    setAmount(event?.target?.value);
+    window.localStorage.setItem("currency", event?.target?.value);
+  }
   let initialState = {
     balance: 0,
     transactionCout: 0,
@@ -115,11 +121,11 @@ function AddressDetailsData(props) {
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-  let value = !data.val ? 0 : data.val;
+  let value = !data.balance ? 0 : data.balance;
   let value1 = value.toString().split(".")[0];
   let value2 = value.toString().split(".")[1];
 
-  let changedValue = data.changedVal;
+  let changedValue =  data?.balance?Utility.convertToInternationalCurrencySystem(data?.balance * price):"";
   let changedValue1 = changedValue.toString().split(".")[0];
   let changedValue2 = changedValue.toString().split(".")[1];
 
@@ -161,7 +167,7 @@ function AddressDetailsData(props) {
             changeVal = responseData.priceInUSD.toFixed(6);
         }
         setData({
-          balance: responseData.balance,
+          balance: Utility.decimalDivisonOnly(responseAPI?.balance,8),
           transactionCout: responseData.transactionCount,
           contractName: responseData.contractName,
           creator: responseData.owner,
@@ -187,12 +193,26 @@ function AddressDetailsData(props) {
       console.error(error);
     }
   };
+  let activeCurrency = window.localStorage.getItem("currency");
+  let currencySymbol = !price ? "" :
+  activeCurrency === "USD" ? "$" : "€";
+  const coinMarketCapDetails = async () => {
+    let [error, totalcoinMarketPrice] = await Utility?.parseResponse(
+      CoinMarketService?.getCoinMarketData(activeCurrency, {})
+    );
+    if (error || !totalcoinMarketPrice) return;
+    totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
+      return a.lastUpdated - b.lastUpdated;
+    });
+    setPrice(totalcoinMarketPrice[1]?.price);
+  };
   React.useEffect(() => {
     let values = { addr: addressNumber };
     getContractDetails(values);
     let data = { address: addressNumber };
     getTransactionsCountForAddress(data);
-  }, []);
+    coinMarketCapDetails()
+  }, [amount]);
 
   return (
     <div style={props.theme.currentTheme === "dark" ? { backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
@@ -228,15 +248,15 @@ function AddressDetailsData(props) {
                         </TableCell>
                         <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
                           {balance2 == null ? (
-                            <span>{balance1} XDC</span>
+                            <span>{Number(balance1)} XDC</span>
                           ) : (
                             <span>
-                              {balance1}
+                              {Number(balance1)}
                               {"."}
                               <span style={{ color: "#9FA9BA" }}>
                                 {balance2}
                               </span>
-                              XDC
+                              &nbsp;XDC
                             </span>
                           )}
                         </TableCell>
@@ -246,7 +266,7 @@ function AddressDetailsData(props) {
                           USD Value
                         </TableCell>
                         <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
-                          {ReactHtmlParser(data.currencySymbol)}
+                          {/* {ReactHtmlParser(data.currencySymbol)}
                           {value2 == null ? (
                             <span>{value1} </span>
                           ) : (
@@ -269,7 +289,19 @@ function AddressDetailsData(props) {
                               /XDC
                             </span>
                           )}
-                          )
+                          ) */}
+                         {currencySymbol}
+                          {changedValue2 == null ? (
+                            <span>{changedValue1 ?changedValue1:""}&nbsp; </span>
+                          ) : (
+                            <span>
+                              {changedValue1}
+                              {"."}
+                              <span style={{ color: "#9FA9BA" }}>
+                                {changedValue2}
+                              </span>
+                            </span>
+                          )}
                         </TableCell>
                       </TableRow>
                       <TableRow>
@@ -486,7 +518,7 @@ function AddressDetailsData(props) {
           {/* </div> */}
         </div>
       </Grid>
-      <FooterComponent />
+      <FooterComponent  _handleChange={_handleChange} currency={amount} />
     </div>
   );
 }

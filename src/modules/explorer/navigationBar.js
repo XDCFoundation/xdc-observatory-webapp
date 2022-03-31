@@ -241,6 +241,7 @@ export default function Navbar(props) {
       BlockChainSearch(requestdata);
     }
   };
+  console.log(browserName,"browser")
 
   const handleTokenPopover = () => {
     setTokenPopover(true);
@@ -1159,7 +1160,7 @@ export default function Navbar(props) {
                       placeholder="Search"
                     />
                     {inputFieldValue.length == 0 ? (
-                      browserName === "Chrome" ? (
+                      browserName === "Chrome" || "Edge browser" ? (
                         <div
                           className={
                             props.theme === "dark"

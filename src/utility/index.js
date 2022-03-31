@@ -74,7 +74,7 @@ const utility = {
   getUtcOffset,
   shortenAddress,
   shortenAddressImport,
-  getMethodType, getTxnActionFromAndTo
+  getMethodType, getTxnActionFromAndTo, getInterectedWithFromAndTo
 };
 export default utility;
 
@@ -96,6 +96,18 @@ function getTxnActionFromAndTo(res) {
   let txnActionFromValue = "xdc" + txnActionFrom.pop();
   let txnActionToValue = "xdc" + txnActionTo.pop();
   return { txnActionFromValue, txnActionToValue }
+}
+function getInterectedWithFromAndTo(res) {
+  let interectedWithFrom = []
+  let interectedWithTo = []
+  let txnLog = res ? res.logs : ""
+  let txnlog = txnLog?.map((res) => {
+    let topicsFrom = res ? res.topics[1].slice(-40) : ""
+    interectedWithFrom.push("xdc" + topicsFrom)
+    let topicsTo = res ? res.topics[2].slice(-40) : ""
+    interectedWithTo.push("xdc" + topicsTo)
+  })
+  return { interectedWithFrom, interectedWithTo }
 }
 function getUtcOffset(timezone) {
   let min = momentZone.tz(timezone).utcOffset();
