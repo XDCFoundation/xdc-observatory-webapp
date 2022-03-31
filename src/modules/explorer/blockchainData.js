@@ -695,7 +695,7 @@ class BlockChainDataComponent extends Component {
           <DeskTopDesign>
             <LeftFirst>
               <LeftTop>
-                <IconLogo src={logo} />
+                <IconLogo src={this.props.theme === "dark" ? "/images/XDC icon.svg" : logo} />
                 <LeftTitle theme={this.props.theme}>XDC</LeftTitle>
               </LeftTop>
               <LeftTopSecMain>

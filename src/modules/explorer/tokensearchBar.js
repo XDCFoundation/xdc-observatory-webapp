@@ -185,7 +185,6 @@ export default function Navbar(props) {
   const history = useHistory();
 
   const currentTheme = props.theme;
-  console.log(currentTheme, "JJJJJ")
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -386,15 +385,6 @@ export default function Navbar(props) {
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
-            href="https://origin.xdc.org/" target="_blank"
-          >
-            <div className="xinfin_account_button">XDC Origin</div>
-          </a>
-          <hr className="myhr" />
-        </ul>
-        <ul className="Network-list-nav">
-          <a
-            className="sidebar-links"
             href="/blockchain-identity"
           >
             <div className="xinfin_account_button">Blockchain Identity</div>
@@ -404,9 +394,27 @@ export default function Navbar(props) {
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
+            href="https://origin.xdc.org/" target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Origin</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
             href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
           >
             <div className="xinfin_account_button">XDCPay</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://stats.xdc.org/" target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Network Stats</div>
           </a>
           <hr className="myhr" />
         </ul>
