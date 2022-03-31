@@ -207,6 +207,12 @@ export const toolTipMessages = {
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
   txnfee:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+  tokenTransferred:
+    "Tokens transferred in the transaction.",
+  transactionAction:
+    "Highlighted event of the transaction.",
+  interactedWithTo:
+    "The receiving party of the transaction (could be a contract address).",
   gasprovided:
     "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
   gasprice:

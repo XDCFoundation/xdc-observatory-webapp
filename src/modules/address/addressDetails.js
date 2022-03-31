@@ -1130,6 +1130,7 @@ function AddressDetails(props) {
                           onSelect={(data) => setType(data)}
                           options={tokenForAddres}
                           price={price}
+                          theme={props.theme.currentTheme}
                         />
                       ) : (
                         "No Tokens Available"

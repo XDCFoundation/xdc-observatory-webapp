@@ -196,6 +196,7 @@ class AddressStatsData extends Component {
     let highestTxn = Utils.convertToInternationalCurrencySystem(
       Number(highestTransaction)
     );
+
     let highestTransactionConverted =
       Utils.convertToInternationalCurrencySystem(
         Number(highestTransaction) * Number(currencyPrice)
@@ -268,7 +269,7 @@ class AddressStatsData extends Component {
                 <ThirdRowValue>
                   <OutValue theme={this.props.theme}>
                     {currencySymbol}
-                    {!highestTransactionConverted
+                    {highestTransactionConverted < 0
                       ? ""
                       : highestTransactionConverted}
                   </OutValue>
@@ -406,7 +407,7 @@ class AddressStatsData extends Component {
                   <OutValue theme={this.props.theme}>
                     {" "}
                     {currencySymbol}
-                    {!highestTransactionConverted
+                    {highestTransactionConverted < 0
                       ? ""
                       : highestTransactionConverted}
                   </OutValue>
