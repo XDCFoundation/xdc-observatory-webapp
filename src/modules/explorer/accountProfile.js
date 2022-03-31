@@ -2396,7 +2396,7 @@ function SimpleTabs(props) {
                                 Added On
                                 <Tooltip
                                   placement="top"
-                                  title={messages.NAME_TAG}
+                                  title={messages.TAG_ADDED_ON}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2590,7 +2590,7 @@ function SimpleTabs(props) {
                               Added On
                               <Tooltip
                                 placement="top"
-                                title={messages.NAME_TAG}
+                                title={messages.TAG_ADDED_ON}
                               >
                                 <img
                                   alt="question-mark"
