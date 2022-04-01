@@ -289,6 +289,7 @@ const DropdownContainer = styled.div`
   background-color: white;
   max-height: 250px;
   margin-top: 3px;
+  padding: 9px 11px;
   border-radius: 8px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   min-width: ${(props) => props.containerWidth}px;
@@ -311,6 +312,12 @@ const OptionDiv = styled.div`
   :hover {
     background-color: #f9f9f9;
   }
+`;
+const OptionsContainer = styled.div`
+  display: flex;
+`;
+const Image = styled.img`
+  margin-right: 2px;
 `;
 const TransactionHeaderContainer = styled.div`
   display: flex;
@@ -570,8 +577,14 @@ const CustomDropDownAddress = (props) => {
               ref={hiddenFileInput}
               style={{ display: "none" }}
             />
-            <OptionDiv onClick={handleOpenXDCPay}>Import from XDCPay</OptionDiv>
-            <OptionDiv onClick={handleClick}>Import from CSV file</OptionDiv>
+              <OptionsContainer onClick={handleOpenXDCPay}>
+                <Image src="/images/xdc.svg" />
+                <OptionDiv>Import from XDCPay</OptionDiv>
+              </OptionsContainer>
+              <OptionsContainer onClick={handleClick}>
+                <Image src="/images/csv.svg" />
+                <OptionDiv>Import from CSV File</OptionDiv>
+              </OptionsContainer>
           </DropdownContainer>
         )}
       </Container>

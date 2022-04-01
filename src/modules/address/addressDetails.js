@@ -1013,6 +1013,7 @@ function AddressDetails(props) {
                     open={loginDialogIsOpen}
                     onClose={closeLoginDialog}
                     dataHashOrAddress={addr}
+                    theme={props.theme.currentTheme}
                   />
                 }
                 <LoginTextMobile>
@@ -1130,6 +1131,7 @@ function AddressDetails(props) {
                           onSelect={(data) => setType(data)}
                           options={tokenForAddres}
                           price={price}
+                          theme={props.theme.currentTheme}
                         />
                       ) : (
                         "No Tokens Available"
@@ -1215,6 +1217,7 @@ function AddressDetails(props) {
                           open={loginDialogIsOpen}
                           onClose={closeLoginDialog}
                           dataHashOrAddress={addr}
+                          theme={props.theme.currentTheme}
                         />
                       }
                       <LoginText theme={props.theme.currentTheme}>

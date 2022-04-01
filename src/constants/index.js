@@ -141,7 +141,7 @@ export const messages = {
   AGE: "Time when was the transaction created.",
   METHOD: "Function executed based on decoded input data.",
   BLOCK: "Block number associated with the transaction.",
-  DIFFICULTY: "Difficulty.",
+  DIFFICULTY: "The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time.",
   GAS_USED: "The exact unit of gas that was used for the transactions.",
   FROM: "Sender’s account.",
   TO: "Receiver’s account.",
@@ -193,6 +193,7 @@ export const messages = {
   DOWNLOAD_CSV: "Select address by clicking on checkbox to export data",
   RANGE_SELECTOR:"Dates can be selected within the date range of data available",
   EXPORT_DISABLE: "Select address by clicking on checkbox to export data",
+  RANGE_SELECT: "Dates can be selected within the date range of data available"
 };
 
 export const toolTipMessages = {
@@ -207,6 +208,12 @@ export const toolTipMessages = {
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
   txnfee:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+  tokenTransferred:
+    "Tokens transferred in the transaction.",
+  transactionAction:
+    "Highlighted event of the transaction.",
+  interactedWithTo:
+    "The receiving party of the transaction (could be a contract address).",
   gasprovided:
     "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
   gasprice:
@@ -217,9 +224,9 @@ export const toolTipMessages = {
   input: "Additional information that is required for the transaction",
   transferToken:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
-  privatenote: "Private notes",
   age: "Time when was the transaction created.",
   date: "Transaction creation date.",
+  privatenote : `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`
 };
 
 export const decimalDivisionValue = {
