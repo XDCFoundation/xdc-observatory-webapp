@@ -55,7 +55,7 @@ export default function VerifyContract(props) {
         let contractAddress = data.addr?.replace(/^.{2}/g, 'xdc');
         const urlParams = new URLSearchParams(window.location.search);
         const reference = urlParams.get('reference');
-        if(reference === genericConstants.SCM_REFERENCE)
+        if(reference && reference === genericConstants.SCM_REFERENCE)
             data["reference"] = genericConstants.SCM_REFERENCE;
         try {
             setisLoading(true)
