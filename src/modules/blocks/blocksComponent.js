@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
   selectAmount: {
     height: "70%",
-    marginRight: "8px",
+    marginRight: "20px",
   },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
@@ -323,12 +323,11 @@ export default function BlocksComponent(props) {
       <Grid container style={{ marginTop: "28px" }} className="Pagination">
         <Grid item className="Pagination_1">
           <span className={props.theme === "dark" ? "textShowRecordBlockDark" : "textShowRecordBlock"}>Show</span>
-          <span className={classes.selectAmount}>
           <PageSelector value={props.state.amount}
                 height={35}
                 handler={(event) => props._handleChange(event)} 
                 theme={props.theme}
-                /></span>
+                />
           {/* <select
             value={props.state.amount}
             className="select-amount"

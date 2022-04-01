@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
+  padding-right: 0px !important;
+  overflow-y: auto !important;
 }
 a {
   text-decoration: none;
@@ -43,7 +45,7 @@ label {
 }
 
 .color-4878ff {
-  color: #4878ff;
+  color: #4878ff !important;
 }
 
 .color-9fa9ba {
@@ -523,6 +525,9 @@ input:focus {
 
 .fc-blue-grey {
   color: #5e6c84;
+}
+.fc-9fa9ba {
+  color: #9fa9ba !important;
 }
 
 .fc-red {
@@ -1730,7 +1735,7 @@ div::-webkit-scrollbar-thumb {
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  height: 27.063rem;
+  height: 17rem;
   /* background-color:  */
   background-image: url("../images/banner_bg.png");
 }
@@ -1738,7 +1743,7 @@ div::-webkit-scrollbar-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 27.063rem;
+  height: 17rem;
   background-color: #132a69; 
 }
 
@@ -1848,8 +1853,8 @@ div::-webkit-scrollbar-thumb {
     width: 16px;
   }
 
-  .m-r-40-tab{
-    margin-right: 40px !important;
+  .m-r-7-tab{
+    margin-right: 7px !important;
   }
 }
 .header-mobile-top {
@@ -5339,6 +5344,16 @@ button {
 }
 .active-tabs-dark {
   color: #eeeff3
+}
+.active-tabs-dark::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 93%;
+  height: 1px;
+  border: solid 1px #eeeff3;
 }
 
 .max-div {
@@ -10013,11 +10028,11 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 11px;
+  padding-top: 17px;
 }
 
 .search-dashboard-input {
-  width: 83%;
+  width: 100%;
   display: flex;
   align-items: center;
 }
@@ -10029,6 +10044,9 @@ button {
     margin-left: 10px;
     height: 15px;
     margin-bottom: 2px;
+  }
+  .search-dashboard {
+    padding-top: 13px !important;
   }
 }
 /* .search-dashboard-select {
@@ -12033,6 +12051,9 @@ button {
 }
 .m-r-9 {
   margin-right: 9px;
+}
+.m-r-20 {
+  margin-right: 20px;
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .error-message {
