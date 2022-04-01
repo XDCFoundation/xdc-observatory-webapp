@@ -62,12 +62,9 @@ export default function VerifyContract(props) {
             const resp = await contractverify.getContractVerify(data)
             setisLoading(false)
 
-            if (resp[0].Error == 0 && !ifSCM) {
+            if (resp[0].Error == 0) {
                 let url = "/address/" + contractAddress
                 window.location.href = url;
-            }
-            else if(resp[0].Error == 0 && ifSCM){
-                window.location.href = process.env.REACT_APP_SCM_WEBAPP + "?contractAddress=" + contractAddress;
             }
              else {
                 setMessage(resp[0].message)
