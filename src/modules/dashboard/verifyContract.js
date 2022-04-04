@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Releases from "./list.json";
+import {genericConstants} from "../../constants";
 import contractverify from "../../services/contractverify";
 export default function VerifyContract(props) {
     let address = useParams();
@@ -52,18 +53,18 @@ export default function VerifyContract(props) {
     }
     const onSubmitHandler = async (data) => {
         let contractAddress = data.addr?.replace(/^.{2}/g, 'xdc');
-        let ifSCM = window.location.search.replace("?", "")
+        const urlParams = new URLSearchParams(window.location.search);
+        const reference = urlParams.get('reference');
+        if(reference && reference === genericConstants.SCM_REFERENCE)
+            data["reference"] = genericConstants.SCM_REFERENCE;
         try {
             setisLoading(true)
             const resp = await contractverify.getContractVerify(data)
             setisLoading(false)
 
-            if (resp[0].Error == 0 && !ifSCM) {
+            if (resp[0].Error == 0) {
                 let url = "/address/" + contractAddress
                 window.location.href = url;
-            }
-            else if(resp[0].Error == 0 && ifSCM){
-                window.location.href = process.env.REACT_APP_SCM_WEBAPP + "?contractAddress=" + contractAddress;
             }
              else {
                 setMessage(resp[0].message)
