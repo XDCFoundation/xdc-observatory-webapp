@@ -126,7 +126,8 @@ async function getTotalToken() {
 
 async function getListOfTransferTransactionsForToken(data) {
   // let url = "http://localhost:3005/getListOfTransferTransactionsForToken/"+data.addr;
-  let url = process.env.REACT_APP_GET_LIST_OF_TRANSFER_FOR_TOKEN + data.addr;
+  // let url = process.env.REACT_APP_GET_LIST_OF_TRANSFER_FOR_TOKEN + data.addr;
+  let url = "https://mr9rmpio4a.execute-api.us-east-2.amazonaws.com/dev/getHolderDetailsUsingAddress?address=" + data.addr;
   delete data.addr;
     //+ "?skip=" + Math.ceil(data.pageNum) + "&limit=" + data.perpage + (data.searchValue ? "&searchValue=" + data.searchValue : "") + (data.startDate ? "&startDate=" + data.startDate : "");
 
@@ -239,7 +240,8 @@ async function getListOfTokenForAddress(path, data) {
     });
 }
 async function getHolderDetailsUsingAddressforToken(data) {
-  let url = process.env.REACT_APP_GET_HOLDER_DETAIL_USING_ADDRESS_FOR_TOKEN
+  // let url = process.env.REACT_APP_GET_HOLDER_DETAIL_USING_ADDRESS_FOR_TOKEN
+  let url = "https://1lzur2qul1.execute-api.us-east-2.amazonaws.com/prod/getHolderDetailsUsingAddress?address="
   // let url = "http://localhost:3007/getHolderDetailsUsingAddress"
   return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {

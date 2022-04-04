@@ -95,13 +95,9 @@ class BlockChainClass extends BaseComponent {
     }
   };
 
-  _handleChange = (event) => {
-    this.setState({ amount: event.target.value });
-    window.localStorage.setItem("currency", event.target.value);
-  };
-
   render() {
-    let activeCurrency = window.localStorage.getItem("currency");
+    let activeCurrency = this.props.currency.activeCurrency;
+    console.log("activeCurrency",activeCurrency)
     return (
       <>
         {this.state.isLoading ? <Loader /> : ""}
@@ -119,8 +115,6 @@ class BlockChainClass extends BaseComponent {
           <BuyStoreTradeXDC theme={this.props.theme.currentTheme}/>
           <StorageMessage theme={this.props.theme.currentTheme}/>
           <FooterComponent
-            _handleChange={this._handleChange}
-            currency={this.state.amount}
             theme={this.props.theme.currentTheme}
           />
           {/* showDropDown={this.state.showDropDown} */}
@@ -131,6 +125,6 @@ class BlockChainClass extends BaseComponent {
 }
 
 const mapStateToProps = (state) => {
-  return { user: state.user, theme: state.theme };
+  return { user: state.user, theme: state.theme, currency: state.activeCurrency };
 };
 export default connect(mapStateToProps, { dispatchAction })(BlockChainClass);

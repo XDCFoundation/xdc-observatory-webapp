@@ -958,7 +958,7 @@ class BlockChainDataComponent extends Component {
               </LeftTopSecMain>
             </LeftFirst>
           </MobileDesign>
-          <Tab theme={this.props.theme}/>
+          <Tab theme={this.props.theme} currency={this.props.currency}/>
         </RightContainer>
       </MainContainer>
     );

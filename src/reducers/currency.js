@@ -1,23 +1,19 @@
+//working
+import {eventConstants, cookiesConstants} from "../constants"
+import {sessionManager} from "../managers/sessionManager";
 
-let initialState = 'USD'
+let currency = sessionManager.getDataFromLocalStorage(cookiesConstants.OBSERVER_CURRENCY) || "";
+let initialState = {
+    activeCurrency: currency ? currency.replace(/['"]+/g, '') : "USD"
+};
 const changeTheCurrency = (state = initialState , action) =>{
-    let CurrencyValue = window.localStorage.getItem('currency');
-    if(!CurrencyValue){
-        window.localStorage.setItem('currency', state) 
-    }
     switch (action.type) {
-        case "USD":   
-        state = action.payload
-        window.localStorage.setItem('currency', state)   
-        return state;
-        case "EUR":
-        state = action.payload
-        window.localStorage.setItem('currency', state)   
-        return state;
-        case "INR":
-        state = action.payload 
-        window.localStorage.setItem('currency', state) 
-        return state;      
+        case eventConstants.ACTIVE_CURRENCY:
+            sessionManager.setDataInLocalStorage(cookiesConstants.OBSERVER_CURRENCY, action.data)
+            return {
+                ...state,
+                activeCurrency: action.data
+            };
         default:
           return state;
     }
