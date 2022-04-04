@@ -190,7 +190,7 @@ class AddressStatsData extends Component {
   }
   render() {
     const currencyPrice = this.props?.price;
-    let activeCurrency = window.localStorage.getItem("currency");
+    let activeCurrency = this.props.currency;
     let highestTransaction = this.props?.statData?.highestTransaction;
     highestTransaction = Utils.decimalDivisonOnly(highestTransaction, 8);
     let highestTxn = Utils.convertToInternationalCurrencySystem(

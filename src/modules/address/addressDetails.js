@@ -587,10 +587,8 @@ function AddressDetails(props) {
   const [isLoading, setLoading] = useState(true);
   const [isLoadingDropDown, setLoadingDropDown] = useState(0);
   const [copiedText, setCopiedText] = useState("");
-  let nowCurrency = window.localStorage.getItem("currency");
   const [addressTag, setAddressTag] = useState([]);
   const [isTag, setIsTag] = useState(false);
-  const [amount, setAmount] = useState("");
   const [coinMarketPrice, setCoinMarketPrice] = useState(0);
   const [price, setPrice] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
@@ -640,7 +638,7 @@ function AddressDetails(props) {
 
   let balanceChanged1 = balance.toString().split(".")[0];
   let balanceChanged2 = balance.toString().split(".")[1];
-  let activeCurrency = window.localStorage.getItem("currency");
+  let activeCurrency = props.currency.activeCurrency;
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
@@ -671,11 +669,6 @@ function AddressDetails(props) {
     setToggleState(index);
   };
   const classes = useStyles();
-
-  function _handleChange(event) {
-    setAmount(event?.target?.value);
-    window.localStorage.setItem("currency", event?.target?.value);
-  }
 
   const getAddressDetails = async () => {
     try {
@@ -819,7 +812,7 @@ function AddressDetails(props) {
     getAddressStats();
     getWatchList();
     getListOfHoldersForToken();
-  }, [amount]);
+  }, [props.currency.activeCurrency]);
 
   const getWatchList = async () => {
     const request = {
@@ -1238,7 +1231,7 @@ function AddressDetails(props) {
           <AddressStatsData
             statData={addressStats}
             price={price}
-            currency={amount}
+            currency={props.currency.activeCurrency}
             theme={props.theme.currentTheme}
           />
           <div className="container_sec sec-contain">
@@ -1294,12 +1287,14 @@ function AddressDetails(props) {
                       trans={transactions}
                       coinadd={addr}
                       tag={addressTag}
+                      currency={props.currency.activeCurrency}
+                      theme={props.theme.currentTheme}
                     />
                   ) : ( 
                     <AddressTableComponent
                       trans={transactions}
                       coinadd={addr}
-                      currency={amount}
+                      currency={props.currency.activeCurrency}
                       theme={props.theme.currentTheme}
                     />
                   )}
@@ -1311,13 +1306,13 @@ function AddressDetails(props) {
             {toggleState === 2 && <AddressDetailsAnalytics theme={props.theme.currentTheme}/>}
           </div>
         </Grid>
-        <FooterComponent _handleChange={_handleChange} currency={amount} />
+        <FooterComponent/>
       </div>
     </>
   );
 }
 
 const mapStateToProps = (state) => {
-  return {  theme: state.theme };
+  return {  theme: state.theme, currency: state.activeCurrency };
 };
 export default connect(mapStateToProps, { dispatchAction })(AddressDetails);

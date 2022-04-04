@@ -1091,7 +1091,9 @@ const ContainerTxnAction = styled.div`
   max-width: 165px;
 `;
 
-function Transaction({ _handleChange, theme }) {
+function Transaction({theme, currency }) {
+  console.log("theme",theme)
+  console.log("currency",currency)
   const classes = useStyles();
   const { hash } = useParams();
   const [transactions, setTransactions] = useState([]);
@@ -1211,7 +1213,7 @@ function Transaction({ _handleChange, theme }) {
   useEffect(() => {
     let ts = parseInt(timeStamp);
     getCoinMarketDetailForTransaction(ts);
-  }, [amount]);
+  }, [currency.activeCurrency]);
   const getContractDetails = async () => {
     let urlPath = transactions.to;
     let [error, contractDecimal] = await Utils.parseResponse(
@@ -1352,12 +1354,7 @@ function Transaction({ _handleChange, theme }) {
     setSeeMore(false);
   };
 
-  function _handleChange(event) {
-    setAmount(event?.target?.value);
-    window.localStorage.setItem("currency", event?.target?.value);
-  }
-
-  let CurrencyValue = window.localStorage.getItem("currency");
+  let CurrencyValue = currency.activeCurrency;
   const currencySymbol =
     CurrencyValue === "INR" ? "₹" : CurrencyValue === "USD" ? "$" : "€";
   const valueFetch =
@@ -2445,16 +2442,12 @@ function Transaction({ _handleChange, theme }) {
         </Grid>
       </div>
 
-      <FooterComponent
-        theme={theme.currentTheme}
-        _handleChange={_handleChange}
-        currency={amount}
-      />
+      <FooterComponent />
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
-  return { theme: state.theme };
+  return { theme: state.theme, currency: state.activeCurrency };
 };
 export default connect(mapStateToProps, { dispatchAction })(Transaction);
