@@ -85,7 +85,7 @@ function AddressDetailsData(props) {
     setToggleState(index);
   };
   function shorten(b, amountL = 25, amountR = 5, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
       b.length - 3,
       b.length
     )}`;
@@ -111,7 +111,7 @@ function AddressDetailsData(props) {
   };
   const [data, setData] = React.useState(initialState);
   let balance = !data.balance ? 0 : data.balance;
-  let balance1 = balance.toString().split(".")[0];
+  let balance1 = Number(balance.toString().split(".")[0]);
   let balance2 = balance.toString().split(".")[1];
   const [responses, setResponses] = React.useState([]);
   const [count, setCount] = React.useState(0);
@@ -248,7 +248,7 @@ function AddressDetailsData(props) {
                         </TableCell>
                         <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
                           {balance2 == null ? (
-                            <span>{Number(balance1)} XDC</span>
+                            <span>{balance1?Number(balance1):0} XDC</span>
                           ) : (
                             <span>
                               {Number(balance1)}
@@ -290,12 +290,13 @@ function AddressDetailsData(props) {
                             </span>
                           )}
                           ) */}
-                         {currencySymbol}
+                         
                           {changedValue2 == null ? (
-                            <span>{changedValue1 ?changedValue1:""}&nbsp; </span>
+                            <span>{currencySymbol}&nbsp;{changedValue1 ?changedValue1:0}&nbsp; </span>
                           ) : (
+                            
                             <span>
-                              {changedValue1}
+                             {currencySymbol} {changedValue1}
                               {"."}
                               <span style={{ color: "#9FA9BA" }}>
                                 {changedValue2}
@@ -348,13 +349,13 @@ function AddressDetailsData(props) {
                             Creator
                           </TableCell>
                           <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
-                            {data.creator != "" && (
+                            {data.creator == "" ? "Not Available":(
                               <a
                               className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                 href={"/address-details/" + data.creator}
                               >
                                 <span className="tabledata">
-                                  {shorten(data.creator)}
+                                  {shorten(data?.creator)}
                                 </span>
                               </a>
                             )}
@@ -367,17 +368,17 @@ function AddressDetailsData(props) {
                             Transaction
                           </TableCell>
                           <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
-                            {data.transaction != "" && (
+                          {data.transaction == "" ? "Not Available":(
                               <a
-                                className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
-                                href={
-                                  "/transaction-details/" + data.transaction
-                                }
-                              >
-                                <span className="tabledata">
-                                  {shorten(data.transaction)}
-                                </span>
-                              </a>
+                              className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                              href={
+                                "/transaction-details/" + data.transaction
+                              }
+                            >
+                              <span className="tabledata">
+                                {shorten(data?.transaction)}
+                              </span>
+                            </a>
                             )}
                           </TableCell>
                         </div>

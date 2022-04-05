@@ -481,10 +481,30 @@ export default function Navbar(props) {
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
+            href="https://origin.xdc.org/"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Origin</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
             href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US"
             target="_blank"
           >
             <div className="xinfin_account_button">XDCPay</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://stats.xdc.org/"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Network Stats</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -1157,15 +1177,15 @@ export default function Navbar(props) {
                       //         handleSearch(event);
                       //     }
                       // }}
-                      placeholder="Search"
+                      placeholder="Search by Address / Txn Hash / Block / Token"
                     />
                     {inputFieldValue.length == 0 ? (
                       browserName === "Chrome" || "Edge browser" ? (
                         <div
                           className={
                             props.theme === "dark"
-                              ? "white-space-no-wrap bg-192a59 br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
-                              : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
+                              ? "white-space-no-wrap bg-192a59 br-4 p-wallet m-r-20 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
+                              : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-20 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
                           }
                           onClick={searchMyAddress}
                         >
@@ -1184,8 +1204,8 @@ export default function Navbar(props) {
                       <div
                         className={
                           props.theme === "dark"
-                            ? "white-space-no-wrap bg-192a59 br-4 p-wallet m-r-10 cursor-pointer"
-                            : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer"
+                            ? "white-space-no-wrap bg-192a59 br-4 p-wallet m-r-20 cursor-pointer"
+                            : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-20 cursor-pointer"
                         }
                         onClick={() => handleSearchByButton(inputFieldValue)}
                       >
@@ -1196,7 +1216,7 @@ export default function Navbar(props) {
                     )}
                   </div>
 
-                  <div className="search-dashboard-select">
+                  {/* <div className="search-dashboard-select">
                     <select
                       onChange={(event) => handleSearchOption(event)}
                       className={
@@ -1212,11 +1232,8 @@ export default function Navbar(props) {
                       <option value="Blocks">Blocks</option>
                       <option value="Tokens">Tokens</option>
                       <option value="Transaction">Transaction</option>
-                      {/* <option value="Nametags">Nametags</option>
-                                    <option value="Labels">Labels</option>
-                                    <option value="Websites">Websites</option> */}
                     </select>
-                  </div>
+                  </div> */}
                 </div>
               </form>
 

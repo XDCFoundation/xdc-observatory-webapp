@@ -6,9 +6,12 @@ import { TransactionService } from "../../services";
 import Utils from "../../utility";
 import styled from "styled-components";
 import coinMarketService from "../../services/coinMarket";
+import { sessionManager } from "../../managers/sessionManager";
+import { cookiesConstants } from "../../constants";
 
 const toolTipElement = (props) => {
-  let activeCurrency = window.localStorage.getItem("currency");
+  let activeCurrency = sessionManager.getDataFromLocalStorage(cookiesConstants.OBSERVER_CURRENCY) || "USD";
+  activeCurrency = activeCurrency.replace(/['"]+/g, '')
   let currencySymbol = activeCurrency === "INR" ? "INR" : activeCurrency === "USD" ? "USD" : "EUR"
   return (
     <div>
@@ -25,7 +28,8 @@ const toolTipElement = (props) => {
   );
 };
 const toolTipElementDarkMode = (props) => {
-  let activeCurrency = window.localStorage.getItem("currency");
+  let activeCurrency = sessionManager.getDataFromLocalStorage(cookiesConstants.OBSERVER_CURRENCY) || "USD";
+  activeCurrency = activeCurrency.replace(/['"]+/g, '')
   let currencySymbol = activeCurrency === "INR" ? "INR" : activeCurrency === "USD" ? "USD" : "EUR"
   return (
     <div>
@@ -146,7 +150,8 @@ export default function App(props) {
   const [coinmarketcap, setCoinmarketcap] = useState("");
   const [graphTransactions, setGraphTransactions] = useState([]);
 
-  let CurrencyValue = window.localStorage.getItem("currency");
+  let CurrencyValue = sessionManager.getDataFromLocalStorage(cookiesConstants.OBSERVER_CURRENCY) || "USD";
+  CurrencyValue = CurrencyValue.replace(/['"]+/g, '')
   useEffect(async () => {
     let coinmarketCapValue = await getcoinMarketCapData()
 
