@@ -230,7 +230,7 @@ export default function AccountComponent(props) {
                           title={messages.RANK}
                         >
                           <img
-                            onClick={() => setRankTT(!rankTT)}
+                            onClick={() => window.innerWidth > 767 ? setRankTT(false) : setRankTT(!rankTT)}
                             alt="question-mark"
                             src="/images/info.svg"
                             className="tooltipInfoIconAccount"
@@ -249,21 +249,6 @@ export default function AccountComponent(props) {
                     <span className={props.theme === "dark" ? "tableheaders_1_address cursor-pointer fc-white" : "tableheaders_1_address cursor-pointer"}>
                       Address
                       <Tooltip
-                        open={addressTT}
-                        onOpen={() => setaddressTT(true)}
-                        onClose={() => setaddressTT(false)}
-                        placement="top"
-                        title={messages.ACCOUNT_ADDRESS}
-                      >
-                        <img
-                          onClick={() => setRankTT(!addressTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
-                    </span>
-                    <Tooltip
                       placement="top"
                       title={props.getSortTitle(props?.state?.sortOrder)}
                     >{
@@ -283,6 +268,22 @@ export default function AccountComponent(props) {
                       }
 
                     </Tooltip>
+                    </span>
+                    <Tooltip
+                        open={addressTT}
+                        onOpen={() => setaddressTT(true)}
+                        onClose={() => setaddressTT(false)}
+                        placement="top"
+                        title={messages.ACCOUNT_ADDRESS}
+                      >
+                        <img
+                          onClick={() => window.innerWidth > 767 ? setaddressTT(false): setaddressTT(!addressTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    
                   </TableCell>
                   {props.state.tableColumns["Type"].isActive && (
                     <TableCell
@@ -299,7 +300,7 @@ export default function AccountComponent(props) {
                           title={messages.ACCOUNT_TYPE}
                         >
                           <img
-                            onClick={() => settypeTT(!typeTT)}
+                            onClick={() => window.innerWidth > 767 ? settypeTT(false) : settypeTT(!typeTT)}
                             alt="question-mark"
                             src="/images/info.svg"
                             className="tooltipInfoIconAccount"
@@ -323,21 +324,6 @@ export default function AccountComponent(props) {
                       <span className={props.theme === "dark" ? "tableheaders_1 cursor-pointer fc-white" : "tableheaders_1 cursor-pointer"}>
                         Balance
                         <Tooltip
-                          open={balanceTT}
-                          onOpen={() => setbalanceTT(true)}
-                          onClose={() => setbalanceTT(false)}
-                          placement="top"
-                          title={messages.ACCOUNT_BALANCE}
-                        >
-                          <img
-                            onClick={() => setbalanceTT(!balanceTT)}
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            className="tooltipInfoIconAccount"
-                          />
-                        </Tooltip>
-                      </span>
-                      <Tooltip
                         placement="top"
                         title={props.getSortTitle(props?.state?.sortOrder)}
                       >{
@@ -357,6 +343,22 @@ export default function AccountComponent(props) {
                         }
 
                       </Tooltip>
+                      </span>
+                      <Tooltip
+                          open={balanceTT}
+                          onOpen={() => setbalanceTT(true)}
+                          onClose={() => setbalanceTT(false)}
+                          placement="top"
+                          title={messages.ACCOUNT_BALANCE}
+                        >
+                          <img
+                            onClick={() => window.innerWidth > 767 ? setbalanceTT(false) : setbalanceTT(!balanceTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      
                     </TableCell>
                   )}
 
@@ -371,21 +373,6 @@ export default function AccountComponent(props) {
                       <span className={props.theme === "dark" ? "tableheaders_1 cursor-pointer fc-white" : "tableheaders_1 cursor-pointer"}>
                         Percentage
                         <Tooltip
-                          open={percentageTT}
-                          onOpen={() => setpercentageTT(true)}
-                          onClose={() => setpercentageTT(false)}
-                          placement="top"
-                          title={messages.PERCENTAGE}
-                        >
-                          <img
-                            onClick={() => setpercentageTT(!percentageTT)}
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            className="tooltipInfoIconAccount"
-                          />
-                        </Tooltip>
-                      </span>
-                      <Tooltip
                         placement="top"
                         title={props.getSortTitle(props?.state?.sortOrder)}
                       >
@@ -405,6 +392,22 @@ export default function AccountComponent(props) {
                           />) : <span></span>
                         }
                       </Tooltip>
+                      </span>
+                      
+                      <Tooltip
+                          open={percentageTT}
+                          onOpen={() => setpercentageTT(true)}
+                          onClose={() => setpercentageTT(false)}
+                          placement="top"
+                          title={messages.PERCENTAGE}
+                        >
+                          <img
+                            onClick={() => window.innerWidth > 767 ? setpercentageTT(false):setpercentageTT(!percentageTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
                     </TableCell>
                   )}
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}

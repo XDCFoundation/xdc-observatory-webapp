@@ -27,13 +27,13 @@ export default function VerifyContract(props) {
     const inputRef = useRef();
     const validationSchema = Yup.object().shape({
         addr: Yup.string()
-            .required('Contract address is required'),
+            .required('Contract Address is required'),
         contractname: Yup.string()
-            .required('Contract name is required'),
+            .required('Contract Name is required'),
         version: Yup.string()
             .required('Version is required'),
         code: Yup.string()
-            .required('Contract code is required')
+            .required('Contract Code is required')
     });
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validationSchema)
