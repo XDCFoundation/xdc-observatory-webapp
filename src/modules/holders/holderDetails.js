@@ -639,7 +639,7 @@ const TabComponent = ({
           toggleState === 1 ? "content_sec  active-content_sec" : "content_sec"
         }
       >
-        <HolderTableComponent trans={transactions} decimal={decimal} />
+        <HolderTableComponent trans={transactions} decimal={decimal} theme={theme}/>
       </div>
 
       <div
@@ -650,6 +650,7 @@ const TabComponent = ({
         <HolderAnalytics
           walletAddress={addr}
           contractAddress={contractAddress}
+          theme={theme}
         />
       </div>
     </div>

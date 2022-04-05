@@ -386,6 +386,7 @@ const SocialMediaIcon = styled.img`
 `;
 
 function TokenDataComponent(props) {
+  let activeCurrency = props.currency.activeCurrency;
   const classes = useStyles();
   // let changePrice = 5.21;
   // let tokenName = 'XDC'
@@ -471,8 +472,7 @@ function TokenDataComponent(props) {
     (async () => {
       await CoinMarketExchangeForToken(tn);
     })();
-  }, []);
-  let activeCurrency = window.localStorage.getItem("currency");
+  }, [activeCurrency]);
   let tokenPriceVal = 0;
   let tokenChanges24hr = 0;
   let CurrencySymbol = "";
@@ -662,7 +662,7 @@ function TokenDataComponent(props) {
         {marketCapVal == 0 ? (
           ""
         ) : (
-          <TokenMarketDataTable marketCap={marketCapVal} theme={props.theme.currentTheme}/>
+          <TokenMarketDataTable marketCap={marketCapVal} theme={props.theme.currentTheme} activeCurrency={activeCurrency}/>
         )}
         <br />
         <br /> 
@@ -680,7 +680,7 @@ function TokenDataComponent(props) {
 }
 
 const mapStateToProps = (state) => {
-  return { theme: state.theme };
+  return { theme: state.theme, currency: state.activeCurrency };
 };
 export default connect(mapStateToProps, { dispatchAction })(TokenDataComponent);
 
