@@ -32,6 +32,14 @@ const useStyles = makeStyles({
     overflowX: "auto",
     background: "#192a59",
   },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
 });
 
 const TransactionHeaderContainer = styled.div`
@@ -50,7 +58,9 @@ const TransactionTitle = styled.div`
   font-family: Inter;
   font-size: 1.125rem;
   font-weight: 600;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
 `;
@@ -63,7 +73,9 @@ const TransactionSubTitle = styled.div`
   font-family: Inter;
   font-size: 0.75rem;
   margin-left: 25px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
 `;
@@ -95,36 +107,48 @@ const LatestTransactionView = (props) => {
       elevation={0}
     >
       <TableContainer
-        className={props.theme === "dark" ? classes.containerDark : classes.container}
+        className={
+          props.theme === "dark" ? classes.containerDark : classes.container
+        }
         id="container-table-token"
-        style={props.theme === "dark" ? {
-          borderRadius: "0",
-          boxShadow: "none",
-          backgroundColor: "#192a59",
-          minHeight: "100%",
-        }: {
-          // borderRadius: "0.75rem",
-          // border: "solid 0.063rem #e3e7eb",
-          borderTop: "solid 0.063rem #e3e7eb",
-          borderRadius: "0",
-          boxShadow: "none",
-          backgroundColor: "#ffffff",
-          // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
-          minHeight: "100%",
-        }}
+        style={
+          props.theme === "dark"
+            ? {
+                borderRadius: "0",
+                boxShadow: "none",
+                backgroundColor: "#192a59",
+                minHeight: "100%",
+              }
+            : {
+                // borderRadius: "0.75rem",
+                // border: "solid 0.063rem #e3e7eb",
+                borderTop: "solid 0.063rem #e3e7eb",
+                borderRadius: "0",
+                boxShadow: "none",
+                backgroundColor: "#ffffff",
+                // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                minHeight: "100%",
+              }
+        }
       >
         {props.isHomePage ? (
           <>
             <TransactionHeaderContainer>
-              <TransactionTitle theme={props.theme}>Latest Transactions</TransactionTitle>
+              <TransactionTitle theme={props.theme}>
+                Latest Transactions
+              </TransactionTitle>
               <a
-                className={props.theme === "dark" ? "linkTable-dark cursor-pointer" : "linkTable cursor-pointer"}
+                className={
+                  props.theme === "dark"
+                    ? "linkTable-dark cursor-pointer"
+                    : "linkTable cursor-pointer"
+                }
                 href="/view-all-transaction"
               >
                 View All
               </a>
             </TransactionHeaderContainer>
-            <TransactionSubTitle  theme={props.theme}>
+            <TransactionSubTitle theme={props.theme}>
               {"The most recently published transactions"}
             </TransactionSubTitle>
           </>
@@ -140,65 +164,161 @@ const LatestTransactionView = (props) => {
                     style={{ border: "none", paddingLeft: "25px" }}
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "tablehead-token-details-dark" : "tablehead-token-details"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tablehead-token-details-dark"
+                          : "tablehead-token-details"
+                      }
+                    >
                       Hash
-                      <Tooltip
-                        placement="top"
-                        open={hashTT}
-                        title={messages.HASH}
-                        onOpen={() => setHashTT(true)}
-                        onClose={() => setHashTT(false)}
-                      >
-                        <img
-                          onClick={() => setHashTT(!hashTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.HASH}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          placement="top"
+                          open={hashTT}
+                          title={messages.HASH}
+                          onOpen={() => setHashTT(true)}
+                          onClose={() => setHashTT(false)}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setHashTT(!hashTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                 )}
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={props.theme === "dark" ? "tablehead-token-details-dark" : "tablehead-token-details"}>
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "tablehead-token-details-dark"
+                        : "tablehead-token-details"
+                    }
+                  >
                     Amount
-                    <Tooltip
-                      placement="top"
-                      title={messages.AMOUNT}
-                      open={amountTT}
-                      onOpen={() => setAmountTT(true)}
-                      onClose={() => setAmountTT(false)}
-                    >
-                      <img
-                        onClick={() => setAmountTT(!amountTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
-                  </span>
-                </TableCell>
-                {props?.showDate && (
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={props.theme === "dark" ? "tablehead-token-details-dark" : "tablehead-token-details"}>
-                      Timestamp
+                    {window.innerWidth > 1024 ? (
                       <Tooltip
                         placement="top"
-                        title={messages.TRANSACTION_CREATION_TIME_STAMP}
-                        open={timeStampTT}
-                        onOpen={() => setTimeStampTT(true)}
-                        onClose={() => setTimeStampTT(false)}
+                        title={messages.AMOUNT}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
                       >
                         <img
-                          onClick={() => setTimeStampTT(!timeStampTT)}
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
                           className="tooltipInfoIcon"
                         />
                       </Tooltip>
+                    ) : (
+                      <Tooltip
+                        placement="top"
+                        title={messages.AMOUNT}
+                        open={amountTT}
+                        onOpen={() => setAmountTT(true)}
+                        onClose={() => setAmountTT(false)}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setAmountTT(!amountTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    )}
+                  </span>
+                </TableCell>
+                {props?.showDate && (
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tablehead-token-details-dark"
+                          : "tablehead-token-details"
+                      }
+                    >
+                      Timestamp
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.TRANSACTION_CREATION_TIME_STAMP}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          placement="top"
+                          title={messages.TRANSACTION_CREATION_TIME_STAMP}
+                          open={timeStampTT}
+                          onOpen={() => setTimeStampTT(true)}
+                          onClose={() => setTimeStampTT(false)}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setTimeStampTT(!timeStampTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                 )}
@@ -247,8 +367,12 @@ const LatestTransactionView = (props) => {
                         key={row.hash}
                         style={
                           index % 2 !== 1
-                            ? props.theme === "dark" ? {background: "#192a59"} : { background: "white" }
-                            : props.theme === "dark" ? {background: "#192a59"} : { background: "white" }
+                            ? props.theme === "dark"
+                              ? { background: "#192a59" }
+                              : { background: "white" }
+                            : props.theme === "dark"
+                            ? { background: "#192a59" }
+                            : { background: "white" }
                         }
                       >
                         {props?.showHash && (
@@ -262,7 +386,11 @@ const LatestTransactionView = (props) => {
                                                     transactionAddress={row.hash} /> */}
                               <Tooltip placement="right" title={row.hash}>
                                 <a
-                                  className={props.theme === "dark" ? "linkTable-dark" : "linkTable"}
+                                  className={
+                                    props.theme === "dark"
+                                      ? "linkTable-dark"
+                                      : "linkTable"
+                                  }
                                   href={"/transaction-details/" + row.hash}
                                 >
                                   <span
@@ -291,20 +419,28 @@ const LatestTransactionView = (props) => {
                           {amt2 == null ? (
                             <span
                               className={
-                                animationClass 
-                                ? props.theme === "dark" ? `${animationClass} latest-blocks-table-data-dark` : animationClass 
-                                : props.theme === "dark" ? "tabledata latest-blocks-table-data-dark" : "tabledata"
+                                animationClass
+                                  ? props.theme === "dark"
+                                    ? `${animationClass} latest-blocks-table-data-dark`
+                                    : animationClass
+                                  : props.theme === "dark"
+                                  ? "tabledata latest-blocks-table-data-dark"
+                                  : "tabledata"
                               }
                             >
                               {amt1} XDC
                             </span>
                           ) : (
                             <span
-                            className={
-                              animationClass 
-                              ? props.theme === "dark" ? `${animationClass} latest-blocks-table-data-dark` : animationClass 
-                              : props.theme === "dark" ? "tabledata latest-blocks-table-data-dark" : "tabledata"
-                            }
+                              className={
+                                animationClass
+                                  ? props.theme === "dark"
+                                    ? `${animationClass} latest-blocks-table-data-dark`
+                                    : animationClass
+                                  : props.theme === "dark"
+                                  ? "tabledata latest-blocks-table-data-dark"
+                                  : "tabledata"
+                              }
                             >
                               {amt1}
                               {"."}
@@ -330,9 +466,13 @@ const LatestTransactionView = (props) => {
                             >
                               <span
                                 className={
-                                  animationClass 
-                                  ? props.theme === "dark" ? `${animationClass} latest-blocks-table-data-dark` : animationClass 
-                                  : props.theme === "dark" ? "tabledata latest-blocks-table-data-dark" : "tabledata"
+                                  animationClass
+                                    ? props.theme === "dark"
+                                      ? `${animationClass} latest-blocks-table-data-dark`
+                                      : animationClass
+                                    : props.theme === "dark"
+                                    ? "tabledata latest-blocks-table-data-dark"
+                                    : "tabledata"
                                 }
                               >
                                 {moment(row.timestamp * 1000)
@@ -349,7 +489,11 @@ const LatestTransactionView = (props) => {
                           >
                             <div className="latest_child w-18 mar_child wid-17 details-pad ">
                               <a
-                                className={props.theme === "dark" ? "linkTable-dark cursor-pointer" : "linkTable cursor-pointer"}
+                                className={
+                                  props.theme === "dark"
+                                    ? "linkTable-dark cursor-pointer"
+                                    : "linkTable cursor-pointer"
+                                }
                                 href={"/transaction-details/" + row.hash}
                               >
                                 Details
