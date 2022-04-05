@@ -97,7 +97,6 @@ class BlockChainClass extends BaseComponent {
 
   render() {
     let activeCurrency = this.props.currency.activeCurrency;
-    console.log("activeCurrency",activeCurrency)
     return (
       <>
         {this.state.isLoading ? <Loader /> : ""}

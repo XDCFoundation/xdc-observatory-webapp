@@ -737,7 +737,7 @@ class BlockChainDataComponent extends Component {
           <LeftSec>
             <ValueMain>
               <Value gridArea="blockHeight">
-                <TitleIcon src={blockHeightImg} />
+                <TitleIcon src={this.props.theme === "dark" ? "/images/block-height-dark-mode.svg" : blockHeightImg} />
                 <ValueName>
                   <Title theme={this.props.theme}>Block Height</Title>
                   <TitleValue theme={this.props.theme} className={animationClass ? animationClass : ""}>
@@ -752,8 +752,8 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="gasPrice">
                 { 
                 currencySymbol === "$" ?
-                <TitleIcon src={priceLogo} />:
-                <TitleIcon src="/images/Gas price euro.svg" />
+                <TitleIcon src={this.props.theme === "dark" ? "/images/gas-price-usd-dark-mode.svg" : priceLogo} />:
+                <TitleIcon src={this.props.theme === "dark" ? "/images/gas-price-euro-dark-mode.svg" : "/images/Gas price euro.svg" }/>
                 }
                 <ValueName>
                   <Title theme={this.props.theme}>Txn Fee (Avg)</Title>
@@ -768,7 +768,7 @@ class BlockChainDataComponent extends Component {
                 </ValueName>
               </Value>
               <Value gridArea="transactions">
-                <TitleIcon src={transactionLogo} />
+                <TitleIcon src={this.props.theme === "dark" ? "/images/transactions-dark-mode.svg" : transactionLogo} />
                 <ValueName>
                   <Title theme={this.props.theme}>Transactions</Title>
 
@@ -796,7 +796,7 @@ class BlockChainDataComponent extends Component {
                           this.setState({ addressTT: !this.state.addressTT })
                         }
                         alt="question-mark"
-                        src="/images/alert.svg"
+                        src={this.props.theme === "dark" ? "/images/alert-dark-mode.svg" : "/images/alert.svg"}
                         className="tooltipAlert"
                       />
                     </Tooltip>
@@ -816,7 +816,7 @@ class BlockChainDataComponent extends Component {
               {/*  </ValueName>*/}
               {/*</Value>*/}
               <Value gridArea="nodes">
-                <TitleIcon src="/images/nodes.svg" />
+                <TitleIcon src={this.props.theme === "dark" ? "/images/nodes-dark-mode.svg" : "/images/nodes.svg"} />
                 <ValueName>
                   <Title theme={this.props.theme}>Nodes</Title>
                   {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
@@ -830,7 +830,7 @@ class BlockChainDataComponent extends Component {
               </Value>
 
               <Value gridArea="accounts">
-                <TitleIcon src={accountLogo} />
+                <TitleIcon src={this.props.theme === "dark" ? "/images/accounts-dark-mode.svg" : accountLogo} />
                 <ValueName>
                   <Title theme={this.props.theme}>Accounts</Title>
                   <div className="last_value">

@@ -1092,8 +1092,6 @@ const ContainerTxnAction = styled.div`
 `;
 
 function Transaction({theme, currency }) {
-  console.log("theme",theme)
-  console.log("currency",currency)
   const classes = useStyles();
   const { hash } = useParams();
   const [transactions, setTransactions] = useState([]);

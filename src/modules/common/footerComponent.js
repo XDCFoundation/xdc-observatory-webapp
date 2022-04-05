@@ -1,4 +1,3 @@
-//working
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/footer.css";
 import "../../assets/styles/custom.css";
@@ -642,7 +641,6 @@ function FooterComponent(props) {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state",state)
     return { theme: state.theme, currency: state.activeCurrency };
 };
 

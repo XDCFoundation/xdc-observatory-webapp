@@ -398,7 +398,6 @@ function TokenDataComponent(props) {
   const [holderCount14Days, setHolderCount14Days] = useState("");
   const { address } = useParams();
   const { tn } = useParams();
-  console.log("tn",tn)
 
   let url = new URL(window.location.href);
   let searchParams = new URLSearchParams(url.search);

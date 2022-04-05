@@ -77,7 +77,7 @@ const SearchAndFiltersComponent = (props) => {
         options={[
           { key: "-1", value: "View All" },
           { key: "0", value: "Account" },
-          { key: "1", value: "Contract" },
+          { key: "1", value: "Contracts" },
           { key: "2", value: "Token" },
         ]}
       />
