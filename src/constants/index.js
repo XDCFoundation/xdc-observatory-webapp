@@ -71,7 +71,8 @@ export const cookiesConstants = {
   ACCESS_TOKEN:"ACCESS_TOKEN",
   ID_TOKEN:"ID_TOKEN",
   AUTHENTICATION_PROVIDER:"AUTHENTICATION_PROVIDER",
-  OBSERVER_THEME: "OBSERVER_THEME"
+  OBSERVER_THEME: "OBSERVER_THEME",
+  OBSERVER_CURRENCY: "OBSERVER_CURRENCY"
 };
 
 export const eventConstants = {
@@ -81,6 +82,7 @@ export const eventConstants = {
   ADD_TO_SEARCH_LIST: 'ADD_TO_SEARCH_LIST',
   CLEAR_SEARCH_LIST: 'CLEAR_SEARCH_LIST',
   TOGGLE_THEME: 'TOGGLE_THEME',
+  ACTIVE_CURRENCY: 'ACTIVE_CURRENCY'
 };
 
 export const genericConstants = {
@@ -99,6 +101,7 @@ export const genericConstants = {
   TXN_PRIVATE_NOTE_DELETED: "Txn Private Note Deleted",
   CANNOT_DELETE_TAGGED_ADDRESS: "Cannot delete Tagged Addresses",
   TAGGED_ADDRESS_DELETED: "Tagged Address Deleted",
+  SCM_REFERENCE: 'scm'
 };
 
 export const statusConstants = {

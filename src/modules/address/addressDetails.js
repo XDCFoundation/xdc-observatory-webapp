@@ -581,16 +581,15 @@ function AddressDetails(props) {
   const [addressData, setAddressData] = useState(0);
   const [txtAddress, setTxtAddress] = useState("");
   const [balance, setBalance] = useState("");
+  const [balanceTooltip,setBalanceTooltip] = useState(0)
   const [convertCurrency, setConvertCurrency] = useState("");
   const [coinValue, setCoinValue] = useState(0);
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isLoadingDropDown, setLoadingDropDown] = useState(0);
   const [copiedText, setCopiedText] = useState("");
-  let nowCurrency = window.localStorage.getItem("currency");
   const [addressTag, setAddressTag] = useState([]);
   const [isTag, setIsTag] = useState(false);
-  const [amount, setAmount] = useState("");
   const [coinMarketPrice, setCoinMarketPrice] = useState(0);
   const [price, setPrice] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
@@ -640,7 +639,7 @@ function AddressDetails(props) {
 
   let balanceChanged1 = balance.toString().split(".")[0];
   let balanceChanged2 = balance.toString().split(".")[1];
-  let activeCurrency = window.localStorage.getItem("currency");
+  let activeCurrency = props.currency.activeCurrency;
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
@@ -672,11 +671,6 @@ function AddressDetails(props) {
   };
   const classes = useStyles();
 
-  function _handleChange(event) {
-    setAmount(event?.target?.value);
-    window.localStorage.setItem("currency", event?.target?.value);
-  }
-
   const getAddressDetails = async () => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -693,6 +687,7 @@ function AddressDetails(props) {
       }
       if (responseData) {
         setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
+        setBalanceTooltip(responseData.balance / 10 ** 18)
         setCurrentPrice(responseData.balance);
         setAddressData(responseData);
         setLoading(false);
@@ -819,7 +814,7 @@ function AddressDetails(props) {
     getAddressStats();
     getWatchList();
     getListOfHoldersForToken();
-  }, [amount]);
+  }, [props.currency.activeCurrency]);
 
   const getWatchList = async () => {
     const request = {
@@ -851,8 +846,8 @@ function AddressDetails(props) {
   let lastActConverted = !addressStats?.lastTransactionTimestamp
     ? ""
     : moment(Number(addressStats?.lastTransactionTimestamp) * 1000)
-        .utc()
-        .format("MMM-DD-YYYY h:mm:ss A") + "  UTC";
+      .utc()
+      .format("MMM-DD-YYYY h:mm:ss A") + "  UTC";
   let userId = sessionManager.getDataFromCookies("userId");
   let taggedAddressfetched = localStorage.getItem(
     userId + cookiesConstants.USER_TAGGED_ADDRESS
@@ -902,7 +897,7 @@ function AddressDetails(props) {
   return (
     <>
       <div style={props.theme.currentTheme === "dark" ? { backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
-        <Tokensearchbar theme={props.theme.currentTheme}/>
+        <Tokensearchbar theme={props.theme.currentTheme} />
 
         <Grid className="table-grid-block grid-block-table">
           <div>
@@ -1013,6 +1008,7 @@ function AddressDetails(props) {
                     open={loginDialogIsOpen}
                     onClose={closeLoginDialog}
                     dataHashOrAddress={addr}
+                    theme={props.theme.currentTheme}
                   />
                 }
                 <LoginTextMobile>
@@ -1064,8 +1060,8 @@ function AddressDetails(props) {
                       </CopyButton>
                     </AddressLine>
                     {sessionManager.getDataFromCookies("isLoggedIn") &&
-                    tagValue &&
-                    tagValue?.length > 0 ? (
+                      tagValue &&
+                      tagValue?.length > 0 ? (
                       <Tag theme={props.theme.currentTheme}>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
                     ) : (
                       ""
@@ -1073,18 +1069,26 @@ function AddressDetails(props) {
                   </AddressHashDiv>
 
                   <BalanceDiv theme={props.theme.currentTheme}>
-                    {balanceChanged2 == null ? (
-                      <span>{format({})(balanceChanged1)}</span>
-                    ) : (
-                      <span>
-                        {format({})(balanceChanged1)}
-                        {"."}
-                        <span style={props.theme.currentTheme === "dark" ? { color: "#b1c3e1" } : { color: "#95acef" }}>
-                          {balanceChanged2}
+                    <Tooltip
+                      placement="top"
+                      title={balanceTooltip}
+                    >
+                      <span>                  
+                      {balanceChanged2 == null ? (
+                        <span>{format({})(balanceChanged1)}</span>
+                      ) : (
+                        <span>
+                          {format({})(balanceChanged1)}
+                          {"."}
+                          <span style={props.theme.currentTheme === "dark" ? { color: "#b1c3e1" } : { color: "#95acef" }}>
+                            {balanceChanged2}
+                          </span>
                         </span>
+                      )}
+                        &nbsp;XDC
                       </span>
-                    )}
-                    &nbsp;XDC
+                    </Tooltip>
+
                   </BalanceDiv>
                   <BalanceUsdDiv theme={props.theme.currentTheme}>
                     {" "}
@@ -1216,6 +1220,7 @@ function AddressDetails(props) {
                           open={loginDialogIsOpen}
                           onClose={closeLoginDialog}
                           dataHashOrAddress={addr}
+                          theme={props.theme.currentTheme}
                         />
                       }
                       <LoginText theme={props.theme.currentTheme}>
@@ -1236,7 +1241,7 @@ function AddressDetails(props) {
           <AddressStatsData
             statData={addressStats}
             price={price}
-            currency={amount}
+            currency={props.currency.activeCurrency}
             theme={props.theme.currentTheme}
           />
           <div className="container_sec sec-contain">
@@ -1244,9 +1249,9 @@ function AddressDetails(props) {
               <div className="bloc-tabs_sec_addressDetail">
                 <button
                   className={
-                    toggleState === 1 
-                    ? props.theme.currentTheme === "dark" ? "tabs_sec_address_details active-tabs_sec fc-4878ff" : "tabs_sec_address_details active-tabs_sec" 
-                    : "tabs_sec_address_details"
+                    toggleState === 1
+                      ? props.theme.currentTheme === "dark" ? "tabs_sec_address_details active-tabs_sec fc-4878ff" : "tabs_sec_address_details active-tabs_sec"
+                      : "tabs_sec_address_details"
                   }
                   onClick={() => toggleTab(1)}
                   id="transaction-btn"
@@ -1292,12 +1297,14 @@ function AddressDetails(props) {
                       trans={transactions}
                       coinadd={addr}
                       tag={addressTag}
+                      currency={props.currency.activeCurrency}
+                      theme={props.theme.currentTheme}
                     />
-                  ) : ( 
+                  ) : (
                     <AddressTableComponent
                       trans={transactions}
                       coinadd={addr}
-                      currency={amount}
+                      currency={props.currency.activeCurrency}
                       theme={props.theme.currentTheme}
                     />
                   )}
@@ -1306,16 +1313,16 @@ function AddressDetails(props) {
             )}
             {/* {toggleState === 2 && <AddressDetailsAnalytics />} */}
             {toggleState === 3 && <XRC20Transactions theme={props.theme.currentTheme} />}
-            {toggleState === 2 && <AddressDetailsAnalytics theme={props.theme.currentTheme}/>}
+            {toggleState === 2 && <AddressDetailsAnalytics theme={props.theme.currentTheme} />}
           </div>
         </Grid>
-        <FooterComponent _handleChange={_handleChange} currency={amount} />
+        <FooterComponent />
       </div>
     </>
   );
 }
 
 const mapStateToProps = (state) => {
-  return {  theme: state.theme };
+  return { theme: state.theme, currency: state.activeCurrency };
 };
 export default connect(mapStateToProps, { dispatchAction })(AddressDetails);

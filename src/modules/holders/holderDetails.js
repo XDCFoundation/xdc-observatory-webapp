@@ -22,6 +22,9 @@ import { Row } from "simple-flexbox";
 import format from "format-number";
 import ContractData from "../../services/contract";
 import HolderAnalytics from "../token/holderAnalytics/analyticsComponent";
+import { connect } from "react-redux";
+import { dispatchAction } from "../../utility"
+import { sessionManager } from "../../managers/sessionManager";
 
 var QRCode = require("qrcode.react");
 
@@ -68,13 +71,23 @@ const useStyles = makeStyles({
     background: "#fff",
     // width: "75.125rem"
   },
+  containerDark: {
+    borderRadius: "14px",
+    boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#192a59",
+    // width: "75.125rem"
+  },
   "@media (max-width: 767px)": {
     container: {
       padding: "0 15px",
     },
+    containerDark: {
+      padding: "0 15px",
+    },
   }
 });
-export default function HoldersDetails(props) {
+function HoldersDetails(props) {
   const urlParams = new URLSearchParams(window.location.search);
   const isAnalytics = urlParams.get("isAnalytics");
   const [toggleState, setToggleState] = useState(
@@ -125,18 +138,18 @@ export default function HoldersDetails(props) {
   return (
     <>
       <DeskTopView>
-        <div style={{ backgroundColor: "#fff" }}>
-          <Tokensearchbar />
+        <div style={props.theme.currentTheme === "dark" ?{ backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
+          <Tokensearchbar theme={props.theme.currentTheme}/>
           <Grid className="table-grid-block grid-block-table_11">
             <div
               className="block_details_heading"
               style={{ display: "flex", flexDirection: "row" }}
             >
-              <p className="block_details_heading_left">Holder Details</p>
+              <p className={props.theme.currentTheme === "dark" ?"block_details_heading_left fc-white" : "block_details_heading_left"}>Holder Details</p>
             </div>
-            <Paper style={{ borderRadius: "14px" }} elevation={0}>
+            <Paper style={props.theme.currentTheme === "dark" ?{ backgroundColor: "#091b4e", borderRadius: "14px" }: {borderRadius: "14px" }} elevation={0}>
               <TableContainer
-                className={classes.container}
+                className={props.theme.currentTheme === "dark" ? classes.containerDark : classes.container}
                 id="container-table"
               >
                 <Table>
@@ -151,10 +164,10 @@ export default function HoldersDetails(props) {
                         id="td"
                       />
                       <TableCell className="first-row-table_address1">
-                        Holder
+                        <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Holder</div>
                       </TableCell>
                       <TableCell className="second-row-table_address1">
-                        {addr}
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{addr}</div>
                       </TableCell>
                       <TableCell>
                         <div>
@@ -172,14 +185,13 @@ export default function HoldersDetails(props) {
                             >
                               <button
                                 style={{
-                                  color: "blue",
-                                  backgroundColor: "white",
+                                  backgroundColor: "transparent",
                                   fontSize: 14,
                                   marginLeft: "25px",
                                 }}
                               >
                                 {" "}
-                                <img alt="copy" src={"/images/copy.svg"} />{" "}
+                                <img alt="copy" src={"/images/copy-grey.svg"} />{" "}
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
@@ -257,10 +269,10 @@ export default function HoldersDetails(props) {
                         id="td"
                       />
                       <TableCell className="first-row-table_address-balance">
-                        Balance
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Balance</div>
                       </TableCell>
                       <TableCell className="second-row-table_address-balance">
-                        {format({})(holder[0]?.Holder_token_balance)} {tn}
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{format({})(holder[0]?.Holder_token_balance)} {tn}</div>
                         {/* ({ReactHtmlParser(convertCurrency)} {coinValue}) */}
                       </TableCell>
                       <TableCell></TableCell>
@@ -274,10 +286,10 @@ export default function HoldersDetails(props) {
                         id="td"
                       />
                       <TableCell className="first-row-table_address-balance">
-                        Transfers
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Transfers</div>
                       </TableCell>
                       <TableCell className="second-row-table_address-balance">
-                        {holder[0]?.Total_transfes_transactions_Count}
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Total_transfes_transactions_Count}</div>
                       </TableCell>
                       <TableCell></TableCell>
                     </TableRow>
@@ -291,10 +303,10 @@ export default function HoldersDetails(props) {
                         id="td"
                       />
                       <TableCell className="first-row-table_address">
-                        Contract Address
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Contract Address</div>
                       </TableCell>
                       <TableCell className="second-row-table_address">
-                        {holder[0]?.Contract_address}
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Contract_address}</div>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -310,28 +322,30 @@ export default function HoldersDetails(props) {
               decimal={decimal}
               contractAddress={contractAddress}
               addr={addr}
+              theme={props.theme.currentTheme}
             />
           </Grid>
           <FooterComponent />
         </div>
       </DeskTopView>
       <MobileView>
-        <div style={{ backgroundColor: "#fff" }}>
+        <div style={props.theme.currentTheme === "dark" ?{ backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
           <Tokensearchbar />
           <Grid lg={8} className="table-grid-block">
             <div
               className="holder-detail-table"
             >
-              <p className="block_details_heading_left  fs-15">
-                Holder Details
+              <p className={props.theme.currentTheme === "dark" ?"block_details_heading_left  fs-15 fc-white":"block_details_heading_left  fs-15"}>
+              Holder Details
               </p>
             </div>
             <Paper
               className="holder-detail-table"
               elevation={0}
+              style={props.theme.currentTheme === "dark" ?{ backgroundColor: "#091b4e" }:{}}
             >
               <TableContainer
-                className={classes.container}
+                className={props.theme.currentTheme === "dark" ? classes.containerDark : classes.container}
                 id="container-table-holder-mob"
               >
                 <Table>
@@ -346,11 +360,11 @@ export default function HoldersDetails(props) {
                     id="td"
                   /> */}
                       <TableCell className="first-row-table_address1">
-                        Holder
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Holder</div>
                         <div className="sec-row-table">
                           <div className="word-break">
                             {" "}
-                            {addr}
+                            <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{addr}</div>
                             <CopyToClipboard
                               text={addr}
                               onCopy={() => setCopiedText(addr)}
@@ -365,13 +379,12 @@ export default function HoldersDetails(props) {
                               >
                                 <button
                                   style={{
-                                    color: "blue",
-                                    backgroundColor: "white",
+                                    backgroundColor: "transparent",
                                     fontSize: 14,
                                     marginLeft: "25px",
                                   }}
                                 >
-                                  <i class="fa fa-clone" aria-hidden="true"></i>
+                                  <img alt="copy" src={"/images/copy-grey.svg"} />
                                 </button>
                               </Tooltip>
                             </CopyToClipboard>
@@ -481,10 +494,10 @@ export default function HoldersDetails(props) {
 
                     <TableRow>
                       <TableCell className="first-row-table_address-balance">
-                        Balance
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Balance</div>
                         <div className="sec-row-table">
                           {" "}
-                          {holder[0]?.Holder_token_balance} XDC
+                          <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Holder_token_balance} XDC</div>
                           {/* ({ReactHtmlParser(convertCurrency)} {coinValue}) */}
                         </div>
                       </TableCell>
@@ -492,18 +505,18 @@ export default function HoldersDetails(props) {
 
                     <TableRow>
                       <TableCell className="first-row-table_address-balance">
-                        Transfers
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Transfers</div>
                         <div className="sec-row-table">
                           {" "}
-                          {holder[0]?.Total_transfes_transactions_Count}
+                          <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Total_transfes_transactions_Count}</div>
                         </div>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="first-row-table_address">
-                        Contract Address
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Contract Address</div>
                         <div className="sec-row-table">
-                          {holder[0]?.Contract_address}
+                        <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Contract_address}</div>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -520,6 +533,7 @@ export default function HoldersDetails(props) {
               decimal={decimal}
               contractAddress={contractAddress}
               addr={addr}
+              theme={props.theme.currentTheme}
             />
             {/* <div className="container_sec">
               <div className="block_sec">
@@ -577,6 +591,7 @@ const TabComponent = ({
   decimal,
   contractAddress,
   addr,
+  theme,
 }) => {
   return (
     <div className="container_sec_holder">
@@ -599,7 +614,8 @@ const TabComponent = ({
         >
           <button
             className={
-              toggleState === 1 ? "tabs-data active-tabs-token" : "tabs-data"
+              toggleState === 1 ? theme === "dark" ? "tabs-data active-tabs-token bg-transparent-dark" :"tabs-data active-tabs-token" 
+              : theme=== "dark" ? "tabs-data bg-transparent-dark" : "tabs-data"
             }
             onClick={() => toggleTab(1)}
           >
@@ -608,8 +624,8 @@ const TabComponent = ({
           <button
             className={
               toggleState === 2
-                ? "tabs-data active-tabs-token-holder"
-                : "tabs-data"
+                ? theme === "dark" ? "tabs-data active-tabs-token-holder bg-transparent-dark" : "tabs-data active-tabs-token-holder"
+                : theme === "dark" ? "tabs-data bg-transparent" : "tabs-data"
             }
             onClick={() => toggleTab(2)}
           >
@@ -623,7 +639,7 @@ const TabComponent = ({
           toggleState === 1 ? "content_sec  active-content_sec" : "content_sec"
         }
       >
-        <HolderTableComponent trans={transactions} decimal={decimal} />
+        <HolderTableComponent trans={transactions} decimal={decimal} theme={theme}/>
       </div>
 
       <div
@@ -634,8 +650,13 @@ const TabComponent = ({
         <HolderAnalytics
           walletAddress={addr}
           contractAddress={contractAddress}
+          theme={theme}
         />
       </div>
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(HoldersDetails);

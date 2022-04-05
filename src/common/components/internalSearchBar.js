@@ -163,7 +163,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchBox = (props) => {
-  console.log(props, "props")
   const classes = props.classes;
   const dispatch = useDispatch();
   const SelectOptRef = React.useRef(null);
@@ -268,7 +267,8 @@ const SearchBox = (props) => {
         var selectOptType = SelectOptRef.current?.value;
 
         let requestdata = {
-          filter: selectOptType,
+          // filter: selectOptType,
+          filter: "All filters",
           data: event.target.value,
         };
         BlockChainSearch(requestdata);
@@ -288,7 +288,8 @@ const SearchBox = (props) => {
     } else {
       let selectOptType = SelectOptRef.current?.value;
       let requestdata = {
-        filter: selectOptType,
+        // filter: selectOptType,
+        filter: "All filters",
         data: searchData,
       };
       BlockChainSearch(requestdata);
@@ -298,7 +299,6 @@ const SearchBox = (props) => {
   const handleSearchOption = (event) => {
     var selectOptType = SelectOptRef.current?.value;
     var SearchDataInput = SearchDataRef.current?.value;
-console.log(selectOptType,"OOOOO")
     let requestdata = {
       filter: selectOptType,
       data: SearchDataInput,
@@ -327,13 +327,13 @@ console.log(selectOptType,"OOOOO")
               ref={SearchDataRef}
               className={currentTheme === "dark" ? "main-input-td-dark" : "main-input-td "}
               src={"/images/Search.png"}
-              placeholder="Search by Address / Txn Hash / Block"
+              placeholder="Search by Address / Txn Hash / Block / Token"
             />
             <div
               className={
                 props.theme === "dark"
-                  ? "white-space-no-wrap bg-192a59 br-4 p-wallet-search m-r-10 cursor-pointer m-r-40-tab"
-                  : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet-search m-r-10 cursor-pointer m-r-40-tab"
+                  ? "white-space-no-wrap bg-192a59 br-4 p-wallet-search cursor-pointer m-r-7-tab"
+                  : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet-search cursor-pointer m-r-7-tab"
               }
               onClick={handleSearchByButton}
             >
@@ -341,7 +341,7 @@ console.log(selectOptType,"OOOOO")
                 Search
               </span>
             </div>
-            <div className="mobFilter">
+            {/* <div className="mobFilter">
               <select
                 className={currentTheme === "dark" ? "select-td-dark" : "select-td"}
                 onChange={(event) => handleSearchOption(event)}
@@ -355,7 +355,7 @@ console.log(selectOptType,"OOOOO")
                 <option value="Tokens">Tokens</option>
                 <option value="Transaction">Transaction</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </Row>
 

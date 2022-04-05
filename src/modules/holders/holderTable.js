@@ -18,6 +18,7 @@ import styled from "styled-components";
 import TokenData from "../../services/token";
 import Loader from "../../assets/loader";
 import format from "format-number";
+import PageSelector from "../common/pageSelector";
 
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 1023px) {
@@ -78,6 +79,12 @@ const useStyles = makeStyles({
         boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
         borderBottom: "none",
         background: "#fff",
+    },
+    containerDark: {
+        borderRadius: "14px",
+        boxShadow: "none",
+        borderBottom: "none",
+        background: "#192a59",
     },
 });
 export default function HolderTableComponent(props) {
@@ -359,13 +366,13 @@ export default function HolderTableComponent(props) {
     return (
         <div>
             <div className="content_input_all">
-                <div className="searchelement-input3">
+                <div className={props.theme === "dark" ? "searchelement-input3 bg-transparent-dark": "searchelement-input3"}>
                     <img
                         style={{ width: 18, height: 18, marginRight: 5, marginTop: 7 }}
                         src={"/images/Search.svg"}
                     />
                     <input
-                        className="account-searchbar"
+                        className={props.theme === "dark"? "account-searchbar bg-transparent-dark fc-b1c3e1" : "account-searchbar"}
                         type="text"
                         placeholder="Search Transaction"
                         onKeyPress={(e) => {
@@ -409,7 +416,7 @@ export default function HolderTableComponent(props) {
                             backgroundColor: "#e3e7eb",
                             borderRadius: "4px",
                             width: "94px",
-                            height: "30px",
+                            height: "2.125rem",
                         }}
                     >
                         Export
@@ -418,9 +425,9 @@ export default function HolderTableComponent(props) {
             </div>
 
             <Grid lg={13} className="tablegrid_address">
-                <Paper style={{ borderRadius: "14px" }} elevation={0}>
+                <Paper style={props.theme === "dark" ? {background:"#192a59", borderRadius: "14px" } : { borderRadius: "14px" }} elevation={0}>
                     <TableContainer
-                        className={classes.container}
+                        className={props.theme === "dark" ? classes.containerDark : classes.container}
                         id="container-table-holder"
                     >
                         <Table>
@@ -438,7 +445,7 @@ export default function HolderTableComponent(props) {
                                             style={{ marginRight: "8px" }}
                                         />
                                         <span onClick={() => sortTable("hash")}>
-                                            <span className={"tableheader"} >Transaction Hash</span>
+                                            <span className={props.theme === "dark" ? "tableheader fc-white" : "tableheader"} >Transaction Hash</span>
                                             {sortKey && sortOrder && sortKey == "hash" ? (sortOrder === -1 ? <img
                                                 alt="question-mark"
                                                 src="/images/see-more.svg"
@@ -454,7 +461,7 @@ export default function HolderTableComponent(props) {
                                         </span>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
-                                        <span className={"tableheader mar-right-45 mar-right-40"} onClick={() => sortTable("timestamp")}>
+                                        <span className={props.theme === "dark" ? "tableheader mar-right-45 mar-right-40 fc-white" : "tableheader mar-right-45 mar-right-40"} onClick={() => sortTable("timestamp")}>
                                             Age
                                             {sortKey && sortOrder && sortKey == "timestamp" ? (sortOrder === -1 ? <img
                                                 alt="question-mark"
@@ -471,7 +478,7 @@ export default function HolderTableComponent(props) {
                                         </span>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left" onClick={() => sortTable("blockNumber")}>
-                                        <span className={"tableheader"}>Block</span>
+                                        <span className={props.theme === "dark" ? "tableheader fc-white" : "tableheader"}>Block</span>
                                         {sortKey && sortOrder && sortKey == "blockNumber" ? (sortOrder === -1 ? <img
                                             alt="question-mark"
                                             src="/images/see-more.svg"
@@ -486,7 +493,7 @@ export default function HolderTableComponent(props) {
                                             />) : ""}
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left" onClick={() => sortTable("from")}>
-                                        <span className={"tableheader"}>From</span>
+                                        <span className={props.theme === "dark" ? "tableheader fc-white" : "tableheader"}>From</span>
                                         {sortKey && sortOrder && sortKey == "from" ? (sortOrder === -1 ? <img
                                             alt="question-mark"
                                             src="/images/see-more.svg"
@@ -501,7 +508,7 @@ export default function HolderTableComponent(props) {
                                             />) : ""}
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left" onClick={() => sortTable("to")}>
-                                        <span className={"tableheader"}>To</span>
+                                        <span className={props.theme === "dark" ? "tableheader fc-white" : "tableheader"}>To</span>
                                         {sortKey && sortOrder && sortKey == "to" ? (sortOrder === -1 ? <img
                                             alt="question-mark"
                                             src="/images/see-more.svg"
@@ -516,7 +523,7 @@ export default function HolderTableComponent(props) {
                                             />) : ""}
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left" onClick={() => sortTable("value")}>
-                                        <span className={"tableheader"}>Amount</span>
+                                        <span className={props.theme === "dark" ? "tableheader fc-white" : "tableheader"}>Amount</span>
                                         {sortKey && sortOrder && sortKey == "value" ? (sortOrder === -1 ? <img
                                             alt="question-mark"
                                             src="/images/see-more.svg"
@@ -559,8 +566,8 @@ export default function HolderTableComponent(props) {
                                                 <TableRow
                                                     style={
                                                         index % 2 !== 1
-                                                            ? { background: "#f9f9f9" }
-                                                            : { background: "white" }
+                                                        ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
+                                                        : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
                                                     }
                                                 >
                                                     <TableCell
@@ -578,7 +585,7 @@ export default function HolderTableComponent(props) {
                                                                 style={{ marginRight: "8px" }}
                                                             />
                                                             <a
-                                                                className="linkTable"
+                                                                className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                                                 href={"/transaction-details/" + row.Txn_Hash}
                                                             >
                                                                 <Tooltip placement="top" title={row.Txn_Hash}>
@@ -593,14 +600,14 @@ export default function HolderTableComponent(props) {
                                                         style={{ border: "none", width: "17%" }}
                                                         align="left"
                                                     >
-                                                        <span className="tabledata">{TimeAge}</span>
+                                                        <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>{TimeAge}</span>
                                                     </TableCell>
                                                     <TableCell
                                                         style={{ border: "none", width: "15%" }}
                                                         align="left"
                                                     >
                                                         <a
-                                                            className="linkTable"
+                                                            className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                                             href={"/block-details/" + row.Block}
                                                         >
                                                             <span className="tabledata">{row.Block}</span>
@@ -609,7 +616,7 @@ export default function HolderTableComponent(props) {
                                                     <TableCell style={{ border: "none" }} align="left">
                                                         {row.From != addr ? (
                                                             <a
-                                                                className="linkTable"
+                                                                className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                                                 href={"/address-details/" + row.From}
                                                             >
                                                                 <Tooltip placement="top" title={row.From}>
@@ -621,7 +628,7 @@ export default function HolderTableComponent(props) {
                                                             </a>
                                                         ) : (
                                                             <Tooltip placement="top" title={row.From}>
-                                                                <span className="tabledata">
+                                                                <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
                                                                     {" "}
                                                                     {shorten(row.From)}
                                                                 </span>
@@ -631,7 +638,7 @@ export default function HolderTableComponent(props) {
                                                     <TableCell style={{ border: "none" }} align="left">
                                                         {row.To != addr ? (
                                                             <a
-                                                                className="linkTable"
+                                                                className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                                                 href={"/address-details/" + row.To}
                                                             >
                                                                 <Tooltip placement="top" title={row.To}>
@@ -649,7 +656,7 @@ export default function HolderTableComponent(props) {
                                                         )}
                                                     </TableCell>
                                                     <TableCell style={{ border: "none" }} align="left">
-                                                        <span className="tabledata">
+                                                        <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
                                                             {Number(value) === Number(row.Value)
                                                                 ? 0
                                                                 : format({})(parseFloat(value))}
@@ -680,39 +687,39 @@ export default function HolderTableComponent(props) {
                     </TableContainer>
                 </Paper>
                 <DeskTopView>
-                    <Grid container style={{ marginTop: "2.25rem" }}>
-                        <PaginationInLine>
-                            <Grid item style={{ width: "12.5rem" }}>
-                                <span className="text">Show</span>
-                                <select
-                                    value={rowsPerPage}
-                                    className="select-amount"
-                                    onChange={handleChangeRowsPerPage}
-                                >
-                                    <option value={10}>10</option>
-                                    <option value={25}>25</option>
-                                    <option value={50}>50</option>
-                                    <option value={75}>75</option>
-                                    <option value={100}>100</option>
-                                </select>
-                                <span className="text">Records</span>
+                    <Grid container style={{ marginTop: "1.75rem" }} className="Pagination">
+                            <Grid className="Pagination_1">
+                                <span className={props.theme === "dark" ? "text-dark" : "text"}>Show</span>
+                                <PageSelector value={rowsPerPage}
+                                    height={35}
+                                    handler={handleChangeRowsPerPage} 
+                                    theme={props.theme}
+                                />
+                                <span className={props.theme === "dark" ? "text-dark" : "text"}>Records</span>
                             </Grid>
 
-                            <Grid>
+                            <Grid item className="Pagination_2">
                                 <button
-                                    style={{ marginLeft: "0px" }}
                                     onClick={() => handleChangePage("first")}
-                                    className={page === 0 ? "btn disabled" : "btn"}
+                                    className={
+                                        page === 0
+                                          ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-first" : "btn disabled btn-first"
+                                          : props.theme === "dark" ? "btn-latest-block-dark btn-first" : "btn btn-first"
+                                      }
                                 >
                                     First
                                 </button>
                                 <button
                                     onClick={() => handleChangePage("prev")}
-                                    className={page === 0 ? "btn disabled" : "btn"}
+                                    className={
+                                        page === 0 
+                                        ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-back" : "btn disabled btn-back" 
+                                        : props.theme === "dark" ? "btn-latest-block-dark  btn-back" : "btn btn-back"
+                                      }
                                 >
-                                    {"<"}
+                                    <img className="rotate-180" alt="back" src={"/images/next.svg"} />{" "}
                                 </button>
-                                <button className="btn">
+                                <button className={props.theme === "dark" ? "btn-latest-block-dark  btn-page" : "btn btn-page"}>
                                     Page{" "}
                                     {Math.round(totalRecord / rowsPerPage) +
                                         1 -
@@ -722,86 +729,84 @@ export default function HolderTableComponent(props) {
                                 <button
                                     onClick={() => handleChangePage("next")}
                                     className={
-                                        page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
+                                        page + rowsPerPage === totalRecord ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
+                                        : props.theme === "dark" ? "btn-latest-block-dark  btn-next" : "btn btn-next"
                                     }
                                 >
-                                    {">"}
+                                    <img alt="next" src={"/images/next.svg"} />
                                 </button>
                                 <button
                                     onClick={() => handleChangePage("last")}
                                     className={
-                                        page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
+                                        page + rowsPerPage === totalRecord ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
+                                        : props.theme === "dark" ? "btn-latest-block-dark  btn-last" : "btn btn-last"
                                     }
                                 >
                                     Last
                                 </button>
                             </Grid>
-                        </PaginationInLine>
                     </Grid>
                 </DeskTopView>
                 <MobileView>
-                    <Pagination>
-                        <LeftPagination>
-                            <span className="text">Show</span>
-                            <select
-                                value={rowsPerPage}
-                                className="select-amount"
-                                onChange={handleChangeRowsPerPage}
-                            >
-                                <option value={10}>10</option>
-                                <option value={25}>25</option>
-                                <option value={50}>50</option>
-                                <option value={75}>75</option>
-                                <option value={100}>100</option>
-                            </select>
-                            <span className="text">Records</span>
-                        </LeftPagination>
+                     <Grid container style={{ marginTop: "1.75rem" }} className="Pagination">
+                            <Grid className="Pagination_1">
+                                <span className={props.theme === "dark" ? "text-dark" : "text"}>Show</span>
+                                <PageSelector value={rowsPerPage}
+                                    height={35}
+                                    handler={handleChangeRowsPerPage} 
+                                    theme={props.theme}
+                                />
+                                <span className={props.theme === "dark" ? "text-dark" : "text"}>Records</span>
+                            </Grid>
 
-                        <RightPagination className="pagiantion-11">
-                            <button
-                                id="btn_12"
-                                style={{ marginLeft: "0px" }}
-                                onClick={() => handleChangePage("first")}
-                                className={page === 0 ? "btn disabled" : "btn"}
-                            >
-                                First
-                            </button>
-                            <button
-                                id="btn_12"
-                                onClick={() => handleChangePage("prev")}
-                                className={page === 0 ? "btn disabled" : "btn"}
-                            >
-                                {"<"}
-                            </button>
-                            <button id="btn_12" className="btn w-100">
-                                <div className="txt-center">
-                                    Page
+                            <Grid item className="Pagination_2">
+                                <button
+                                    onClick={() => handleChangePage("first")}
+                                    className={
+                                        page === 0
+                                          ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-first" : "btn disabled btn-first"
+                                          : props.theme === "dark" ? "btn-latest-block-dark btn-first" : "btn btn-first"
+                                      }
+                                >
+                                    First
+                                </button>
+                                <button
+                                    onClick={() => handleChangePage("prev")}
+                                    className={
+                                        page === 0 
+                                        ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-back" : "btn disabled btn-back" 
+                                        : props.theme === "dark" ? "btn-latest-block-dark  btn-back" : "btn btn-back"
+                                      }
+                                >
+                                    <img className="rotate-180" alt="back" src={"/images/next.svg"} />{" "}
+                                </button>
+                                <button className={props.theme === "dark" ? "btn-latest-block-dark  btn-page" : "btn btn-page"}>
+                                    Page{" "}
                                     {Math.round(totalRecord / rowsPerPage) +
                                         1 -
-                                        Math.round((totalRecord - page) / rowsPerPage)}{" "}
-                                    &nbsp;of {Math.round(totalRecord / rowsPerPage)}
-                                </div>
-                            </button>
-                            <button
-                                id="btn_12"
-                                onClick={() => handleChangePage("next")}
-                                className={
-                                    page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
-                                }
-                            >
-                                {">"}
-                            </button>
-                            <button
-                                id="btn_12"
-                                onClick={() => handleChangePage("last")}
-                                className={
-                                    page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
-                                }
-                            >
-                                Last
-                            </button>
-                        </RightPagination>
-                    </Pagination>
+                                        Math.round((totalRecord - page) / rowsPerPage)}
+                                    &nbsp;of {Math.ceil(totalRecord / rowsPerPage)}
+                                </button>
+                                <button
+                                    onClick={() => handleChangePage("next")}
+                                    className={
+                                        page + rowsPerPage === totalRecord ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
+                                        : props.theme === "dark" ? "btn-latest-block-dark  btn-next" : "btn btn-next"
+                                    }
+                                >
+                                    <img alt="next" src={"/images/next.svg"} />
+                                </button>
+                                <button
+                                    onClick={() => handleChangePage("last")}
+                                    className={
+                                        page + rowsPerPage === totalRecord ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
+                                        : props.theme === "dark" ? "btn-latest-block-dark  btn-last" : "btn btn-last"
+                                    }
+                                >
+                                    Last
+                                </button>
+                            </Grid>
+                    </Grid>
                 </MobileView>
             </Grid>
         </div>

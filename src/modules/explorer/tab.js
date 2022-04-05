@@ -52,7 +52,7 @@ function Tab(props) {
                 </div>
 
                 <div className={toggleState === 3 ? "content  active-content" : "content"}>
-                    <Gasgraphbar theme={props.theme}/>
+                    <Gasgraphbar theme={props.theme} currency={props.currency}/>
 
                 </div>
             </div>
