@@ -152,7 +152,6 @@ export default function App(props) {
 
   let CurrencyValue = sessionManager.getDataFromLocalStorage(cookiesConstants.OBSERVER_CURRENCY) || "USD";
   CurrencyValue = CurrencyValue.replace(/['"]+/g, '')
-  console.log("CurrencyValue",CurrencyValue)
   useEffect(async () => {
     let coinmarketCapValue = await getcoinMarketCapData()
 

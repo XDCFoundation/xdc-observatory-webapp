@@ -1,4 +1,3 @@
-//working
 import {eventConstants, cookiesConstants} from "../constants"
 import {sessionManager} from "../managers/sessionManager";
 
