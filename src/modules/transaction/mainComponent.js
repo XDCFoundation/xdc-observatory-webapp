@@ -75,7 +75,7 @@ export default class LatestTransactionList extends BaseComponent {
     listOfTransactions = listOfTransactions.map((item) => {
       return {
         ...item,
-        method: Utils.getMethodType(item.input),
+        method: Utils.getMethodType(item),
       };
     });
     this.setState({
@@ -113,6 +113,7 @@ export default class LatestTransactionList extends BaseComponent {
   socketData(socket) {
     socket.on("transaction-socket", (transactionData, error) => {
       // this.setState({ transactionSocketConnected: true })
+      console.log(transactionData,"transactiondata")
       transactionData["method"] = Utils.getMethodType(transactionData);
       let transactions = this.state.transactionList;
 
