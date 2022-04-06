@@ -75,7 +75,7 @@ class TokenTransferGraph extends BaseComponent {
     const uniqueAddressReceived = [];
     for (let index = 0; index < data.length; index++) {
       const x = data[index].addedOn;
-      tokenTransfer.push({ x, y: data[index].totalTransferTokens });
+      tokenTransfer.push({ x, y: data[index].totalTransferTokens/ 10 ** 18 });
       tokenContractCount.push({ x, y: data[index].transfersCount });
       outBoundTransfer.push({ x, y: data[index].outBoundTransfers });
       inBoundTransfer.push({ x, y: data[index].inBoundTransfers });

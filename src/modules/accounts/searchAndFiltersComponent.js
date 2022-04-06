@@ -76,8 +76,8 @@ const SearchAndFiltersComponent = (props) => {
         onSelect={(data) => setType(data)}
         options={[
           { key: "-1", value: "View All" },
-          { key: "0", value: "Account" },
-          { key: "1", value: "Contracts" },
+          { key: "0", value: "Accounts" },
+          { key: "1", value: "Contract" },
           { key: "2", value: "Token" },
         ]}
       />

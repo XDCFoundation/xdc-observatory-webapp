@@ -98,8 +98,8 @@ const Content = styled.div`
     line-height: 18px !important;
     word-break: break-all;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   }
@@ -111,8 +111,8 @@ const Content = styled.div`
     color: #3a3a3a;
     opacity: 1;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   }
@@ -141,8 +141,8 @@ const ContentHash = styled.div`
     line-height: 18px !important;
     word-break: break-all;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #b1c3e1;
     `}
   }
@@ -155,8 +155,8 @@ const ContentHash = styled.div`
     opacity: 1;
     width: 33rem;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #b1c3e1;
     `}
   }
@@ -307,8 +307,8 @@ const MiddleContainer = styled.div`
     margin-left: unset;
     margin-top: 10px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   }
@@ -321,8 +321,8 @@ const MiddleContainer = styled.div`
     opacity: 1;
     margin-left: 100px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   }
@@ -387,8 +387,8 @@ const HashInputData = styled.span`
     opacity: 1;
     padding-bottom: 20px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #ffffff;
   `}
   }
@@ -401,8 +401,8 @@ const HashInputData = styled.span`
     color: #2a2a2a;
     opacity: 1;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #ffffff;
   `}
   }
@@ -429,8 +429,8 @@ const Hash = styled.span`
     color: #252525;
     opacity: 1;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
   }
@@ -626,8 +626,8 @@ const Heading = styled.span`
     margin-top: 12px;
     margin-bottom: 17px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
   }
@@ -639,8 +639,8 @@ const Heading = styled.span`
     margin-top: 19px;
     margin-bottom: 28px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
   }
@@ -689,8 +689,8 @@ const StatusContainer = styled.div`
     border-bottom: 1px solid #4a5d94;
     padding-bottom: 30px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     border-right: 1px solid #091b4e;
   `}
   }
@@ -825,8 +825,8 @@ const DetailsMiddleContainer = styled.div`
     color: #2a2a2a;
     padding-right: 15px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
   }
@@ -1296,8 +1296,8 @@ function Transaction({ theme, currency }) {
     const tagValue =
       tags && tags.length > 0
         ? tags?.filter(
-            (obj) => obj.address === data.address && obj.userId == data.userId
-          )
+          (obj) => obj.address === data.address && obj.userId == data.userId
+        )
         : "";
     if (tagValue && tagValue.length) {
       setAddressTag(tagValue[0]);
@@ -1320,8 +1320,8 @@ function Transaction({ theme, currency }) {
     const tagValue =
       tags && tags.length > 0
         ? tags?.filter(
-            (obj) => obj.address === data.address && obj.userId == data.userId
-          )
+          (obj) => obj.address === data.address && obj.userId == data.userId
+        )
         : "";
     if (tagValue && tagValue.length) {
       setAddressTagTo(tagValue[0]);
@@ -1335,21 +1335,21 @@ function Transaction({ theme, currency }) {
 
   let taggedAddress = localStorage.getItem(
     sessionManager.getDataFromCookies("userId") +
-      cookiesConstants.USER_TAGGED_ADDRESS
+    cookiesConstants.USER_TAGGED_ADDRESS
   );
   let tags =
     taggedAddress && taggedAddress.length > 0 ? JSON.parse(taggedAddress) : "";
   var tagValueFrom =
     tags && tags.length > 0
       ? tags?.filter(
-          (obj) => obj.address === addrTagFrom && obj.userId === userInfo.sub
-        )
+        (obj) => obj.address === addrTagFrom && obj.userId === userInfo.sub
+      )
       : "";
   var tagValueTo =
     tags && tags.length > 0
       ? tags?.filter(
-          (obj) => obj.address === addrTagTo && obj.userId === userInfo.sub
-        )
+        (obj) => obj.address === addrTagTo && obj.userId === userInfo.sub
+      )
       : "";
 
   // ---------------------------------------> fetch pvt note from (local-storage) <--------------------------------------------//
@@ -1364,9 +1364,9 @@ function Transaction({ theme, currency }) {
   var pvtNoteValue =
     pvtNote && pvtNote.length > 0
       ? pvtNote?.filter(
-          (obj) =>
-            obj.transactionHash === pvtNotehash && obj.userId === userInfo.sub
-        )
+        (obj) =>
+          obj.transactionHash === pvtNotehash && obj.userId === userInfo.sub
+      )
       : "";
 
   const handleSeeMore = () => {
@@ -1394,8 +1394,8 @@ function Transaction({ theme, currency }) {
     CurrencyValue === "INR"
       ? txfee * price
       : CurrencyValue === "USD"
-      ? txfee * price
-      : txfee * price;
+        ? txfee * price
+        : txfee * price;
   const fetchtxn = !transactionFetch
     ? 0
     : parseFloat(transactionFetch)?.toFixed(8);
@@ -1412,8 +1412,8 @@ function Transaction({ theme, currency }) {
     CurrencyValue === "INR"
       ? gasP * price
       : CurrencyValue === "USD"
-      ? gasP * price
-      : gasP * price;
+        ? gasP * price
+        : gasP * price;
   const avgTxnFeeFetch = !avgTxnFeeConverted
     ? 0
     : parseFloat(avgTxnFeeConverted)?.toFixed(14);
@@ -1422,7 +1422,7 @@ function Transaction({ theme, currency }) {
 
   let transactionValue =
     transactions?.value <
-    1000000000000 /*there are some transactions which are not in gwei in ou DB*/
+      1000000000000 /*there are some transactions which are not in gwei in ou DB*/
       ? transactions?.value * 1000000000000000000
       : transactions?.value;
   const valueDiv =
@@ -1471,7 +1471,9 @@ function Transaction({ theme, currency }) {
     }
   };
   const timezone = useSelector((state) => state.timezone);
-
+  let txnActionValues = utility.getTxnActionFromAndTo(transactions)
+  let interectedWithValues = utility.getInterectedWithFromAndTo(transactions)
+  
   return (
     <div
       className={
@@ -1588,8 +1590,8 @@ function Transaction({ theme, currency }) {
                                     ? "copyToClipboardHashDark"
                                     : "copyToClipboardHash"
                                   : theme.currentTheme === "dark"
-                                  ? "copyToClipboardHashMobileDark"
-                                  : "copyToClipboardHashMobile"
+                                    ? "copyToClipboardHashMobileDark"
+                                    : "copyToClipboardHashMobile"
                               }
                             >
                               <img
@@ -1597,8 +1599,8 @@ function Transaction({ theme, currency }) {
                                   width > 1240
                                     ? "copy-icon"
                                     : width < 768
-                                    ? "copyIconHashMobile"
-                                    : "copyIconHash"
+                                      ? "copyIconHashMobile"
+                                      : "copyIconHash"
                                 }
                                 src={"/images/copy-grey.svg"}
                               />
@@ -1614,7 +1616,7 @@ function Transaction({ theme, currency }) {
                                 <PrivateNote
                                   open={dialogPvtNoteIsOpen}
                                   getListOfTxnLabel={getListOfTxnLabel}
-                                  getTotalCountTxnLabel={() => {}}
+                                  getTotalCountTxnLabel={() => { }}
                                   onClose={closeDialogPvtNote}
                                   hash={hash}
                                   pvtNote={privateNote[0]?.trxLable}
@@ -1762,15 +1764,13 @@ function Transaction({ theme, currency }) {
                         isTextArea={false}
                         theme={theme.currentTheme}
                       >
-                        {`${
-                          (transactions?.timestamp &&
-                            moment(transactions.timestamp * 1000)
-                              .tz(timezone)
-                              .format("MMM DD, YYYY, hh:mm A")) ||
+                        {`${(transactions?.timestamp &&
+                          moment(transactions.timestamp * 1000)
+                            .tz(timezone)
+                            .format("MMM DD, YYYY, hh:mm A")) ||
                           ""
-                        } ${
-                          (timezone && Utility.getUtcOffset(timezone)) || ""
-                        }`}
+                          } ${(timezone && Utility.getUtcOffset(timezone)) || ""
+                          }`}
                       </DetailsMiddleContainer>
                     </DetailsContainer>
                     {/* ------------------------------------------------------block-------------------------------  */}
@@ -1926,8 +1926,8 @@ function Transaction({ theme, currency }) {
                                       ? "copyToClipboardHashDark"
                                       : "copyToClipboardHash"
                                     : theme.currentTheme === "dark"
-                                    ? "copyToClipboardHashMobileDark"
-                                    : "copyToClipboardHashMobile"
+                                      ? "copyToClipboardHashMobileDark"
+                                      : "copyToClipboardHashMobile"
                                 }
                               >
                                 <img
@@ -1935,8 +1935,8 @@ function Transaction({ theme, currency }) {
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 768
-                                      ? "copy-icon-from"
-                                      : "copy-icon-from-tab"
+                                        ? "copy-icon-from"
+                                        : "copy-icon-from-tab"
                                   }
                                   src={"/images/copy-grey.svg"}
                                 />
@@ -2134,8 +2134,8 @@ function Transaction({ theme, currency }) {
                                       ? "copyToClipboardHashDark"
                                       : "copyToClipboardHash"
                                     : theme.currentTheme === "dark"
-                                    ? "copyToClipboardHashMobileDark"
-                                    : "copyToClipboardHashMobile"
+                                      ? "copyToClipboardHashMobileDark"
+                                      : "copyToClipboardHashMobile"
                                 }
                               >
                                 <img
@@ -2143,8 +2143,8 @@ function Transaction({ theme, currency }) {
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 768
-                                      ? "copy-icon-from"
-                                      : "copy-icon-from-tab"
+                                        ? "copy-icon-from"
+                                        : "copy-icon-from-tab"
                                   }
                                   src={"/images/copy-grey.svg"}
                                 />
@@ -2349,11 +2349,11 @@ function Transaction({ theme, currency }) {
                             &nbsp;
                             {transactions?.to
                               ? utility.shortenAddress(
-                                  transactions?.to,
-                                  11,
-                                  4,
-                                  3
-                                )
+                                transactions?.to,
+                                11,
+                                4,
+                                3
+                              )
                               : ""}
                           </BlueText>
                         </InteractedWithNextRow>
@@ -2412,8 +2412,8 @@ function Transaction({ theme, currency }) {
                               {contractData?.ERC == 2
                                 ? "XRC-20"
                                 : ContractData?.ERC > 2
-                                ? "XRC-721"
-                                : ""}
+                                  ? "XRC-721"
+                                  : ""}
                             </BlackText>
                             <GreyText>Token ID</GreyText>
                             <GreyText>[</GreyText>
@@ -2490,25 +2490,25 @@ function Transaction({ theme, currency }) {
                             <GreyText>&nbsp;from</GreyText>
                             <BlueText theme={theme.currentTheme}>
                               &nbsp;
-                              {transactions?.from
+                              {txnActionValues?.txnActionFromValue
                                 ? utility.shortenAddress(
-                                    transactions?.from,
-                                    11,
-                                    4,
-                                    3
-                                  )
+                                  txnActionValues?.txnActionFromValue,
+                                  11,
+                                  4,
+                                  3
+                                )
                                 : ""}
                             </BlueText>
                             <GreyText>&nbsp;to</GreyText>
                             <BlueText theme={theme.currentTheme}>
                               &nbsp;
-                              {transactions?.to
+                              {txnActionValues?.txnActionToValue
                                 ? utility.shortenAddress(
-                                    transactions?.to,
-                                    11,
-                                    4,
-                                    3
-                                  )
+                                  txnActionValues?.txnActionToValue,
+                                  11,
+                                  4,
+                                  3
+                                )
                                 : ""}
                             </BlueText>
                           </TxnActionNextRow>
@@ -2618,11 +2618,11 @@ function Transaction({ theme, currency }) {
                               &nbsp;
                               {transactions?.to
                                 ? utility.shortenAddress(
-                                    transactions?.to,
-                                    11,
-                                    4,
-                                    3
-                                  )
+                                  transactions?.to,
+                                  11,
+                                  4,
+                                  3
+                                )
                                 : ""}
                             </BlueText>
                           </InteractedWithNextRow>
@@ -3047,7 +3047,7 @@ function Transaction({ theme, currency }) {
                           <PrivateNote
                             open={dialogPvtNoteIsOpen}
                             getListOfTxnLabel={getListOfTxnLabel}
-                            getTotalCountTxnLabel={() => {}}
+                            getTotalCountTxnLabel={() => { }}
                             onClose={closeDialogPvtNote}
                             hash={hash}
                             pvtNote={
