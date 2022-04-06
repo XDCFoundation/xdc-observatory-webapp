@@ -190,12 +190,13 @@ class AddressStatsData extends Component {
   }
   render() {
     const currencyPrice = this.props?.price;
-    let activeCurrency = window.localStorage.getItem("currency");
+    let activeCurrency = this.props.currency;
     let highestTransaction = this.props?.statData?.highestTransaction;
     highestTransaction = Utils.decimalDivisonOnly(highestTransaction, 8);
     let highestTxn = Utils.convertToInternationalCurrencySystem(
       Number(highestTransaction)
     );
+
     let highestTransactionConverted =
       Utils.convertToInternationalCurrencySystem(
         Number(highestTransaction) * Number(currencyPrice)
@@ -268,7 +269,7 @@ class AddressStatsData extends Component {
                 <ThirdRowValue>
                   <OutValue theme={this.props.theme}>
                     {currencySymbol}
-                    {!highestTransactionConverted
+                    {highestTransactionConverted < 0
                       ? ""
                       : highestTransactionConverted}
                   </OutValue>
@@ -406,7 +407,7 @@ class AddressStatsData extends Component {
                   <OutValue theme={this.props.theme}>
                     {" "}
                     {currencySymbol}
-                    {!highestTransactionConverted
+                    {highestTransactionConverted < 0
                       ? ""
                       : highestTransactionConverted}
                   </OutValue>

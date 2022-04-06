@@ -23,6 +23,19 @@ import {
 import Utils from "../../utility";
 import utility from "../../utility";
 import { useParams } from "react-router";
+import { withStyles } from "@material-ui/core/styles";
+
+const useStyles = (theme) => ({
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
+});
+
 var _ = require("lodash");
 const MainContainer = styled.div`
   width: 75.125rem;
@@ -35,7 +48,9 @@ const MainContainer = styled.div`
   border-top: solid 1px #ffffff;
   background-color: #ffffff;
   display: flex;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     background-color: #192a59;
     border-top: none
   `}
@@ -170,7 +185,9 @@ const Title = styled.div`
   line-height: normal;
 
   margin-bottom: 5px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
 `;
@@ -181,7 +198,9 @@ const TitleValue = styled.div`
   line-height: normal;
 
   color: #252525;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
   @media (max-width: 767px) {
@@ -207,7 +226,9 @@ const TransactionValue = styled.div`
   line-height: normal;
 
   color: #252525;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
 `;
@@ -218,7 +239,9 @@ const TitleData = styled.div`
   line-height: normal;
 
   color: #2a2a2a;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
   @media (max-width: 767px) {
@@ -255,14 +278,18 @@ const LeftTitle = styled.div`
   font-style: normal;
   line-height: normal;
   color: #2a2a2a;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b9c2da;
   `}
   @media (max-width: 767px) {
     font-size: 1.375rem;
     font-weight: 700;
     color: #252525;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     color: #b9c2da;
     `}
   }
@@ -290,7 +317,9 @@ const LeftTopSec = styled.div`
   font-weight: 800;
   font-family: Inter;
   color: #252525;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b9c2da;
   `}
   @media (min-width: 0px) and (max-width: 767px) {
@@ -342,7 +371,7 @@ class BlockChainDataComponent extends Component {
       addressTT: false,
       nodes: 0,
       activeNodes: 0,
-      nodeLoading:true,
+      nodeLoading: true,
     };
   }
   componentWillUnmount() {
@@ -424,7 +453,7 @@ class BlockChainDataComponent extends Component {
           ? transactionData.filter((node) => node?.stats?.active).length
           : [];
       this.setState({ activeNodes: nodesActive });
-      this.setState({nodeLoading:false})
+      this.setState({ nodeLoading: false });
       let bestStats = _.maxBy(transactionData, function (node) {
         return parseInt(node.stats.block.number);
       }).stats;
@@ -447,13 +476,11 @@ class BlockChainDataComponent extends Component {
           this.setState({ animationTransaction: {} });
         }, 500);
       }
-      let gp = txnFeeConverted
-        ? Utility.decimalDivison(txnFeeConverted, 8)
-        : 0;
+      let gp = txnFeeConverted ? Utility.decimalDivison(txnFeeConverted, 8) : 0;
       if (this.state.gasPrice !== gp) {
         this.setState({ gasPrice: gp });
       }
-        });
+    });
   }
   /* FETCHING GET TOTAL TRANSACTIONS API*/
 
@@ -643,6 +670,7 @@ class BlockChainDataComponent extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     let changePrice;
     if (
       this.state.coinMarketPrice &&
@@ -695,7 +723,11 @@ class BlockChainDataComponent extends Component {
           <DeskTopDesign>
             <LeftFirst>
               <LeftTop>
-                <IconLogo src={logo} />
+                <IconLogo
+                  src={
+                    this.props.theme === "dark" ? "/images/XDC icon.svg" : logo
+                  }
+                />
                 <LeftTitle theme={this.props.theme}>XDC</LeftTitle>
               </LeftTop>
               <LeftTopSecMain>
@@ -737,10 +769,19 @@ class BlockChainDataComponent extends Component {
           <LeftSec>
             <ValueMain>
               <Value gridArea="blockHeight">
-                <TitleIcon src={blockHeightImg} />
+                <TitleIcon
+                  src={
+                    this.props.theme === "dark"
+                      ? "/images/block-height-dark-mode.svg"
+                      : blockHeightImg
+                  }
+                />
                 <ValueName>
                   <Title theme={this.props.theme}>Block Height</Title>
-                  <TitleValue theme={this.props.theme} className={animationClass ? animationClass : ""}>
+                  <TitleValue
+                    theme={this.props.theme}
+                    className={animationClass ? animationClass : ""}
+                  >
                     {this.state &&
                     this.state.blockdataNumber &&
                     this.state.blockdataNumber?.length
@@ -750,25 +791,45 @@ class BlockChainDataComponent extends Component {
                 </ValueName>
               </Value>
               <Value gridArea="gasPrice">
-                { 
-                currencySymbol === "$" ?
-                <TitleIcon src={priceLogo} />:
-                <TitleIcon src="/images/Gas price euro.svg" />
-                }
+                {currencySymbol === "$" ? (
+                  <TitleIcon
+                    src={
+                      this.props.theme === "dark"
+                        ? "/images/gas-price-usd-dark-mode.svg"
+                        : priceLogo
+                    }
+                  />
+                ) : (
+                  <TitleIcon
+                    src={
+                      this.props.theme === "dark"
+                        ? "/images/gas-price-euro-dark-mode.svg"
+                        : "/images/Gas price euro.svg"
+                    }
+                  />
+                )}
                 <ValueName>
                   <Title theme={this.props.theme}>Txn Fee (Avg)</Title>
-                  {this.state.nodeLoading === true ? <div className="animated-background"></div>:
-                  <TitleData
-                    className={TxanimationClass ? TxanimationClass : ""}
-                    theme={this.props.theme}
-                  >
-                    {this.state.gasPrice > 0 ? this.state.gasPrice : ""}
-                  </TitleData>
-  }
+                  {this.state.nodeLoading === true ? (
+                    <div className="animated-background"></div>
+                  ) : (
+                    <TitleData
+                      className={TxanimationClass ? TxanimationClass : ""}
+                      theme={this.props.theme}
+                    >
+                      {this.state.gasPrice > 0 ? this.state.gasPrice : ""}
+                    </TitleData>
+                  )}
                 </ValueName>
               </Value>
               <Value gridArea="transactions">
-                <TitleIcon src={transactionLogo} />
+                <TitleIcon
+                  src={
+                    this.props.theme === "dark"
+                      ? "/images/transactions-dark-mode.svg"
+                      : transactionLogo
+                  }
+                />
                 <ValueName>
                   <Title theme={this.props.theme}>Transactions</Title>
 
@@ -777,6 +838,12 @@ class BlockChainDataComponent extends Component {
                     <Tooltip
                       placement="top"
                       title={this.state.totalTransaction}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
                     >
                       <TransactionValue theme={this.props.theme}>
                         {utility.convertToInternationalCurrencySystem(
@@ -784,22 +851,55 @@ class BlockChainDataComponent extends Component {
                         )}
                       </TransactionValue>
                     </Tooltip>
-                    <Tooltip
-                      open={this.state.addressTT}
-                      onOpen={() => this.setState({ addressTT: true })}
-                      onClose={() => this.setState({ addressTT: false })}
-                      placement="top"
-                      title="Transactions are syncing"
-                    >
-                      <img
-                        onClick={() =>
-                          this.setState({ addressTT: !this.state.addressTT })
-                        }
-                        alt="question-mark"
-                        src="/images/alert.svg"
-                        className="tooltipAlert"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title="Transactions are syncing"
+                        classes={{
+                          tooltip:
+                            this.props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src={
+                            this.props.theme === "dark"
+                              ? "/images/alert-dark-mode.svg"
+                              : "/images/alert.svg"
+                          }
+                          className="tooltipAlert"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={this.state.addressTT}
+                        onOpen={() => this.setState({ addressTT: true })}
+                        onClose={() => this.setState({ addressTT: false })}
+                        placement="top"
+                        title="Transactions are syncing"
+                        classes={{
+                          tooltip:
+                            this.props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() =>
+                            this.setState({ addressTT: !this.state.addressTT })
+                          }
+                          alt="question-mark"
+                          src={
+                            this.props.theme === "dark"
+                              ? "/images/alert-dark-mode.svg"
+                              : "/images/alert.svg"
+                          }
+                          className="tooltipAlert"
+                        />
+                      </Tooltip>
+                    )}
                   </TransactionTitleValue>
                 </ValueName>
               </Value>
@@ -816,21 +916,35 @@ class BlockChainDataComponent extends Component {
               {/*  </ValueName>*/}
               {/*</Value>*/}
               <Value gridArea="nodes">
-                <TitleIcon src="/images/nodes.svg" />
+                <TitleIcon
+                  src={
+                    this.props.theme === "dark"
+                      ? "/images/nodes-dark-mode.svg"
+                      : "/images/nodes.svg"
+                  }
+                />
                 <ValueName>
                   <Title theme={this.props.theme}>Nodes</Title>
                   {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
-                  {this.state.nodeLoading === true ? <div className="animated-background"></div>:
-                  <TitleValue theme={this.props.theme}>
-                    {this.state.activeNodes > 0 ? this.state.activeNodes : ""}
-                    {this.state.nodes > 0 ? "/" + this.state.nodes : ""}{" "}
-                  </TitleValue>
-  }
+                  {this.state.nodeLoading === true ? (
+                    <div className="animated-background"></div>
+                  ) : (
+                    <TitleValue theme={this.props.theme}>
+                      {this.state.activeNodes > 0 ? this.state.activeNodes : ""}
+                      {this.state.nodes > 0 ? "/" + this.state.nodes : ""}{" "}
+                    </TitleValue>
+                  )}
                 </ValueName>
               </Value>
 
               <Value gridArea="accounts">
-                <TitleIcon src={accountLogo} />
+                <TitleIcon
+                  src={
+                    this.props.theme === "dark"
+                      ? "/images/accounts-dark-mode.svg"
+                      : accountLogo
+                  }
+                />
                 <ValueName>
                   <Title theme={this.props.theme}>Accounts</Title>
                   <div className="last_value">
@@ -958,10 +1072,10 @@ class BlockChainDataComponent extends Component {
               </LeftTopSecMain>
             </LeftFirst>
           </MobileDesign>
-          <Tab theme={this.props.theme}/>
+          <Tab theme={this.props.theme} currency={this.props.currency} />
         </RightContainer>
       </MainContainer>
     );
   }
 }
-export default BlockChainDataComponent;
+export default withStyles(useStyles)(BlockChainDataComponent);

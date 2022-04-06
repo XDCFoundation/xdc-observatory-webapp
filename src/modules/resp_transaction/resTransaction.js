@@ -55,6 +55,14 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     backgroundColor: "#091b4e",
   },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
 }));
 
 const Input = styled.input`
@@ -90,8 +98,8 @@ const Content = styled.div`
     line-height: 18px !important;
     word-break: break-all;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   }
@@ -103,8 +111,8 @@ const Content = styled.div`
     color: #3a3a3a;
     opacity: 1;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   }
@@ -133,8 +141,8 @@ const ContentHash = styled.div`
     line-height: 18px !important;
     word-break: break-all;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #b1c3e1;
     `}
   }
@@ -147,8 +155,8 @@ const ContentHash = styled.div`
     opacity: 1;
     width: 33rem;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #b1c3e1;
     `}
   }
@@ -299,8 +307,8 @@ const MiddleContainer = styled.div`
     margin-left: unset;
     margin-top: 10px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   }
@@ -313,8 +321,8 @@ const MiddleContainer = styled.div`
     opacity: 1;
     margin-left: 100px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #b1c3e1;
   `}
   }
@@ -379,8 +387,8 @@ const HashInputData = styled.span`
     opacity: 1;
     padding-bottom: 20px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #ffffff;
   `}
   }
@@ -393,8 +401,8 @@ const HashInputData = styled.span`
     color: #2a2a2a;
     opacity: 1;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
      color: #ffffff;
   `}
   }
@@ -421,8 +429,8 @@ const Hash = styled.span`
     color: #252525;
     opacity: 1;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
   }
@@ -618,8 +626,8 @@ const Heading = styled.span`
     margin-top: 12px;
     margin-bottom: 17px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
   }
@@ -631,8 +639,8 @@ const Heading = styled.span`
     margin-top: 19px;
     margin-bottom: 28px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
   }
@@ -653,7 +661,6 @@ const ImageViewInputData = styled.img`
 const ImageView = styled.img`
   width: 22px;
   margin-right: 15px;
-  cursor: pointer;
   // @media (min-width: 0px) and (max-width: 767px) {
 
   // }
@@ -682,8 +689,8 @@ const StatusContainer = styled.div`
     border-bottom: 1px solid #4a5d94;
     padding-bottom: 30px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     border-right: 1px solid #091b4e;
   `}
   }
@@ -818,8 +825,8 @@ const DetailsMiddleContainer = styled.div`
     color: #2a2a2a;
     padding-right: 15px;
     ${({ theme }) =>
-      theme === "dark" &&
-      `
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
   }
@@ -1082,17 +1089,16 @@ const ContainerInteractedWith = styled.div`
   width: 100%;
   align-items: center;
   max-width: 165px;
-  margin-top: -40px;
+  // margin-top: -40px;
 `;
 const ContainerTxnAction = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
   max-width: 165px;
-  margin-top: -40px;
 `;
 
-function Transaction({ _handleChange, theme }) {
+function Transaction({ theme, currency }) {
   const classes = useStyles();
   const { hash } = useParams();
   const [transactions, setTransactions] = useState([]);
@@ -1107,6 +1113,23 @@ function Transaction({ _handleChange, theme }) {
   const [copiedText, setCopiedText] = useState("");
   const [fromAddress, setFromAddress] = useState("");
   const [toAddress, setToAddress] = useState("");
+
+  const [hashTT, setHashTT] = useState(false);
+  const [transactionValueTT, setTransactionValueTT] = useState(false);
+  const [transactionTimestampTT, setTransactionTimestampTT] = useState(false);
+  const [blockTT, SetBlockTT] = useState(false);
+  const [fromTT, SetFromTT] = useState(false);
+  const [toTT, setToTT] = useState(false);
+  const [interactedWithTT, setInteractedWithTT] = useState(false);
+  const [tokenTransferredTT, setTokenTransferredTT] = useState(false);
+  const [txnActionTT, setTxnActionTT] = useState(false);
+  const [txnFeeTT, setTxnFeeTT] = useState(false);
+  const [gasProvidedTT, setGasProvidedTT] = useState(false);
+  const [avgTxnFeeTT, setAvgTxnFeeTT] = useState(false);
+  const [gasUsedTT, setGasUsedTT] = useState(false);
+  const [nonceTT, setNonceTT] = useState(false);
+  const [inputDataTT, setInputDataTT] = useState(false);
+  const [privateNoteTT, setPrivateNoteTT] = useState(false);
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -1212,7 +1235,7 @@ function Transaction({ _handleChange, theme }) {
   useEffect(() => {
     let ts = parseInt(timeStamp);
     getCoinMarketDetailForTransaction(ts);
-  }, [amount]);
+  }, [currency.activeCurrency]);
   const getContractDetails = async () => {
     let urlPath = transactions.to;
     let [error, contractDecimal] = await Utils.parseResponse(
@@ -1273,8 +1296,8 @@ function Transaction({ _handleChange, theme }) {
     const tagValue =
       tags && tags.length > 0
         ? tags?.filter(
-            (obj) => obj.address === data.address && obj.userId == data.userId
-          )
+          (obj) => obj.address === data.address && obj.userId == data.userId
+        )
         : "";
     if (tagValue && tagValue.length) {
       setAddressTag(tagValue[0]);
@@ -1297,8 +1320,8 @@ function Transaction({ _handleChange, theme }) {
     const tagValue =
       tags && tags.length > 0
         ? tags?.filter(
-            (obj) => obj.address === data.address && obj.userId == data.userId
-          )
+          (obj) => obj.address === data.address && obj.userId == data.userId
+        )
         : "";
     if (tagValue && tagValue.length) {
       setAddressTagTo(tagValue[0]);
@@ -1312,21 +1335,21 @@ function Transaction({ _handleChange, theme }) {
 
   let taggedAddress = localStorage.getItem(
     sessionManager.getDataFromCookies("userId") +
-      cookiesConstants.USER_TAGGED_ADDRESS
+    cookiesConstants.USER_TAGGED_ADDRESS
   );
   let tags =
     taggedAddress && taggedAddress.length > 0 ? JSON.parse(taggedAddress) : "";
   var tagValueFrom =
     tags && tags.length > 0
       ? tags?.filter(
-          (obj) => obj.address === addrTagFrom && obj.userId === userInfo.sub
-        )
+        (obj) => obj.address === addrTagFrom && obj.userId === userInfo.sub
+      )
       : "";
   var tagValueTo =
     tags && tags.length > 0
       ? tags?.filter(
-          (obj) => obj.address === addrTagTo && obj.userId === userInfo.sub
-        )
+        (obj) => obj.address === addrTagTo && obj.userId === userInfo.sub
+      )
       : "";
 
   // ---------------------------------------> fetch pvt note from (local-storage) <--------------------------------------------//
@@ -1341,9 +1364,9 @@ function Transaction({ _handleChange, theme }) {
   var pvtNoteValue =
     pvtNote && pvtNote.length > 0
       ? pvtNote?.filter(
-          (obj) =>
-            obj.transactionHash === pvtNotehash && obj.userId === userInfo.sub
-        )
+        (obj) =>
+          obj.transactionHash === pvtNotehash && obj.userId === userInfo.sub
+      )
       : "";
 
   const handleSeeMore = () => {
@@ -1353,12 +1376,7 @@ function Transaction({ _handleChange, theme }) {
     setSeeMore(false);
   };
 
-  function _handleChange(event) {
-    setAmount(event?.target?.value);
-    window.localStorage.setItem("currency", event?.target?.value);
-  }
-
-  let CurrencyValue = window.localStorage.getItem("currency");
+  let CurrencyValue = currency.activeCurrency;
   const currencySymbol =
     CurrencyValue === "INR" ? "₹" : CurrencyValue === "USD" ? "$" : "€";
   const valueFetch =
@@ -1376,8 +1394,8 @@ function Transaction({ _handleChange, theme }) {
     CurrencyValue === "INR"
       ? txfee * price
       : CurrencyValue === "USD"
-      ? txfee * price
-      : txfee * price;
+        ? txfee * price
+        : txfee * price;
   const fetchtxn = !transactionFetch
     ? 0
     : parseFloat(transactionFetch)?.toFixed(8);
@@ -1394,8 +1412,8 @@ function Transaction({ _handleChange, theme }) {
     CurrencyValue === "INR"
       ? gasP * price
       : CurrencyValue === "USD"
-      ? gasP * price
-      : gasP * price;
+        ? gasP * price
+        : gasP * price;
   const avgTxnFeeFetch = !avgTxnFeeConverted
     ? 0
     : parseFloat(avgTxnFeeConverted)?.toFixed(14);
@@ -1404,7 +1422,7 @@ function Transaction({ _handleChange, theme }) {
 
   let transactionValue =
     transactions?.value <
-    1000000000000 /*there are some transactions which are not in gwei in ou DB*/
+      1000000000000 /*there are some transactions which are not in gwei in ou DB*/
       ? transactions?.value * 1000000000000000000
       : transactions?.value;
   const valueDiv =
@@ -1453,7 +1471,10 @@ function Transaction({ _handleChange, theme }) {
     }
   };
   const timezone = useSelector((state) => state.timezone);
+  let txnActionValues = utility.getTxnActionFromAndTo(transactions)
+  // let interectedWithValues = utility.getInterectedWithFromAndTo(transactions)
 
+  
   return (
     <div
       className={
@@ -1474,7 +1495,7 @@ function Transaction({ _handleChange, theme }) {
                 </Heading>
               </Container>
               <Div theme={theme.currentTheme}>
-                {transactions ? (
+                {transactions.status == true || transactions.status == false ? (
                   transactions.status == true ? (
                     <StatusContainer theme={theme.currentTheme}>
                       <StatusContainerInside>
@@ -1496,10 +1517,42 @@ function Transaction({ _handleChange, theme }) {
                 <TxnDetailsRightContainer>
                   <TxnDetailsRightTopContainer>
                     <Container>
-                      <Tooltip align="right" title={toolTipMessages.hashid}>
-                        <ImageView src={"/images/info.svg"} />
-                      </Tooltip>
-
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          placement="top"
+                          title={toolTipMessages.hashid}
+                          classes={{
+                            tooltip:
+                              theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src={"/images/info.svg"} />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          align="right"
+                          placement="top"
+                          title={toolTipMessages.hashid}
+                          open={hashTT}
+                          onOpen={() => setHashTT(true)}
+                          onClose={() => setHashTT(false)}
+                          classes={{
+                            tooltip:
+                              theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            src={"/images/info.svg"}
+                            onClick={() => setHashTT(!hashTT)}
+                          />
+                        </Tooltip>
+                      )}
+                      {console.log("hash", hashTT)}
                       <Hash theme={theme.currentTheme}>Transaction Hash</Hash>
                     </Container>
                     <DetailsMiddleContainer isTextArea={false}>
@@ -1524,6 +1577,12 @@ function Transaction({ _handleChange, theme }) {
                                 : "Copy To Clipboard"
                             }
                             placement="top"
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
                           >
                             <button
                               className={
@@ -1532,8 +1591,8 @@ function Transaction({ _handleChange, theme }) {
                                     ? "copyToClipboardHashDark"
                                     : "copyToClipboardHash"
                                   : theme.currentTheme === "dark"
-                                  ? "copyToClipboardHashMobileDark"
-                                  : "copyToClipboardHashMobile"
+                                    ? "copyToClipboardHashMobileDark"
+                                    : "copyToClipboardHashMobile"
                               }
                             >
                               <img
@@ -1541,8 +1600,8 @@ function Transaction({ _handleChange, theme }) {
                                   width > 1240
                                     ? "copy-icon"
                                     : width < 768
-                                    ? "copyIconHashMobile"
-                                    : "copyIconHash"
+                                      ? "copyIconHashMobile"
+                                      : "copyIconHash"
                                 }
                                 src={"/images/copy-grey.svg"}
                               />
@@ -1558,7 +1617,7 @@ function Transaction({ _handleChange, theme }) {
                                 <PrivateNote
                                   open={dialogPvtNoteIsOpen}
                                   getListOfTxnLabel={getListOfTxnLabel}
-                                  getTotalCountTxnLabel={() => {}}
+                                  getTotalCountTxnLabel={() => { }}
                                   onClose={closeDialogPvtNote}
                                   hash={hash}
                                   pvtNote={privateNote[0]?.trxLable}
@@ -1568,6 +1627,12 @@ function Transaction({ _handleChange, theme }) {
                                 <Tooltip
                                   title="Add Transaction Label"
                                   placement="top"
+                                  classes={{
+                                    tooltip:
+                                      theme.currentTheme === "dark"
+                                        ? classes.customTooltipDarkMode
+                                        : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     className={
@@ -1591,14 +1656,55 @@ function Transaction({ _handleChange, theme }) {
                   <TxnDetailsRightBottomContainer>
                     <DetailsContainer>
                       <Container>
-                        <Tooltip title={toolTipMessages.value}>
-                          <ImageView src={"/images/info.svg"} />
-                        </Tooltip>
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            title={toolTipMessages.value}
+                            placement="top"
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView src={"/images/info.svg"} />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            title={toolTipMessages.value}
+                            placement="top"
+                            open={transactionValueTT}
+                            onOpen={() => setTransactionValueTT(true)}
+                            onClose={() => setTransactionValueTT(false)}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView
+                              src={"/images/info.svg"}
+                              onClick={() =>
+                                setTransactionValueTT(!transactionValueTT)
+                              }
+                            />
+                          </Tooltip>
+                        )}
                         <Hash theme={theme.currentTheme}>
                           Transaction Value
                         </Hash>
                       </Container>
-                      <Tooltip title={transactions?.value}>
+                      <Tooltip
+                        title={transactions?.value}
+                        placement="top"
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
                         <DetailsMiddleContainer
                           isTextArea={false}
                           theme={theme.currentTheme}
@@ -1613,9 +1719,43 @@ function Transaction({ _handleChange, theme }) {
                     {/* ------------------------------------------------time stamp------------------------------------- */}
                     <DetailsContainer className="mobileTimeStamp">
                       <Container>
-                        <Tooltip title={toolTipMessages.timestamp}>
-                          <ImageView src={"/images/info.svg"} />
-                        </Tooltip>
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            title={toolTipMessages.timestamp}
+                            placement="top"
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView src={"/images/info.svg"} />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            title={toolTipMessages.timestamp}
+                            placement="top"
+                            open={transactionTimestampTT}
+                            onOpen={() => setTransactionTimestampTT(true)}
+                            onClose={() => setTransactionTimestampTT(false)}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView
+                              src={"/images/info.svg"}
+                              onClick={() =>
+                                setTransactionTimestampTT(
+                                  !transactionTimestampTT
+                                )
+                              }
+                            />
+                          </Tooltip>
+                        )}
 
                         <Hash theme={theme.currentTheme}>
                           Transaction Timestamp
@@ -1625,23 +1765,51 @@ function Transaction({ _handleChange, theme }) {
                         isTextArea={false}
                         theme={theme.currentTheme}
                       >
-                        {`${
-                          (transactions?.timestamp &&
-                            moment(transactions.timestamp * 1000)
-                              .tz(timezone)
-                              .format("MMM DD, YYYY, hh:mm A")) ||
+                        {`${(transactions?.timestamp &&
+                          moment(transactions.timestamp * 1000)
+                            .tz(timezone)
+                            .format("MMM DD, YYYY, hh:mm A")) ||
                           ""
-                        } ${
-                          (timezone && Utility.getUtcOffset(timezone)) || ""
-                        }`}
+                          } ${(timezone && Utility.getUtcOffset(timezone)) || ""
+                          }`}
                       </DetailsMiddleContainer>
                     </DetailsContainer>
                     {/* ------------------------------------------------------block-------------------------------  */}
                     <DetailsContainer>
                       <Container>
-                        <Tooltip title={toolTipMessages.blocknumber}>
-                          <ImageView src={"/images/info.svg"} />
-                        </Tooltip>
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            title={toolTipMessages.blocknumber}
+                            placement="top"
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView src={"/images/info.svg"} />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            title={toolTipMessages.blocknumber}
+                            placement="top"
+                            open={blockTT}
+                            onOpen={() => SetBlockTT(true)}
+                            onClose={() => SetBlockTT(false)}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView
+                              src={"/images/info.svg"}
+                              onClick={() => SetBlockTT(!blockTT)}
+                            />
+                          </Tooltip>
+                        )}
                         <Hash theme={theme.currentTheme}>Block Number</Hash>
                       </Container>
                       <DetailsMiddleContainer
@@ -1677,9 +1845,39 @@ function Transaction({ _handleChange, theme }) {
                 {/* -----------------------------------------------from---------------------------- */}
                 <DivMiddle theme={theme.currentTheme}>
                   <Container>
-                    <Tooltip title={toolTipMessages.from}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        title={toolTipMessages.from}
+                        placement="top"
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView src={"/images/info.svg"} />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        title={toolTipMessages.from}
+                        placement="top"
+                        open={fromTT}
+                        onOpen={() => SetFromTT(true)}
+                        onClose={() => SetFromTT(false)}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView
+                          src={"/images/info.svg"}
+                          onClick={() => SetFromTT(!fromTT)}
+                        />
+                      </Tooltip>
+                    )}
 
                     <Hash theme={theme.currentTheme}>From</Hash>
                   </Container>
@@ -1715,6 +1913,12 @@ function Transaction({ _handleChange, theme }) {
                                   : "Copy To Clipboard"
                               }
                               placement="top"
+                              classes={{
+                                tooltip:
+                                  theme.currentTheme === "dark"
+                                    ? classes.customTooltipDarkMode
+                                    : classes.customTooltip,
+                              }}
                             >
                               <button
                                 className={
@@ -1723,8 +1927,8 @@ function Transaction({ _handleChange, theme }) {
                                       ? "copyToClipboardHashDark"
                                       : "copyToClipboardHash"
                                     : theme.currentTheme === "dark"
-                                    ? "copyToClipboardHashMobileDark"
-                                    : "copyToClipboardHashMobile"
+                                      ? "copyToClipboardHashMobileDark"
+                                      : "copyToClipboardHashMobile"
                                 }
                               >
                                 <img
@@ -1732,8 +1936,8 @@ function Transaction({ _handleChange, theme }) {
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 768
-                                      ? "copy-icon-from"
-                                      : "copy-icon-from-tab"
+                                        ? "copy-icon-from"
+                                        : "copy-icon-from-tab"
                                   }
                                   src={"/images/copy-grey.svg"}
                                 />
@@ -1768,6 +1972,12 @@ function Transaction({ _handleChange, theme }) {
                               <Tooltip
                                 title="Add a new Address Tag"
                                 placement="top"
+                                classes={{
+                                  tooltip:
+                                    theme.currentTheme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
                               >
                                 <AddTagContainer onClick={openDialogPvtTag}>
                                   <ImgAddTag>
@@ -1808,6 +2018,12 @@ function Transaction({ _handleChange, theme }) {
                             <Tooltip
                               title="Add a new Address Tag"
                               placement="top"
+                              classes={{
+                                tooltip:
+                                  theme.currentTheme === "dark"
+                                    ? classes.customTooltipDarkMode
+                                    : classes.customTooltip,
+                              }}
                             >
                               <AddTagContainer onClick={openDialogPvtTag}>
                                 <ImgAddTag>
@@ -1834,9 +2050,39 @@ function Transaction({ _handleChange, theme }) {
                 {/* --------------------------------------------------------------------to--------------------- */}
                 <DivMiddle theme={theme.currentTheme}>
                   <Container>
-                    <Tooltip title={toolTipMessages.to}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        title={toolTipMessages.to}
+                        placement="top"
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView src={"/images/info.svg"} />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        title={toolTipMessages.to}
+                        placement="top"
+                        open={toTT}
+                        onOpen={() => setToTT(true)}
+                        onClose={() => setToTT(false)}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView
+                          src={"/images/info.svg"}
+                          onClick={() => setToTT(!toTT)}
+                        />
+                      </Tooltip>
+                    )}
 
                     <Hash theme={theme.currentTheme}>To</Hash>
                   </Container>
@@ -1875,6 +2121,12 @@ function Transaction({ _handleChange, theme }) {
                                   : "Copy To Clipboard"
                               }
                               placement="top"
+                              classes={{
+                                tooltip:
+                                  theme.currentTheme === "dark"
+                                    ? classes.customTooltipDarkMode
+                                    : classes.customTooltip,
+                              }}
                             >
                               <button
                                 className={
@@ -1883,8 +2135,8 @@ function Transaction({ _handleChange, theme }) {
                                       ? "copyToClipboardHashDark"
                                       : "copyToClipboardHash"
                                     : theme.currentTheme === "dark"
-                                    ? "copyToClipboardHashMobileDark"
-                                    : "copyToClipboardHashMobile"
+                                      ? "copyToClipboardHashMobileDark"
+                                      : "copyToClipboardHashMobile"
                                 }
                               >
                                 <img
@@ -1892,8 +2144,8 @@ function Transaction({ _handleChange, theme }) {
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 768
-                                      ? "copy-icon-from"
-                                      : "copy-icon-from-tab"
+                                        ? "copy-icon-from"
+                                        : "copy-icon-from-tab"
                                   }
                                   src={"/images/copy-grey.svg"}
                                 />
@@ -1924,6 +2176,12 @@ function Transaction({ _handleChange, theme }) {
                               <Tooltip
                                 title="Add a new Address Tag"
                                 placement="top"
+                                classes={{
+                                  tooltip:
+                                    theme.currentTheme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
                               >
                                 <AddTagContainer onClick={openDialogPvtTag2}>
                                   <ImgAddTag>
@@ -1963,6 +2221,12 @@ function Transaction({ _handleChange, theme }) {
                             <Tooltip
                               title="Add a new Address Tag"
                               placement="top"
+                              classes={{
+                                tooltip:
+                                  theme.currentTheme === "dark"
+                                    ? classes.customTooltipDarkMode
+                                    : classes.customTooltip,
+                              }}
                             >
                               <AddTagContainer onClick={openDialogPvtTag2}>
                                 <ImgAddTag>
@@ -1989,18 +2253,53 @@ function Transaction({ _handleChange, theme }) {
                 ) : contractData.ERC == 2 && contractData.ERC > 0 ? (
                   <SpacingInteractedWith>
                     <ContainerInteractedWith>
-                      <Tooltip
-                        align="right"
-                        title={toolTipMessages.gasprovided}
-                      >
-                        <ImageView src={"/images/info.svg"} />
-                      </Tooltip>
-                      <Hash>Interacted With (To)</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          placement="top"
+                          title={toolTipMessages.interactedWithTo}
+                          classes={{
+                            tooltip:
+                              theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src={"/images/info.svg"} />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          align="right"
+                          placement="top"
+                          title={toolTipMessages.interactedWithTo}
+                          open={interactedWithTT}
+                          onOpen={() => setInteractedWithTT(true)}
+                          onClose={() => setInteractedWithTT(false)}
+                          classes={{
+                            tooltip:
+                              theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            src={"/images/info.svg"}
+                            onClick={() =>
+                              setInteractedWithTT(!interactedWithTT)
+                            }
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={theme.currentTheme}>
+                        Interacted With (To)
+                      </Hash>
                     </ContainerInteractedWith>
                     <MiddleContainer isTextArea={false}>
                       <MainContainerInteractedWith>
                         <ContentInteractedWith>
-                          <div>Contract</div>
+                          <BlackText theme={theme.currentTheme}>
+                            Contract
+                          </BlackText>
                           &nbsp;
                           <span>
                             <a
@@ -2010,39 +2309,56 @@ function Transaction({ _handleChange, theme }) {
                               xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                             </a>
                           </span>
-                          &nbsp;&nbsp; (<div>FleekApp</div>)
-                          <ImgInteracted src="/images/success.svg" />
+                          &nbsp;&nbsp; 
+                          {/* (
+                          <BlackText theme={theme.currentTheme}>
+                            FleekApp
+                          </BlackText>
+                          )
+                          <ImgInteracted src="/images/success.svg" /> */}
                           <ImgCopyGrey src="/images/copy-grey.svg" />
                         </ContentInteractedWith>
-                        <InteractedWithNextRow>
+                        {/* <InteractedWithNextRow>
                           <ImgNewLine src="/images/linked.svg" />
                           <GreyText>{transactions?.method}</GreyText>
-                          <BlackText>0.000000006 XDC</BlackText>
+                          <BlackText theme={theme.currentTheme}>
+                            0.000000006 XDC
+                          </BlackText>
                           <GreyText>From</GreyText>
-                          <BlueText>Fleek: NFT App</BlueText>
+                          <BlueText theme={theme.currentTheme}>
+                            Fleek: NFT App
+                          </BlueText>
                           <GreyText>to</GreyText>
-                          <BlackText>Fleek:</BlackText>
-                          <BlueText>NFT App</BlueText>
+                          <BlackText theme={theme.currentTheme}>
+                            Fleek:
+                          </BlackText>
+                          <BlueText theme={theme.currentTheme}>
+                            NFT App
+                          </BlueText>
                         </InteractedWithNextRow>
                         <InteractedWithNextRow>
                           <ImgNewLine src="/images/linked.svg" />
                           <GreyText>{transactions?.method}</GreyText>
-                          <BlackText>0.000000006 XDC</BlackText>
+                          <BlackText theme={theme.currentTheme}>
+                            0.000000006 XDC
+                          </BlackText>
                           <GreyText>From</GreyText>
-                          <BlueText>Fleek: NFT App</BlueText>
+                          <BlueText theme={theme.currentTheme}>
+                            Fleek: NFT App
+                          </BlueText>
                           <GreyText>to</GreyText>
-                          <BlueText>
+                          <BlueText theme={theme.currentTheme}>
                             &nbsp;
                             {transactions?.to
                               ? utility.shortenAddress(
-                                  transactions?.to,
-                                  11,
-                                  4,
-                                  3
-                                )
+                                transactions?.to,
+                                11,
+                                4,
+                                3
+                              )
                               : ""}
                           </BlueText>
-                        </InteractedWithNextRow>
+                        </InteractedWithNextRow> */}
                       </MainContainerInteractedWith>
                     </MiddleContainer>
                   </SpacingInteractedWith>
@@ -2050,12 +2366,43 @@ function Transaction({ _handleChange, theme }) {
                   <>
                     <Spacing theme={theme.currentTheme}>
                       <Container>
-                        <Tooltip
-                          align="right"
-                          title={toolTipMessages.gasprovided}
-                        >
-                          <ImageView src={"/images/info.svg"} />
-                        </Tooltip>
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.tokenTransferred}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView src={"/images/info.svg"} />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.tokenTransferred}
+                            open={tokenTransferredTT}
+                            onOpen={() => setTokenTransferredTT(true)}
+                            onClose={() => setTokenTransferredTT(false)}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView
+                              src={"/images/info.svg"}
+                              onClick={() =>
+                                setTokenTransferredTT(!tokenTransferredTT)
+                              }
+                            />
+                          </Tooltip>
+                        )}
                         <Hash theme={theme.currentTheme}>
                           Token Transferred
                         </Hash>
@@ -2067,8 +2414,8 @@ function Transaction({ _handleChange, theme }) {
                               {contractData?.ERC == 2
                                 ? "XRC-20"
                                 : ContractData?.ERC > 2
-                                ? "XRC-721"
-                                : ""}
+                                  ? "XRC-721"
+                                  : ""}
                             </BlackText>
                             <GreyText>Token ID</GreyText>
                             <GreyText>[</GreyText>
@@ -2090,13 +2437,42 @@ function Transaction({ _handleChange, theme }) {
                     </Spacing>
                     <SpacingTxnAction theme={theme.currentTheme}>
                       <ContainerTxnAction>
-                        <Tooltip
-                          align="right"
-                          title={toolTipMessages.gasprovided}
-                        >
-                          <ImageView src={"/images/info.svg"} />
-                        </Tooltip>
-                        <Hash>Txn Action</Hash>
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.transactionAction}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView src={"/images/info.svg"} />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.transactionAction}
+                            open={txnActionTT}
+                            onOpen={() => setTxnActionTT(true)}
+                            onClose={() => setTxnActionTT(false)}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView
+                              src={"/images/info.svg"}
+                              onClick={() => setTxnActionTT(!txnActionTT)}
+                            />
+                          </Tooltip>
+                        )}
+                        <Hash theme={theme.currentTheme}>Txn Action</Hash>
                       </ContainerTxnAction>
                       <MiddleContainer isTextArea={false}>
                         <MainContainerTxnAction>
@@ -2116,25 +2492,25 @@ function Transaction({ _handleChange, theme }) {
                             <GreyText>&nbsp;from</GreyText>
                             <BlueText theme={theme.currentTheme}>
                               &nbsp;
-                              {transactions?.from
+                              {txnActionValues?.txnActionFromValue
                                 ? utility.shortenAddress(
-                                    transactions?.from,
-                                    11,
-                                    4,
-                                    3
-                                  )
+                                  txnActionValues?.txnActionFromValue,
+                                  11,
+                                  4,
+                                  3
+                                )
                                 : ""}
                             </BlueText>
                             <GreyText>&nbsp;to</GreyText>
                             <BlueText theme={theme.currentTheme}>
                               &nbsp;
-                              {transactions?.to
+                              {txnActionValues?.txnActionToValue
                                 ? utility.shortenAddress(
-                                    transactions?.to,
-                                    11,
-                                    4,
-                                    3
-                                  )
+                                  txnActionValues?.txnActionToValue,
+                                  11,
+                                  4,
+                                  3
+                                )
                                 : ""}
                             </BlueText>
                           </TxnActionNextRow>
@@ -2143,18 +2519,53 @@ function Transaction({ _handleChange, theme }) {
                     </SpacingTxnAction>
                     <SpacingInteractedWith theme={theme.currentTheme}>
                       <ContainerInteractedWith>
-                        <Tooltip
-                          align="right"
-                          title={toolTipMessages.gasprovided}
-                        >
-                          <ImageView src={"/images/info.svg"} />
-                        </Tooltip>
-                        <Hash>Interacted With (To)</Hash>
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.interactedWithTo}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView src={"/images/info.svg"} />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.interactedWithTo}
+                            open={interactedWithTT}
+                            onOpen={() => setInteractedWithTT(true)}
+                            onClose={() => setInteractedWithTT(false)}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView
+                              src={"/images/info.svg"}
+                              onClick={() =>
+                                setInteractedWithTT(!interactedWithTT)
+                              }
+                            />
+                          </Tooltip>
+                        )}
+                        <Hash theme={theme.currentTheme}>
+                          Interacted With (To)
+                        </Hash>
                       </ContainerInteractedWith>
                       <MiddleContainer isTextArea={false}>
                         <MainContainerInteractedWith>
                           <ContentInteractedWith>
-                            <div>Contract</div>
+                            <BlackText theme={theme.currentTheme}>
+                              Contract
+                            </BlackText>
                             &nbsp;
                             <span>
                               <a
@@ -2168,11 +2579,16 @@ function Transaction({ _handleChange, theme }) {
                                 xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                               </a>
                             </span>
-                            &nbsp;&nbsp; (<div>FleekApp</div>)
-                            <ImgInteracted src="/images/success.svg" />
+                            &nbsp;&nbsp; 
+                            {/* (
+                            <BlackText theme={theme.currentTheme}>
+                              FleekApp
+                            </BlackText>
+                            )
+                            <ImgInteracted src="/images/success.svg" /> */}
                             <ImgCopyGrey src="/images/copy-grey.svg" />
                           </ContentInteractedWith>
-                          <InteractedWithNextRow>
+                          {/* <InteractedWithNextRow>
                             <ImgNewLine src="/images/linked.svg" />
                             <GreyText>{transactions?.method}</GreyText>
                             <BlackText theme={theme.currentTheme}>
@@ -2205,14 +2621,14 @@ function Transaction({ _handleChange, theme }) {
                               &nbsp;
                               {transactions?.to
                                 ? utility.shortenAddress(
-                                    transactions?.to,
-                                    11,
-                                    4,
-                                    3
-                                  )
+                                  transactions?.to,
+                                  11,
+                                  4,
+                                  3
+                                )
                                 : ""}
                             </BlueText>
-                          </InteractedWithNextRow>
+                          </InteractedWithNextRow> */}
                         </MainContainerInteractedWith>
                       </MiddleContainer>
                     </SpacingInteractedWith>
@@ -2224,9 +2640,39 @@ function Transaction({ _handleChange, theme }) {
                 {/* -------------------------------------------------------------txn fee----------------------- */}
                 <Spacing theme={theme.currentTheme}>
                   <Container>
-                    <Tooltip title={toolTipMessages.txnfee}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        title={toolTipMessages.txnfee}
+                        placement="top"
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView src={"/images/info.svg"} />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        title={toolTipMessages.txnfee}
+                        placement="top"
+                        open={txnFeeTT}
+                        onOpen={() => setTxnFeeTT(true)}
+                        onClose={() => setTxnFeeTT(false)}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView
+                          src={"/images/info.svg"}
+                          onClick={() => setTxnFeeTT(!txnFeeTT)}
+                        />
+                      </Tooltip>
+                    )}
                     <Hash theme={theme.currentTheme}>Transaction Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
@@ -2257,9 +2703,41 @@ function Transaction({ _handleChange, theme }) {
                 </Spacing>
                 <Spacing theme={theme.currentTheme}>
                   <Container>
-                    <Tooltip align="right" title={toolTipMessages.gasprovided}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        align="right"
+                        placement="top"
+                        title={toolTipMessages.gasprovided}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView src={"/images/info.svg"} />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        align="right"
+                        placement="top"
+                        title={toolTipMessages.gasprovided}
+                        open={gasProvidedTT}
+                        onOpen={() => setGasProvidedTT(true)}
+                        onClose={() => setGasProvidedTT(false)}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView
+                          src={"/images/info.svg"}
+                          onClick={() => setGasProvidedTT(!gasProvidedTT)}
+                        />
+                      </Tooltip>
+                    )}
                     <Hash theme={theme.currentTheme}>Gas Provided</Hash>
                   </Container>
                   <MiddleContainer
@@ -2271,9 +2749,41 @@ function Transaction({ _handleChange, theme }) {
                 </Spacing>
                 <Spacing theme={theme.currentTheme}>
                   <Container>
-                    <Tooltip align="right" title={toolTipMessages.gasprice}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        align="right"
+                        placement="top"
+                        title={toolTipMessages.gasprice}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView src={"/images/info.svg"} />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        align="right"
+                        placement="top"
+                        title={toolTipMessages.gasprice}
+                        open={avgTxnFeeTT}
+                        onOpen={() => setAvgTxnFeeTT(true)}
+                        onClose={() => setAvgTxnFeeTT(false)}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView
+                          src={"/images/info.svg"}
+                          onClick={() => setAvgTxnFeeTT(!avgTxnFeeTT)}
+                        />
+                      </Tooltip>
+                    )}
                     <Hash theme={theme.currentTheme}>Avg Transaction Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
@@ -2306,9 +2816,41 @@ function Transaction({ _handleChange, theme }) {
                 </Spacing>
                 <Spacing theme={theme.currentTheme}>
                   <Container>
-                    <Tooltip align="right" title={toolTipMessages.gasused}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        align="right"
+                        placement="top"
+                        title={toolTipMessages.gasused}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView src={"/images/info.svg"} />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        align="right"
+                        placement="top"
+                        title={toolTipMessages.gasused}
+                        open={gasUsedTT}
+                        onOpen={() => setGasUsedTT(true)}
+                        onClose={() => setGasUsedTT(false)}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView
+                          src={"/images/info.svg"}
+                          onClick={() => setGasUsedTT(!gasUsedTT)}
+                        />
+                      </Tooltip>
+                    )}
                     <Hash theme={theme.currentTheme}>Gas Used</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
@@ -2328,9 +2870,41 @@ function Transaction({ _handleChange, theme }) {
                   <>
                     <Spacing theme={theme.currentTheme}>
                       <Container>
-                        <Tooltip align="right" title={toolTipMessages.nounced}>
-                          <ImageView src={"/images/info.svg"} />
-                        </Tooltip>
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.nounced}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView src={"/images/info.svg"} />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.nounced}
+                            open={nonceTT}
+                            onOpen={() => setNonceTT(true)}
+                            onClose={() => setNonceTT(false)}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageView
+                              src={"/images/info.svg"}
+                              onClick={() => setNonceTT(!nonceTT)}
+                            />
+                          </Tooltip>
+                        )}
                         <Hash theme={theme.currentTheme}>Nonce</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
@@ -2341,9 +2915,41 @@ function Transaction({ _handleChange, theme }) {
                     </Spacing>
                     <SpacingInputData theme={theme.currentTheme}>
                       <Container>
-                        <Tooltip align="right" title={toolTipMessages.input}>
-                          <ImageViewInputData src={"/images/info.svg"} />
-                        </Tooltip>
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.input}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageViewInputData src={"/images/info.svg"} />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            align="right"
+                            placement="top"
+                            title={toolTipMessages.input}
+                            open={inputDataTT}
+                            onOpen={() => setInputDataTT(true)}
+                            onClose={() => setInputDataTT(false)}
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <ImageViewInputData
+                              src={"/images/info.svg"}
+                              onClick={() => setInputDataTT(!inputDataTT)}
+                            />
+                          </Tooltip>
+                        )}
                         <HashInputData theme={theme.currentTheme}>
                           Input Data
                         </HashInputData>
@@ -2372,9 +2978,41 @@ function Transaction({ _handleChange, theme }) {
                 )}
                 <SpacingPrivateNode>
                   <Container>
-                    <Tooltip align="right" title={toolTipMessages.privatenote}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        align="right"
+                        placement="top"
+                        title={toolTipMessages.privatenote}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView src={"/images/info.svg"} />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        align="right"
+                        placement="top"
+                        title={toolTipMessages.privatenote}
+                        open={privateNoteTT}
+                        onOpen={() => setPrivateNoteTT(true)}
+                        onClose={() => setPrivateNoteTT(false)}
+                        classes={{
+                          tooltip:
+                            theme.currentTheme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <ImageView
+                          src={"/images/info.svg"}
+                          onClick={() => setPrivateNoteTT(!privateNoteTT)}
+                        />
+                      </Tooltip>
+                    )}
                     <Hash theme={theme.currentTheme}>Private Note</Hash>
                   </Container>
                   <MiddleContainerPrivateNote theme={theme.currentTheme}>
@@ -2385,6 +3023,7 @@ function Transaction({ _handleChange, theme }) {
                             open={loginDialogIsOpen}
                             onClose={closeLoginDialog}
                             dataHashOrAddress={hash}
+                            theme={theme.currentTheme}
                           />
                         }
                         To access the private note feature, you must be
@@ -2411,7 +3050,7 @@ function Transaction({ _handleChange, theme }) {
                           <PrivateNote
                             open={dialogPvtNoteIsOpen}
                             getListOfTxnLabel={getListOfTxnLabel}
-                            getTotalCountTxnLabel={() => {}}
+                            getTotalCountTxnLabel={() => { }}
                             onClose={closeDialogPvtNote}
                             hash={hash}
                             pvtNote={
@@ -2423,6 +3062,12 @@ function Transaction({ _handleChange, theme }) {
                           <Tooltip
                             title="Add Transaction Label"
                             placement="top"
+                            classes={{
+                              tooltip:
+                                theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
                           >
                             <img
                               className={
@@ -2445,16 +3090,12 @@ function Transaction({ _handleChange, theme }) {
         </Grid>
       </div>
 
-      <FooterComponent
-        theme={theme.currentTheme}
-        _handleChange={_handleChange}
-        currency={amount}
-      />
+      <FooterComponent />
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
-  return { theme: state.theme };
+  return { theme: state.theme, currency: state.activeCurrency };
 };
 export default connect(mapStateToProps, { dispatchAction })(Transaction);

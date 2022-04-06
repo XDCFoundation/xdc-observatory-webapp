@@ -30,6 +30,14 @@ const useStyles = makeStyles({
     overflowX: "auto",
     background: "#192a59",
   },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
 });
 
 const TransactionHeaderContainer = styled.div`
@@ -48,10 +56,11 @@ const TransactionTitle = styled.div`
   font-family: Inter;
   font-size: 1.125rem;
   font-weight: 600;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #ffffff;
-  `}
-  //@media (min-width: 0px) and (max-width: 767px) {
+  `}//@media (min-width: 0px) and (max-width: 767px) {
   //  margin-left: 12px;
   //}
 `;
@@ -64,16 +73,18 @@ const TransactionSubTitle = styled.div`
   font-family: Inter;
   font-size: 0.75rem;
   margin-left: 15px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
 `;
 const TableSubContainer = styled.div`
-    @media (min-width: 0px) and (max-width: 767px) {
-        max-width: 767px;
-        width: 100%;
-        overflow-x: auto;
-    }
+  @media (min-width: 0px) and (max-width: 767px) {
+    max-width: 767px;
+    width: 100%;
+    overflow-x: auto;
+  }
 `;
 
 const LatestBlockView = (props) => {
@@ -93,27 +104,40 @@ const LatestBlockView = (props) => {
       elevation={0}
     >
       <TableContainer
-        className={props.theme === "dark" ? classes.containerDark : classes.container}
+        className={
+          props.theme === "dark" ? classes.containerDark : classes.container
+        }
         id="container-table-token"
-        style={props.theme === "dark" ? {
-          borderRadius: "0",
-          boxShadow: "none",
-          backgroundColor: "#192a59",
-          minHeight: "100%",
-        } : {
-          borderTop: "solid 0.063rem #e3e7eb",
-          borderRadius: "0",
-          boxShadow: "none",
-          // borderRadius: "0.75rem",
-          // border: "solid 0.063rem #e3e7eb",
-          backgroundColor: "#ffffff",
-          // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
-          minHeight: "100%",
-        }}
+        style={
+          props.theme === "dark"
+            ? {
+                borderRadius: "0",
+                boxShadow: "none",
+                backgroundColor: "#192a59",
+                minHeight: "100%",
+              }
+            : {
+                borderTop: "solid 0.063rem #e3e7eb",
+                borderRadius: "0",
+                boxShadow: "none",
+                // borderRadius: "0.75rem",
+                // border: "solid 0.063rem #e3e7eb",
+                backgroundColor: "#ffffff",
+                // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                minHeight: "100%",
+              }
+        }
       >
         <TransactionHeaderContainer>
           <TransactionTitle theme={props.theme}>Latest Blocks</TransactionTitle>
-          <a className={props.theme === "dark" ? "linkTable-dark cursor-pointer" : "linkTable cursor-pointer"} href="/view-all-blocks">
+          <a
+            className={
+              props.theme === "dark"
+                ? "linkTable-dark cursor-pointer"
+                : "linkTable cursor-pointer"
+            }
+            href="/view-all-blocks"
+          >
             View All
           </a>
         </TransactionHeaderContainer>
@@ -130,7 +154,11 @@ const LatestBlockView = (props) => {
                   align="left"
                 >
                   <span
-                    className={props.theme === "dark" ? "tablehead-token-details-dark" : "tablehead-token-details"}
+                    className={
+                      props.theme === "dark"
+                        ? "tablehead-token-details-dark"
+                        : "tablehead-token-details"
+                    }
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
@@ -138,27 +166,57 @@ const LatestBlockView = (props) => {
                     }}
                   >
                     Height
-                    <Tooltip
-                      open={heightTT}
-                      onOpen={() => setHeightTT(true)}
-                      onClose={() => setHeightTT(false)}
-                      placement="top"
-                      title={messages.BLOCK_HEIGHT}
-                    >
-                      <img
-                        onClick={() => setHeightTT(!heightTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.BLOCK_HEIGHT}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={heightTT}
+                        onOpen={() => setHeightTT(true)}
+                        onClose={() => setHeightTT(false)}
+                        placement="top"
+                        title={messages.BLOCK_HEIGHT}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setHeightTT(!heightTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
 
                 <TableCell style={{ border: "none" }} align="left">
                   <span
-                    className={props.theme === "dark" ? "tablehead-token-details-dark" : "tablehead-token-details"}
+                    className={
+                      props.theme === "dark"
+                        ? "tablehead-token-details-dark"
+                        : "tablehead-token-details"
+                    }
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
@@ -166,26 +224,56 @@ const LatestBlockView = (props) => {
                     }}
                   >
                     Timestamp
-                    <Tooltip
-                      open={timeStampTT}
-                      onOpen={() => setTimeStampTT(true)}
-                      onClose={() => setTimeStampTT(false)}
-                      placement="top"
-                      title={messages.BLOCK_CREATION_TIME_STAMP}
-                    >
-                      <img
-                        onClick={() => setTimeStampTT(!timeStampTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.BLOCK_CREATION_TIME_STAMP}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={timeStampTT}
+                        onOpen={() => setTimeStampTT(true)}
+                        onClose={() => setTimeStampTT(false)}
+                        placement="top"
+                        title={messages.BLOCK_CREATION_TIME_STAMP}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setTimeStampTT(!timeStampTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span
-                    className={props.theme === "dark" ? "tablehead-token-details-dark" : "tablehead-token-details"}
+                    className={
+                      props.theme === "dark"
+                        ? "tablehead-token-details-dark"
+                        : "tablehead-token-details"
+                    }
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
@@ -193,21 +281,47 @@ const LatestBlockView = (props) => {
                     }}
                   >
                     Transactions
-                    <Tooltip
-                      open={transactionTT}
-                      onOpen={() => setTransactionTT(true)}
-                      onClose={() => setTransactionTT(false)}
-                      placement="top"
-                      title={messages.NO_OF_TRANSACTION}
-                    >
-                      <img
-                        onClick={() => setTransactionTT(!transactionTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.NO_OF_TRANSACTION}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={transactionTT}
+                        onOpen={() => setTransactionTT(true)}
+                        onClose={() => setTransactionTT(false)}
+                        placement="top"
+                        title={messages.NO_OF_TRANSACTION}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setTransactionTT(!transactionTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 {/*    <TableCell style={{border: "none"}} align="left">*/}
@@ -253,8 +367,12 @@ const LatestBlockView = (props) => {
                         key={row.hash}
                         style={
                           index % 2 !== 1
-                            ? props.theme === "dark" ? {background: "#192a59"} : { background: "white" }
-                            : props.theme === "dark" ? {background: "#192a59"} : { background: "white" }
+                            ? props.theme === "dark"
+                              ? { background: "#192a59" }
+                              : { background: "white" }
+                            : props.theme === "dark"
+                            ? { background: "#192a59" }
+                            : { background: "white" }
                         }
                       >
                         <TableCell
@@ -263,7 +381,11 @@ const LatestBlockView = (props) => {
                           style={{ paddingLeft: "15px", width: "150px" }}
                         >
                           <a
-                            className={props.theme === "dark" ? "linkTable-dark cursor-pointer" : "linkTable cursor-pointer"}
+                            className={
+                              props.theme === "dark"
+                                ? "linkTable-dark cursor-pointer"
+                                : "linkTable cursor-pointer"
+                            }
                             href={"/block-details/" + row.number}
                           >
                             <span
@@ -287,8 +409,12 @@ const LatestBlockView = (props) => {
                             <span
                               className={
                                 ageAnimationClass
-                                  ? props.theme === "dark" ? `${ageAnimationClass} latest-blocks-table-data-dark` : ageAnimationClass
-                                  :  props.theme === "dark" ? "tabledata latest-blocks-table-data-dark" : "tabledata"
+                                  ? props.theme === "dark"
+                                    ? `${ageAnimationClass} latest-blocks-table-data-dark`
+                                    : ageAnimationClass
+                                  : props.theme === "dark"
+                                  ? "tabledata latest-blocks-table-data-dark"
+                                  : "tabledata"
                               }
                             >
                               {moment(row.timestamp * 1000)
@@ -310,8 +436,12 @@ const LatestBlockView = (props) => {
                           <span
                             className={
                               ageAnimationClass
-                                ? props.theme === "dark" ? `${ageAnimationClass} latest-blocks-table-data-dark` : ageAnimationClass
-                                : props.theme === "dark" ? "tabledata latest-blocks-table-data-dark" : "tabledata"
+                                ? props.theme === "dark"
+                                  ? `${ageAnimationClass} latest-blocks-table-data-dark`
+                                  : ageAnimationClass
+                                : props.theme === "dark"
+                                ? "tabledata latest-blocks-table-data-dark"
+                                : "tabledata"
                             }
                           >
                             {row.transactions.length}
