@@ -1089,7 +1089,7 @@ const ContainerInteractedWith = styled.div`
   width: 100%;
   align-items: center;
   max-width: 165px;
-  margin-top: -40px;
+  // margin-top: -40px;
 `;
 const ContainerTxnAction = styled.div`
   display: flex;
@@ -2309,15 +2309,16 @@ function Transaction({ theme, currency }) {
                               xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                             </a>
                           </span>
-                          &nbsp;&nbsp; (
+                          &nbsp;&nbsp; 
+                          {/* (
                           <BlackText theme={theme.currentTheme}>
                             FleekApp
                           </BlackText>
                           )
-                          <ImgInteracted src="/images/success.svg" />
+                          <ImgInteracted src="/images/success.svg" /> */}
                           <ImgCopyGrey src="/images/copy-grey.svg" />
                         </ContentInteractedWith>
-                        <InteractedWithNextRow>
+                        {/* <InteractedWithNextRow>
                           <ImgNewLine src="/images/linked.svg" />
                           <GreyText>{transactions?.method}</GreyText>
                           <BlackText theme={theme.currentTheme}>
@@ -2357,7 +2358,7 @@ function Transaction({ theme, currency }) {
                               )
                               : ""}
                           </BlueText>
-                        </InteractedWithNextRow>
+                        </InteractedWithNextRow> */}
                       </MainContainerInteractedWith>
                     </MiddleContainer>
                   </SpacingInteractedWith>
@@ -2578,15 +2579,16 @@ function Transaction({ theme, currency }) {
                                 xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                               </a>
                             </span>
-                            &nbsp;&nbsp; (
+                            &nbsp;&nbsp; 
+                            {/* (
                             <BlackText theme={theme.currentTheme}>
                               FleekApp
                             </BlackText>
                             )
-                            <ImgInteracted src="/images/success.svg" />
+                            <ImgInteracted src="/images/success.svg" /> */}
                             <ImgCopyGrey src="/images/copy-grey.svg" />
                           </ContentInteractedWith>
-                          <InteractedWithNextRow>
+                          {/* <InteractedWithNextRow>
                             <ImgNewLine src="/images/linked.svg" />
                             <GreyText>{transactions?.method}</GreyText>
                             <BlackText theme={theme.currentTheme}>
@@ -2626,7 +2628,7 @@ function Transaction({ theme, currency }) {
                                 )
                                 : ""}
                             </BlueText>
-                          </InteractedWithNextRow>
+                          </InteractedWithNextRow> */}
                         </MainContainerInteractedWith>
                       </MiddleContainer>
                     </SpacingInteractedWith>
