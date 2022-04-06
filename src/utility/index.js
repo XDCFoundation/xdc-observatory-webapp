@@ -90,9 +90,10 @@ function getTxnActionFromAndTo(res) {
   let txnLog = res ? res.logs : ""
   
   let txnlog = txnLog?.map((data) => {
-    let topicsFrom = data ? data?.topics[1].slice(-40) : ""
+    console.log(data,">>>>>>>>")
+    let topicsFrom = data && data?.topics.length>0 ? data?.topics[1].slice(-40) : ""
     txnActionFrom.push(topicsFrom)
-    let topicsTo = data ? data?.topics[2].slice(-40) : ""
+    let topicsTo = data && data?.topics.length>0? data?.topics[2].slice(-40) : ""
     txnActionTo.push(topicsTo)
   })
   let txnActionFromValue = "xdc" + txnActionFrom.pop();
@@ -104,9 +105,9 @@ function getInterectedWithFromAndTo(res) {
   let interectedWithTo = []
   let txnLog = res ? res.logs : ""
   let txnlog = txnLog?.map((data) => {
-    let topicsFrom = data ? data?.topics[1].slice(-40) : ""
+    let topicsFrom = data && data?.topics.length>0 ? data?.topics[1].slice(-40) : ""
     interectedWithFrom.push("xdc" + topicsFrom)
-    let topicsTo = data ? data?.topics[2].slice(-40) : ""
+    let topicsTo = data && data?.topics.length>0 ? data?.topics[2].slice(-40) : ""
     interectedWithTo.push("xdc" + topicsTo)
   })
   return { interectedWithFrom, interectedWithTo }
