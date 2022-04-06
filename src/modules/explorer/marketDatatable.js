@@ -6,6 +6,18 @@ import Utils from "../../utility";
 import utility from "../../utility";
 import Tooltip from "@material-ui/core/Tooltip";
 import { messages } from "../../constants";
+import { withStyles } from "@material-ui/core/styles";
+
+const useStyles = (theme) => ({
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
+});
 
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
@@ -33,14 +45,16 @@ const MarketDataPointTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   justify-content: center;
   color: #686868;
   display: flex;
   flex-flow: row;
   //align-item: center;
   gap: 2px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
 
@@ -50,7 +64,7 @@ const MarketDataPointTitle = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    
+
     height: 0.938rem;
     color: #686868;
     font-size: 0.75rem;
@@ -101,7 +115,6 @@ class MarketDatatable extends Component {
       circulatingSupplyTT: false,
       volumeMarketCapTT: false,
       totalSupplyTT: false,
-
     };
   }
 
@@ -137,6 +150,7 @@ class MarketDatatable extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     /* Calculating marketCap change percentege */
     let LatestMarketCap = this.state.postLatestMarket.marketCap;
     let PreviousMarketCap = this.state.postPreviousMarket.marketCap;
@@ -183,22 +197,45 @@ class MarketDatatable extends Component {
       this.props.currency === "INR"
         ? "₹"
         : this.props.currency === "USD"
-          ? "$"
-          : "€";
+        ? "$"
+        : "€";
     return (
       <>
         <DeskTopView>
           <div className={this.state.loading === true ? "cover-spin-4" : ""}>
-            <div className={this.props.theme === "dark" ? "main_mid_dark" : "main_mid"}>
+            <div
+              className={
+                this.props.theme === "dark" ? "main_mid_dark" : "main_mid"
+              }
+            >
               <div className="main_child">
-                <div className={this.props.theme === "dark" ? "cont1-dark" : "cont1"}>
+                <div
+                  className={
+                    this.props.theme === "dark" ? "cont1-dark" : "cont1"
+                  }
+                >
                   <MarketDataPointTitle theme={this.props.theme}>
                     Market Cap
-                    <Tooltip placement="top" title={messages.MARKET_CAP}>
+                    <Tooltip
+                      placement="top"
+                      title={messages.MARKET_CAP}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
                       <img
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
+                        classes={{
+                          tooltip:
+                            this.props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
                       />
                     </Tooltip>
                   </MarketDataPointTitle>
@@ -237,10 +274,23 @@ class MarketDatatable extends Component {
                     </div>
                   </div>
                 </div>
-                <div className={this.props.theme === "dark" ? "cont1-dark" : "cont1"}>
-                  <MarketDataPointTitle  theme={this.props.theme}>
+                <div
+                  className={
+                    this.props.theme === "dark" ? "cont1-dark" : "cont1"
+                  }
+                >
+                  <MarketDataPointTitle theme={this.props.theme}>
                     Fully Diluted Market Cap
-                    <Tooltip placement="top" title={messages.FDMP}>
+                    <Tooltip
+                      placement="top"
+                      title={messages.FDMP}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
                       <img
                         alt="question-mark"
                         src="/images/info.svg"
@@ -285,10 +335,23 @@ class MarketDatatable extends Component {
                     </div>
                   </div>
                 </div>
-                <div className={this.props.theme === "dark" ? "cont1-dark" : "cont1"}>
-                  <MarketDataPointTitle  theme={this.props.theme}>
+                <div
+                  className={
+                    this.props.theme === "dark" ? "cont1-dark" : "cont1"
+                  }
+                >
+                  <MarketDataPointTitle theme={this.props.theme}>
                     Volume (24hr)
-                    <Tooltip placement="top" title={messages.VOLUMEX24}>
+                    <Tooltip
+                      placement="top"
+                      title={messages.VOLUMEX24}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
                       <img
                         alt="question-mark"
                         src="/images/info.svg"
@@ -332,13 +395,23 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="main_sec">
-                <div className={this.props.theme === "dark" ? "cont1-dark" : "cont1"}>
+                <div
+                  className={
+                    this.props.theme === "dark" ? "cont1-dark" : "cont1"
+                  }
+                >
                   <div className="cont1-child">
-                    <MarketDataPointTitle  theme={this.props.theme}>
+                    <MarketDataPointTitle theme={this.props.theme}>
                       Circulating Supply
                       <Tooltip
                         placement="top"
                         title={messages.CIRCULATING_SUPPLY}
+                        classes={{
+                          tooltip:
+                            this.props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
                       >
                         <img
                           alt="question-mark"
@@ -353,11 +426,26 @@ class MarketDatatable extends Component {
                   </div>
                 </div>
 
-                <div className={this.props.theme === "dark" ? "cont1-dark cont1_align" : "cont1 cont1_align"}>
+                <div
+                  className={
+                    this.props.theme === "dark"
+                      ? "cont1-dark cont1_align"
+                      : "cont1 cont1_align"
+                  }
+                >
                   <div className="cont1-child2">
-                    <MarketDataPointTitle  theme={this.props.theme}>
+                    <MarketDataPointTitle theme={this.props.theme}>
                       Total Supply
-                      <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
+                      <Tooltip
+                        placement="top"
+                        title={messages.TOTAL_SUPPLY}
+                        classes={{
+                          tooltip:
+                            this.props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
                         <img
                           alt="question-mark"
                           src="/images/info.svg"
@@ -369,8 +457,8 @@ class MarketDatatable extends Component {
                       {!totalSupplyValue
                         ? 0
                         : utility.convertToInternationalCurrencySystem(
-                          totalSupplyValue
-                        )}
+                            totalSupplyValue
+                          )}
                     </p>
                   </div>
                 </div>
@@ -384,14 +472,27 @@ class MarketDatatable extends Component {
             <div className="second_mid">
               <div className="second_cont">
                 <div className="">
-                  <MarketDataPointTitle  theme={this.props.theme}>
+                  <MarketDataPointTitle theme={this.props.theme}>
                     Market Cap
-                    <Tooltip placement="top" title={messages.MARKET_CAP}
+                    <Tooltip
+                      placement="top"
+                      title={messages.MARKET_CAP}
                       open={this.state.marketCapTT}
                       onOpen={() => this.setState({ marketCapTT: true })}
-                      onClose={() => this.setState({ marketCapTT: false })}>
+                      onClose={() => this.setState({ marketCapTT: false })}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
                       <img
-                        onClick={() => this.setState((prev) => ({ marketCapTT: !prev.marketCapTT }))}
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            marketCapTT: !prev.marketCapTT,
+                          }))
+                        }
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
@@ -441,15 +542,32 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="">
                   {" "}
-                  <MarketDataPointTitle  theme={this.props.theme}>
+                  <MarketDataPointTitle theme={this.props.theme}>
                     Fully Diluted Market Cap
-                    <Tooltip placement="top" title={messages.FDMP}
+                    <Tooltip
+                      placement="top"
+                      title={messages.FDMP}
                       open={this.state.fullDilutedMarketCapTT}
-                      onOpen={() => this.setState({ fullDilutedMarketCapTT: true })}
-                      onClose={() => this.setState({ fullDilutedMarketCapTT: false })}>
+                      onOpen={() =>
+                        this.setState({ fullDilutedMarketCapTT: true })
+                      }
+                      onClose={() =>
+                        this.setState({ fullDilutedMarketCapTT: false })
+                      }
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
                       <img
-                        onClick={() => this.setState((prev) => ({ fullDilutedMarketCapTT: !prev.fullDilutedMarketCapTT }))}
-
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            fullDilutedMarketCapTT:
+                              !prev.fullDilutedMarketCapTT,
+                          }))
+                        }
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
@@ -501,14 +619,27 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="">
                   {" "}
-                  <MarketDataPointTitle  theme={this.props.theme}>
+                  <MarketDataPointTitle theme={this.props.theme}>
                     Volume (24hr)
-                    <Tooltip placement="top" title={messages.VOLUMEX24}
+                    <Tooltip
+                      placement="top"
+                      title={messages.VOLUMEX24}
                       open={this.state.volume24TT}
                       onOpen={() => this.setState({ volume24TT: true })}
-                      onClose={() => this.setState({ volume24TT: false })}>
+                      onClose={() => this.setState({ volume24TT: false })}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
                       <img
-                        onClick={() => this.setState((prev) => ({ volume24TT: !prev.volume24TT }))}
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            volume24TT: !prev.volume24TT,
+                          }))
+                        }
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
@@ -556,17 +687,31 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="">
                   {" "}
-                  <MarketDataPointTitle  theme={this.props.theme}>
+                  <MarketDataPointTitle theme={this.props.theme}>
                     Circulating Supply
                     <Tooltip
                       placement="top"
                       title={messages.CIRCULATING_SUPPLY}
                       open={this.state.circulatingSupplyTT}
-                      onOpen={() => this.setState({ circulatingSupplyTT: true })}
-                      onClose={() => this.setState({ circulatingSupplyTT: false })}
+                      onOpen={() =>
+                        this.setState({ circulatingSupplyTT: true })
+                      }
+                      onClose={() =>
+                        this.setState({ circulatingSupplyTT: false })
+                      }
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
                     >
                       <img
-                        onClick={() => this.setState((prev) => ({ circulatingSupplyTT: !prev.circulatingSupplyTT }))}
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            circulatingSupplyTT: !prev.circulatingSupplyTT,
+                          }))
+                        }
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
@@ -585,14 +730,27 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="">
                   {" "}
-                  <MarketDataPointTitle  theme={this.props.theme}>
+                  <MarketDataPointTitle theme={this.props.theme}>
                     Total Supply
-                    <Tooltip placement="top" title={messages.TOTAL_SUPPLY}
+                    <Tooltip
+                      placement="top"
+                      title={messages.TOTAL_SUPPLY}
                       open={this.state.totalSupplyTT}
                       onOpen={() => this.setState({ totalSupplyTT: true })}
-                      onClose={() => this.setState({ totalSupplyTT: false })}>
+                      onClose={() => this.setState({ totalSupplyTT: false })}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
                       <img
-                        onClick={() => this.setState((prev) => ({ totalSupplyTT: !prev.totalSupplyTT }))}
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            totalSupplyTT: !prev.totalSupplyTT,
+                          }))
+                        }
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
@@ -606,8 +764,8 @@ class MarketDatatable extends Component {
                     {!totalSupplyValue
                       ? 0
                       : utility.convertToInternationalCurrencySystem(
-                        totalSupplyValue
-                      )}
+                          totalSupplyValue
+                        )}
                   </p>
                 </div>
               </div>
@@ -619,4 +777,4 @@ class MarketDatatable extends Component {
   }
 }
 
-export default MarketDatatable;
+export default withStyles(useStyles)(MarketDatatable);

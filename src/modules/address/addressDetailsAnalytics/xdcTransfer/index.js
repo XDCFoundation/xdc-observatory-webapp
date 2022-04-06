@@ -70,8 +70,8 @@ class XDCTransferGraph extends BaseComponent {
     const receiveAmount = [];
     for (let index = 0; index < data.length; index++) {
       const x = data[index].addedOn;
-      sentAmount.push({ x, y: data[index].sentAmount });
-      receiveAmount.push({ x, y: data[index].receivedAmount });
+      sentAmount.push({ x, y: data[index].sentAmount / 10 ** 18 });
+      receiveAmount.push({ x, y: data[index].receivedAmount / 10 ** 18 });
     }
 
     let options = {
