@@ -84,13 +84,15 @@ function getMethodType(transactionData) {
   return MethodFromByte[input] ? MethodFromByte[input] : "";
 }
 function getTxnActionFromAndTo(res) {
+  
   let txnActionFrom = []
   let txnActionTo = []
   let txnLog = res ? res.logs : ""
-  let txnlog = txnLog?.map((res) => {
-    let topicsFrom = res ? res.topics[1].slice(-40) : ""
+  
+  let txnlog = txnLog?.map((data) => {
+    let topicsFrom = data ? data?.topics[1].slice(-40) : ""
     txnActionFrom.push(topicsFrom)
-    let topicsTo = res ? res.topics[2].slice(-40) : ""
+    let topicsTo = data ? data?.topics[2].slice(-40) : ""
     txnActionTo.push(topicsTo)
   })
   let txnActionFromValue = "xdc" + txnActionFrom.pop();
@@ -101,10 +103,10 @@ function getInterectedWithFromAndTo(res) {
   let interectedWithFrom = []
   let interectedWithTo = []
   let txnLog = res ? res.logs : ""
-  let txnlog = txnLog?.map((res) => {
-    let topicsFrom = res ? res.topics[1].slice(-40) : ""
+  let txnlog = txnLog?.map((data) => {
+    let topicsFrom = data ? data?.topics[1].slice(-40) : ""
     interectedWithFrom.push("xdc" + topicsFrom)
-    let topicsTo = res ? res.topics[2].slice(-40) : ""
+    let topicsTo = data ? data?.topics[2].slice(-40) : ""
     interectedWithTo.push("xdc" + topicsTo)
   })
   return { interectedWithFrom, interectedWithTo }
