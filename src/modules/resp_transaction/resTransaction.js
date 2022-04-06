@@ -1448,7 +1448,8 @@ function Transaction({theme, currency }) {
   };
   const timezone = useSelector((state) => state.timezone);
   let txnActionValues = utility.getTxnActionFromAndTo(transactions)
-  let interectedWithValues = utility.getInterectedWithFromAndTo(transactions)
+  // let interectedWithValues = utility.getInterectedWithFromAndTo(transactions)
+
   
   return (
     <div
