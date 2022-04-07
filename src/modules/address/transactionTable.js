@@ -52,6 +52,14 @@ export default function TransactionTableComponent(props) {
       borderBottom: "none",
       background: "#fff",
     },
+    customTooltip: {
+      fontSize: "13px",
+    },
+    customTooltipDarkMode: {
+      background: "#051440",
+      color: "#adc4e4",
+      fontSize: "13px",
+    },
   });
   const getContractDetails = async (values) => {
     try {
@@ -381,6 +389,12 @@ export default function TransactionTableComponent(props) {
                 onClose={() => setDownloadCsvTT(false)}
                 placement="top"
                 title={messages.DOWNLOAD_CSV}
+                classes={{
+                  tooltip:
+                    props.theme === "dark"
+                      ? classes.customTooltipDarkMode
+                      : classes.customTooltip,
+                }}
               >
                 <div
                   onClick={() => setDownloadCsvTT(!downloadCsvTT)}
@@ -487,21 +501,47 @@ export default function TransactionTableComponent(props) {
                       }
                     >
                       Transaction Hash
-                      <Tooltip
-                        open={hashTT}
-                        onOpen={() => setHashTT(true)}
-                        onClose={() => setHashTT(false)}
-                        placement="top"
-                        title={messages.HASH}
-                      >
-                        <img
-                          onClick={() => setHashTT(!hashTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.HASH}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={hashTT}
+                          onOpen={() => setHashTT(true)}
+                          onClose={() => setHashTT(false)}
+                          placement="top"
+                          title={messages.HASH}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setHashTT(!hashTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -517,21 +557,47 @@ export default function TransactionTableComponent(props) {
                       }
                     >
                       Age
-                      <Tooltip
-                        open={ageTT}
-                        onOpen={() => setageTT(true)}
-                        onClose={() => setageTT(false)}
-                        placement="top"
-                        title={messages.AGE}
-                      >
-                        <img
-                          onClick={() => setageTT(!ageTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.AGE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={ageTT}
+                          onOpen={() => setageTT(true)}
+                          onClose={() => setageTT(false)}
+                          placement="top"
+                          title={messages.AGE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setageTT(!ageTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -547,21 +613,47 @@ export default function TransactionTableComponent(props) {
                       }
                     >
                       Block
-                      <Tooltip
-                        open={blockTT}
-                        onOpen={() => setblockTT(true)}
-                        onClose={() => setblockTT(false)}
-                        placement="top"
-                        title={messages.BLOCK}
-                      >
-                        <img
-                          onClick={() => setblockTT(!blockTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.BLOCK}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={blockTT}
+                          onOpen={() => setblockTT(true)}
+                          onClose={() => setblockTT(false)}
+                          placement="top"
+                          title={messages.BLOCK}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setblockTT(!blockTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -577,21 +669,47 @@ export default function TransactionTableComponent(props) {
                       }
                     >
                       From
-                      <Tooltip
-                        open={fromTT}
-                        onOpen={() => setfromTT(true)}
-                        onClose={() => setfromTT(false)}
-                        placement="top"
-                        title={messages.FROM}
-                      >
-                        <img
-                          onClick={() => setfromTT(!fromTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.FROM}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={fromTT}
+                          onOpen={() => setfromTT(true)}
+                          onClose={() => setfromTT(false)}
+                          placement="top"
+                          title={messages.FROM}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setfromTT(!fromTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -607,21 +725,47 @@ export default function TransactionTableComponent(props) {
                       }
                     >
                       To
-                      <Tooltip
-                        open={toTT}
-                        onOpen={() => settoTT(true)}
-                        onClose={() => settoTT(false)}
-                        placement="top"
-                        title={messages.TO}
-                      >
-                        <img
-                          onClick={() => settoTT(!toTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.TO}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={toTT}
+                          onOpen={() => settoTT(true)}
+                          onClose={() => settoTT(false)}
+                          placement="top"
+                          title={messages.TO}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => settoTT(!toTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -637,21 +781,47 @@ export default function TransactionTableComponent(props) {
                       }
                     >
                       Value
-                      <Tooltip
-                        open={valueTT}
-                        onOpen={() => setvalueTT(true)}
-                        onClose={() => setvalueTT(false)}
-                        placement="top"
-                        title={messages.VALUE}
-                      >
-                        <img
-                          onClick={() => setvalueTT(!valueTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.VALUE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={valueTT}
+                          onOpen={() => setvalueTT(true)}
+                          onClose={() => setvalueTT(false)}
+                          placement="top"
+                          title={messages.VALUE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setvalueTT(!valueTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -667,21 +837,47 @@ export default function TransactionTableComponent(props) {
                       }
                     >
                       Avg Txn Fee
-                      <Tooltip
-                        open={gasTT}
-                        onOpen={() => setgasTT(true)}
-                        onClose={() => setgasTT(false)}
-                        placement="top"
-                        title={messages.GAS}
-                      >
-                        <img
-                          onClick={() => setgasTT(!gasTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.GAS}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={gasTT}
+                          onOpen={() => setgasTT(true)}
+                          onClose={() => setgasTT(false)}
+                          placement="top"
+                          title={messages.GAS}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setgasTT(!gasTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
@@ -741,7 +937,16 @@ export default function TransactionTableComponent(props) {
                               }
                               href={"/transaction-details/" + row.hash}
                             >
-                              <Tooltip placement="top" title={row.hash}>
+                              <Tooltip
+                                placement="top"
+                                title={row.hash}
+                                classes={{
+                                  tooltip:
+                                    props.theme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
+                              >
                                 <span className="tabledata">
                                   {shorten(row.hash)}{" "}
                                 </span>
@@ -783,7 +988,16 @@ export default function TransactionTableComponent(props) {
                                 }
                                 href={"/address-details/" + row.from}
                               >
-                                <Tooltip placement="top" title={row.from}>
+                                <Tooltip
+                                  placement="top"
+                                  title={row.from}
+                                  classes={{
+                                    tooltip:
+                                      props.theme === "dark"
+                                        ? classes.customTooltipDarkMode
+                                        : classes.customTooltip,
+                                  }}
+                                >
                                   <span className="tabledata">
                                     {" "}
                                     {shorten(row.from)}
@@ -791,7 +1005,16 @@ export default function TransactionTableComponent(props) {
                                 </Tooltip>
                               </a>
                             ) : (
-                              <Tooltip placement="top" title={row.from}>
+                              <Tooltip
+                                placement="top"
+                                title={row.from}
+                                classes={{
+                                  tooltip:
+                                    props.theme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
+                              >
                                 <span className="tabledata">
                                   {" "}
                                   {shorten(row.from)}
@@ -809,14 +1032,32 @@ export default function TransactionTableComponent(props) {
                                 }
                                 href={"/address-details/" + row.to}
                               >
-                                <Tooltip placement="top" title={row.to}>
+                                <Tooltip
+                                  placement="top"
+                                  title={row.to}
+                                  classes={{
+                                    tooltip:
+                                      props.theme === "dark"
+                                        ? classes.customTooltipDarkMode
+                                        : classes.customTooltip,
+                                  }}
+                                >
                                   <span className="tabledata">
                                     {shorten(row.to)}
                                   </span>
                                 </Tooltip>
                               </a>
                             ) : (
-                              <Tooltip placement="top" title={row.to}>
+                              <Tooltip
+                                placement="top"
+                                title={row.to}
+                                classes={{
+                                  tooltip:
+                                    props.theme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
+                              >
                                 <span className="tabledata">
                                   {shorten(row.to)}
                                 </span>
@@ -827,6 +1068,12 @@ export default function TransactionTableComponent(props) {
                             <Tooltip
                               placement="top"
                               title={format({})(row.value)}
+                              classes={{
+                                tooltip:
+                                  props.theme === "dark"
+                                    ? classes.customTooltipDarkMode
+                                    : classes.customTooltip,
+                              }}
                             >
                               <span
                                 className={
@@ -835,9 +1082,7 @@ export default function TransactionTableComponent(props) {
                                     : "tabledata"
                                 }
                               >
-                                {Utility.decimalDivison(
-                                  row.value,8
-                                )}
+                                {Utility.decimalDivison(row.value, 8)}
                               </span>
                             </Tooltip>
                           </TableCell>

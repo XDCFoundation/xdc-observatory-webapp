@@ -6384,34 +6384,40 @@ button {
   margin: auto 0px auto 1px;
   height: 20px;
   width: 22px;
+  cursor: default;
 }
 .tooltipInfoIconConfigMob {
   margin: auto -3px auto -2px;
   height: 20px;
   width: 22px;
+  cursor: default;
 }
 .tooltipInfoIconConfigDesk {
   margin: auto 0px auto -2px;
   height: 20px;
   width: 22px;
+  cursor: default;
 }
 .tooltipInfoIconAccount {
   margin-top: -3px;
   margin-left: 1px;
   height: 20px;
   width: 22px;
+  cursor: default;
 }
 .tooltipInfoIconMarketData {
   margin-top: -1px;
   margin-left: 1px;
   height: 20px;
   width: 22px;
+  cursor: default;
 }
 .tooltipInfoIconEmail {
   margin-top: -5px;
   margin-left: 1px;
   height: 20px;
   width: 22px;
+  cursor: default;
 }
 
 @media (min-width: 0px) and (max-width: 767px) {

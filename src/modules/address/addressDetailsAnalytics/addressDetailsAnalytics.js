@@ -6,6 +6,18 @@ import TokenTransferAnalytics from "./tokenTransfer";
 import XDCBalanceAnalytics from "./xdcBalance";
 import XDCTransferAnalytics from "./xdcTransfer";
 import { messages } from "../../../constants";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  customTooltip: {
+    fontSize: "13px"
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px"
+  }
+}))
 
 const AnalyticsTabButton = styled.button`
   border-radius: 5px;
@@ -75,7 +87,9 @@ const infoIcon = {
 }
 
 function AddressDetailsAnalytics(props) {
+  const classes = useStyles();
   let [activeTab, setActiveTab] = useState("xdcBalance");
+  const [rangeSelectTT, setRangeSelectTT] = useState(false);
 
   return (
     <Paper style={props.theme === "dark" ? PaperStylesDark : PaperStyles} elevation={0}>
@@ -110,12 +124,33 @@ function AddressDetailsAnalytics(props) {
           Token Transfer
         </AnalyticsTabButton>
       </Buttonscontainer>
+      {window.innerWidth > 1024 ?
+                      <Tooltip
+                        placement="top"
+                        title={messages.RANGE_SELECT}
+                        classes={{
+                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                        />
+                      </Tooltip>:
       <Tooltip
           placement="top"
           title={messages.RANGE_SELECT}
+          open={rangeSelectTT}
+          onOpen={() => setRangeSelectTT(true)}
+          onClose={() => setRangeSelectTT(false)}
+          classes={{
+            tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+          }}
         >
-          <img style={infoIcon} src="/images/info.svg"/>
-        </Tooltip>
+          <img style={infoIcon} src="/images/info.svg"
+          onClick={() => setRangeSelectTT(!rangeSelectTT)}
+          />
+        </Tooltip>}
       </div>
       {activeTab === "xdcBalance" && <XDCBalanceAnalytics theme={props.theme}/>}
       {activeTab === "transactions" && <TransactionAnalytics theme={props.theme}/>}

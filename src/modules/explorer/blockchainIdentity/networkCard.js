@@ -72,6 +72,14 @@ const useStyles = makeStyles((themes) => ({
     height: "16px",
     margin: "4px 0 0 8px",
     cursor: "pointer",
+  },
+  customTooltip: {
+    fontSize: "13px"
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px"
   }
 }))
 
@@ -98,6 +106,9 @@ export default function NetworkCard(props) {
                 <Tooltip
                   title={ copiedText === props.RPC_URL ? "Copied" : "Copy To Clipboard" }
                   placement="top"
+                  classes={{
+                    tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                  }}
                 >
                 <img className={classes.copyicon} src="/images/copy-grey.svg" />
                 </Tooltip>
@@ -123,6 +134,9 @@ export default function NetworkCard(props) {
                 <Tooltip
                   title={ copiedText === props.blockExplorer ? "Copied" : "Copy To Clipboard" }
                   placement="top"
+                  classes={{
+                    tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                  }}
                 >
                 <img className={classes.copyicon} src="/images/copy-grey.svg" />
                 </Tooltip>
