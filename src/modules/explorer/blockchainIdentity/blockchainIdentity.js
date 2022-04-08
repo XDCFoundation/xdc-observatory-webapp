@@ -32,7 +32,6 @@ const useStyles = makeStyles((themes) => ({
         justifyContent: "space-between",
         flexFlow: "wrap",
     },
-    
 }))
 
 function BlockchainIdentity(props) {

@@ -107,6 +107,14 @@ const useStyles = makeStyles({
   table: {
     marginBottom: "200px",
   },
+  customTooltip: {
+    fontSize: "13px"
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px"
+  }
 });
 
 export default function StickyHeadTable(props) {
@@ -299,12 +307,30 @@ export default function StickyHeadTable(props) {
                     onClick={() => sortTable("hash")}
                   >
                     Transaction Hash
+                    {window.innerWidth > 1024 ?
+                      <Tooltip
+                        placement="top"
+                        title={messages.HASH}
+                        classes={{
+                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>:
                     <Tooltip
                       open={txHashToolTop}
                       onOpen={() => setTxHashToolTop(true)}
                       onClose={() => setTxHashToolTop(false)}
                       placement="top"
                       title={messages.HASH}
+                      classes={{
+                        tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                      }}
                     >
                       <img
                         onClick={() => setTxHashToolTop(!txHashToolTop)}
@@ -313,7 +339,7 @@ export default function StickyHeadTable(props) {
                         height={"14px"}
                         className="tooltipInfoIconAccount"
                       />
-                    </Tooltip>
+                    </Tooltip>}
                     {sortingKey && sortingOrder && sortingKey == "hash" ? (
                       sortingOrder === -1 ? (
                         <img
@@ -341,12 +367,30 @@ export default function StickyHeadTable(props) {
                     onClick={() => sortTable("timestamp")}
                   >
                     Age
+                    {window.innerWidth > 1024 ?
+                      <Tooltip
+                        placement="top"
+                        title={messages.AGE}
+                        classes={{
+                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>:
                     <Tooltip
                       open={ageToolTip}
                       onOpen={() => setAgeToolTip(true)}
                       onClose={() => setAgeToolTip(false)}
                       placement="top"
                       title={messages.AGE}
+                      classes={{
+                        tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                      }}
                     >
                       <img
                         onClick={() => setAgeToolTip(!ageToolTip)}
@@ -355,7 +399,7 @@ export default function StickyHeadTable(props) {
                         height={"14px"}
                         className="tooltipInfoIconAccount"
                       />
-                    </Tooltip>
+                    </Tooltip>}
                     {sortingKey && sortingOrder && sortingKey == "timestamp" ? (
                       sortingOrder === -1 ? (
                         <img
@@ -385,12 +429,30 @@ export default function StickyHeadTable(props) {
                     onClick={() => sortTable("blockNumber")}
                   >
                     Block
+                    {window.innerWidth > 1024 ?
+                      <Tooltip
+                        placement="top"
+                        title={messages.BLOCK}
+                        classes={{
+                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>:
                     <Tooltip
                       open={blockToolTip}
                       onOpen={() => setBlockToolTip(true)}
                       onClose={() => setBlockToolTip(false)}
                       placement="top"
                       title={messages.BLOCK}
+                      classes={{
+                        tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                      }}
                     >
                       <img
                         onClick={() => setBlockToolTip(!blockToolTip)}
@@ -399,7 +461,7 @@ export default function StickyHeadTable(props) {
                         height={"14px"}
                         className="tooltipInfoIconAccount"
                       />
-                    </Tooltip>
+                    </Tooltip>}
                     {sortingKey &&
                     sortingOrder &&
                     sortingKey == "blockNumber" ? (
@@ -431,12 +493,30 @@ export default function StickyHeadTable(props) {
                     onClick={() => sortTable("from")}
                   >
                     From
+                    {window.innerWidth > 1024 ?
+                      <Tooltip
+                        placement="top"
+                        title={messages.FROM}
+                        classes={{
+                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>:
                     <Tooltip
                       open={fromToolTip}
                       onOpen={() => setFromToolTip(true)}
                       onClose={() => setFromToolTip(false)}
                       placement="top"
                       title={messages.FROM}
+                      classes={{
+                        tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                      }}
                     >
                       <img
                         onClick={() => setFromToolTip(!fromToolTip)}
@@ -445,7 +525,7 @@ export default function StickyHeadTable(props) {
                         height={"14px"}
                         className="tooltipInfoIconAccount"
                       />
-                    </Tooltip>
+                    </Tooltip>}
                     {sortingKey && sortingOrder && sortingKey == "from" ? (
                       sortingOrder === -1 ? (
                         <img
@@ -473,12 +553,30 @@ export default function StickyHeadTable(props) {
                     onClick={() => sortTable("to")}
                   >
                     To
+                    {window.innerWidth > 1024 ?
+                      <Tooltip
+                        placement="top"
+                        title={messages.TO}
+                        classes={{
+                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>:
                     <Tooltip
                       open={toToolTip}
                       onOpen={() => setToToolTip(true)}
                       onClose={() => setToToolTip(false)}
                       placement="top"
                       title={messages.TO}
+                      classes={{
+                        tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                      }}
                     >
                       <img
                         onClick={() => setToToolTip(!toToolTip)}
@@ -487,7 +585,7 @@ export default function StickyHeadTable(props) {
                         height={"14px"}
                         className="tooltipInfoIconAccount"
                       />
-                    </Tooltip>
+                    </Tooltip>}
                     {sortingKey && sortingOrder && sortingKey == "to" ? (
                       sortingOrder === -1 ? (
                         <img
