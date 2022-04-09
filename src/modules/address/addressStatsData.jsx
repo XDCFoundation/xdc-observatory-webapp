@@ -6,18 +6,19 @@ import Utils from "../../utility";
 import utility from "../../utility";
 import Tooltip from "@material-ui/core/Tooltip";
 import { messages } from "../../constants";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
+import logger from "redux-logger";
 
-const useStyles = ((theme) => ({
+const useStyles = (theme) => ({
   customTooltip: {
-    fontSize: "13px"
+    fontSize: "13px",
   },
   customTooltipDarkMode: {
     background: "#051440",
     color: "#adc4e4",
-    fontSize: "13px"
-  }
-}))
+    fontSize: "13px",
+  },
+});
 
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
@@ -53,7 +54,9 @@ const MarketDataPointTitle = styled.div`
   flex-flow: row;
   align-items: center;
   gap: 2px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #fff;
   `}
 
@@ -67,7 +70,9 @@ const MarketDataPointTitle = styled.div`
     color: #686868;
     font-size: 0.75rem;
     opacity: 1;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
       color: #fff;
     `}
   }
@@ -81,14 +86,18 @@ const MarketDataPointTitle = styled.div`
     display: flex;
     gap: 10px;
     width: 60%;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
      color: #fff;
     `}
   }
 `;
 const Value = styled.p`
   font-size: 18px !important;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1 !important;
   `}
 `;
@@ -117,7 +126,9 @@ const InDiv = styled.div`
   text-align: center;
   padding: 3px;
   color: #007b2c;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #007b2c !important;
     background-color: #153451;
   `}
@@ -136,7 +147,9 @@ const OutDiv = styled.div`
   text-align: center;
   color: #ff4200;
   padding: 2px 1px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #ff4200 !important;
     background-color: #36284d;
   `}
@@ -152,7 +165,9 @@ const InValue = styled.span`
   text-align: center !important;
   color: #585858 !important;
   padding: 4px 10px 5px 2px !important;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #fff !important;
   `}
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -171,7 +186,9 @@ const OutValue = styled.span`
   text-align: center;
   padding: 4px 0px 5px 2px;
   color: #585858;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #fff;
   `}
 `;
@@ -205,7 +222,6 @@ class AddressStatsData extends Component {
     };
   }
   render() {
-
     const { classes } = this.props;
 
     const currencyPrice = this.props?.price;
@@ -243,17 +259,29 @@ class AddressStatsData extends Component {
       : Number(gasPrice) * Number(currencyPrice);
 
     let currencySymbol = activeCurrency === "EUR" ? "€" : "$";
+    console.log("loffer", this.props);
     return (
       <>
         <DeskTopView>
-          <div className={this.props.theme === "dark" ? "main_mid_address_dark" : "main_mid_address"}>
+          <div
+            className={
+              this.props.theme === "dark"
+                ? "main_mid_address_dark"
+                : "main_mid_address"
+            }
+          >
             <div className="main_child_address">
               <div className="cont1 p-t-0">
                 <MarketDataPointTitle theme={this.props.theme}>
-                  <Tooltip placement="top" title={messages.Total_Txn}
-                  classes={{
-                    tooltip: this.props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                  }}
+                  <Tooltip
+                    placement="top"
+                    title={messages.Total_Txn}
+                    classes={{
+                      tooltip:
+                        this.props.theme === "dark"
+                          ? classes.customTooltipDarkMode
+                          : classes.customTooltip,
+                    }}
                   >
                     <img
                       alt="question-mark"
@@ -264,24 +292,40 @@ class AddressStatsData extends Component {
                   </Tooltip>
                   Total Txn(s)
                 </MarketDataPointTitle>
-
-                <Value theme={this.props.theme}>{this.props?.statData?.totalTransactionsCount}</Value>
-                <ThirdRowValue>
-                  <InDiv theme={this.props.theme}>In</InDiv>
-                  <InValue theme={this.props.theme}>{this.props?.statData?.toTransactionsCount}</InValue>
-                  <OutDiv theme={this.props.theme}>Out</OutDiv>
-                  <OutValue theme={this.props.theme}>
-                    {this.props?.statData?.fromTransactionsCount}
-                  </OutValue>
-                </ThirdRowValue>
+                {!this.props?.statData?.totalTransactionsCount ? (
+                  <div>
+                    <div className="animated-background"></div>
+                  </div>
+                ) : (
+                  <>
+                    <Value theme={this.props.theme}>
+                      {this.props?.statData?.totalTransactionsCount}
+                    </Value>
+                    <ThirdRowValue>
+                      <InDiv theme={this.props.theme}>In</InDiv>
+                      <InValue theme={this.props.theme}>
+                        {this.props?.statData?.toTransactionsCount}
+                      </InValue>
+                      <OutDiv theme={this.props.theme}>Out</OutDiv>
+                      <OutValue theme={this.props.theme}>
+                        {this.props?.statData?.fromTransactionsCount}
+                      </OutValue>
+                    </ThirdRowValue>
+                  </>
+                )}
               </div>
 
               <div className="cont1 p-t-0">
                 <MarketDataPointTitle theme={this.props.theme}>
-                  <Tooltip placement="top" title={messages.Highest_Txn}
-                  classes={{
-                    tooltip: this.props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                  }}
+                  <Tooltip
+                    placement="top"
+                    title={messages.Highest_Txn}
+                    classes={{
+                      tooltip:
+                        this.props.theme === "dark"
+                          ? classes.customTooltipDarkMode
+                          : classes.customTooltip,
+                    }}
                   >
                     <img
                       alt="question-mark"
@@ -292,22 +336,37 @@ class AddressStatsData extends Component {
                   </Tooltip>
                   Highest Txn
                 </MarketDataPointTitle>
-                <Value theme={this.props.theme}>{highestTxn}&nbsp;XDC</Value>
-                <ThirdRowValue>
-                  <OutValue theme={this.props.theme}>
-                    {currencySymbol}
-                    {highestTransactionConverted < 0
-                      ? ""
-                      : highestTransactionConverted}
-                  </OutValue>
-                </ThirdRowValue>
+                {typeof highestTxn === "string" ? (
+                  <div>
+                    <div className="animated-background"></div>
+                  </div>
+                ) : (
+                  <>
+                    <Value theme={this.props.theme}>
+                      {highestTxn}
+                      &nbsp;XDC
+                    </Value>
+                    <ThirdRowValue>
+                      <OutValue theme={this.props.theme}>
+                        {currencySymbol}
+
+                        {highestTransactionConverted}
+                      </OutValue>
+                    </ThirdRowValue>
+                  </>
+                )}
               </div>
               <div className="cont1 p-t-0">
                 <MarketDataPointTitle theme={this.props.theme}>
-                  <Tooltip placement="top" title={messages.AVERAGE_BALANCE}
-                  classes={{
-                    tooltip: this.props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                  }}
+                  <Tooltip
+                    placement="top"
+                    title={messages.AVERAGE_BALANCE}
+                    classes={{
+                      tooltip:
+                        this.props.theme === "dark"
+                          ? classes.customTooltipDarkMode
+                          : classes.customTooltip,
+                    }}
                   >
                     <img
                       alt="question-mark"
@@ -318,16 +377,24 @@ class AddressStatsData extends Component {
                   </Tooltip>
                   Average Balance
                 </MarketDataPointTitle>
-                <Value theme={this.props.theme}>
-                  {avgBalance}
-                  &nbsp;XDC
-                </Value>
-                <ThirdRowValue>
-                  <OutValue theme={this.props.theme}>
-                    {currencySymbol}
-                    {avgBalanceConverted}
-                  </OutValue>
-                </ThirdRowValue>
+                {typeof avgBalance === "string" ? (
+                  <div>
+                    <div className="animated-background"></div>
+                  </div>
+                ) : (
+                  <>
+                    <Value theme={this.props.theme}>
+                      {avgBalance}
+                      &nbsp;XDC
+                    </Value>
+                    <ThirdRowValue>
+                      <OutValue theme={this.props.theme}>
+                        {currencySymbol}
+                        {avgBalanceConverted}
+                      </OutValue>
+                    </ThirdRowValue>
+                  </>
+                )}
               </div>
             </div>
 
@@ -335,10 +402,15 @@ class AddressStatsData extends Component {
               <div className="cont1 p-t-0">
                 <div className="cont1-child">
                   <MarketDataPointTitle theme={this.props.theme}>
-                    <Tooltip placement="top" title={messages.Txn_Fee}
-                    classes={{
-                      tooltip: this.props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                    }}
+                    <Tooltip
+                      placement="top"
+                      title={messages.Txn_Fee}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
                     >
                       <img
                         alt="question-mark"
@@ -349,18 +421,26 @@ class AddressStatsData extends Component {
                     </Tooltip>
                     Txn Fee Paid
                   </MarketDataPointTitle>
-                  <Value theme={this.props.theme}>
-                    {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
-                    &nbsp;XDC
-                  </Value>
-                  <ThirdRowValue>
-                    <OutValue theme={this.props.theme}>
-                      {currencySymbol}
-                      {gasPriceConverted > 0
-                        ? Number(gasPriceConverted).toFixed(12)
-                        : gasPriceConverted}
-                    </OutValue>
-                  </ThirdRowValue>
+                  {typeof gasPrice === "string" ? (
+                    <div>
+                      <div className="animated-background"></div>
+                    </div>
+                  ) : (
+                    <>
+                      <Value theme={this.props.theme}>
+                        {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
+                        &nbsp;XDC
+                      </Value>
+                      <ThirdRowValue>
+                        <OutValue theme={this.props.theme}>
+                          {currencySymbol}
+                          {gasPriceConverted > 0
+                            ? Number(gasPriceConverted).toFixed(12)
+                            : gasPriceConverted}
+                        </OutValue>
+                      </ThirdRowValue>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -391,35 +471,56 @@ class AddressStatsData extends Component {
           </div>
         </DeskTopView>
         <MobileView>
-          <div className={this.props.theme === "dark" ? "second_mid_address_dark" : "second_mid_address"}>
+          <div
+            className={
+              this.props.theme === "dark"
+                ? "second_mid_address_dark"
+                : "second_mid_address"
+            }
+          >
             <div className="second_cont_address">
               <div className="w-45-per">
                 <MarketDataPointTitle theme={this.props.theme}>
-                  <Tooltip placement="top" title={messages.Total_Txn}
-                  open={this.state.totalTxnTT}
-                  onOpen={() => this.setState({totalTxnTT: true})}
-                  onClose={() => this.setState({totalTxnTT: false})}
-                  classes={{
-                    tooltip: this.props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                  }}
+                  <Tooltip
+                    placement="top"
+                    title={messages.Total_Txn}
+                    open={this.state.totalTxnTT}
+                    onOpen={() => this.setState({ totalTxnTT: true })}
+                    onClose={() => this.setState({ totalTxnTT: false })}
+                    classes={{
+                      tooltip:
+                        this.props.theme === "dark"
+                          ? classes.customTooltipDarkMode
+                          : classes.customTooltip,
+                    }}
                   >
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
                       height={"14px"}
                       className="info-new-icon"
-                      onClick={() => this.setState({totalTxnTT: !this.state.totalTxnTT})}
+                      onClick={() =>
+                        this.setState({ totalTxnTT: !this.state.totalTxnTT })
+                      }
                     />
                   </Tooltip>
                   Total Txn(s)
                 </MarketDataPointTitle>
               </div>
-              <div className={this.props.theme === "dark" ? "mid_cont_address_dark" : "mid_cont_address "}>
+              <div
+                className={
+                  this.props.theme === "dark"
+                    ? "mid_cont_address_dark"
+                    : "mid_cont_address "
+                }
+              >
                 <p>{this.props?.statData?.totalTransactionsCount}</p>
 
                 <ThirdRowValue>
                   <InDiv>In</InDiv>
-                  <InValue theme={this.props.theme}>{this.props?.statData?.toTransactionsCount}</InValue>
+                  <InValue theme={this.props.theme}>
+                    {this.props?.statData?.toTransactionsCount}
+                  </InValue>
                   <OutDiv>Out</OutDiv>
                   <OutValue theme={this.props.theme}>
                     {this.props?.statData?.fromTransactionsCount}
@@ -432,26 +533,41 @@ class AddressStatsData extends Component {
               <div className="w-45-per">
                 {" "}
                 <MarketDataPointTitle theme={this.props.theme}>
-                  <Tooltip placement="top" title={messages.Highest_Txn}
-                  open={this.state.highestTxnTT}
-                  onOpen={() => this.setState({highestTxnTT: true})}
-                  onClose={() => this.setState({highestTxnTT: false})}
-                  classes={{
-                    tooltip: this.props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                  }}
+                  <Tooltip
+                    placement="top"
+                    title={messages.Highest_Txn}
+                    open={this.state.highestTxnTT}
+                    onOpen={() => this.setState({ highestTxnTT: true })}
+                    onClose={() => this.setState({ highestTxnTT: false })}
+                    classes={{
+                      tooltip:
+                        this.props.theme === "dark"
+                          ? classes.customTooltipDarkMode
+                          : classes.customTooltip,
+                    }}
                   >
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
                       height={"14px"}
                       className="info-new-icon"
-                      onClick={() => this.setState({highestTxnTT: !this.state.highestTxnTT})}
+                      onClick={() =>
+                        this.setState({
+                          highestTxnTT: !this.state.highestTxnTT,
+                        })
+                      }
                     />
                   </Tooltip>
                   Highest Txn
                 </MarketDataPointTitle>
               </div>
-              <div className={this.props.theme === "dark" ? "mid_cont_address_dark" : "mid_cont_address "}>
+              <div
+                className={
+                  this.props.theme === "dark"
+                    ? "mid_cont_address_dark"
+                    : "mid_cont_address "
+                }
+              >
                 {" "}
                 <p>{highestTxn}&nbsp;XDC</p>
                 <ThirdRowValue>
@@ -470,26 +586,41 @@ class AddressStatsData extends Component {
               <div className="w-45-per">
                 {" "}
                 <MarketDataPointTitle theme={this.props.theme}>
-                  <Tooltip placement="top" title={messages.VOLUMEX24}
-                  open={this.state.avgBalanceTT}
-                  onOpen={() => this.setState({avgBalanceTT: true})}
-                  onClose={() => this.setState({avgBalanceTT: false})}
-                  classes={{
-                    tooltip: this.props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                  }}
+                  <Tooltip
+                    placement="top"
+                    title={messages.VOLUMEX24}
+                    open={this.state.avgBalanceTT}
+                    onOpen={() => this.setState({ avgBalanceTT: true })}
+                    onClose={() => this.setState({ avgBalanceTT: false })}
+                    classes={{
+                      tooltip:
+                        this.props.theme === "dark"
+                          ? classes.customTooltipDarkMode
+                          : classes.customTooltip,
+                    }}
                   >
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
                       height={"14px"}
                       className="info-new-icon"
-                      onClick={() => this.setState({avgBalanceTT: !this.state.avgBalanceTT})}
+                      onClick={() =>
+                        this.setState({
+                          avgBalanceTT: !this.state.avgBalanceTT,
+                        })
+                      }
                     />
                   </Tooltip>
                   Average Balance
                 </MarketDataPointTitle>
               </div>
-              <div className={this.props.theme === "dark" ? "mid_cont_address_dark" : "mid_cont_address "}>
+              <div
+                className={
+                  this.props.theme === "dark"
+                    ? "mid_cont_address_dark"
+                    : "mid_cont_address "
+                }
+              >
                 {" "}
                 <p>{avgBalance}&nbsp;XDC</p>
                 <ThirdRowValue>
@@ -506,26 +637,41 @@ class AddressStatsData extends Component {
               <div className="w-45-per">
                 {" "}
                 <MarketDataPointTitle theme={this.props.theme}>
-                  <Tooltip placement="top" title={messages.Txn_Fee}
-                  open={this.state.txnFeePaidTT}
-                  onOpen={() => this.setState({txnFeePaidTT: true})}
-                  onClose={() => this.setState({txnFeePaidTT: false})}
-                  classes={{
-                    tooltip: this.props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                  }}
+                  <Tooltip
+                    placement="top"
+                    title={messages.Txn_Fee}
+                    open={this.state.txnFeePaidTT}
+                    onOpen={() => this.setState({ txnFeePaidTT: true })}
+                    onClose={() => this.setState({ txnFeePaidTT: false })}
+                    classes={{
+                      tooltip:
+                        this.props.theme === "dark"
+                          ? classes.customTooltipDarkMode
+                          : classes.customTooltip,
+                    }}
                   >
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
                       height={"14px"}
                       className="info-new-icon"
-                      onClick={() => this.setState({txnFeePaidTT: !this.state.txnFeePaidTT})}
+                      onClick={() =>
+                        this.setState({
+                          txnFeePaidTT: !this.state.txnFeePaidTT,
+                        })
+                      }
                     />
                   </Tooltip>
                   Txn Fee Paid
                 </MarketDataPointTitle>
               </div>
-              <div className={this.props.theme === "dark" ? "mid_cont_address_dark" : "mid_cont_address "}>
+              <div
+                className={
+                  this.props.theme === "dark"
+                    ? "mid_cont_address_dark"
+                    : "mid_cont_address "
+                }
+              >
                 {" "}
                 <p>
                   {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
@@ -576,4 +722,4 @@ class AddressStatsData extends Component {
   }
 }
 
-export default withStyles(useStyles) (AddressStatsData);
+export default withStyles(useStyles)(AddressStatsData);

@@ -1543,7 +1543,7 @@ export default function FormDialog(props) {
             <Row>
               {/* <div className={classes.heading} id="form-dialog-title"> */}
               <div className="forgot-success-title">
-                You've successfully request a forgot password.
+              You have requested an email be sent to your account for password recovery.
               </div>
               <span onClick={handleClose} className="forgot-success-close">
                 <img
