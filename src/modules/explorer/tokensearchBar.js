@@ -898,9 +898,8 @@ export default function Navbar(props) {
   `;
 
   const TabSearchBox = styled.div`
-    height: 2.375rem;
+    height: 2.4rem;
     padding: 8px;
-    margin-right: 0.625rem;
     margin-top: 10px;
     border-radius: 0.25rem;
     background-color: #ffffff;

@@ -428,6 +428,7 @@ input:focus {
 }
 .p-wallet-search{
   padding: 0 4px;
+  padding-bottom: 1px;
 }
 .bg-eaf0ff {
   background: #eaf0ff;
@@ -8822,7 +8823,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-
+  white-space: nowrap;
   color: #2149b9;
   font-weight: 500;
   margin-left: 15px;
@@ -9612,6 +9613,7 @@ button {
   color: #2a2a2a;
   display: inline;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .profile-links:hover {
@@ -9883,7 +9885,7 @@ button {
 
 .left-table-contract {
   font-weight: 600 !important;
-
+  width: 35% !important;
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
@@ -9892,7 +9894,7 @@ button {
 }
 .left-table-contract-dark {
   font-weight: 600 !important;
-
+  width: 35% !important;
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
@@ -10340,6 +10342,7 @@ button {
     margin-left: 0px;
     padding-left: 1.25rem;
     font-size: 14px;
+    white-space: nowrap;
   }
   .table-grid-block {
     width: 23.5rem;
@@ -10472,7 +10475,7 @@ button {
   }
   .left-table-contract-mobile {
     font-weight: 600 !important;
-
+    width: 35% !important;
     font-size: 0.938rem !important;
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
@@ -12087,7 +12090,7 @@ button {
     margin-left: 0px !important;
   }
   .account-searchbar {
-    width: 8rem;
+    width: 9rem;
   }
   .m-r-9 {
     margin-right: 0px;
@@ -12236,6 +12239,7 @@ button {
   width: 1.25rem;
   height: 1.25rem;
   margin: auto 0 auto 0.625rem;
+  margin-right: 10px;
 }
 
 .copyButton {
