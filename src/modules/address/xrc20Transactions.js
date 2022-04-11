@@ -31,7 +31,8 @@ const Pagination = styled.div`
     flex-direction: column;
   }
   @media (max-width: 1240px) {
-    width: auto;
+    width: 100%;
+    margin-bottom: 20px;
   }
 `;
 const RightPagination = styled.div`
@@ -41,9 +42,6 @@ const RightPagination = styled.div`
   @media (max-width: 767px) {
     margin-top: 24px;
   }
-  @media (min-width: 767px) and (max-width: 1240px) {
-    margin-top: 31px;
-  }
 `;
 const LeftPagination = styled.div`
   display: flex;
@@ -51,8 +49,8 @@ const LeftPagination = styled.div`
   margin-top: 39px;
 
   @media (max-width: 1240px) {
-    margin-top: 31px;
-    max-width: 95px;
+    max-width: fit-content;
+    margin-top: 0px;
   }
 `;
 
