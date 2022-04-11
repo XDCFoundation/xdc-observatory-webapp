@@ -674,7 +674,6 @@ class Contractlist extends React.Component {
                           <TableCell id="td" style={{ borderBottom: "none" }}>
                             <span
                               className={this.props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}
-                              style={{ marginLeft: "5px" }}
                             >
                               {row.tokenName}
                             </span>
@@ -694,7 +693,7 @@ class Contractlist extends React.Component {
                           <TableCell id="td" style={{ borderBottom: "none" }}>
                             <span
                               className={this.props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}
-                              style={{ marginLeft: "0.188rem", fontSize: 14 }}
+                              style={{  fontSize: 14 }}
                             >
                               {isToken}
                             </span>

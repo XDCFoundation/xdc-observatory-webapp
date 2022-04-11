@@ -173,13 +173,13 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "1190px",
     margin: "auto",
     borderRadius: "none",
-    padding: "10px 0px",
+    padding: "10px 15px",
     justifyContent: "space-around",
     textTransform: "none",
   },
   "@media(max-width: 767px)": {
     root: {
-      width: "21rem",
+      width: "100%",
     },
   },
   label: {
@@ -447,9 +447,10 @@ const UserNameContainer = styled.div`
     max-width: 710px; */
     }
   }
-  @media (min-width: 400px) and (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     ${"" /* gap: 12px; */}
     margin-top: 15px;
+    gap:17px;
     margin-bottom: 15px;
     padding: 0px 15px !important;
   }
@@ -1215,7 +1216,7 @@ function SimpleTabs(props) {
                   ) || "/images/Profile.png"
                 }
               /> */}
-              <Column style={{ margin: "0 15px" }}>
+              <Column >
                 <Row className={classes.profileName} style={props.theme.currentTheme === "dark" ? { gap: "15px", color: "#fff" } : { gap: "15px" }}>
                   Welcome, {setUserName()}
                 </Row>
