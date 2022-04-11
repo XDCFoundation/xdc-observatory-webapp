@@ -2357,7 +2357,7 @@ p {
   /* padding: 0.6rem 0.644rem 0 0.75rem; */
   padding: 8px;
   margin-right: 0.625rem;
-  margin-top: 10px;
+  /* margin-top: 5px; */
   border-radius: 0.25rem;
   background-color: #ffffff;
 }
@@ -2367,7 +2367,7 @@ p {
   /* padding: 0.6rem 0.644rem 0 0.75rem; */
   padding: 8px;
   margin-right: 0.625rem;
-  margin-top: 10px;
+  /* margin-top: 5px; */
   border-radius: 0.25rem;
   background-color: #091b4e;
 }
@@ -3290,7 +3290,7 @@ p {
   color: #ffffff;
   display: flex;
   justify-content: space-between;
-  padding-right: 25px;
+  padding-right: 18px;
 }
 
 .xinfin_account_button {
@@ -3333,7 +3333,7 @@ p {
 }
 
 .myhr {
-  width: 92%;
+  width: 95.4%;
   left: 0%;
   margin-top: -9px;
   border: solid 0.1px #4867c1;
@@ -3447,8 +3447,8 @@ p {
     margin: -6px 6px 0px 0px;
     padding: 1px;
     border-radius: 6px;
-    border: solid 1px #3552a5;
-    background-color: #283966;
+    /* border: solid 1px #3552a5;
+    background-color: #283966; */
   }
   .lastbox-contract {
     width: 47px;
@@ -4983,6 +4983,11 @@ body {
   } */
 }
 
+@media (min-width: 768px) and (max-width: 1240px){
+  #container-table td{
+    padding: 17px 15px 17px 20px !important;
+  }
+}
 #container-table td {
   padding: 17px 0px 17px 20px;
   /* padding: 12px 50px;
@@ -5185,6 +5190,21 @@ body {
   margin-top: 15px;
   border-radius: 4px;
   background-color: #3f4966;
+}
+
+@media (min-width: 768px) and (max-width: 1240px) {
+  .input-area-bytecode{
+    border-radius: 0px;
+  }
+  .input-area-bytecode-dark{
+    border-radius: 0px;
+  }
+  .input-area-3 {
+    border-radius: 0px;
+  }
+  .input-area-4 {
+    border-radius: 0px;
+  }
 }
 
 .contract-source {

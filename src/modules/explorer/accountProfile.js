@@ -440,6 +440,10 @@ const UserNameContainer = styled.div`
   width: 100%;
   align-items: center;
 
+  @media (min-width: 768px) and (max-width: 1240px) {
+    gap: 32px;
+  }
+
   @media (max-width: 850px) {
     ${
       "" /* padding: 0 10px 0 10px !important;
@@ -1215,7 +1219,7 @@ function SimpleTabs(props) {
                   ) || "/images/Profile.png"
                 }
               /> */}
-              <Column style={{ margin: "0 15px" }}>
+              <Column style={{ margin: "0 15px", marginLeft: 0 }}>
                 <Row className={classes.profileName} style={props.theme.currentTheme === "dark" ? { gap: "15px", color: "#fff" } : { gap: "15px" }}>
                   Welcome, {setUserName()}
                 </Row>
