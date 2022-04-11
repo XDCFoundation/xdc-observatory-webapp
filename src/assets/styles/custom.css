@@ -3,7 +3,7 @@
 body {
   background-color: #ffffff;
   padding-right: 0px !important;
-  overflow-y: auto !important;
+  /* overflow-y: auto !important; */
 }
 a {
   text-decoration: none;
@@ -3440,7 +3440,7 @@ p {
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
   }
-  .firstbox-contract {
+  .firstbox-contract-dark {
     height: 34px;
     width: 47px;
     margin: -6px 6px 0px 0px;
@@ -3760,8 +3760,7 @@ p {
   padding-left: 8px;
   opacity: 0.73;
   border-radius: 4px;
-
-  border: solid 1px#F9F9F9;
+  border: solid 1px #F9F9F9;
   background-color: #efefef;
 }
 @media (min-width: 766px) and (max-width: 1240px) {
@@ -3774,7 +3773,7 @@ p {
     opacity: 0.73;
     border-radius: 4px;
 
-    border: solid 1px#F9F9F9;
+    border: solid 1px #F9F9F9;
     background-color: #efefef;
   }
 }
@@ -6335,7 +6334,7 @@ button {
 @media (min-width: 0px) and (max-width: 767px) {
   .block_main {
     flex-direction: column;
-    width: 21rem;
+    width: 23rem;
     margin-top: 15px;
     margin-right: auto;
     margin-left: auto;
@@ -8090,9 +8089,9 @@ button {
     margin-top: 22px;
     margin-left: auto;
     margin-right: auto;
-    width: 21rem;
+    width: 22rem;
     height: 15.813rem;
-    padding: 0 10px 0 10px;
+    padding: 0;
   }
   .second_mid_address {
     margin-top: 25px;
@@ -8128,6 +8127,15 @@ button {
   padding: 8px 2px;
   width: 100%;
   padding-left: 2%;
+}
+.second_cont_dashboard {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 8px 2px;
+  width: 100%;
+  padding-left: 0%;
 }
 .second_cont_address {
   display: flex;
@@ -8196,8 +8204,42 @@ button {
   opacity: 1;
   font-size: 0.875rem;
 }
+.second_cont_dashboard p {
+  margin: 2px;
+  color: #686868;
+  font-family: "Inter-Regular";
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  margin-right: 10px;
+  top: 895px;
+  left: 18px;
+  height: 1.063rem;
+
+  color: #686868;
+  opacity: 1;
+  font-size: 0.875rem;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .second_cont p {
+    margin: 2px;
+    font-size: 0.875rem;
+    font-family: "Inter-Regular";
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    margin-right: 10px;
+
+    color: #686868;
+    opacity: 1;
+    top: 762px;
+    left: 18px;
+    height: 1.063;
+  }
+  .second_cont_dashboard p {
     margin: 2px;
     font-size: 0.875rem;
     font-family: "Inter-Regular";

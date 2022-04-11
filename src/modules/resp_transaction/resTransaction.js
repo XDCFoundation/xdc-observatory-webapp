@@ -1432,8 +1432,8 @@ function Transaction({ theme, currency }) {
   let ValueMain =
     transactions?.value > 0 && transactions?.value < 1
       ? transactions?.value
-      : Utils.decimalDivison(transactionValue, 8);
-  let bx = latestBlock[0]?.number - transactions?.blockNumber;
+      : Utils.decimalDivisonOnly(transactionValue, 8);
+  let bx =  latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now();
     let difference = today - date;
@@ -1552,7 +1552,6 @@ function Transaction({ theme, currency }) {
                           />
                         </Tooltip>
                       )}
-                      {console.log("hash", hashTT)}
                       <Hash theme={theme.currentTheme}>Transaction Hash</Hash>
                     </Container>
                     <DetailsMiddleContainer isTextArea={false}>
@@ -1709,7 +1708,7 @@ function Transaction({ theme, currency }) {
                           isTextArea={false}
                           theme={theme.currentTheme}
                         >
-                          {ValueMain}&nbsp;XDC{" "}
+                          {isNaN(ValueMain) ? "" : ValueMain}&nbsp;XDC{" "}
                           {!valueDiv
                             ? " "
                             : "(" + (currencySymbol + valueDiv) + ")"}
@@ -1832,7 +1831,7 @@ function Transaction({ theme, currency }) {
                           </a>
                           &nbsp;{" "}
                           <BlockConfirmation theme={theme.currentTheme}>
-                            {bx} Blocks Confirmation
+                            {isNaN(bx) ? "":bx} Blocks Confirmation
                           </BlockConfirmation>
                         </Content>
                       </DetailsMiddleContainer>

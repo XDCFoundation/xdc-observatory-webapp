@@ -45,7 +45,7 @@ const useStyles = makeStyles({
 const TransactionHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 25px 22px 15px 25px;
+  margin: 25px 22px 15px 15px;
 `;
 
 const TransactionTitle = styled.div`
@@ -72,7 +72,7 @@ const TransactionSubTitle = styled.div`
   color: #2a2a2a;
   font-family: Inter;
   font-size: 0.75rem;
-  margin-left: 25px;
+  margin-left: 15px;
   ${({ theme }) =>
     theme === "dark" &&
     `
@@ -161,7 +161,7 @@ const LatestTransactionView = (props) => {
               <TableRow>
                 {props?.showHash && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "25px" }}
+                    style={{ border: "none", paddingLeft: "15px" }}
                     align="left"
                   >
                     <span
@@ -379,7 +379,7 @@ const LatestTransactionView = (props) => {
                           <TableCell
                             id="td"
                             className="w-150 bord-none"
-                            style={{ paddingLeft: "25px" }}
+                            style={{ paddingLeft: "15px" }}
                           >
                             <div className="display-flex">
                               {/* <TransactionDetailTooltip
@@ -485,7 +485,7 @@ const LatestTransactionView = (props) => {
                         {props?.showDetails && (
                           <TableCell
                             className=" bord-none"
-                            style={{ paddingRight: "25px" }}
+                            style={{ paddingRight: "15px" }}
                           >
                             <div className="latest_child w-18 mar_child wid-17 details-pad ">
                               <a

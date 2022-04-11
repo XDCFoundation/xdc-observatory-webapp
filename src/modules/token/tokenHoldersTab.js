@@ -679,7 +679,7 @@ export default function StickyHeadTable(props) {
               <p className={props.theme === "dark" ? "Page-1-of-5-dark" : "Page-1-of-5"}>
                 Page{" "}
                 {Math.round(totalHolder / rowsPerPage) -
-                  Math.round((totalHolder - page) / rowsPerPage)}{" "}
+                  Math.round((totalHolder - page) / rowsPerPage)+1}{" "}
                 of {Math.round(totalHolder / rowsPerPage)}
               </p>
             </div>

@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: "10.8rem !important",
-      padding: "16px 15px 15px 16px",
+      padding: "15px",
     },
     drawerHeader: {
       padding: "0 !important",
