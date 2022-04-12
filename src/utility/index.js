@@ -90,7 +90,6 @@ function getTxnActionFromAndTo(res) {
   let txnLog = res ? res.logs : ""
   
   let txnlog = txnLog?.map((data) => {
-    console.log(data,">>>>>>>>")
     let topicsFrom = data && data?.topics.length>=3 ? data?.topics[1].slice(-40) : ""
     txnActionFrom.push(topicsFrom)
     let topicsTo = data && data?.topics.length>=3? data?.topics[2].slice(-40) : ""
