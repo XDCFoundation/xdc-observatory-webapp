@@ -206,7 +206,7 @@ export default function StickyHeadTable(props) {
     }
 
     if (action === "last") {
-      let pageValue = Math.round(totalHolder / rowsPerPage) * rowsPerPage;
+      let pageValue = (Math.round(totalHolder / rowsPerPage)-1) * rowsPerPage;
       setPage(pageValue);
       values.skip = pageValue;
     }
@@ -831,7 +831,7 @@ export default function StickyHeadTable(props) {
               >
                 Page{" "}
                 {Math.round(totalHolder / rowsPerPage) -
-                  Math.round((totalHolder - page) / rowsPerPage)}{" "}
+                  Math.round((totalHolder - page) / rowsPerPage)+1}{" "}
                 of {Math.round(totalHolder / rowsPerPage)}
               </p>
             </div>

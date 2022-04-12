@@ -14,11 +14,20 @@ import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import { cookiesConstants, eventConstants } from "../../constants";
 import { dispatchAction } from "../../utility"
 import { sessionManager } from "../../managers/sessionManager";
+import { Tooltip } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     currencyPopup: {
         marginLeft: "10px",
-    }
+    },
+    customTooltip: {
+        fontSize: "13px"
+      },
+      customTooltipDarkMode: {
+        background: "#051440",
+        color: "#adc4e4",
+        fontSize: "13px"
+      }
 }));
 
 
@@ -246,7 +255,14 @@ function FooterComponent(props) {
                             <option>inr</option>
                         </select> */}
                         <div className="theme-switch-icon-container" onClick={() => handleThemeSwitch()}>
-                        {props.theme.currentTheme=== "dark" ? <WbSunnyIcon className="theme-switch-icon"/> : <img src='/images/moon-dark-mode.svg' />}
+                        {props.theme.currentTheme=== "dark" ? 
+                        <Tooltip title="Light mode" placement="top" classes={{tooltip: classes.customTooltipDarkMode}}>
+                        <WbSunnyIcon className="theme-switch-icon"/> 
+                        </Tooltip>
+                        : <Tooltip title="Dark mode" placement="top" classes={{tooltip: classes.customTooltip}}>
+                        <img src='/images/moon-dark-mode.svg' />
+                        </Tooltip>
+                        }
                         </div>
                         </div>
                     </Grid>

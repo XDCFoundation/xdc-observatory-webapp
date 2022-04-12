@@ -108,7 +108,7 @@ const LeftContainer = styled.div`
 const RightContainer = styled.div`
   flex: 0.47;
   display: flex;
-  margin-left: 12px;
+  // margin-left: 12px;
   @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;

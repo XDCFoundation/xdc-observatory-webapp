@@ -209,6 +209,7 @@ export default function StorageMessage(props) {
     }
 
     const saveMyPreferences = async () => {
+        // setIsCookiesAccepted(true);
         const userInfo = sessionManager.getDataFromCookies("userInfo");
         const cookiesData = []
         cookiesData.push(userCookiesConstants.FUNCTIONAL_COOKIES);

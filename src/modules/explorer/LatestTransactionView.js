@@ -45,7 +45,7 @@ const useStyles = makeStyles({
 const TransactionHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 25px 22px 15px 25px;
+  margin: 25px 22px 15px 15px;
 `;
 
 const TransactionTitle = styled.div`
@@ -65,19 +65,19 @@ const TransactionTitle = styled.div`
   `}
 `;
 const TransactionSubTitle = styled.div`
-  width: auto;
-  height: 1.125rem;
-  text-align: left;
+width: auto;
+height: 1.125rem;
+text-align: left;
 
-  color: #2a2a2a;
-  font-family: Inter;
-  font-size: 0.75rem;
-  margin-left: 25px;
-  ${({ theme }) =>
-    theme === "dark" &&
-    `
-    color: #b1c3e1;
-  `}
+color: #2a2a2a;
+font-family: Inter;
+font-size: 0.75rem;
+margin-left: 15px;
+${({ theme }) =>
+  theme === "dark" &&
+  `
+  color: #b1c3e1;
+`}
 `;
 const TableSubContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
@@ -161,7 +161,7 @@ const LatestTransactionView = (props) => {
               <TableRow>
                 {props?.showHash && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "25px" }}
+                    style={{ border: "none", paddingLeft: "15px" }}
                     align="left"
                   >
                     <span
@@ -223,6 +223,11 @@ const LatestTransactionView = (props) => {
                         ? "tablehead-token-details-dark"
                         : "tablehead-token-details"
                     }
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: "3px",
+                    }}
                   >
                     Amount
                     {window.innerWidth > 1024 ? (
@@ -377,9 +382,9 @@ const LatestTransactionView = (props) => {
                       >
                         {props?.showHash && (
                           <TableCell
-                            id="td"
-                            className="w-150 bord-none"
-                            style={{ paddingLeft: "25px" }}
+                          id="td"
+                          className="w-150 bord-none"
+                          style={{ paddingLeft: "15px", width: "150px" }}
                           >
                             <div className="display-flex">
                               {/* <TransactionDetailTooltip
@@ -414,6 +419,7 @@ const LatestTransactionView = (props) => {
                             whiteSpace: "nowrap",
                             width: "150px",
                             border: "none",
+                            paddingLeft: "15px",
                           }}
                         >
                           {amt2 == null ? (
@@ -453,9 +459,7 @@ const LatestTransactionView = (props) => {
                         </TableCell>
                         {props?.showDate && (
                           <TableCell
-                            id="td"
-                            className="bord-none"
-                            style={{ width: "200px" }}
+                          id="td" className="w-150 bord-none"
                           >
                             <Tooltip
                               title={moment(row.timestamp * 1000)
@@ -484,8 +488,13 @@ const LatestTransactionView = (props) => {
                         )}
                         {props?.showDetails && (
                           <TableCell
-                            className=" bord-none"
-                            style={{ paddingRight: "25px" }}
+                          id="td"
+                          className="bord-none"
+                          style={{
+                            width: "50px",
+                            paddingLeft: "none",
+                            paddingRight: "none",
+                          }}
                           >
                             <div className="latest_child w-18 mar_child wid-17 details-pad ">
                               <a
