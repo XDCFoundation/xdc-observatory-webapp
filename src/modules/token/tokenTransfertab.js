@@ -111,6 +111,14 @@ const useStyles = makeStyles({
   table: {
     marginBottom: "200px",
   },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
 });
 
 export default function StickyHeadTable(props) {
@@ -282,33 +290,66 @@ export default function StickyHeadTable(props) {
         theme={props.theme}
       />
       <div elevation={0}>
-        <TableContainer className={props.theme === "dark" ? classes.containerDark : classes.container} id="container-table">
+        <TableContainer
+          className={
+            props.theme === "dark" ? classes.containerDark : classes.container
+          }
+          id="container-table"
+        >
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
                   <span
                     className={
-                      props.theme === "dark" ? "tableheaders_Transfer-table-hash-dark cursor-pointer" : "tableheaders_Transfer-table-hash cursor-pointer"
+                      props.theme === "dark"
+                        ? "tableheaders_Transfer-table-hash-dark cursor-pointer"
+                        : "tableheaders_Transfer-table-hash cursor-pointer"
                     }
                     onClick={() => sortTable("hash")}
                   >
                     Transaction Hash
-                    <Tooltip
-                      open={txHashToolTop}
-                      onOpen={() => setTxHashToolTop(true)}
-                      onClose={() => setTxHashToolTop(false)}
-                      placement="top"
-                      title={messages.HASH}
-                    >
-                      <img
-                        onClick={() => setTxHashToolTop(!txHashToolTop)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.HASH}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={txHashToolTop}
+                        onOpen={() => setTxHashToolTop(true)}
+                        onClose={() => setTxHashToolTop(false)}
+                        placement="top"
+                        title={messages.HASH}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setTxHashToolTop(!txHashToolTop)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                     {sortingKey && sortingOrder && sortingKey == "hash" ? (
                       sortingOrder === -1 ? (
                         <img
@@ -332,25 +373,55 @@ export default function StickyHeadTable(props) {
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span
-                    className={props.theme === "dark" ? "tableheaders_Transfer-table-age-dark cursor-pointer" : "tableheaders_Transfer-table-age cursor-pointer"}
+                    className={
+                      props.theme === "dark"
+                        ? "tableheaders_Transfer-table-age-dark cursor-pointer"
+                        : "tableheaders_Transfer-table-age cursor-pointer"
+                    }
                     onClick={() => sortTable("timestamp")}
                   >
                     Age
-                    <Tooltip
-                      open={ageToolTip}
-                      onOpen={() => setAgeToolTip(true)}
-                      onClose={() => setAgeToolTip(false)}
-                      placement="top"
-                      title={messages.AGE}
-                    >
-                      <img
-                        onClick={() => setAgeToolTip(!ageToolTip)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.AGE}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={ageToolTip}
+                        onOpen={() => setAgeToolTip(true)}
+                        onClose={() => setAgeToolTip(false)}
+                        placement="top"
+                        title={messages.AGE}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setAgeToolTip(!ageToolTip)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                     {sortingKey && sortingOrder && sortingKey == "timestamp" ? (
                       sortingOrder === -1 ? (
                         <img
@@ -375,26 +446,54 @@ export default function StickyHeadTable(props) {
                 <TableCell style={{ border: "none" }} align="left">
                   <span
                     className={
-                      props.theme === "dark" ? "tableheaders_Transfer-table-block-dark cursor-pointer" : "tableheaders_Transfer-table-block cursor-pointer"
+                      props.theme === "dark"
+                        ? "tableheaders_Transfer-table-block-dark cursor-pointer"
+                        : "tableheaders_Transfer-table-block cursor-pointer"
                     }
                     onClick={() => sortTable("blockNumber")}
                   >
                     Block
-                    <Tooltip
-                      open={blockToolTip}
-                      onOpen={() => setBlockToolTip(true)}
-                      onClose={() => setBlockToolTip(false)}
-                      placement="top"
-                      title={messages.BLOCK}
-                    >
-                      <img
-                        onClick={() => setBlockToolTip(!blockToolTip)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.BLOCK}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={blockToolTip}
+                        onOpen={() => setBlockToolTip(true)}
+                        onClose={() => setBlockToolTip(false)}
+                        placement="top"
+                        title={messages.BLOCK}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setBlockToolTip(!blockToolTip)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                     {sortingKey &&
                     sortingOrder &&
                     sortingKey == "blockNumber" ? (
@@ -421,26 +520,54 @@ export default function StickyHeadTable(props) {
                 <TableCell style={{ border: "none" }} align="left">
                   <span
                     className={
-                      props.theme === "dark" ? "tableheaders_Transfer-table-from-dark cursor-pointer" : "tableheaders_Transfer-table-from cursor-pointer"
+                      props.theme === "dark"
+                        ? "tableheaders_Transfer-table-from-dark cursor-pointer"
+                        : "tableheaders_Transfer-table-from cursor-pointer"
                     }
                     onClick={() => sortTable("from")}
                   >
                     From
-                    <Tooltip
-                      open={fromToolTip}
-                      onOpen={() => setFromToolTip(true)}
-                      onClose={() => setFromToolTip(false)}
-                      placement="top"
-                      title={messages.FROM}
-                    >
-                      <img
-                        onClick={() => setFromToolTip(!fromToolTip)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.FROM}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={fromToolTip}
+                        onOpen={() => setFromToolTip(true)}
+                        onClose={() => setFromToolTip(false)}
+                        placement="top"
+                        title={messages.FROM}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setFromToolTip(!fromToolTip)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                     {sortingKey && sortingOrder && sortingKey == "from" ? (
                       sortingOrder === -1 ? (
                         <img
@@ -464,25 +591,55 @@ export default function StickyHeadTable(props) {
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span
-                    className={props.theme === "dark" ? "tableheaders_Transfer-table-to-dark cursor-pointer" : "tableheaders_Transfer-table-to cursor-pointer"}
+                    className={
+                      props.theme === "dark"
+                        ? "tableheaders_Transfer-table-to-dark cursor-pointer"
+                        : "tableheaders_Transfer-table-to cursor-pointer"
+                    }
                     onClick={() => sortTable("to")}
                   >
                     To
-                    <Tooltip
-                      open={toToolTip}
-                      onOpen={() => setToToolTip(true)}
-                      onClose={() => setToToolTip(false)}
-                      placement="top"
-                      title={messages.TO}
-                    >
-                      <img
-                        onClick={() => setToToolTip(!toToolTip)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.TO}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={toToolTip}
+                        onOpen={() => setToToolTip(true)}
+                        onClose={() => setToToolTip(false)}
+                        placement="top"
+                        title={messages.TO}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setToToolTip(!toToolTip)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                     {sortingKey && sortingOrder && sortingKey == "to" ? (
                       sortingOrder === -1 ? (
                         <img
@@ -530,7 +687,13 @@ export default function StickyHeadTable(props) {
                         style={{ color: "#2b51bc", fontSize: 11 }}
                         href={"/transaction-details/" + row.hash}
                       >
-                        <span className={props.theme === "dark" ? "tabledata table-data fc-4878ff" : "tabledata table-data"}>
+                        <span
+                          className={
+                            props.theme === "dark"
+                              ? "tabledata table-data fc-4878ff"
+                              : "tabledata table-data"
+                          }
+                        >
                           {shorten(row.hash)}
                         </span>
                       </a>
@@ -538,7 +701,11 @@ export default function StickyHeadTable(props) {
                     <TableCell id="td" style={{ border: "none" }}>
                       <span
                         style={{ color: "#2a2a2a" }}
-                        className={props.theme === "dark" ? "tabledata table-data fc-b1c3e1" : "tabledata table-data"}
+                        className={
+                          props.theme === "dark"
+                            ? "tabledata table-data fc-b1c3e1"
+                            : "tabledata table-data"
+                        }
                       >
                         {ti}
                       </span>
@@ -548,7 +715,13 @@ export default function StickyHeadTable(props) {
                         style={{ color: "#2b51bc", fontSize: 11 }}
                         href={"/block-details/" + row.blockNumber}
                       >
-                        <span className={props.theme === "dark" ? "tabledata table-data fc-4878ff" : "tabledata table-data"}>
+                        <span
+                          className={
+                            props.theme === "dark"
+                              ? "tabledata table-data fc-4878ff"
+                              : "tabledata table-data"
+                          }
+                        >
                           {" "}
                           {row.blockNumber}
                         </span>
@@ -560,7 +733,13 @@ export default function StickyHeadTable(props) {
                         href={"/address-details/" + row.from}
                       >
                         <Tooltip placement="top" title={row.from}>
-                          <span className={props.theme === "dark" ? "tabledata table-data fc-4878ff" : "tabledata table-data"}>
+                          <span
+                            className={
+                              props.theme === "dark"
+                                ? "tabledata table-data fc-4878ff"
+                                : "tabledata table-data"
+                            }
+                          >
                             {row.from > "xdc" ? shorten(row.from) : row.from}
                           </span>
                         </Tooltip>
@@ -579,7 +758,13 @@ export default function StickyHeadTable(props) {
                               : shorten(row.contract)
                           }
                         >
-                          <span className={props.theme === "dark" ? "tabledata table-data fc-4878ff" : "tabledata table-data"}>
+                          <span
+                            className={
+                              props.theme === "dark"
+                                ? "tabledata table-data fc-4878ff"
+                                : "tabledata table-data"
+                            }
+                          >
                             {row.to > "xdc"
                               ? shorten(row.to)
                               : shorten(row.contract)}
@@ -620,7 +805,13 @@ export default function StickyHeadTable(props) {
             ""
           ) : (
             <>
-              <p className={props.theme === "dark" ? "p-pagination-dark" : "p-pagination"}>Show</p>
+              <p
+                className={
+                  props.theme === "dark" ? "p-pagination-dark" : "p-pagination"
+                }
+              >
+                Show
+              </p>
               <PageSelector
                 value={rowsPerPage}
                 height={35}
@@ -628,7 +819,13 @@ export default function StickyHeadTable(props) {
                 theme={props.theme}
               />
 
-              <p className={props.theme === "dark" ? "p-pagination-dark" : "p-pagination"}>Records</p>
+              <p
+                className={
+                  props.theme === "dark" ? "p-pagination-dark" : "p-pagination"
+                }
+              >
+                Records
+              </p>
             </>
           )}
         </LeftPagination>
@@ -641,20 +838,37 @@ export default function StickyHeadTable(props) {
             }}
           >
             <div
-              className={page === 0 
-                ? props.theme === "dark" ? "firstbox-dark disabled" : "firstbox disabled" 
-                : props.theme === "dark" ? "firstbox-dark" : "firstbox" 
+              className={
+                page === 0
+                  ? props.theme === "dark"
+                    ? "firstbox-dark disabled"
+                    : "firstbox disabled"
+                  : props.theme === "dark"
+                  ? "firstbox-dark"
+                  : "firstbox"
               }
               onClick={() => handleChangePage("first")}
             >
-              <button style={props.theme === "dark" ? {background: "transparent"} : { backgroundColor: "white" }} className={props.theme === "dark" ? "first-dark" : "first"}>
+              <button
+                style={
+                  props.theme === "dark"
+                    ? { background: "transparent" }
+                    : { backgroundColor: "white" }
+                }
+                className={props.theme === "dark" ? "first-dark" : "first"}
+              >
                 First
               </button>
             </div>
             <div
-              className={page === 0 
-                ? props.theme === "dark" ? "previousbox-dark disabled" : "previousbox disabled" 
-                : props.theme === "dark" ? "previousbox-dark" : "previousbox"
+              className={
+                page === 0
+                  ? props.theme === "dark"
+                    ? "previousbox-dark disabled"
+                    : "previousbox disabled"
+                  : props.theme === "dark"
+                  ? "previousbox-dark"
+                  : "previousbox"
               }
               onClick={() => handleChangePage("prev")}
             >
@@ -662,8 +876,14 @@ export default function StickyHeadTable(props) {
                 <img className="rotate-180" src={"/images/next.svg"} />
               </p>
             </div>
-            <div className={props.theme === "dark" ? "pagebox-dark" : "pagebox"}>
-              <p className={props.theme === "dark" ? "Page-1-of-5-dark" : "Page-1-of-5"}>
+            <div
+              className={props.theme === "dark" ? "pagebox-dark" : "pagebox"}
+            >
+              <p
+                className={
+                  props.theme === "dark" ? "Page-1-of-5-dark" : "Page-1-of-5"
+                }
+              >
                 Page&nbsp;
                 {Math.ceil(totalToken / rowsPerPage) -
                   Math.ceil((totalToken - page) / rowsPerPage) +
@@ -674,8 +894,12 @@ export default function StickyHeadTable(props) {
             <div
               className={
                 page + transfer.length === totalToken
-                  ? props.theme === "dark" ? "nextbox-dark disabled" : "nextbox disabled"
-                  : props.theme === "dark" ? "nextbox-dark" : "nextbox"
+                  ? props.theme === "dark"
+                    ? "nextbox-dark disabled"
+                    : "nextbox disabled"
+                  : props.theme === "dark"
+                  ? "nextbox-dark"
+                  : "nextbox"
               }
             >
               <p className="path-2" onClick={() => handleChangePage("next")}>
@@ -685,12 +909,23 @@ export default function StickyHeadTable(props) {
             <div
               className={
                 page + transfer.length === totalToken
-                  ? props.theme === "dark" ? "lastbox-dark disabled" : "lastbox disabled"
-                  : props.theme === "dark" ? "lastbox-dark" : "lastbox"
+                  ? props.theme === "dark"
+                    ? "lastbox-dark disabled"
+                    : "lastbox disabled"
+                  : props.theme === "dark"
+                  ? "lastbox-dark"
+                  : "lastbox"
               }
               onClick={() => handleChangePage("last")}
             >
-              <button style={props.theme === "dark" ? {background: "transparent"} : { backgroundColor: "white" }} className={props.theme === "dark" ? "last-dark" : "last"}>
+              <button
+                style={
+                  props.theme === "dark"
+                    ? { background: "transparent" }
+                    : { backgroundColor: "white" }
+                }
+                className={props.theme === "dark" ? "last-dark" : "last"}
+              >
                 Last
               </button>
             </div>
