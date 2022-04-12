@@ -884,13 +884,11 @@ function SimpleTabs(props) {
       newData = oldData.sort(
         (index1, index2) => parseInt(index2.modifiedOn) - parseInt(index1.modifiedOn)
       );
-      console.log(newData, "<<<");
       setAgeToggle(1);
     } else {
       newData = oldData.sort(
         (index1, index2) => parseInt(index1.modifiedOn) - parseInt(index2.modifiedOn)
       );
-      console.log(newData, "<<<");
       setAgeToggle(-1);
     }
     setPrivateAddress(newData);
@@ -1081,6 +1079,8 @@ function SimpleTabs(props) {
     // console.log(res, "res");
   };
   const updateListTags = (res) => {
+    
+    console.log(res,"ji")
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
     };
@@ -1093,9 +1093,11 @@ function SimpleTabs(props) {
     // );
     let updatedPrivateAddress = [];
     res.map((item) => {
+      console.log(item,"iyuuu")
       let existingAddressIndex = privateAddress.findIndex(
         (i2) => i2.address === item.address
       );
+      item["modifiedOn"] = moment(item?.modifiedOn).valueOf()
       if (existingAddressIndex !== -1) {
         updatedPrivateAddress.push({
           ...privateAddress[existingAddressIndex],
@@ -1104,8 +1106,12 @@ function SimpleTabs(props) {
         privateAddress.splice(existingAddressIndex, 1);
         return;
       }
+
+      item["modifiedOn"] =moment(item?.modifiedOn).valueOf()
+      console.log(item,"item")
       updatedPrivateAddress.push({ userId: request?.userId, ...item });
     });
+    console.log(updatedPrivateAddress,"updated")
 
     setPrivateAddress([...updatedPrivateAddress, ...privateAddress]);
     localStorage.setItem(
@@ -1113,6 +1119,7 @@ function SimpleTabs(props) {
       JSON.stringify([...updatedPrivateAddress, ...privateAddress])
     );
   };
+  console.log(privateAddress,"prictae")
 
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
@@ -1144,10 +1151,11 @@ function SimpleTabs(props) {
 
       setDownloadTagAddress(
         tempAddress.map((item) => {
+          console.log(item,">>>>>>>>>>>>>>>")
           return {
             Address: item.address,
             NameTag: item.tagName,
-            AddedOn: item?.modifiedOn,
+            AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
           };
         })
       );
@@ -1170,10 +1178,11 @@ function SimpleTabs(props) {
       }
       setDownloadTagAddress(
         tempAddr.map((item) => {
+          
           return {
             Address: item.address,
             NameTag: item.tagName,
-            AddedOn:item?.addedOn,
+            AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
           };
         })
       );
@@ -1833,6 +1842,7 @@ function SimpleTabs(props) {
                                   <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {`${
                                       (row?.modifiedOn &&
+                                   
                                         moment(parseInt(row?.modifiedOn)) 
                                           .tz(timezone)
                                           .format("MMM DD, YYYY, hh:mm A")) ||
@@ -2651,6 +2661,7 @@ function SimpleTabs(props) {
                         {privateAddress.map((row, index) => {
                           if (index >= _limit) return null;
                           let tag = row.tagName;
+                   
                           // const multipleTag = handleMultipleTag(tag);
 
                           return (
@@ -2704,17 +2715,32 @@ function SimpleTabs(props) {
                                 align="left"
                               >
                                 <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
-                                  {`${
-                                    (row?.modifiedOn &&
-                                      moment((parseInt(row?.modifiedOn)))
-                                        .tz(timezone)
-                                        .format("MMM DD, YYYY, hh:mm A")) ||
-                                    ""
-                                  } ${
-                                    (timezone &&
-                                      Utility.getUtcOffset(timezone)) ||
-                                    ""
-                                  }`}
+                                  {
+                                    row?.modifiedOn.length >= 12 ?
+                                    `${
+                                      (row?.modifiedOn &&
+                                        moment((parseInt(row?.modifiedOn*1000)))
+                                          .tz(timezone)
+                                          .format("MMM DD, YYYY, hh:mm A")) ||
+                                      ""
+                                    } ${
+                                      (timezone &&
+                                        Utility.getUtcOffset(timezone)) ||
+                                      ""
+                                    }`
+                                    :
+                                    `${
+                                      (row?.modifiedOn &&
+                                        moment((parseInt(row?.modifiedOn)))
+                                          .tz(timezone)
+                                          .format("MMM DD, YYYY, hh:mm A")) ||
+                                      ""
+                                    } ${
+                                      (timezone &&
+                                        Utility.getUtcOffset(timezone)) ||
+                                      ""
+                                    }`
+                                  }
                                 </span>
                               </TableCell>
 
