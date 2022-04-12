@@ -241,7 +241,6 @@ export default function Navbar(props) {
       BlockChainSearch(requestdata);
     }
   };
-  console.log(browserName,"browser")
 
   const handleTokenPopover = () => {
     setTokenPopover(true);
