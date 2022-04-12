@@ -23,7 +23,7 @@ function ConfigureColumnsModal(props) {
             aria-labelledby="form-dialog-title"
         >
             <div className={props.theme === "dark" ? "w-320 table-btn-bg-dark":"w-320"}>
-                <div className={props.theme ? "fs-14 fw-bold p-t-15 p-b-15 display-flex justify-content-center fc-white":"fs-14 fw-bold p-t-15 p-b-15 display-flex justify-content-center"}>Configure Columns</div>
+                <div className={props.theme === "dark" ? "fs-14 fw-bold p-t-15 p-b-15 display-flex justify-content-center fc-white":"fs-14 fw-bold p-t-15 p-b-15 display-flex justify-content-center"}>Configure Columns</div>
                 <div className="margin-0 m-b-15 b-t-1"/>
                 <div className="p-l-15 p-r-15">
                     {
@@ -36,7 +36,7 @@ function ConfigureColumnsModal(props) {
                                                 <img className="tooltipInfoIconConfigMob"
                                                     src="/images/info.svg"></img>
                                             </Tooltip>
-                                            <div className={props.theme ? "p-l-12 fc-white":"p-l-12"}>{key}</div>
+                                            <div className={props.theme === "dark" ? "p-l-12 fc-white":"p-l-12"}>{key}</div>
                                         </div>
                                         <div onClick={() => props.toggleTableColumns(key)}>
                                             {props.tableColumns[key].isActive ?

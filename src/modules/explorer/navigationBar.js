@@ -219,7 +219,6 @@ export default function Navbar(props) {
       } else {
         var selectOptType = SelectOptRef.current?.value;
         let requestdata = {
-          // filter: selectOptType,
           filter: "All filters",
           data: event.target.value,
         };
@@ -236,7 +235,6 @@ export default function Navbar(props) {
     } else {
       let selectOptType = SelectOptRef.current?.value;
       let requestdata = {
-        // filter: selectOptType,
         filter: "All filters",
         data: searchData,
       };
@@ -303,7 +301,7 @@ export default function Navbar(props) {
     var selectOptType = SelectOptRef.current?.value;
     var SearchDataInput = SearchDataRef.current?.value;
     let requestdata = {
-      filter: selectOptType,
+      filter: "All filters",
       data: SearchDataInput,
     };
     if (SearchDataInput === "") {
