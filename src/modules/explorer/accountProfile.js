@@ -440,6 +440,10 @@ const UserNameContainer = styled.div`
   width: 100%;
   align-items: center;
 
+  @media (min-width: 768px) and (max-width: 1240px) {
+    gap: 32px;
+  }
+
   @media (max-width: 850px) {
     ${
       "" /* padding: 0 10px 0 10px !important;

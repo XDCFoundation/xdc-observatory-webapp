@@ -126,6 +126,7 @@ const Value = styled.div`
   display: flex;
   width: 10.625rem;
   padding-bottom: 35px;
+  padding-left: 18px;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 9.4rem;
     padding-bottom: 23px;
