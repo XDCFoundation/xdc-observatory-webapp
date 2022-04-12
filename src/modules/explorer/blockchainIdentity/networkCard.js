@@ -105,7 +105,6 @@ const useStyles = makeStyles((themes) => ({
 }));
 
 export default function NetworkCard(props) {
-  console.log("props", props);
   const classes = useStyles();
   const [copiedText, setCopiedText] = useState("");
   return (

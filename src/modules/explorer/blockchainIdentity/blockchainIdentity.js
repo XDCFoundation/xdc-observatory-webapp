@@ -68,11 +68,8 @@ const useStyles = makeStyles((themes) => ({
 }));
 
 function BlockchainIdentity(props) {
-  console.log("blockchain-identity-props", props);
-  const classes = useStyles();
-  const [blockchainIdentityResponse, setBlockchainIdentityResponse] = useState(
-    []
-  );
+    const classes = useStyles();
+    const [blockchainIdentityResponse, setBlockchainIdentityResponse] = useState([])
 
   useEffect(() => {
     networkDetails();

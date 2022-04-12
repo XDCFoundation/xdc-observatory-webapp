@@ -23,7 +23,7 @@ import format from "format-number";
 import ContractData from "../../services/contract";
 import HolderAnalytics from "../token/holderAnalytics/analyticsComponent";
 import { connect } from "react-redux";
-import { dispatchAction } from "../../utility"
+import utility, { dispatchAction } from "../../utility"
 import { sessionManager } from "../../managers/sessionManager";
 
 var QRCode = require("qrcode.react");
@@ -142,7 +142,7 @@ function HoldersDetails(props) {
     setToggleState(index);
   };
   const classes = useStyles();
-
+let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
   return (
     <>
       <DeskTopView>
@@ -283,7 +283,7 @@ function HoldersDetails(props) {
                       <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Balance</div>
                       </TableCell>
                       <TableCell className="second-row-table_address-balance">
-                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{format({})(holder[0]?.Holder_token_balance)} {tn}</div>
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holderBalance && decimal ? format({})(holderBalance):0} {tn}</div>
                         {/* ({ReactHtmlParser(convertCurrency)} {coinValue}) */}
                       </TableCell>
                       <TableCell></TableCell>
