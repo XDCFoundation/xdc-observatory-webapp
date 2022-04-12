@@ -103,11 +103,11 @@ const Content = styled.div`
      color: #b1c3e1;
   `}
   }
-  @media (min-width: 768px) and (max-width: 1241px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-
+    line-height: 31px;
     color: #3a3a3a;
     opacity: 1;
     ${({ theme }) =>
@@ -653,21 +653,22 @@ const ImageViewInputData = styled.img`
     width: 22px;
     padding-bottom: 17px;
     margin-left: -4px;
+    margin-right: 7px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 22px;
+    margin-right: 7px;
   }
 `;
 const ImageView = styled.img`
   width: 22px;
   margin-right: 15px;
-  // @media (min-width: 0px) and (max-width: 767px) {
-
-  // }
-  // @media (min-width: 768px) and (max-width: 1240px) {
-  //   width: 0.875rem;
-  //   height: 0.875rem;
-  // }
+  @media (min-width: 0px) and (max-width: 767px) {
+    margin-right: 7px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-right: 7px;
+  }
 `;
 const StatusContainer = styled.div`
   max-width: 10.75rem;
@@ -802,6 +803,16 @@ const DetailsContainer = styled.div`
     padding-top: 29px;
   }
 `;
+const DetailsContainerTimeStamp = styled.div`
+display: block;
+  @media (min-width: 0px) and (max-width: 767px) {
+    padding-top: 29px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    padding-top: 29px;
+    margin-left: 32px;
+  }
+`;
 const DetailsMiddleContainer = styled.div`
   margin-left: 4px;
   display: flex;
@@ -817,7 +828,6 @@ const DetailsMiddleContainer = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     justify-content: space-between;
     padding-top: 10px;
-    margin-right: 22px;
   }
   @media (min-width: 0px) and (max-width: 767px) {
     display: block;
@@ -1716,7 +1726,7 @@ function Transaction({ theme, currency }) {
                       </Tooltip>
                     </DetailsContainer>
                     {/* ------------------------------------------------time stamp------------------------------------- */}
-                    <DetailsContainer className="mobileTimeStamp">
+                    <DetailsContainerTimeStamp className="mobileTimeStamp">
                       <Container>
                         {window.innerWidth > 1024 ? (
                           <Tooltip
@@ -1772,7 +1782,7 @@ function Transaction({ theme, currency }) {
                           } ${(timezone && Utility.getUtcOffset(timezone)) || ""
                           }`}
                       </DetailsMiddleContainer>
-                    </DetailsContainer>
+                    </DetailsContainerTimeStamp>
                     {/* ------------------------------------------------------block-------------------------------  */}
                     <DetailsContainer>
                       <Container>
