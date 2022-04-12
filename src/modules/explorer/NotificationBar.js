@@ -123,6 +123,7 @@ function TemporaryDrawer(props) {
       },
       selectionString: ["description", "payload"],
     };
+    setLoading(true);
     props.dispatchAction(eventConstants.SHOW_LOADER, true);
     const [error, response] = await utility.parseResponse(
       NotificationService.getNotificationList(request)
@@ -281,7 +282,7 @@ function TemporaryDrawer(props) {
             Done</div>
         </ListItems>}
         {isLoading && <Loader />}
-      {notifications && notifications.length !== 0 ? (
+      {!isLoading && notifications && notifications.length !== 0 ? (
         <>
           {notifications &&
             notifications.map((notification) => (
@@ -333,7 +334,7 @@ function TemporaryDrawer(props) {
             ))}
         </>
       ) : (
-        <p className="sidebar_notification">No Notification</p>
+        !isLoading && <p className="sidebar_notification">No Notification</p>
       )}
     </div>
   );

@@ -101,7 +101,8 @@ export const genericConstants = {
   TXN_PRIVATE_NOTE_DELETED: "Txn Private Note Deleted",
   CANNOT_DELETE_TAGGED_ADDRESS: "Cannot delete Tagged Addresses",
   TAGGED_ADDRESS_DELETED: "Tagged Address Deleted",
-  SCM_REFERENCE: 'scm'
+  SCM_REFERENCE: 'scm',
+  IMPORTED_TAG_LENGTH_ERROR: "Imported Name Tag should not be more than 15 characters."
 };
 
 export const statusConstants = {

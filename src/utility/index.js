@@ -91,9 +91,9 @@ function getTxnActionFromAndTo(res) {
   
   let txnlog = txnLog?.map((data) => {
     console.log(data,">>>>>>>>")
-    let topicsFrom = data && data?.topics.length>0 ? data?.topics[1].slice(-40) : ""
+    let topicsFrom = data && data?.topics.length>=3 ? data?.topics[1].slice(-40) : ""
     txnActionFrom.push(topicsFrom)
-    let topicsTo = data && data?.topics.length>0? data?.topics[2].slice(-40) : ""
+    let topicsTo = data && data?.topics.length>=3? data?.topics[2].slice(-40) : ""
     txnActionTo.push(topicsTo)
   })
   let txnActionFromValue = "xdc" + txnActionFrom.pop();

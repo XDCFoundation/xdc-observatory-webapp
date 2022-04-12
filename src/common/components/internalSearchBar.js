@@ -163,6 +163,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchBox = (props) => {
+  console.log("props",props)
   const classes = props.classes;
   const dispatch = useDispatch();
   const SelectOptRef = React.useRef(null);
@@ -318,7 +319,8 @@ const SearchBox = (props) => {
           e.preventDefault();
         }}
       >
-        <Row alignItems="center">
+        <Row alignItems="center" justifyContent="space-between">
+          <div className={classes.searchImageinputContainer}>
           <img className={classes.searchIcon} src={"/images/Search.svg"} />
           <div className="search-responsive">
             <input
@@ -329,18 +331,7 @@ const SearchBox = (props) => {
               src={"/images/Search.png"}
               placeholder="Search by Address / Txn Hash / Block / Token"
             />
-            <div
-              className={
-                props.theme === "dark"
-                  ? "white-space-no-wrap bg-192a59 br-4 p-wallet-search cursor-pointer m-r-7-tab"
-                  : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet-search cursor-pointer m-r-7-tab"
-              }
-              onClick={handleSearchByButton}
-            >
-              <span className="color-4878ff fs-14 fw-500">
-                Search
-              </span>
-            </div>
+            
             {/* <div className="mobFilter">
               <select
                 className={currentTheme === "dark" ? "select-td-dark" : "select-td"}
@@ -357,6 +348,19 @@ const SearchBox = (props) => {
               </select>
             </div> */}
           </div>
+          </div>
+          <div
+              className={
+                props.theme === "dark"
+                  ? "white-space-no-wrap bg-192a59 br-4 p-wallet-search cursor-pointer m-r-7-tab"
+                  : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet-search cursor-pointer m-r-7-tab"
+              }
+              onClick={handleSearchByButton}
+            >
+              <span className="color-4878ff fs-14 fw-500">
+                Search
+              </span>
+            </div>
         </Row>
 
       </form>
