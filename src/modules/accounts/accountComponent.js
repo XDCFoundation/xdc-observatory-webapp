@@ -378,7 +378,7 @@ export default function AccountComponent(props) {
                       style={{
                         border: "none",
                         paddingLeft: "5%",
-                        paddingRight: "48px",
+                        paddingRight: "60px",
                       }}
                       align="center"
                       onClick={() => {
