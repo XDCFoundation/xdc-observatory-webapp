@@ -222,6 +222,9 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     //color: "#2149b9",
   },
+  descriptionTableCell: {
+    maxWidth: "390px",
+  },
   txnprivate: {
     height: "19px",
     /* margin: 65px 67.5px 10.5px 8.5px; */
@@ -407,6 +410,15 @@ const useStyles = makeStyles((theme) => ({
   //   border: "solid 1px #e3e7eb",
   //   backgroundColor: "var(--white-two)"
   // }
+
+  customTooltip: {
+    fontSize: "13px"
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px"
+  }
 }));
 
 const NoDataFoundContainer = styled.div`
@@ -1442,6 +1454,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_ADDRESS}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1458,6 +1473,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_DESCRIPTION}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1485,6 +1503,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_BALANCE}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1502,6 +1523,9 @@ function SimpleTabs(props) {
                                       ? "Descending"
                                       : "Ascending"
                                   }
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   {balanceToggle === "" ? (
                                     <></>
@@ -1529,6 +1553,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_ADDED_ON}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1548,6 +1575,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_NOTIFICATION}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1563,6 +1593,7 @@ function SimpleTabs(props) {
                             </TableCell>
                           </TableRow>
                         </TableHead>
+
                       </Table>
                     </Grid>
                   </Grid>
@@ -1618,6 +1649,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_ADDRESS}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1634,6 +1668,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_DESCRIPTION}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1661,6 +1698,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_BALANCE}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1708,6 +1748,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_ADDED_ON}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1752,6 +1795,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_NOTIFICATION}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1809,6 +1855,9 @@ function SimpleTabs(props) {
                                     <Tooltip
                                       placement="top"
                                       title={row.address}
+                                      classes={{
+                                        tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                      }}
                                     >
                                       <span className="tabledataWatchlist">
                                         {shorten(row.address)}{" "}
@@ -1819,6 +1868,7 @@ function SimpleTabs(props) {
                                 <TableCell
                                   style={{ border: "none" }}
                                   align="left"
+                                  className={classes.descriptionTableCell}
                                 >
                                   <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {row.description}
@@ -1940,7 +1990,11 @@ function SimpleTabs(props) {
                             >
                               <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                                 Transaction Hash
-                                <Tooltip placement="top" title={messages.HASH}>
+                                <Tooltip placement="top" title={messages.HASH}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
+                                >
                                   <img
                                     alt="question-mark"
                                     src="/images/info.svg"
@@ -1956,6 +2010,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.PRIVATE_NOTE}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1978,6 +2035,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.PRIVATE_NOTE_ADDED_ON}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2082,7 +2142,11 @@ function SimpleTabs(props) {
                           <TableCell style={{ border: "none" }} align="left">
                             <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                               Transaction Hash
-                              <Tooltip placement="top" title={messages.HASH}>
+                              <Tooltip placement="top" title={messages.HASH}
+                              classes={{
+                                tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                              }}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/info.svg"
@@ -2098,6 +2162,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.PRIVATE_NOTE}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2120,6 +2187,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.PRIVATE_NOTE_ADDED_ON}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2207,6 +2277,9 @@ function SimpleTabs(props) {
                                   <Tooltip
                                     placement="top"
                                     title={row.transactionHash}
+                                    classes={{
+                                      tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                    }}
                                   >
                                     <span className="tabledata1">
                                       {Utils.shortenHash(row.transactionHash)}{" "}
@@ -2322,6 +2395,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.TAG_ADDRESS}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2345,6 +2421,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.NAME_TAG}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2406,6 +2485,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.TAG_ADDED_ON}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2515,6 +2597,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.TAG_ADDRESS}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2538,6 +2623,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.NAME_TAG}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2600,6 +2688,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.TAG_ADDED_ON}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2692,7 +2783,11 @@ function SimpleTabs(props) {
                                   className={props.theme.currentTheme === "dark" ? "linkTable1 fc-4878ff" : "linkTable1"}
                                   href={"/address-details/" + row.address}
                                 >
-                                  <Tooltip placement="top" title={row.address}>
+                                  <Tooltip placement="top" title={row.address}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
+                                  >
                                     <span className="tabledata1">
                                       {shorten(row.address)}
                                     </span>

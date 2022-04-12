@@ -3,7 +3,7 @@
 body {
   background-color: #ffffff;
   padding-right: 0px !important;
-  /* overflow-y: auto !important; */
+  letter-spacing: 0 !important;
 }
 a {
   text-decoration: none;
@@ -3325,7 +3325,8 @@ p {
   line-height: normal;
 
   color: #ffffff;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  margin-bottom: 15px;
 }
 .inside-side-box-browse {
   color: #4666c4;
@@ -4525,7 +4526,13 @@ body {
 .dates {
   display: flex;
   justify-content: space-between;
-  padding-left: 50px;
+  padding-left: 55px;
+}
+
+.dates#holder {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 40px;
 }
 
 .dates p {
@@ -5070,6 +5077,12 @@ body {
     text-align: left;
     border-bottom: 1px solid #ddd;
   } */
+  #container-table th {
+    padding: 25px 0px 15px 15px !important;
+  }
+  #container-table td {
+    padding: 17px 0px 17px 10px !important;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1240px){
@@ -8063,7 +8076,6 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-
   color: #252525;
 }
 .cont-token-data :nth-child(2) {
@@ -8071,7 +8083,6 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-
   color: #2a2a2a;
 }
 
@@ -8083,7 +8094,6 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-
     text-align: center;
     color: #252525;
     padding-top: 5px;
@@ -8092,12 +8102,8 @@ button {
 @media (min-width: 768px) and (max-width: 1239px) {
   .cont1 :nth-child(2) {
     font-family: Inter;
-    font-size: 1rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-
     text-align: center;
     color: #252525;
     padding-top: 5px;
@@ -8495,10 +8501,7 @@ button {
     font-family: Inter;
     font-size: 0.875rem;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-
+    padding-right: 29px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -8509,10 +8512,7 @@ button {
     font-family: Inter;
     font-size: 0.75rem;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-
+    padding-right: 29px;
     height: 0.938rem;
     top: 66.25rem;
     left: 89px;
@@ -9125,13 +9125,12 @@ button {
   padding-bottom: 0.438rem;
   color: #6b7482;
   background-color: transparent;
-  width: 14%;
   display: flex;
   cursor: pointer;
   position: relative;
   font-size: 0.938rem;
   cursor: pointer;
-  padding-left: 1.188rem;
+  padding-left: 3rem;
 }
 
 .tabs_sec_address_details {
@@ -9188,7 +9187,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 8.563rem;
+  width: 100%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -9198,8 +9197,8 @@ button {
     display: block;
     position: absolute;
     top: 100%;
-    left: 17%;
-    width: 9.563rem;
+    left: 9%;
+    width: 100%;
     height: 1px;
     border: solid 1px #2149b9;
     background: #2149b9;
@@ -9210,8 +9209,8 @@ button {
   display: block;
   position: absolute;
   top: 100%;
-  left: 0%;
-  width: 6.563rem;
+  left: 18%;
+  width: 100%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -9290,6 +9289,24 @@ button {
   .container_sec_holder {
     align-items: self-start;
     width: 21rem;
+  }
+  .bloc-tabs_sec_addressDetail {
+    justify-content: flex-start;
+    flex-flow: wrap;
+  }
+  .tabs_sec_address_details {
+    padding-left: 0;
+    height: 27px;
+  }
+  .tabs_third_address_details {
+    padding-left: 0;
+    height: 27px;
+  }
+  .tabs_sec {
+    height: 27px;
+  }
+  .active-tabs_sec_xrc::before {
+    left: 0;
   }
 }
 
@@ -10216,8 +10233,8 @@ button {
 @media (min-width: 768px) and (max-width: 1240px) {
   .centerbox {
     margin: 0 auto !important;
-    height: 55px;
-    width: 34.938rem;
+    height: 56px;
+    width: 34.9375rem;
     border-radius: 7px;
   }
   .main-input {
@@ -10290,8 +10307,11 @@ button {
     font-size: 2.625rem;
   }
   .search-dashboard-icon {
-    margin-left: 10px;
+    margin-left: 12px;
     height: 1.375rem;
+  }
+  .search-dashboard {
+    padding-top: 13px !important;
   }
 }
 
@@ -10563,12 +10583,12 @@ button {
   }
   .block_sec {
     width: 21rem;
-    height: 2.188rem;
+    height: 3.6rem;
     margin-left: 1rem;
   }
   .block_sec_dark {
     width: 21rem;
-    height: 2.188rem;
+    height: 3.6rem;
     margin-left: 1rem;
   }
   .block_sec_contract {
@@ -11781,10 +11801,10 @@ button {
   font-family: Inter;
 }
 .notification-hr {
-  width: 93%;
+  width: 86%;
   left: 0%;
   border: solid 0.1px #4867c1;
-  margin-left: 0%;
+  margin-left: 26px;
 }
 .Notification_details_button {
   font-size: 15px;

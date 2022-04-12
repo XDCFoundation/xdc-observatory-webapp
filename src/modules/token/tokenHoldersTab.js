@@ -206,7 +206,7 @@ export default function StickyHeadTable(props) {
     }
 
     if (action === "last") {
-      let pageValue = Math.round(totalHolder / rowsPerPage) * rowsPerPage;
+      let pageValue = (Math.round(totalHolder / rowsPerPage)-1) * rowsPerPage;
       setPage(pageValue);
       values.skip = pageValue;
     }

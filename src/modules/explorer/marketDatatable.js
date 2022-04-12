@@ -216,6 +216,7 @@ class MarketDatatable extends Component {
                 >
                   <MarketDataPointTitle theme={this.props.theme}>
                     Market Cap
+                    {window.innerWidth > 1024 ?
                     <Tooltip
                       placement="top"
                       title={messages.MARKET_CAP}
@@ -237,9 +238,32 @@ class MarketDatatable extends Component {
                               : classes.customTooltip,
                         }}
                       />
-                    </Tooltip>
+                    </Tooltip>:<Tooltip
+                      placement="top"
+                      title={messages.MARKET_CAP}
+                      open={this.state.marketCapTT}
+                      onOpen={() => this.setState({ marketCapTT: true })}
+                      onClose={() => this.setState({ marketCapTT: false })}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
+                      <img
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            marketCapTT: !prev.marketCapTT,
+                          }))
+                        }
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
+                      />
+                    </Tooltip>}
                   </MarketDataPointTitle>
-                  <p>
+                  <p style={{paddingRight: "27px"}}>
                     {currencySymbol}
                     {MarketCapValue ? MarketCapValue : 0}
                   </p>
@@ -281,6 +305,7 @@ class MarketDatatable extends Component {
                 >
                   <MarketDataPointTitle theme={this.props.theme}>
                     Fully Diluted Market Cap
+                    {window.innerWidth > 1024 ?
                     <Tooltip
                       placement="top"
                       title={messages.FDMP}
@@ -296,9 +321,37 @@ class MarketDatatable extends Component {
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
-                    </Tooltip>
+                    </Tooltip>:<Tooltip
+                      placement="top"
+                      title={messages.FDMP}
+                      open={this.state.fullDilutedMarketCapTT}
+                      onOpen={() =>
+                        this.setState({ fullDilutedMarketCapTT: true })
+                      }
+                      onClose={() =>
+                        this.setState({ fullDilutedMarketCapTT: false })
+                      }
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
+                      <img
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            fullDilutedMarketCapTT:
+                              !prev.fullDilutedMarketCapTT,
+                          }))
+                        }
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
+                      />
+                    </Tooltip>}
                   </MarketDataPointTitle>
-                  <p>
+                  <p style={{paddingRight: "27px"}}>
                     {currencySymbol}
                     {FullyDilutedMarketCapValue
                       ? FullyDilutedMarketCapValue
@@ -342,6 +395,7 @@ class MarketDatatable extends Component {
                 >
                   <MarketDataPointTitle theme={this.props.theme}>
                     Volume (24hr)
+                    {window.innerWidth > 1024 ?
                     <Tooltip
                       placement="top"
                       title={messages.VOLUMEX24}
@@ -357,9 +411,32 @@ class MarketDatatable extends Component {
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
-                    </Tooltip>
+                    </Tooltip>:<Tooltip
+                      placement="top"
+                      title={messages.VOLUMEX24}
+                      open={this.state.volume24TT}
+                      onOpen={() => this.setState({ volume24TT: true })}
+                      onClose={() => this.setState({ volume24TT: false })}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
+                      <img
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            volume24TT: !prev.volume24TT,
+                          }))
+                        }
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
+                      />
+                    </Tooltip>}
                   </MarketDataPointTitle>
-                  <p>
+                  <p style={{paddingRight: "27px"}}>
                     {currencySymbol}
                     {volumeValue ? volumeValue : 0}
                   </p>
@@ -403,6 +480,7 @@ class MarketDatatable extends Component {
                   <div className="cont1-child">
                     <MarketDataPointTitle theme={this.props.theme}>
                       Circulating Supply
+                      {window.innerWidth > 1024 ? 
                       <Tooltip
                         placement="top"
                         title={messages.CIRCULATING_SUPPLY}
@@ -418,9 +496,36 @@ class MarketDatatable extends Component {
                           src="/images/info.svg"
                           className="tooltipInfoIconMarketData"
                         />
-                      </Tooltip>
+                      </Tooltip>:<Tooltip
+                      placement="top"
+                      title={messages.CIRCULATING_SUPPLY}
+                      open={this.state.circulatingSupplyTT}
+                      onOpen={() =>
+                        this.setState({ circulatingSupplyTT: true })
+                      }
+                      onClose={() =>
+                        this.setState({ circulatingSupplyTT: false })
+                      }
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
+                      <img
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            circulatingSupplyTT: !prev.circulatingSupplyTT,
+                          }))
+                        }
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
+                      />
+                    </Tooltip>}
                     </MarketDataPointTitle>
-                    <p>
+                    <p style={{paddingRight: "27px"}}>
                       {circulatingSupplyValue ? circulatingSupplyValue : 0} XDC
                     </p>
                   </div>
@@ -436,6 +541,7 @@ class MarketDatatable extends Component {
                   <div className="cont1-child2">
                     <MarketDataPointTitle theme={this.props.theme}>
                       Total Supply
+                      {window.innerWidth > 1024 ?
                       <Tooltip
                         placement="top"
                         title={messages.TOTAL_SUPPLY}
@@ -451,9 +557,32 @@ class MarketDatatable extends Component {
                           src="/images/info.svg"
                           className="tooltipInfoIconMarketData"
                         />
-                      </Tooltip>
+                      </Tooltip>:<Tooltip
+                      placement="top"
+                      title={messages.TOTAL_SUPPLY}
+                      open={this.state.totalSupplyTT}
+                      onOpen={() => this.setState({ totalSupplyTT: true })}
+                      onClose={() => this.setState({ totalSupplyTT: false })}
+                      classes={{
+                        tooltip:
+                          this.props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
+                      <img
+                        onClick={() =>
+                          this.setState((prev) => ({
+                            totalSupplyTT: !prev.totalSupplyTT,
+                          }))
+                        }
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
+                      />
+                    </Tooltip>}
                     </MarketDataPointTitle>
-                    <p>
+                    <p style={{paddingRight: "27px"}}>
                       {!totalSupplyValue
                         ? 0
                         : utility.convertToInternationalCurrencySystem(
@@ -467,7 +596,7 @@ class MarketDatatable extends Component {
             </div>
           </div>
         </DeskTopView>
-        <MobileView>
+        {window.innerWidth < 768 && <MobileView>
           <div className={this.state.loading == true ? "cover-spin-4" : ""}>
             <div className="second_mid">
               <div className="second_cont_dashboard">
@@ -771,7 +900,7 @@ class MarketDatatable extends Component {
               </div>
             </div>
           </div>
-        </MobileView>
+        </MobileView>}
       </>
     );
   }
