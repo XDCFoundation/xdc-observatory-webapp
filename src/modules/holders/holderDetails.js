@@ -23,7 +23,7 @@ import format from "format-number";
 import ContractData from "../../services/contract";
 import HolderAnalytics from "../token/holderAnalytics/analyticsComponent";
 import { connect } from "react-redux";
-import { dispatchAction } from "../../utility"
+import utility, { dispatchAction } from "../../utility"
 import { sessionManager } from "../../managers/sessionManager";
 
 var QRCode = require("qrcode.react");
@@ -85,6 +85,14 @@ const useStyles = makeStyles({
     containerDark: {
       padding: "0 15px",
     },
+  },
+  customTooltip: {
+    fontSize: "13px"
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px"
   }
 });
 function HoldersDetails(props) {
@@ -134,7 +142,7 @@ function HoldersDetails(props) {
     setToggleState(index);
   };
   const classes = useStyles();
-
+let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
   return (
     <>
       <DeskTopView>
@@ -182,6 +190,9 @@ function HoldersDetails(props) {
                                   : "Copy To Clipboard"
                               }
                               placement="top"
+                              classes={{
+                                tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                              }}
                             >
                               <button
                                 style={{
@@ -272,7 +283,7 @@ function HoldersDetails(props) {
                       <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Balance</div>
                       </TableCell>
                       <TableCell className="second-row-table_address-balance">
-                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{format({})(holder[0]?.Holder_token_balance)} {tn}</div>
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holderBalance && decimal ? format({})(holderBalance):0} {tn}</div>
                         {/* ({ReactHtmlParser(convertCurrency)} {coinValue}) */}
                       </TableCell>
                       <TableCell></TableCell>
@@ -289,7 +300,7 @@ function HoldersDetails(props) {
                       <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Transfers</div>
                       </TableCell>
                       <TableCell className="second-row-table_address-balance">
-                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Total_transfes_transactions_Count}</div>
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Total_transfes_transactions_Count ? holder[0]?.Total_transfes_transactions_Count : "Not available"}</div>
                       </TableCell>
                       <TableCell></TableCell>
                     </TableRow>
@@ -306,7 +317,7 @@ function HoldersDetails(props) {
                       <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Contract Address</div>
                       </TableCell>
                       <TableCell className="second-row-table_address">
-                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Contract_address}</div>
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Contract_address ? holder[0]?.Contract_address : "Not available"}</div>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -376,6 +387,9 @@ function HoldersDetails(props) {
                                     : "Copy To Clipboard"
                                 }
                                 placement="top"
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <button
                                   style={{

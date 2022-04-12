@@ -113,7 +113,6 @@ export default class LatestTransactionList extends BaseComponent {
   socketData(socket) {
     socket.on("transaction-socket", (transactionData, error) => {
       // this.setState({ transactionSocketConnected: true })
-      console.log(transactionData,"transactiondata")
       transactionData["method"] = Utils.getMethodType(transactionData);
       let transactions = this.state.transactionList;
 

@@ -5,7 +5,21 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { IoIosWarning } from "react-icons/io";
 import { FaShieldAlt } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
+import { makeStyles } from "@material-ui/styles"
+
+const useStyles = makeStyles((theme) => ({
+  customTooltip: {
+    fontSize: "13px"
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px"
+  }
+}));
+
 export default function TokenUnverifiedContract(props) {
+  const classes = useStyles();
   let unverifiedData = props?.contractData;
   const [copiedText, setCopiedText] = useState("");
   const history = useHistory();
@@ -65,6 +79,9 @@ export default function TokenUnverifiedContract(props) {
                       : "Copy To Clipboard"
                   }
                   placement="top"
+                  classes={{
+                    tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                  }}
                 >
                   <button
                     style={props.theme === "dark" ? {
@@ -77,7 +94,7 @@ export default function TokenUnverifiedContract(props) {
                       fontSize: 14,
                     }}
                   >
-                    <i class="fa fa-clone" aria-hidden="true"></i>
+                    <img src={"/images/copy-grey.svg"} alt="copy"/>
                   </button>
                 </Tooltip>
               </CopyToClipboard>

@@ -167,7 +167,7 @@ export default function App() {
   return (
     <div>
       <MyResponsiveLine data={data} />
-      <div className="dates">
+      <div className="dates" id="holder">
         <p>{lastDate}</p>
         <p>{firstDate}</p>
       </div>

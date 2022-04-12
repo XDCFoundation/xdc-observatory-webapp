@@ -65,12 +65,12 @@ const MainContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column-reverse;
     /* width: auto; */
-    width: 21rem;
+    width: 22rem;
     margin-right: auto;
     margin-left: auto;
     padding-top: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
     margin-top: 15px;
   }
 `;
@@ -108,7 +108,7 @@ const LeftContainer = styled.div`
 const RightContainer = styled.div`
   flex: 0.47;
   display: flex;
-  margin-left: 12px;
+  // margin-left: 12px;
   @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;

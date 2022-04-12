@@ -33,7 +33,7 @@ const ListItems = styled.div`
 const drawerWidth = 340;
 const useStyles = makeStyles((theme) => ({
   paper: {
-    top: "4.938rem",
+    top: "78px",
     width: drawerWidth,
     backgroundColor: "#102e84",
   },
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "26px -12px 0px 23px",
   },
   singleCheckbox: {
-    margin: "17px -2px 0 15px"
+    margin: "7px -2px 0 15px"
   },
   "@media (max-width: 1240px)": {
     paper: {
@@ -123,6 +123,7 @@ function TemporaryDrawer(props) {
       },
       selectionString: ["description", "payload"],
     };
+    setLoading(true);
     props.dispatchAction(eventConstants.SHOW_LOADER, true);
     const [error, response] = await utility.parseResponse(
       NotificationService.getNotificationList(request)
@@ -281,10 +282,11 @@ function TemporaryDrawer(props) {
             Done</div>
         </ListItems>}
         {isLoading && <Loader />}
-      {notifications && notifications.length !== 0 ? (
+      {!isLoading && notifications && notifications.length !== 0 ? (
         <>
           {notifications &&
             notifications.map((notification) => (
+              <div>
               <List className="side-box display-flex flex-direction-row-imp">
                 {isEditOpen ? <input className={classes.singleCheckbox}
                   key={notification._id}
@@ -327,13 +329,14 @@ function TemporaryDrawer(props) {
                           .format("HH:mm A, DD MMM YYYY")}
                     </div>
                   </div>
-                  <hr className="notification-hr" />
                 </ul>
               </List>
+              <hr className="notification-hr" />
+              </div>
             ))}
         </>
       ) : (
-        <p className="sidebar_notification">No Notification</p>
+        !isLoading && <p className="sidebar_notification">No Notification</p>
       )}
     </div>
   );
