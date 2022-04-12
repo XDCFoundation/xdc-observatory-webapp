@@ -4,7 +4,7 @@ import "./carousel.css";
 
 const Carousel = (props) => {
     const { children, show } = props;
-    console.log(show, children, "showe");
+
     const { height, width } = useWindowDimensions();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [length, setLength] = useState(children.length);
