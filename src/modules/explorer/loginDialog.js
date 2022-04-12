@@ -805,10 +805,10 @@ export default function FormDialog(props) {
     }
   };
   function connectGlobalIdLogin() {
-    window.location.href = "/global-id" + "/login";
+    window.open("/global-id" + "/login");
   }
   function connectGlobalIdSignUp() {
-    window.location.href = "/global-id" + "/signup";
+    window.open("/global-id" + "/signup");
   }
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
 
