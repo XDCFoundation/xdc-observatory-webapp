@@ -46,6 +46,14 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
   },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
   root: {
     display: "flex",
     justifyContent: "center",
@@ -96,11 +104,12 @@ const MainContanier = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   padding: 18px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     border: solid 1px #1e326a;
     background-color: #192a59;
-  `}
-  // margin-bottom: 35px;
+  `}// margin-bottom: 35px;
   // @media (max-width: 767px) {
   //   height: 427px;
   // }
@@ -122,7 +131,9 @@ const QrDiv = styled.div`
   border-radius: 6px;
   border: solid 1px #f5f5f5;
   background-color: var(--white-two);
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     background-color: #fff;
     border: solid 1px #f5f5f5;
   `}
@@ -197,7 +208,9 @@ const AddressHash = styled.div`
   line-height: normal;
 
   color: #3a3a3a;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #fff;
   `}
   @media (max-width: 767px) {
@@ -223,7 +236,9 @@ const BalanceDiv = styled.div`
 
   color: #2149b9;
   margin-top: 7px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
   @media (max-width: 767px) {
@@ -244,7 +259,9 @@ const BalanceUsdDiv = styled.div`
 
   color: #585858;
   margin-top: 5px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #fff;
   `}
   @media (max-width: 767px) {
@@ -309,7 +326,9 @@ const LastActivity = styled.div`
   line-height: 1.87;
   white-space: nowrap;
   color: #252525;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #fff;
   `}
   @media (max-width: 767px) {
@@ -331,7 +350,9 @@ const LastActivityValue = styled.div`
   white-space: nowrap;
   color: #3a3a3a;
   margin-left: 73px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
   @media (max-width: 767px) {
@@ -357,7 +378,9 @@ const Rank = styled.div`
   line-height: 1.87;
 
   color: #252525;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #fff;
   `}
   @media (max-width: 767px) {
@@ -377,7 +400,9 @@ const RankValue = styled.div`
 
   color: #3a3a3a;
   margin-left: 126px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
   @media (max-width: 767px) {
@@ -398,7 +423,9 @@ const TokenValue = styled.div`
   line-height: 1.87;
   color: #3a3a3a;
   margin-left: 111px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
   color: #b1c3e1;
 `}
   @media (max-width: 767px) {
@@ -444,7 +471,9 @@ const Heading = styled.div`
   line-height: normal;
 
   color: #2a2a2a;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #fff;
   `}
   @media (max-width: 767px) {
@@ -517,7 +546,9 @@ const LoginText = styled.span`
 
   text-align: right;
   color: #3a3a3a;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #b1c3e1;
   `}
 `;
@@ -562,7 +593,9 @@ const Tag = styled.div`
   color: #4878ff;
   margin-left: 10px;
   white-space: nowrap;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #4878ff;
     background: #091b4e;
     border: none;
@@ -581,7 +614,7 @@ function AddressDetails(props) {
   const [addressData, setAddressData] = useState(0);
   const [txtAddress, setTxtAddress] = useState("");
   const [balance, setBalance] = useState("");
-  const [balanceTooltip,setBalanceTooltip] = useState(0)
+  const [balanceTooltip, setBalanceTooltip] = useState(0);
   const [convertCurrency, setConvertCurrency] = useState("");
   const [coinValue, setCoinValue] = useState(0);
   const [transactions, setTransactions] = useState([]);
@@ -687,7 +720,7 @@ function AddressDetails(props) {
       }
       if (responseData) {
         setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
-        setBalanceTooltip(responseData.balance / 10 ** 18)
+        setBalanceTooltip(responseData.balance / 10 ** 18);
         setCurrentPrice(responseData.balance);
         setAddressData(responseData);
         setLoading(false);
@@ -846,8 +879,8 @@ function AddressDetails(props) {
   let lastActConverted = !addressStats?.lastTransactionTimestamp
     ? ""
     : moment(Number(addressStats?.lastTransactionTimestamp) * 1000)
-      .utc()
-      .format("MMM-DD-YYYY h:mm:ss A") + "  UTC";
+        .utc()
+        .format("MMM-DD-YYYY h:mm:ss A") + "  UTC";
   let userId = sessionManager.getDataFromCookies("userId");
   let taggedAddressfetched = localStorage.getItem(
     userId + cookiesConstants.USER_TAGGED_ADDRESS
@@ -896,7 +929,13 @@ function AddressDetails(props) {
 
   return (
     <>
-      <div style={props.theme.currentTheme === "dark" ? { backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
+      <div
+        style={
+          props.theme.currentTheme === "dark"
+            ? { backgroundColor: "#091b4e" }
+            : { backgroundColor: "#fff" }
+        }
+      >
         <Tokensearchbar theme={props.theme.currentTheme} />
 
         <Grid className="table-grid-block grid-block-table">
@@ -1026,16 +1065,15 @@ function AddressDetails(props) {
           <MainContanier theme={props.theme.currentTheme}>
             <MainDiv>
               <QrDiv theme={props.theme.currentTheme}>
-                <QRCode
-                  className="qrcode-address-details"
-                  value={addr}
-                />
+                <QRCode className="qrcode-address-details" value={addr} />
               </QrDiv>
               <DetailDiv>
                 <AddressDetailDiv>
                   <AddressHashDiv>
                     <AddressLine>
-                      <AddressHash theme={props.theme.currentTheme}>{addr}</AddressHash>
+                      <AddressHash theme={props.theme.currentTheme}>
+                        {addr}
+                      </AddressHash>
                       <CopyButton>
                         <CopyToClipboard
                           text={addr}
@@ -1048,8 +1086,20 @@ function AddressDetails(props) {
                                 : "Copy To Clipboard"
                             }
                             placement="top"
+                            classes={{
+                              tooltip:
+                                props.theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
                           >
-                            <button className={props.theme.currentTheme === "dark" ? "copyToClipboardAddress table-bg-dark" : "copyToClipboardAddress"}>
+                            <button
+                              className={
+                                props.theme.currentTheme === "dark"
+                                  ? "copyToClipboardAddress table-bg-dark"
+                                  : "copyToClipboardAddress"
+                              }
+                            >
                               <img
                                 className="copyIconAddress"
                                 src={"/images/copy-grey.svg"}
@@ -1060,9 +1110,11 @@ function AddressDetails(props) {
                       </CopyButton>
                     </AddressLine>
                     {sessionManager.getDataFromCookies("isLoggedIn") &&
-                      tagValue &&
-                      tagValue?.length > 0 ? (
-                      <Tag theme={props.theme.currentTheme}>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
+                    tagValue &&
+                    tagValue?.length > 0 ? (
+                      <Tag theme={props.theme.currentTheme}>
+                        {tagValue[tagValue?.length - 1]?.tagName}
+                      </Tag>
                     ) : (
                       ""
                     )}
@@ -1072,23 +1124,34 @@ function AddressDetails(props) {
                     <Tooltip
                       placement="top"
                       title={balanceTooltip}
+                      classes={{
+                        tooltip:
+                          props.theme.currentTheme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
                     >
-                      <span>                  
-                      {balanceChanged2 == null ? (
-                        <span>{format({})(balanceChanged1)}</span>
-                      ) : (
-                        <span>
-                          {format({})(balanceChanged1)}
-                          {"."}
-                          <span style={props.theme.currentTheme === "dark" ? { color: "#b1c3e1" } : { color: "#95acef" }}>
-                            {balanceChanged2}
+                      <span>
+                        {balanceChanged2 == null ? (
+                          <span>{format({})(balanceChanged1)}</span>
+                        ) : (
+                          <span>
+                            {format({})(balanceChanged1)}
+                            {"."}
+                            <span
+                              style={
+                                props.theme.currentTheme === "dark"
+                                  ? { color: "#b1c3e1" }
+                                  : { color: "#95acef" }
+                              }
+                            >
+                              {balanceChanged2}
+                            </span>
                           </span>
-                        </span>
-                      )}
+                        )}
                         &nbsp;XDC
                       </span>
                     </Tooltip>
-
                   </BalanceDiv>
                   <BalanceUsdDiv theme={props.theme.currentTheme}>
                     {" "}
@@ -1099,7 +1162,13 @@ function AddressDetails(props) {
                       <span>
                         {priceChanged1}
                         {"."}
-                        <span style={props.theme.currentTheme === "dark" ? { color: "#fff" } : { color: "#9FA9BA" }}>
+                        <span
+                          style={
+                            props.theme.currentTheme === "dark"
+                              ? { color: "#fff" }
+                              : { color: "#9FA9BA" }
+                          }
+                        >
                           {priceChanged2}
                         </span>
                       </span>
@@ -1113,8 +1182,12 @@ function AddressDetails(props) {
 
 
 */}
-                  <AddressAgeDiv> {/* TODO: REVERT THE CSS TAG BACK TO LASTACTIVITY ONCE ADDRESS AGE IS FIXED*/}
-                    <LastActivity theme={props.theme.currentTheme}>Last Activity</LastActivity>
+                  <AddressAgeDiv>
+                    {" "}
+                    {/* TODO: REVERT THE CSS TAG BACK TO LASTACTIVITY ONCE ADDRESS AGE IS FIXED*/}
+                    <LastActivity theme={props.theme.currentTheme}>
+                      Last Activity
+                    </LastActivity>
                     <LastActivityValue theme={props.theme.currentTheme}>
                       {lastAct}&nbsp;
                       {!lastActConverted ? "" : "(" + lastActConverted + ")"}
@@ -1122,7 +1195,9 @@ function AddressDetails(props) {
                   </AddressAgeDiv>
                   <RankDiv>
                     <Rank theme={props.theme.currentTheme}>Rank</Rank>
-                    <RankValue theme={props.theme.currentTheme}>Not available</RankValue>
+                    <RankValue theme={props.theme.currentTheme}>
+                      Not available
+                    </RankValue>
                   </RankDiv>
 
                   <RankDiv>
@@ -1227,7 +1302,11 @@ function AddressDetails(props) {
                         Want to tag and add this address to watchlist?
                       </LoginText>
                       <a
-                        className={props.theme.currentTheme === "dark" ? "linkTableDetails-address fc-4878ff" : "linkTableDetails-address"}
+                        className={
+                          props.theme.currentTheme === "dark"
+                            ? "linkTableDetails-address fc-4878ff"
+                            : "linkTableDetails-address"
+                        }
                         onClick={openLoginDialog}
                       >
                         &nbsp;Login
@@ -1245,12 +1324,20 @@ function AddressDetails(props) {
             theme={props.theme.currentTheme}
           />
           <div className="container_sec sec-contain">
-            <div className={props.theme.currentTheme === "dark" ? "block_sec_dark sec-block sec-block-mb" : "block_sec sec-block sec-block-mb"}>
+            <div
+              className={
+                props.theme.currentTheme === "dark"
+                  ? "block_sec_dark sec-block sec-block-mb"
+                  : "block_sec sec-block sec-block-mb"
+              }
+            >
               <div className="bloc-tabs_sec_addressDetail">
                 <button
                   className={
                     toggleState === 1
-                      ? props.theme.currentTheme === "dark" ? "tabs_sec_address_details active-tabs_sec fc-4878ff" : "tabs_sec_address_details active-tabs_sec"
+                      ? props.theme.currentTheme === "dark"
+                        ? "tabs_sec_address_details active-tabs_sec fc-4878ff"
+                        : "tabs_sec_address_details active-tabs_sec"
                       : "tabs_sec_address_details"
                   }
                   onClick={() => toggleTab(1)}
@@ -1262,7 +1349,9 @@ function AddressDetails(props) {
                 <button
                   className={
                     toggleState === 2
-                      ? props.theme.currentTheme === "dark" ? "tabs_sec active-tabs_sec_analytics fc-4878ff" : "tabs_sec active-tabs_sec_analytics"
+                      ? props.theme.currentTheme === "dark"
+                        ? "tabs_sec active-tabs_sec_analytics fc-4878ff"
+                        : "tabs_sec active-tabs_sec_analytics"
                       : "tabs_sec"
                   }
                   onClick={() => toggleTab(2)}
@@ -1312,8 +1401,12 @@ function AddressDetails(props) {
               </div>
             )}
             {/* {toggleState === 2 && <AddressDetailsAnalytics />} */}
-            {toggleState === 3 && <XRC20Transactions theme={props.theme.currentTheme} />}
-            {toggleState === 2 && <AddressDetailsAnalytics theme={props.theme.currentTheme} />}
+            {toggleState === 3 && (
+              <XRC20Transactions theme={props.theme.currentTheme} />
+            )}
+            {toggleState === 2 && (
+              <AddressDetailsAnalytics theme={props.theme.currentTheme} />
+            )}
           </div>
         </Grid>
         <FooterComponent />
