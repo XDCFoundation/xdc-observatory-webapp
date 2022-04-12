@@ -222,6 +222,9 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     //color: "#2149b9",
   },
+  descriptionTableCell: {
+    maxWidth: "390px",
+  },
   txnprivate: {
     height: "19px",
     /* margin: 65px 67.5px 10.5px 8.5px; */
@@ -1857,6 +1860,7 @@ function SimpleTabs(props) {
                                 <TableCell
                                   style={{ border: "none" }}
                                   align="left"
+                                  className={classes.descriptionTableCell}
                                 >
                                   <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {row.description}
