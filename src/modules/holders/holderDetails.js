@@ -300,7 +300,7 @@ let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
                       <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Transfers</div>
                       </TableCell>
                       <TableCell className="second-row-table_address-balance">
-                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Total_transfes_transactions_Count}</div>
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Total_transfes_transactions_Count ? holder[0]?.Total_transfes_transactions_Count : "Not available"}</div>
                       </TableCell>
                       <TableCell></TableCell>
                     </TableRow>
@@ -317,7 +317,7 @@ let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
                       <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Contract Address</div>
                       </TableCell>
                       <TableCell className="second-row-table_address">
-                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Contract_address}</div>
+                      <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Contract_address ? holder[0]?.Contract_address : "Not available"}</div>
                       </TableCell>
                     </TableRow>
                   </TableHead>

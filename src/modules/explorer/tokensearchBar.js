@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "unset !important",
     backgroundColor: "#2149b9",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   appBarDark: {
     position: "unset !important",
     backgroundColor: "#132a69",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -898,9 +898,8 @@ export default function Navbar(props) {
   `;
 
   const TabSearchBox = styled.div`
-    height: 2.375rem;
+    height: 2.4rem;
     padding: 8px;
-    margin-right: 0.625rem;
     margin-top: 10px;
     border-radius: 0.25rem;
     background-color: #ffffff;
