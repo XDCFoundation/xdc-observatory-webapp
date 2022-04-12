@@ -85,6 +85,14 @@ const useStyles = makeStyles({
     containerDark: {
       padding: "0 15px",
     },
+  },
+  customTooltip: {
+    fontSize: "13px"
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px"
   }
 });
 function HoldersDetails(props) {
@@ -182,6 +190,9 @@ let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
                                   : "Copy To Clipboard"
                               }
                               placement="top"
+                              classes={{
+                                tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                              }}
                             >
                               <button
                                 style={{
@@ -376,6 +387,9 @@ let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
                                     : "Copy To Clipboard"
                                 }
                                 placement="top"
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <button
                                   style={{
