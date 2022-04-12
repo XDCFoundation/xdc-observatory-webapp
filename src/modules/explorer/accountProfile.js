@@ -1080,7 +1080,6 @@ function SimpleTabs(props) {
   };
   const updateListTags = (res) => {
     
-    console.log(res,"ji")
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
     };
@@ -1093,7 +1092,6 @@ function SimpleTabs(props) {
     // );
     let updatedPrivateAddress = [];
     res.map((item) => {
-      console.log(item,"iyuuu")
       let existingAddressIndex = privateAddress.findIndex(
         (i2) => i2.address === item.address
       );
@@ -1108,10 +1106,8 @@ function SimpleTabs(props) {
       }
 
       item["modifiedOn"] =moment(item?.modifiedOn).valueOf()
-      console.log(item,"item")
       updatedPrivateAddress.push({ userId: request?.userId, ...item });
     });
-    console.log(updatedPrivateAddress,"updated")
 
     setPrivateAddress([...updatedPrivateAddress, ...privateAddress]);
     localStorage.setItem(
@@ -1119,7 +1115,6 @@ function SimpleTabs(props) {
       JSON.stringify([...updatedPrivateAddress, ...privateAddress])
     );
   };
-  console.log(privateAddress,"prictae")
 
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
@@ -1151,7 +1146,6 @@ function SimpleTabs(props) {
 
       setDownloadTagAddress(
         tempAddress.map((item) => {
-          console.log(item,">>>>>>>>>>>>>>>")
           return {
             Address: item.address,
             NameTag: item.tagName,
