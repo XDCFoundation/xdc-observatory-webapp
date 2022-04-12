@@ -831,7 +831,7 @@ export default function StickyHeadTable(props) {
               >
                 Page{" "}
                 {Math.round(totalHolder / rowsPerPage) -
-                  Math.round((totalHolder - page) / rowsPerPage)}{" "}
+                  Math.round((totalHolder - page) / rowsPerPage)+1}{" "}
                 of {Math.round(totalHolder / rowsPerPage)}
               </p>
             </div>

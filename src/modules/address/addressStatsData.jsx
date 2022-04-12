@@ -8,6 +8,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { messages } from "../../constants";
 import { withStyles } from "@material-ui/core/styles";
 import logger from "redux-logger";
+import format from "format-number";
+// import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = (theme) => ({
   customTooltip: {
@@ -227,26 +229,19 @@ class AddressStatsData extends Component {
     const currencyPrice = this.props?.price;
     let activeCurrency = this.props.currency;
     let highestTransaction = this.props?.statData?.highestTransaction;
-    highestTransaction = Utils.decimalDivisonOnly(highestTransaction, 8);
-    let highestTxn = Utils.convertToInternationalCurrencySystem(
-      Number(highestTransaction)
-    );
+    highestTransaction = Utils.decimalDivisonOnly(highestTransaction, 2);
+    let highestTxn = highestTransaction
 
-    let highestTransactionConverted =
-      Utils.convertToInternationalCurrencySystem(
-        Number(highestTransaction) * Number(currencyPrice)
-      );
+    let highestTransactionConverted = (Number(highestTransaction) * Number(currencyPrice)).toFixed(2).replace(/\.?0+$/, "");
+      
 
     let averageBalance = this.props?.statData?.avgBalance;
-    averageBalance = Utils.decimalDivisonOnly(averageBalance, 8);
-    let avgBalance = Utils.convertToInternationalCurrencySystem(
-      Number(averageBalance)
-    );
+    averageBalance = Utils.decimalDivisonOnly(averageBalance, 2);
+    let avgBalance = averageBalance
     let avgBalanceConverted = !currencyPrice
       ? ""
-      : Utils.convertToInternationalCurrencySystem(
-          Number(averageBalance) * Number(currencyPrice)
-        );
+      : (Number(averageBalance) * Number(currencyPrice)).toFixed(2).replace(/\.?0+$/, "");
+        
 
     let tokens = this.props?.statData?.tokens?.length;
     let tokensConverted = Utils.convertToInternationalCurrencySystem(
@@ -343,14 +338,14 @@ class AddressStatsData extends Component {
                 ) : (
                   <>
                     <Value theme={this.props.theme}>
-                      {highestTxn}
+                      {isNaN(highestTxn) ? "":format({})(highestTxn)}
                       &nbsp;XDC
                     </Value>
                     <ThirdRowValue>
                       <OutValue theme={this.props.theme}>
                         {currencySymbol}
 
-                        {highestTransactionConverted}
+                        {isNaN(highestTransactionConverted) ? "":format({})(highestTransactionConverted)}
                       </OutValue>
                     </ThirdRowValue>
                   </>
@@ -384,13 +379,13 @@ class AddressStatsData extends Component {
                 ) : (
                   <>
                     <Value theme={this.props.theme}>
-                      {avgBalance}
+                    {isNaN(avgBalance) ? "":format({})(avgBalance)}
                       &nbsp;XDC
                     </Value>
                     <ThirdRowValue>
                       <OutValue theme={this.props.theme}>
                         {currencySymbol}
-                        {avgBalanceConverted}
+                        {isNaN(avgBalanceConverted) ? "":format({})(avgBalanceConverted)}
                       </OutValue>
                     </ThirdRowValue>
                   </>
@@ -569,14 +564,12 @@ class AddressStatsData extends Component {
                 }
               >
                 {" "}
-                <p>{highestTxn}&nbsp;XDC</p>
+                <p>{isNaN(highestTxn) ? "":format({})(highestTxn)}&nbsp;XDC</p>
                 <ThirdRowValue>
                   <OutValue theme={this.props.theme}>
                     {" "}
                     {currencySymbol}
-                    {highestTransactionConverted < 0
-                      ? ""
-                      : highestTransactionConverted}
+                    {isNaN(highestTransactionConverted) ? "":format({})(highestTransactionConverted)}
                   </OutValue>
                 </ThirdRowValue>
               </div>
@@ -622,12 +615,12 @@ class AddressStatsData extends Component {
                 }
               >
                 {" "}
-                <p>{avgBalance}&nbsp;XDC</p>
+                <p>{isNaN(avgBalance) ? "":format({})(avgBalance)}&nbsp;XDC</p>
                 <ThirdRowValue>
                   <OutValue theme={this.props.theme}>
                     {" "}
                     {currencySymbol}
-                    {!avgBalanceConverted ? "" : avgBalanceConverted}
+                    {isNaN(avgBalanceConverted) ? "":format({})(avgBalanceConverted)}
                   </OutValue>
                 </ThirdRowValue>
               </div>
