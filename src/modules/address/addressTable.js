@@ -255,7 +255,7 @@ export default function AddressTableComponent(props) {
     const filtersData = filters || searchAndFilters;
     if (filtersData.searchQuery) {
       requestData.searchValue = filtersData.searchQuery;
-      requestData.searchKeys = ["from", "to", "hash"];
+      requestData.searchKeys = ["from", "to", "hash","blockNumber"];
     }
     if (filtersData.type && filtersData.type !== "ALL")
       requestData.txnType = filtersData.type;

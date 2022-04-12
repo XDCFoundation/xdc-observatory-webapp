@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "unset !important",
     backgroundColor: "#2149b9",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   appBarDark: {
     position: "unset !important",
     backgroundColor: "#132a69",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: "10.8rem !important",
-      padding: "16px 15px 15px 16px",
+      padding: "15px",
     },
     drawerHeader: {
       padding: "0 !important",
