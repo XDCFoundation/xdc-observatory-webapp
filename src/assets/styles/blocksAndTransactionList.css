@@ -969,7 +969,7 @@
   .tableheaders-contract {
     font-size: 0.875rem;
     font-weight: bold;
-    margin-left: 22px;
+    margin-left: 19px;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -1358,8 +1358,6 @@
 
     text-align: center;
     color: #252525;
-
-    margin-right: 27px;
     margin-left: 2px;
   }
 }

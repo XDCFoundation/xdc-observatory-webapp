@@ -65,12 +65,12 @@ const MainContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column-reverse;
     /* width: auto; */
-    width: 21rem;
+    width: 22rem;
     margin-right: auto;
     margin-left: auto;
     padding-top: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
     margin-top: 15px;
   }
 `;
