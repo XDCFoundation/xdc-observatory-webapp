@@ -145,7 +145,7 @@ const QrDiv = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 170px;
     height: 170px;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 `;
 const DetailDiv = styled.div`

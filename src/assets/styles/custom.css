@@ -3,7 +3,6 @@
 body {
   background-color: #ffffff;
   padding-right: 0px !important;
-  overflow-y: auto !important;
   letter-spacing: 0 !important;
 }
 a {
@@ -429,6 +428,7 @@ input:focus {
 }
 .p-wallet-search{
   padding: 0 4px;
+  padding-bottom: 1px;
 }
 .bg-eaf0ff {
   background: #eaf0ff;
@@ -518,6 +518,9 @@ input:focus {
 
 .fc-white {
   color: #ffffff !important;
+  width: 503px !important;
+  height: 15px !important;
+  border: solid 1px #c6c8ce;
 }
 
 .fc-black {
@@ -2357,7 +2360,7 @@ p {
   /* padding: 0.6rem 0.644rem 0 0.75rem; */
   padding: 8px;
   margin-right: 0.625rem;
-  margin-top: 10px;
+  /* margin-top: 5px; */
   border-radius: 0.25rem;
   background-color: #ffffff;
 }
@@ -2367,7 +2370,7 @@ p {
   /* padding: 0.6rem 0.644rem 0 0.75rem; */
   padding: 8px;
   margin-right: 0.625rem;
-  margin-top: 10px;
+  /* margin-top: 5px; */
   border-radius: 0.25rem;
   background-color: #091b4e;
 }
@@ -3290,7 +3293,7 @@ p {
   color: #ffffff;
   display: flex;
   justify-content: space-between;
-  padding-right: 25px;
+  padding-right: 18px;
 }
 
 .xinfin_account_button {
@@ -3334,7 +3337,7 @@ p {
 }
 
 .myhr {
-  width: 92%;
+  width: 95.4%;
   left: 0%;
   margin-top: -9px;
   border: solid 0.1px #4867c1;
@@ -3442,14 +3445,14 @@ p {
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
   }
-  .firstbox-contract {
+  .firstbox-contract-dark {
     height: 34px;
     width: 47px;
     margin: -6px 6px 0px 0px;
     padding: 1px;
     border-radius: 6px;
-    border: solid 1px #3552a5;
-    background-color: #283966;
+    /* border: solid 1px #3552a5;
+    background-color: #283966; */
   }
   .lastbox-contract {
     width: 47px;
@@ -3762,10 +3765,22 @@ p {
   padding-left: 8px;
   opacity: 0.73;
   border-radius: 4px;
-
-  border: solid 1px#F9F9F9;
+  border: solid 1px #F9F9F9;
   background-color: #efefef;
 }
+
+.textarea-verify-contract-black {
+  width: 100%;
+  height: 5.813rem;
+  font-size: 0.938rem;
+  padding-left: 8px;
+  opacity: 0.73;
+  border-radius: 4px;
+
+  border: solid 1px#F9F9F9;
+  background-color: #9fa9ba;
+}
+
 @media (min-width: 766px) and (max-width: 1240px) {
   .textarea-verify-contract {
     color: #000000;
@@ -3776,9 +3791,24 @@ p {
     opacity: 0.73;
     border-radius: 4px;
 
-    border: solid 1px#F9F9F9;
+    border: solid 1px #F9F9F9;
     background-color: #efefef;
   }
+
+  .textarea-verify-contract-black {
+    color: #000000;
+    width: 100%;
+    height: 106px;
+    font-size: 0.938rem;
+    padding-left: 8px;
+    opacity: 0.73;
+    border-radius: 4px;
+
+    border: solid 1px#F9F9F9;
+    background-color: #9fa9ba;
+  }
+
+
 }
 
 .textarea-verify-contract::placeholder {
@@ -3796,6 +3826,20 @@ p {
   text-align: left;
   color: #3a3a3a;
 }
+
+.verify-contract-first-div-fc-black {
+  margin: 15px;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+
+  text-align: left;
+  color: white !important;
+}
+
+
 .verify-contract-first-div-text {
   margin: 15px;
   font-family: Inter;
@@ -3807,6 +3851,20 @@ p {
   text-align: left;
   color: #3a3a3a;
 }
+
+.verify-contract-first-div-text-fc-black {
+  margin: 15px;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+
+  text-align: left;
+  color: white !important;
+}
+
+
 @media (min-width: 0px) and (max-width: 767px) {
   .verify-contract-first-div-text {
     margin-left: 10px !important;
@@ -3820,10 +3878,27 @@ p {
     text-align: left;
     color: #3a3a3a;
   }
+
+  .verify-contract-first-div-text-fc-black {
+    margin-left: 10px !important;
+    margin: 15px;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+
+    text-align: left;
+    color: white !important;
+  }
+
+
   .search-container {
     margin: 15px auto auto auto !important;
   }
 }
+
+
 
 .profile {
   height: 24px !important;
@@ -3842,6 +3917,20 @@ p {
     text-align: left;
     color: #3a3a3a;
   }
+
+  .verify-contract-first-div-text-fc-black {
+    margin: 15px;
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+
+    text-align: left;
+    color: white !important;
+  }
+
+
 }
 .textarea-contract-code {
   height: 18.375rem;
@@ -3860,7 +3949,7 @@ p {
   padding-left: 8px;
   border-radius: 6px;
   border: solid 1px #3552a5;
-  background-color: #091b4e;
+  background-color: #283966;
   color: #fff;
 }
 
@@ -3894,7 +3983,7 @@ p {
   border-radius: 6px;
   padding-left: 6px;
   border: solid 1px #3552a5;
-  background-color: #091b4e;
+  background-color: #283966;
   color: #fff;
 }
 
@@ -3931,7 +4020,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-
+  background-color: #9fa9ba !important;
   text-align: center;
   color: #ffffff;
 }
@@ -4996,6 +5085,11 @@ body {
   }
 }
 
+@media (min-width: 768px) and (max-width: 1240px){
+  #container-table td{
+    padding: 17px 15px 17px 20px !important;
+  }
+}
 #container-table td {
   padding: 17px 0px 17px 20px;
   /* padding: 12px 50px;
@@ -5198,6 +5292,21 @@ body {
   margin-top: 15px;
   border-radius: 4px;
   background-color: #3f4966;
+}
+
+@media (min-width: 768px) and (max-width: 1240px) {
+  .input-area-bytecode{
+    border-radius: 0px;
+  }
+  .input-area-bytecode-dark{
+    border-radius: 0px;
+  }
+  .input-area-3 {
+    border-radius: 0px;
+  }
+  .input-area-4 {
+    border-radius: 0px;
+  }
 }
 
 .contract-source {
@@ -6349,7 +6458,7 @@ button {
 @media (min-width: 0px) and (max-width: 767px) {
   .block_main {
     flex-direction: column;
-    width: 21rem;
+    width: 23rem;
     margin-top: 15px;
     margin-right: auto;
     margin-left: auto;
@@ -8103,9 +8212,9 @@ button {
     margin-top: 22px;
     margin-left: auto;
     margin-right: auto;
-    width: 21rem;
+    width: 22rem;
     height: 15.813rem;
-    padding: 0 10px 0 10px;
+    padding: 0;
   }
   .second_mid_address {
     margin-top: 25px;
@@ -8141,6 +8250,15 @@ button {
   padding: 8px 2px;
   width: 100%;
   padding-left: 2%;
+}
+.second_cont_dashboard {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 8px 2px;
+  width: 100%;
+  padding-left: 0%;
 }
 .second_cont_address {
   display: flex;
@@ -8209,8 +8327,42 @@ button {
   opacity: 1;
   font-size: 0.875rem;
 }
+.second_cont_dashboard p {
+  margin: 2px;
+  color: #686868;
+  font-family: "Inter-Regular";
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  margin-right: 10px;
+  top: 895px;
+  left: 18px;
+  height: 1.063rem;
+
+  color: #686868;
+  opacity: 1;
+  font-size: 0.875rem;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .second_cont p {
+    margin: 2px;
+    font-size: 0.875rem;
+    font-family: "Inter-Regular";
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    margin-right: 10px;
+
+    color: #686868;
+    opacity: 1;
+    top: 762px;
+    left: 18px;
+    height: 1.063;
+  }
+  .second_cont_dashboard p {
     margin: 2px;
     font-size: 0.875rem;
     font-family: "Inter-Regular";
@@ -8823,7 +8975,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-
+  white-space: nowrap;
   color: #2149b9;
   font-weight: 500;
   margin-left: 15px;
@@ -9630,6 +9782,7 @@ button {
   color: #2a2a2a;
   display: inline;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .profile-links:hover {
@@ -9901,7 +10054,7 @@ button {
 
 .left-table-contract {
   font-weight: 600 !important;
-
+  width: 35% !important;
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
@@ -9910,7 +10063,7 @@ button {
 }
 .left-table-contract-dark {
   font-weight: 600 !important;
-
+  width: 35% !important;
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
@@ -10309,12 +10462,30 @@ button {
     width: 23rem;
   }
 
+  .menu-footer{
+    padding: 0px !important
+  }
+
+
   .verify-contract-first-div {
     font-size: 0.875rem;
     margin-left: 10px;
     margin-top: 20px;
   }
+
+  .verify-contract-first-div-fc-black {
+    font-size: 0.875rem;
+    margin-left: 10px;
+    margin-top: 20px;
+  }
+
   .textarea-verify-contract {
+    height: 8.8125rem;
+    line-height: 17px !important;
+    padding-left: 0px !important;
+  }
+  
+  .textarea-verify-contract-black {
     height: 8.8125rem;
     line-height: 17px !important;
     padding-left: 0px !important;
@@ -10361,6 +10532,7 @@ button {
     margin-left: 0px;
     padding-left: 1.25rem;
     font-size: 14px;
+    white-space: nowrap;
   }
   .table-grid-block {
     width: 23.5rem;
@@ -10493,7 +10665,7 @@ button {
   }
   .left-table-contract-mobile {
     font-weight: 600 !important;
-
+    width: 35% !important;
     font-size: 0.938rem !important;
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
@@ -10590,6 +10762,13 @@ button {
     margin-left: 15px;
     margin-bottom: 0px;
   }
+
+  .verify-contract-first-div-fc-black {
+    margin-left: 15px;
+    margin-bottom: 0px;
+  }
+
+
   .vc-tab-all {
     width: 41.5rem;
     margin: 0 auto;
@@ -12108,7 +12287,7 @@ button {
     margin-left: 0px !important;
   }
   .account-searchbar {
-    width: 8rem;
+    width: 9rem;
   }
   .m-r-9 {
     margin-right: 0px;
@@ -12257,6 +12436,7 @@ button {
   width: 1.25rem;
   height: 1.25rem;
   margin: auto 0 auto 0.625rem;
+  margin-right: 10px;
 }
 
 .copyButton {

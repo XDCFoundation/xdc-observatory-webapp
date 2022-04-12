@@ -599,7 +599,7 @@ class MarketDatatable extends Component {
         {window.innerWidth < 768 && <MobileView>
           <div className={this.state.loading == true ? "cover-spin-4" : ""}>
             <div className="second_mid">
-              <div className="second_cont">
+              <div className="second_cont_dashboard">
                 <div className="">
                   <MarketDataPointTitle theme={this.props.theme}>
                     Market Cap
@@ -668,7 +668,7 @@ class MarketDatatable extends Component {
                 </div>
               </div>
 
-              <div className="second_cont">
+              <div className="second_cont_dashboard">
                 <div className="">
                   {" "}
                   <MarketDataPointTitle theme={this.props.theme}>
@@ -745,7 +745,7 @@ class MarketDatatable extends Component {
                 </div>
               </div>
 
-              <div className="second_cont">
+              <div className="second_cont_dashboard">
                 <div className="">
                   {" "}
                   <MarketDataPointTitle theme={this.props.theme}>
@@ -813,7 +813,7 @@ class MarketDatatable extends Component {
                 </div>
               </div>
 
-              <div className="second_cont">
+              <div className="second_cont_dashboard">
                 <div className="">
                   {" "}
                   <MarketDataPointTitle theme={this.props.theme}>
@@ -856,7 +856,7 @@ class MarketDatatable extends Component {
                 </div>
               </div>
 
-              <div className="second_cont">
+              <div className="second_cont_dashboard">
                 <div className="">
                   {" "}
                   <MarketDataPointTitle theme={this.props.theme}>

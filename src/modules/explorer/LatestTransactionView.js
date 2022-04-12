@@ -493,7 +493,7 @@ const LatestTransactionView = (props) => {
                           style={{
                             width: "50px",
                             paddingLeft: "none",
-                            paddingRight: "none",
+                            paddingRight: "15px",
                           }}
                           >
                             <div className="latest_child w-18 mar_child wid-17 details-pad ">

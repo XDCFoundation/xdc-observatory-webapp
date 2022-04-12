@@ -1085,6 +1085,9 @@ const Div__ = styled.div`
     padding-left: 10px;
     margin-bottom: 23px;
   }
+  @media (min-width: 767px) and (max-width: 1240px) {
+    margin-bottom: 50px;
+  }
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
