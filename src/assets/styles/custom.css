@@ -3322,7 +3322,8 @@ p {
   line-height: normal;
 
   color: #ffffff;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  margin-bottom: 15px;
 }
 .inside-side-box-browse {
   color: #4666c4;
@@ -11621,10 +11622,10 @@ button {
   font-family: Inter;
 }
 .notification-hr {
-  width: 93%;
+  width: 86%;
   left: 0%;
   border: solid 0.1px #4867c1;
-  margin-left: 0%;
+  margin-left: 26px;
 }
 .Notification_details_button {
   font-size: 15px;
