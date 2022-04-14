@@ -218,11 +218,8 @@ const SearchBox = (props) => {
           window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
           if (responseData[0]?.token.length == 1) {
-            let tokenDataUrl =
-              "/token-data/" +
-              responseData[0]?.token[0]?.address +
-              "/" +
-              responseData[0]?.token[0]?.symbol;
+            let tokenDataUrl =`/token-data/${responseData[0]?.token[0]?.address}/${responseData[0]?.token[0]?.symbol ? responseData[0]?.token[0]?.symbol : "NA"}`
+
             dispatch({
               type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
                 type: recentSearchTypeConstants.TOKEN,

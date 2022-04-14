@@ -62,10 +62,10 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "503px",
-    height: "15px",
-    border: "solid 1px #c6c8ce",
+    height: "38px",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
-    borderRadius: "7px",
+    borderRadius: "8px",
     padding: "20px",
     marginBottom: "21px",
     outline: "none",
@@ -541,7 +541,7 @@ export default function FormDialog(props) {
               Name Tag
             </DialogContentText>
 
-            <div className={props.theme === "dark" ? "containerTagDark" : "containerTag"}>
+            {/* <div className={props.theme === "dark" ? "containerTagDark" : "containerTag"}> */}
               {/*<div className="tag">*/}
               {/*  /!*{input}*!/*/}
               {/*  /!*<button onClick={() => deleteTag(index)}>x</button>*!/*/}
@@ -551,9 +551,9 @@ export default function FormDialog(props) {
                 // onKeyDown={onKeyDown}
                 // onKeyUp={onKeyUp}
                 onChange={onChange}
-                className={props.theme === "dark" ? "fc-white" :""}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
               />
-            </div>
+            {/* </div> */}
             {errorTag ? (
               <div className={classes.error1}>{errorTag}</div>
             ) : (
