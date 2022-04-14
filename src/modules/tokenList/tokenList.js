@@ -205,11 +205,10 @@ export default function StickyHeadTable(props) {
   const [totalHolderTT, setTotalHolderTT] = React.useState(false);
   const [transfer24hrTT, setTransfer24hrTT] = React.useState(false);
   const [transfer3dTT, setTransfer3dTT] = React.useState(false);
-  let ercvalue = sessionManager.getDataFromCookies("xrc20")
-  ercvalue = ercvalue==="true"
+  let ercvalue = false
 
   const handleChangePage = (action) => {
-    let data = {isERC: ercvalue, searchKey: keywords ? keywords : "" };
+    let data = {isERC: false, searchKey: keywords ? keywords : "" };
     if (sortKey && sortOrder)
       data.sortKey = { [sortKey]: sortOrder };
     // if (sortedByHolderCount)
@@ -255,7 +254,7 @@ export default function StickyHeadTable(props) {
     // setSortOrder(-1);
     // setFrom(0);
     let data = {
-      isERC: ercvalue,
+      isERC: false,
       skip: 0,
       limit: event.target.value,
       searchKey: keywords ? keywords : '',
@@ -272,7 +271,7 @@ export default function StickyHeadTable(props) {
     if (searchkeyword?.length > 1) {
       setKeywords(searchkeyword);
       setLoading(false);
-      let data = { isERC: ercvalue, skip: 0, limit: amount, searchKey: searchkeyword };
+      let data = { isERC: false, skip: 0, limit: amount, searchKey: searchkeyword };
       data['sortKey'] = { "holdersCount": -1 }
       getTokenList(data);
     }
@@ -280,7 +279,7 @@ export default function StickyHeadTable(props) {
       setKeywords("");
       setLoading(false);
       setNoData(false);
-      let data = { isERC: ercvalue, skip: from, limit: amount, searchKey: '' };
+      let data = { isERC: false, skip: from, limit: amount, searchKey: '' };
       data['sortKey'] = { "holdersCount": -1 }
       getTokenList(data);
     }
@@ -360,7 +359,7 @@ export default function StickyHeadTable(props) {
 
   React.useEffect(() => {
     let unmounted = false;
-    let data = {isERC: ercvalue, skip: from, limit: amount, searchKey: token ? token : '' };
+    let data = {isERC: false, skip: from, limit: amount, searchKey: token ? token : '' };
     data['sortKey'] = { "holdersCount": -1 }
     getTokenList(data);
     // return () => {
@@ -377,7 +376,7 @@ export default function StickyHeadTable(props) {
   }
 
   async function sortTable(_sortKey) {
-    let data = {isERC: ercvalue, skip: from, limit: amount, searchKey: keywords }
+    let data = {isERC: false, skip: from, limit: amount, searchKey: keywords }
     if (sortKey && sortKey.includes(_sortKey)) {
       data['sortKey'] = { [_sortKey]: -1 * sortOrder }
       setSortOrder(-1 * sortOrder);
@@ -465,11 +464,11 @@ export default function StickyHeadTable(props) {
           >
             {window.innerWidth >= 768 ?
               <>
-                <TokenTitle theme={props?.theme}>
+                {/* <TokenTitle theme={props?.theme}>
                   <div className="display-flex">Tokens
                    {ercvalue ? <div className={classes.tokenTag}>XRC-721</div> : <div className={classes.tokenTag}>XRC-20</div>}
                   </div>
-                </TokenTitle>
+                </TokenTitle> */}
                 <Row justifyContent="space-between" alignItems="center">
                   <div className={props?.theme === "dark" ? "searchelement-input-dark input-searchelement_11" : "searchelement-input input-searchelement_11"}>
                     <img
@@ -886,7 +885,7 @@ export default function StickyHeadTable(props) {
                           />) : ""}
                     </span>
                   </TableCell>}
-                  {ercvalue  && <TableCell
+                  {/* {ercvalue  && <TableCell
                     style={{ border: "none", whiteSpace: "nowrap" }}
                     align="left"
                   >
@@ -926,7 +925,7 @@ export default function StickyHeadTable(props) {
                         />
                       </Tooltip>}
                     </span>
-                  </TableCell>}
+                  </TableCell>} */}
                   {!ercvalue  && (props?.state?.tableColumns["Total Holders"].isActive && (
                     <TableCell
                       style={{ border: "none", whiteSpace: "nowrap" }}
@@ -982,7 +981,7 @@ export default function StickyHeadTable(props) {
                       </span>
                     </TableCell>
                   ))}
-                  {ercvalue  && <TableCell
+                  {/* {ercvalue  && <TableCell
                     style={{ border: "none", whiteSpace: "nowrap" }}
                     align="left"
                   >
@@ -1022,7 +1021,7 @@ export default function StickyHeadTable(props) {
                         />
                       </Tooltip>}
                     </span>
-                  </TableCell>}
+                  </TableCell>} */}
                 </TableRow>
               </TableHead>
               {isLoading == true ? (
@@ -1149,22 +1148,22 @@ export default function StickyHeadTable(props) {
                               </span>
                             </Tooltip>
                           </TableCell>}
-                          {ercvalue  && 
+                          {/* {ercvalue  && 
                               <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ paddingleft: "15" }}>
                                 {format({})(row.transfers.last24Hour)}
                               </TableCell>
-                            }
+                            } */}
                           {!ercvalue  && (props?.state?.tableColumns["Total Holders"]
                             .isActive && (
                               <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ paddingleft: "15" }}>
                                 {format({})(row.holdersCount)}
                               </TableCell>
                             ))}
-                            {ercvalue  && 
+                            {/* {ercvalue  && 
                               <TableCell className={props?.theme === "dark" ? classes.token_table_border_dark : ""} id="td" style={{ paddingleft: "15" }}>
                                 {format({})(row.transfers.last3days)}
                               </TableCell>
-                            }
+                            } */}
                         </TableRow>
                       );
                     })}

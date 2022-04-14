@@ -115,10 +115,16 @@ const ExportButton = (props) => {
       <Container ref={mainDiv}>
         <SelectedValueContainer onClick={onFilterClicked}>
           <FilterName>
+          <PDFDownloadLink
+                
+                document={<AddressPDF data={downloadData} />}
+                fileName="tagAddresses.pdf"
+              >
             <span>Export</span>
+            </PDFDownloadLink>
           </FilterName>
         </SelectedValueContainer>
-        {isDropdownOpen && (
+        {/* {isDropdownOpen && (
           <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
             <OptionDiv>
               <PDFDownloadLink
@@ -142,7 +148,7 @@ const ExportButton = (props) => {
             </CSVLink>
             </OptionDiv>
           </DropdownContainer>
-        )}
+        )} */}
       </Container>
     </div>
   );

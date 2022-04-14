@@ -2373,7 +2373,7 @@ function Transaction({ theme, currency }) {
                   </SpacingInteractedWith>
                 ) : contractData.ERC > 2 ? (
                   <>
-                    <Spacing theme={theme.currentTheme}>
+                    {/* <Spacing theme={theme.currentTheme}>
                       <Container>
                         {window.innerWidth > 1024 ? (
                           <Tooltip
@@ -2443,8 +2443,8 @@ function Transaction({ theme, currency }) {
                           />
                         </TokenTransferredMiddleContainer>
                       </MiddleContainer>
-                    </Spacing>
-                    <SpacingTxnAction theme={theme.currentTheme}>
+                    </Spacing> */}
+                    {/* <SpacingTxnAction theme={theme.currentTheme}>
                       <ContainerTxnAction>
                         {window.innerWidth > 1024 ? (
                           <Tooltip
@@ -2525,7 +2525,7 @@ function Transaction({ theme, currency }) {
                           </TxnActionNextRow>
                         </MainContainerTxnAction>
                       </MiddleContainer>
-                    </SpacingTxnAction>
+                    </SpacingTxnAction> */}
                     <SpacingInteractedWith theme={theme.currentTheme}>
                       <ContainerInteractedWith>
                         {window.innerWidth > 1024 ? (

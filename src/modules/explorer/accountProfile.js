@@ -1362,7 +1362,7 @@ function SimpleTabs(props) {
               />
             </div>
             <div className="display-flex align-items-center">
-              {tableValue === 3 ? (
+              {/* {tableValue === 3 ? (
                 <CustomDropDownAddress
                   sampleRender={sampleRender}
                   updateListTags={updateListTags}
@@ -1370,7 +1370,7 @@ function SimpleTabs(props) {
                 />
               ) : (
                 ""
-              )}
+              )} */}
               {!isDownloadActive && tableValue === 1 ? (
                 ""
               ) : isDownloadActive ? (

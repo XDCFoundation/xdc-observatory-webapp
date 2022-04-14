@@ -471,12 +471,12 @@ export default function Navbar(props) {
           </p>
           <hr className="myhr" />
         </ul>
-        <ul className="Network-list-nav">
+        {/* <ul className="Network-list-nav">
           <a className="sidebar-links" href="/blockchain-identity">
             <div className="xinfin_account_button">Blockchain Identity</div>
           </a>
           <hr className="myhr" />
-        </ul>
+        </ul> */}
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
@@ -922,7 +922,7 @@ export default function Navbar(props) {
       font-size: 0.875rem;
     }
   `;
-  const NavigationButton = styled.div`
+  const NavigationButton = styled.a`
     text-decoration: none;
     cursor: pointer;
     padding: 5px 20px;
@@ -1004,14 +1004,22 @@ export default function Navbar(props) {
                 {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
               </div>
               <div>
-                <div
+                {/* <div
                   exact
                   activeClassName="active-t"
                   onClick={handleTokenPopover}
                   className="Token cursor-pointer"
                 >
                   Tokens
-                </div>
+                </div> */}
+                <a
+                  exact
+                  activeClassName="active-t"
+                  href={"/tokens"}
+                  className="Token"
+                >
+                  Tokens
+                </a>
               </div>
             </Row>
             <Row alignItems="center">
@@ -1123,7 +1131,8 @@ export default function Navbar(props) {
             >
               XDC Observatory
             </NavigationButton1>
-            <NavigationButton onClick={handleTokenPopover}>
+            <NavigationButton  
+              href="/tokens">
               Tokens
             </NavigationButton>
           </MobileNavigationContainer>
