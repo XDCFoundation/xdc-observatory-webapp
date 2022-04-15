@@ -84,9 +84,9 @@ export default function VerifyContract(props) {
                     <div className={props.theme === "dark" ? "paper-verify-contracts table-bg-dark border-none-dark mb-60" : "paper-verify-contracts"} elevation={3}>
 
                         <div className={props.theme === "dark" ? "verify-contracts-head fc-white" : "verify-contracts-head"}>Verify and Publish Contract Source Code</div><br />
-                        <div className="textarea-verify-contract">
-                            <p className={props.theme === "dark" ? "verify-contract-first-div fc-black" : "verify-contract-first-div"}>Enter Contract Source Code below.</p>
-                            <p className={props.theme === "dark" ? "verify-contract-first-div-text fc-black" : "verify-contract-first-div-text"}>If the compiled bytecode matches the Creation Address bytecode, the contract is then Verified and will be published online.</p>
+                        <div className={props.theme === "dark" ? "textarea-verify-contract-black" : "textarea-verify-contract"}>
+                            <p className={props.theme === "dark" ? "verify-contract-first-div-fc-black" : "verify-contract-first-div"}>Enter Contract Source Code below.</p>
+                            <p className={props.theme === "dark" ? "verify-contract-first-div-text-fc-black" : "verify-contract-first-div-text"}>If the compiled bytecode matches the Creation Address bytecode, the contract is then Verified and will be published online.</p>
                         </div>
                         <br />
                         {msg ? <p className="validation-error-message txt-center">{msg}</p> : ""}

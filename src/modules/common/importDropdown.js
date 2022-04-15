@@ -24,6 +24,7 @@ import "../../assets/styles/custom.css";
 import toast, { Toaster } from "react-hot-toast";
 import CustomLoader from "../../assets/customLoader"
 import Web3 from "web3";
+import { genericConstants, messages } from "../../constants";
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -42,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
   error1: {
     color: "red",
     marginLeft: "2px",
+  },
+  error2: {
+    color: "red",
+    marginLeft: "16px",
   },
   value: {
     width: "400px !important",
@@ -370,9 +375,11 @@ const CustomDropDownAddress = (props) => {
 
   const [masterChecked, setMasterChecked] = useState(false);
   const [selectedList, setSelectedList] = useState([]);
+  const [tagError, setTagError] = useState("");
   // console.log(masterChecked, selectedList, "<<<");
   const closeDialogImport = () => {
     setImportAddress(false);
+    setTagError("")
   };
   const openDialogImport = () => {
     setImportAddress(true);
@@ -508,7 +515,17 @@ const CustomDropDownAddress = (props) => {
   };
 
   const selectAll = async () => {
-    // allChecked.current.click();
+    let tagLength = 0;
+    data.map((item) => {
+      if (item.tagName.length > 15) {
+        tagLength = item.tagName.length;
+      }
+      return item;
+    });
+    if(tagLength != 0) {
+      setTagError(genericConstants.IMPORTED_TAG_LENGTH_ERROR)
+      return
+    }
     await updateListTags(data);
     await closeDialogImport();
     await notify();
@@ -516,6 +533,17 @@ const CustomDropDownAddress = (props) => {
   };
 
   const selectedOnly = async () => {
+    let tagLength = 0;
+    selectedList.map((item) => {
+      if (item.tagName.length > 15) {
+        tagLength = item.tagName.length;
+      }
+      return item;
+    });
+    if(tagLength != 0) {
+      setTagError(genericConstants.IMPORTED_TAG_LENGTH_ERROR)
+      return
+    }
     await updateListTags(selectedList);
     await closeDialogImport();
     await notify();
@@ -624,6 +652,7 @@ const CustomDropDownAddress = (props) => {
             }}
             elevation={0}
           >
+            {tagError && <div className={classes.error2}>{tagError}</div>}
             <TableContainer
               className={classes.container}
               id="container-table-token"

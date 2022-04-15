@@ -126,6 +126,7 @@ const Value = styled.div`
   display: flex;
   width: 10.625rem;
   padding-bottom: 35px;
+  padding-left: 18px;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 9.4rem;
     padding-bottom: 23px;
@@ -264,7 +265,7 @@ const ContractButton = styled.button`
   color: #2149b9;
   padding-top: 0px;
   padding-left: 0px;
-  margin-top: -8px;
+  margin-top: -4px;
   @media (max-width: 767px) {
     font-size: 0.875rem;
   }
@@ -284,6 +285,9 @@ const RightTop = styled.div`
   justify-content: space-between;
   position: relative;
   padding-bottom: 7px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    display: block;
+  }
 `;
 
 const RightTitle = styled.div`
@@ -303,8 +307,7 @@ const RightTitle = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     text-align: left;
-
-    color: #2a2a2a;
+    color: #9fa9ba;
     ${({ theme }) =>
       theme === "dark" &&
       `
@@ -329,9 +332,11 @@ const Line2 = styled.hr`
   position: absolute;
   top: 30%;
   left: 0%;
+  opacity:1;
   @media (max-width: 767px) {
     width: 100%;
     top: 30%;
+    margin-top: 2px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 100%;
@@ -363,6 +368,9 @@ const RightTopSec = styled.div`
     //width: 3.438rem;
     height: 1.375rem;
     white-space: nowrap;
+    float: right;
+    margin-top: 19px;
+    padding: 3px 8px;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 0.875rem;
@@ -396,7 +404,9 @@ const TokenImg = styled.img`
 `;
 
 const Icons = styled.div`
-  padding-top: 1px;
+@media (max-width: 767px) {
+  margin-top: -5px;
+}
 `;
 const SocialMediaIcon = styled.img`
   margin-right: 15px;
@@ -453,10 +463,12 @@ function TokenDataComponent(props) {
   const [transfer, settransfer] = useState([]);
 
   const transferDetail = async (values) => {
+    setLoading(true);
     let [error, tns] = await Utils.parseResponse(
       TokenData.getTotalTransferTransactionsForToken(values)
     );
     if (error || !tns) return;
+    setLoading(false);
     settransfer(tns.responseData);
   };
 
@@ -594,7 +606,8 @@ function TokenDataComponent(props) {
                       <Title theme={props.theme.currentTheme}>Transfer</Title>
                       {}
                       <TitleValue theme={props.theme.currentTheme}>
-                        {!transfer ? "" : transfer}
+                        {!isLoading && (transfer.length === 0 ? 0 : transfer)}
+                        {console.log("transfer",transfer.length)}
                       </TitleValue>
                     </ValueName>
                   </Value>
@@ -732,13 +745,20 @@ function TokenDataComponent(props) {
           </LeftContainer>
 
           <RightContainer>
-            <RightTop>
+            {window.innerWidth > 767 ? <RightTop>
               <RightTitle theme={props.theme.currentTheme}>Holders</RightTitle>
               <RightTopSec theme={props.theme.currentTheme}>
                 14 Days
               </RightTopSec>
               <Line2></Line2>
-            </RightTop>
+            </RightTop>:
+            <RightTop>
+              <RightTitle theme={props.theme.currentTheme}>Holders</RightTitle>
+              <Line2></Line2>
+              <RightTopSec theme={props.theme.currentTheme}>
+                14 Days
+              </RightTopSec>
+            </RightTop>}
             <GraphContainer>
               <HolderGraphBar />
             </GraphContainer>
@@ -865,7 +885,7 @@ const TopHeaderSection = ({
           </div>
         </LeftTopSecMain>
       </LeftFirst>
-      <hr className={theme === "dark" ? "hr-dark" : ""}></hr>
+      {window.innerWidth > 767 && <hr className={theme === "dark" ? "hr-dark" : ""}></hr>}
     </>
   );
 };

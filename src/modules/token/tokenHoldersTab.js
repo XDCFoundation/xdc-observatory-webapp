@@ -206,7 +206,7 @@ export default function StickyHeadTable(props) {
     }
 
     if (action === "last") {
-      let pageValue = Math.round(totalHolder / rowsPerPage) * rowsPerPage;
+      let pageValue = (Math.round(totalHolder / rowsPerPage)-1) * rowsPerPage;
       setPage(pageValue);
       values.skip = pageValue;
     }
@@ -282,7 +282,7 @@ export default function StickyHeadTable(props) {
               <TableHead>
                 <TableRow className="w-100">
                   <TableCell
-                    style={{ border: "none" }}
+                    style={{ border: "none", columnWidth: 500 }}
                     className="w-10 p-l-22"
                     align="left"
                   >
@@ -290,7 +290,7 @@ export default function StickyHeadTable(props) {
                       className={
                         props.theme === "dark"
                           ? "TableHeadersTransactionDark table-headers-dark"
-                          : "tableheaders table-headers"
+                          : "table-headers-holder"
                       }
                     >
                       Rank
@@ -831,7 +831,7 @@ export default function StickyHeadTable(props) {
               >
                 Page{" "}
                 {Math.round(totalHolder / rowsPerPage) -
-                  Math.round((totalHolder - page) / rowsPerPage)}{" "}
+                  Math.round((totalHolder - page) / rowsPerPage)+1}{" "}
                 of {Math.round(totalHolder / rowsPerPage)}
               </p>
             </div>
