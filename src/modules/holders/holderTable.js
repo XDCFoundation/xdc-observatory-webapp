@@ -87,6 +87,7 @@ const useStyles = makeStyles({
   },
   customTooltip: {
     fontSize: "13px",
+
   },
   customTooltipDarkMode: {
     background: "#051440",
@@ -377,7 +378,18 @@ export default function HolderTableComponent(props) {
       );
     }
   };
-
+  const NoDataFoundContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  gap: 10px;
+  color: #c6cbcf;
+  @media (min-width: 767px) {
+    margin: 100px 0 !important;
+  }
+`;
   return (
     <div>
       <div className="content_input_all">
@@ -444,20 +456,23 @@ export default function HolderTableComponent(props) {
                   : classes.customTooltip,
             }}
           >
-            <div onClick={() => setExportToolTip(!exportToolTip)}>
-              <CSVLink
-                filename={"transactions.csv"}
-                data={downloadaddress}
-                style={{
-                  pointerEvents: "none",
+            <div style={{
+                 
                   fontSize: "15px",
                   textAlign: "center",
                   color: "#ffffff",
                   backgroundColor: "#e3e7eb",
                   borderRadius: "4px",
-                  // width: "94px",
-                  // height: "2.125rem",
-                  padding: "7px 24px",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                }} onClick={() => setExportToolTip(!exportToolTip)}>
+              <CSVLink
+                filename={"transactions.csv"}
+                data={downloadaddress}
+                style={{
+                  pointerEvents: "none",
+                  color: "#ffffff",
+                  
                 }}
               >
                 Export
@@ -1165,22 +1180,22 @@ export default function HolderTableComponent(props) {
                   </TableBody>
                 )
               )}
-              {noData == true && (
-                <TableBody>
-                  <TableRow>
-                    <TableCell
-                      id="td"
-                      colspan="6"
-                      style={{ borderBottom: "none" }}
-                    >
-                      <span className="tabledata" style={{ color: "red" }}>
-                        No transaction found.
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              )}
+              
             </Table>
+            {noData == true && (
+              
+              <NoDataFoundContainer>
+            <img
+              src={require("../../../src/assets/images/XDC-Alert.svg")}
+            ></img>
+
+            <div>
+              No transactions found
+            </div>
+          </NoDataFoundContainer>
+        
+            
+          )}
           </TableContainer>
         </Paper>
         <DeskTopView>

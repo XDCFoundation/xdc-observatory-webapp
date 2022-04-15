@@ -111,6 +111,7 @@ const useStyles = makeStyles({
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#fff",
+    minHeight: "528px"
   },
   containerDark: {
     borderRadius: "0.875rem",

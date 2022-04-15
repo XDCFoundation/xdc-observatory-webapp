@@ -200,6 +200,7 @@ export const messages = {
 };
 
 export const toolTipMessages = {
+  AMOUNT: "The number of tokens being transferred.",
   hashid:
     "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
   blocknumber:
@@ -210,7 +211,7 @@ export const toolTipMessages = {
   value:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
   txnfee:
-    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+    "Amount paid for processing the transaction.",
   tokenTransferred:
     "Tokens transferred in the transaction.",
   transactionAction:

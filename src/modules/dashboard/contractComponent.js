@@ -833,7 +833,7 @@ class Contractlist extends React.Component {
                                   ? "tabledata fc-b1c3e1"
                                   : "tabledata"
                               }
-                              style={{ marginLeft: "5px" }}
+                              style={{ marginLeft: "0px" }}
                             >
                               {row.tokenName}
                             </span>
@@ -857,7 +857,7 @@ class Contractlist extends React.Component {
                                   ? "tabledata fc-b1c3e1"
                                   : "tabledata"
                               }
-                              style={{ marginLeft: "0.188rem", fontSize: 14 }}
+                              style={{ marginLeft: "0", fontSize: 14 }}
                             >
                               {isToken}
                             </span>

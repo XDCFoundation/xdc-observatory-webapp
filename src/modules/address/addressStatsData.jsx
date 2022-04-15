@@ -288,7 +288,7 @@ class AddressStatsData extends Component {
                   Total Txn(s)
                 </MarketDataPointTitle>
                 {!this.props?.statData?.totalTransactionsCount ? (
-                  <div>
+                  <div className="m-l-5">
                     <div className="animated-background"></div>
                   </div>
                 ) : (
@@ -417,7 +417,7 @@ class AddressStatsData extends Component {
                     Txn Fee Paid
                   </MarketDataPointTitle>
                   {typeof gasPrice === "string" ? (
-                    <div>
+                    <div style={{marginLeft:"14px"}}>
                       <div className="animated-background"></div>
                     </div>
                   ) : (

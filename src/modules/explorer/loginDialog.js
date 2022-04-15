@@ -1125,6 +1125,7 @@ export default function FormDialog(props) {
         ""
       )}
       {/* <div className="dialogboxModal"> */}
+      {open && <div className="overlay-private-alert">
       <Dialog
         classes={{
           paperWidthSm:
@@ -1724,6 +1725,7 @@ export default function FormDialog(props) {
           </div>
         )}
       </Dialog>
+      </div>}
       {/* </div> */}
       {/* </div> */}
       <ToastContainer />

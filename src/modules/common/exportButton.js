@@ -57,7 +57,10 @@ const DropdownContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   min-width: ${(props) => props.containerWidth}px;
-
+@media (min-width:0px) and (max-width:767px) {
+  right: 15px;
+  
+}
   span {
     padding: 8px;
     cursor: pointer;
