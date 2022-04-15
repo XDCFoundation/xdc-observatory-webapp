@@ -248,6 +248,9 @@ class AddressStatsData extends Component {
       Number(tokens) * Number(currencyPrice)
     );
     let gasP = Utils.decimalDivison(Number(this.props?.statData?.gasFee), 12);
+    let txnFeePaid = Number(Utils.decimalDivison(Number(this.props?.statData?.txnFeePaid), 12));
+    let txnFeePaidConverted = Number(txnFeePaid) * Number(currencyPrice);
+
     let gasPrice = !gasP ? "" : parseFloat(Number(gasP));
     let gasPriceConverted = !gasP
       ? ""
@@ -416,22 +419,22 @@ class AddressStatsData extends Component {
                     </Tooltip>
                     Txn Fee Paid
                   </MarketDataPointTitle>
-                  {typeof gasPrice === "string" ? (
+                  {typeof txnFeePaid === "string" ? (
                     <div>
                       <div className="animated-background"></div>
                     </div>
                   ) : (
                     <>
                       <Value theme={this.props.theme}>
-                        {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
+                        {txnFeePaid}
                         &nbsp;XDC
                       </Value>
                       <ThirdRowValue>
                         <OutValue theme={this.props.theme}>
                           {currencySymbol}
-                          {gasPriceConverted > 0
-                            ? Number(gasPriceConverted).toFixed(12)
-                            : gasPriceConverted}
+                          {txnFeePaidConverted > 0
+                            ? Number(txnFeePaidConverted).toFixed(12)
+                            : txnFeePaidConverted}
                         </OutValue>
                       </ThirdRowValue>
                     </>
@@ -667,15 +670,15 @@ class AddressStatsData extends Component {
               >
                 {" "}
                 <p>
-                  {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
+                  {txnFeePaid}
                   &nbsp;XDC
                 </p>
                 <ThirdRowValue>
                   <OutValue theme={this.props.theme}>
                     {currencySymbol}
-                    {gasPriceConverted > 0
-                      ? Number(gasPriceConverted).toFixed(12)
-                      : gasPriceConverted}
+                    {txnFeePaidConverted > 0
+                      ? Number(txnFeePaidConverted).toFixed(12)
+                      : txnFeePaidConverted}
                   </OutValue>
                 </ThirdRowValue>
               </div>
