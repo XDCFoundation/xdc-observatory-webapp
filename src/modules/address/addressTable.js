@@ -394,7 +394,7 @@ export default function AddressTableComponent(props) {
           From: d.from,
           To: d.to,
           Value:
-            Number(d?.value) < 1000000000000
+            Number(d?.value) < 10000000000
               ? Number(d?.value * 1000000000000000000)
               : d.value,
           contractAddress: d.contractAddress,
@@ -425,7 +425,7 @@ export default function AddressTableComponent(props) {
           From: d.from,
           To: d.to,
           Value:
-            d?.value < 1000000000000
+            d?.value < 10000000000
               ? Number(d?.value * 1000000000000000000)
               : Utility.decimalDivisonOnly(d.value, 8),
         };
@@ -484,7 +484,7 @@ export default function AddressTableComponent(props) {
             From: d.From,
             To: d.To,
             Value:
-              d?.Value < 1000000000000
+              d?.Value < 10000000000
                 ? Number(d?.Value * 1000000000000000000)
                 : Utility.decimalDivisonOnly(d.Value, 8),
           };
@@ -515,7 +515,7 @@ export default function AddressTableComponent(props) {
             From: d.From,
             To: d.To,
             Value:
-              d?.Value < 1000000000000
+              d?.Value < 10000000000
                 ? Number(
                     d?.Value * 1000000000000000000
                   ) /*there are some transactions which are not in gwei in ou DB*/

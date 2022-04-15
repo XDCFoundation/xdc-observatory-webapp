@@ -1422,7 +1422,7 @@ function Transaction({ theme, currency }) {
 
   let transactionValue =
     transactions?.value <
-      1000000000000 /*there are some transactions which are not in gwei in ou DB*/
+      10000000000 /*there are some transactions which are not in gwei in ou DB*/
       ? transactions?.value * 1000000000000000000
       : transactions?.value;
   const valueDiv =

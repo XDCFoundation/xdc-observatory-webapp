@@ -237,6 +237,7 @@ class AddressStatsData extends Component {
       Number(tokens) * Number(currencyPrice)
     );
     let gasP = Utils.decimalDivison(Number(this.props?.statData?.gasFee), 12);
+    let txnFeePaid = Utils.decimalDivison(Number(this.props?.statData?.txnFeePaid), 12);
     let gasPrice = !gasP ? "" : parseFloat(Number(gasP));
     let gasPriceConverted = !gasP
       ? ""
@@ -350,7 +351,7 @@ class AddressStatsData extends Component {
                     Txn Fee Paid
                   </MarketDataPointTitle>
                   <Value theme={this.props.theme}>
-                    {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
+                    {txnFeePaid}
                     &nbsp;XDC
                   </Value>
                   <ThirdRowValue>
@@ -528,7 +529,7 @@ class AddressStatsData extends Component {
               <div className={this.props.theme === "dark" ? "mid_cont_address_dark" : "mid_cont_address "}>
                 {" "}
                 <p>
-                  {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
+                  {txnFeePaid}
                   &nbsp;XDC
                 </p>
                 <ThirdRowValue>
