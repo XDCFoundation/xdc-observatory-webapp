@@ -209,7 +209,7 @@ function EditTxnLabel(props) {
         );
         utility.apiSuccessToast("Private Note Updated");
         handleClose();
-        await props.getListOfTxnLabel();
+        await props.getListOfTxnLabel({ skip: props.skip, limit: "5" });
         await props.getTotalCountTxnLabel();
     }
 

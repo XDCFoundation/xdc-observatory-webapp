@@ -201,9 +201,6 @@ function EditTaggedAddress(props) {
       tagName: input,
       modifiedOn: Date.now()
     };
-    console.log("privateAddress:",privateAddress)
-    console.log("data:",data)
-    console.log("props.row",props.row)
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (!input ) {
