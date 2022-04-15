@@ -192,16 +192,16 @@ function EditTxnLabel(props) {
             sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS
         );
         transactionLabel = JSON.parse(transactionLabel);
-        transactionLabel[props.index] = data;
+        transactionLabel[props.index + props.skip] = data;
 
         const existingTransactionLabel = transactionLabel.find(
             (item, innerIndex) =>
                 item.transactionHash == TransactionsHash && item.userId == data.userId && props.index !== innerIndex
         );
-        if (existingTransactionLabel) {
-            utility.apiFailureToast("Transaction private note is already in use");
-            return;
-        }
+        // if (existingTransactionLabel) {
+        //     utility.apiFailureToast("Transaction private note is already in use");
+        //     return;
+        // }
 
         localStorage.setItem(
             sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS,

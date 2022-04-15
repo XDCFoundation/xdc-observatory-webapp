@@ -1704,26 +1704,17 @@ function Transaction({ theme, currency }) {
                           Transaction Value
                         </Hash>
                       </Container>
-                      <Tooltip
-                        title={transactions?.value}
-                        placement="top"
-                        classes={{
-                          tooltip:
-                            theme.currentTheme === "dark"
-                              ? classes.customTooltipDarkMode
-                              : classes.customTooltip,
-                        }}
-                      >
+                      
                         <DetailsMiddleContainer
                           isTextArea={false}
                           theme={theme.currentTheme}
                         >
-                          {isNaN(ValueMain) ? "" : ValueMain}&nbsp;XDC{" "}
+                          {isNaN(ValueMain) ? "" : format({})(ValueMain)}&nbsp;XDC{" "}
                           {!valueDiv
                             ? " "
                             : "(" + (currencySymbol + valueDiv) + ")"}
                         </DetailsMiddleContainer>
-                      </Tooltip>
+                      
                     </DetailsContainer>
                     {/* ------------------------------------------------time stamp------------------------------------- */}
                     <DetailsContainerTimeStamp className="mobileTimeStamp">

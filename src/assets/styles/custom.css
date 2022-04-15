@@ -518,9 +518,6 @@ input:focus {
 
 .fc-white {
   color: #ffffff !important;
-  width: 503px !important;
-  height: 15px !important;
-  border: solid 1px #c6c8ce;
 }
 
 .fc-black {
@@ -606,6 +603,9 @@ input:focus {
 }
 .m-l-4 {
   margin-left: 4px !important;
+}
+.m-l-5 {
+  margin-left: 5px !important;
 }
 
 
@@ -10225,7 +10225,7 @@ button {
     margin-bottom: 2px;
   }
   .search-dashboard {
-    padding-top: 13px !important;
+    padding-top: 12px !important;
   }
 }
 /* .search-dashboard-select {
@@ -10313,7 +10313,7 @@ button {
     height: 1.375rem;
   }
   .search-dashboard {
-    padding-top: 13px !important;
+    padding-top: 12px !important;
   }
 }
 

@@ -184,7 +184,7 @@ function AddressDetailsAnalytics(props) {
         </AnalyticsTabButton>
         </div>
       </ButtonscontainerMob>
-      {/* {window.innerWidth > 1024 ?
+      {window.innerWidth > 1024 ?
                       <Tooltip
                         placement="top"
                         title={messages.RANGE_SELECT}
@@ -210,7 +210,7 @@ function AddressDetailsAnalytics(props) {
           <img style={infoIcon} src="/images/info.svg"
           onClick={() => setRangeSelectTT(!rangeSelectTT)}
           />
-        </Tooltip>} */}
+        </Tooltip>}
       </div>
       {activeTab === "xdcBalance" && <XDCBalanceAnalytics theme={props.theme}/>}
       {activeTab === "transactions" && <TransactionAnalytics theme={props.theme}/>}

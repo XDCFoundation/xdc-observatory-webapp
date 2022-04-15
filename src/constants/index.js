@@ -200,6 +200,7 @@ export const messages = {
 };
 
 export const toolTipMessages = {
+  AMOUNT: "The number of tokens being transferred.",
   hashid:
     "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
   blocknumber:

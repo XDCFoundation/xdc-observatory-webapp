@@ -31,7 +31,7 @@ export default class LatestTransactionList extends BaseComponent {
       pageParam: this.props?.match?.params?.pageNo,
       tableColumns: {
         // "Transaction Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
-        Amount: { isActive: true, toolTipText: toolTipMessages.value },
+        Amount: { isActive: true, toolTipText: toolTipMessages.AMOUNT },
         Age: { isActive: true, toolTipText: toolTipMessages.age },
         Date: { isActive: true, toolTipText: toolTipMessages.date },
         // "Date and Time": {isActive: true},
@@ -62,7 +62,6 @@ export default class LatestTransactionList extends BaseComponent {
   // }
 
   async getListOfTransactions(from, amount, sortKey) {
-    // debugger;
     from = from || from === 0 ? from : this.state.from;
     amount = amount ? amount : this.state.amount;
     sortKey = sortKey ? sortKey : this.state.sortKey;

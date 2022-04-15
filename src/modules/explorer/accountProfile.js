@@ -2327,6 +2327,7 @@ function SimpleTabs(props) {
                                 <EditTxnLabel
                                   row={row}
                                   index={index}
+                                  skip={Math.ceil(pvtNotePageCount.selected * 5)}
                                   getListOfTxnLabel={getListOfTxnLabel}
                                   getTotalCountTxnLabel={getUserTxnLabel}
                                 />
