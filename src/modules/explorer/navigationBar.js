@@ -144,6 +144,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "305px",
     justifyContent: "flex-end",
+    marginTop: "18px",
   },
   xdcBeta: {
     marginTop: "96px",
