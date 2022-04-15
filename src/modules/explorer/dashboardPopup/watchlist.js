@@ -340,9 +340,9 @@ export default function FormDialog(props) {
     ) {
       setError("Address should start with xdc and consist of 43 characters");
     } else if (
-      description && description.length > 240
+      description && description.length > 220
     ) {
-      setDescriptionError("Description should be maximum 240 characters");
+      setDescriptionError("Description should be maximum 220 characters");
     } else {
       if (value === "NO") request["isEnabled"] = false;
       const [error, response] = await utility.parseResponse(

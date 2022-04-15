@@ -77,8 +77,8 @@ const SearchAndFiltersComponent = (props) => {
         options={[
           { key: "-1", value: "View All" },
           { key: "0", value: "Accounts" },
-          { key: "1", value: "Contract" },
-          { key: "2", value: "Token" },
+          { key: "1", value: "Contracts" },
+          { key: "2", value: "Tokens" },
         ]}
       />
       {/*  <CustomDropDown name="Percentage" selectedOption={percentage} onSelect={data => setPercentage(data)}

@@ -223,6 +223,18 @@
     font-weight: 500;
     margin-right: 130px;
   }
+  .table-headers-holder {
+    height: 1.063rem;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    display: flex;
+    text-align: center;
+    color: #2a2a2a;
+    font-weight: 500;
+  }
   .table-headers-dark {
     height: 1.063rem;
     font-family: Inter;
@@ -773,7 +785,7 @@
 }
 
 .tablegrid_address {
-  padding-top: 9px;
+  padding-top: 19px;
   margin: auto;
   width: 100%;
 }
@@ -969,7 +981,7 @@
   .tableheaders-contract {
     font-size: 0.875rem;
     font-weight: bold;
-    margin-left: 22px;
+    margin-left: 19px;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -1345,7 +1357,6 @@
     text-align: center;
     color: #252525;
     opacity: 1;
-    margin-right: 27px;
   }
 }
 @media (min-width: 0px) and (max-width: 766px) {
@@ -1358,8 +1369,6 @@
 
     text-align: center;
     color: #252525;
-
-    margin-right: 27px;
     margin-left: 2px;
   }
 }

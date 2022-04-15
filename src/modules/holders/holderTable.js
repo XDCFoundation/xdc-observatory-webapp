@@ -425,6 +425,7 @@ export default function HolderTableComponent(props) {
               borderRadius: "4px",
               width: "5.875rem",
               height: "2.125rem",
+              paddingTop: "2px"
             }}
           >
             Export
@@ -454,8 +455,9 @@ export default function HolderTableComponent(props) {
                   color: "#ffffff",
                   backgroundColor: "#e3e7eb",
                   borderRadius: "4px",
-                  width: "94px",
-                  height: "2.125rem",
+                  // width: "94px",
+                  // height: "2.125rem",
+                  padding: "7px 24px",
                 }}
               >
                 Export
