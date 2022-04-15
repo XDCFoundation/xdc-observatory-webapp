@@ -437,6 +437,7 @@ export default function HolderTableComponent(props) {
               borderRadius: "4px",
               width: "5.875rem",
               height: "2.125rem",
+              paddingTop: "2px"
             }}
           >
             Export

@@ -56,6 +56,16 @@ label {
 @media (max-width: 1240px) {
   .footer_base {
     padding: 0px;
+    margin: 60px 0 0;
+  }
+  .footer_base-dark {
+    padding: 0px;
+    margin: 60px 0 0;
+  }
+}
+@media (max-width: 767px) {
+  .footer_base {
+    padding: 0px;
     margin: 0px;
   }
   .footer_base-dark {
@@ -346,7 +356,7 @@ a:hover {
   height: 32px;
   width: 90px;
   margin: 5px 13px 19.7px 1px;
-  padding: 7px 7px 6px 9px;
+  padding: 7px 7px 6px 5px;
   border-radius: 4px;
   background-color: #2149b9;
 }

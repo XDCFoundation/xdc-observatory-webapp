@@ -62,7 +62,6 @@ export default class LatestTransactionList extends BaseComponent {
   // }
 
   async getListOfTransactions(from, amount, sortKey) {
-    // debugger;
     from = from || from === 0 ? from : this.state.from;
     amount = amount ? amount : this.state.amount;
     sortKey = sortKey ? sortKey : this.state.sortKey;

@@ -159,7 +159,6 @@ function EditTxnLabel(props) {
     const [open, setOpen] = React.useState(false);
     const [TransactionsHash, setTransactionsHash] = React.useState("");
     const [PrivateNote, setPrivateNote] = React.useState("");
-    console.log(PrivateNote,"<<<<<<<")
     const [error, setError] = React.useState("");
     const [passwordShown, setPasswordShown] = React.useState(false);
     const [id, setId] = React.useState("");
@@ -193,22 +192,21 @@ function EditTxnLabel(props) {
             sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS
         );
         transactionLabel = JSON.parse(transactionLabel);
-        transactionLabel[props.index] = data;
+        transactionLabel[props.index + props.skip] = data;
 
         const existingTransactionLabel = transactionLabel.find(
             (item, innerIndex) =>
                 item.transactionHash == TransactionsHash && item.userId == data.userId && props.index !== innerIndex
         );
-        console.log(existingTransactionLabel,"::::::")
-        if (existingTransactionLabel) {
-            console.log(transactionLabel,"PPPPPPPP")
-            localStorage.setItem(
-                sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS,
-                JSON.stringify(transactionLabel)
-            );
-        }
+        // if (existingTransactionLabel) {
+        //     utility.apiFailureToast("Transaction private note is already in use");
+        //     return;
+        // }
 
-        
+        localStorage.setItem(
+            sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS,
+            JSON.stringify(transactionLabel)
+        );
         utility.apiSuccessToast("Private Note Updated");
         handleClose();
         await props.getListOfTxnLabel();

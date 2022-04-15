@@ -55,12 +55,26 @@ const useStyles = makeStyles({
     color: "#adc4e4",
     fontSize: "13px",
   },
-  "@media (min-width:0px) and (max-width: 1240px)": {
+  "@media (min-width:0px) and (max-width: 767px)": {
     container: {
       height: "36.375rem",
     },
     containerDark: {
       height: "36.375rem",
+    },
+    container1: {
+      height: "23.375rem",
+    },
+    containerDark1: {
+      height: "23.375rem",
+    },
+  },
+  "@media (min-width:768px) and (max-width: 1240px)": {
+    container: {
+      height: "43.375rem",
+    },
+    containerDark: {
+      height: "43.375rem",
     },
     container1: {
       height: "23.375rem",

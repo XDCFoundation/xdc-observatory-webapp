@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "unset !important",
     backgroundColor: "#2149b9",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   appBarDark: {
     position: "unset !important",
     backgroundColor: "#132a69",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -118,6 +118,9 @@ const useStyles = makeStyles((theme) => ({
     width: 18,
     height: 18,
     marginRight: 3,
+  },
+  searchImageinputContainer: {
+    display: "flex"
   },
   "@media (min-width: 0px) and (max-width: 767px)": {
     searchIcon: {
@@ -874,8 +877,8 @@ export default function Navbar(props) {
 
   const SearchContainer = styled.div`
     width: 100%;
-    height: 35px;
-    padding: 6px;
+    height: 38px;
+    padding: 7px 8px 9px;
     border-radius: 6px;
     border: solid 1px #e3e7eb;
     margin: auto;
@@ -898,11 +901,12 @@ export default function Navbar(props) {
   `;
 
   const TabSearchBox = styled.div`
-    height: 2.375rem;
-    padding: 8px;
-    margin-right: 0.625rem;
+    width: 623px
+    height: 2.4375rem;
+    padding: 9px 12px;
+    // margin-right: 0.625rem;
     margin-top: 10px;
-    border-radius: 0.25rem;
+    border-radius: 7px;
     background-color: #ffffff;
   `;
 
