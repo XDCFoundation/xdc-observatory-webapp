@@ -201,6 +201,9 @@ function EditTaggedAddress(props) {
       tagName: input,
       modifiedOn: Date.now()
     };
+    console.log("privateAddress:",privateAddress)
+    console.log("data:",data)
+    console.log("props.row",props.row)
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (!input ) {
@@ -222,17 +225,7 @@ function EditTaggedAddress(props) {
           sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS
       );
       taggedAddress = JSON.parse(taggedAddress);
-      taggedAddress[props.index] = data;
-
-      const existingTaggedAddress = taggedAddress.find(
-          (item, innerIndex) =>
-              item.address == privateAddress && item.userId == data.userId && props.index !== innerIndex
-      );
-
-      if (existingTaggedAddress) {
-        utility.apiFailureToast("Address is already in use");
-        return;
-      }
+      taggedAddress[props.skip + props.index] = data; //insert data at given index
 
       localStorage.setItem(
           sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS,
@@ -240,7 +233,7 @@ function EditTaggedAddress(props) {
       );
 
       utility.apiSuccessToast("Address tag Updated");
-      await props.getListOfTagAddress();
+      await props.getListOfTagAddress({ skip: props.skip, limit: "5" });
       await props.getTotalCountTagAddress();
       setOpen(false);
       setErrorTag("")

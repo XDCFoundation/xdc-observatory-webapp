@@ -1236,7 +1236,7 @@ function SimpleTabs(props) {
                 }
               /> */}
               <Column >
-                <Row className={classes.profileName} style={props.theme.currentTheme === "dark" ? { gap: "15px", color: "#fff" } : { gap: "15px" }}>
+                <Row className={classes.profileName} style={props.theme.currentTheme === "dark" ? { marginRight: "8px", color: "#fff" } : { marginRight: "8px" }}>
                   Welcome, {setUserName()}
                 </Row>
 
@@ -1872,6 +1872,7 @@ function SimpleTabs(props) {
                                 >
                                   <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {row.description}
+                                    {console.log("UI-desc",row.description)}
                                   </span>
                                 </TableCell>
                                 <TableCell
@@ -1919,6 +1920,7 @@ function SimpleTabs(props) {
                                 >
                                   <EditWatchList 
                                     row={row}
+                                    index={index}
                                     getWatchlistList={getListOfWatchlist}
                                     getTotalCountWatchlist={getUserWatchlist}
                                   />
@@ -2845,6 +2847,7 @@ function SimpleTabs(props) {
                                 <EditTagAddress
                                   row={row}
                                   index={index}
+                                  skip={Math.ceil(tagPageCount.selected * 5)}
                                   getListOfTagAddress={getListOfTagAddress}
                                   getTotalCountTagAddress={getPvtTagAddress}
                                 />
