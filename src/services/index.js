@@ -14,7 +14,7 @@ export { default as NotificationService } from './notification'
 export { default as WatchListService } from './watchlist'
 export { default as TagAddressService } from './tagAddress'
 export { default as NetStatsService } from './netStats'
-
+export { default as NetworkService } from './networkDetails'
 
 
 

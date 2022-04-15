@@ -15,10 +15,11 @@ import moment from "moment-timezone";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import queryString from "query-string";
-import utility from "../../utility";
-import { useSelector } from "react-redux";
+import utility, { dispatchAction } from "../../utility";
+import { connect, useSelector } from "react-redux";
 import Utility from "../../utility";
 import format from "format-number";
+import { transparent } from "material-ui/styles/colors";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -53,9 +54,23 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     width: "100%",
   },
+  mainContainerDark: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    backgroundColor: "#091b4e",
+  },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
 }));
 
-export default function BlockDetails() {
+function BlockDetails(props) {
   const classes = useStyles();
   const [height, setHeight] = useState([]);
   const [count, setcount] = useState(0);
@@ -77,8 +92,12 @@ export default function BlockDetails() {
       BlockService.getDetailsOfBlock(urlPath, {})
     );
 
-
-    if (!blockDetailsUsingHeight || blockDetailsUsingHeight.length === 0 || blockDetailsUsingHeight === "" || blockDetailsUsingHeight === null) {
+    if (
+      !blockDetailsUsingHeight ||
+      blockDetailsUsingHeight.length === 0 ||
+      blockDetailsUsingHeight === "" ||
+      blockDetailsUsingHeight === null
+    ) {
       setLoading(false);
     }
     if (error || !blockDetailsUsingHeight) return;
@@ -125,7 +144,7 @@ export default function BlockDetails() {
   const { width } = windowDimensions;
 
   const hashid = `Hash of the block header from the previous block`;
-  const blockheight = `Also known as Block Number. The block height, which indicates the length the length of the blockchain, increases after the addition of the new block.`;
+  const blockheight = `Also known as Block Number. The block height, which indicates the length of the blockchain, increases after the addition of the new block.`;
   const transactionT = `Number of transactions associated with a particular block`;
   const timestamp = `The date and time at which a transaction is mined.`;
   const parenthash = `The hash of the block from which this block was generated, also known as its parent block`;
@@ -139,48 +158,51 @@ export default function BlockDetails() {
 
   const truncate = (input) => {
     if (input.length > 40) {
-      return input.substring(0, 38) + '...';
+      return input.substring(0, 38) + "...";
     }
     return input;
   };
   let td = parseInt(height?.totalDifficulty);
 
-
-  let difficulty = parseInt(height?.difficulty)
-
+  let difficulty = parseInt(height?.difficulty);
 
   const getHoursAgo = (date) => {
-    let today = Date.now()
+    let today = Date.now();
     let difference = today - date;
     var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    difference -= daysDifference * 1000 * 60 * 60 * 24
+    difference -= daysDifference * 1000 * 60 * 60 * 24;
     var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-    difference -= hoursDifference * 1000 * 60 * 60
+    difference -= hoursDifference * 1000 * 60 * 60;
     var minutesDifference = Math.floor(difference / 1000 / 60);
-    difference -= minutesDifference * 1000 * 60
+    difference -= minutesDifference * 1000 * 60;
     var secondsDifference = Math.floor(difference / 1000);
-    if (secondsDifference < 60 && minutesDifference === 0 && hoursDifference === 0 && daysDifference === 0) {
-      if (secondsDifference === 1)
-        return secondsDifference + " second ago "
-      else return secondsDifference + " seconds ago "
+    if (
+      secondsDifference < 60 &&
+      minutesDifference === 0 &&
+      hoursDifference === 0 &&
+      daysDifference === 0
+    ) {
+      if (secondsDifference === 1) return secondsDifference + " second ago ";
+      else return secondsDifference + " seconds ago ";
     }
-    if (minutesDifference < 60 && hoursDifference === 0 && daysDifference === 0) {
-      if (minutesDifference === 1)
-        return minutesDifference + " minute ago "
-      return minutesDifference + " minutes ago"
+    if (
+      minutesDifference < 60 &&
+      hoursDifference === 0 &&
+      daysDifference === 0
+    ) {
+      if (minutesDifference === 1) return minutesDifference + " minute ago ";
+      return minutesDifference + " minutes ago";
     }
     if (hoursDifference < 60 && daysDifference === 0) {
-      if (hoursDifference === 1)
-        return hoursDifference + " hour ago "
-      return hoursDifference + " hours ago"
+      if (hoursDifference === 1) return hoursDifference + " hour ago ";
+      return hoursDifference + " hours ago";
     }
     if (daysDifference < 30) {
-      if (hoursDifference === 1)
-        return hoursDifference + " day ago "
-      return daysDifference + " days ago"
+      if (hoursDifference === 1) return hoursDifference + " day ago ";
+      return daysDifference + " days ago";
     }
-  }
-  const timezone = useSelector(state => state.timezone)
+  };
+  const timezone = useSelector((state) => state.timezone);
   const [hashTT, setHashTT] = useState(false);
   const [blockHeightTT, setBlockHeightTT] = useState(false);
   const [transactionTT, setTransactionTT] = useState(false);
@@ -196,39 +218,75 @@ export default function BlockDetails() {
 
   return (
     <div>
-      <Tokensearchbar />
-      <div className={classes.mainContainer}>
+      <Tokensearchbar theme={props.theme.currentTheme} />
+      <div
+        className={
+          props.theme.currentTheme === "dark"
+            ? classes.mainContainerDark
+            : classes.mainContainer
+        }
+      >
         <div className={classes.root}>
           <Grid item xs={12}>
             <div className={isLoading == true ? "cover-spin-2" : ""}>
               <div className={isLoading == true ? "cover-spin" : ""}>
                 <Spacing style={{ borderBottom: "none" }}>
                   <Container>
-                    <Heading>Block Details</Heading>
+                    <Heading theme={props.theme.currentTheme}>
+                      Block Details
+                    </Heading>
                   </Container>
                 </Spacing>
 
-                <Div>
+                <Div theme={props.theme.currentTheme}>
                   <HashDiv>
                     <Container className="pad-left-6 pad-left-7">
-                      <Tooltip 
-                        open={hashTT}
-                        onOpen={() => setHashTT(true)}
-                        onClose={() => setHashTT(false)}
-                        align="right" 
-                        title={hashid}>
-                        <ImageView
-                          onClick={() => setHashTT(!hashTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Hash ID</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          placement="top"
+                          title={hashid}
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={hashTT}
+                          onOpen={() => setHashTT(true)}
+                          onClose={() => setHashTT(false)}
+                          align="right"
+                          title={hashid}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setHashTT(!hashTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Hash ID</Hash>
                     </Container>
 
                     <MiddleContainerHash>
-                      <Content>
+                      <Content theme={props.theme.currentTheme}>
                         {/* {height.hash} */}
-                        {width > 1240 ? height.hash : (width <= 1240 && width >= 768 ? Utils.shortenHashTab(height.hash) : height.hash)}
+                        {width > 1240
+                          ? height.hash
+                          : width <= 1240 && width >= 768
+                          ? Utils.shortenHashTab(height.hash)
+                          : height.hash}
                         <CopyToClipboard
                           text={height.hash}
                           onCopy={() => setCopiedText(height.hash)}
@@ -240,11 +298,21 @@ export default function BlockDetails() {
                                 : "Copy To Clipboard"
                             }
                             placement="top"
+                            classes={{
+                              tooltip:
+                                props.theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
                           >
-                            <button className="copy-icon-block-details">
-                              <ImgView
-                                src="/images/copy-grey.svg"
-                              />
+                            <button
+                              className={
+                                props.theme.currentTheme === "dark"
+                                  ? "copy-icon-block-details-dark"
+                                  : "copy-icon-block-details"
+                              }
+                            >
+                              <ImgView src="/images/copy-grey.svg" />
                             </button>
                           </Tooltip>
                         </CopyToClipboard>
@@ -252,25 +320,49 @@ export default function BlockDetails() {
                     </MiddleContainerHash>
                   </HashDiv>
                 </Div>
-                <Div__>
-                  <Spacing>
+                <Div__ theme={props.theme.currentTheme}>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip 
-                        open={blockHeightTT}
-                        onOpen={() => setBlockHeightTT(true)}
-                        onClose={() => setBlockHeightTT(false)}
-                        align="right" 
-                        title={blockheight}>
-                        <ImageView
-                          onClick={() => setBlockHeightTT(!blockHeightTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={blockheight}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={blockHeightTT}
+                          onOpen={() => setBlockHeightTT(true)}
+                          onClose={() => setBlockHeightTT(false)}
+                          align="right"
+                          title={blockheight}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setBlockHeightTT(!blockHeightTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
 
-                      <Hash>Block Height</Hash>
+                      <Hash theme={props.theme.currentTheme}>Block Height</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content>
+                      <Content theme={props.theme.currentTheme}>
                         <ArrowBackIosIcon
                           style={{
                             marginRight: "10px",
@@ -307,74 +399,160 @@ export default function BlockDetails() {
                       </Content>
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip 
-                        open={transactionTT}
-                        onOpen={() => setTransactionTT(true)}
-                        onClose={() => setTransactionTT(false)}
-                        align="right" 
-                        title={transactionT}>
-                        <ImageView
-                          onClick={() => setTransactionTT(!transactionTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Transaction</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={transactionT}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={transactionTT}
+                          onOpen={() => setTransactionTT(true)}
+                          onClose={() => setTransactionTT(false)}
+                          align="right"
+                          title={transactionT}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setTransactionTT(!transactionTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Transaction</Hash>
                     </Container>
-                    <MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>
                       {height.transactions && height.transactions.length
                         ? height.transactions.length
                         : 0}
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip 
-                        open={timeStampTT}
-                        onOpen={() => setTimeStampTT(true)}
-                        onClose={() => setTimeStampTT(false)}
-                        align="right" 
-                        title={timestamp}>
-                        <ImageView
-                          onClick={() => setTimeStampTT(!timeStampTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Time Stamp</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={timestamp}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={timeStampTT}
+                          onOpen={() => setTimeStampTT(true)}
+                          onClose={() => setTimeStampTT(false)}
+                          align="right"
+                          title={timestamp}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setTimeStampTT(!timeStampTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Time Stamp</Hash>
                     </Container>
-                    <MiddleContainer>
-                      {height?.timestamp && getHoursAgo(height.timestamp * 1000)}
+                    <MiddleContainer theme={props.theme.currentTheme}>
+                      {height?.timestamp &&
+                        getHoursAgo(height.timestamp * 1000)}
                       (
-                      {`${height?.timestamp && moment(height.timestamp * 1000).tz(timezone).format(
-                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`})
+                      {`${
+                        (height?.timestamp &&
+                          moment(height.timestamp * 1000)
+                            .tz(timezone)
+                            .format("MMM DD, YYYY, hh:mm A")) ||
+                        ""
+                      } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`}
+                      )
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip 
-                        open={parentHashTT}
-                        onOpen={() => setParentHashTT(true)}
-                        onClose={() => setParentHashTT(false)}
-                        align="right" 
-                        title={parenthash}>
-                        <ImageView
-                          onClick={() => setParentHashTT(!parentHashTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Parent Hash</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={parenthash}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={parentHashTT}
+                          onOpen={() => setParentHashTT(true)}
+                          onClose={() => setParentHashTT(false)}
+                          align="right"
+                          title={parenthash}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setParentHashTT(!parentHashTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Parent Hash</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content>
+                      <Content theme={props.theme.currentTheme}>
                         <a
                           onClick={decrement}
-                          className="parent_hash"
+                          className={
+                            props.theme.currentTheme === "dark"
+                              ? "parent_hash_dark"
+                              : "parent_hash"
+                          }
                           style={{ cursor: "pointer" }}
                         >
                           {/* {height.parentHash} */}
-                          {width > 1240 ? height.parentHash : (width <= 1240 && width >= 768 ? Utils.shortenHashTab(height.parentHash) : height.parentHash)}
-
+                          {width > 1240
+                            ? height.parentHash
+                            : width <= 1240 && width >= 768
+                            ? Utils.shortenHashTab(height.parentHash)
+                            : height.parentHash}
                         </a>
                         <CopyToClipboard
                           text={height.parentHash}
@@ -387,42 +565,82 @@ export default function BlockDetails() {
                                 : "Copy To Clipboard"
                             }
                             placement="top"
+                            classes={{
+                              tooltip:
+                                props.theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
                           >
                             <button
-                              style={{
-                                color: "blue",
-                                backgroundColor: "white",
-                                fontSize: 14,
-                              }}
+                              style={
+                                props.theme.currentTheme === "dark"
+                                  ? {
+                                      color: "blue",
+                                      fontSize: 14,
+                                      background: "transparent",
+                                    }
+                                  : {
+                                      color: "blue",
+                                      backgroundColor: "white",
+                                      fontSize: 14,
+                                    }
+                              }
                             >
-                              <ImgView
-                                src="/images/copy-grey.svg"
-                              />
+                              <ImgView src="/images/copy-grey.svg" />
                             </button>
                           </Tooltip>
                         </CopyToClipboard>
                       </Content>
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip 
-                        open={sha3UnclesTT}
-                        onOpen={() => setSha3UnclesTT(true)}
-                        onClose={() => setSha3UnclesTT(false)}
-                        align="right" 
-                        title={sha3uncles}>
-                        <ImageView
-                          onClick={() => setSha3UnclesTT(!sha3UnclesTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Sha3Uncles</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={sha3uncles}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={sha3UnclesTT}
+                          onOpen={() => setSha3UnclesTT(true)}
+                          onClose={() => setSha3UnclesTT(false)}
+                          align="right"
+                          title={sha3uncles}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setSha3UnclesTT(!sha3UnclesTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Sha3Uncles</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content>
+                      <Content theme={props.theme.currentTheme}>
                         {/* {height.sha3Uncles} */}
-                        {width > 1240 ? height.sha3Uncles : (width <= 1240 && width >= 768 ? Utils.shortenHashTab(height.sha3Uncles) : height.sha3Uncles)}
+                        {width > 1240
+                          ? height.sha3Uncles
+                          : width <= 1240 && width >= 768
+                          ? Utils.shortenHashTab(height.sha3Uncles)
+                          : height.sha3Uncles}
                         <CopyToClipboard
                           text={height.sha3Uncles}
                           onCopy={() => setCopiedText(height.sha3Uncles)}
@@ -434,126 +652,304 @@ export default function BlockDetails() {
                                 : "Copy To Clipboard"
                             }
                             placement="top"
+                            classes={{
+                              tooltip:
+                                props.theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
                           >
                             <button
-                              style={{
-                                color: "blue",
-                                backgroundColor: "white",
-                                fontSize: 14,
-                              }}
+                              style={
+                                props.theme.currentTheme === "dark"
+                                  ? {
+                                      color: "blue",
+                                      fontSize: 14,
+                                      background: "transparent",
+                                    }
+                                  : {
+                                      color: "blue",
+                                      backgroundColor: "white",
+                                      fontSize: 14,
+                                    }
+                              }
                             >
-                              <ImgView
-                                src="/images/copy-grey.svg"
-                              />
+                              <ImgView src="/images/copy-grey.svg" />
                             </button>
                           </Tooltip>
                         </CopyToClipboard>
                       </Content>
                     </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip 
-                        open={difficultyTT}
-                        onOpen={() => setDifficultyTT(true)}
-                        onClose={() => setDifficultyTT(false)}
-                        align="right" 
-                        title={diffi}>
-                        <ImageView
-                          onClick={() => setDifficultyTT(!difficultyTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Difficulty</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={diffi}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={difficultyTT}
+                          onOpen={() => setDifficultyTT(true)}
+                          onClose={() => setDifficultyTT(false)}
+                          align="right"
+                          title={diffi}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setDifficultyTT(!difficultyTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{format({})(difficulty)}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>
+                      {format({})(difficulty)}
+                    </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip 
-                        open={totalDifficultyTT}
-                        onOpen={() => setTotalDifficultyTT(true)}
-                        onClose={() => setTotalDifficultyTT(false)}
-                        align="right" 
-                        title={tdiffi}>
-                        <ImageView
-                          onClick={() => setTotalDifficultyTT(!totalDifficultyTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Total Difficulty</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={tdiffi}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={totalDifficultyTT}
+                          onOpen={() => setTotalDifficultyTT(true)}
+                          onClose={() => setTotalDifficultyTT(false)}
+                          align="right"
+                          title={tdiffi}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() =>
+                              setTotalDifficultyTT(!totalDifficultyTT)
+                            }
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>
+                        Total Difficulty
+                      </Hash>
                     </Container>
-                    <MiddleContainer>{format({})(td)}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>
+                      {format({})(td)}
+                    </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip 
-                        open={gasUsedTT}
-                        onOpen={() => setGasUsedTT(true)}
-                        onClose={() => setGasUsedTT(false)}
-                        align="right" 
-                        title={gasU}>
-                        <ImageView
-                          onClick={() => setGasUsedTT(!gasUsedTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Gas Used</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={gasU}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={gasUsedTT}
+                          onOpen={() => setGasUsedTT(true)}
+                          onClose={() => setGasUsedTT(false)}
+                          align="right"
+                          title={gasU}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setGasUsedTT(!gasUsedTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Gas Used</Hash>
                     </Container>
-                    <MiddleContainer>{format({})(parseInt(height?.gasUsed))}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>
+                      {format({})(parseInt(height?.gasUsed))}
+                    </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip
-                        open={gasLimitTT}
-                        onOpen={() => setGasLimitTT(true)}
-                        onClose={() => setGasLimitTT(false)} 
-                        align="right" 
-                        title={gasL}>
-                        <ImageView
-                          onClick={() => setGasLimitTT(!gasLimitTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Gas Limit</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={gasL}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={gasLimitTT}
+                          onOpen={() => setGasLimitTT(true)}
+                          onClose={() => setGasLimitTT(false)}
+                          align="right"
+                          title={gasL}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setGasLimitTT(!gasLimitTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Gas Limit</Hash>
                     </Container>
-                    <MiddleContainer>{format({})(parseInt(height?.gasLimit))}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>
+                      {format({})(parseInt(height?.gasLimit))}
+                    </MiddleContainer>
                   </Spacing>
-                  <Spacing>
+                  <Spacing theme={props.theme.currentTheme}>
                     <Container>
-                      <Tooltip 
-                        open={nonceTT}
-                        onOpen={() => setNonceTT(true)}
-                        onClose={() => setNonceTT(false)}
-                        align="right" 
-                        title={nonc}>
-                        <ImageView
-                          onClick={() => setNonceTT(!nonceTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Nonce</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={nonc}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={nonceTT}
+                          onOpen={() => setNonceTT(true)}
+                          onClose={() => setNonceTT(false)}
+                          align="right"
+                          title={nonc}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setNonceTT(!nonceTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Nonce</Hash>
                     </Container>
-                    <MiddleContainer>{height.nonce}</MiddleContainer>
+                    <MiddleContainer theme={props.theme.currentTheme}>
+                      {height.nonce}
+                    </MiddleContainer>
                   </Spacing>
-                  <Spacing style={{ height: "unset" }}>
+                  <Spacing
+                    lastBorder={true}
+                    theme={props.theme.currentTheme}
+                    style={{ height: "unset" }}
+                  >
                     <Container className="pad-bottom-34">
-                      <Tooltip 
-                        open={extraDataTT}
-                        onOpen={() => setExtraDataTT(true)}
-                        onClose={() => setExtraDataTT(false)}
-                        align="right" 
-                        title={extrad}>
-                        <ImageView
-                          onClick={() => setExtraDataTT(!extraDataTT)}
-                          src="/images/info.svg"
-                        />
-                      </Tooltip>
-                      <Hash>Extra Data</Hash>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          align="right"
+                          title={extrad}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView src="/images/info.svg" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={extraDataTT}
+                          onOpen={() => setExtraDataTT(true)}
+                          onClose={() => setExtraDataTT(false)}
+                          align="right"
+                          title={extrad}
+                          placement="top"
+                          classes={{
+                            tooltip:
+                              props.theme.currentTheme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <ImageView
+                            onClick={() => setExtraDataTT(!extraDataTT)}
+                            src="/images/info.svg"
+                          />
+                        </Tooltip>
+                      )}
+                      <Hash theme={props.theme.currentTheme}>Extra Data</Hash>
                     </Container>
                     <div className="block-details-extraData">
                       <textarea
-                        className="text-area"
+                        className={
+                          props.theme.currentTheme === "dark"
+                            ? "text-area-dark"
+                            : "text-area"
+                        }
                         readOnly
                         value={height.extraData}
                       />
@@ -570,38 +966,58 @@ export default function BlockDetails() {
   );
 }
 
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(BlockDetails);
+
 const Input = styled.input`
   border-radius: 5px;
   border: solid 1px #e3e7eb;
   background-color: #fff;
   font-family: Inter;
   font-size: 14px;
-  
+
   text-align: left;
   color: #2a2a2a;
 `;
 const Content = styled.span`
   font-family: Inter;
   font-size: 13px;
-  
+
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    
+
     color: #3a3a3a;
     opacity: 1;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    
+
     color: #3a3a3a;
     opacity: 1;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 1241px) {
     height: 1.125rem;
@@ -611,9 +1027,14 @@ const Content = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    
+
     text-align: left;
     color: #3a3a3a;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #b1c3e1;
+    `}
   }
 `;
 const TextArea = styled.textarea`
@@ -636,7 +1057,7 @@ const Digits = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   text-align: left;
   color: #4878ff;
 `;
@@ -644,7 +1065,6 @@ const Blocks = styled.span`
   font-family: Inter;
   font-size: 14px;
 
-  
   text-align: left;
 `;
 const Div__ = styled.div`
@@ -654,37 +1074,61 @@ const Div__ = styled.div`
   margin-top: 20px;
   background-color: #fff;
   padding: 0rem 2.188rem 0rem 2.188rem;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    background-color: #192a59;
+    margin-bottom: 60px;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     padding-right: 10px;
     padding-left: 10px;
     margin-bottom: 23px;
   }
+  @media (min-width: 767px) and (max-width: 1240px) {
+    margin-bottom: 50px;
+  }
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
   font-size: 13px;
-  
+
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     margin-left: unset;
     margin-top: 8px;
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    
+
     color: #3a3a3a;
     opacity: 1;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    
+
     color: #3a3a3a;
     opacity: 1;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #b1c3e1;
+    `}
   }
   @media (min-width: 1241px) {
     height: 1.125rem;
@@ -694,15 +1138,20 @@ const MiddleContainer = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    
+
     text-align: left;
     color: #3a3a3a;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #b1c3e1;
+    `}
   }
 `;
 const MiddleContainerHash = styled.div`
   font-family: Inter;
   font-size: 13px;
-  
+
   text-align: left;
   color: #3a3a3a;
   margin-left: 105px;
@@ -719,25 +1168,40 @@ const Hash = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 13px;
-  
+
   color: #2a2a2a;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #ffffff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 0.75rem;
     text-align: left;
-    
+
     color: #2a2a2a;
     opacity: 1;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #ffffff;
+    `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 0.875rem;
     text-align: left;
-    
+
     color: #2a2a2a;
     opacity: 1;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #ffffff;
+    `}
   }
   @media (min-width: 1241px) {
     height: 1.125rem;
@@ -747,9 +1211,14 @@ const Hash = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    
+
     text-align: left;
     color: #2a2a2a;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #ffffff;
+    `}
   }
 `;
 const Spacing = styled.div`
@@ -761,6 +1230,17 @@ const Spacing = styled.div`
   padding: 11px 6px 11px 0px;
   border-bottom: solid 1px #e3e7eb;
   height: 4.063rem;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    border-bottom: solid 1px #4a5d94;
+  `}
+  ${({ lastBorder, theme }) =>
+    theme === "dark" &&
+    lastBorder === true &&
+    `
+    border-bottom: none;
+  `}
 
   @media (min-width: 0px) and (max-width: 767px) {
     display: block;
@@ -804,6 +1284,12 @@ const Div = styled.div`
   background-color: #fff;
   margin-bottom: 15px;
   padding: 5px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    background-color: #192a59;
+    border: none;
+  `}
 `;
 
 const Heading = styled.span`
@@ -814,6 +1300,11 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 18px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #ffffff;
+  `}
 
   @media (min-width: 1241px) {
     height: 1.813rem;
@@ -823,9 +1314,14 @@ const Heading = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    
+
     text-align: left;
     color: #2a2a2a;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+    color: #ffffff;
+  `}
   }
   @media (min-width: 0px) and (max-width: 767px) {
     height: 1rem;
@@ -835,11 +1331,16 @@ const Heading = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    
+
     text-align: left;
     color: #2a2a2a;
     margin-top: 15px;
     margin-bottom: 10px;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+    color: #ffffff;
+  `}
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     height: 1rem;
@@ -849,16 +1350,20 @@ const Heading = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    
+
     text-align: left;
     color: #2a2a2a;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+    color: #ffffff;
+  `}
   }
 `;
 
 const ImageView = styled.img`
   width: 22px;
   margin-right: 12px;
-  cursor: pointer;
 
   @media (min-width: 0px) and (max-width: 767px) {
     width: 22px;

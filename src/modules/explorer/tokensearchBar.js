@@ -19,8 +19,8 @@ import { sessionManager } from "../../managers/sessionManager";
 import { Row } from "simple-flexbox";
 import { eventConstants, recentSearchTypeConstants } from "../../constants";
 import { useDispatch } from "react-redux";
+import TokenPopover from "./tokenPopover";
 import SearchBox from "../../common/components/internalSearchBar";
-
 const drawerWidth = 240;
 const Cut = styled.div`
   padding-right: 5px;
@@ -43,7 +43,16 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "unset !important",
     backgroundColor: "#2149b9",
-    height: "4.875rem",
+    height: "4.675rem",
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarDark: {
+    position: "unset !important",
+    backgroundColor: "#132a69",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -52,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: "10.8rem !important",
-      padding: "16px 15px 15px 16px",
+      padding: "15px",
     },
     drawerHeader: {
       padding: "0 !important",
@@ -110,6 +119,9 @@ const useStyles = makeStyles((theme) => ({
     height: 18,
     marginRight: 3,
   },
+  searchImageinputContainer: {
+    display: "flex"
+  },
   "@media (min-width: 0px) and (max-width: 767px)": {
     searchIcon: {
       width: 15,
@@ -146,6 +158,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    listDark: {
+      width: "21.25rem",
+      backgroundColor: "#283966",
+      height: "100%",
+    },
   },
 
   "@media (min-width: 0px) and (max-width: 767px)": {
@@ -154,17 +171,23 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    listDark: {
+      width: "21.25rem",
+      backgroundColor: "#283966",
+      height: "100%",
+    },
   },
   fullList: {
     width: "auto",
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
 
+  const currentTheme = props.theme;
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -180,126 +203,133 @@ export default function Navbar() {
   const SearchDataRef = React.useRef(null);
 
   const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
+  const [isTokenPopver, setTokenPopover] = React.useState(false);
 
   const openChangePassword = () => {
     setOpenPasswordBox(!openPasswordBox);
   };
+  const handleTokenPopover = () => {
+    setTokenPopover(true);
+  }
+  const closeTokenPopover = () => {
+    setTokenPopover(false);
+  }
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
 
   const [errorMessage, setErrorMessage] = useState("");
-  const handleSearch = (event) => {
-    if (event.target.value.length == 0) setErrorMessage("");
-    if (event.key === "Enter") {
-      var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-      if (format.test(event.target.value)) {
-        window.location.href=`/data-not-found?searchString=${event.target.value}`;
-      } else {
-        var selectOptType = SelectOptRef.current?.value;
+  // const handleSearch = (event) => {
+  //   if (event.target.value.length == 0) setErrorMessage("");
+  //   if (event.key === "Enter") {
+  //     var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+  //     if (format.test(event.target.value)) {
+  //       window.location.href=`/data-not-found?searchString=${event.target.value}`;
+  //     } else {
+  //       var selectOptType = SelectOptRef.current?.value;
 
-        let requestdata = {
-          filter: selectOptType,
-          data: event.target.value,
-        };
-        BlockChainSearch(requestdata);
-      }
-    }
-  };
-  const handleSearchOption = (event) => {
-    var selectOptType = SelectOptRef.current?.value;
-    var SearchDataInput = SearchDataRef.current?.value;
-    let requestdata = {
-      filter: selectOptType,
-      data: SearchDataInput,
-    };
-    if (SearchDataInput === "") {
-      return;
-    } else {
-      BlockChainSearch(requestdata);
-    }
-  };
-  const BlockChainSearch = async (data) => {
-    try {
-      const [error, responseData] = await Utility.parseResponse(
-        SearchData.searchData(data)
-      );
+  //       let requestdata = {
+  //         filter: selectOptType,
+  //         data: event.target.value,
+  //       };
+  //       BlockChainSearch(requestdata);
+  //     }
+  //   }
+  // };
+  // const handleSearchOption = (event) => {
+  //   var selectOptType = SelectOptRef.current?.value;
+  //   var SearchDataInput = SearchDataRef.current?.value;
+  //   let requestdata = {
+  //     filter: selectOptType,
+  //     data: SearchDataInput,
+  //   };
+  //   if (SearchDataInput === "") {
+  //     return;
+  //   } else {
+  //     BlockChainSearch(requestdata);
+  //   }
+  // };
+  // const BlockChainSearch = async (data) => {
+  //   try {
+  //     const [error, responseData] = await Utility.parseResponse(
+  //       SearchData.searchData(data)
+  //     );
 
-      if (!responseData || responseData[0]?.token?.length == 0) {
-        window.location.href=`/data-not-found?searchString=${data?.data}`;
-      }
+  //     if (!responseData || responseData[0]?.token?.length == 0) {
+  //       window.location.href=`/data-not-found?searchString=${data?.data}`;
+  //     }
 
-      if (responseData) {
-        if (responseData[0].redirect === "block") {
-          let blockurl = "/block-details/" + responseData[0].block.number;
-          dispatch({
-            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-              type: recentSearchTypeConstants.BLOCK,
-              searchValue: data?.data || '',
-              result: responseData[0]?.block?.transactions?.length > 0 && responseData[0]?.block?.transactions.reduce((accumulator, trx) => accumulator + parseInt(trx.value), [0]) || 0,
-              redirectUrl: blockurl
-            }
-          })
-          window.location.href = blockurl;
-        } else if (responseData[0].redirect === "account") {
-          let accounturl =
-            "/address-details/" + responseData[0].account.address;
-          dispatch({
-            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-              type: recentSearchTypeConstants.ACCOUNT,
-              searchValue: responseData[0]?.account?.address || '',
-              result: responseData[0]?.account?.balance || 0,
-              redirectUrl: accounturl
-            }
-          })
-          window.location.href = accounturl;
-        } else if (responseData[0].redirect === "transaction") {
-          let transactionurl =
-            "/transaction-details/" + responseData[0].transaction.hash;
-          dispatch({
-            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-              type: recentSearchTypeConstants.TRANSACTION,
-              searchValue: data?.data || '',
-              result: responseData[0]?.transaction?.value || 0,
-              redirectUrl: transactionurl
-            }
-          })
-          window.location.href = transactionurl;
-        } else if (responseData[0].redirect === "token") {
-          if (responseData[0]?.token.length == 1) {
-            let tokenDataUrl =
-              "/token-data/" +
-              responseData[0]?.token[0]?.address +
-              "/" +
-              responseData[0]?.token[0]?.symbol;
-            dispatch({
-              type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-                type: recentSearchTypeConstants.TOKEN,
-                searchValue: responseData[0]?.token[0]?.address || '',
-                result: responseData[0]?.token[0]?.totalSupply || 0,
-                redirectUrl: tokenDataUrl
-              }
-            })
-            window.location.href = tokenDataUrl;
-          } else if (responseData[0]?.token.length > 1) {
-            let tokenListUrl =
-              "/tokens/" + responseData[0]?.token[0]?.tokenName;
-            dispatch({
-              type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-                type: recentSearchTypeConstants.TOKEN,
-                searchValue: responseData[0]?.token?.address || '',
-                result: responseData[0]?.token?.totalSupply || 0,
-                redirectUrl: tokenListUrl
-              }
-            })
-            window.location.href = tokenListUrl;
-          } else {
-          }
-        } else {
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     if (responseData) {
+  //       if (responseData[0].redirect === "block") {
+  //         let blockurl = "/block-details/" + responseData[0].block.number;
+  //         dispatch({
+  //           type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //             type: recentSearchTypeConstants.BLOCK,
+  //             searchValue: data?.data || '',
+  //             result: responseData[0]?.block?.transactions?.length > 0 && responseData[0]?.block?.transactions.reduce((accumulator, trx) => accumulator + parseInt(trx.value), [0]) || 0,
+  //             redirectUrl: blockurl
+  //           }
+  //         })
+  //         window.location.href = blockurl;
+  //       } else if (responseData[0].redirect === "account") {
+  //         let accounturl =
+  //           "/address-details/" + responseData[0].account.address;
+  //         dispatch({
+  //           type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //             type: recentSearchTypeConstants.ACCOUNT,
+  //             searchValue: responseData[0]?.account?.address || '',
+  //             result: responseData[0]?.account?.balance || 0,
+  //             redirectUrl: accounturl
+  //           }
+  //         })
+  //         window.location.href = accounturl;
+  //       } else if (responseData[0].redirect === "transaction") {
+  //         let transactionurl =
+  //           "/transaction-details/" + responseData[0].transaction.hash;
+  //         dispatch({
+  //           type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //             type: recentSearchTypeConstants.TRANSACTION,
+  //             searchValue: data?.data || '',
+  //             result: responseData[0]?.transaction?.value || 0,
+  //             redirectUrl: transactionurl
+  //           }
+  //         })
+  //         window.location.href = transactionurl;
+  //       } else if (responseData[0].redirect === "token") {
+  //         if (responseData[0]?.token.length == 1) {
+  //           let tokenDataUrl =
+  //             "/token-data/" +
+  //             responseData[0]?.token[0]?.address +
+  //             "/" +
+  //             responseData[0]?.token[0]?.symbol;
+  //           dispatch({
+  //             type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //               type: recentSearchTypeConstants.TOKEN,
+  //               searchValue: responseData[0]?.token[0]?.address || '',
+  //               result: responseData[0]?.token[0]?.totalSupply || 0,
+  //               redirectUrl: tokenDataUrl
+  //             }
+  //           })
+  //           window.location.href = tokenDataUrl;
+  //         } else if (responseData[0]?.token.length > 1) {
+  //           let tokenListUrl =
+  //             "/tokens/" + responseData[0]?.token[0]?.tokenName;
+  //           dispatch({
+  //             type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //               type: recentSearchTypeConstants.TOKEN,
+  //               searchValue: responseData[0]?.token?.address || '',
+  //               result: responseData[0]?.token?.totalSupply || 0,
+  //               redirectUrl: tokenListUrl
+  //             }
+  //           })
+  //           window.location.href = tokenListUrl;
+  //         } else {
+  //         }
+  //       } else {
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -313,14 +343,16 @@ export default function Navbar() {
 
   const lists = (anchor) => (
     <div
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: anchor === "top" || anchor === "bottom",
       })}
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div className={classes.firstContainer}>
-        <p className="inside-side-box-browse">Browse</p>
+        <p className={props.theme === "dark" ? "inside-side-box-browse fc-white" : "inside-side-box-browse"}>Browse</p>
         <div className={classes.drawerHeader}>
           <IconButton
             style={{ color: "white" }}
@@ -331,7 +363,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="inside-side-box">
           <a className="account_details_button" href="/account-details">
             <div className="xinfin_account_button">Accounts</div>
@@ -353,6 +385,15 @@ export default function Navbar() {
           </p>
           <hr className="myhr" />
         </ul>
+        {/* <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="/blockchain-identity"
+          >
+            <div className="xinfin_account_button">Blockchain Identity</div>
+          </a>
+          <hr className="myhr" />
+        </ul> */}
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
@@ -457,7 +498,9 @@ export default function Navbar() {
   const contracts = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
       role="presentation"
@@ -500,7 +543,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="Live-Network-list">
           <a
             style={{
@@ -546,7 +589,9 @@ export default function Navbar() {
     <div
       className="scrollbar"
       style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+      }) : clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
       role="presentation"
@@ -764,8 +809,27 @@ export default function Navbar() {
   );
 
   // ..................
+  const NavigationButton1 = styled.a`
+  text-decoration :  none;
+  padding: 5px 20px;
+  border-bottom: ${(props) =>
+      props.active ? "0.15rem solid #ffffff !important" : ""};
+    padding-bottom: 3px;
+    font-size: 0.938rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    
+    color: #ffffff;
+    list-style: none;
+  @media (min-width: 0px) and (max-width: 767px){
+    font-size: 0.875rem;
+  }
+  `;
   const NavigationButton = styled.a`
   text-decoration :  none;
+  cursor: pointer;
   padding: 5px 20px;
   border-bottom: ${(props) =>
       props.active ? "0.15rem solid #ffffff !important" : ""};
@@ -813,8 +877,8 @@ export default function Navbar() {
 
   const SearchContainer = styled.div`
     width: 100%;
-    height: 35px;
-    padding: 6px;
+    height: 38px;
+    padding: 7px 8px 9px;
     border-radius: 6px;
     border: solid 1px #e3e7eb;
     margin: auto;
@@ -837,11 +901,12 @@ export default function Navbar() {
   `;
 
   const TabSearchBox = styled.div`
-    height: 2.375rem;
-    padding: 8px;
-    margin-right: 0.625rem;
+    width: 623px;
+    height: 2.4375rem;
+    padding: 9px 12px;
+    // margin-right: 0.625rem;
     margin-top: 10px;
-    border-radius: 0.25rem;
+    border-radius: 7px;
     background-color: #ffffff;
   `;
 
@@ -865,7 +930,7 @@ export default function Navbar() {
       <AppBar
         // className="mob-height"
         elevation={0}
-        className={clsx(classes.appBar)}
+        className={props.theme === "dark" ? clsx(classes.appBarDark) : clsx(classes.appBar)}
       >
         <MobileToolBar className={clsx(classes.toolBar)}>
           <div className="tab-search">
@@ -896,16 +961,17 @@ export default function Navbar() {
                   </NavLink>
 
                   {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
+                  <TokenPopover open={isTokenPopver} handleClose={closeTokenPopover} />
                 </div>
                 <div>
-                  <NavLink
-                    exact
-                    activeClassName="active-t"
-                    to={"/tokens"}
-                    className="Token"
-                  >
-                    Tokens
-                  </NavLink>
+                <a
+                  exact
+                  activeClassName="active-t"
+                  href={"/tokens"}
+                  className="Token"
+                >
+                  Tokens
+                </a>
 
                   <a href="/">
                     <p className="Network-explorer" id="Network-explorer">
@@ -914,11 +980,16 @@ export default function Navbar() {
                   </a>
                 </div>
                 <div>
-                  <a href="/tokens">
-                    <div className="Token" id="Token">
-                      Tokens
-                    </div>
-                  </a>
+                  <div >
+                  <a
+                  exact
+                  activeClassName="active-t"
+                  href={"/tokens"}
+                  className="Token"
+                >
+                  Tokens
+                </a>
+                  </div>
                 </div>
               </DeskTopView>
 
@@ -926,15 +997,15 @@ export default function Navbar() {
             </Row>
             <DeskTopView>
               <div className="parentCenterbox">
-                <div className="centerbox-td">
+                <div className={props.theme === "dark" ? "centerbox-td-dark" : "centerbox-td"}>
                   {SearchBox({
                     classes,
                     filter,
-                    handleSearch,
                     SearchDataRef,
                     SelectOptRef,
-                    handleSearchOption,
+
                     list,
+                    currentTheme: currentTheme
                   })}
                   <div className="token-error-message-div">
                     <span className="token-error-message">{errorMessage}</span>
@@ -960,6 +1031,7 @@ export default function Navbar() {
             contracts,
             openPasswordBox,
             open,
+            currentTheme
           })}
 
           {/* <div className="display-none-mobile">
@@ -980,12 +1052,11 @@ export default function Navbar() {
         </MobileToolBar>
         <MobileView>
           <MobileNavigationContainer>
-            <NavigationButton active={window.location.pathname == "/"} href="/">
+            <NavigationButton1 active={window.location.pathname == "/"} href="/">
               XDC Observatory
-            </NavigationButton>
+            </NavigationButton1>
             <NavigationButton
-              active={window.location.pathname.includes("token")}
-              href="/tokens"
+             href="/tokens"
             >
               Tokens
             </NavigationButton>
@@ -994,11 +1065,11 @@ export default function Navbar() {
             {SearchBox({
               classes,
               filter,
-              handleSearch,
               SearchDataRef,
               SelectOptRef,
-              handleSearchOption,
+
               list,
+              currentTheme: currentTheme
             })}
             <div className="token-error-message-div">
               <span className="token-error-message">{errorMessage}</span>
@@ -1010,11 +1081,11 @@ export default function Navbar() {
             {SearchBox({
               classes,
               filter,
-              handleSearch,
               SearchDataRef,
               SelectOptRef,
-              handleSearchOption,
+
               list,
+              currentTheme: currentTheme
             })}
             <div className="token-error-message-div">
               <span className="token-error-message">{errorMessage}</span>
@@ -1042,13 +1113,14 @@ const LoginComponent = ({
   contracts,
   openPasswordBox,
   open,
+  currentTheme
 }) => {
   return (
     <Row className={classes.popover} alignItems="center">
       {openPasswordBox && (
-        <ChangePassword openChangePassword={openChangePassword} />
+        <ChangePassword openChangePassword={openChangePassword} theme={currentTheme} />
       )}
-      <Popover openChangePassword={openChangePassword} />
+      <Popover theme={currentTheme} openChangePassword={openChangePassword} />
 
       <React.Fragment className="rigt-line" key={"right"}>
         <IconButton

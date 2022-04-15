@@ -16,7 +16,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import {
   TransactionService,
   CoinMarketService,
-  UserService, WatchListService,
+  UserService,
+  WatchListService,
 } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
@@ -32,6 +33,10 @@ import { genericConstants, cookiesConstants } from "../../constants";
 import EditTagAddress from "../../modules/common/dialog/editTagPopup";
 import toast, { Toaster } from "react-hot-toast";
 import utility from "../../utility";
+import { connect } from "react-redux";
+import CustomDropDownAddress from "./customDropdownAddress";
+import TokenData from "../../services/token";
+import XRC20Transactions from "./xrc20Transactions";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -40,6 +45,14 @@ const useStyles = makeStyles({
     boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#fff",
+  },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
   },
   root: {
     display: "flex",
@@ -91,7 +104,12 @@ const MainContanier = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   padding: 18px;
-  // margin-bottom: 35px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    border: solid 1px #1e326a;
+    background-color: #192a59;
+  `}// margin-bottom: 35px;
   // @media (max-width: 767px) {
   //   height: 427px;
   // }
@@ -113,6 +131,12 @@ const QrDiv = styled.div`
   border-radius: 6px;
   border: solid 1px #f5f5f5;
   background-color: var(--white-two);
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    background-color: #fff;
+    border: solid 1px #f5f5f5;
+  `}
   @media (max-width: 767px) {
     width: 121px;
     height: 121px;
@@ -121,7 +145,7 @@ const QrDiv = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 170px;
     height: 170px;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 `;
 const DetailDiv = styled.div`
@@ -182,8 +206,13 @@ const AddressHash = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #3a3a3a;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
     text-align: center;
@@ -204,9 +233,14 @@ const BalanceDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #2149b9;
   margin-top: 7px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #b1c3e1;
+  `}
   @media (max-width: 767px) {
     font-size: 18px;
     margin: 10px auto;
@@ -222,9 +256,14 @@ const BalanceUsdDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #585858;
   margin-top: 5px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 14px;
     margin: 2px auto;
@@ -247,7 +286,7 @@ const AddressAge = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
@@ -263,7 +302,7 @@ const AddressAgeValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+
   color: #3a3a3a;
   margin-left: 70px;
   @media (max-width: 767px) {
@@ -285,8 +324,13 @@ const LastActivity = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+  white-space: nowrap;
   color: #252525;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
     white-space: nowrap;
@@ -303,12 +347,18 @@ const LastActivityValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+  white-space: nowrap;
   color: #3a3a3a;
   margin-left: 73px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #b1c3e1;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 46px;
+    white-space: break-spaces;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
@@ -326,8 +376,13 @@ const Rank = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+
   color: #252525;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
   }
@@ -342,9 +397,14 @@ const RankValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  
+
   color: #3a3a3a;
   margin-left: 126px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #b1c3e1;
+  `}
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 93px;
@@ -352,6 +412,29 @@ const RankValue = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 14px;
     margin-left: 101px;
+  }
+`;
+const TokenValue = styled.div`
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.87;
+  color: #3a3a3a;
+  margin-left: 111px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+  color: #b1c3e1;
+`}
+  @media (max-width: 767px) {
+    font-size: 13px;
+    margin-left: 79px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
+    margin-left: 86px;
   }
 `;
 const AddTagButton = styled.button`
@@ -386,11 +469,15 @@ const Heading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   color: #2a2a2a;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #fff;
+  `}
   @media (max-width: 767px) {
     font-size: 14px;
-    
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 18px;
@@ -456,9 +543,14 @@ const LoginText = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   text-align: right;
   color: #3a3a3a;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #b1c3e1;
+  `}
 `;
 const LoginTextMobile = styled.span`
   width: 150px;
@@ -467,7 +559,7 @@ const LoginTextMobile = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  
+
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -501,6 +593,13 @@ const Tag = styled.div`
   color: #4878ff;
   margin-left: 10px;
   white-space: nowrap;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #4878ff;
+    background: #091b4e;
+    border: none;
+  `}
   @media (max-width: 767px) {
     margin-top: 10px;
     min-width: 70px;
@@ -510,20 +609,20 @@ const Tag = styled.div`
     margin-left: 0px;
   }
 `;
-export default function AddressDetails(props) {
+function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
   const [addressData, setAddressData] = useState(0);
   const [txtAddress, setTxtAddress] = useState("");
   const [balance, setBalance] = useState("");
+  const [balanceTooltip, setBalanceTooltip] = useState(0);
   const [convertCurrency, setConvertCurrency] = useState("");
   const [coinValue, setCoinValue] = useState(0);
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [isLoadingDropDown, setLoadingDropDown] = useState(0);
   const [copiedText, setCopiedText] = useState("");
-  let nowCurrency = window.localStorage.getItem("currency");
   const [addressTag, setAddressTag] = useState([]);
   const [isTag, setIsTag] = useState(false);
-  const [amount, setAmount] = useState("");
   const [coinMarketPrice, setCoinMarketPrice] = useState(0);
   const [price, setPrice] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
@@ -538,6 +637,8 @@ export default function AddressDetails(props) {
   const [stop, setStop] = React.useState(false);
   const [watchlistDetails, setWatchListDetails] = React.useState(null);
   const [existingWatchList, setExistingWatchList] = React.useState(null);
+  const [type, setType] = useState("");
+  const [tokenForAddres, setTokenForAddres] = useState([]);
   const closeDialogPvtTag = () => {
     setDialogPvtTagIsOpen(false);
     setDailogValue(0);
@@ -571,12 +672,11 @@ export default function AddressDetails(props) {
 
   let balanceChanged1 = balance.toString().split(".")[0];
   let balanceChanged2 = balance.toString().split(".")[1];
-  let activeCurrency = window.localStorage.getItem("currency");
+  let activeCurrency = props.currency.activeCurrency;
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-  const currencySymbol = !price ? "" :
-    activeCurrency === "USD" ? "$" : "€";
+  const currencySymbol = !price ? "" : activeCurrency === "USD" ? "$" : "€";
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -604,11 +704,6 @@ export default function AddressDetails(props) {
   };
   const classes = useStyles();
 
-  function _handleChange(event) {
-    setAmount(event?.target?.value);
-    window.localStorage.setItem("currency", event?.target?.value);
-  }
-
   const getAddressDetails = async () => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -625,6 +720,7 @@ export default function AddressDetails(props) {
       }
       if (responseData) {
         setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
+        setBalanceTooltip(responseData.balance / 10 ** 18);
         setCurrentPrice(responseData.balance);
         setAddressData(responseData);
         setLoading(false);
@@ -653,6 +749,31 @@ export default function AddressDetails(props) {
       if (responseData) {
         setAddressStats(responseData);
         setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getListOfHoldersForToken = async () => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        TokenData.getListOfTokenForAddress(addr)
+      );
+      if (
+        !responseData ||
+        responseData.length === 0 ||
+        responseData === "" ||
+        responseData === null
+      ) {
+        setLoading(false);
+      }
+      if (responseData.length > 0) {
+        await setTokenForAddres(responseData);
+        await setLoading(false);
+        await setLoadingDropDown(1);
       } else {
         setLoading(false);
       }
@@ -696,7 +817,7 @@ export default function AddressDetails(props) {
       userId: sessionManager.getDataFromCookies("userId"),
     };
     let taggedAddress = localStorage.getItem(
-        data.userId + cookiesConstants.USER_TAGGED_ADDRESS
+      data.userId + cookiesConstants.USER_TAGGED_ADDRESS
     );
 
     // let existingTagsIndex=null;
@@ -725,31 +846,29 @@ export default function AddressDetails(props) {
     // getListOfTagAddress();
     getAddressStats();
     getWatchList();
-  }, [amount]);
+    getListOfHoldersForToken();
+  }, [props.currency.activeCurrency]);
 
-  const getWatchList = async ()=>{
+  const getWatchList = async () => {
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: addr,
-      skip:0,
-      limit:10
-    }
+      skip: 0,
+      limit: 10,
+    };
 
-    const res = await UserService.getWatchlistList(request)
-    if(res && res.watchlistContent && res.watchlistContent.length){
+    const res = await UserService.getWatchlistList(request);
+    if (res && res.watchlistContent && res.watchlistContent.length) {
       setWatchListDetails(res.watchlistContent[0]);
-        setExistingWatchList(true);
+      setExistingWatchList(true);
     }
-  }
+  };
 
   const currentTime = new Date();
   const previousTime = new Date(addressData?.timestamp * 1000);
   const ti = !addressData?.timestamp
     ? ""
-    :
-    moment(addressData?.timestamp * 1000).format(
-      "MMM DD, YYYY h:mm A"
-    )
+    : moment(addressData?.timestamp * 1000).format("MMM DD, YYYY h:mm A");
 
   const lastActivityTime = new Date(
     addressStats?.lastTransactionTimestamp * 1000
@@ -757,47 +876,51 @@ export default function AddressDetails(props) {
   const lastAct = !addressStats?.lastTransactionTimestamp
     ? ""
     : Utility.timeDiff(currentTime, lastActivityTime);
-  let lastActConverted = !addressStats?.lastTransactionTimestamp ? "" : ((moment(
-    Number(addressStats?.lastTransactionTimestamp) *
-    1000
-  )
-    .utc()
-    .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"))
+  let lastActConverted = !addressStats?.lastTransactionTimestamp
+    ? ""
+    : moment(Number(addressStats?.lastTransactionTimestamp) * 1000)
+        .utc()
+        .format("MMM-DD-YYYY h:mm:ss A") + "  UTC";
   let userId = sessionManager.getDataFromCookies("userId");
   let taggedAddressfetched = localStorage.getItem(
-      userId+cookiesConstants.USER_TAGGED_ADDRESS
+    userId + cookiesConstants.USER_TAGGED_ADDRESS
   );
   let tags =
     taggedAddressfetched && taggedAddressfetched.length > 0
       ? JSON.parse(taggedAddressfetched)
       : "";
 
-  var tagValue = tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addr && obj.userId == userId) : "";
+  var tagValue =
+    tags && tags.length > 0
+      ? tags?.filter((obj) => obj.address === addr && obj.userId == userId)
+      : "";
   let watchlists = localStorage.getItem(
-      userId+cookiesConstants.USER_ADDRESS_WATCHLIST
+    userId + cookiesConstants.USER_ADDRESS_WATCHLIST
   );
-  let watchList =
-    watchlists ? JSON.parse(watchlists) : "";
-    // watchList &&
-    // watchList?.filter((item) => item.address == addr && item.userId == userId);
+  let watchList = watchlists ? JSON.parse(watchlists) : "";
+  // watchList &&
+  // watchList?.filter((item) => item.address == addr && item.userId == userId);
   async function remove() {
     var i = watchList.findIndex((obj) => obj.address === addr);
     if (i !== -1) {
       watchList.splice(i, 1);
     }
     const [error, response] = await utility.parseResponse(
-        WatchListService.deleteWatchlist({ _id: watchlistDetails?._id }, watchlistDetails)
+      WatchListService.deleteWatchlist(
+        { _id: watchlistDetails?._id },
+        watchlistDetails
+      )
     );
     if (error || !response) {
-        utility.apiFailureToast(
-          error?.message || genericConstants.CANNOT_DELETE_WATCHLIST
-        );
-        return;
-      }
-      localStorage.setItem(
-        userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
-        JSON.stringify(watchList)
+      utility.apiFailureToast(
+        error?.message || genericConstants.CANNOT_DELETE_WATCHLIST
       );
+      return;
+    }
+    localStorage.setItem(
+      userId + cookiesConstants.USER_ADDRESS_WATCHLIST,
+      JSON.stringify(watchList)
+    );
     // }
     setExistingWatchList(null);
     setStop("");
@@ -806,15 +929,21 @@ export default function AddressDetails(props) {
 
   return (
     <>
-      <div style={{ backgroundColor: "#fff" }}>
-        <Tokensearchbar />
+      <div
+        style={
+          props.theme.currentTheme === "dark"
+            ? { backgroundColor: "#091b4e" }
+            : { backgroundColor: "#fff" }
+        }
+      >
+        <Tokensearchbar theme={props.theme.currentTheme} />
 
         <Grid className="table-grid-block grid-block-table">
           <div>
             <Toaster />
           </div>
           <HeadingDiv>
-            <Heading>Address Details</Heading>
+            <Heading theme={props.theme.currentTheme}>Address Details</Heading>
             {sessionManager.getDataFromCookies("isLoggedIn") ? (
               <>
                 {
@@ -918,6 +1047,7 @@ export default function AddressDetails(props) {
                     open={loginDialogIsOpen}
                     onClose={closeLoginDialog}
                     dataHashOrAddress={addr}
+                    theme={props.theme.currentTheme}
                   />
                 }
                 <LoginTextMobile>
@@ -932,19 +1062,18 @@ export default function AddressDetails(props) {
               </LoginMobile>
             )}
           </HeadingDiv>
-          <MainContanier>
+          <MainContanier theme={props.theme.currentTheme}>
             <MainDiv>
-              <QrDiv>
-                <QRCode
-                  className="qrcode-address-details"
-                  value={addr}
-                />
+              <QrDiv theme={props.theme.currentTheme}>
+                <QRCode className="qrcode-address-details" value={addr} />
               </QrDiv>
               <DetailDiv>
                 <AddressDetailDiv>
                   <AddressHashDiv>
                     <AddressLine>
-                      <AddressHash>{addr}</AddressHash>
+                      <AddressHash theme={props.theme.currentTheme}>
+                        {addr}
+                      </AddressHash>
                       <CopyButton>
                         <CopyToClipboard
                           text={addr}
@@ -957,8 +1086,20 @@ export default function AddressDetails(props) {
                                 : "Copy To Clipboard"
                             }
                             placement="top"
+                            classes={{
+                              tooltip:
+                                props.theme.currentTheme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
                           >
-                            <button className="copyToClipboardAddress">
+                            <button
+                              className={
+                                props.theme.currentTheme === "dark"
+                                  ? "copyToClipboardAddress table-bg-dark"
+                                  : "copyToClipboardAddress"
+                              }
+                            >
                               <img
                                 className="copyIconAddress"
                                 src={"/images/copy-grey.svg"}
@@ -969,29 +1110,50 @@ export default function AddressDetails(props) {
                       </CopyButton>
                     </AddressLine>
                     {sessionManager.getDataFromCookies("isLoggedIn") &&
-                      tagValue &&
-                      tagValue?.length > 0 ? (
-                      <Tag>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
+                    tagValue &&
+                    tagValue?.length > 0 ? (
+                      <Tag theme={props.theme.currentTheme}>
+                        {tagValue[tagValue?.length - 1]?.tagName}
+                      </Tag>
                     ) : (
                       ""
                     )}
                   </AddressHashDiv>
 
-                  <BalanceDiv>
-                    {balanceChanged2 == null ? (
-                      <span>{format({})(balanceChanged1)}</span>
-                    ) : (
+                  <BalanceDiv theme={props.theme.currentTheme}>
+                    <Tooltip
+                      placement="top"
+                      title={balanceTooltip}
+                      classes={{
+                        tooltip:
+                          props.theme.currentTheme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
+                    >
                       <span>
-                        {format({})(balanceChanged1)}
-                        {"."}
-                        <span style={{ color: "#95acef" }}>
-                          {balanceChanged2}
-                        </span>
+                        {balanceChanged2 == null ? (
+                          <span>{format({})(balanceChanged1)}</span>
+                        ) : (
+                          <span>
+                            {format({})(balanceChanged1)}
+                            {"."}
+                            <span
+                              style={
+                                props.theme.currentTheme === "dark"
+                                  ? { color: "#b1c3e1" }
+                                  : { color: "#95acef" }
+                              }
+                            >
+                              {balanceChanged2}
+                            </span>
+                          </span>
+                        )}
+                        &nbsp;XDC
                       </span>
-                    )}
-                    &nbsp;XDC
+                    </Tooltip>
                   </BalanceDiv>
-                  <BalanceUsdDiv>
+                  <BalanceUsdDiv theme={props.theme.currentTheme}>
                     {" "}
                     {currencySymbol}
                     {priceChanged2 == null ? (
@@ -1000,7 +1162,13 @@ export default function AddressDetails(props) {
                       <span>
                         {priceChanged1}
                         {"."}
-                        <span style={{ color: "#9FA9BA" }}>
+                        <span
+                          style={
+                            props.theme.currentTheme === "dark"
+                              ? { color: "#fff" }
+                              : { color: "#9FA9BA" }
+                          }
+                        >
                           {priceChanged2}
                         </span>
                       </span>
@@ -1014,18 +1182,40 @@ export default function AddressDetails(props) {
 
 
 */}
-                  <AddressAgeDiv> {/* TODO: REVERT THE CSS TAG BACK TO LASTACTIVITY ONCE ADDRESS AGE IS FIXED*/}
-                    <LastActivity>Last Activity</LastActivity>
-                    <LastActivityValue>
+                  <AddressAgeDiv>
+                    {" "}
+                    {/* TODO: REVERT THE CSS TAG BACK TO LASTACTIVITY ONCE ADDRESS AGE IS FIXED*/}
+                    <LastActivity theme={props.theme.currentTheme}>
+                      Last Activity
+                    </LastActivity>
+                    <LastActivityValue theme={props.theme.currentTheme}>
                       {lastAct}&nbsp;
-                      {!lastActConverted ? "" : "(" + (lastActConverted) + ")"}
-
+                      {!lastActConverted ? "" : "(" + lastActConverted + ")"}
                     </LastActivityValue>
                   </AddressAgeDiv>
                   <RankDiv>
-                    <Rank>Rank</Rank>
-                    <RankValue>Not available</RankValue>
+                    <Rank theme={props.theme.currentTheme}>Rank</Rank>
+                    <RankValue theme={props.theme.currentTheme}>
+                      Not available
+                    </RankValue>
                   </RankDiv>
+
+                  {/* <RankDiv>
+                    <Rank theme={props.theme.currentTheme}>Tokens</Rank>
+                    <TokenValue theme={props.theme.currentTheme}>
+                      {isLoadingDropDown === 1 && tokenForAddres.length > 0 ? (
+                        <CustomDropDownAddress
+                          name="Tokens"
+                          onSelect={(data) => setType(data)}
+                          options={tokenForAddres}
+                          price={price}
+                          theme={props.theme.currentTheme}
+                        />
+                      ) : (
+                        "No Tokens Available"
+                      )}
+                    </TokenValue>
+                  </RankDiv> */}
                 </AddressDetailDiv>
                 <ButtonDiv>
                   {sessionManager.getDataFromCookies("isLoggedIn") ? (
@@ -1039,12 +1229,14 @@ export default function AddressDetails(props) {
                             tag={tagValue[tagValue?.length - 1]?.tagName}
                             id={tagValue[tagValue?.length - 1]?.userId}
                             value={dialogValue}
+                            theme={props.theme.currentTheme}
                           />
                           <PrivateAddressTag
                             open={dialogPvtTagIsOpen}
                             onClose={closeDialogPvtTag}
                             fromAddr={addr}
                             value={dialogValue}
+                            theme={props.theme.currentTheme}
                           />
                           <AddToWatchListPopup
                             open={dialogWatchListIsOpen}
@@ -1054,6 +1246,7 @@ export default function AddressDetails(props) {
                             fromAddr={transactions.from}
                             value={dialogValue}
                             hash={addr}
+                            theme={props.theme.currentTheme}
                           />
                         </>
                       }
@@ -1102,13 +1295,18 @@ export default function AddressDetails(props) {
                           open={loginDialogIsOpen}
                           onClose={closeLoginDialog}
                           dataHashOrAddress={addr}
+                          theme={props.theme.currentTheme}
                         />
                       }
-                      <LoginText>
+                      <LoginText theme={props.theme.currentTheme}>
                         Want to tag and add this address to watchlist?
                       </LoginText>
                       <a
-                        className="linkTableDetails-address"
+                        className={
+                          props.theme.currentTheme === "dark"
+                            ? "linkTableDetails-address fc-4878ff"
+                            : "linkTableDetails-address"
+                        }
                         onClick={openLoginDialog}
                       >
                         &nbsp;Login
@@ -1122,24 +1320,38 @@ export default function AddressDetails(props) {
           <AddressStatsData
             statData={addressStats}
             price={price}
-            currency={amount}
+            currency={props.currency.activeCurrency}
+            theme={props.theme.currentTheme}
           />
           <div className="container_sec sec-contain">
-            <div className="block_sec sec-block sec-block-mb">
+            <div
+              className={
+                props.theme.currentTheme === "dark"
+                  ? "block_sec_dark sec-block sec-block-mb"
+                  : "block_sec sec-block sec-block-mb"
+              }
+            >
               <div className="bloc-tabs_sec_addressDetail">
                 <button
                   className={
-                    toggleState === 1 ? "tabs_sec_address_details active-tabs_sec" : "tabs_sec_address_details"
+                    toggleState === 1
+                      ? props.theme.currentTheme === "dark"
+                        ? "tabs_sec_address_details active-tabs_sec fc-4878ff"
+                        : "tabs_sec_address_details active-tabs_sec"
+                      : "tabs_sec_address_details"
                   }
                   onClick={() => toggleTab(1)}
                   id="transaction-btn"
                 >
                   Transactions
                 </button>
+
                 <button
                   className={
                     toggleState === 2
-                      ? "tabs_sec active-tabs_sec_analytics"
+                      ? props.theme.currentTheme === "dark"
+                        ? "tabs_sec active-tabs_sec_analytics fc-4878ff"
+                        : "tabs_sec active-tabs_sec_analytics"
                       : "tabs_sec"
                   }
                   onClick={() => toggleTab(2)}
@@ -1147,6 +1359,17 @@ export default function AddressDetails(props) {
                 >
                   Analytics
                 </button>
+                {/* <button
+                  className={
+                    toggleState === 3
+                      ? "tabs_third_address_details active-tabs_sec_xrc"
+                      : "tabs_third_address_details"
+                  }
+                  onClick={() => toggleTab(3)}
+                  id="transaction-btn"
+                >
+                  XRC20 Transactions
+                </button> */}
               </div>
             </div>
             {toggleState === 1 && (
@@ -1163,22 +1386,36 @@ export default function AddressDetails(props) {
                       trans={transactions}
                       coinadd={addr}
                       tag={addressTag}
+                      currency={props.currency.activeCurrency}
+                      theme={props.theme.currentTheme}
                     />
                   ) : (
                     <AddressTableComponent
                       trans={transactions}
                       coinadd={addr}
-                      currency={amount}
+                      currency={props.currency.activeCurrency}
+                      theme={props.theme.currentTheme}
                     />
                   )}
                 </div>
               </div>
             )}
-            {toggleState === 2 && <AddressDetailsAnalytics />}
+            {/* {toggleState === 2 && <AddressDetailsAnalytics />} */}
+            {toggleState === 3 && (
+              <XRC20Transactions theme={props.theme.currentTheme} />
+            )}
+            {toggleState === 2 && (
+              <AddressDetailsAnalytics theme={props.theme.currentTheme} />
+            )}
           </div>
         </Grid>
-        <FooterComponent _handleChange={_handleChange} currency={amount} />
+        <FooterComponent />
       </div>
     </>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { theme: state.theme, currency: state.activeCurrency };
+};
+export default connect(mapStateToProps, { dispatchAction })(AddressDetails);

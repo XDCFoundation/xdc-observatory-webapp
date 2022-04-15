@@ -62,13 +62,24 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "503px",
-    height: "15px",
-    border: "solid 1px #c6c8ce",
+    height: "38px",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
+    borderRadius: "8px",
+    padding: "20px",
+    marginBottom: "21px",
+    outline: "none",
+  },
+  inputDark: {
+    width: "503px",
+    height: "15px",
+    border: "solid 1px #3552a5",
+    backgroundColor: "#091b4e",
     borderRadius: "7px",
     padding: "20px",
     marginBottom: "21px",
     outline: "none",
+    color: "#fff"
   },
 
   addbtn: {
@@ -109,6 +120,16 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     margin: "16px 8px 23px 2px",
     padding: "0 19px 0 20px",
+  },
+  cnlbtnDark: {
+    width: "94px",
+    height: "34px",
+    borderRadius: "4px",
+    backgroundColor: "#192a59",
+    color: "white",
+    margin: "16px 8px 23px 2px",
+    padding: "0 19px 0 20px",
+    border: "solid 1px #3552a5",
   },
   subCategory: {
     marginTop: "-12px",
@@ -185,6 +206,16 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     marginBottom: "25px",
   },
+  lastContainerDark: {
+    maxWidth: "534px",
+    width: "100%",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#C8C8C8",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
   lastContainerText: {
     fontSize: "12px",
     fontFamily: "Inter !important",
@@ -205,6 +236,10 @@ const useStyles = makeStyles((theme) => ({
       height: "100%",
     },
     input: {
+      maxWidth: "503px",
+      width: "100%",
+    },
+    inputDark: {
       maxWidth: "503px",
       width: "100%",
     },
@@ -410,7 +445,7 @@ export default function FormDialog(props) {
   return (
     <>
       <div className="w-33p">
-        <div className="div1 cursor-pointer">
+        <div className={props.theme === "dark" ? "div1_dark cursor-pointer" : "div1 cursor-pointer"}>
           <div
             onClick={
               // width >= 760
@@ -437,7 +472,7 @@ export default function FormDialog(props) {
             <div className="headingdiv1">
               <div>Add private tag to an Address</div>
             </div>
-            <div className="paradiv1">
+            <div className={props.theme === "dark" ? "paradiv1 fc-adc4e4" : "paradiv1"}>
               Add a short memo or private tag to the address of interest.
             </div>
           </div>
@@ -477,9 +512,9 @@ export default function FormDialog(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <div>
+          <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
           <Row>
-            <div className={classes.heading} id="form-dialog-title">
+            <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
               Add a new Address Tag
             </div>
           </Row>
@@ -489,11 +524,11 @@ export default function FormDialog(props) {
             <></>
           )}
           <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+            <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
               Address
             </DialogContentText>
             <input
-              className={classes.input}
+              className={props.theme === "dark" ? classes.inputDark : classes.input}
               onChange={(e) => {
                 setPrivateAddress(e.target.value);
                 setError("");
@@ -502,11 +537,11 @@ export default function FormDialog(props) {
             {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+            <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
               Name Tag
             </DialogContentText>
 
-            <div className="containerTag">
+            {/* <div className={props.theme === "dark" ? "containerTagDark" : "containerTag"}> */}
               {/*<div className="tag">*/}
               {/*  /!*{input}*!/*/}
               {/*  /!*<button onClick={() => deleteTag(index)}>x</button>*!/*/}
@@ -516,8 +551,9 @@ export default function FormDialog(props) {
                 // onKeyDown={onKeyDown}
                 // onKeyUp={onKeyUp}
                 onChange={onChange}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
               />
-            </div>
+            {/* </div> */}
             {errorTag ? (
               <div className={classes.error1}>{errorTag}</div>
             ) : (
@@ -540,7 +576,7 @@ export default function FormDialog(props) {
           </DialogContent>
           <DialogActions className={classes.buttons}>
             <span>
-              <button className={classes.cnlbtn} onClick={handleClose}>
+              <button className={props.theme === "dark" ? classes.cnlbtnDark : classes.cnlbtn} onClick={handleClose}>
                 Cancel
               </button>
             </span>
@@ -551,7 +587,7 @@ export default function FormDialog(props) {
             </span>
           </DialogActions>
           <div className="p-l-15 p-r-15">
-          <div className={classes.lastContainer}>
+          <div className={props.theme === "dark" ? classes.lastContainerDark : classes.lastContainer}>
             <div className={classes.lastContainerText}>
               Privacy is very important to us. To protect sensitive information,
               all custom tags and data related to the Watchlists are saved on

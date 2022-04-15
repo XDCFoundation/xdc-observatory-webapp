@@ -21,6 +21,21 @@ const toolTipElement = (props) => {
         </div>
     )
 }
+const toolTipElementDarkMode = (props) => {
+    let accountCount = Number(props.point?.data?.y)
+    return (
+        <div>
+            <div className="Tooltip-graph-dark">
+                <p className="Tooltip-graph-date-dark">{props.point?.data?.x}</p>
+                <p className="Tooltip-graph-tx-dark">Accounts: {format({})(accountCount)}</p>
+            </div>
+            <div class="outer-oval-trans">
+                <div class="Oval"></div>
+            </div>
+        </div>
+    )
+}
+
 const MyResponsiveLine = ({ data }) => (
     <GraphSize >
         <ResponsiveLine
@@ -29,6 +44,48 @@ const MyResponsiveLine = ({ data }) => (
             tooltip={toolTipElement}
 
             // colors={{ scheme: "yellow_orange_red" }}
+            xScale={{ type: "point" }}
+            yScale={{
+                type: "linear",
+                min: "auto",
+                max: "auto",
+                stacked: true,
+                reverse: false,
+            }}
+            yFormat=" >-.2f"
+            curve="monotoneX"
+            axisTop={null}
+            axisRight={null}
+            axisBottom={null}
+            axisLeft={{
+                orient: "left",
+                tickSize: 0,
+                tickPadding: 5,
+                tickValues: 3,
+              }}
+            enableGridX={false}
+            enableGridY={false}
+            enablePoints={false}
+            pointSize={10}
+            pointColor={{ theme: "background" }}
+            enableCrosshair={false}
+            pointBorderWidth={2}
+            pointBorderColor={{ from: "serieColor" }}
+            pointLabelYOffset={-12}
+            enableArea={true}
+            useMesh={true}
+            legends={[]}
+            theme={{ fontSize: 11, fontFamily: "Inter",textColor:"#9fa9ba" }}
+        />
+    </GraphSize>
+)
+const MyResponsiveLineDarkMode = ({ data }) => (
+    <GraphSize >
+        <ResponsiveLine
+        margin={{ left: 50, bottom: 5,top:10 }}
+            data={data}
+            tooltip={toolTipElementDarkMode}
+            colors="#4878ff"
             xScale={{ type: "point" }}
             yScale={{
                 type: "linear",
@@ -75,7 +132,7 @@ margin-top: 3.19rem;
 }
 `
 
-export default function App() {
+export default function App(props) {
 
     const [data, setData] = useState([])
 
@@ -139,8 +196,7 @@ export default function App() {
 
     return (
         <GraphSize >
-
-            <MyResponsiveLine data={data} />
+            {props.theme === "dark" ? <MyResponsiveLineDarkMode data={data}/> : <MyResponsiveLine data={data} />}
             <div className="dates">
                 <p>{firstDate}</p>
                 <p>{lastDate}</p>

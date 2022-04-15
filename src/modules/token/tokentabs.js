@@ -7,6 +7,7 @@ import TokenTransfertab from "./tokenTransfertab";
 import TokenHoldertab from "./tokenHoldersTab";
 import TokenContracttab from "./tokenContractTab";
 import TokenUnverifiedContract from "./tokenUnverifiedContract";
+import TotalTokenTransactions from "./allTokenTransactions"
 import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
@@ -17,7 +18,6 @@ import ReadContract from "../contractMethods/read";
 import WriteContract from "../contractMethods/write";
 import { Row } from "simple-flexbox";
 
-let li = 0;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -69,6 +69,22 @@ const useStyles = makeStyles((theme) => ({
       margin: "auto",
     },
   },
+  rootDark: {
+    minWidth: 650,
+    width: "100%",
+    flexGrow: 1,
+    backgroundColor: "#091b4e",
+    "@media (min-width:0px) and (max-width:767px)": {
+      minWidth: 280,
+      width: "21rem",
+      margin: "auto",
+    },
+    "@media (min-width:767px) and (max-width:1240px)": {
+      minWidth: 280,
+      width: "41.5rem",
+      margin: "auto",
+    },
+  },
 }));
 
 export default function SimpleTabs(props) {
@@ -86,7 +102,7 @@ export default function SimpleTabs(props) {
     <div>
       {/* <Grid lg={10} className="table-grid-block3"> */}
       <Grid className="table-grid-block3">
-        <div className={classes.root}>
+        <div className={props.theme === "dark" ? classes.rootDark : classes.root}>
           {/* <div
             style={{
               width: "auto",
@@ -113,11 +129,21 @@ export default function SimpleTabs(props) {
                 gap: 20,
               }}
             >
+              {/* <button
+                className={
+                  toggleState === 7
+                    ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                    : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
+                }
+                onClick={() => toggleTab(7)}
+              >
+                All Txns
+              </button> */}
               <button
                 className={
                   toggleState === 1
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                    ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                    : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(1)}
               >
@@ -126,8 +152,8 @@ export default function SimpleTabs(props) {
               <button
                 className={
                   toggleState === 2
-                    ? "token-data-tabs active-tabs-token-holder"
-                    : "token-data-tabs"
+                    ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-holder-dark" : "token-data-tabs active-tabs-token-holder"
+                    : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(2)}
               >
@@ -147,8 +173,8 @@ export default function SimpleTabs(props) {
               <button
                 className={
                   toggleState === 3
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                  ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                  : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(3)}
               >
@@ -157,8 +183,8 @@ export default function SimpleTabs(props) {
               <button
                 className={
                   toggleState === 4
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                  ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                  : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(4)}
               >
@@ -168,8 +194,8 @@ export default function SimpleTabs(props) {
               (<><button
                 className={
                   toggleState === 5
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                  ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                  : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(5)}
               >
@@ -178,8 +204,8 @@ export default function SimpleTabs(props) {
               <button
                 className={
                   toggleState === 6
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                  ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                  : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(6)}
               >
@@ -193,11 +219,20 @@ export default function SimpleTabs(props) {
           <div>
             <div
               className={
+                toggleState === 7 ? "content  active-content" : "content"
+              }
+            >
+              <div style={{ marginTop: "10px", width: "auto" }}>
+                <TotalTokenTransactions theme={props.theme} />
+              </div>
+            </div>
+            <div
+              className={
                 toggleState === 1 ? "content  active-content" : "content"
               }
             >
               <div style={{ marginTop: "10px", width: "auto" }}>
-                <TokenTransfertab />
+                <TokenTransfertab theme={props.theme}/>
               </div>
             </div>
 
@@ -207,7 +242,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenHoldertab contractData={contractData} />
+                <TokenHoldertab theme={props.theme} contractData={contractData}/>
               </div>
             </div>
 
@@ -217,7 +252,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenAnalytics contractAddress={address} />
+                <TokenAnalytics contractAddress={address} theme={props.theme}/>
               </div>
             </div>
 
@@ -232,10 +267,12 @@ export default function SimpleTabs(props) {
                 ) : contractData?.contractStatus === "Unverified" ? (
                   <TokenUnverifiedContract
                     contractData={contractData?.contractResponse}
+                    theme={props.theme}
                   />
                 ) : (
                   <TokenContracttab
                     contractData={contractData?.contractResponse}
+                    theme={props.theme}
                   />
                 )}
               </div>
@@ -254,6 +291,7 @@ export default function SimpleTabs(props) {
                           ? { ...contractData?.contractResponse }
                           : {}
                       }
+                      theme={props.theme}
                     />
                   </div>
                 </div>
@@ -269,6 +307,7 @@ export default function SimpleTabs(props) {
                           ? { ...contractData?.contractResponse }
                           : {}
                       }
+                      theme={props.theme}
                     />
                   </div>
                 </div>

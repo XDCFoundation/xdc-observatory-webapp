@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 import React from "react";
 import ToastService from "react-material-toast";
 import AwsService from "../services/awsService";
-import { decimalDivisionValue } from "../constants";
+import { decimalDivisionValue, MethodFromByte } from "../constants";
 
 const toast = ToastService.new({
   place: "topRight",
@@ -66,23 +66,70 @@ const utility = {
   shortenHashTab,
   timeDiff,
   convertToInternationalCurrencySystem,
-  getNumberUnit, decimalDivison, decimalDivisonOnly, divideByDecimalValue, getNumber,
+  getNumberUnit,
+  decimalDivison,
+  decimalDivisonOnly,
+  divideByDecimalValue,
+  getNumber,
   getUtcOffset,
-  shortenAddress
+  shortenAddress,
+  shortenAddressImport,
+  getMethodType, getTxnActionFromAndTo, getInterectedWithFromAndTo
 };
 export default utility;
 
+function getMethodType(transactionData) {
+  const input = transactionData.input ? transactionData.input.slice(2, 10) : "";
+
+  return MethodFromByte[input] ? MethodFromByte[input] : "";
+}
+function getTxnActionFromAndTo(res) {
+  
+  let txnActionFrom = []
+  let txnActionTo = []
+  let txnLog = res ? res.logs : ""
+  
+  let txnlog = txnLog?.map((data) => {
+    let topicsFrom = data && data?.topics.length>=3 ? data?.topics[1].slice(-40) : ""
+    txnActionFrom.push(topicsFrom)
+    let topicsTo = data && data?.topics.length>=3? data?.topics[2].slice(-40) : ""
+    txnActionTo.push(topicsTo)
+  })
+  let txnActionFromValue = "xdc" + txnActionFrom.pop();
+  let txnActionToValue = "xdc" + txnActionTo.pop();
+  return { txnActionFromValue, txnActionToValue }
+}
+function getInterectedWithFromAndTo(res) {
+  let interectedWithFrom = []
+  let interectedWithTo = []
+  let txnLog = res ? res.logs : ""
+  let txnlog = txnLog?.map((data) => {
+    let topicsFrom = data && data?.topics.length>0 ? data?.topics[1].slice(-40) : ""
+    interectedWithFrom.push("xdc" + topicsFrom)
+    let topicsTo = data && data?.topics.length>0 ? data?.topics[2].slice(-40) : ""
+    interectedWithTo.push("xdc" + topicsTo)
+  })
+  return { interectedWithFrom, interectedWithTo }
+}
 function getUtcOffset(timezone) {
-  let min = momentZone.tz(timezone).utcOffset()
-  return min > 0 ? `UTC+${Math.abs(parseInt(min / 60)) > 9 ? Math.abs(parseInt(min / 60)) : `0${Math.abs(parseInt(min / 60))}`}:${Math.abs(parseInt(min % 60)) || '00'}` : `UTC-${Math.abs(parseInt(min / 60)) > 9 ? Math.abs(parseInt(min / 60)) : `0${Math.abs(parseInt(min / 60))}`}:${Math.abs(parseInt(min % 60)) || '00'}`
+  let min = momentZone.tz(timezone).utcOffset();
+  return min > 0
+    ? `UTC+${Math.abs(parseInt(min / 60)) > 9
+      ? Math.abs(parseInt(min / 60))
+      : `0${Math.abs(parseInt(min / 60))}`
+    }:${Math.abs(parseInt(min % 60)) || "00"}`
+    : `UTC-${Math.abs(parseInt(min / 60)) > 9
+      ? Math.abs(parseInt(min / 60))
+      : `0${Math.abs(parseInt(min / 60))}`
+    }:${Math.abs(parseInt(min % 60)) || "00"}`;
 }
 
 function getNumber(num) {
-  const units = ["M", "B", "T", "Q"]
-  const unit = Math.floor((num / 1.0e+1).toFixed(0).toString().length)
-  const r = unit % 3
-  const x = Math.abs(Number(num)) / Number('1.0e+' + (unit - r)).toFixed(2)
-  return x.toFixed(2) + ' ' + units[Math.floor(unit / 3) - 2]
+  const units = ["M", "B", "T", "Q"];
+  const unit = Math.floor((num / 1.0e1).toFixed(0).toString().length);
+  const r = unit % 3;
+  const x = Math.abs(Number(num)) / Number("1.0e+" + (unit - r)).toFixed(2);
+  return x.toFixed(2) + " " + units[Math.floor(unit / 3) - 2];
 }
 
 function convertToInternationalCurrencySystem(num) {
@@ -96,26 +143,35 @@ function convertToInternationalCurrencySystem(num) {
     return parseFloat((num / 1000000).toFixed(2)) + "M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num >= 1000000000) {
     return parseFloat((num / 1000000000).toFixed(2)) + "B"; // convert to B for number from > 1 billion
-  } else if (num < 999.99999999) {
+  } else if (num >= 1 && num < 999.99999999) {
     return parseFloat(num.toFixed(8)); // if value < 1000, nothing to do
+  } else if (num < 1) {
+    return Number(num).toFixed(8)
   }
 }
 
 function decimalDivison(num, tofixed) {
-  num = Number(num)
-  if (num === 0)
-    return num;
+  num = Number(num);
+  if (num === 0) return num;
   if (num < decimalDivisionValue.DECIMAL_DIVISON_VALUE)
-    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, "");
-  return this.convertToInternationalCurrencySystem((num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, ""));
+    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)
+      ?.toFixed(tofixed)
+      .replace(/\.?0+$/, "");
+  return this.convertToInternationalCurrencySystem(
+    (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)
+      ?.toFixed(tofixed)
+      .replace(/\.?0+$/, "")
+  );
 }
 
 function decimalDivisonOnly(num, tofixed) {
-  num = Number(num)
+  num = Number(num);
   if (num === 0) {
     return num;
   } else {
-    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, "");
+    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)
+      ?.toFixed(tofixed)
+      .replace(/\.?0+$/, "");
   }
 }
 
@@ -131,13 +187,12 @@ function getNumberUnit(num) {
 }
 
 function divideByDecimalValue(num, decimals) {
-  num = Number(num)
+  num = Number(num);
   if (num === 0) {
     return num;
   } else {
-    return (num / Math.pow(10, decimals)).toFixed(decimals)
+    return (num / Math.pow(10, decimals)).toFixed(decimals).replace(/\.?0+$/, "")
   }
-
 }
 
 function timeDiff(curr, prev) {
@@ -162,7 +217,6 @@ function timeDiff(curr, prev) {
     } else {
       return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
     }
-
 
     // If the diff is less then milliseconds in a day
   } else if (diff < ms_Day) {
@@ -246,19 +300,27 @@ function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
     )}`;
   else return b;
 }
-
-function shortenHashTab(b, amountL = 40, amountR = 0, stars = 3) {
-  if (b && b.length > 12)
+function shortenAddressImport(b, amountL = 23, amountR = 0, stars = 3) {
+  if (b.length > 12)
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
+      b.length - 4,
       b.length
     )}`;
   else return b;
 }
+
+function shortenHashTab(b, amountL = 40, amountR = 0, stars = 3) {
+  if (b && b?.length > 12)
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
+      b?.length - 0,
+      b?.length
+    )}`;
+  else return b;
+}
 function shortenAddress(b, amountL, amountR, stars) {
-  return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-    b.length - amountR,
-    b.length
+  return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
+    b?.length - amountR,
+    b?.length
   )}`;
 }
 

@@ -14,6 +14,7 @@ import { eventConstants, genericConstants } from "../../constants";
 import moment from "moment";
 import { connect } from "react-redux";
 import Badge from "@mui/material/Badge";
+import Loader from "../../assets/loader";
 
 const NoticationClear = styled.div`
   display: flex;
@@ -32,7 +33,7 @@ const ListItems = styled.div`
 const drawerWidth = 340;
 const useStyles = makeStyles((theme) => ({
   paper: {
-    top: "4.938rem",
+    top: "75px",
     width: drawerWidth,
     backgroundColor: "#102e84",
   },
@@ -44,6 +45,17 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     maxWidth: "280px",
     width: "100%",
+  },
+  textDone: {
+    color: "White", 
+    margin: "23px 20px 0 0",
+    cursor: "pointer",
+  },
+  selectAllCheckbox: {
+    margin: "26px -12px 0px 23px",
+  },
+  singleCheckbox: {
+    margin: "7px -2px 0 15px"
   },
   "@media (max-width: 1240px)": {
     paper: {
@@ -74,8 +86,11 @@ function TemporaryDrawer(props) {
     right: false,
   });
   const [notifications, setNotifications] = React.useState([]);
+  const [deletableNotification, setDeletableNotification] = React.useState([]);
   const [totalNotification, setTotalNotification] = React.useState(0);
   const [watchedNotification, setWatchedNotification] = React.useState(0);
+  const [isEditOpen, setEditOpen] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
   const toggleDrawer = (anchor, open) => async (event) => {
     if (
       event.type === "keydown" &&
@@ -89,6 +104,9 @@ function TemporaryDrawer(props) {
         sessionManager.setDataInCookies(totalNotification, "notificationCount");
       }
       await getNotificationList();
+    } else {
+      setDeletableNotification([]);
+      handleDone()
     }
   };
 
@@ -105,11 +123,13 @@ function TemporaryDrawer(props) {
       },
       selectionString: ["description", "payload"],
     };
+    setLoading(true);
     props.dispatchAction(eventConstants.SHOW_LOADER, true);
     const [error, response] = await utility.parseResponse(
       NotificationService.getNotificationList(request)
     );
     props.dispatchAction(eventConstants.HIDE_LOADER, true);
+    setLoading(false);
 
     if (error || !response) {
       // utility.apiFailureToast(error?.message && typeof (error.message) === "string" ? error.message : genericConstants.CANNOT_GET_NOTIFICATIONS);
@@ -129,10 +149,19 @@ function TemporaryDrawer(props) {
     );
     setNotifications(parseRes);
   };
+
+  const handleEdit = () => {
+    setEditOpen(true);
+  }
+  const handleDone = () => {
+    setEditOpen(false);
+    
+  }
   const clearNotification = async () => {
+    setLoading(true);
     let notificationIdArray = [];
-    notifications.map((notification) => {
-      notificationIdArray.push(notification._id);
+    deletableNotification.map((notification) => {
+      notificationIdArray.push(notification.id);
     });
     props.dispatchAction(eventConstants.SHOW_LOADER, true);
     const [error] = await utility.parseResponse(
@@ -151,25 +180,47 @@ function TemporaryDrawer(props) {
     }
     await getNotificationList();
   };
-  const clearSingleNotification = async (id) => {
-    let notificationIdArray = [id];
-    props.dispatchAction(eventConstants.SHOW_LOADER, true);
-    const [error] = await utility.parseResponse(
-      NotificationService.markNotificationCleared({
-        notificationIDArray: notificationIdArray,
-      })
-    );
-    props.dispatchAction(eventConstants.HIDE_LOADER, true);
-    if (error) {
-      utility.apiFailureToast(
-        error?.message
-          ? error.message
-          : genericConstants.CANNOT_CLEAR_NOTIFICATIONS
+
+  const handleChanged = (event) => {
+    const { name, checked } = event.target;
+    if (name === "allselect") {
+      let tempNotification = notifications.map((item) => {
+        return { ...item, isChecked: checked };
+      });
+      setNotifications(tempNotification);
+      let tempNotify = tempNotification.filter((item) => {
+        if (item.isChecked === true) {
+          return item;
+        }
+      });
+
+      setDeletableNotification(
+        tempNotify.map((item) => {
+          return {
+            description: item.description,
+            id: item._id
+          };
+        })
       );
-      return;
+    } else {
+      let tempNotification = notifications.map((item) =>
+        item._id === name ? { ...item, isChecked: checked } : item
+      );
+      setNotifications(tempNotification);
+      let tempNotify = tempNotification.filter((item) => {
+        if (item.isChecked === true) {
+          return item;
+        }
+      });
+      setDeletableNotification(
+        tempNotify.map((item) => {
+          return {
+            description: item.description,
+            id: item._id
+          };
+        })
+      );
     }
-    sessionManager.setDataInCookies(totalNotification, "notificationCount");
-    await getNotificationList();
   };
 
   const list = (anchor) => (
@@ -181,18 +232,24 @@ function TemporaryDrawer(props) {
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
+      {!isEditOpen ? 
       <ListItems>
         <NoticationClear>
           <div className="Notification-header-color">Notifications</div>
-          <div
+          {/* <div
             className="Notification-header-text-color-fade cursor-pointer"
             onClick={clearNotification}
           >
             Clear all
-          </div>
+          </div> */}
+          {/* <div
+            className="Notification-header-text-color-fade cursor-pointer"
+            onClick={handleEdit}
+          >
+            Edit
+          </div> */}
         </NoticationClear>
         <div className={classes.drawerHeader}>
-          {/* <CloseIcon  onClick={toggleDrawer(anchor, false)} /> */}
           <IconButton
             style={{ color: "White", margin: "2px 5px -10px 0" }}
             onClick={toggleDrawer(anchor, false)}
@@ -200,12 +257,44 @@ function TemporaryDrawer(props) {
             {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
           </IconButton>
         </div>
-      </ListItems>
-      {notifications && notifications.length !== 0 ? (
+      </ListItems> : <ListItems>
+      <NoticationClear>
+        <input className={classes.selectAllCheckbox} 
+          onChange={handleChanged}
+          type="checkbox"
+          name="allselect"
+          checked={
+            notifications.filter((item) => item?.isChecked == true)
+              .length == notifications.length
+            } />
+          <div className="Notification-header-color">Select All</div>
+          <div
+            className={deletableNotification.length > 0 ? "Notification-header-text-color-fade cursor-pointer" : "Notification-header-text-color-fade"}
+            onClick={clearNotification}
+            disabled={deletableNotification.length > 0 ? false : true}
+          >
+            Delete
+          </div>
+        </NoticationClear>
+          <div className={classes.textDone}
+            onClick={handleDone}
+          >
+            Done</div>
+        </ListItems>}
+        {isLoading && <Loader />}
+      {!isLoading && notifications && notifications.length !== 0 ? (
         <>
           {notifications &&
             notifications.map((notification) => (
-              <List className="side-box">
+              <div>
+              <List className="side-box display-flex flex-direction-row-imp">
+                {isEditOpen ? <input className={classes.singleCheckbox}
+                  key={notification._id}
+                  name={notification._id}
+                  onChange={handleChanged}
+                  type="checkbox"
+                  checked={notification?.isChecked || false}
+                  />: <></>}
                 <ul className="inside-side-box">
                   <a className="Notification_details_button ">
                     <div className="Notificationtext">
@@ -239,20 +328,15 @@ function TemporaryDrawer(props) {
                           .unix(notification.timestamp)
                           .format("HH:mm A, DD MMM YYYY")}
                     </div>
-                    <div
-                      className="clear-single-notification-btn Notification-text-color-fade cursor-pointer"
-                      onClick={() => clearSingleNotification(notification._id)}
-                    >
-                      Clear
-                    </div>
                   </div>
-                  <hr className="notification-hr" />
                 </ul>
               </List>
+              <hr className="notification-hr" />
+              </div>
             ))}
         </>
       ) : (
-        <p className="sidebar_notification">No Notification</p>
+        !isLoading && <p className="sidebar_notification">No Notification</p>
       )}
     </div>
   );

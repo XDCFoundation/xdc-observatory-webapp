@@ -65,6 +65,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     outline: "none",
   },
+  inputDark: {
+    width: "433px",
+    height: "40px",
+    padding: "12px 19px 11px 12px",
+    borderRadius: "6px",
+    border: "solid 1px #9fa9ba",
+    backgroundColor: "#091b4e !important",
+    outline: "none",
+    color: "#fff"
+  },
   groupLogo: {
     textAlign: "center",
   },
@@ -85,6 +95,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     margin: " 10px 0 15px 0",
     color: "#2a2a2a",
+  },
+  globalidbtnDark: {
+    width: "434px",
+    height: "44px",
+    borderRadius: "4.4px",
+    border: "solid 1px #9fa9ba",
+    backgroundColor: "transparent",
+    margin: " 10px 0 15px 0",
+    color: "#adc4e4",
   },
   userContainer: {
     marginTop: "12px",
@@ -155,6 +174,12 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "14px",
     cursor: "pointer",
   },
+  createaccountDark: {
+    color: "#4878ff",
+    fontfamily: "Inter",
+    fontsize: "14px",
+    cursor: "pointer",
+  },
   icon: {
     marginLeft: "-48px",
     marginBottom: "4px",
@@ -183,11 +208,26 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 11px",
     borderRadius: "12px",
   },
+  paperWidthSmDark: {
+    position: "absolute",
+    top: "10px",
+    width: "503px",
+    padding: "0 11px",
+    borderRadius: "12px",
+    backgroundColor: "#192a59"
+  },
   paperWidthSm1: {
     position: "absolute",
     width: "503px",
     padding: "0 11px",
     borderRadius: "12px",
+  },
+  paperWidthSm1Dark: {
+    position: "absolute",
+    width: "503px",
+    padding: "0 11px",
+    borderRadius: "12px",
+    backgroundColor: "#192a59"
   },
   // paperWidthSm2: {
   //   position: "absolute",
@@ -299,7 +339,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
@@ -352,6 +391,20 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "auto",
       marginRight: "auto",
     },
+    paperWidthSmDark: {
+      position: "absolute",
+      top: "30px",
+      height: "100%",
+      width: "100%",
+      maxWidth: "767px",
+      borderRadius: "0px",
+      backgroundImage: "none",
+      opacity: "0px",
+      padding: "0px 15px",
+      marginLeft: "auto",
+      marginRight: "auto",
+      backgroundColor: "#192a59"
+    },
     closeContainer: {
       display: "none",
     },
@@ -386,6 +439,9 @@ const useStyles = makeStyles((theme) => ({
     createaccount: {
       color: "#3763dd",
     },
+    createaccountDark: {
+      color: "#4878ff",
+    },
     forgotText: {
       paddingLeft: "18px",
       paddingRight: "18px",
@@ -418,6 +474,13 @@ const useStyles = makeStyles((theme) => ({
       margin: "23px auto 21px auto !important",
     },
     globalidbtn: {
+      width: "100%",
+      maxWidth: "343px",
+      height: "38px",
+      borderRadius: "4px",
+      margin: "23px auto 21px auto !important",
+    },
+    globalidbtnDark: {
       width: "100%",
       maxWidth: "343px",
       height: "38px",
@@ -473,8 +536,27 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "auto",
       marginRight: "auto",
     },
+    paperWidthSm1Dark: {
+      position: "absolute",
+      // top: "102px",
+      height: "100%",
+      width: "100%",
+      maxWidth: "767px",
+      borderRadius: "0px",
+      backgroundImage: "none",
+      opacity: "0px",
+      paddingBottom: "30px",
+      marginLeft: "auto",
+      marginRight: "auto",
+      backgroundColor: "#192a59"
+    },
 
     input: {
+      maxWidth: "433px",
+      width: "100%",
+      height: "38px",
+    },
+    inputDark: {
       maxWidth: "433px",
       width: "100%",
       height: "38px",
@@ -723,10 +805,10 @@ export default function FormDialog(props) {
     }
   };
   function connectGlobalIdLogin() {
-    window.location.href = "/global-id" + "/login";
+    window.open("/global-id" + "/login");
   }
   function connectGlobalIdSignUp() {
-    window.location.href = "/global-id" + "/signup";
+    window.open("/global-id" + "/signup");
   }
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
 
@@ -1043,12 +1125,13 @@ export default function FormDialog(props) {
         ""
       )}
       {/* <div className="dialogboxModal"> */}
+      {open && <div className="overlay-private-alert">
       <Dialog
         classes={{
           paperWidthSm:
             value === 1 && window.innerHeight < 800 && window.innerWidth >= 768
-              ? classes.paperWidthSm1
-              : classes.paperWidthSm,
+              ? props.theme === "dark" ? classes.paperWidthSm1Dark : classes.paperWidthSm1
+              : props.theme === "dark" ? classes.paperWidthSmDark : classes.paperWidthSm,
         }}
         className={classes.dialog}
         open={open}
@@ -1065,7 +1148,7 @@ export default function FormDialog(props) {
           <div>
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
             <Row>
-              <div className={classes.heading} id="form-dialog-title">
+              <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
                 Login to your account
               </div>
               <span onClick={handleClose} className={classes.closeContainer}>
@@ -1074,7 +1157,7 @@ export default function FormDialog(props) {
             </Row>
             <DialogContent className={classes.userContainer}>
               <button
-                className={classes.globalidbtn}
+                className={props.theme === "dark" ? classes.globalidbtnDark : classes.globalidbtn}
                 onClick={connectGlobalIdLogin}
               >
                 <img
@@ -1091,18 +1174,18 @@ export default function FormDialog(props) {
                 }}
               >
                 <div>
-                  <hr className="line-global-id"></hr>
+                  <hr className={props.theme === "dark" ? "hr-dark line-global-id" : "line-global-id"}></hr>
                 </div>
                 <div className="orText-login">or use your email</div>
                 <div>
-                  <hr className="line-global-id"></hr>
+                  <hr className={props.theme === "dark" ? "hr-dark line-global-id" : "line-global-id"}></hr>
                 </div>
               </div>
               <DialogContentText className={classes.subCategory}>
-                <span className={classes.fieldName}>Username</span>
+                <span className={props.theme === "dark" ? `${classes.fieldName} fc-white` : classes.fieldName}>Username</span>
               </DialogContentText>
               <input
-                className={classes.input}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 placeholder="5-30 alphanumeric characters"
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -1117,9 +1200,9 @@ export default function FormDialog(props) {
             </DialogContent>
             <DialogContent className={classes.userContainer}>
               <DialogContentText className={classes.subCategory}>
-                <span className={classes.fieldName}>Password</span>
+                <span className={props.theme === "dark" ? `${classes.fieldName} fc-white` : classes.fieldName}>Password</span>
                 <span
-                  className={classes.forgotPassword}
+                  className={props.theme === "dark" ? `${classes.forgotPassword} fc-b1c3e1` : classes.forgotPassword}
                   onClick={handleOpenForgotPassword}
                 >
                   Forgot Password?
@@ -1131,7 +1214,7 @@ export default function FormDialog(props) {
                 type={passwordShown ? "text" : "password"}
                 id={passwordShown ? "text" : "password"}
                 placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                className={classes.input}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 onChange={(e) => {
                   setPassword(e.target.value);
                   setErrorPassword("");
@@ -1201,10 +1284,10 @@ export default function FormDialog(props) {
 
             <div className={classes.value}></div>
             {window.innerWidth >= 768 ? (
-              <DialogContentText className={classes.xdc}>
+              <DialogContentText className={props.theme === "dark" ? `${classes.xdc} fc-white` : classes.xdc}>
                 New to XDC Observatory?{" "}
                 <span
-                  className={classes.createaccount}
+                  className={props.theme === "dark" ? classes.createaccountDark : classes.createaccount}
                   onClick={acceptSetupNewAccount}
                 >
                   {" "}
@@ -1212,10 +1295,10 @@ export default function FormDialog(props) {
                 </span>
               </DialogContentText>
             ) : (
-              <DialogContentText className={classes.xdc}>
+              <DialogContentText className={props.theme === "dark" ? `${classes.xdc} fc-white` : classes.xdc}>
                 New to XDC Observatory?{" "}
                 <span
-                  className={classes.createaccount}
+                  className={props.theme === "dark" ? classes.createaccountDark : classes.createaccount}
                   onClick={acceptSetupNewAccount}
                 >
                   {" "}
@@ -1228,7 +1311,7 @@ export default function FormDialog(props) {
           <div>
             {/*<------------------------------------------------ Signup Screen---------------------------------------------> */}
             <Row>
-              <div className={classes.heading} id="form-dialog-title">
+              <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
                 Setup a New Account
               </div>
 
@@ -1238,7 +1321,7 @@ export default function FormDialog(props) {
             </Row>
             <DialogContent className={classes.userContainerSignup}>
               <button
-                className={classes.globalidbtn}
+                className={props.theme === "dark" ? classes.globalidbtnDark : classes.globalidbtn}
                 onClick={connectGlobalIdSignUp}
               >
                 <img
@@ -1255,18 +1338,18 @@ export default function FormDialog(props) {
                 }}
               >
                 <div>
-                  <hr className="line-global-id"></hr>
+                  <hr cclassName={props.theme === "dark" ? "hr-dark line-global-id" : "line-global-id"}></hr>
                 </div>
                 <div className="orText-login">or use your email</div>
                 <div>
-                  <hr className="line-global-id"></hr>
+                  <hr className={props.theme === "dark" ? "hr-dark line-global-id" : "line-global-id"}></hr>
                 </div>
               </div>
               <DialogContentText className={classes.subCategorySignup}>
-                <span className={classes.fieldName}>Username</span>
+                <span className={props.theme === "dark" ? `${classes.fieldName} fc-white` : classes.fieldName}>Username</span>
               </DialogContentText>
               <input
-                className={classes.input}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 placeholder="5-30 alphanumeric characters"
                 // name="userName"
                 value={userName}
@@ -1280,7 +1363,7 @@ export default function FormDialog(props) {
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategorySignup}>
-                <span className={classes.fieldName}>
+                <span className={props.theme === "dark" ? `${classes.fieldName} fc-white` : classes.fieldName}>
                   Email
                   <Tooltip placement="top" title={messages.EMAIL}>
                     <img
@@ -1294,7 +1377,7 @@ export default function FormDialog(props) {
               <input
                 type="email"
                 placeholder="A confirmation code will be sent to this email"
-                className={classes.input}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 // name="email"
                 value={email}
                 onChange={(e) => {
@@ -1309,7 +1392,7 @@ export default function FormDialog(props) {
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategorySignup}>
-                <span className={classes.fieldName}>
+                <span className={props.theme === "dark" ? `${classes.fieldName} fc-white` : classes.fieldName}>
                   Password
                   <Tooltip placement="top" title={messages.PASSWORD}>
                     <img
@@ -1324,7 +1407,7 @@ export default function FormDialog(props) {
                 type="password"
                 id="password"
                 placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                className={classes.input}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 onChange={(e) => {
                   setPassword(e.target.value);
                   setErrorPassword("");
@@ -1337,13 +1420,13 @@ export default function FormDialog(props) {
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategorySignup}>
-                <span className={classes.fieldName}>Confirm Password</span>
+                <span className={props.theme === "dark" ? `${classes.fieldName} fc-white` : classes.fieldName}>Confirm Password</span>
               </DialogContentText>
               <input
                 type="password"
                 id="password"
                 placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                className={classes.input}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
                   setErrorConfirmPassword("");
@@ -1361,10 +1444,10 @@ export default function FormDialog(props) {
                 onClick={handleTermsCheckbox}
                 type="checkbox"
               />
-              <span className="iAgree">
+              <span className={props.theme === "dark" ? "iAgree fc-white" : "iAgree"}>
                 I have read and agree to the&nbsp;
                 <a
-                  className="privacyTermsLink"
+                  className={props.theme === "dark" ? "privacyTermsLink fc-4878ff" : "privacyTermsLink"}
                   href="/term-conditions"
                   target="_blank"
                 >
@@ -1379,10 +1462,10 @@ export default function FormDialog(props) {
                 onClick={handlePrivacyCheckbox}
                 type="checkbox"
               />
-              <span className="iAgree">
+              <span className={props.theme === "dark" ? "iAgree fc-white" : "iAgree"}>
                 I have read and consent to the&nbsp;
                 <a
-                  className="privacyTermsLink"
+                  className={props.theme === "dark" ? "privacyTermsLink fc-4878ff" : "privacyTermsLink"}
                   href="/privacy-policy"
                   target="_blank"
                 >
@@ -1443,11 +1526,11 @@ export default function FormDialog(props) {
             <button className={classes.createAccountbtn} onClick={handleSignUp}>
               Create an Account{" "}
             </button>
-            <div className={classes.alreadyAccount}>
+            <div className={props.theme === "dark" ? `${classes.alreadyAccount} fc-white` : classes.alreadyAccount}>
               <div>
                 Already have an account?{" "}
                 <span
-                  className={classes.signIn}
+                  className={props.theme === "dark" ? `${classes.signIn} fc-4878ff` : classes.signIn}
                   onClick={handleClickOpenSignin}
                 >
                   Sign In
@@ -1461,7 +1544,7 @@ export default function FormDialog(props) {
             <Row>
               {/* <div className={classes.heading} id="form-dialog-title"> */}
               <div className="forgot-success-title">
-                You've successfully request a forgot password.
+              You have requested an email be sent to your account for password recovery.
               </div>
               <span onClick={handleClose} className="forgot-success-close">
                 <img
@@ -1544,7 +1627,7 @@ export default function FormDialog(props) {
           // <------------------------------------------Forgot Password------------------------------------------------->
           <div>
             <Row>
-              <div className={classes.heading} id="form-dialog-title">
+              <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
                 Forgot Password
               </div>
               <span onClick={handleClose} className={classes.closeContainer}>
@@ -1554,7 +1637,7 @@ export default function FormDialog(props) {
                 ></img>
               </span>
             </Row>
-            <div className={classes.forgotText}>
+            <div className={props.theme === "dark" ? `${classes.forgotText} fc-9fa9ba` : classes.forgotText}>
               <p>
                 Enter your registered email address and we will send you a
                 password recovery link
@@ -1562,11 +1645,13 @@ export default function FormDialog(props) {
             </div>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategory}>
-                <span className={classes.fieldName}>Email Address</span>
+                <span className={props.theme === "dark" ? `${classes.fieldName} fc-white` : classes.fieldName}>
+                  Email Address
+                  </span>
               </DialogContentText>
               <input
                 type="email"
-                className={classes.input}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -1584,7 +1669,6 @@ export default function FormDialog(props) {
                 alignItems: "center",
                 marginTop: "28px",
                 flexDirection: "column",
-                paddingLeft: "28px",
               }}
             >
               <ReCAPTCHA
@@ -1628,7 +1712,7 @@ export default function FormDialog(props) {
             </button>
 
             <div className={classes.backToSignIn}>
-              <div>
+              <div className={props.theme === "dark" ? "fc-white" : ""}>
                 Back to{" "}
                 <span
                   className={classes.signIn}
@@ -1641,6 +1725,7 @@ export default function FormDialog(props) {
           </div>
         )}
       </Dialog>
+      </div>}
       {/* </div> */}
       {/* </div> */}
       <ToastContainer />

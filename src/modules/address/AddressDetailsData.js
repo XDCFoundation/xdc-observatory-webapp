@@ -24,7 +24,9 @@ import AddressData from "../../services/address";
 import ReadContract from "../contractMethods/read";
 import WriteContract from "../contractMethods/write";
 import styled from "styled-components";
-
+import { connect } from "react-redux";
+import { CoinMarketService } from "../../services";
+import format from "format-number";
 const useStyles = makeStyles({
   rootUI: {
     minWidth: 650,
@@ -68,26 +70,34 @@ const TabContainerParent = styled.div`
   border-bottom: solid 1px #e3e7eb;
   width: 100%;
   margin: auto;
+  ${({ theme }) => theme === "dark" && `
+    border-bottom: solid 1px #4a5d94;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     width: 21rem;
   }
 `;
 
-export default function AddressDetailsData() {
+function AddressDetailsData(props) {
   const [toggleState, setToggleState] = useState(1);
   let { addressNumber } = useParams();
   const toggleTab = (index) => {
     setToggleState(index);
   };
   function shorten(b, amountL = 25, amountR = 5, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
       b.length - 3,
       b.length
     )}`;
   }
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
-  const [amount, setAmount] = React.useState(50);
+  const [amount, setAmount] = React.useState("");
+  const [price, setPrice] = useState("");
+  function _handleChange(event) {
+    setAmount(event?.target?.value);
+    window.localStorage.setItem("currency", event?.target?.value);
+  }
   let initialState = {
     balance: 0,
     transactionCout: 0,
@@ -101,7 +111,7 @@ export default function AddressDetailsData() {
   };
   const [data, setData] = React.useState(initialState);
   let balance = !data.balance ? 0 : data.balance;
-  let balance1 = balance.toString().split(".")[0];
+  let balance1 = Number(balance.toString().split(".")[0]);
   let balance2 = balance.toString().split(".")[1];
   const [responses, setResponses] = React.useState([]);
   const [count, setCount] = React.useState(0);
@@ -111,11 +121,11 @@ export default function AddressDetailsData() {
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-  let value = !data.val ? 0 : data.val;
+  let value = !data.balance ? 0 : data.balance;
   let value1 = value.toString().split(".")[0];
   let value2 = value.toString().split(".")[1];
 
-  let changedValue = data.changedVal;
+  let changedValue =  data?.balance?Utility.convertToInternationalCurrencySystem(data?.balance * price):"";
   let changedValue1 = changedValue.toString().split(".")[0];
   let changedValue2 = changedValue.toString().split(".")[1];
 
@@ -157,7 +167,7 @@ export default function AddressDetailsData() {
             changeVal = responseData.priceInUSD.toFixed(6);
         }
         setData({
-          balance: responseData.balance,
+          balance: Utility.decimalDivisonOnly(responseAPI?.balance,8),
           transactionCout: responseData.transactionCount,
           contractName: responseData.contractName,
           creator: responseData.owner,
@@ -183,65 +193,80 @@ export default function AddressDetailsData() {
       console.error(error);
     }
   };
+  let activeCurrency = window.localStorage.getItem("currency");
+  let currencySymbol = !price ? "" :
+  activeCurrency === "USD" ? "$" : "€";
+  const coinMarketCapDetails = async () => {
+    let [error, totalcoinMarketPrice] = await Utility?.parseResponse(
+      CoinMarketService?.getCoinMarketData(activeCurrency, {})
+    );
+    if (error || !totalcoinMarketPrice) return;
+    totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
+      return a.lastUpdated - b.lastUpdated;
+    });
+    setPrice(totalcoinMarketPrice[1]?.price);
+  };
   React.useEffect(() => {
     let values = { addr: addressNumber };
     getContractDetails(values);
     let data = { address: addressNumber };
     getTransactionsCountForAddress(data);
-  }, []);
+    coinMarketCapDetails()
+  }, [amount]);
 
   return (
-    <div style={{ backgroundColor: "#fff" }}>
-      <Tokensearchbar />
+    <div style={props.theme.currentTheme === "dark" ? { backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
+      <Tokensearchbar theme={props.theme.currentTheme}/>
       <Grid className="table-grid-block-contract ">
         <div>
           <div
             className="contract_details_heading p-t-30 display-flex justify-content-betwe"
           >
-            <div className="contract-address-heading">Contract Address{" "}</div>
+            <div className={props.theme.currentTheme === "dark" ? "contract-address-heading fc-white" : "contract-address-heading"}>Contract Address{" "}</div>
 
-            <div className="AddressTitle">{addressNumber}</div>
+            <div className={props.theme.currentTheme === "dark" ? "AddressTitle fc-4878ff" : "AddressTitle"}>{addressNumber}</div>
 
 
           </div>
           <div className="address_block_main">
-            <div className="contractOverview">
+            <div className={props.theme.currentTheme === "dark" ? "contractOverview table-bg-dark border-none-dark" : "contractOverview"}>
               <div className="latest">
-                <h1>Contract Overview</h1>
+                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : "" }>Contract Overview</h1>
               </div>
               <div className="data">
                 <TableContainer
                   component={Paper}
                   elevation={0}
                   style={{ padding: "0 1.5rem" }}
+                  className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                 >
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                       <TableRow>
-                        <TableCell className="left-table-contract">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-dark" : "left-table-contract"}>
                           Balance
                         </TableCell>
-                        <TableCell className="left-table-contract-data">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
                           {balance2 == null ? (
-                            <span>{balance1} XDC</span>
+                            <span>{balance1?Number(balance1):0} XDC</span>
                           ) : (
                             <span>
-                              {balance1}
+                              {Number(balance1)}
                               {"."}
                               <span style={{ color: "#9FA9BA" }}>
                                 {balance2}
                               </span>
-                              XDC
+                              &nbsp;XDC
                             </span>
                           )}
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className="left-table-contract">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-dark" : "left-table-contract"}>
                           USD Value
                         </TableCell>
-                        <TableCell className="left-table-contract-data">
-                          {ReactHtmlParser(data.currencySymbol)}
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
+                          {/* {ReactHtmlParser(data.currencySymbol)}
                           {value2 == null ? (
                             <span>{value1} </span>
                           ) : (
@@ -264,22 +289,35 @@ export default function AddressDetailsData() {
                               /XDC
                             </span>
                           )}
-                          )
+                          ) */}
+                         
+                          {changedValue2 == null ? (
+                            <span>{currencySymbol}&nbsp;{changedValue1 ?changedValue1:0}&nbsp; </span>
+                          ) : (
+                            
+                            <span>
+                             {currencySymbol} {changedValue1}
+                              {"."}
+                              <span style={{ color: "#9FA9BA" }}>
+                                {changedValue2}
+                              </span>
+                            </span>
+                          )}
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className="left-table-contract">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-dark" : "left-table-contract"}>
                           Transactions
                         </TableCell>
-                        <TableCell className="left-table-contract-data">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
                           {count}
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className="left-table-contract-last">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-last-dark" : "left-table-contract-last"}>
                           Contract Name
                         </TableCell>
-                        <TableCell className="left-table-contract-data-last">
+                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-last fc-b1c3e1" : "left-table-contract-data-last"}>
                           {!data.contractName
                             ? "Not Available"
                             : data.contractName}
@@ -292,31 +330,32 @@ export default function AddressDetailsData() {
               </div>
             </div>
 
-            <div className="contractSummary">
+            <div className={props.theme.currentTheme === "dark" ? "contractSummary table-bg-dark border-none-dark" : "contractSummary"}>
               <div className="latest">
-                <h1>Contract Summary</h1>
+                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : "" }>Contract Summary</h1>
               </div>
               <div className="data">
                 <TableContainer
                   component={Paper}
                   elevation={0}
                   style={{ padding: "0 1.5rem" }}
+                  className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
                 >
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                       <TableRow>
                         <div className="contract-summary-mobile">
-                          <TableCell className="left-table-contract-mobile">
+                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-mobile fc-white border-bottom-dark" : "left-table-contract-mobile"}>
                             Creator
                           </TableCell>
-                          <TableCell className="left-table-contract-data-mobile">
-                            {data.creator != "" && (
+                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
+                            {data.creator == "" ? "Not Available":(
                               <a
-                                className="linkTable"
+                              className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                 href={"/address-details/" + data.creator}
                               >
                                 <span className="tabledata">
-                                  {shorten(data.creator)}
+                                  {shorten(data?.creator)}
                                 </span>
                               </a>
                             )}
@@ -325,21 +364,21 @@ export default function AddressDetailsData() {
                       </TableRow>
                       <TableRow>
                         <div className="contract-summary-mobile">
-                          <TableCell className="left-table-contract-mobile">
+                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-mobile fc-white border-bottom-dark" : "left-table-contract-mobile"}>
                             Transaction
                           </TableCell>
-                          <TableCell className="left-table-contract-data-mobile">
-                            {data.transaction != "" && (
+                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
+                          {data.transaction == "" ? "Not Available":(
                               <a
-                                className="linkTable"
-                                href={
-                                  "/transaction-details/" + data.transaction
-                                }
-                              >
-                                <span className="tabledata">
-                                  {shorten(data.transaction)}
-                                </span>
-                              </a>
+                              className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                              href={
+                                "/transaction-details/" + data.transaction
+                              }
+                            >
+                              <span className="tabledata">
+                                {shorten(data?.transaction)}
+                              </span>
+                            </a>
                             )}
                           </TableCell>
                         </div>
@@ -353,13 +392,13 @@ export default function AddressDetailsData() {
 
           <br />
           <br />
-          <TabContainerParent>
+          <TabContainerParent theme={props.theme.currentTheme}>
             <TabContainer>
               <button
                 className={
                   toggleState === 1
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                    ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                    : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(1)}
               >
@@ -369,8 +408,8 @@ export default function AddressDetailsData() {
               <button
                 className={
                   toggleState === 2
-                    ? "token-data-tabs active-tabs-token"
-                    : "token-data-tabs"
+                  ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                  : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(2)}
               >
@@ -393,8 +432,8 @@ export default function AddressDetailsData() {
                   <button
                     className={
                       toggleState === 4
-                        ? "token-data-tabs active-tabs-token"
-                        : "token-data-tabs"
+                      ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                      : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                     }
                     onClick={() => toggleTab(4)}
                   >
@@ -403,8 +442,8 @@ export default function AddressDetailsData() {
                   <button
                     className={
                       toggleState === 5
-                        ? "token-data-tabs active-tabs-token"
-                        : "token-data-tabs"
+                      ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                      : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                     }
                     onClick={() => toggleTab(5)}
                   >
@@ -425,7 +464,7 @@ export default function AddressDetailsData() {
                 : "content_sec"
             }
           >
-            <TransactionTableComponent />
+            <TransactionTableComponent theme={props.theme.currentTheme}/>
           </div>
           <div
             className={
@@ -439,9 +478,10 @@ export default function AddressDetailsData() {
             ) : responses?.contractStatus === "Unverified" ? (
               <TokenUnverifiedContract
                 contractData={responses?.contractResponse}
+                theme={props.theme.currentTheme}
               />
             ) : (
-              <TokenContracttab contractData={responses?.contractResponse} />
+              <TokenContracttab contractData={responses?.contractResponse} theme={props.theme.currentTheme}/>
             )}
           </div>
           <div
@@ -457,6 +497,7 @@ export default function AddressDetailsData() {
                   ? { ...responses?.contractResponse }
                   : {}
               }
+              theme={props.theme.currentTheme}
             />
           </div>
           <div
@@ -472,12 +513,19 @@ export default function AddressDetailsData() {
                   ? { ...responses?.contractResponse }
                   : {}
               }
+              theme={props.theme.currentTheme}
             />
           </div>
           {/* </div> */}
         </div>
       </Grid>
-      <FooterComponent />
+      <FooterComponent  _handleChange={_handleChange} currency={amount} />
     </div>
   );
 }
+
+
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(AddressDetailsData);

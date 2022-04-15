@@ -177,9 +177,9 @@ function TokenBalanceGraphComponent(props) {
   };
 
   return (
-    <div>
+    <div className={props.theme === "dark" ? "bg-192a59" : ""}>
       {props.loading ? (
-        <props.ProgressBarContainer>
+        <props.ProgressBarContainer> 
           <CircularProgress size={40} />
         </props.ProgressBarContainer>
       ) : (
@@ -190,7 +190,7 @@ function TokenBalanceGraphComponent(props) {
                         src={require("../../../../../src/assets/images/XDC-Alert.svg")}
                     ></img>
 
-                    <div>No Data found.</div>
+                    <div className={props.theme === "dark" ? "fc-b1c3e1" : ""}>No Data found.</div>
                   </NoDataFoundContainer>
                   :
                   <Graph options={options}/>

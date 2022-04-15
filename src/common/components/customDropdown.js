@@ -20,6 +20,10 @@ const SelectedValueContainer = styled.div`
   border: solid 1px #e3e7eb;
   background: white;
   padding: 7px 10px;
+  ${({ theme }) => theme === "dark" && `
+    background: transparent;
+    border: solid 1px #3552a5;
+  `}
 
   img {
     width: 11px;
@@ -35,6 +39,9 @@ const FilterName = styled.div`
   font-weight: 500;
   color: #585858;
   gap: 25px;
+  ${({ theme }) => theme === "dark" && `
+    color: #b1c3e1;
+  `}
 
   span {
     font-weight: 600;
@@ -54,6 +61,11 @@ const DropdownContainer = styled.div`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
   border: solid 1px #d4d4d4;
   min-width: ${(props) => props.containerWidth}px;
+  ${({ theme }) => theme === "dark" && `
+    background: #283966;
+    border: solid 1px #3552a5;
+    color: #ffffff
+  `}
 
   span {
     padding: 8px;
@@ -61,6 +73,9 @@ const DropdownContainer = styled.div`
 
     :hover {
       background-color: #F9F9F9;
+      ${({ theme }) => theme === "dark" && `
+        color: #2a2a2a;
+      `}
     }
   }
 `
@@ -76,7 +91,10 @@ const CustomDropDown = (props) => {
         toggleDropdown(false)
     }
     const onFilterClicked = () => {
+      if(!isDropdownOpen)
         toggleDropdown(true)
+      else
+        toggleDropdown(false)
     }
 
     const handleClickOutside = (event) => {
@@ -93,15 +111,15 @@ const CustomDropDown = (props) => {
     }, []);
 
     return (
-        <Container ref={mainDiv}>
-            <SelectedValueContainer onClick={onFilterClicked}>
-                <FilterName>
-                    <span>{name || 'Filter'}</span>{selectedOption ? (selectedOptionData.name || selectedOptionData.value) : 'All'}
+        <Container theme={props.theme} ref={mainDiv}>
+            <SelectedValueContainer theme={props.theme} onClick={onFilterClicked}>
+                <FilterName theme={props.theme}>
+                    <span className={props.theme === "dark" ? "fc-b1c3e1" : ""}>{name || 'Filter'}</span>{selectedOption ? (selectedOptionData.name || selectedOptionData.value) : 'All'}
                 </FilterName>
-                <img src="/images/dropdown-arrow.svg"/>
+              <img className={props.theme === "dark" ? 'white-dropdown-arrow m-t-8': ""} src={props.theme === "dark" ? "/images/Dropdown.svg" : "/images/dropdown-arrow.svg"}/>
             </SelectedValueContainer>
             {isDropdownOpen &&
-            <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
+            <DropdownContainer theme={props.theme}  containerWidth={mainDiv.current.clientWidth}>
                 {options?.map((data, index) => {
                     return (
                         <span className="custom-dropdown-option" key={index}

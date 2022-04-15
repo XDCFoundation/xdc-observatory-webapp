@@ -8,13 +8,14 @@ import TokenMarketDataTable from "./tokenMarketData";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import Tokentabs from "./tokentabs";
-import TokentabsForAnalyics from "./tokentabsForAnalyics";
+import TokentabsForAnalytics from "./tokentabsForAnalyics";
 import { useParams } from "react-router-dom";
 import TokenData from "../../services/token";
-import Utility from "../../utility";
+import Utility, { dispatchAction } from "../../utility";
 import Utils from "../../utility";
 import ReactHtmlParser from "react-html-parser";
 import ContractData from "../../services/contract";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   transfer: {
@@ -22,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
   },
   websiteLink: {
     color: "#2149b9 !important",
+    fontFamily: "Inter",
+    fontWeight: "600",
+  },
+  websiteLinkDark: {
+    color: "#4878ff !important",
     fontFamily: "Inter",
     fontWeight: "600",
   },
@@ -40,6 +46,12 @@ const MainContainer = styled.div`
   background-color: #ffffff;
   display: flex;
   margin: 30px auto auto auto;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    background-color: #192a59;
+    border: none;
+  `}
 
   @media (min-width: 767px) and (max-width: 1240px) {
     flex-direction: column;
@@ -114,6 +126,7 @@ const Value = styled.div`
   display: flex;
   width: 10.625rem;
   padding-bottom: 35px;
+  padding-left: 18px;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 9.4rem;
     padding-bottom: 23px;
@@ -140,6 +153,11 @@ const Title = styled.div`
   line-height: normal;
 
   margin-bottom: 5px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #ffffff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.75rem;
   }
@@ -154,6 +172,11 @@ const TitleValue = styled.div`
   line-height: normal;
 
   color: #2a2a2a;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
   }
@@ -178,6 +201,11 @@ const LeftTitle = styled.div`
   font-weight: bold;
   font-family: Inter;
   color: #2a2a2a;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #ffffff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1.1875rem;
     font-weight: bold;
@@ -210,6 +238,11 @@ const LeftTopSec = styled.div`
   font-family: Inter;
 
   color: #2a2a2a;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
   }
@@ -232,7 +265,7 @@ const ContractButton = styled.button`
   color: #2149b9;
   padding-top: 0px;
   padding-left: 0px;
-  margin-top: -8px;
+  margin-top: -4px;
   @media (max-width: 767px) {
     font-size: 0.875rem;
   }
@@ -252,6 +285,9 @@ const RightTop = styled.div`
   justify-content: space-between;
   position: relative;
   padding-bottom: 7px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    display: block;
+  }
 `;
 
 const RightTitle = styled.div`
@@ -263,17 +299,31 @@ const RightTitle = styled.div`
   line-height: normal;
 
   color: #2a2a2a;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #ffffff;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     text-align: left;
-
-    color: #2a2a2a;
+    color: #9fa9ba;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+     color: #ffffff;
+    `}
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 0.875rem;
     text-align: left;
 
     color: #2a2a2a;
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
+      color: #ffffff;
+    `}
   }
 `;
 const Line2 = styled.hr`
@@ -282,9 +332,11 @@ const Line2 = styled.hr`
   position: absolute;
   top: 30%;
   left: 0%;
+  opacity:1;
   @media (max-width: 767px) {
     width: 100%;
     top: 30%;
+    margin-top: 2px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 100%;
@@ -305,11 +357,20 @@ const RightTopSec = styled.div`
   font-family: "Inter" !important;
   font-weight: 600;
   padding-top: 1px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+     background-color: #091b4e;
+     color: #b1c3e1;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.75rem;
     //width: 3.438rem;
     height: 1.375rem;
     white-space: nowrap;
+    float: right;
+    margin-top: 19px;
+    padding: 3px 8px;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 0.875rem;
@@ -343,14 +404,17 @@ const TokenImg = styled.img`
 `;
 
 const Icons = styled.div`
-  padding-top: 1px;
+@media (max-width: 767px) {
+  margin-top: -5px;
+}
 `;
 const SocialMediaIcon = styled.img`
   margin-right: 15px;
   cursor: pointer;
 `;
 
-export default function TokenDataComponent() {
+function TokenDataComponent(props) {
+  let activeCurrency = props.currency.activeCurrency;
   const classes = useStyles();
   // let changePrice = 5.21;
   // let tokenName = 'XDC'
@@ -399,10 +463,12 @@ export default function TokenDataComponent() {
   const [transfer, settransfer] = useState([]);
 
   const transferDetail = async (values) => {
+    setLoading(true);
     let [error, tns] = await Utils.parseResponse(
       TokenData.getTotalTransferTransactionsForToken(values)
     );
     if (error || !tns) return;
+    setLoading(false);
     settransfer(tns.responseData);
   };
 
@@ -414,14 +480,14 @@ export default function TokenDataComponent() {
     if (error || !tns) return;
     setHolders(tns);
   };
-  const holderCount = async () =>{
+  const holderCount = async () => {
     let urlPath = `${address}`;
     const [error, resHolderCount14Days] = await Utility.parseResponse(
       TokenData.getSomeDaysHolders(urlPath, {})
     );
     if (error || !resHolderCount14Days) return;
     setHolderCount14Days(resHolderCount14Days);
-  }
+  };
   const getContractDetails = async () => {
     setLoading(true);
     let urlPath = `${address}`;
@@ -436,8 +502,7 @@ export default function TokenDataComponent() {
     (async () => {
       await CoinMarketExchangeForToken(tn);
     })();
-  }, []);
-  let activeCurrency = window.localStorage.getItem("currency");
+  }, [activeCurrency]);
   let tokenPriceVal = 0;
   let tokenChanges24hr = 0;
   let CurrencySymbol = "";
@@ -461,14 +526,24 @@ export default function TokenDataComponent() {
     }
   }
   let numberStatus = Math.sign(tokenChanges24hr);
-  let changeHolders = holderCount14Days ? holderCount14Days[holderCount14Days.length-1]?.count : 0;
-  let changeHoldersCount = holderCount14Days ? holderCount14Days[holderCount14Days.length-1]?.count : "";
+  let changeHolders = holderCount14Days
+    ? holderCount14Days[holderCount14Days.length - 1]?.count
+    : 0;
+  let changeHoldersCount = holderCount14Days
+    ? holderCount14Days[holderCount14Days.length - 1]?.count
+    : "";
 
   return (
     <>
-      <div style={{ backgroundColor: "#fff" }}>
-        <Tokensearchbar />
-        <MainContainer>
+      <div
+        style={
+          props.theme.currentTheme === "dark"
+            ? { backgroundColor: "#091b4e" }
+            : { backgroundColor: "#fff" }
+        }
+      >
+        <Tokensearchbar theme={props.theme.currentTheme} />
+        <MainContainer theme={props.theme.currentTheme}>
           <LeftContainer>
             {/*{window.innerWidth >= 768 ? (*/}
             <ShowTopHeaderForNonMobileOnly>
@@ -480,6 +555,7 @@ export default function TokenDataComponent() {
                 numberStatus={numberStatus}
                 tokenChanges24hr={tokenChanges24hr}
                 isLoading={isLoading}
+                theme={props.theme.currentTheme}
               />
             </ShowTopHeaderForNonMobileOnly>
             {/*) : (*/}
@@ -492,9 +568,11 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={blockHeightImg} /> */}
 
                     <ValueName>
-                      <Title>Holders</Title>
+                      <Title theme={props.theme.currentTheme}>Holders</Title>
                       <div className="last_value">
-                        <TitleValue>{holders?.responseCount}</TitleValue>
+                        <TitleValue theme={props.theme.currentTheme}>
+                          {holders?.responseCount}
+                        </TitleValue>
                         <div className="last_value">
                           <div
                             className={
@@ -504,15 +582,17 @@ export default function TokenDataComponent() {
                             }
                           >
                             <div className="value_p">
-                              {changeHolders === 0 ? ("") :(changeHolders > 0 ? (
+                              {changeHolders === 0 ? (
+                                ""
+                              ) : changeHolders > 0 ? (
                                 <div className="arrow_up_token">
-                                  <BsFillCaretUpFill size={10} />
+                                  <BsFillCaretUpFill size={10} rotate={90} />
                                 </div>
                               ) : (
                                 <div className="arrow_down">
                                   <BsFillCaretDownFill size={10} />
                                 </div>
-                              ))}
+                              )}
                               {changeHoldersCount}
                             </div>
                           </div>
@@ -523,20 +603,28 @@ export default function TokenDataComponent() {
                   <Value>
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
-                      <Title>Transfer</Title>
+                      <Title theme={props.theme.currentTheme}>Transfer</Title>
                       {}
-                      <TitleValue>
-                        {!transfer ? "" : transfer}
+                      <TitleValue theme={props.theme.currentTheme}>
+                        {!isLoading && (transfer.length === 0 ? 0 : transfer)}
+                        {console.log("transfer",transfer.length)}
                       </TitleValue>
                     </ValueName>
                   </Value>
                   <Value>
                     {/* <TitleIcon src={transactionLogo} /> */}
                     <ValueName>
-                      <Title>Contract</Title>
+                      <Title theme={props.theme.currentTheme}>Contract</Title>
                       <ContractButton>
                         {" "}
-                        <a className="token-link" href={`/address/${address}`}>
+                        <a
+                          className={
+                            props.theme.currentTheme
+                              ? "token-link-dark"
+                              : "token-link"
+                          }
+                          href={`/address/${address}`}
+                        >
                           {" "}
                           {shorten(address)}
                         </a>
@@ -548,8 +636,8 @@ export default function TokenDataComponent() {
                   <Value>
                     {/* <TitleIcon src={difficultyLogo} /> */}
                     <ValueName>
-                      <Title>Decimal</Title>
-                      <TitleValue>
+                      <Title theme={props.theme.currentTheme}>Decimal</Title>
+                      <TitleValue theme={props.theme.currentTheme}>
                         {contractData?.contractResponse?.decimals}
                       </TitleValue>
                     </ValueName>
@@ -557,38 +645,98 @@ export default function TokenDataComponent() {
                   <Value>
                     {/* <TitleIcon src={maxLogo} /> */}
                     <ValueName>
-                      <Title>Website</Title>
-                      {!isLoading ? (contractData?.contractResponse?.website ?
-                      (<a className={classes.websiteLink} href={contractData?.contractResponse?.website} target="_blank">
-                        {contractData?.contractResponse?.website}
-                      </a>):
-                      (<TitleValue>Not available</TitleValue>)):("")}
+                      <Title theme={props.theme.currentTheme}>Website</Title>
+                      {!isLoading ? (
+                        contractData?.contractResponse?.website ? (
+                          <a
+                            className={
+                              props.theme.currentTheme === "dark"
+                                ? classes.websiteLinkDark
+                                : classes.websiteLink
+                            }
+                            href={contractData?.contractResponse?.website}
+                            target="_blank"
+                          >
+                            {Utility.shortenAddress(
+                              contractData?.contractResponse?.website,
+                              15,
+                              0,
+                              3
+                            )}
+                          </a>
+                        ) : (
+                          <TitleValue theme={props.theme.currentTheme}>
+                            Not available
+                          </TitleValue>
+                        )
+                      ) : (
+                        ""
+                      )}
                       {/* <ContractButton>www.usdc.com</ContractButton> */}
                     </ValueName>
                   </Value>
                   <Value>
                     {/* <TitleIcon src={accountLogo} /> */}
                     <ValueName>
-                      <Title>Social Media</Title>
-                      {!isLoading ? ((contractData?.contractResponse?.telegram ||
+                      <Title theme={props.theme.currentTheme}>
+                        Social Media
+                      </Title>
+                      {!isLoading ? (
+                        contractData?.contractResponse?.telegram ||
                         contractData?.contractResponse?.facebook ||
-                        contractData?.contractResponse?.twitter) ?
-                      <Icons>
-                          {contractData?.contractResponse?.telegram ? 
-                            (<a href={contractData?.contractResponse?.telegram}  target="_blank">
-                              <SocialMediaIcon style={{width: "14px",}}src="/images/Telegram.svg" alt="telegram"></SocialMediaIcon>
-                          </a>):("")}
+                        contractData?.contractResponse?.twitter ? (
+                          <Icons>
+                            {contractData?.contractResponse?.telegram ? (
+                              <a
+                                href={contractData?.contractResponse?.telegram}
+                                target="_blank"
+                              >
+                                <SocialMediaIcon
+                                  style={{ width: "14px" }}
+                                  src="/images/Telegram.svg"
+                                  alt="telegram"
+                                ></SocialMediaIcon>
+                              </a>
+                            ) : (
+                              ""
+                            )}
 
-                          {contractData?.contractResponse?.facebook ? 
-                            (<a href={contractData?.contractResponse?.facebook}  target="_blank">
-                              <SocialMediaIcon src="/images/facebook.svg" alt="facebook"></SocialMediaIcon>
-                            </a>):("")}
+                            {contractData?.contractResponse?.facebook ? (
+                              <a
+                                href={contractData?.contractResponse?.facebook}
+                                target="_blank"
+                              >
+                                <SocialMediaIcon
+                                  src="/images/facebook.svg"
+                                  alt="facebook"
+                                ></SocialMediaIcon>
+                              </a>
+                            ) : (
+                              ""
+                            )}
 
-                            {contractData?.contractResponse?.twitter ? 
-                            (<a href={contractData?.contractResponse?.twitter}  target="_blank">
-                              <SocialMediaIcon src="/images/twitter.svg" alt="twitter"></SocialMediaIcon>
-                            </a>):("")}
-                      </Icons>:<TitleValue>Not available</TitleValue>):("")}
+                            {contractData?.contractResponse?.twitter ? (
+                              <a
+                                href={contractData?.contractResponse?.twitter}
+                                target="_blank"
+                              >
+                                <SocialMediaIcon
+                                  src="/images/twitter.svg"
+                                  alt="twitter"
+                                ></SocialMediaIcon>
+                              </a>
+                            ) : (
+                              ""
+                            )}
+                          </Icons>
+                        ) : (
+                          <TitleValue theme={props.theme.currentTheme}>
+                            Not available
+                          </TitleValue>
+                        )
+                      ) : (
+                        ""
+                      )}
                     </ValueName>
                   </Value>
                 </MobileScreen>
@@ -597,11 +745,20 @@ export default function TokenDataComponent() {
           </LeftContainer>
 
           <RightContainer>
-            <RightTop>
-              <RightTitle>Holders</RightTitle>
-              <RightTopSec>14 Days</RightTopSec>
+            {window.innerWidth > 767 ? <RightTop>
+              <RightTitle theme={props.theme.currentTheme}>Holders</RightTitle>
+              <RightTopSec theme={props.theme.currentTheme}>
+                14 Days
+              </RightTopSec>
               <Line2></Line2>
-            </RightTop>
+            </RightTop>:
+            <RightTop>
+              <RightTitle theme={props.theme.currentTheme}>Holders</RightTitle>
+              <Line2></Line2>
+              <RightTopSec theme={props.theme.currentTheme}>
+                14 Days
+              </RightTopSec>
+            </RightTop>}
             <GraphContainer>
               <HolderGraphBar />
             </GraphContainer>
@@ -616,6 +773,7 @@ export default function TokenDataComponent() {
               numberStatus={numberStatus}
               tokenChanges24hr={tokenChanges24hr}
               isLoading={isLoading}
+              theme={props.theme.currentTheme}
             />
           </ShowTopHeaderForMobileOnly>
           {/*) : (*/}
@@ -625,14 +783,24 @@ export default function TokenDataComponent() {
         {marketCapVal == 0 ? (
           ""
         ) : (
-          <TokenMarketDataTable marketCap={marketCapVal} />
+          <TokenMarketDataTable
+            marketCap={marketCapVal}
+            theme={props.theme.currentTheme}
+            activeCurrency={activeCurrency}
+          />
         )}
         <br />
         <br />
         {isAnalticsTab ? (
-          <TokentabsForAnalyics contractStatusData={contractData} />
+          <TokentabsForAnalytics
+            contractStatusData={contractData}
+            theme={props.theme.currentTheme}
+          />
         ) : (
-          <Tokentabs contractStatusData={contractData} />
+          <Tokentabs
+            contractStatusData={contractData}
+            theme={props.theme.currentTheme}
+          />
         )}
         <br />
         <br />
@@ -642,6 +810,11 @@ export default function TokenDataComponent() {
   );
 }
 
+const mapStateToProps = (state) => {
+  return { theme: state.theme, currency: state.activeCurrency };
+};
+export default connect(mapStateToProps, { dispatchAction })(TokenDataComponent);
+
 const TopHeaderSection = ({
   tn,
   tokenImage,
@@ -650,6 +823,7 @@ const TopHeaderSection = ({
   numberStatus,
   tokenChanges24hr,
   isLoading,
+  theme,
 }) => {
   return (
     <>
@@ -673,11 +847,11 @@ const TopHeaderSection = ({
             ""
           )}
 
-          <LeftTitle>{tn.toUpperCase()}</LeftTitle>
+          <LeftTitle theme={theme}>{tn.toUpperCase()}</LeftTitle>
         </LeftTop>
 
         <LeftTopSecMain>
-          <LeftTopSec>
+          <LeftTopSec theme={theme}>
             {CurrencySymbol}
             {!tokenPriceVal ? "" : tokenPriceVal.toFixed(10)}
           </LeftTopSec>
@@ -711,7 +885,7 @@ const TopHeaderSection = ({
           </div>
         </LeftTopSecMain>
       </LeftFirst>
-      <hr></hr>
+      {window.innerWidth > 767 && <hr className={theme === "dark" ? "hr-dark" : ""}></hr>}
     </>
   );
 };

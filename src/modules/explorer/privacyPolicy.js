@@ -148,7 +148,7 @@ const Block3 = styled.div`
 const Block4 = styled.div`
   width: 1121px;
  
-  margin: 28px 16px 28px 7px;
+  margin: 28px 16px 28px 0px;
   
   font-size: 15px;
  
@@ -208,7 +208,7 @@ const Block6 = styled.div`
 const Block7 = styled.div`
   width: 1121px;
 
-  margin: 28px 16px 28px 7px;
+  margin: 28px 16px 28px 0px;
   
   font-size: 15px;
   
@@ -311,7 +311,7 @@ const Block12 = styled.div`
 const Block13 = styled.div`
   width: 1121px;
  
-  margin: 22px 16px 28px 7px;
+  margin: 22px 16px 28px 0px;
   font-family: Inter;
   font-size: 15px;
   font-weight: normal;
@@ -423,7 +423,7 @@ const Block17 = styled.div`
 const Block18 = styled.div`
   width: 531px;
   
-  margin: 28px 606px 5px 7px;
+  margin: 28px 606px 5px 0px;
   font-family: Inter;
   font-size: 15px;
   font-weight: normal;
@@ -492,7 +492,7 @@ const Block20 = styled.div`
 const Block21 = styled.div`
   width: 1121px;
  
-  margin: 28px 16px 28px 7px;
+  margin: 28px 16px 28px 0px;
   font-family: Inter;
   font-size: 15px;
   font-weight: normal;
@@ -610,7 +610,7 @@ const Block25 = styled.div`
 const Block26 = styled.div`
   width: 824px;
 
-  margin: 28px 313px 71px 7px;
+  margin: 28px 313px 71px 0px;
   font-family: Inter;
   font-size: 15px;
   font-weight: normal;
@@ -656,7 +656,7 @@ const Block27 = styled.div`
 const Block28 = styled.div`
   width: 828px;
  
-  margin: 28px 309px 28px 7px;
+  margin: 28px 309px 28px 0px;
   font-family: Inter;
   font-size: 15px;
   font-weight: normal;
@@ -778,7 +778,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rectangleCopy5: {
     width: "531px",
-    margin: "28px 606px 5px 7px",
+    margin: "28px 606px 5px 0px",
     fontFamily: "Inter",
     fontSize: "15px",
     fontWeight: "normal",

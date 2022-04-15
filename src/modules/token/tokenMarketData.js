@@ -22,6 +22,19 @@ const MobileView = styled.div`
     display: none;
   }
 `;
+const Heading = styled.span`
+  margin: 0px;
+  color: #686868;
+  font-size: 10.5px;
+  font-family: "Inter";
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
+`;
 
 let convertToInternationalCurrencySystem = function givenCurrency(num) {
   if (num > 999.99999999 && num < 1000000) {
@@ -88,7 +101,7 @@ export default function TokenMarketDataTable(props) {
 
   var totalSupplyValue = 25425328688; //totalSupply
   // totalSupplyValue = totalSupplyValue.toLocaleString();
-  let activeCurrency = window.localStorage.getItem("currency");
+  let activeCurrency = props.activeCurrency;
   let CurrencySymbol = "";
   let marketCapVal = 0;
   let totalSupplyVal = 0;
@@ -121,21 +134,21 @@ export default function TokenMarketDataTable(props) {
     } else if (activeCurrency == "EUR") {
       CurrencySymbol = "€";
       marketCapVal = convertToInternationalCurrencySystem(
-        props.marketCap.parseDataUSD.marketCap
+        props.marketCap.parseDataEUR.marketCap
       );
       let totalSupplyValue = Math.round(
-        props.marketCap.parseDataUSD.totalSupply
+        props.marketCap.parseDataEUR.totalSupply
       ); //totalSupply
       totalSupplyVal = totalSupplyValue ? totalSupplyValue : 0;
       circulatingSupplyVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataEUR.circulatingSupply
       );
       fullyDilutedMarketCapmarketCapVal = convertToInternationalCurrencySystem(
-        props.marketCap.parseDataUSD.fullyDilutedMarketCap
+        props.marketCap.parseDataEUR.fullyDilutedMarketCap
       );
       tokenPriceVal = props.marketCap.parseDataEUR.tokenPrice.toFixed(2);
       val24 = convertToInternationalCurrencySystem(
-        props.marketCap.parseDataUSD.volume24_hr
+        props.marketCap.parseDataEUR.volume24_hr
       );
     } else if (activeCurrency == "INR") {
       CurrencySymbol = "₹";
@@ -180,10 +193,10 @@ export default function TokenMarketDataTable(props) {
   return (
     <>
       <DeskTopView>
-        <div className="main_mid_token">
+        <div className={props.theme === "dark" ? "main_mid_token_dark" : "main_mid_token"}>
           <div className="main_child">
-            <div className="cont-token-data">
-              <p>Market Cap </p>
+            <div className={props.theme === "dark" ? "cont-token-data-dark" : "cont-token-data"}>
+              <Heading theme={props.theme}>Market Cap </Heading>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
                 {marketCapVal}
@@ -209,8 +222,8 @@ export default function TokenMarketDataTable(props) {
                     </div>
                 </div> */}
             </div>
-            <div className="cont-token-data">
-              <p>Fully Diluted Market Cap</p>
+            <div className={props.theme === "dark" ? "cont-token-data-dark" : "cont-token-data"}>
+              <Heading theme={props.theme}>Fully Diluted Market Cap</Heading>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
                 {fullyDilutedMarketCapmarketCapVal}
@@ -236,8 +249,8 @@ export default function TokenMarketDataTable(props) {
                     </div>
                 </div>*/}
             </div>
-            <div className="cont-token-data">
-              <p>Volume (24hr)</p>
+            <div className={props.theme === "dark" ? "cont-token-data-dark" : "cont-token-data"}>
+              <Heading theme={props.theme}>Volume (24hr)</Heading>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
                 {val24}
@@ -265,18 +278,18 @@ export default function TokenMarketDataTable(props) {
             </div>
           </div>
           <div className="main_sec">
-            <div className="cont-token-data">
+            <div className={props.theme === "dark" ? "cont-token-data-dark" : "cont-token-data"}>
               <div className="cont1-child">
-                <p>Circulating Supply</p>
+                <Heading theme={props.theme}>Circulating Supply</Heading>
                 <p>
                   {circulatingSupplyVal} {symbol}
                 </p>
               </div>
             </div>
 
-            <div className="cont-token-data cont1_align">
+            <div className={props.theme === "dark" ? "cont-token-data-dark cont1_align" : "cont-token-data cont1_align"}>
               <div className="cont1-child">
-                <p>Total Supply</p>
+                <Heading theme={props.theme}>Total Supply</Heading>
                 <p>
                   {utility.convertToInternationalCurrencySystem(totalSupplyVal)}
                 </p>

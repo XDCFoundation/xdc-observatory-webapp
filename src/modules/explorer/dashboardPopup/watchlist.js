@@ -71,6 +71,17 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "20px",
     outline: "none",
   },
+  inputDark: {
+    width: "503px",
+    height: "3px",
+    border: "solid 1px #3552a5",
+    backgroundColor: "#091b4e",
+    borderRadius: "7px",
+    padding: "20px",
+    marginBottom: "20px",
+    outline: "none",
+    color: "#fff"
+  },
 
   // addbtn: {
   //   width: "110px",
@@ -113,6 +124,16 @@ const useStyles = makeStyles((theme) => ({
 
     margin: "14px 8px 23px 2px",
     padding: "0 19px 0 20px",
+  },
+  cnlbtnDark: {
+    width: "94px",
+    height: "34px",
+    borderRadius: "4px",
+    backgroundColor: "#192a59",
+    color: "white",
+    margin: "14px 8px 23px 2px",
+    padding: "0 19px 0 20px",
+    border: "solid 1px #3552a5",
   },
   buttons: {
     padding: "0px 20px 0px 0px",
@@ -175,12 +196,26 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: "#2a2a2a",
   },
+  notifyLabelDark: {
+    fontSize: "14px",
+    color: "#adc4e4",
+  },
   lastContainer: {
     maxWidth: "534px",
     width: "100%",
     padding: "11px 12px 10px 13px",
     borderRadius: "6px",
     backgroundColor: "#fff3f3",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
+  lastContainerDark: {
+    maxWidth: "534px",
+    width: "100%",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#C8C8C8",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "25px",
@@ -209,7 +244,15 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "503px",
       width: "100%",
     },
+    inputDark: {
+      maxWidth: "503px",
+      width: "100%",
+    },
     notifyLabel: {
+      fontSize: "12px",
+      width: "275px",
+    },    
+    notifyLabelDark: {
       fontSize: "12px",
       width: "275px",
     },    
@@ -296,6 +339,10 @@ export default function FormDialog(props) {
       !(address.slice(0, 3) === "xdc")
     ) {
       setError("Address should start with xdc and consist of 43 characters");
+    } else if (
+      description && description.length > 220
+    ) {
+      setDescriptionError("Description should be maximum 220 characters");
     } else {
       if (value === "NO") request["isEnabled"] = false;
       const [error, response] = await utility.parseResponse(
@@ -393,7 +440,7 @@ export default function FormDialog(props) {
   return (
     <>
       <div className="w-33p">
-        <div className="div1 cursor-pointer">
+        <div className={props.theme === "dark" ? "div1_dark cursor-pointer" : "div1 cursor-pointer"}>
           <div
             className="imageParentDiv"
             onClick={
@@ -422,7 +469,7 @@ export default function FormDialog(props) {
             <div className="headingdiv1">
               <div>Create watchlist</div>
             </div>
-            <div className="paradiv1">
+            <div className={props.theme === "dark" ? "paradiv1 fc-adc4e4" : "paradiv1"}>
             An email notification will be sent when an address in your watch list receives an incoming/outgoing transaction.
             </div>
           </div>
@@ -431,7 +478,7 @@ export default function FormDialog(props) {
             <LightToolTip
               open={tooltipIsOpen}
               onClose={tooltipClose}
-              title="An Email notification can be sent to you when an address on your watch list recieves an incoming/outgoing transaction."
+              title="An Email notification can be sent to you when an address on your watch list receives an incoming/outgoing transaction."
               arrow
               placement="top-start"
             >
@@ -453,7 +500,7 @@ export default function FormDialog(props) {
       >
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
-        
+        {open && <div className="overlay-private-alert">
           <Dialog
             // className={classes.dialog}
             classes={{ paperWidthSm: classes.dialogBox }}
@@ -461,19 +508,19 @@ export default function FormDialog(props) {
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
-            <div>
+            <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
             <Row>
-              <div className={classes.heading} id="form-dialog-title">
+              <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
                 Add a New Address to your Watchlist
               </div>
             </Row>
             {errorEmptyField ? <div className={classes.error1}>{errorEmptyField}</div> : <></>}
             <DialogContent>
-              <DialogContentText className={classes.subCategory}>
+              <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
                 Address
               </DialogContentText>
               <input
-                className={classes.input}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 onChange={(e) => {
                   setAddress(e.target.value);
                   setError("");
@@ -482,7 +529,7 @@ export default function FormDialog(props) {
               {error ? <div className={classes.error}>{error}</div> : <></>}
             </DialogContent>
             <DialogContent>
-              <DialogContentText className={classes.subCategory}>
+              <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
                 Description
                 {/* <span  className={classes.forgotpass}>
               Forgot ?
@@ -491,7 +538,7 @@ export default function FormDialog(props) {
 
               <input
                 type="text"
-                className={classes.input}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
                 onChange={(e) => {
                   setDescription(e.target.value);
                   setDescriptionError("");
@@ -507,7 +554,7 @@ export default function FormDialog(props) {
             </span> */}
             </DialogContent>
             <DialogContent>
-              <DialogContentText className={classes.subCategory}>
+              <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
                 Notifications
               </DialogContentText>
 
@@ -528,7 +575,7 @@ export default function FormDialog(props) {
                     value="NO"
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "5px 2px -5px -5px" }}
-                    classes={{ label: classes.notifyLabel }}
+                    classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
                     label="No Notifications"
                     onClick={(e) => setNotification(e.target.value)}
                   />
@@ -537,7 +584,7 @@ export default function FormDialog(props) {
                     value="INOUT"
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
-                    classes={{ label: classes.notifyLabel }}
+                    classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
                     label="Notify on Incoming & Outgoing Transactions"
                     onClick={(e) => setNotification(e.target.value)}
                   />
@@ -546,8 +593,8 @@ export default function FormDialog(props) {
                     value="IN"
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
-                    classes={{ label: classes.notifyLabel }}
-                    label="Notify on Incoming (Recieve) Transactions Only"
+                    classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
+                    label="Notify on Incoming (Receive) Transactions Only"
                     onClick={(e) => setNotification(e.target.value)}
                   />
                   {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
@@ -556,7 +603,7 @@ export default function FormDialog(props) {
                     value="OUT"
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
-                    classes={{ label: classes.notifyLabel }}
+                    classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
                     label="Notify on Outgoing (Sent) Transactions Only"
                     onClick={(e) => setNotification(e.target.value)}
                   />
@@ -565,7 +612,7 @@ export default function FormDialog(props) {
             </DialogContent>
             <DialogActions className={classes.buttons}>
               <span onClick={handleClose}>
-                <button className={classes.cnlbtn} onClick={handleLogin}>
+                <button className={props.theme === "dark" ? classes.cnlbtnDark : classes.cnlbtn} onClick={handleLogin}>
                   Cancel
                 </button>
               </span>
@@ -576,7 +623,7 @@ export default function FormDialog(props) {
               </span>
             </DialogActions>
             <div className="p-l-15 p-r-15">
-            <div className={classes.lastContainer}>
+            <div className={props.theme === "dark" ? classes.lastContainerDark : classes.lastContainer}>
               <div className={classes.lastContainerText}>
               Privacy is very important to us. To protect sensitive information,
               all custom tags and data related to the Watchlists are saved on
@@ -591,6 +638,7 @@ export default function FormDialog(props) {
             </DialogContentText> */}
             </div>
           </Dialog>
+          </div>}
         {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
       </div>
     </>
