@@ -271,10 +271,12 @@ export default function ManageCookiesDialog(props) {
     }
 
     return <div>
+        {props.open && <div className="overlay-private-alert">
         <Dialog
             classes={props.theme === "dark" ? {paperWidthSm: classes.dialogBoxDark} : {paperWidthSm: classes.dialogBox}}
             open={props.open}
             close={handleClose}
+            style={{position: "absolute", zIndex: 10000}}
         >
             <div>
             <div className={props.theme === "dark" ? classes.headingContainerDark : classes.headingContainer}>
@@ -347,5 +349,6 @@ export default function ManageCookiesDialog(props) {
             </div>
             </div>
         </Dialog>
-    </div>;
+    </div>}
+    </div>
 }

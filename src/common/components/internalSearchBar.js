@@ -163,7 +163,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchBox = (props) => {
-  console.log("props",props)
   const classes = props.classes;
   const dispatch = useDispatch();
   const SelectOptRef = React.useRef(null);

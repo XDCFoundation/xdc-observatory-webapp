@@ -618,10 +618,12 @@ const CustomDropDownAddress = (props) => {
       </Container>
     
 {/* -----------------------------------------------------connect XDC Pay--------------------------------------------- */}
+      {connectXDCPay && <div className="overlay-private-alert">
       <Dialog classes={{ paperWidthSm: classes.connectXdcDialogBox }}
         open={connectXDCPay}
         onClose={closeConnectXDCPay}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <div className={classes.importXdcHeading}>Import from XDC Pay</div>
         <div className={classes.importXdcText}>You can import the contact saved in XDCPay into you Observer Account.</div>
@@ -629,12 +631,15 @@ const CustomDropDownAddress = (props) => {
         {/* <img className={classes.importXdcLogo} src="/images/xdc-icon-blue-color.svg"></img> */}
         <div className={classes.connectWalletButton} onClick={searchMyAddress}>Connect Wallet</div>
         </Dialog>
+        </div>}
 {/* ------------------------------------------------------------------------------------------------------------------*/}
+    {importAddress && <div className="overlay-private-alert">
       <Dialog
         classes={{ paperWidthSm: classes.dialogBox }}
         open={importAddress}
         onClose={closeDialogImport}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <Row style={{ justifyContent: "center" }}>
           <div className={classes.heading} id="form-dialog-title">
@@ -779,6 +784,7 @@ const CustomDropDownAddress = (props) => {
           </div>
         </DialogContent>
       </Dialog>
+      </div>}
     </div>
   );
 };

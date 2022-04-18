@@ -734,7 +734,6 @@ function SimpleTabs(props) {
   };
 
   const getListOfTxnLabel = async (requestData) => {
-    console.log("req-data",requestData)
     const request = {
       limit: requestData?.limit || "5",
       skip: isNaN(requestData?.skip) ? list : requestData?.skip,
@@ -1873,7 +1872,6 @@ function SimpleTabs(props) {
                                 >
                                   <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {row.description}
-                                    {console.log("UI-desc",row.description)}
                                   </span>
                                 </TableCell>
                                 <TableCell
