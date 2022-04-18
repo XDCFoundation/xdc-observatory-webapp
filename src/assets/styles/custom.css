@@ -9114,7 +9114,7 @@ button {
 .bloc-tabs_sec_addressDetail {
   display: flex;
   width: 25rem;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .bloc-tabs_sec_addressDetail {
@@ -10586,12 +10586,14 @@ button {
   }
   .block_sec {
     width: 21rem;
-    height: 4.5rem;
+    /* height: 4.5rem; */
+    height: 1.825rem;
     margin-left: 1rem;
   }
   .block_sec_dark {
     width: 21rem;
-    height: 4.5rem;
+    /* height: 4.5rem; */
+    height: 1.825rem;
     margin-left: 1rem;
   }
   .block_sec_contract {
