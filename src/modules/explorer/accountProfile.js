@@ -1165,7 +1165,8 @@ function SimpleTabs(props) {
           return {
             Address: item.address,
             NameTag: item.tagName,
-            AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            // AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            AddedOn: item?.modifiedOn
           };
         })
       );
@@ -1192,7 +1193,8 @@ function SimpleTabs(props) {
           return {
             Address: item.address,
             NameTag: item.tagName,
-            AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            // AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            AddedOn: item?.modifiedOn
           };
         })
       );
