@@ -193,7 +193,21 @@ const SearchBox = (props) => {
             }
           })
           window.location.href = blockurl;
-        } else if (responseData[0].redirect === "account") {
+        }else if (responseData[0].redirect === "contract") {
+          let accounturl =
+            "/address/" + responseData[0].account.address;
+          dispatch({
+            type: eventConstants.ADD_TO_SEARCH_LIST,
+            payload: {
+              type: recentSearchTypeConstants.CONTRACT,
+              searchValue: responseData[0]?.account?.address || "",
+              result: responseData[0]?.account?.balance || 0,
+              redirectUrl: accounturl,
+            },
+          });
+          window.location.href = accounturl;
+        } 
+         else if (responseData[0].redirect === "account") {
           let accounturl =
             "/address-details/" + responseData[0].account.address;
           dispatch({

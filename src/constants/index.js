@@ -246,6 +246,7 @@ export const recentSearchTypeConstants = {
   WALLET: "WALLET",
   BLOCK: "TOKEN",
   TOKEN: "TOKEN",
+  CONTRACT:"CONTRACT"
 };
 
 export const authenticationProvider = {
