@@ -4,6 +4,7 @@ body {
   background-color: #ffffff;
   padding-right: 0px !important;
   letter-spacing: 0 !important;
+  overflow-y: auto !important;
 }
 a {
   text-decoration: none;
@@ -4574,7 +4575,7 @@ body {
 }
 @media (max-width: 767px) {
   .bloc-tabs {
-    width: 107%;
+    width: 100%;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -5547,9 +5548,11 @@ button {
 @media (min-width: 0px) and (max-width: 767px) {
   .container-graph-tab {
     padding: 20px 0 0 0;
+    width: 100%;
   }
   .container-graph-tab-dark {
     padding: 20px 0 0 0;
+    width: 100%;
   }
 }
 

@@ -245,7 +245,10 @@ export default function ChangePassword(props) {
             if (error || !authResponse) {
                 setLoading(false);
                 // utility.apiFailureToast("failed");
-                setErrorConfirmPassword("Failed to Change Password");
+                if(error.message == genericConstants.WRONG_CURRENT_PASSWORD)
+                    setErrorConfirmPassword(genericConstants.WRONG_CURRENT_PASSWORD);
+                else
+                    setErrorConfirmPassword("Failed to Change Password");
             } else {
                 setLoading(false);
                 const authObject = new AuthService();
