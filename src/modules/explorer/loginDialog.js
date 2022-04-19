@@ -1137,6 +1137,7 @@ export default function FormDialog(props) {
         open={open}
         // onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <div
           onClick={handleClose}

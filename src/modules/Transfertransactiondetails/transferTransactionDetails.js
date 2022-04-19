@@ -128,7 +128,7 @@ function TransferTransaction({ _handleChange,theme }) {
   };
 
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
-  const blocknumber = ` The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.  `;
+  const blocknumber = `Block number associated with the transaction.`;
   const timestamp = ` The date and time at which a transaction is mined. `;
   const from = ` The sending party of the transaction(could be from a contact address)  `;
   const to = ` The receiving party of the transaction(could be from a contact address) `;

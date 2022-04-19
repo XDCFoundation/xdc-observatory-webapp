@@ -289,11 +289,13 @@ function EditTxnLabel(props) {
             </div>
 
             <div>
+            {open && <div className="overlay-private-alert">
                 <Dialog
                     classes={{paperWidthSm: classes.dialogBox}}
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="form-dialog-title"
+                    style={{position: "absolute", zIndex: 10000}}
                 >
                     <div>
                     <Row>
@@ -356,6 +358,7 @@ function EditTxnLabel(props) {
                     </DialogActions>
                     </div>
                 </Dialog>
+            </div>}
             </div>
         </div>
     );

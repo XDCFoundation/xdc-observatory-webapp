@@ -4,6 +4,7 @@ body {
   background-color: #ffffff;
   padding-right: 0px !important;
   letter-spacing: 0 !important;
+  overflow-y: auto !important;
 }
 a {
   text-decoration: none;
@@ -606,6 +607,15 @@ input:focus {
 }
 .m-l-5 {
   margin-left: 5px !important;
+}
+.m-l-16 {
+  margin-left: 16px;
+}
+.m-l-20 {
+  margin-left: 20px;
+}
+.m-l-32 {
+  margin-left: 32px;
 }
 
 
@@ -3325,8 +3335,8 @@ p {
   line-height: normal;
 
   color: #ffffff;
-  /* margin-top: 10px; */
-  margin-bottom: 15px;
+  margin-top: 10px;
+  /* margin-bottom: 15px; */
 }
 .inside-side-box-browse {
   color: #4666c4;
@@ -3334,6 +3344,18 @@ p {
   font-family: Inter;
   margin-left: 25px;
   margin-top: 10px;
+}
+.notification-inside-side-box {
+  padding: 0 0px 0 13px !important;
+  font-size: 14.5px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+
+  color: #ffffff;
+  /* margin-top: 10px; */
+  margin-bottom: 15px;
 }
 
 .myhr {
@@ -4552,7 +4574,7 @@ body {
 }
 @media (max-width: 767px) {
   .bloc-tabs {
-    width: 107%;
+    width: 100%;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -5525,9 +5547,11 @@ button {
 @media (min-width: 0px) and (max-width: 767px) {
   .container-graph-tab {
     padding: 20px 0 0 0;
+    width: 100%;
   }
   .container-graph-tab-dark {
     padding: 20px 0 0 0;
+    width: 100%;
   }
 }
 
