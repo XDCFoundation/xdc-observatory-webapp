@@ -74,7 +74,8 @@ const Wrapper = styled(Row)`
 `;
 const SearchTypeIcon = styled.img`
   //width: 18px;
-  height: 24px;
+  height: 26px;
+  margin-top: -3px;
 `;
 const SearchValue = styled.span`
   width: 153px;
@@ -124,7 +125,7 @@ const ActiveRedirectIcon = styled.img`
 const ItemContainer = styled(Column)`
   width: 229px;
   height: 58px;
-  padding: 11px 9px 6px 14px;
+  padding: 8px 9px 8px 14px;
   border-radius: 8px;
   border: solid 1px #c9d7ff;
   background-color: transparent;

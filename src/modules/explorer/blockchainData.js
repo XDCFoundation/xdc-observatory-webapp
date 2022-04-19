@@ -65,12 +65,14 @@ const MainContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column-reverse;
     /* width: auto; */
-    width: 22rem;
+    // width: 22rem;
+    max-width: 767px;
+    width: 100%;
     margin-right: auto;
     margin-left: auto;
     padding-top: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin-top: 15px;
   }
 `;
@@ -94,7 +96,7 @@ const LeftFirst = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   @media (min-width: 0px) and (max-width: 767px) {
-    padding: 20px 10px 0 0;
+    padding: 20px 0 0 0;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     padding: 20px 10px 0 0;
@@ -332,6 +334,9 @@ const LeftTopSecMain = styled.div`
   text-align: center;
   margin-right: 5px;
   margin-top: 7px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    margin-right: 0px;
+  }
 `;
 const MobileDesign = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {

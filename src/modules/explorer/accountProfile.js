@@ -1872,7 +1872,6 @@ function SimpleTabs(props) {
                                 >
                                   <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {row.description}
-                                    {console.log("UI-desc",row.description)}
                                   </span>
                                 </TableCell>
                                 <TableCell

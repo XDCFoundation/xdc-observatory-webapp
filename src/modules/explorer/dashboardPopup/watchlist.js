@@ -507,6 +507,7 @@ export default function FormDialog(props) {
             open={open}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
+            style={{position: "absolute", zIndex: 10000}}
           >
             <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
             <Row>

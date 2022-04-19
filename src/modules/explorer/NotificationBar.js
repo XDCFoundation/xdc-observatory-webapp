@@ -295,7 +295,7 @@ function TemporaryDrawer(props) {
                   type="checkbox"
                   checked={notification?.isChecked || false}
                   />: <></>}
-                <ul className="inside-side-box">
+                <ul className="notification-inside-side-box">
                   <a className="Notification_details_button ">
                     <div className="Notificationtext">
                       <span>{notification.description.splitted[0]}&nbsp;</span>

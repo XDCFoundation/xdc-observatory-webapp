@@ -456,12 +456,14 @@ export default function FormDialog(props) {
       </Button> */}
 
         {/* <div> */}
+        {open && <div className="overlay-private-alert">
         <Dialog
           // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
+          style={{position: "absolute", zIndex: 10000}}
         >
           <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
           <Row>
@@ -546,7 +548,7 @@ export default function FormDialog(props) {
             </DialogContentText> */}
             </div>
         </Dialog>
-        {/* </div> */}
+        </div>}
         {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert} theme={props.theme}/>:("")} 
       </div>
     </>

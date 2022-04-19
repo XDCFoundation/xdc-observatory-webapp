@@ -102,7 +102,8 @@ export const genericConstants = {
   CANNOT_DELETE_TAGGED_ADDRESS: "Cannot delete Tagged Addresses",
   TAGGED_ADDRESS_DELETED: "Tagged Address Deleted",
   SCM_REFERENCE: 'scm',
-  IMPORTED_TAG_LENGTH_ERROR: "Imported Name Tag should be maximum 15 characters."
+  IMPORTED_TAG_LENGTH_ERROR: "Imported Name Tag should be maximum 15 characters.",
+  WRONG_CURRENT_PASSWORD: "You have entered wrong current password"
 };
 
 export const statusConstants = {
@@ -204,7 +205,7 @@ export const toolTipMessages = {
   hashid:
     "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
   blocknumber:
-    "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
+    "Block number associated with the transaction.",
   timestamp: "The date and time at which a transaction is mined.",
   from: "The sending party of the transaction(could be from a contact address)",
   to: "The receiving party of the transaction(could be from a contact address) ",

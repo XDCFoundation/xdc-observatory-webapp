@@ -398,17 +398,19 @@ export default function FormDialog(props) {
 
   return (
     <div>
+      {open && <div className="overlay-private-alert">
       <Dialog
         className={classes.dialog}
         classes={{ paperWidthSm: classes.dialogBox }}
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
         <Row>
           <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
-            Add a New Address to your Watchlist1
+            Add a New Address to your Watchlist
           </div>
         </Row>
         {errorEmptyField ? (
@@ -531,6 +533,7 @@ export default function FormDialog(props) {
         </div>
         </div>
       </Dialog>
+    </div>}
     </div>
   );
 }
