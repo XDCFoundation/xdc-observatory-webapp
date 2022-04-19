@@ -550,7 +550,7 @@ function SimpleTabs(props) {
     // if (!transactionLabels)
     //   transactionLabels = [];
     // setTotalCount2(transactionLabels.length);
-    getListOfTxnLabel({ skip: 0, _limit });
+    // getListOfTxnLabel({ skip: 0, _limit });
   }
 
   async function getPvtTagAddress() {}
@@ -734,6 +734,7 @@ function SimpleTabs(props) {
   };
 
   const getListOfTxnLabel = async (requestData) => {
+    console.log("req-data",requestData)
     const request = {
       limit: requestData?.limit || "5",
       skip: isNaN(requestData?.skip) ? list : requestData?.skip,

@@ -207,7 +207,6 @@ function EditWatchList(props) {
   useEffect(() => {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
-    {console.log("props-desc",props.row.description)}
     setId(props.row._id);
     setValue(props?.row?.notification?.type)
   }, [props]);
@@ -284,13 +283,10 @@ function EditWatchList(props) {
               }
               tempCount++;
               if(tempCount === watchlists.length && !searchedAddress) {
-                console.log("tempCount",tempCount)
                 watchlists.push(data);
               }
             })
           }
-        console.log("watchlist",watchlists)
-        console.log("props.index",props.index)
         localStorage.setItem(
             sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST,
             JSON.stringify(watchlists)
@@ -382,7 +378,6 @@ function EditWatchList(props) {
               className={classes.input}
               onChange={(e) => setDescription(e.target.value)}
             ></input>
-            {console.log("description",description)}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
