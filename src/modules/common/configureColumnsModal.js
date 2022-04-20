@@ -43,7 +43,7 @@ function ConfigureColumnsModal(props) {
       >
         <div
           className={
-            props.theme
+            props.theme == "dark"
               ? "fs-14 fw-bold p-t-15 p-b-15 display-flex justify-content-center fc-white"
               : "fs-14 fw-bold p-t-15 p-b-15 display-flex justify-content-center"
           }
@@ -99,7 +99,7 @@ function ConfigureColumnsModal(props) {
                         </Tooltip>
                       )}
                       <div
-                        className={props.theme ? "p-l-12 fc-white" : "p-l-12"}
+                        className={props.theme =="dark"? "p-l-12 fc-white" : "p-l-12"}
                       >
                         {key}
                       </div>

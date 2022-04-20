@@ -376,7 +376,7 @@ class BlockChainDataComponent extends Component {
       addressTT: false,
       nodes: 0,
       activeNodes: 0,
-      nodeLoading: true,
+      nodeLoading: true
     };
   }
   componentWillUnmount() {
@@ -390,9 +390,10 @@ class BlockChainDataComponent extends Component {
     this.coinMarketCapDetails();
     this.blocksLatest();
     this.transactionsLatest();
+    this.getTotalAccounts()
     await this.tpsCountDetail();
     // await this.CountMaxtps();
-
+ 
     this.socketData(this.props.socket);
   }
 
@@ -401,7 +402,12 @@ class BlockChainDataComponent extends Component {
       this.coinMarketCapDetails();
     }
   }
-
+  async getTotalAccounts() {
+    let [error, totalNumberAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
+    if (error || !totalNumberAccounts)
+        return
+    this.setState({ totalAccount: totalNumberAccounts })
+}
   socketData(socket) {
     let blocks = this.state.blockdataNumber;
     let transactions = this.state.transactionDataDetails;
@@ -512,7 +518,7 @@ class BlockChainDataComponent extends Component {
     if (error || !netStatData) return;
     this.setState({
       netStatData: netStatData,
-      totalAccount: netStatData?.activeAddressCount,
+      // totalAccount: netStatData?.activeAddressCount,
     });
     const interval = setInterval(async () => {
       let [error, netStatData] = await Utils.parseResponse(
@@ -521,7 +527,7 @@ class BlockChainDataComponent extends Component {
       if (error || !netStatData) return;
       this.setState({
         netStatData: netStatData,
-        totalAccount: netStatData?.activeAddressCount,
+        // totalAccount: netStatData?.activeAddressCount,
       });
     }, 90000);
   }
