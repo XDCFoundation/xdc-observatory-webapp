@@ -14,6 +14,13 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "12px",
         zIndex: "100000"
     },
+    dialogBoxDark: {
+        maxWidth: "680px",
+        width: "100%",
+        borderRadius: "12px",
+        zIndex: "100000",
+        backgroundColor: "#192a59"
+    },
     headingContainer: {
         display: "flex",
         justifyContent: "center",
@@ -22,12 +29,27 @@ const useStyles = makeStyles((theme) => ({
         borderBottom: "solid 1px #e3e7eb",
 
     },
+    headingContainerDark: {
+        display: "flex",
+        justifyContent: "center",
+        paddingTop: "21px",
+        paddingBottom: "20px",
+        borderBottom: "solid 1px #4a5d94",
+
+    },
     heading: {
         fontFamily: "Inter",
         fontSize: "22px",
         fontWeight: "600",
         textAlign: "center",
         color: "#2a2a2a",
+    },
+    headingDark: {
+        fontFamily: "Inter",
+        fontSize: "22px",
+        fontWeight: "600",
+        textAlign: "center",
+        color: "#ffffff",
     },
     close: {
         position: "absolute",
@@ -57,11 +79,23 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "600",
         fontFamily: "Inter",
     },
+    subHeadingDark: {
+        fontSize: "18px",
+        fontWeight: "600",
+        fontFamily: "Inter",
+        color: "#ffffff"
+    },
     para: {
         marginTop: "14px",
         fontFamily: "Inter",
         lineHeight: "1.33",
         color: "#585858",
+    },
+    paraDark: {
+        marginTop: "14px",
+        fontFamily: "Inter",
+        lineHeight: "1.33",
+        color: "#a7c5e7",
     },
     buttons: {
         display: "flex",
@@ -69,12 +103,30 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: "23px",
         borderTop: "solid 1px #e3e7eb",
     },
+    buttonsDark: {
+        display: "flex",
+        justifyContent: 'space-between',
+        paddingTop: "23px",
+        borderTop: "solid 1px #4a5d94",
+    },
     acceptAll: {
         width: "211px",
         height: "38px",
         borderRadius: "4px",
         border: "solid 1px #4878ff",
         backgroundcolor: "#ffffff",
+        textAlign: "center",
+        color: "#4878ff",
+        display:'flex',
+        flexDirection:"column",
+        justifyContent:"center"
+    },
+    acceptAllDark: {
+        width: "211px",
+        height: "38px",
+        borderRadius: "4px",
+        border: "solid 1px #4878ff",
+        backgroundcolor: "#192a59",
         textAlign: "center",
         color: "#4878ff",
         display:'flex',
@@ -125,6 +177,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageCookiesDialog(props) {
+    console.log("manage-cookies-props",props)
     const [open, setOpen] = React.useState(false);
     const [functionalCookies, setFunctionalCookies] = React.useState(false);
     const [performanceCookies, setPerformanceCookies] = React.useState(false);
@@ -166,6 +219,7 @@ export default function ManageCookiesDialog(props) {
 
     const handleClose = () => {
         setOpen(props.close)
+        fetchCookies()
     }
     const handleSwitchOn1 = () => {
         setFunctionalCookies(true);
@@ -219,54 +273,56 @@ export default function ManageCookiesDialog(props) {
     }
 
     return <div>
+        {props.open && <div className="overlay-private-alert">
         <Dialog
-            classes={{paperWidthSm: classes.dialogBox}}
+            classes={props.theme === "dark" ? {paperWidthSm: classes.dialogBoxDark} : {paperWidthSm: classes.dialogBox}}
             open={props.open}
             close={handleClose}
+            style={{position: "absolute", zIndex: 10000}}
         >
             <div>
-            <div className={classes.headingContainer}>
+            <div className={props.theme === "dark" ? classes.headingContainerDark : classes.headingContainer}>
                 <span className={classes.back} onClick={handleClose}>
                     <img src={"/images/backButton.svg"} alt="back"/>
                 </span>
-                <span className={classes.heading}>Manage Consent Preferences</span>
+                <span className={props.theme === "dark" ? classes.headingDark : classes.heading}>Manage Consent Preferences</span>
                 <span className={classes.close} onClick={handleClose}>
                 <img src={"/images/XDC-Cross.svg"}/>
               </span>
             </div>
             <div className={classes.contentContainer}>
                 <div className={classes.container}>
-                    <div className={classes.subHeading}>Strictly necessary Cookies</div>
+                    <div className={props.theme === "dark" ? classes.subHeadingDark : classes.subHeading}>Strictly necessary Cookies</div>
                     <span className={classes.alwaysActive}>Always active</span>
                 </div>
-                <div className={classes.para}>
+                <div className={props.theme === "dark" ? classes.paraDark : classes.para}>
                     These cookies are necessary to allow you to browse the Website and use Website functions.
                     Without these cookies the Website would not function properly.
                     These cookies do not collect your Personal Data.
                 </div>
                 <div className={classes.container}>
-                    <div className={classes.subHeading}>Functional Cookies</div>
+                    <div className={props.theme === "dark" ? classes.subHeadingDark : classes.subHeading}>Functional Cookies</div>
                     {functionalCookies ?
                         <img className={classes.activSwitch} onClick={handleSwitchOff1}
                              src="/images/active-switch.svg"/> :
                         <img className={classes.inactivSwitch} onClick={handleSwitchOn1}
                              src="/images/inactive-switch.svg"/>}
                 </div>
-                <div className={classes.para}>
+                <div className={props.theme === "dark" ? classes.paraDark : classes.para}>
                     These cookies allow websites to remember your chosen preferences (such as your language settings).
                     They allow us to provide you with improved functions.
                     It is not possible for us to personally identify you using the information collected by these
                     cookies
                 </div>
                 <div className={classes.container}>
-                    <div className={classes.subHeading}>Performance cookies</div>
+                    <div className={props.theme === "dark" ? classes.subHeadingDark : classes.subHeading}>Performance cookies</div>
                     {performanceCookies ?
                         <img className={classes.activSwitch} onClick={handleSwitchOff2}
                              src="/images/active-switch.svg"/> :
                         <img className={classes.inactivSwitch} onClick={handleSwitchOn2}
                              src="/images/inactive-switch.svg"/>}
                 </div>
-                <div className={classes.para}>
+                <div className={props.theme === "dark" ? classes.paraDark : classes.para}>
                     These cookies assist us in understanding how visitors interact with the Website by providing
                     information about the visited pages, the time spent on the Website, and error messages in case of
                     technical problems.
@@ -274,26 +330,27 @@ export default function ManageCookiesDialog(props) {
                     consented via the cookie banner.
                 </div>
                 <div className={classes.container}>
-                    <div className={classes.subHeading}>Analytical cookies</div>
+                    <div className={props.theme === "dark" ? classes.subHeadingDark : classes.subHeading}>Analytical cookies</div>
                     {analyticalCookies ?
                         <img className={classes.activSwitch} onClick={handleSwitchOff3}
                              src="/images/active-switch.svg"/> :
                         <img className={classes.inactivSwitch} onClick={handleSwitchOn3}
                              src="/images/inactive-switch.svg"/>}
                 </div>
-                <div className={classes.para}>
+                <div className={props.theme === "dark" ? classes.paraDark : classes.para}>
                     We use analytical cookies to see, for example, which content on the Website is highly frequented and
                     to analyse if content should be updated or improved.
                     These cookies are also used to provide you with personalized content based on the pages you have
                     shown interest in.
                     We use these cookies only if you have consented via the cookie banner.
                 </div>
-                <div className={classes.buttons}>
-                    <div className={classes.acceptAll+" cursor-pointer"} onClick={()=>saveMyPreferences(true)}>Accept all cookies</div>
+                <div className={props.theme === "dark" ? classes.buttonsDark : classes.buttons}>
+                    <div className={props.theme === "dark" ? classes.acceptAllDark+" cursor-pointer" : classes.acceptAll+" cursor-pointer"} onClick={()=>saveMyPreferences(true)}>Accept all cookies</div>
                     <div className={classes.savePref + " cursor-pointer"} onClick={()=>saveMyPreferences(false)}>Save my preferences</div>
                 </div>
             </div>
             </div>
         </Dialog>
-    </div>;
+    </div>}
+    </div>
 }

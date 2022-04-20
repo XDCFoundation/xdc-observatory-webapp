@@ -207,6 +207,7 @@ function EditWatchList(props) {
   useEffect(() => {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
+    {console.log("props-desc",props.row.description)}
     setId(props.row._id);
     setValue(props?.row?.notification?.type)
   }, [props]);
@@ -263,15 +264,33 @@ function EditWatchList(props) {
             sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST
         );
         watchlists = JSON.parse(watchlists);
-        if (!watchlists)
-          watchlists = []
           const data = {
             description: description,
             address: address,
             [request.address] : description
           };
-          watchlists.push(data);
-        // watchlists[request.address] = description;
+          if (!watchlists) {
+            watchlists = []
+            watchlists.push(data);
+          }
+          else {
+            let addr = [request.address];
+            let tempCount = 0;
+            let searchedAddress = false;
+            watchlists.map((item,index) => {
+              if(item.address == addr) {
+                watchlists[index] = data;
+                searchedAddress = true;
+              }
+              tempCount++;
+              if(tempCount === watchlists.length && !searchedAddress) {
+                console.log("tempCount",tempCount)
+                watchlists.push(data);
+              }
+            })
+          }
+        console.log("watchlist",watchlists)
+        console.log("props.index",props.index)
         localStorage.setItem(
             sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST,
             JSON.stringify(watchlists)
@@ -325,11 +344,13 @@ function EditWatchList(props) {
       </div>
 
       <div>
+      {open && <div className="overlay-private-alert">
         <Dialog
           classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
+          style={{position: "absolute", zIndex: 10000}}
         >
           <div>
           <Row>
@@ -363,6 +384,7 @@ function EditWatchList(props) {
               className={classes.input}
               onChange={(e) => setDescription(e.target.value)}
             ></input>
+            {console.log("description",description)}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
@@ -403,7 +425,7 @@ function EditWatchList(props) {
                   control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
-                  label="Notify on Incoming (Recieve) Transactions Only"
+                  label="Notify on Incoming (Receive) Transactions Only"
                 />
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Transactions Only" /> */}
                 <FormControlLabel
@@ -443,6 +465,7 @@ function EditWatchList(props) {
           </DialogActions>
           </div>
         </Dialog>
+      </div>}
       </div>
     </div>
   );

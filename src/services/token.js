@@ -12,6 +12,7 @@ export default {
   getTotalTransferTransactionsForToken,
   getListOfTransferTransactionsForToken,
   getListOfHoldersForToken,
+  getListOfTokenForAddress,getTokenTransactions,
 };
 function getHeaders() {
   return {
@@ -144,6 +145,25 @@ async function getListOfTransferTransactionsForToken(data) {
       return Promise.reject(err);
     });
 }
+async function getTokenTransactions(data) {
+  let url = process.env.REACT_APP_GET_TOKEN_TRANSACTION + data.address;
+   // let url = "http://localhost:3007/getListOfHoldersForToken/"+data.address;
+   delete data.address;
+ return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
+   .then((response) => {
+     if (
+       !response.success ||
+       response.responseCode !== 200 ||
+       !response.responseData ||
+       response.responseData.length === 0
+     )
+       return Promise.reject();
+     return Promise.resolve(response.responseData);
+   })
+   .catch(function (err) {
+     return Promise.reject(err);
+   });
+}
 async function getTotalTransferTransactionsForToken(data) {
     let url = process.env.REACT_APP_GET_TOTAL_TRANSFER_FOR_TOKEN + data.addr + (data.searchValue ? "?searchValue=" + data.searchValue : "")
         + (data.startDate ? (data.searchValue ? "&startDate=" : "?startDate=") + data.startDate : "");
@@ -185,6 +205,24 @@ async function getListOfHoldersForToken(data) {
 async function getTransferTransactionDetailsUsingHash(path, data) {
   let url =
     process.env.REACT_APP_GET_TRANSFER_TRANSACTION_DETAIL_USING_ADDRESS + path;
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
+    .then((response) => {
+      if (
+        !response.success ||
+        response.responseCode !== 200 ||
+        !response.responseData ||
+        response.responseData.length === 0
+      )
+        return Promise.reject();
+      return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+async function getListOfTokenForAddress(path, data) {
+  let url =
+    process.env.REACT_APP_GET_LIST_OF_TOKENS_FOR_ADDRESS+ path;
   return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
     .then((response) => {
       if (

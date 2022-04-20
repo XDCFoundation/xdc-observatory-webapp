@@ -5,10 +5,16 @@ import { TransactionService } from "../../services";
 import TokenSearchComponent from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import { toolTipMessages } from "../../constants";
+import { connect } from "react-redux";
+import { dispatchAction } from "../../utility"
+import { sessionManager } from "../../managers/sessionManager";
 
-export default class LatestTransactionList extends BaseComponent {
+class LatestTransactionList extends BaseComponent {
   constructor(props) {
+    let ercValue = sessionManager.getDataFromCookies("xrc20")
+    ercValue = ercValue == "true"
     super(props);
+    { !ercValue ?
     this.state = {
       tableColumns: {
         // Hash: { isActive: true, toolTipText: "Unique transaction identifier, also known as the Transaction ID." },
@@ -24,7 +30,14 @@ export default class LatestTransactionList extends BaseComponent {
         },
       },
       sortKey:""
-    };
+    } :
+    this.state = {
+      tableColumns: {
+        Symbol: { isActive: true, toolTipText: "Short name of the token" },
+      },
+      sortKey:""
+    } 
+  }
   }
 
   toggleTableColumns = (columnName) => {
@@ -38,7 +51,13 @@ export default class LatestTransactionList extends BaseComponent {
       <TokenListComponent
         state={this.state}
         toggleTableColumns={this.toggleTableColumns}
+        theme={this.props.theme.currentTheme}
       />
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { theme: state.theme };
+};
+export default connect(mapStateToProps, { dispatchAction })(LatestTransactionList);

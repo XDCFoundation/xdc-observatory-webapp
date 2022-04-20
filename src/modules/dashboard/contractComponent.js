@@ -28,12 +28,20 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const useStyles = makeStyles({
-  rootui: {
-    borderRadius: "17px",
-    marginLeft: "18%",
-    width: "65%",
-    backgroundColor: "white",
+const useStyles = (theme) => ({
+  // rootui: {
+  //   borderRadius: "17px",
+  //   marginLeft: "18%",
+  //   width: "65%",
+  //   backgroundColor: "white",
+  // },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
   },
 });
 const Pagination = styled.div`
@@ -45,6 +53,11 @@ const Pagination = styled.div`
   align-items: center;
   /* margin-right: 18%;
    margin-left: 18%; */
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    margin-bottom: 60px;
+  `}
   @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;
@@ -109,6 +122,9 @@ class Contractlist extends React.Component {
       sortedByAddress: "",
       sortedByTokenName: "",
       sortedByContractName: "",
+      addressTT: false,
+      tokenNameTT: false,
+      contractTypeTT: false,
     };
   }
 
@@ -241,12 +257,12 @@ class Contractlist extends React.Component {
       data.sortKey = { tokenName: this.state.sortedByTokenName };
     if (this.state.sortedByContractName)
       data.sortKey = { tokenName: this.state.sortedByContractName };
-      let datas = {
-        ...data,
-        pageNum: this.state.from,
-        perpage: event.target.value,
-      };
-      this.getContractList(datas);
+    let datas = {
+      ...data,
+      pageNum: this.state.from,
+      perpage: event.target.value,
+    };
+    this.getContractList(datas);
     // if (this.state.keywords) {
     //   let data = {
     //     pageNum: this.state.from,
@@ -430,10 +446,18 @@ class Contractlist extends React.Component {
 
     return (
       <div>
-        <Tokensearchbar />
+        <Tokensearchbar theme={this.props.theme} />
         <div className="contract-heading-container">
           <div className="display-flex justify-content-between p-t-30 p-b-30 responsive-table-width-contract-list contact-list-tab">
-            <div className="contract-heading">Contracts</div>
+            <div
+              className={
+                this.props.theme === "dark"
+                  ? "contract-heading fc-white"
+                  : "contract-heading"
+              }
+            >
+              Contracts
+            </div>
             <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
               <img
                 onClick={this.handleSettingsClick}
@@ -446,6 +470,7 @@ class Contractlist extends React.Component {
                 handleOnClose={this.handleOnClose}
                 tableColumns={this.state.tableColumns}
                 toggleTableColumns={this.toggleTableColumns}
+                theme={this.props.theme}
               />
             </div>
             <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
@@ -459,11 +484,12 @@ class Contractlist extends React.Component {
                 onModalClose={this.toggleModal}
                 tableColumns={this.state.tableColumns}
                 toggleTableColumns={this.toggleTableColumns}
+                theme={this.props.theme}
               />
             </div>
           </div>
         </div>
-        <Paper
+        <div
           className={"responsive-table-width-contract-list contact-list-tab"}
           style={{
             borderRadius: "14px",
@@ -473,12 +499,21 @@ class Contractlist extends React.Component {
           <TableContainer
             className={classes.container}
             id="container-table"
-            style={{
-              borderRadius: "12px",
-              boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
-              background: "#fff",
-              border: "none",
-            }}
+            style={
+              this.props.theme === "dark"
+                ? {
+                    borderRadius: "12px",
+                    boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+                    background: "#192a59",
+                    border: "none",
+                  }
+                : {
+                    borderRadius: "12px",
+                    boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+                    background: "#fff",
+                    border: "none",
+                  }
+            }
           >
             <Table>
               <TableHead>
@@ -489,21 +524,59 @@ class Contractlist extends React.Component {
                   >
                     <span
                       style={{ fontSize: "14px" }}
-                      className={"tableheaders-contract cursor-pointer"}
+                      className={
+                        this.props.theme === "dark"
+                          ? "tableheaders-contract cursor-pointer fc-white"
+                          : "tableheaders-contract cursor-pointer"
+                      }
                       onClick={this.sortByAddress}
                     >
                       Address
-                      <Tooltip
-                        placement="top"
-                        title={messages.CONTRACT_ADDRESS}
-                      >
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.CONTRACT_ADDRESS}
+                          classes={{
+                            tooltip:
+                              this.props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={this.state.addressTT}
+                          onOpen={() => this.setState({ addressTT: true })}
+                          onClose={() => this.setState({ addressTT: false })}
+                          placement="top"
+                          title={messages.CONTRACT_ADDRESS}
+                          classes={{
+                            tooltip:
+                              this.props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                            onClick={() =>
+                              this.setState({
+                                addressTT: !this.state.addressTT,
+                              })
+                            }
+                          />
+                        </Tooltip>
+                      )}
                       {this.state.sortedByAddress ? (
                         this.state.sortedByAddress === -1 ? (
                           <img
@@ -529,18 +602,61 @@ class Contractlist extends React.Component {
                     <TableCell style={{ border: "none" }} align="left">
                       <span
                         style={{ fontSize: "14px" }}
-                        className={"tableheaders cursor-pointer"}
+                        className={
+                          this.props.theme === "dark"
+                            ? "tableheaders cursor-pointer fc-white"
+                            : "tableheaders cursor-pointer"
+                        }
                         onClick={this.sortByTokenName}
                       >
                         Token Name
-                        <Tooltip placement="top" title={messages.TOKEN_NAME}>
-                          <img
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            height={"14px"}
-                            className="tooltipInfoIconAccount"
-                          />
-                        </Tooltip>
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            placement="top"
+                            title={messages.TOKEN_NAME}
+                            classes={{
+                              tooltip:
+                                this.props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            open={this.state.tokenNameTT}
+                            onOpen={() => this.setState({ tokenNameTT: true })}
+                            onClose={() =>
+                              this.setState({ tokenNameTT: false })
+                            }
+                            placement="top"
+                            title={messages.TOKEN_NAME}
+                            classes={{
+                              tooltip:
+                                this.props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              height={"14px"}
+                              className="tooltipInfoIconAccount"
+                              onClick={() =>
+                                this.setState({
+                                  tokenNameTT: !this.state.tokenNameTT,
+                                })
+                              }
+                            />
+                          </Tooltip>
+                        )}
                       </span>
                       {this.state.sortedByTokenName ? (
                         this.state.sortedByTokenName === -1 ? (
@@ -598,17 +714,58 @@ class Contractlist extends React.Component {
                     <TableCell style={{ border: "none" }} align="left">
                       <span
                         style={{ fontSize: "14px" }}
-                        className={"tableheaders"}
+                        className={
+                          this.props.theme === "dark"
+                            ? "tableheaders fc-white"
+                            : "tableheaders"
+                        }
                       >
-                        Contract Type
-                        <Tooltip placement="top" title={messages.TOKEN_YES_NO}>
-                          <img
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            height={"14px"}
-                            className="tooltipInfoIconAccount"
-                          />
-                        </Tooltip>
+                        Contract Type1
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            placement="top"
+                            title={messages.TOKEN_YES_NO}
+                            classes={{
+                              tooltip:
+                                this.props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            open={this.state.contractTypeTT}
+                            onOpen={() => this.setState({ addressTT: true })}
+                            onClose={() => this.setState({ addressTT: false })}
+                            placement="top"
+                            title={messages.TOKEN_YES_NO}
+                            classes={{
+                              tooltip:
+                                this.props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              height={"14px"}
+                              className="tooltipInfoIconAccount"
+                              onClick={() =>
+                                this.setState({
+                                  contractTypeTT: !this.state.contractTypeTT,
+                                })
+                              }
+                            />
+                          </Tooltip>
+                        )}
                       </span>
                     </TableCell>
                   )}
@@ -637,7 +794,11 @@ class Contractlist extends React.Component {
                         key={row.name}
                         style={
                           index % 2 !== 1
-                            ? { background: "#f9f9f9" }
+                            ? this.props.theme === "dark"
+                              ? { background: "#192a59" }
+                              : { background: "#f9f9f9" }
+                            : this.props.theme === "dark"
+                            ? { background: "#192a59" }
                             : { background: "white" }
                         }
                       >
@@ -646,11 +807,19 @@ class Contractlist extends React.Component {
                           style={{ width: "46%", borderBottom: "none" }}
                         >
                           <a
-                            style={{
-                              color: "#2149b9",
-                              fontSize: 14,
-                              marginLeft: "1rem",
-                            }}
+                            style={
+                              this.props.theme === "dark"
+                                ? {
+                                    color: "#4878ff",
+                                    fontSize: 14,
+                                    marginLeft: "1rem",
+                                  }
+                                : {
+                                    color: "#2149b9",
+                                    fontSize: 14,
+                                    marginLeft: "1rem",
+                                  }
+                            }
                             href={`/address/${row.address}`}
                           >
                             <span className="tabledata">{row.address} </span>
@@ -659,8 +828,12 @@ class Contractlist extends React.Component {
                         {this.state.tableColumns["Token Name"].isActive && (
                           <TableCell id="td" style={{ borderBottom: "none" }}>
                             <span
-                              className="tabledata"
-                              style={{ marginLeft: "5px" }}
+                              className={
+                                this.props.theme === "dark"
+                                  ? "tabledata fc-b1c3e1"
+                                  : "tabledata"
+                              }
+                              style={{ marginLeft: "0px" }}
                             >
                               {row.tokenName}
                             </span>
@@ -679,8 +852,12 @@ class Contractlist extends React.Component {
                         {this.state.tableColumns["Contract Type"].isActive && (
                           <TableCell id="td" style={{ borderBottom: "none" }}>
                             <span
-                              className="tabledata"
-                              style={{ marginLeft: "0.188rem", fontSize: 14 }}
+                              className={
+                                this.props.theme === "dark"
+                                  ? "tabledata fc-b1c3e1"
+                                  : "tabledata"
+                              }
+                              style={{ marginLeft: "0", fontSize: 14 }}
                             >
                               {isToken}
                             </span>
@@ -708,20 +885,23 @@ class Contractlist extends React.Component {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div>No transactions found</div>
+                <div className={this.props.theme === "dark" ? "fc-b1c3e1" : ""}>
+                  No transactions found
+                </div>
               </NoDataFoundContainer>
             ) : (
               ""
             )}
           </TableContainer>
-        </Paper>
+        </div>
 
         <Pagination
-        // style={{
-        //   display: "flex",
-        //   justifyContent: "space-between",
-        //   flexDirection: "row",
-        // }}
+          theme={this.props.theme}
+          // style={{
+          //   display: "flex",
+          //   justifyContent: "space-between",
+          //   flexDirection: "row",
+          // }}
         >
           <LeftPagination
           // style={{
@@ -738,6 +918,7 @@ class Contractlist extends React.Component {
                     fontSize: "0.875rem",
                     fontWeight: "600",
                   }}
+                  className={this.props.theme === "dark" ? "fc-b1c3e1" : ""}
                 >
                   Show
                 </p>
@@ -745,12 +926,14 @@ class Contractlist extends React.Component {
                   value={this.state.amount}
                   height={35}
                   handler={this.handleChangeRowsPerPage}
+                  theme={this.props.theme}
                 />
                 <p
                   style={{
                     fontSize: "0.875rem",
                     fontWeight: "600",
                   }}
+                  className={this.props.theme === "dark" ? "fc-b1c3e1" : ""}
                 >
                   {" "}
                   Records
@@ -772,14 +955,26 @@ class Contractlist extends React.Component {
             <div
               className={
                 this.state.from === 0
-                  ? "firstbox-contract disabled boxfirst"
+                  ? this.props.theme === "dark"
+                    ? "firstbox-contract-dark disabled boxfirst"
+                    : "firstbox-contract disabled boxfirst"
+                  : this.props.theme === "dark"
+                  ? "firstbox-contract-dark"
                   : "firstbox-contract"
               }
               onClick={() => this.handleChangePage("first")}
             >
               <button
-                style={{ backgroundColor: "white" }}
-                className="first-contract"
+                style={
+                  this.props.theme === "dark"
+                    ? { backgroundColor: "#283966" }
+                    : { backgroundColor: "white" }
+                }
+                className={
+                  this.props.theme === "dark"
+                    ? "first-contract-dark"
+                    : "first-contract"
+                }
               >
                 First
               </button>
@@ -787,7 +982,11 @@ class Contractlist extends React.Component {
             <div
               className={
                 this.state.from === 0
-                  ? "previousbox-contract disabled"
+                  ? this.props.theme === "dark"
+                    ? "previousbox-contract-dark disabled"
+                    : "previousbox-contract disabled"
+                  : this.props.theme === "dark"
+                  ? "previousbox-contract-dark"
                   : "previousbox-contract"
               }
               onClick={() => this.handleChangePage("prev")}
@@ -798,8 +997,20 @@ class Contractlist extends React.Component {
               />
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
-            <div className="pagebox-contract">
-              <p className="Page-1-of-5-contract">
+            <div
+              className={
+                this.props.theme === "dark"
+                  ? "pagebox-contract-dark"
+                  : "pagebox-contract"
+              }
+            >
+              <p
+                className={
+                  this.props.theme === "dark"
+                    ? "Page-1-of-5-contract-dark"
+                    : "Page-1-of-5-contract"
+                }
+              >
                 Page{" "}
                 {Math.ceil(this.state.totalRecord / this.state.amount) -
                   Math.ceil(
@@ -814,7 +1025,11 @@ class Contractlist extends React.Component {
               className={
                 this.state.from + this.state.rows.length ===
                 this.state.totalRecord
-                  ? "nextbox-contract disabled"
+                  ? this.props.theme === "dark"
+                    ? "nextbox-contract-dark disabled"
+                    : "nextbox-contract disabled"
+                  : this.props.theme === "dark"
+                  ? "nextbox-contract-dark"
                   : "nextbox-contract"
               }
               onClick={() => this.handleChangePage("next")}
@@ -831,14 +1046,26 @@ class Contractlist extends React.Component {
               className={
                 +this.state.from + this.state.rows.length ===
                 this.state.totalRecord
-                  ? "lastbox-contract disabled"
+                  ? this.props.theme === "dark"
+                    ? "lastbox-contract-dark disabled"
+                    : "lastbox-contract disabled"
+                  : this.props.theme === "dark"
+                  ? "lastbox-contract-dark"
                   : "lastbox-contract"
               }
               onClick={() => this.handleChangePage("last")}
             >
               <button
-                style={{ backgroundColor: "white" }}
-                className="last-contract"
+                style={
+                  this.props.theme === "dark"
+                    ? { backgroundColor: "#283966" }
+                    : { backgroundColor: "white" }
+                }
+                className={
+                  this.props.theme === "dark"
+                    ? "Last-contract-dark"
+                    : "last-contract"
+                }
               >
                 Last
               </button>

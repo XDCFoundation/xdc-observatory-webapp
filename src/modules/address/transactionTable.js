@@ -52,6 +52,14 @@ export default function TransactionTableComponent(props) {
       borderBottom: "none",
       background: "#fff",
     },
+    customTooltip: {
+      fontSize: "13px",
+    },
+    customTooltipDarkMode: {
+      background: "#051440",
+      color: "#adc4e4",
+      fontSize: "13px",
+    },
   });
   const getContractDetails = async (values) => {
     try {
@@ -143,7 +151,8 @@ export default function TransactionTableComponent(props) {
       }
     }
     if (action === "last") {
-      let pagecount = (Math.ceil(parseInt(totalRecord) / parseInt(amount))-1) * amount;
+      let pagecount =
+        (Math.ceil(parseInt(totalRecord) / parseInt(amount)) - 1) * amount;
       setFrom(parseInt(pagecount));
       if (keywords) {
         datas = {
@@ -251,7 +260,7 @@ export default function TransactionTableComponent(props) {
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: Utility.decimalDivison(d.Value, 18),
+            Value: d.Value,
           };
         })
       );
@@ -278,7 +287,7 @@ export default function TransactionTableComponent(props) {
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: Utility.decimalDivison(d.Value, 18),
+            Value: d.Value,
           };
         })
       );
@@ -342,42 +351,103 @@ export default function TransactionTableComponent(props) {
   />*/}
         </div>
         {noData == false ? (
-          <div className="csvDownloadParent">
+          <>
             {isDownloadActive ? (
-              <div className="csv">
-                <img src={"/images/rectangle-copy.svg"} />{" "}
-                <CSVLink
-                  className="ActiveDownload"
-                  filename={"transactions.csv"}
-                  data={downloadaddress}
-                >
-                  Download CSV
-                </CSVLink>
-              </div>
+              <CSVLink
+                filename={"transactions.csv"}
+                data={downloadaddress}
+                style={
+                  props.theme === "dark"
+                    ? {
+                        fontSize: "0.938rem",
+                        color: "#ffffff",
+                        textAlign: "center",
+                        backgroundColor: "#283966",
+                        borderRadius: "0.25rem",
+                        width: "5.875rem",
+                        height: "2.125rem",
+                        paddingTop: "0.125rem",
+                      }
+                    : {
+                        fontSize: "0.938rem",
+                        color: "#ffffff",
+                        textAlign: "center",
+                        backgroundColor: "rgb(7 125 245)",
+                        borderRadius: "0.25rem",
+                        width: "5.875rem",
+                        height: "2.125rem",
+                        paddingTop: "0.125rem",
+                      }
+                }
+              >
+                Export
+              </CSVLink>
             ) : (
-              <div className="csv-inactive">
-                <Tooltip
-                        open={downloadCsvTT}
-                        onOpen={() => setDownloadCsvTT(true)}
-                        onClose={() => setDownloadCsvTT(false)}
-                        placement="top"
-                        title={messages.DOWNLOAD_CSV}
-                      >
-                        <div onClick={() => setDownloadCsvTT(!downloadCsvTT)}>
-                          <img src={"/images/rectangle-copy.svg"} />{" "}
-                          <CSVLink
-                            className="InactiveDownload"
-                            filename={"transactions.csv"}
-                            data={downloadaddress}
-                          >
-                          Download CSV
-                          </CSVLink>
-                        </div>
-                      </Tooltip>
-                
-              </div>
+              <Tooltip
+                open={downloadCsvTT}
+                onOpen={() => setDownloadCsvTT(true)}
+                onClose={() => setDownloadCsvTT(false)}
+                placement="top"
+                title={messages.DOWNLOAD_CSV}
+                classes={{
+                  tooltip:
+                    props.theme === "dark"
+                      ? classes.customTooltipDarkMode
+                      : classes.customTooltip,
+                }}
+              >
+                <div
+                  onClick={() => setDownloadCsvTT(!downloadCsvTT)}
+                  style={
+                    props.theme === "dark"
+                      ? {
+                          fontSize: "0.938rem",
+                          textAlign: "center",
+                          color: "#ffffff",
+                          backgroundColor: "#283966",
+                          borderRadius: "0.25rem",
+                          width: "5.875rem",
+                          height: "2.125rem",
+                          paddingTop: "0.125rem",
+                          opacity: 0.7,
+                        }
+                      : {
+                          fontSize: "0.938rem",
+                          textAlign: "center",
+                          color: "#ffffff",
+                          backgroundColor: "#e3e7eb",
+                          borderRadius: "0.25rem",
+                          width: "5.875rem",
+                          height: "2.125rem",
+                          paddingTop: "0.125rem",
+                        }
+                  }
+                >
+                  <CSVLink
+                    filename={"transactions.csv"}
+                    data={downloadaddress}
+                    style={
+                      props.theme === "dark"
+                        ? {
+                            pointerEvents: "none",
+                            fontSize: "0.938rem",
+                            textAlign: "center",
+                            color: "#ffffff",
+                          }
+                        : {
+                            pointerEvents: "none",
+                            fontSize: "0.938rem",
+                            textAlign: "center",
+                            color: "#ffffff",
+                          }
+                    }
+                  >
+                    Export
+                  </CSVLink>
+                </div>
+              </Tooltip>
             )}
-          </div>
+          </>
         ) : (
           ""
         )}
@@ -387,15 +457,25 @@ export default function TransactionTableComponent(props) {
         <Paper
           style={{ borderRadius: "14px" }}
           elevation={0}
-          className="table-paper-contract"
+          className={
+            props.theme === "dark"
+              ? "table-paper-contract table-bg-dark"
+              : "table-paper-contract"
+          }
         >
           <TableContainer
-            className={classes.container}
+            className={
+              props.theme === "dark"
+                ? `${classes.container} table-bg-dark`
+                : classes.container
+            }
             id="container-table table-cont"
           >
             <Table className="table-trans-contract">
               <TableHead>
-                <TableRow>
+                <TableRow
+                  className={props.theme === "dark" ? "table-bg-dark" : ""}
+                >
                   <TableCell
                     className="w-31 w-850"
                     style={{ border: "none" }}
@@ -413,23 +493,55 @@ export default function TransactionTableComponent(props) {
                         style={{ marginRight: "8px" }}
                       />
                     )}
-                    <span className={"tableheaders table-hash"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-hash fc-white"
+                          : "tableheaders table-hash"
+                      }
+                    >
                       Transaction Hash
-                      <Tooltip
-                        open={hashTT}
-                        onOpen={() => setHashTT(true)}
-                        onClose={() => setHashTT(false)}
-                        placement="top"
-                        title={messages.HASH}
-                      >
-                        <img
-                          onClick={() => setHashTT(!hashTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.HASH}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={hashTT}
+                          onOpen={() => setHashTT(true)}
+                          onClose={() => setHashTT(false)}
+                          placement="top"
+                          title={messages.HASH}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setHashTT(!hashTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -437,23 +549,55 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={"tableheaders table-age"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-age fc-white"
+                          : "tableheaders table-age"
+                      }
+                    >
                       Age
-                      <Tooltip
-                        open={ageTT}
-                        onOpen={() => setageTT(true)}
-                        onClose={() => setageTT(false)}
-                        placement="top"
-                        title={messages.AGE}
-                      >
-                        <img
-                          onClick={() => setageTT(!ageTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.AGE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={ageTT}
+                          onOpen={() => setageTT(true)}
+                          onClose={() => setageTT(false)}
+                          placement="top"
+                          title={messages.AGE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setageTT(!ageTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -461,23 +605,55 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={"tableheaders table-block"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-block fc-white bg-transparent-dark"
+                          : "tableheaders table-block"
+                      }
+                    >
                       Block
-                      <Tooltip
-                        open={blockTT}
-                        onOpen={() => setblockTT(true)}
-                        onClose={() => setblockTT(false)}
-                        placement="top"
-                        title={messages.BLOCK}
-                      >
-                        <img
-                          onClick={() => setblockTT(!blockTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.BLOCK}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={blockTT}
+                          onOpen={() => setblockTT(true)}
+                          onClose={() => setblockTT(false)}
+                          placement="top"
+                          title={messages.BLOCK}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setblockTT(!blockTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -485,23 +661,55 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={"tableheaders table-from"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-from fc-white"
+                          : "tableheaders table-from"
+                      }
+                    >
                       From
-                      <Tooltip
-                        open={fromTT}
-                        onOpen={() => setfromTT(true)}
-                        onClose={() => setfromTT(false)}
-                        placement="top"
-                        title={messages.FROM}
-                      >
-                        <img
-                          onClick={() => setfromTT(!fromTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.FROM}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={fromTT}
+                          onOpen={() => setfromTT(true)}
+                          onClose={() => setfromTT(false)}
+                          placement="top"
+                          title={messages.FROM}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setfromTT(!fromTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -509,23 +717,55 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={"tableheaders table-to"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-to fc-white"
+                          : "tableheaders table-to"
+                      }
+                    >
                       To
-                      <Tooltip
-                        open={toTT}
-                        onOpen={() => settoTT(true)}
-                        onClose={() => settoTT(false)}
-                        placement="top"
-                        title={messages.TO}
-                      >
-                        <img
-                          onClick={() => settoTT(!toTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.TO}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={toTT}
+                          onOpen={() => settoTT(true)}
+                          onClose={() => settoTT(false)}
+                          placement="top"
+                          title={messages.TO}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => settoTT(!toTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -533,23 +773,55 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={"tableheaders table-value"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-value fc-white"
+                          : "tableheaders table-value"
+                      }
+                    >
                       Value
-                      <Tooltip
-                        open={valueTT}
-                        onOpen={() => setvalueTT(true)}
-                        onClose={() => setvalueTT(false)}
-                        placement="top"
-                        title={messages.VALUE}
-                      >
-                        <img
-                          onClick={() => setvalueTT(!valueTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.VALUE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={valueTT}
+                          onOpen={() => setvalueTT(true)}
+                          onClose={() => setvalueTT(false)}
+                          placement="top"
+                          title={messages.VALUE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setvalueTT(!valueTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -557,23 +829,55 @@ export default function TransactionTableComponent(props) {
                     style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={"tableheaders table-value"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-value fc-white"
+                          : "tableheaders table-value"
+                      }
+                    >
                       Avg Txn Fee
-                      <Tooltip
-                        open={gasTT}
-                        onOpen={() => setgasTT(true)}
-                        onClose={() => setgasTT(false)}
-                        placement="top"
-                        title={messages.GAS}
-                      >
-                        <img
-                          onClick={() => setgasTT(!gasTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.GAS}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={gasTT}
+                          onOpen={() => setgasTT(true)}
+                          onClose={() => setgasTT(false)}
+                          placement="top"
+                          title={messages.GAS}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setgasTT(!gasTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
@@ -603,7 +907,11 @@ export default function TransactionTableComponent(props) {
                         <TableRow
                           style={
                             index % 2 !== 1
-                              ? { background: "#f9f9f9" }
+                              ? props.theme === "dark"
+                                ? { background: "#192a59" }
+                                : { background: "#f9f9f9" }
+                              : props.theme === "dark"
+                              ? { background: "#192a59" }
                               : { background: "white" }
                           }
                         >
@@ -622,10 +930,23 @@ export default function TransactionTableComponent(props) {
                             />
 
                             <a
-                              className="linkTable"
+                              className={
+                                props.theme === "dark"
+                                  ? "linkTable fc-4878ff"
+                                  : "linkTable"
+                              }
                               href={"/transaction-details/" + row.hash}
                             >
-                              <Tooltip placement="top" title={row.hash}>
+                              <Tooltip
+                                placement="top"
+                                title={row.hash}
+                                classes={{
+                                  tooltip:
+                                    props.theme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
+                              >
                                 <span className="tabledata">
                                   {shorten(row.hash)}{" "}
                                 </span>
@@ -633,11 +954,23 @@ export default function TransactionTableComponent(props) {
                             </a>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className="tabledata">{TimeAge}</span>
+                            <span
+                              className={
+                                props.theme === "dark"
+                                  ? "tabledata fc-b1c3e1"
+                                  : "tabledata"
+                              }
+                            >
+                              {TimeAge}
+                            </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <a
-                              className="linkTable"
+                              className={
+                                props.theme === "dark"
+                                  ? "linkTable fc-4878ff"
+                                  : "linkTable"
+                              }
                               href={"/block-details/" + row.blockNumber}
                             >
                               <span className="tabledata">
@@ -648,10 +981,23 @@ export default function TransactionTableComponent(props) {
                           <TableCell style={{ border: "none" }} align="left">
                             {row.from != addr ? (
                               <a
-                                className="linkTable"
+                                className={
+                                  props.theme === "dark"
+                                    ? "linkTable fc-4878ff"
+                                    : "linkTable"
+                                }
                                 href={"/address-details/" + row.from}
                               >
-                                <Tooltip placement="top" title={row.from}>
+                                <Tooltip
+                                  placement="top"
+                                  title={row.from}
+                                  classes={{
+                                    tooltip:
+                                      props.theme === "dark"
+                                        ? classes.customTooltipDarkMode
+                                        : classes.customTooltip,
+                                  }}
+                                >
                                   <span className="tabledata">
                                     {" "}
                                     {shorten(row.from)}
@@ -659,7 +1005,16 @@ export default function TransactionTableComponent(props) {
                                 </Tooltip>
                               </a>
                             ) : (
-                              <Tooltip placement="top" title={row.from}>
+                              <Tooltip
+                                placement="top"
+                                title={row.from}
+                                classes={{
+                                  tooltip:
+                                    props.theme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
+                              >
                                 <span className="tabledata">
                                   {" "}
                                   {shorten(row.from)}
@@ -670,17 +1025,39 @@ export default function TransactionTableComponent(props) {
                           <TableCell style={{ border: "none" }} align="left">
                             {row.to != addr ? (
                               <a
-                                className="linkTable"
+                                className={
+                                  props.theme === "dark"
+                                    ? "linkTable fc-4878ff"
+                                    : "linkTable"
+                                }
                                 href={"/address-details/" + row.to}
                               >
-                                <Tooltip placement="top" title={row.to}>
+                                <Tooltip
+                                  placement="top"
+                                  title={row.to}
+                                  classes={{
+                                    tooltip:
+                                      props.theme === "dark"
+                                        ? classes.customTooltipDarkMode
+                                        : classes.customTooltip,
+                                  }}
+                                >
                                   <span className="tabledata">
                                     {shorten(row.to)}
                                   </span>
                                 </Tooltip>
                               </a>
                             ) : (
-                              <Tooltip placement="top" title={row.to}>
+                              <Tooltip
+                                placement="top"
+                                title={row.to}
+                                classes={{
+                                  tooltip:
+                                    props.theme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
+                              >
                                 <span className="tabledata">
                                   {shorten(row.to)}
                                 </span>
@@ -691,16 +1068,32 @@ export default function TransactionTableComponent(props) {
                             <Tooltip
                               placement="top"
                               title={format({})(row.value)}
+                              classes={{
+                                tooltip:
+                                  props.theme === "dark"
+                                    ? classes.customTooltipDarkMode
+                                    : classes.customTooltip,
+                              }}
                             >
-                              <span className="tabledata">
-                                {Utility.decimalDivison(
-                                  row.value,8
-                                )}
+                              <span
+                                className={
+                                  props.theme === "dark"
+                                    ? "tabledata fc-b1c3e1"
+                                    : "tabledata"
+                                }
+                              >
+                                {Utility.decimalDivison(row.value, 8)}
                               </span>
                             </Tooltip>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className="tabledata">
+                            <span
+                              className={
+                                props.theme === "dark"
+                                  ? "tabledata fc-b1c3e1"
+                                  : "tabledata"
+                              }
+                            >
                               {format({})(row.gasUsed)}
                             </span>
                           </TableCell>
@@ -750,13 +1143,22 @@ export default function TransactionTableComponent(props) {
           ) : (
             <>
               <Grid className="Pagination_1">
-                <span className="text">Show</span>
+                <span
+                  className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}
+                >
+                  Show
+                </span>
                 <PageSelector
                   value={amount}
                   height={30}
                   handler={handleChangeRowsPerPage}
+                  theme={props.theme}
                 />
-                <span className="text">Records</span>
+                <span
+                  className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}
+                >
+                  Records
+                </span>
               </Grid>
               <Grid xs="2"></Grid>
             </>
@@ -800,7 +1202,11 @@ export default function TransactionTableComponent(props) {
                 onClick={() => handleChangePage("first")}
                 className={
                   from === 0 || totalRecord === 0
-                    ? "btn-contract disabled"
+                    ? props.theme === "dark"
+                      ? "btn-contract-dark disabled"
+                      : "btn-contract disabled"
+                    : props.theme === "dark"
+                    ? "btn-contract-dark"
                     : "btn-contract"
                 }
               >
@@ -810,14 +1216,26 @@ export default function TransactionTableComponent(props) {
                 onClick={() => handleChangePage("prev")}
                 className={
                   from === 0 || totalRecord === 0
-                    ? "btn-contract disabled"
+                    ? props.theme === "dark"
+                      ? "btn-contract-dark disabled"
+                      : "btn-contract disabled"
+                    : props.theme === "dark"
+                    ? "btn-contract-dark"
                     : "btn-contract"
                 }
               >
-                <img className="rotate-180" src={"/images/next.svg"} alt="back" />
+                <img
+                  className="rotate-180"
+                  src={"/images/next.svg"}
+                  alt="back"
+                />
               </button>
 
-              <button className="btn-contract">
+              <button
+                className={
+                  props.theme === "dark" ? "btn-contract-dark" : "btn-contract"
+                }
+              >
                 Page{" "}
                 {Math.ceil(parseInt(totalRecord) / parseInt(amount)) -
                   Math.ceil(
@@ -832,7 +1250,11 @@ export default function TransactionTableComponent(props) {
                   +from + visibleCount === totalRecord ||
                   +from + visibleCount > totalRecord ||
                   totalRecord === 0
-                    ? "btn-contract disabled"
+                    ? props.theme === "dark"
+                      ? "btn-contract-dark disabled"
+                      : "btn-contract disabled"
+                    : props.theme === "dark"
+                    ? "btn-contract-dark"
                     : "btn-contract"
                 }
               >
@@ -844,7 +1266,11 @@ export default function TransactionTableComponent(props) {
                   +from + visibleCount === totalRecord ||
                   +from + visibleCount > totalRecord ||
                   totalRecord === 0
-                    ? "btn-contract disabled"
+                    ? props.theme === "dark"
+                      ? "btn-contract-dark disabled"
+                      : "btn-contract disabled"
+                    : props.theme === "dark"
+                    ? "btn-contract-dark"
                     : "btn-contract"
                 }
               >

@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme) => ({
         bottom: "0",
         zIndex: 1,
     },
+    containerDark: {
+        width: "100%",
+        background: "#0b205a",
+        position: "fixed",
+        bottom: "0",
+        zIndex: 1,
+    },
     containerContent: {
         width: "74.375rem",
         margin: "36px auto 48px auto",
@@ -179,7 +186,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function StorageMessage() {
+export default function StorageMessage(props) {
     const classes = useStyles();
     const [isCookiesAccepted, setIsCookiesAccepted] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -202,6 +209,7 @@ export default function StorageMessage() {
     }
 
     const saveMyPreferences = async () => {
+        // setIsCookiesAccepted(true);
         const userInfo = sessionManager.getDataFromCookies("userInfo");
         const cookiesData = []
         cookiesData.push(userCookiesConstants.FUNCTIONAL_COOKIES);
@@ -226,7 +234,7 @@ export default function StorageMessage() {
         <>
             {!openDialog ? (!isCookiesAccepted ?
                 (<div className="overlay-private-alert">
-                    <div className={classes.container}>
+                    <div className={props.theme === "dark" ? classes.containerDark : classes.container}>
                     <div className={classes.containerContent}>
                         <div className={classes.ourCookiesText}>Our Cookies Policy</div>
                         <div className={classes.container1}>
@@ -250,9 +258,9 @@ export default function StorageMessage() {
                     </div>
                 </div>
                 ) : 
-                (<NewFeature setIsCookiesAccepted={setIsCookiesAccepted} />)
+                (<NewFeature setIsCookiesAccepted={setIsCookiesAccepted} theme={props.theme}/>)
                 ) :
-                (<ManageCookiesDialog open={openDialog} close={closeDialog} setIsCookiesAccepted={setIsCookiesAccepted}/>)}
+                (<ManageCookiesDialog open={openDialog} close={closeDialog} setIsCookiesAccepted={setIsCookiesAccepted} theme={props.theme}/>)}
         </>
     )
 }

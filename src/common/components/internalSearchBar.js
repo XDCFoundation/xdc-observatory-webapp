@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+
+
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+
 import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
 import Utility from "../../utility";
+
 import { Row } from "simple-flexbox";
 import { eventConstants, recentSearchTypeConstants } from "../../constants";
 import { useDispatch } from "react-redux";
@@ -22,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "unset !important",
     backgroundColor: "#2149b9",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -31,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   appBarDark: {
     position: "unset !important",
     backgroundColor: "#132a69",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -40,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: "10.8rem !important",
-      padding: "16px 15px 15px 16px",
+      padding: "15px",
     },
     drawerHeader: {
       padding: "0 !important",
@@ -163,6 +167,7 @@ const SearchBox = (props) => {
   const dispatch = useDispatch();
   const SelectOptRef = React.useRef(null);
   const SearchDataRef = React.useRef(null);
+  const currentTheme = props.currentTheme;
   const [errorMessage, setErrorMessage] = useState("");
 
   const BlockChainSearch = async (data) => {
@@ -213,11 +218,8 @@ const SearchBox = (props) => {
           window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
           if (responseData[0]?.token.length == 1) {
-            let tokenDataUrl =
-              "/token-data/" +
-              responseData[0]?.token[0]?.address +
-              "/" +
-              responseData[0]?.token[0]?.symbol;
+            let tokenDataUrl =`/token-data/${responseData[0]?.token[0]?.address}/${responseData[0]?.token[0]?.symbol ? responseData[0]?.token[0]?.symbol : "NA"}`
+
             dispatch({
               type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
                 type: recentSearchTypeConstants.TOKEN,
@@ -262,7 +264,8 @@ const SearchBox = (props) => {
         var selectOptType = SelectOptRef.current?.value;
 
         let requestdata = {
-          filter: selectOptType,
+          // filter: selectOptType,
+          filter: "All filters",
           data: event.target.value,
         };
         BlockChainSearch(requestdata);
@@ -282,7 +285,8 @@ const SearchBox = (props) => {
     } else {
       let selectOptType = SelectOptRef.current?.value;
       let requestdata = {
-        filter: selectOptType,
+        // filter: selectOptType,
+        filter: "All filters",
         data: searchData,
       };
       BlockChainSearch(requestdata);
@@ -311,29 +315,22 @@ const SearchBox = (props) => {
           e.preventDefault();
         }}
       >
-        <Row alignItems="center">
+        <Row alignItems="center" justifyContent="space-between">
+          <div className={classes.searchImageinputContainer}>
           <img className={classes.searchIcon} src={"/images/Search.svg"} />
           <div className="search-responsive">
             <input
               type="text"
               onKeyUp={(event) => handleSearch(event)}
               ref={SearchDataRef}
-              className={"main-input-td "}
+              className={currentTheme === "dark" ? "main-input-td-dark" : "main-input-td "}
               src={"/images/Search.png"}
-              placeholder="Search by Address / Txn Hash / Block"
+              placeholder="Search by Address / Txn Hash / Block / Token"
             />
-            <div
-              className={"white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet-search m-r-10 cursor-pointer m-r-40-tab"
-              }
-              onClick={handleSearchByButton}
-            >
-              <span className="color-4878ff fs-14 fw-500">
-                Search
-              </span>
-            </div>
-            <div className="mobFilter">
+            
+            {/* <div className="mobFilter">
               <select
-                className={"select-td"}
+                className={currentTheme === "dark" ? "select-td-dark" : "select-td"}
                 onChange={(event) => handleSearchOption(event)}
                 ref={SelectOptRef}
               >
@@ -345,8 +342,21 @@ const SearchBox = (props) => {
                 <option value="Tokens">Tokens</option>
                 <option value="Transaction">Transaction</option>
               </select>
-            </div>
+            </div> */}
           </div>
+          </div>
+          <div
+              className={
+                props.theme === "dark"
+                  ? "white-space-no-wrap bg-192a59 br-4 p-wallet-search cursor-pointer m-r-7-tab"
+                  : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet-search cursor-pointer m-r-7-tab"
+              }
+              onClick={handleSearchByButton}
+            >
+              <span className="color-4878ff fs-14 fw-500">
+                Search
+              </span>
+            </div>
         </Row>
 
       </form>

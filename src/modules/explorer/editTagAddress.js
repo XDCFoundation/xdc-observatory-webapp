@@ -64,6 +64,17 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     marginBottom: "21px",
   },
+  inputDark: {
+    width: "503px",
+    height: "10px",
+    border: "solid 1px #3552a5",
+    backgroundColor: "#091b4e",
+    borderRadius: "7px",
+    padding: "20px",
+    marginBottom: "21px",
+    outline: "none",
+    color: "#fff"
+  },
   deletebtn: {
     width: "110px",
     height: "34px",
@@ -87,6 +98,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#9fa9ba",
     color: "white",
     margin: "14px 8px 15px 2px",
+  },
+  cnlbtnDark: {
+    width: "94px",
+    height: "34px",
+    borderRadius: "4px",
+    backgroundColor: "#192a59",
+    color: "white",
+    margin: "14px 8px 15px 2px",
+    border: "solid 1px #3552a5",
   },
   subCategory: {
     marginTop: "-12px",
@@ -181,6 +201,9 @@ function EditTaggedAddress(props) {
       tagName: input,
       modifiedOn: Date.now()
     };
+    console.log("privateAddress:",privateAddress)
+    console.log("data:",data)
+    console.log("props.row",props.row)
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (!input ) {
@@ -202,17 +225,7 @@ function EditTaggedAddress(props) {
           sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS
       );
       taggedAddress = JSON.parse(taggedAddress);
-      taggedAddress[props.index] = data;
-
-      const existingTaggedAddress = taggedAddress.find(
-          (item, innerIndex) =>
-              item.address == privateAddress && item.userId == data.userId && props.index !== innerIndex
-      );
-
-      if (existingTaggedAddress) {
-        utility.apiFailureToast("Address is already in use");
-        return;
-      }
+      taggedAddress[props.skip + props.index] = data; //insert data at given index
 
       localStorage.setItem(
           sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS,
@@ -220,7 +233,7 @@ function EditTaggedAddress(props) {
       );
 
       utility.apiSuccessToast("Address tag Updated");
-      await props.getListOfTagAddress();
+      await props.getListOfTagAddress({ skip: props.skip, limit: "5" });
       await props.getTotalCountTagAddress();
       setOpen(false);
       setErrorTag("")
@@ -331,26 +344,28 @@ function EditTaggedAddress(props) {
       </div>
 
       <div>
+      {open && <div className="overlay-private-alert">
         <Dialog
           classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
+          style={{position: "absolute", zIndex: 10000}}
         >
-          <div>
+        <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
           <Row>
-            <div className={classes.heading} id="form-dialog-title">
+            <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
               Edit Address Tag
             </div>
           </Row>
           <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+            <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
               Address
             </DialogContentText>
             <input
               value={privateAddress}
               readOnly
-              className={classes.input}
+              className={props.theme === "dark" ? classes.inputDark : classes.input}
               onChange={(e) => {
                 setPrivateAddress(e.target.value);
                 setError("");
@@ -375,10 +390,10 @@ function EditTaggedAddress(props) {
 
           {/* <------------------------------------------------------------------------------------------------------------------> */}
           <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+            <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
               Name Tag
             </DialogContentText>
-            <div className="containerTag">
+            <div className={props.theme === "dark" ? "containerTagDark" : "containerTag"}>
               {/*/!*{tags.map((tag, index) => (*!/*/}
               {/*  <div className="tag">*/}
               {/*    {tags}*/}
@@ -391,6 +406,7 @@ function EditTaggedAddress(props) {
                 // onKeyDown={onKeyDown}
                 // onKeyUp={onKeyUp}
                 onChange={onChange}
+                className={props.theme === "dark" ? "fc-white p-l-22" :""}
               />
             </div>
             {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
@@ -407,7 +423,7 @@ function EditTaggedAddress(props) {
             </div>
             <div className={classes.flexButton}>
               <span>
-                <button className={classes.cnlbtn} onClick={handleClose}>
+                <button className={props.theme === "dark" ? classes.cnlbtnDark : classes.cnlbtn} onClick={handleClose}>
                   Cancel
                 </button>
               </span>
@@ -423,6 +439,7 @@ function EditTaggedAddress(props) {
           </DialogActions>
           </div>
         </Dialog>
+      </div>}
       </div>
     </div>
   );

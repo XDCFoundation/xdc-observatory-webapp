@@ -22,14 +22,19 @@ const NoDataFoundContainer = styled.div`
   align-items: center;
   margin-top: 100px;
   gap: 10px;
+  color: #c6cbcf;
+  ${({ theme }) =>
+    theme === "dark" && `
+     color: #b1c3e1;
+  `}
   @media (min-width: 767px) {
     margin: 100px !important;
   }
 `;
 
-export default function WrappedComponent() {
+export default function WrappedComponent(props) {
     const {address, tn} = useParams();
-    return <TokenContractOverviewGraph address={address} tokenName={tn}/>;
+    return <TokenContractOverviewGraph address={address} tokenName={tn} theme={props.theme}/>;
 }
 
 class TokenContractOverviewGraph extends BaseComponent {
@@ -37,7 +42,7 @@ class TokenContractOverviewGraph extends BaseComponent {
         super(props);
         this.state = {
             loading: false,
-            graphData: []
+            graphData: [],
         };
     }
 
@@ -81,7 +86,7 @@ class TokenContractOverviewGraph extends BaseComponent {
             const x = data[index].addedOn;
             TransferAmount.push({
                 x,
-                y: data[index].sentAmount + data[index].receivedAmount,
+                y: (data[index].sentAmount + data[index].receivedAmount)/1000000000000000000,
             });
             TransferCount.push({x, y: data[index].transactionCount});
             UniqueAddress.push({x, y: data[index].uniqueAddress});
@@ -99,6 +104,7 @@ class TokenContractOverviewGraph extends BaseComponent {
                     enabled: true,
                 },
                 spacing: [20, 10, 15, 10],
+                backgroundColor: "#ffffff",
             },
             legend: {
                 layout: "horizontal",
@@ -269,10 +275,218 @@ class TokenContractOverviewGraph extends BaseComponent {
                 },
             ],
         };
+
+        let optionsDark = {
+            title: {
+                text: "",
+            },
+            chart: {
+                type: "line",
+                zoomType: {
+                    enabled: true,
+                },
+                spacing: [20, 10, 15, 10],
+                backgroundColor: "#192a59 ",
+            },
+            legend: {
+                layout: "horizontal",
+                align: "center",
+                enabled: true,
+                symbolPadding: 0,
+                symbolWidth: 0,
+                symbolHeight: 0,
+                squareSymbol: false,
+                backgroundColor: "#091b4e",
+                useHTML: true,
+                itemStyle:{
+                    'color': '#b1c3e1',
+                },
+                itemHoverStyle: {
+                    color: '#b1c3e1'
+                },
+                labelFormatter: function () {
+                    let legend = "<div style='display:flex; align-items: center;'>";
+                    if (this.name == "Transfer Amount") {
+                        legend +=
+                            "<img style='margin:5px' src='/images/graph-circle-blue.svg' />";
+                    }
+                    if (this.name == "Transfers Count") {
+                        legend += "<img style='margin:5px' src='/images/graph-kite.svg' />";
+                    }
+                    if (this.name == "Unique Receivers") {
+                        legend +=
+                            "<img style='margin:5px' src='/images/graph-triangle-red.svg' />";
+                    }
+                    if (this.name == "Unique Senders") {
+                        legend +=
+                            "<img style='margin:5px' src='/images/graph-triangle.svg' />";
+                    }
+                    if (this.name == "Total Uniques") {
+                        legend +=
+                            "<img style='margin:5px' src='/images/graph-circle-orange.svg' />";
+                    }
+                    return (legend +=
+                        "<div style='margin:5px 5px 5px 0'>" +
+                        this.name +
+                        "</div>" +
+                        "</div>");
+                },
+            },
+            navigator: {
+                enabled: false,
+            },
+            scrollbar: {
+                enabled: false,
+            },
+
+            rangeSelector: {
+                enabled: true,
+                selected: 1,
+                buttons: [
+                    {
+                        type: "all",
+                        text: "All",
+                    },
+                    {
+                        type: "year",
+                        count: 1,
+                        text: "1y",
+                    },
+                    {
+                        type: "month",
+                        count: 6,
+                        text: "6m",
+                    },
+                    {
+                        type: "month",
+                        count: 3,
+                        text: "3m",
+                    },
+                    {
+                        type: "month",
+                        count: 1,
+                        text: "1m",
+                    },
+                ],
+                buttonSpacing: 10,
+
+                buttonTheme: {
+                    style: {
+                        fill: "none",
+                    },
+                    stroke: "none",
+                    fontWeight: "bold",
+                    width: null,
+                    height: 25,
+                    "stroke-width": 0,
+                    r: 5,
+                    states: {
+                        hover: {
+                            fill: "#4878ff",
+                            style: {
+                                color: "white",
+                            },
+                        },
+                        select: {
+                            fill: "#4878ff",
+                            style: {
+                                color: "white",
+                            },
+                        },
+                    },
+                },
+                inputBoxBorderColor: "#3552a5",
+                inputBoxWidth: 85,
+                inputBoxHeight: 25,
+                inputDateFormat: "%d-%m-%Y",
+                inputStyle: {
+                    color: "#b1c3e1",
+                },
+                labelStyle: {
+                    color: "#b1c3e1",
+                    fontWeight: "bold",
+                },
+            },
+            exporting: {
+                buttons: {
+                    contextButton: {
+                        text: "Export",
+                        enabled: true,
+                    },
+                },
+                enabled: true,
+            },
+            tooltip: {
+                split: false,
+                shared: true,
+            },
+            series: [
+                {
+                    data: TransferAmount,
+                    color: "rgb(124, 181, 236)",
+                    name: "Transfer Amount",
+                    type: "column",
+                },
+                {
+                    data: TransferCount,
+                    color: "rgb(67, 67, 72)",
+                    name: "Transfers Count",
+                },
+                {
+                    data: UniqueReceiver,
+                    color: "rgb(144, 237, 125)",
+                    name: "Unique Receivers",
+                },
+                {
+                    data: UniqueSender,
+                    color: "rgb(247, 163, 92)",
+                    name: "Unique Senders",
+                },
+                {
+                    data: UniqueAddress,
+                    color: "rgb(128, 133, 233)",
+                    name: "Total Uniques",
+                },
+            ],
+            credits: {enabled: false},
+            yAxis: [
+                {
+                    opposite: false,
+                    title: {
+                        text: "Amount",
+                        style: {
+                        color: '#b1c3e1'
+                    }},
+                    labels: {
+                        style: {
+                            color: '#b1c3e1'
+                        }
+                    },
+                    minorGridLineColor: '#4a5d94',
+                    gridLineColor: '#4a5d94',
+                },
+            ],
+            xAxis: [
+                {
+                    showInLegend: false,
+                    opposite: false,
+                    title: {text: ""},
+                    labels: {
+                        style: {
+                            color: '#b1c3e1'
+                        }
+                    },
+                    minorGridLineColor: '#4a5d94',
+                    gridLineColor: '#4a5d94',
+                },
+            ],
+        };
         this.setState({options});
+        this.setState({optionsDark});
     };
 
     render() {
+        
         return (
             <div>
                 {this.state.loading ? (
@@ -282,7 +496,7 @@ class TokenContractOverviewGraph extends BaseComponent {
                 ) : (
                     <span>
              {this.state.graphData.length == 0 ?
-                 <NoDataFoundContainer>
+                 <NoDataFoundContainer theme={this.props.theme}>
                      <img
                          src={require("../../../../../src/assets/images/XDC-Alert.svg")}
                      ></img>
@@ -290,7 +504,7 @@ class TokenContractOverviewGraph extends BaseComponent {
                      <div>No Data found.</div>
                  </NoDataFoundContainer>
                  :
-                 <Graph options={this.state.options}/>
+                 <Graph options={this.props.theme === "dark" ? this.state.optionsDark : this.state.options}/>
              }
              </span>
                 )}

@@ -5,6 +5,18 @@ import Tooltip from "@material-ui/core/Tooltip";
 import ReadMethods from "../contractMethods/read";
 import WriteMethods from "../contractMethods/write";
 import styled from "styled-components";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
+}));
 
 const TabButton = styled.button`
   border-radius: 5px;
@@ -31,15 +43,24 @@ const TabButtonContainer = styled.div`
 `;
 
 export default function TokenContracttab(props) {
+  const classes = useStyles();
   // const [activeTab, setActiveTab] = useState(0);
 
   return (
     <>
       <Paper
-        style={{
-          borderRadius: "14px",
-          boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
-        }}
+        style={
+          props.theme === "dark"
+            ? {
+                borderRadius: "14px",
+                boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+                backgroundColor: "#192a59",
+              }
+            : {
+                borderRadius: "14px",
+                boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+              }
+        }
         elevation={0}
       >
         <ContractDetails {...props} />
@@ -87,12 +108,17 @@ export default function TokenContracttab(props) {
 }
 
 const ContractDetails = (props) => {
+  const classes = useStyles();
   let verifiedData = props?.contractData;
   const [copiedText, setCopiedText] = useState("");
 
   return (
-    <div className="container">
-      <div className="contract-source">
+    <div className={props.theme === "dark" ? "container-dark" : "container"}>
+      <div
+        className={
+          props.theme === "dark" ? "contract-source-dark" : "contract-source"
+        }
+      >
         <span
           style={{ color: "#03be46", fontSize: "14", alignItems: "center" }}
         >
@@ -109,46 +135,130 @@ const ContractDetails = (props) => {
       <div className="source-code-verified-container">
         <div className="source-code-first-container">
           <div className="source-code-content">
-            <div className="source-code-content-heading">Contract Name</div>
-            <div className="source-code-content-value-name">
+            <div
+              className={
+                props.theme === "dark"
+                  ? "source-code-content-heading fc-white"
+                  : "source-code-content-heading"
+              }
+            >
+              Contract Name
+            </div>
+            <div
+              className={
+                props.theme === "dark"
+                  ? "source-code-content-value-name fc-b1c3e1"
+                  : "source-code-content-value-name"
+              }
+            >
               {verifiedData?.contractName}
             </div>
           </div>
-          <hr className="source-code-line"></hr>
+          <hr
+            className={
+              props.theme === "dark"
+                ? "source-code-line hr-dark"
+                : "source-code-line"
+            }
+          ></hr>
           <div className="source-code-content">
-            <div className="source-code-content-heading">Compiler Version</div>
-            <div className="source-code-content-value">
+            <div
+              className={
+                props.theme === "dark"
+                  ? "source-code-content-heading fc-white"
+                  : "source-code-content-heading"
+              }
+            >
+              Compiler Version
+            </div>
+            <div
+              className={
+                props.theme === "dark"
+                  ? "source-code-content-value fc-b1c3e1"
+                  : "source-code-content-value"
+              }
+            >
               {verifiedData?.compilerVersion}
             </div>
           </div>
-          <hr className="source-code-line"></hr>
+          <hr
+            className={
+              props.theme === "dark"
+                ? "source-code-line hr-dark"
+                : "source-code-line"
+            }
+          ></hr>
           <br />
         </div>
         <div className="source-code-first-container">
           <div className="source-code-content">
-            <div className="source-code-content-heading">
+            <div
+              className={
+                props.theme === "dark"
+                  ? "source-code-content-heading fc-white"
+                  : "source-code-content-heading"
+              }
+            >
               Optimization Enabled
             </div>
-            <div className="source-code-content-value-optimization">
+            <div
+              className={
+                props.theme === "dark"
+                  ? "source-code-content-value-optimization fc-b1c3e1"
+                  : "source-code-content-value-optimization"
+              }
+            >
               {props?.contractData?.optimization?.toString() === "false"
                 ? "No"
                 : "Yes"}
             </div>
           </div>
-          <hr className="source-code-line"></hr>
+          <hr
+            className={
+              props.theme === "dark"
+                ? "source-code-line hr-dark"
+                : "source-code-line"
+            }
+          ></hr>
           <div className="source-code-content">
-            <div className="source-code-content-heading">
+            <div
+              className={
+                props.theme === "dark"
+                  ? "source-code-content-heading fc-white"
+                  : "source-code-content-heading"
+              }
+            >
               Share On Socialmedia
             </div>
-            <div className="source-code-content-value">Not available</div>
+            <div
+              className={
+                props.theme === "dark"
+                  ? "source-code-content-value fc-b1c3e1"
+                  : "source-code-content-value"
+              }
+            >
+              Not available
+            </div>
           </div>
-          <hr className="source-code-line"></hr>
+          <hr
+            className={
+              props.theme === "dark"
+                ? "source-code-line hr-dark"
+                : "source-code-line"
+            }
+          ></hr>
         </div>
       </div>
 
       <br />
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className="contract-source-2">
+        <div
+          className={
+            props.theme === "dark"
+              ? "contract-source-2 fc-white"
+              : "contract-source-2"
+          }
+        >
           <img className="code-logo" src={"/images/code.svg"} /> Contract Source
           Code Verified{" "}
         </div>
@@ -164,15 +274,29 @@ const ContractDetails = (props) => {
                   : "Copy To Clipboard"
               }
               placement="top"
+              classes={{
+                tooltip:
+                  props.theme === "dark"
+                    ? classes.customTooltipDarkMode
+                    : classes.customTooltip,
+              }}
             >
               <button
-                style={{
-                  color: "blue",
-                  backgroundColor: "white",
-                  fontSize: 14,
-                }}
+                style={
+                  props.theme === "dark"
+                    ? {
+                        color: "blue",
+                        backgroundColor: "#192a59",
+                        fontSize: 14,
+                      }
+                    : {
+                        color: "blue",
+                        backgroundColor: "white",
+                        fontSize: 14,
+                      }
+                }
               >
-                <img className="copy-icon-svg" src={"/images/copy.svg"} />
+                <img className="copy-icon-svg" src={"/images/copy-grey.svg"} />
               </button>
             </Tooltip>
           </CopyToClipboard>
@@ -181,22 +305,39 @@ const ContractDetails = (props) => {
 
       <div>
         <textarea
-          style={{
-            borderLeftWidth: "6px",
-            borderLeftColor: "#2149b9",
-            outline: "none",
-            paddingLeft: "18px",
-          }}
+          style={
+            props.theme === "dark"
+              ? {
+                  outline: "none",
+                  border: "none",
+                  paddingLeft: "18px",
+                  backgroundColor: "#3f4966",
+                  color: "#fff",
+                }
+              : {
+                  borderLeftWidth: "6px",
+                  borderLeftColor: "#2149b9",
+                  outline: "none",
+                  paddingLeft: "18px",
+                }
+          }
           readOnly
           className="input-area-3"
           value={verifiedData?.sourceCode}
+          id={props.theme === "dark" ? "contract-code-textarea" : ""}
         />
       </div>
 
       <br />
 
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className="contract-source-2">
+        <div
+          className={
+            props.theme === "dark"
+              ? "contract-source-2 fc-white"
+              : "contract-source-2"
+          }
+        >
           <img className="code-logo" src={"/images/abi.svg"} />
           Contract ABI
         </div>
@@ -212,15 +353,29 @@ const ContractDetails = (props) => {
                   : "Copy To Clipboard"
               }
               placement="top"
+              classes={{
+                tooltip:
+                  props.theme === "dark"
+                    ? classes.customTooltipDarkMode
+                    : classes.customTooltip,
+              }}
             >
               <button
-                style={{
-                  color: "blue",
-                  backgroundColor: "white",
-                  fontSize: 14,
-                }}
+                style={
+                  props.theme === "dark"
+                    ? {
+                        color: "blue",
+                        backgroundColor: "#192a59",
+                        fontSize: 14,
+                      }
+                    : {
+                        color: "blue",
+                        backgroundColor: "white",
+                        fontSize: 14,
+                      }
+                }
               >
-                <img className="copy-icon-svg" src={"/images/copy.svg"} />
+                <img className="copy-icon-svg" src={"/images/copy-grey.svg"} />
               </button>
             </Tooltip>
           </CopyToClipboard>
@@ -230,21 +385,38 @@ const ContractDetails = (props) => {
       <div>
         <textarea
           value={verifiedData?.abi}
-          style={{
-            borderLeftWidth: "6px",
-            borderLeftColor: "#2149b9",
-            outline: "none",
-            paddingLeft: "18px",
-          }}
+          style={
+            props.theme === "dark"
+              ? {
+                  outline: "none",
+                  border: "none",
+                  paddingLeft: "18px",
+                  backgroundColor: "#3f4966",
+                  color: "#fff",
+                }
+              : {
+                  borderLeftWidth: "6px",
+                  borderLeftColor: "#2149b9",
+                  outline: "none",
+                  paddingLeft: "18px",
+                }
+          }
           readOnly
           className="input-area-3"
+          id={props.theme === "dark" ? "contract-code-textarea" : ""}
         />
       </div>
 
       <br />
 
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className="contract-source-2">
+        <div
+          className={
+            props.theme === "dark"
+              ? "contract-source-2 fc-white"
+              : "contract-source-2"
+          }
+        >
           <img className="code-logo" src={"/images/bytecode.svg"} />
           Contract Byte-Code
         </div>
@@ -260,15 +432,29 @@ const ContractDetails = (props) => {
                   : "Copy To Clipboard"
               }
               placement="top"
+              classes={{
+                tooltip:
+                  props.theme === "dark"
+                    ? classes.customTooltipDarkMode
+                    : classes.customTooltip,
+              }}
             >
               <button
-                style={{
-                  color: "blue",
-                  backgroundColor: "white",
-                  fontSize: 14,
-                }}
+                style={
+                  props.theme === "dark"
+                    ? {
+                        color: "blue",
+                        backgroundColor: "#192a59",
+                        fontSize: 14,
+                      }
+                    : {
+                        color: "blue",
+                        backgroundColor: "white",
+                        fontSize: 14,
+                      }
+                }
               >
-                <img className="copy-icon-svg" src={"/images/copy.svg"} />
+                <img className="copy-icon-svg" src={"/images/copy-grey.svg"} />
               </button>
             </Tooltip>
           </CopyToClipboard>
@@ -278,13 +464,23 @@ const ContractDetails = (props) => {
       <div>
         <textarea
           value={verifiedData?.byteCode}
-          style={{
-            borderLeftWidth: "6px",
-            borderLeftColor: "#2149b9",
-            outline: "none",
-          }}
+          style={
+            props.theme === "dark"
+              ? {
+                  outline: "none",
+                  border: "none",
+                  backgroundColor: "#3f4966",
+                  color: "#fff",
+                }
+              : {
+                  borderLeftWidth: "6px",
+                  borderLeftColor: "#2149b9",
+                  outline: "none",
+                }
+          }
           readOnly
           className="input-area-4"
+          id={props.theme === "dark" ? "contract-code-textarea" : ""}
         />
       </div>
     </div>

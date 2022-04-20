@@ -45,8 +45,8 @@ export const httpConstants = {
 export const userCookiesConstants = {
   FUNCTIONAL_COOKIES: "functionalCookies",
   PERFORMANCE_COOKIES: "performanceCookies",
-  ANALYTICAL_COOKIES: "analyticalCookies"
-}
+  ANALYTICAL_COOKIES: "analyticalCookies",
+};
 
 export const cookiesConstants = {
   USER: "USER",
@@ -59,9 +59,9 @@ export const cookiesConstants = {
   USER_TRASACTION_LABELS: "USER_TRASACTION_LABELS",
   USER_ADDRESS_WATCHLIST: "USER_ADDRESS_WATCHLIST",
   USER_COOKIES: "userCookies",
-  USER_INFO:"userInfo",
+  USER_INFO: "userInfo",
 
- IS_LOGGEDIN:"isLoggedIn",
+  IS_LOGGEDIN: "isLoggedIn",
   USER_PICTURE: "USER_PICTURE",
   USER_ID: "USER_ID",
   EMAIL_ID: "EMAIL_ID",
@@ -70,7 +70,9 @@ export const cookiesConstants = {
 
   ACCESS_TOKEN:"ACCESS_TOKEN",
   ID_TOKEN:"ID_TOKEN",
-  AUTHENTICATION_PROVIDER:"AUTHENTICATION_PROVIDER"
+  AUTHENTICATION_PROVIDER:"AUTHENTICATION_PROVIDER",
+  OBSERVER_THEME: "OBSERVER_THEME",
+  OBSERVER_CURRENCY: "OBSERVER_CURRENCY"
 };
 
 export const eventConstants = {
@@ -79,6 +81,8 @@ export const eventConstants = {
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
   ADD_TO_SEARCH_LIST: 'ADD_TO_SEARCH_LIST',
   CLEAR_SEARCH_LIST: 'CLEAR_SEARCH_LIST',
+  TOGGLE_THEME: 'TOGGLE_THEME',
+  ACTIVE_CURRENCY: 'ACTIVE_CURRENCY'
 };
 
 export const genericConstants = {
@@ -97,6 +101,9 @@ export const genericConstants = {
   TXN_PRIVATE_NOTE_DELETED: "Txn Private Note Deleted",
   CANNOT_DELETE_TAGGED_ADDRESS: "Cannot delete Tagged Addresses",
   TAGGED_ADDRESS_DELETED: "Tagged Address Deleted",
+  SCM_REFERENCE: 'scm',
+  IMPORTED_TAG_LENGTH_ERROR: "Imported Name Tag should be maximum 15 characters.",
+  WRONG_CURRENT_PASSWORD: "You have entered wrong current password"
 };
 
 export const statusConstants = {
@@ -127,15 +134,18 @@ export const messages = {
     "A measure of how much of a cryptocurrency was traded in the last 24 hours.",
   FDMP: "Fully Diluted Market Cap = Price x Total supply.",
   HASH: "Unique transaction identifier, also known as the Transaction ID.",
-  BLOCK_HEIGHT: "It indicates the length of the blockchain, increases after the addition of the new block.",
-  NO_OF_TRANSACTION: "Number of transactions associated with a particular block.",
+  BLOCK_HEIGHT:
+    "It indicates the length of the blockchain, increases after the addition of the new block.",
+  NO_OF_TRANSACTION:
+    "Number of transactions associated with a particular block.",
   AMOUNT: "The number of tokens being transferred.",
   DATE: "Transaction creation date.",
   BLOCK_CREATION_TIME_STAMP: "Block creation timestamp.",
   TRANSACTION_CREATION_TIME_STAMP: "Transaction creation timestamp.",
   AGE: "Time when was the transaction created.",
+  METHOD: "Function executed based on decoded input data.",
   BLOCK: "Block number associated with the transaction.",
-  DIFFICULTY: "Difficulty.",
+  DIFFICULTY: "The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time.",
   GAS_USED: "The exact unit of gas that was used for the transactions.",
   FROM: "Sender’s account.",
   TO: "Receiver’s account.",
@@ -147,6 +157,8 @@ export const messages = {
   CONTRACT: "Smart Contract associated with the particular token.",
   HOLDER: "The total number of unique addresses that hold the token",
   TOKEN_TOTAL_SUPPLY: "The number of coins that have been already created, minus any coins that have been burned",
+  TOKEN_TRANSFER_24_HOURS: "Transfer in 24 hours.",
+  TOKEN_TRANSFER_3_DAYS: "Transfer in 3 days.",
   STATUS: "The token is either verified or unverified.",
   ACCOUNT_ADDRESS: "The unique address of a particular account.",
   ACCOUNT_TYPE: "Account type is either Account, Contract or Token.",
@@ -180,22 +192,33 @@ export const messages = {
   Txn_Fee: "Total transaction fee paid by the user",
   Tokens: "Number of XRC20 tokens available in the user's wallet",
   AVERAGE_BALANCE: "Average daily balance",
-  PASSWORD: "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
-  DOWNLOAD_CSV: "Select the transactions from table to download data",
+  PASSWORD:
+    "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
+  DOWNLOAD_CSV: "Select address by clicking on checkbox to export data",
+  RANGE_SELECTOR:"Dates can be selected within the date range of data available",
+  EXPORT_DISABLE: "Select address by clicking on checkbox to export data",
+  RANGE_SELECT: "Dates can be selected within the date range of data available"
 };
 
 export const toolTipMessages = {
+  AMOUNT: "The number of tokens being transferred.",
   hashid:
     "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
   blocknumber:
-    "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
+    "Block number associated with the transaction.",
   timestamp: "The date and time at which a transaction is mined.",
   from: "The sending party of the transaction(could be from a contact address)",
   to: "The receiving party of the transaction(could be from a contact address) ",
   value:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
   txnfee:
-    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+    "Amount paid for processing the transaction.",
+  tokenTransferred:
+    "Tokens transferred in the transaction.",
+  transactionAction:
+    "Highlighted event of the transaction.",
+  interactedWithTo:
+    "The receiving party of the transaction (could be a contract address).",
   gasprovided:
     "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
   gasprice:
@@ -206,9 +229,9 @@ export const toolTipMessages = {
   input: "Additional information that is required for the transaction",
   transferToken:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
-  privatenote: "Private notes",
   age: "Time when was the transaction created.",
-  date: "Transaction creation date."
+  date: "Transaction creation date.",
+  privatenote : `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`
 };
 
 export const decimalDivisionValue = {
@@ -219,15 +242,56 @@ export const contractMethodTypes = {
   view: "view",
 };
 
-
 export const recentSearchTypeConstants = {
-  TRANSACTION: 'TRANSACTION',
-  ACCOUNT: 'WALLET',
-  WALLET: 'WALLET',
-  BLOCK: 'TOKEN',
-  TOKEN: 'TOKEN',
+  TRANSACTION: "TRANSACTION",
+  ACCOUNT: "WALLET",
+  WALLET: "WALLET",
+  BLOCK: "TOKEN",
+  TOKEN: "TOKEN",
 };
 
 export const authenticationProvider = {
-  AUTH0: "AUTH0"
-}
+  AUTH0: "AUTH0",
+};
+
+export const MethodFromByte = {
+  "e341eaa4": "sign",
+  "3b1cd713": "approve",
+  "a9059cbb": "transfer",
+  "4f18b3d5": "transferFrom",
+  "b992cdb8": "transferFrom",
+  "811c34d3": "transferFrom",
+  "8c5b0a87": "transferFrom",
+  "857a6516": "transferFrom",
+  "407d6189": "transferFrom",
+  "e4759493": "transferFrom",
+  "d6718db8": "_symbol",
+  "49e65440 ": "setSymbol",
+  "a3895fff": "changeSymbol",
+  "efa74f1f": "getTokenBySymbol",
+  "313ce567": "decimals",
+  "c112dfa3": "changeDecimals",
+  "8c8885c8": "setDecimals",
+  "a44b47f7": "totalSUpply",
+  "72dd529b": "totalSupply",
+  "9707f708": "totalSupply",
+  "94a08c69": "totalSupply",
+  "5fd4b08a": "getName",
+  "773bc712": "changeName",
+  "c47f0027": "setName",
+  "5ac801fe": "setName",
+  "48f97f9a": "setName",
+  "ba863fae": "balanceOf",
+  "2980a5d3": "balanceOf",
+  "bd4b0b13": "balanceOfContract",
+  "9a3174a0": "BalanceOf",
+  "722713f7": "balanceOf",
+  "3d64125b": "balanceOf",
+  "fa094954": "setTokenAllowance",
+  "c2f373d2": "allowance",
+  "1777fc89": "setAllowance",
+  "6aeac363": "_allowance",
+  "de242ff4": "allowance",
+  "7040f3e5": "Allowance",
+  "9c315aa8": "setAllowance",
+};

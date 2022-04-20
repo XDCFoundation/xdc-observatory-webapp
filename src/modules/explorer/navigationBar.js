@@ -27,6 +27,7 @@ import Utils from "../../utility";
 import { useDispatch } from "react-redux";
 import { eventConstants, recentSearchTypeConstants } from "../../constants";
 import { browserName } from "react-device-detect";
+import TokenPopover from "./tokenPopover";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -143,6 +144,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "305px",
     justifyContent: "flex-end",
+    marginTop: "18px",
   },
   xdcBeta: {
     marginTop: "96px",
@@ -152,6 +154,11 @@ const useStyles = makeStyles((theme) => ({
     list: {
       width: "21.25rem",
       backgroundColor: "#102e84",
+      height: "100%",
+    },
+    listDark: {
+      width: "21.25rem",
+      backgroundColor: "#283966",
       height: "100%",
     },
   },
@@ -182,7 +189,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
@@ -198,9 +205,10 @@ export default function Navbar() {
     right: false,
   });
   const [open, setOpen] = useState(false);
-  
+
   const [opencontracts, setOpencontracts] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isTokenPopver, setTokenPopover] = React.useState(false);
   const [inputFieldValue, setInputFieldValue] = React.useState("");
   const handleSearch = (event) => {
     if (event.target.value.length == 0) setErrorMessage("");
@@ -208,20 +216,40 @@ export default function Navbar() {
       var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
       if (format.test(event.target.value)) {
-        window.location.href=`/data-not-found?searchString=${event.target.value}`;
+        window.location.href = `/data-not-found?searchString=${event.target.value}`;
       } else {
         var selectOptType = SelectOptRef.current?.value;
         let requestdata = {
-          filter: selectOptType,
+          filter: "All filters",
           data: event.target.value,
         };
         BlockChainSearch(requestdata);
       }
     }
   };
+  const handleSearchByButton = (searchData) => {
+    if (searchData.length == 0) setErrorMessage("");
+    let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
-  
-  
+    if (format.test(searchData)) {
+      window.location.href = `/data-not-found?searchString=${searchData}`;
+    } else {
+      let selectOptType = SelectOptRef.current?.value;
+      let requestdata = {
+        filter: "All filters",
+        data: searchData,
+      };
+      BlockChainSearch(requestdata);
+    }
+  };
+
+  const handleTokenPopover = () => {
+    setTokenPopover(true);
+  };
+  const closeTokenPopover = () => {
+    setTokenPopover(false);
+  };
+
   // useEffect(() => {
   //   sessionManager.setDataInCookies("NotVisited");
   // }, []);
@@ -251,42 +279,29 @@ export default function Navbar() {
     web3 = new Web3(window.web3.currentProvider);
     window.ethereum.enable();
     const chainId = await web3.eth.net.getId();
-    if (chainId !== 50) {
+    if (chainId == 50 || chainId == 51) {
       // Utils.apixFailureToast("Please login to XDCPay extension");
+      await web3.eth.getAccounts().then((accounts) => {
+        if (!accounts || !accounts.length) {
+          Utils.apiFailureToast("Please login to XDCPay extension");
+          return;
+        }
+        let acc = accounts[0];
+        acc = acc.replace("0x", "xdc");
+        acc = acc.toLowerCase();
+        window.location.href = "/address-details/" + acc;
+      });
+    } else {
       setWeb3DialogOpen(true);
       return;
     }
-    await web3.eth.getAccounts().then((accounts) => {
-      if (!accounts || !accounts.length) {
-        Utils.apiFailureToast("Please login to XDCPay extension");
-        return;
-      }
-      let acc = accounts[0];
-      acc = acc.replace("0x", "xdc");
-      acc = acc.toLowerCase();
-      window.location.href = "/address-details/" + acc;
-    });
   };
-  const handleSearchByButton = (searchData) => {
-    if (searchData.length == 0) setErrorMessage("");
-    let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
-    if (format.test(searchData)) {
-      window.location.href = `/data-not-found?searchString=${searchData}`;
-    } else {
-      let selectOptType = SelectOptRef.current?.value;
-      let requestdata = {
-        filter: selectOptType,
-        data: searchData,
-      };
-      BlockChainSearch(requestdata);
-    }
-  };
   const handleSearchOption = (event) => {
     var selectOptType = SelectOptRef.current?.value;
     var SearchDataInput = SearchDataRef.current?.value;
     let requestdata = {
-      filter: selectOptType,
+      filter: "All filters",
       data: SearchDataInput,
     };
     if (SearchDataInput === "") {
@@ -301,7 +316,7 @@ export default function Navbar() {
         SearchData.searchData(data)
       );
       if (!responseData || responseData[0]?.token?.length == 0) {
-        window.location.href=`/data-not-found?searchString=${data?.data}`;
+        window.location.href = `/data-not-found?searchString=${data?.data}`;
       }
 
       if (responseData) {
@@ -348,15 +363,10 @@ export default function Navbar() {
               redirectUrl: transactionurl,
             },
           });
-          window.location.href = transactionurl;
+           window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
           if (responseData[0]?.token.length == 1) {
-            let tokenDataUrl =
-              "/token-data/" +
-              responseData[0]?.token[0]?.address +
-              "/" +
-              responseData[0]?.token[0]?.symbol;
-
+            let tokenDataUrl =`/token-data/${responseData[0]?.token[0]?.address}/${responseData[0]?.token[0]?.symbol ? responseData[0]?.token[0]?.symbol : "NA"}`
             dispatch({
               type: eventConstants.ADD_TO_SEARCH_LIST,
               payload: {
@@ -403,14 +413,28 @@ export default function Navbar() {
 
   const lists = (anchor) => (
     <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
+      className={
+        props.theme === "dark"
+          ? clsx(classes.listDark, {
+              [classes.fullList]: anchor === "top" || anchor === "bottom",
+            })
+          : clsx(classes.list, {
+              [classes.fullList]: anchor === "top" || anchor === "bottom",
+            })
+      }
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div className="menu-sidebar-top">
-        <div className="browse-text-sidebar">Browse</div>
+        <div
+          className={
+            props.theme === "dark"
+              ? "browse-text-sidebar-dark"
+              : "browse-text-sidebar"
+          }
+        >
+          Browse
+        </div>
         <div className={classes.drawerHeaderImage}>
           <IconButton
             style={{ color: "white" }}
@@ -421,7 +445,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="inside-side-box">
           <a className="account_details_button" href="/account-details">
             <div className="xinfin_account_button">Accounts</div>
@@ -429,56 +453,86 @@ export default function Navbar() {
           <hr className="myhr" />
         </ul>
 
-                <ul className="inside-side-box">
-                    <p
-                        className="xinfin_api_button"
-                        onClick={() => setOpencontracts(true)}
-                        style={{ cursor: "pointer" }}
-                    >
-                        {" "}
-                        Contracts{" "}
-                        <span className="side-arrow-contract-tab">
-                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </span>
-                    </p>
-                    <hr className="myhr" />
-                </ul>
-                <ul className="Network-list-nav">
-                    <a
-                        className="sidebar-links"
-                        href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
-                    >
-                        <div className="xinfin_account_button">XDCPay</div>
-                    </a>
-                    <hr className="myhr" />
-                </ul>
-                <ul className="Network-list-nav">
-                    <a
-                        className="sidebar-links"
-                        href="https://github.com/xdcfoundation" target="_blank"
-                    >
-                        <div className="xinfin_account_button">XDC Github</div>
-                    </a>
-                    <hr className="myhr" />
-                </ul>
-                <ul className="Network-list-nav">
-                    <a
-                        className="sidebar-links"
-                        href="https://xdcroadmap.org/" target="_blank"
-                    >
-                        <div className="xinfin_account_button">XDC Roadmap</div>
-                    </a>
-                    <hr className="myhr" />
-                </ul>
-                <ul className="Network-list-nav">
-                    <a
-                        className="sidebar-links"
-                        href="https://medium.com/xdc-foundation-communications" target="_blank"
-                    >
-                        <div className="xinfin_account_button">About XDC</div>
-                    </a>
-                    <hr className="myhr" />
-                </ul>
+        <ul className="inside-side-box">
+          <p
+            className="xinfin_api_button"
+            onClick={() => setOpencontracts(true)}
+            style={{ cursor: "pointer" }}
+          >
+            {" "}
+            Contracts{" "}
+            <span className="side-arrow-contract-tab">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </span>
+          </p>
+          <hr className="myhr" />
+        </ul>
+        {/* <ul className="Network-list-nav">
+          <a className="sidebar-links" href="/blockchain-identity">
+            <div className="xinfin_account_button">Blockchain Identity</div>
+          </a>
+          <hr className="myhr" />
+        </ul> */}
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://origin.xdc.org/"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Origin</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">XDCPay</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://stats.xdc.org/"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Network Stats</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://github.com/xdcfoundation"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Github</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://xdcroadmap.org/"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Roadmap</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://medium.com/xdc-foundation-communications"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">About XDC</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
 
         {/* <ul className="inside-side-box">
                     <p
@@ -527,9 +581,15 @@ export default function Navbar() {
   const contracts = (subanchor) => (
     <div
       // style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
-        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
-      })}
+      className={
+        props.theme === "dark"
+          ? clsx(classes.listDark, {
+              [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+            })
+          : clsx(classes.list, {
+              [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+            })
+      }
       role="presentation"
       onKeyDown={() => setOpencontracts(false)}
     >
@@ -567,7 +627,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <List className="side-box">
+      <List className={props.theme === "dark" ? "side-box-dark" : "side-box"}>
         <ul className="Live-Network-list">
           <a
             style={{
@@ -614,9 +674,15 @@ export default function Navbar() {
   const items = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
-      className={clsx(classes.list, {
-        [classes.fullList]: subanchor === "top" || subanchor === "bottom",
-      })}
+      className={
+        props.theme === "dark"
+          ? clsx(classes.listDark, {
+              [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+            })
+          : clsx(classes.list, {
+              [classes.fullList]: subanchor === "top" || subanchor === "bottom",
+            })
+      }
       role="presentation"
       onKeyDown={() => setOpen(false)}
     >
@@ -834,8 +900,27 @@ export default function Navbar() {
   );
 
   // ..................
+  const NavigationButton1 = styled.a`
+    text-decoration: none;
+    padding: 5px 20px;
+    border-bottom: ${(props) =>
+      props.active ? "0.15rem solid #ffffff !important" : ""};
+    padding-bottom: 3px;
+    font-size: 0.938rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+
+    color: #ffffff;
+    list-style: none;
+    @media (min-width: 0px) and (max-width: 767px) {
+      font-size: 0.875rem;
+    }
+  `;
   const NavigationButton = styled.a`
     text-decoration: none;
+    cursor: pointer;
     padding: 5px 20px;
     border-bottom: ${(props) =>
       props.active ? "0.15rem solid #ffffff !important" : ""};
@@ -875,9 +960,13 @@ export default function Navbar() {
   `;
   return (
     <div className={classes.root}>
-      <Web3Dialog open={web3DialogOpen} setWeb3DialogOpen={setWeb3DialogOpen} />
+      <Web3Dialog
+        open={web3DialogOpen}
+        setWeb3DialogOpen={setWeb3DialogOpen}
+        theme={props.theme}
+      />
       <CssBaseline />
-      
+
       {/* {viewPopUp == false ? <NewFeature></NewFeature> : <div />} */}
       <DeskTopView>
         <AppBar elevation={0} className={clsx(classes.appBar)}>
@@ -894,7 +983,10 @@ export default function Navbar() {
                 {" "}
                 XDC{" "}
               </a>
-
+              <TokenPopover
+                open={isTokenPopver}
+                handleClose={closeTokenPopover}
+              />
               <div>
                 <NavLink
                   exact
@@ -908,6 +1000,14 @@ export default function Navbar() {
                 {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
               </div>
               <div>
+                {/* <div
+                  exact
+                  activeClassName="active-t"
+                  onClick={handleTokenPopover}
+                  className="Token cursor-pointer"
+                >
+                  Tokens
+                </div> */}
                 <a
                   exact
                   activeClassName="active-t"
@@ -919,7 +1019,7 @@ export default function Navbar() {
               </div>
             </Row>
             <Row alignItems="center">
-              <Login />
+              <Login theme={props.theme} />
 
               <React.Fragment key={"right"}>
                 <IconButton
@@ -1021,28 +1121,35 @@ export default function Navbar() {
             </Row>
           </MobileToolBar>
           <MobileNavigationContainer>
-            <NavigationButton active={window.location.pathname == "/"} href="/">
+            <NavigationButton1
+              active={window.location.pathname == "/"}
+              href="/"
+            >
               XDC Observatory
+            </NavigationButton1>
+            <NavigationButton  
+              href="/tokens">
+              Tokens
             </NavigationButton>
-            <NavigationButton href="/tokens">Tokens</NavigationButton>
           </MobileNavigationContainer>
         </AppBar>
       </MobileView>
       <main className={clsx(classes.content)}>
-        <div className="exp-parent">
+        <div
+          className={props.theme === "dark" ? "exp-parent-dark" : "exp-parent"}
+        >
           <div className={classes.xdcLogoContainer}>
-          <img
-            className="Shape3"
-            src={"/images/xdc-observatory.svg"}
-          ></img>
-          <img className={classes.xdcBeta} src={"/images/xdc-beta.svg"}></img>
-          {/* <div className="exp">XDC Observatory</div> */}
+            <img className="Shape3" src={"/images/xdc-observatory.svg"}></img>
+            <img className={classes.xdcBeta} src={"/images/xdc-beta.svg"}></img>
+            {/* <div className="exp">XDC Observatory</div> */}
           </div>
         </div>
         {/* ------------ Search bar ----------------- */}
 
         <div className="centerbox-parent">
-          <div className="centerbox">
+          <div
+            className={props.theme === "dark" ? "centerbox-dark" : "centerbox"}
+          >
             <div className="main-form-container">
               <form
                 method="post"
@@ -1061,7 +1168,11 @@ export default function Navbar() {
                       onKeyUp={(event) => handleSearch(event)}
                       type="text"
                       ref={SearchDataRef}
-                      className="main-input"
+                      className={
+                        props.theme === "dark"
+                          ? "main-input-dark"
+                          : "main-input"
+                      }
                       onChange={(event) =>
                         setInputFieldValue(event.target.value)
                       }
@@ -1070,13 +1181,15 @@ export default function Navbar() {
                       //         handleSearch(event);
                       //     }
                       // }}
-                      placeholder="Search"
+                      placeholder="Search by Address / Txn Hash / Block / Token"
                     />
                     {inputFieldValue.length == 0 ? (
-                      browserName === "Chrome" ? (
+                      browserName === "Chrome" || "Edge browser" ? (
                         <div
                           className={
-                               "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
+                            props.theme === "dark"
+                              ? "white-space-no-wrap bg-192a59 br-4 p-wallet m-r-20 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
+                              : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-20 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
                           }
                           onClick={searchMyAddress}
                         >
@@ -1093,7 +1206,11 @@ export default function Navbar() {
                       )
                     ) : (
                       <div
-                        className={ "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer"}
+                        className={
+                          props.theme === "dark"
+                            ? "white-space-no-wrap bg-192a59 br-4 p-wallet m-r-20 cursor-pointer"
+                            : "white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-20 cursor-pointer"
+                        }
                         onClick={() => handleSearchByButton(inputFieldValue)}
                       >
                         <span className="color-4878ff fs-14 fw-500">
@@ -1101,28 +1218,14 @@ export default function Navbar() {
                         </span>
                       </div>
                     )}
-                    {/* {browserName === "Chrome" ? (
-                      <div
-                        className="white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
-                        onClick={searchMyAddress}
-                      >
-                        <img
-                          className="p-r-6 p-b-4"
-                          src={"/images/search-by-wallet.svg"}
-                        ></img>
-                        <span className="color-4878ff fs-14 fw-500">
-                          Search My Wallet
-                        </span>
-                      </div>
-                    ) : (
-                      ""
-                    )} */}
                   </div>
 
-                  <div className="search-dashboard-select">
+                  {/* <div className="search-dashboard-select">
                     <select
                       onChange={(event) => handleSearchOption(event)}
-                      className="select"
+                      className={
+                        props.theme === "dark" ? "select-dark" : "select"
+                      }
                       id="SearchOption"
                       ref={SelectOptRef}
                     >
@@ -1133,11 +1236,8 @@ export default function Navbar() {
                       <option value="Blocks">Blocks</option>
                       <option value="Tokens">Tokens</option>
                       <option value="Transaction">Transaction</option>
-                      {/* <option value="Nametags">Nametags</option>
-                                    <option value="Labels">Labels</option>
-                                    <option value="Websites">Websites</option> */}
                     </select>
-                  </div>
+                  </div> */}
                 </div>
               </form>
 

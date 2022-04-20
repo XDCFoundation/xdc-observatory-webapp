@@ -53,6 +53,19 @@ export default function NewFeature(props) {
         borderRadius: "0px",
       },
     },
+    dialogBoxDark: {
+      maxWidth: "795px",
+      width: "100%",
+      position: "absolute",
+      top: "65px",
+      borderRadius: "12px",
+      backgroundColor: "#192a59",
+      "@media (min-width: 0px) and (max-width: 766px)": {
+        height: "100vh",
+        top: "40px",
+        borderRadius: "0px",
+      },
+    },
     alertContainerMob: {
       width: "100%",
       background: "#4878ff",
@@ -127,17 +140,19 @@ export default function NewFeature(props) {
         window.innerWidth >= 768 || newFeatureOpenInMobile ? (
           !openSignUp ? (
             !userInfo && !closeForNow ? (
+              open && <div className="overlay-private-alert">
               <Dialog
                 id="new-features"
                 onClose={handleClose}
                 open={open}
-                classes={{ paperWidthSm: classes.dialogBox }}
+                classes={props.theme === "dark" ? { paperWidthSm: classes.dialogBoxDark } : { paperWidthSm: classes.dialogBox }}
+                style={{position: "absolute", zIndex: 10000}}
               >
                 <div className="main-box">
                   <Row className="main-row">
                     {window.innerWidth >= 768 ? (
                       <>
-                        <div className="main-title">New Features</div>
+                        <div className={props.theme === "dark" ? "main-title fc-white" : "main-title"}>New Features</div>
                         <div className="main-close" onClick={handleClose}>
                           <img alt="Cross" src={"/images/XDC-Cross.svg"} />
                         </div>
@@ -151,49 +166,49 @@ export default function NewFeature(props) {
                             src={"/images/backButton.svg"}
                           />
                         </div>
-                        <div className="main-title">New Features</div>
+                        <div className={props.theme === "dark" ? "main-title fc-white" : "main-title"}>New Features</div>
                       </>
                     )}
                   </Row>
-                  <div className="main-sub-title">
+                  <div className={props.theme === "dark" ? "main-sub-title fc-4878ff" : "main-sub-title"}>
                     Create your account to get started
                   </div>
                   <Row className="card-box" style={{ flexFlow: "wrap" }}>
-                    <div className="card margin-right-34px">
+                    <div className={props.theme === "dark" ? "card margin-right-34px popup-dark-theme-bg" : "card margin-right-34px"}>
                       <img
                         alt="new-feature"
                         src={require("../../../src/assets/images/watch-list-new-feature.svg")}
                         className="crad-image"
                       />
-                      <div className="card-title">Create watchlist</div>
-                      <div className="card-text">
+                      <div className={props.theme === "dark" ? "card-title fc-white" : "card-title"}>Create watchlist</div>
+                      <div className={props.theme === "dark" ? "card-text fc-adc4e4" : "card-text"}>
                         An email notification will be sent when an address in
                         your watch list receives an incoming/outgoing
                         transaction.
                       </div>
                     </div>
-                    <div className="card margin-right-34px">
+                    <div className={props.theme === "dark" ? "card margin-right-34px popup-dark-theme-bg" : "card margin-right-34px"}>
                       <img
                         alt="addLabel"
                         src={require("../../../src/assets/images/AddLabel_NewFeature.svg")}
                         className="crad-image"
                       />
-                      <div className="card-title">Add transaction label</div>
-                      <div className="card-text">
+                      <div className={props.theme === "dark" ? "card-title fc-white" : "card-title"}>Add transaction label</div>
+                      <div className={props.theme === "dark" ? "card-text fc-adc4e4" : "card-text"}>
                         Add a personal note to the transaction hash to track it
                         in the future.
                       </div>
                     </div>
-                    <div className="card">
+                    <div className={props.theme === "dark" ? "card popup-dark-theme-bg" : "card"}>
                       <img
                         alt="addLabel"
                         src={require("../../../src/assets/images/AddTransactionLable_NewFeature.svg")}
                         className="crad-image"
                       />
-                      <div className="card-title">
+                      <div className={props.theme === "dark" ? "card-title fc-white" : "card-title"}>
                         Add private tag to an address
                       </div>
-                      <div className="card-text">
+                      <div className={props.theme === "dark" ? "card-text fc-adc4e4" : "card-text"}>
                         Add a short memo or private tag to the address of
                         interest.
                       </div>
@@ -212,12 +227,13 @@ export default function NewFeature(props) {
                       onChange={e => handleChange(e)}
                       className="main-checkbox"
                     />
-                    <div className="main-end-text">
+                    <div className={props.theme === "dark" ? "main-end-text fc-adc4e4" : "main-end-text"}>
                       Don't show this message again
                     </div>
                   </div>
                 </div>
               </Dialog>
+              </div>
             ) : (
               ""
             )

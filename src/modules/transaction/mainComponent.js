@@ -5,7 +5,7 @@ import Utils from "../../utility";
 import { TransactionService } from "../../services";
 import TokenSearchComponent from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import { toolTipMessages } from "../../constants";
+import { MethodFromByte, toolTipMessages } from "../../constants";
 import socketClient from "socket.io-client";
 import { withRouter } from "react-router";
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
@@ -31,7 +31,7 @@ export default class LatestTransactionList extends BaseComponent {
       pageParam: this.props?.match?.params?.pageNo,
       tableColumns: {
         // "Transaction Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
-        Amount: { isActive: true, toolTipText: toolTipMessages.value },
+        Amount: { isActive: true, toolTipText: toolTipMessages.AMOUNT },
         Age: { isActive: true, toolTipText: toolTipMessages.age },
         Date: { isActive: true, toolTipText: toolTipMessages.date },
         // "Date and Time": {isActive: true},
@@ -53,7 +53,6 @@ export default class LatestTransactionList extends BaseComponent {
     // if(this.state.lastPage === false){
     //   await this.setGetListOfTransactionsInterval();
     // }
-  
   }
 
   // async setGetListOfTransactionsInterval() {
@@ -63,7 +62,6 @@ export default class LatestTransactionList extends BaseComponent {
   // }
 
   async getListOfTransactions(from, amount, sortKey) {
-    // debugger;
     from = from || from === 0 ? from : this.state.from;
     amount = amount ? amount : this.state.amount;
     sortKey = sortKey ? sortKey : this.state.sortKey;
@@ -73,6 +71,12 @@ export default class LatestTransactionList extends BaseComponent {
     );
     if (error || !listOfTransactions)
       return this.setState({ isLoader: false, isData: false });
+    listOfTransactions = listOfTransactions.map((item) => {
+      return {
+        ...item,
+        method: Utils.getMethodType(item),
+      };
+    });
     this.setState({
       transactionList: listOfTransactions,
       isLoading: false,
@@ -108,6 +112,7 @@ export default class LatestTransactionList extends BaseComponent {
   socketData(socket) {
     socket.on("transaction-socket", (transactionData, error) => {
       // this.setState({ transactionSocketConnected: true })
+      transactionData["method"] = Utils.getMethodType(transactionData);
       let transactions = this.state.transactionList;
 
       let transactionDataExist = transactions.findIndex((item) => {
@@ -228,7 +233,7 @@ export default class LatestTransactionList extends BaseComponent {
 
   render() {
     return (
-      <div>
+      <div className={this.props.theme === "dark" ? "dark-theme-bg" : ""}>
         <TransactionComponent
           create_data={this.create_data}
           toggleTableColumns={this.toggleTableColumns}
@@ -240,6 +245,7 @@ export default class LatestTransactionList extends BaseComponent {
           _LastPage={this._LastPage}
           _FirstPage={this._FirstPage}
           _handleChange={this._handleChange}
+          theme={this.props.theme}
         />
       </div>
     );
