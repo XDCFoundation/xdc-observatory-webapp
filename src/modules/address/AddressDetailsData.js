@@ -24,7 +24,9 @@ import AddressData from "../../services/address";
 import ReadContract from "../contractMethods/read";
 import WriteContract from "../contractMethods/write";
 import styled from "styled-components";
-
+import { CoinMarketService } from "../../services";
+import format from "format-number";
+import { formatDuration } from "date-fns";
 const useStyles = makeStyles({
   rootUI: {
     minWidth: 650,
@@ -87,7 +89,8 @@ export default function AddressDetailsData() {
   }
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
-  const [amount, setAmount] = React.useState(50);
+  const [amount, setAmount] = React.useState("");
+  const [price, setPrice] = useState("");
   let initialState = {
     balance: 0,
     transactionCout: 0,
@@ -111,14 +114,17 @@ export default function AddressDetailsData() {
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-  let value = !data.val ? 0 : data.val;
+  let value = !data.balance ? 0 : data.balance;
   let value1 = value.toString().split(".")[0];
   let value2 = value.toString().split(".")[1];
 
-  let changedValue = data.changedVal;
+  let changedValue = Utility.convertToInternationalCurrencySystem(data.balance * price);
   let changedValue1 = changedValue.toString().split(".")[0];
   let changedValue2 = changedValue.toString().split(".")[1];
-
+  function _handleChange(event) {
+    setAmount(event?.target?.value);
+    window.localStorage.setItem("currency", event?.target?.value);
+  }
   const getContractDetails = async (values) => {
     try {
       const [error, responseAPI] = await Utility.parseResponse(
@@ -157,7 +163,7 @@ export default function AddressDetailsData() {
             changeVal = responseData.priceInUSD.toFixed(6);
         }
         setData({
-          balance: responseData.balance,
+          balance: Utility.decimalDivisonOnly(responseAPI.balance,8),
           transactionCout: responseData.transactionCount,
           contractName: responseData.contractName,
           creator: responseData.owner,
@@ -171,6 +177,19 @@ export default function AddressDetailsData() {
     } catch (error) {
       // console.error(error);
     }
+  };
+  let activeCurrency = window.localStorage.getItem("currency");
+  let currencySymbol = !price ? "" :
+  activeCurrency === "USD" ? "$" : "€";
+  const coinMarketCapDetails = async () => {
+    let [error, totalcoinMarketPrice] = await Utility?.parseResponse(
+      CoinMarketService?.getCoinMarketData(activeCurrency, {})
+    );
+    if (error || !totalcoinMarketPrice) return;
+    totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
+      return a.lastUpdated - b.lastUpdated;
+    });
+    setPrice(totalcoinMarketPrice[1]?.price);
   };
   const getTransactionsCountForAddress = async (data) => {
     try {
@@ -188,7 +207,8 @@ export default function AddressDetailsData() {
     getContractDetails(values);
     let data = { address: addressNumber };
     getTransactionsCountForAddress(data);
-  }, []);
+    coinMarketCapDetails()
+  }, [amount]);
 
   return (
     <div style={{ backgroundColor: "#fff" }}>
@@ -223,7 +243,7 @@ export default function AddressDetailsData() {
                         </TableCell>
                         <TableCell className="left-table-contract-data">
                           {balance2 == null ? (
-                            <span>{balance1} XDC</span>
+                            <span>{format({})(balance1)} XDC</span>
                           ) : (
                             <span>
                               {balance1}
@@ -231,7 +251,7 @@ export default function AddressDetailsData() {
                               <span style={{ color: "#9FA9BA" }}>
                                 {balance2}
                               </span>
-                              XDC
+                              &nbsp;XDC
                             </span>
                           )}
                         </TableCell>
@@ -241,7 +261,7 @@ export default function AddressDetailsData() {
                           USD Value
                         </TableCell>
                         <TableCell className="left-table-contract-data">
-                          {ReactHtmlParser(data.currencySymbol)}
+                          {/* {currencySymbol}
                           {value2 == null ? (
                             <span>{value1} </span>
                           ) : (
@@ -250,10 +270,10 @@ export default function AddressDetailsData() {
                               {"."}
                               <span style={{ color: "#9FA9BA" }}>{value2}</span>
                             </span>
-                          )}{" "}
-                          (@ {ReactHtmlParser(data.currencySymbol)}
+                          )}{" "} */}
+                           {currencySymbol}
                           {changedValue2 == null ? (
-                            <span>{changedValue1}/XDC </span>
+                            <span>{changedValue1}&nbsp; </span>
                           ) : (
                             <span>
                               {changedValue1}
@@ -261,10 +281,9 @@ export default function AddressDetailsData() {
                               <span style={{ color: "#9FA9BA" }}>
                                 {changedValue2}
                               </span>
-                              /XDC
                             </span>
                           )}
-                          )
+                          
                         </TableCell>
                       </TableRow>
                       <TableRow>
@@ -477,7 +496,7 @@ export default function AddressDetailsData() {
           {/* </div> */}
         </div>
       </Grid>
-      <FooterComponent />
+      <FooterComponent _handleChange={_handleChange} currency={amount}/>
     </div>
   );
 }

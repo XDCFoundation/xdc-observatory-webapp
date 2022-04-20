@@ -693,8 +693,8 @@ export default function TransactionTableComponent(props) {
                               title={format({})(row.value)}
                             >
                               <span className="tabledata">
-                                {Utility.convertToInternationalCurrencySystem(
-                                  row.value
+                                {Utility.decimalDivison(
+                                  row.value,8
                                 )}
                               </span>
                             </Tooltip>
