@@ -419,8 +419,8 @@ export default function AddressTableComponent(props) {
     setDownloadaddress(
       trxn.map((d) => {
         return {
-          Txn_Hash: d.hash,
-          Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
+          TransactionHash: d.hash,
+          Date: moment(d.timestamp * 1000).format("MMM DD, YYYY h:mm A"),
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
@@ -478,8 +478,8 @@ export default function AddressTableComponent(props) {
       setDownloadaddress(
         tempAddress.map((d) => {
           return {
-            Txn_Hash: d.Txn_Hash,
-            Date: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            TransactionHash: d.Txn_Hash,
+            Date: moment(d.Age * 1000).format("MMM DD, YYYY h:mm A"),
             Block: d.Block,
             From: d.From,
             To: d.To,
@@ -509,8 +509,8 @@ export default function AddressTableComponent(props) {
       setDownloadaddress(
         tempAddr.map((d) => {
           return {
-            Txn_Hash: d.Txn_Hash,
-            Date: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            TransactionHash: d.Txn_Hash,
+            Date: moment(d.Age * 1000).format("MMM DD, YYYY h:mm A"),
             Block: d.Block,
             From: d.From,
             To: d.To,
@@ -532,6 +532,7 @@ export default function AddressTableComponent(props) {
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    margin-bottom: 100px;
     gap: 10px;
     color: #c6cbcf;
     @media (min-width: 767px) {
@@ -567,9 +568,10 @@ export default function AddressTableComponent(props) {
           updateFiltersAndGetAccounts={updateFiltersAndGetAccounts}
           theme={props.theme}
         />
+        <div>
         {isDownloadActive ? (
           <CSVLink
-            filename={"transactions.csv"}
+            filename={"Transactions.csv"}
             data={downloadaddress}
             style={
               props.theme === "dark"
@@ -582,6 +584,7 @@ export default function AddressTableComponent(props) {
                     width: "5.875rem",
                     height: "2.125rem",
                     paddingTop: "0.125rem",
+                    float: 'right'
                   }
                 : {
                     fontSize: "0.938rem",
@@ -592,6 +595,7 @@ export default function AddressTableComponent(props) {
                     width: "5.875rem",
                     height: "2.125rem",
                     paddingTop: "0.125rem",
+                    float: "right"
                   }
             }
           >
@@ -625,6 +629,7 @@ export default function AddressTableComponent(props) {
                       height: "2.125rem",
                       paddingTop: "0.125rem",
                       opacity: 0.7,
+                      float: "right"
                     }
                   : {
                       fontSize: "0.938rem",
@@ -635,11 +640,12 @@ export default function AddressTableComponent(props) {
                       width: "5.875rem",
                       height: "2.125rem",
                       paddingTop: "0.125rem",
+                      float: "right"
                     }
               }
             >
               <CSVLink
-                filename={"transactions.csv"}
+                filename={"Transactions.csv"}
                 data={downloadaddress}
                 style={
                   props.theme === "dark"
@@ -661,7 +667,7 @@ export default function AddressTableComponent(props) {
               </CSVLink>
             </div>
           </Tooltip>
-        )}
+        )}</div>
       </SearchAndExportDiv>
 
       <Grid lg={13} className="tablegrid_address_details">
@@ -1777,7 +1783,7 @@ export default function AddressTableComponent(props) {
             ""
           )}
         </Grid>
-        <div
+        {/* <div
           className={
             props.theme === "dark"
               ? "transaction-synchronization-text mb-60"
@@ -1786,7 +1792,7 @@ export default function AddressTableComponent(props) {
         >
           Some transactions might not be visible as transaction synchronization
           is in progress
-        </div>
+        </div> */}
       </Grid>
     </div>
   );

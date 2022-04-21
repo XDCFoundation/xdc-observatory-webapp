@@ -167,7 +167,7 @@ function AddressDetailsAnalytics(props) {
           Transactions
         </AnalyticsTabButton>
         </div>
-        <div style={{paddingLeft: "28px"}}>
+        <div style={{paddingLeft: "18px"}}>
         <AnalyticsTabButton
           active={activeTab === "xdcTransfer"}
           onClick={() => setActiveTab("xdcTransfer")}

@@ -290,7 +290,7 @@ export default function StickyHeadTable(props) {
                       className={
                         props.theme === "dark"
                           ? "TableHeadersTransactionDark table-headers-dark"
-                          : "table-headers-holder"
+                          : "tableheaders table-headers"
                       }
                     >
                       Rank

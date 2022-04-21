@@ -181,7 +181,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "18px",
     color: "#2a2a2a",
-    "@media (min-width:500px) and (max-width:768px)": {
+    "@media (min-width:500px) and (max-width:767px)": {
       width: "100% !important",
       flexFlow: "column nowrap ",
       display: "flex !important",

@@ -12,7 +12,7 @@ import utility from "../../../utility";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
-import { cookiesConstants } from "../../../constants";
+import { cookiesConstants, genericConstants } from "../../../constants";
 import AlertDialog from "../../common/dialog/alertDialog";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "503px",
     height: "10px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     outline: "none",
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   textarea: {
     width: "503px",
     height: "90px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
@@ -308,7 +308,7 @@ export default function FormDialog(props) {
     ) {
       setError("Invalid transaction hash");
     } else if (PrivateNote.length > 120) {
-      setPrivateNoteError("Transaction label/note cannot be longer than 120 characters");
+      setPrivateNoteError(genericConstants.TRANSACTION_LABEL_LIMIT);
     } else {
       // const [error, response] = await utility.parseResponse(
       //   UserService.postUserPrivateNote(data)

@@ -167,7 +167,6 @@ let p =sessionManager.getDataFromCookies(
           horizontal: "right",
         }}
       >
-        {console.log("open",openPopOver)}
         <div className={props.theme === "dark" ? "table-btn-bg-dark" : ""}>
         <Contents style={props.theme === "dark" ? { borderBottom: "none" } : { borderBottom: " solid 1px #f9f9f9" }}>
           <Text style={{ marginRight: "auto" }}>

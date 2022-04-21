@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "503px",
     height: "15px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",

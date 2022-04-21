@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "506px",
     height: "3px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
@@ -207,7 +207,6 @@ function EditWatchList(props) {
   useEffect(() => {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
-    {console.log("props-desc",props.row.description)}
     setId(props.row._id);
     setValue(props?.row?.notification?.type)
   }, [props]);
@@ -231,15 +230,21 @@ function EditWatchList(props) {
     setOpen(false);
   };
 
-  const [edit, setEdit] = React.useState();
+  const [descError, setDescError] = React.useState("");
   const validateAddress = () => {
-    if ((address && address.length === 43) || address.slice(0, 2) == "xdc") {
-      return true;
-      // watchListService();
-    } else {
-      setError("Please add address that is having 43 characters and initiates with xdc");
-      return false;
+    if (!(address && address.length === 43) || !(address.slice(0, 3) === "xdc")) {
+      setError("Address should start with xdc and consist of 43 characters");
+      return
     }
+    if(!description) {
+      setDescError("Please enter description");
+      return
+    }
+    if (description && description.length > 220) {
+      setDescError("Description should be maximum 220 characters");
+      return
+    }
+    return true
   };
 
   const watchListService = async () => {
@@ -284,13 +289,11 @@ function EditWatchList(props) {
               }
               tempCount++;
               if(tempCount === watchlists.length && !searchedAddress) {
-                console.log("tempCount",tempCount)
                 watchlists.push(data);
               }
             })
           }
-        console.log("watchlist",watchlists)
-        console.log("props.index",props.index)
+          console.log("watchlist",watchlists)
         localStorage.setItem(
             sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST,
             JSON.stringify(watchlists)
@@ -327,6 +330,24 @@ function EditWatchList(props) {
         );
         return;
       }
+      let watchlists = localStorage.getItem(
+        sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST
+      );
+      watchlists = JSON.parse(watchlists);
+      watchlists = watchlists.filter((item) => item.address !== props.row.address);
+      localStorage.setItem(
+        sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST,
+        JSON.stringify(watchlists)
+      );
+      if (watchlists.length === 0) {
+        localStorage.removeItem(sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST);
+      }
+      // let items =JSON.parse(localStorage.getItem("item"));
+      // items = items.filter((item) => item.id !== id);
+      // localStorage.setItem("item", JSON.stringify(items));
+      // if (items.length === 0) {
+      //   localStorage.removeItem("item");
+      // }
       await utility.apiSuccessToast(genericConstants.WATCHLIST_DELETED);
       await handleClose();
       await props.getWatchlistList();
@@ -384,7 +405,7 @@ function EditWatchList(props) {
               className={classes.input}
               onChange={(e) => setDescription(e.target.value)}
             ></input>
-            {console.log("description",description)}
+            {descError ? <div className={classes.error}>{descError}</div> : <></>}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
