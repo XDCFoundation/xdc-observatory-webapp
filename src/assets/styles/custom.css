@@ -4,7 +4,6 @@ body {
   background-color: #ffffff;
   padding-right: 0px !important;
   letter-spacing: 0 !important;
-  overflow-y: auto !important;
 }
 a {
   text-decoration: none;
@@ -208,7 +207,7 @@ a:link {
 input#password {
   width: 433px;
   height: 40px;
-  padding-left: 15px;
+  padding-left: 12px;
   padding-top: 9px;
   border-radius: 6px;
   border: solid 1px #9fa9ba;
@@ -260,6 +259,9 @@ input#password[placeholder] {
 @media (min-width: 768px) and (max-width: 1240px) {
   input[placeholder] {
     text-overflow: unset !important;
+  }
+  .m-l-8-md {
+    margin-left: 8px;
   }
 }
 @media (min-width: 0) and (max-width: 768px) {
@@ -364,7 +366,7 @@ input:focus {
 }
 
 input:focus {
-  border: solid 1px #c6c8ce !important;
+  border: solid 1px #9fa9ba !important;
 }
 
 .display-none {
@@ -5054,6 +5056,13 @@ body {
   border-bottom: 1px solid #ddd;
   color: #252525 !important;
 }
+#container-table-contract th {
+  padding: 25px 0px 15px 24px;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: #252525 !important;
+}
 #container-table-transaction-list th {
   padding: 25px 0px 15px 24px;
   width: 190px;
@@ -5072,6 +5081,11 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
+    padding: 17px 0px 15px 20px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  #container-table-contract th {
     padding: 17px 0px 15px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -5102,6 +5116,9 @@ body {
   } */
   #container-table th {
     padding: 25px 0px 15px 15px !important;
+  }
+  #container-table-contract th {
+    padding: 25px 0px 15px 22px !important;
   }
   #container-table td {
     padding: 17px 0px 17px 10px !important;
@@ -12316,7 +12333,7 @@ button {
     margin-left: 0px !important;
   }
   .account-searchbar {
-    width: 9rem;
+    width: 135px;
   }
   .m-r-9 {
     margin-right: 0px;
@@ -12487,7 +12504,7 @@ button {
     color: #2149b9;
     height: 1rem;
     width: 1rem;
-    margin-top: -4px !important;
+    /* margin-top: -4px !important; */
   }
 }
 .inputIconCntr {

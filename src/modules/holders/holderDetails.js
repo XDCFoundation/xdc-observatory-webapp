@@ -375,8 +375,8 @@ let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
                         <div className="sec-row-table">
                           <div className="word-break">
                             {" "}
-                            <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{addr}</div>
-                            <CopyToClipboard
+                            <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{addr}
+                            <span><CopyToClipboard
                               text={addr}
                               onCopy={() => setCopiedText(addr)}
                             >
@@ -451,7 +451,9 @@ let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
                                   </p>
                                 </div>
                               )}
-                            </Popup>
+                            </Popup></span>
+                            </div>
+                            
                             {/* <Popup
                               trigger={
                                 <ImQrcode

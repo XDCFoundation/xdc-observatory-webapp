@@ -103,7 +103,9 @@ export const genericConstants = {
   TAGGED_ADDRESS_DELETED: "Tagged Address Deleted",
   SCM_REFERENCE: 'scm',
   IMPORTED_TAG_LENGTH_ERROR: "Imported Name Tag should be maximum 15 characters.",
-  WRONG_CURRENT_PASSWORD: "You have entered wrong current password"
+  WRONG_CURRENT_PASSWORD: "You have entered wrong current password",
+  DESCRIPTION_LIMIT: "Description should be maximum 220 characters",
+  TRANSACTION_LABEL_LIMIT: "Transaction label/note cannot be longer than 120 characters"
 };
 
 export const statusConstants = {

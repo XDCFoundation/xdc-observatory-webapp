@@ -862,7 +862,7 @@ class BlockChainDataComponent extends Component {
                         )}
                       </TransactionValue>
                     </Tooltip>
-                    {window.innerWidth > 1024 ? (
+                    {/* {window.innerWidth > 1024 ? (
                       <Tooltip
                         placement="top"
                         title="Transactions are syncing"
@@ -910,7 +910,7 @@ class BlockChainDataComponent extends Component {
                           className="tooltipAlert"
                         />
                       </Tooltip>
-                    )}
+                    )} */}
                   </TransactionTitleValue>
                 </ValueName>
               </Value>

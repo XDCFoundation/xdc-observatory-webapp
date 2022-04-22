@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "503px",
     height: "3px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
@@ -325,6 +325,8 @@ export default function FormDialog(props) {
       !(address.slice(0, 3) === "xdc")
     ) {
       setError("Address should start with xdc and consist of 43 characters");
+    } else if (description && description.length > 220) {
+      setDescriptionError("Description should be maximum 220 characters");
     } else {
       if (value === "NO") request["isEnabled"] = false;
       const [error, response] = await utility.parseResponse(
