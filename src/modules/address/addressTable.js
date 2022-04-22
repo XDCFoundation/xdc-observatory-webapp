@@ -119,7 +119,8 @@ export default function AddressTableComponent(props) {
     to: 0,
     value: 0,
   });
-
+  const [lastFrom, setLastFrom] = useState(0);
+  const [lastPage, setlastPage] = useState(false);
   const [sortingKey, setSortingKey] = React.useState("");
   if (sortToggle["value"] === 1 && sortingKey === "value") {
     address.sort(function (a, b) {
@@ -140,6 +141,7 @@ export default function AddressTableComponent(props) {
     if (action == "first") {
       if (keywords) {
         setPage(0);
+        setLastFrom(false)
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
@@ -149,6 +151,7 @@ export default function AddressTableComponent(props) {
         getTransactionSearch(datas);
       } else {
         setPage(0);
+        setlastPage(false)
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
@@ -160,6 +163,8 @@ export default function AddressTableComponent(props) {
       }
     }
     if (action === "last") {
+      setlastPage(true)
+      setLastFrom(0)
       let pagecount = (Math.ceil(totalRecord / rowsPerPage) - 1) * rowsPerPage;
       setPage(pagecount);
       if (keywords) {
@@ -172,76 +177,118 @@ export default function AddressTableComponent(props) {
         getTransactionSearch(datas);
       } else {
         let datas = {
-          pageNum: pagecount,
+          pageNum: lastFrom,
           perpage: rowsPerPage,
           addrr: addr,
-          sortKey: sortingKey,
-          sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+          sortKey: "blockNumber",
+          sortType: 1,
         };
         getAddressDetails(datas);
       }
     }
 
     if (action === "next") {
-      if (+rowsPerPage + +page < totalRecord) {
-        let pagecount = +rowsPerPage + +page;
-        setPage(pagecount);
-        if (keywords) {
-          datas = {
-            pageNum: pagecount,
-            perpage: rowsPerPage,
-            addrr: addr,
-            keywords: keywords,
-          };
-          getTransactionSearch(datas);
-        } else {
+      let pagecount = +rowsPerPage + +page;
+      setPage(pagecount);
+      if (lastPage === true) {
+        if (lastFrom - rowsPerPage >= 0) {
+          let from = lastFrom - rowsPerPage
+          setLastFrom(from)
           let datas = {
-            pageNum: pagecount,
+            pageNum: from,
             perpage: rowsPerPage,
             addrr: addr,
-            sortKey: sortingKey,
-            sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+            sortKey: "blockNumber",
+            sortType: 1
           };
           getAddressDetails(datas);
+        }
+      } else {
+        if (+rowsPerPage + +page < totalRecord) {
+          let pagecount = +rowsPerPage + +page;
+          setPage(pagecount);
+          if (keywords) {
+            datas = {
+              pageNum: pagecount,
+              perpage: rowsPerPage,
+              addrr: addr,
+              keywords: keywords,
+            };
+            getTransactionSearch(datas);
+          } else {
+            let datas = {
+              pageNum: pagecount,
+              perpage: rowsPerPage,
+              addrr: addr,
+              sortKey: sortingKey,
+              sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+            };
+            getAddressDetails(datas);
+          }
         }
       }
     }
 
     if (action === "prev") {
-      if (page - rowsPerPage >= 0) {
-        let pagecount = page - rowsPerPage;
-        setPage(pagecount);
-        if (keywords) {
-          datas = {
-            pageNum: pagecount,
-            perpage: rowsPerPage,
-            addrr: addr,
-            keywords: keywords,
-          };
-          getTransactionSearch(datas);
-        } else {
-          let datas = {
-            pageNum: pagecount,
-            perpage: rowsPerPage,
-            addrr: addr,
-            sortKey: sortingKey,
-            sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
-          };
-          getAddressDetails(datas);
+      let pagecount = page - rowsPerPage;
+      setPage(pagecount);
+      if (lastPage === true) {
+
+        let from = lastFrom + rowsPerPage
+        setLastFrom(from)
+        let datas = {
+          pageNum: from,
+          perpage: rowsPerPage,
+          addrr: addr,
+          sortKey: "blockNumber",
+          sortType: 1
+        };
+        getAddressDetails(datas);
+
+      } else {
+        if (page - rowsPerPage >= 0) {
+          let pagecount = page - rowsPerPage;
+          setPage(pagecount);
+          if (keywords) {
+            datas = {
+              pageNum: pagecount,
+              perpage: rowsPerPage,
+              addrr: addr,
+              keywords: keywords,
+            };
+            getTransactionSearch(datas);
+          } else {
+            let datas = {
+              pageNum: pagecount,
+              perpage: rowsPerPage,
+              addrr: addr,
+              sortKey: sortingKey,
+              sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+            };
+            getAddressDetails(datas);
+          }
         }
       }
+
     }
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
-    setPage(0);
-    datas = {
-      pageNum: 0,
-      perpage: event.target.value,
-      addrr: addr,
-      sortKey: sortingKey,
-      sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
-    };
+    // setPage(0);
+    lastPage === false ?
+      datas = {
+        pageNum: 0,
+        perpage: event.target.value,
+        addrr: addr,
+        sortKey: sortingKey,
+        sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+      } : datas = {
+        pageNum: lastFrom,
+        perpage: event.target.value,
+        addrr: addr,
+        sortKey: "blockNumber",
+        sortType: 1,
+      }
     getAddressDetails(datas);
   };
 
@@ -255,7 +302,7 @@ export default function AddressTableComponent(props) {
     const filtersData = filters || searchAndFilters;
     if (filtersData.searchQuery) {
       requestData.searchValue = filtersData.searchQuery;
-      requestData.searchKeys = ["from", "to", "hash","blockNumber"];
+      requestData.searchKeys = ["from", "to", "hash", "blockNumber"];
     }
     if (filtersData.type && filtersData.type !== "ALL")
       requestData.txnType = filtersData.type;
@@ -517,8 +564,8 @@ export default function AddressTableComponent(props) {
             Value:
               d?.Value < 10000000000
                 ? Number(
-                    d?.Value * 1000000000000000000
-                  ) /*there are some transactions which are not in gwei in ou DB*/
+                  d?.Value * 1000000000000000000
+                ) /*there are some transactions which are not in gwei in ou DB*/
                 : Utility.decimalDivisonOnly(d.Value, 8),
           };
         })
@@ -553,7 +600,7 @@ export default function AddressTableComponent(props) {
       filters.searchQuery ||
       filters.type ||
       filters.status !==
-        "all" /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/
+      "all" /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/
     )
       setLoading(true);
     getAddressDetails({}, filters);
@@ -574,25 +621,25 @@ export default function AddressTableComponent(props) {
             style={
               props.theme === "dark"
                 ? {
-                    fontSize: "0.938rem",
-                    color: "#ffffff",
-                    textAlign: "center",
-                    backgroundColor: "#283966",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    paddingTop: "0.125rem",
-                  }
+                  fontSize: "0.938rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                  backgroundColor: "#283966",
+                  borderRadius: "0.25rem",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                  paddingTop: "0.125rem",
+                }
                 : {
-                    fontSize: "0.938rem",
-                    color: "#ffffff",
-                    textAlign: "center",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    paddingTop: "0.125rem",
-                  }
+                  fontSize: "0.938rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                  backgroundColor: "rgb(7 125 245)",
+                  borderRadius: "0.25rem",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                  paddingTop: "0.125rem",
+                }
             }
           >
             Export
@@ -616,26 +663,26 @@ export default function AddressTableComponent(props) {
               style={
                 props.theme === "dark"
                   ? {
-                      fontSize: "0.938rem",
-                      textAlign: "center",
-                      color: "#ffffff",
-                      backgroundColor: "#283966",
-                      borderRadius: "0.25rem",
-                      width: "5.875rem",
-                      height: "2.125rem",
-                      paddingTop: "0.125rem",
-                      opacity: 0.7,
-                    }
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "#283966",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+                    paddingTop: "0.125rem",
+                    opacity: 0.7,
+                  }
                   : {
-                      fontSize: "0.938rem",
-                      textAlign: "center",
-                      color: "#ffffff",
-                      backgroundColor: "#e3e7eb",
-                      borderRadius: "0.25rem",
-                      width: "5.875rem",
-                      height: "2.125rem",
-                      paddingTop: "0.125rem",
-                    }
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "#e3e7eb",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+                    paddingTop: "0.125rem",
+                  }
               }
             >
               <CSVLink
@@ -644,17 +691,17 @@ export default function AddressTableComponent(props) {
                 style={
                   props.theme === "dark"
                     ? {
-                        pointerEvents: "none",
-                        fontSize: "0.938rem",
-                        textAlign: "center",
-                        color: "#ffffff",
-                      }
+                      pointerEvents: "none",
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                    }
                     : {
-                        pointerEvents: "none",
-                        fontSize: "0.938rem",
-                        textAlign: "center",
-                        color: "#ffffff",
-                      }
+                      pointerEvents: "none",
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                    }
                 }
               >
                 Export
@@ -820,8 +867,8 @@ export default function AddressTableComponent(props) {
                       }}
                     >
                       {sortingKey &&
-                      ageArrow &&
-                      sortingKey === "blockNumber" ? (
+                        ageArrow &&
+                        sortingKey === "blockNumber" ? (
                         sortToggle.blockNumber == -1 ? (
                           <img
                             alt="question-mark"
@@ -917,8 +964,8 @@ export default function AddressTableComponent(props) {
                       }}
                     >
                       {blockArrow &&
-                      sortingKey &&
-                      sortingKey === "blockNumber" ? (
+                        sortingKey &&
+                        sortingKey === "blockNumber" ? (
                         sortToggle.blockNumber == -1 ? (
                           // <ArrowUpwardIcon
                           // onClick={() => {
@@ -1310,8 +1357,8 @@ export default function AddressTableComponent(props) {
                                 ? { background: "#192a59" }
                                 : { background: "#f9f9f9" }
                               : props.theme === "dark"
-                              ? { background: "#192a59" }
-                              : { background: "white" }
+                                ? { background: "#192a59" }
+                                : { background: "white" }
                           }
                         >
                           <TableCell
@@ -1430,8 +1477,8 @@ export default function AddressTableComponent(props) {
                                     ? "out_dark"
                                     : "out"
                                   : props.theme === "dark"
-                                  ? "in_dark"
-                                  : "in"
+                                    ? "in_dark"
+                                    : "in"
                               }
                             >
                               {row.From === addr ? "Out" : "In"}
@@ -1466,8 +1513,8 @@ export default function AddressTableComponent(props) {
                                   {row.To
                                     ? shorten(row.To)
                                     : shorten(
-                                        row.contractAddress
-                                      ).toLocaleLowerCase()}
+                                      row.contractAddress
+                                    ).toLocaleLowerCase()}
                                 </span>
                               </Tooltip>
                             </a>
@@ -1495,7 +1542,7 @@ export default function AddressTableComponent(props) {
                                   }
                                 >
                                   {row.Value == 0 ? 0 : value1}
-                                  {} &nbsp;XDC
+                                  { } &nbsp;XDC
                                 </span>
                               ) : (
                                 <span
@@ -1619,8 +1666,8 @@ export default function AddressTableComponent(props) {
                           ? "btn-latest-block-dark disabled"
                           : "btn disabled"
                         : props.theme === "dark"
-                        ? "btn-latest-block-dark"
-                        : "btn"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     First
@@ -1633,8 +1680,8 @@ export default function AddressTableComponent(props) {
                           ? "btn-latest-block-dark disabled"
                           : "btn disabled"
                         : props.theme === "dark"
-                        ? "btn-latest-block-dark"
-                        : "btn"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     <img
@@ -1653,14 +1700,14 @@ export default function AddressTableComponent(props) {
                     onClick={() => handleChangePage("next")}
                     className={
                       page + rowsPerPage === totalRecord ||
-                      +page + +rowsPerPage > totalRecord ||
-                      totalRecord === 0
+                        +page + +rowsPerPage > totalRecord ||
+                        totalRecord === 0
                         ? props.theme === "dark"
                           ? "btn-latest-block-dark disabled"
                           : "btn disabled"
                         : props.theme === "dark"
-                        ? "btn-latest-block-dark"
-                        : "btn"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     <img className="back-arrow" src={"/images/next.svg"} />
@@ -1669,14 +1716,14 @@ export default function AddressTableComponent(props) {
                     onClick={() => handleChangePage("last")}
                     className={
                       page + rowsPerPage === totalRecord ||
-                      +page + +rowsPerPage > totalRecord ||
-                      totalRecord === 0
+                        +page + +rowsPerPage > totalRecord ||
+                        totalRecord === 0
                         ? props.theme === "dark"
                           ? "btn-latest-block-dark disabled"
                           : "btn disabled"
                         : props.theme === "dark"
-                        ? "btn-latest-block-dark"
-                        : "btn"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     Last
@@ -1703,8 +1750,8 @@ export default function AddressTableComponent(props) {
                           ? "btn-latest-block-dark disabled"
                           : "btn disabled"
                         : props.theme === "dark"
-                        ? "btn-latest-block-dark"
-                        : "btn"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     First
@@ -1717,8 +1764,8 @@ export default function AddressTableComponent(props) {
                           ? "btn-latest-block-dark disabled"
                           : "btn disabled"
                         : props.theme === "dark"
-                        ? "btn-latest-block-dark"
-                        : "btn"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     <img
@@ -1742,14 +1789,14 @@ export default function AddressTableComponent(props) {
                     onClick={() => handleChangePage("next")}
                     className={
                       page + rowsPerPage === totalRecord ||
-                      +page + +rowsPerPage > totalRecord ||
-                      totalRecord === 0
+                        +page + +rowsPerPage > totalRecord ||
+                        totalRecord === 0
                         ? props.theme === "dark"
                           ? "btn-latest-block-dark disabled"
                           : "btn disabled"
                         : props.theme === "dark"
-                        ? "btn-latest-block-dark"
-                        : "btn"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     <img className="back-arrow" src={"/images/next.svg"} />
@@ -1758,14 +1805,14 @@ export default function AddressTableComponent(props) {
                     onClick={() => handleChangePage("last")}
                     className={
                       page + rowsPerPage === totalRecord ||
-                      +page + +rowsPerPage > totalRecord ||
-                      totalRecord === 0
+                        +page + +rowsPerPage > totalRecord ||
+                        totalRecord === 0
                         ? props.theme === "dark"
                           ? "btn-latest-block-dark disabled"
                           : "btn disabled"
                         : props.theme === "dark"
-                        ? "btn-latest-block-dark"
-                        : "btn"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     Last

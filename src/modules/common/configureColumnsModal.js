@@ -70,7 +70,6 @@ function ConfigureColumnsModal(props) {
                                 : classes.customTooltip,
                           }}
                         >
-                          {console.log("value", props.tableColumns[key])}
                           <img
                             className="tooltipInfoIconConfigMob"
                             src="/images/info.svg"

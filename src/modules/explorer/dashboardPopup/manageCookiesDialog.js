@@ -177,7 +177,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageCookiesDialog(props) {
-    console.log("manage-cookies-props",props)
     const [open, setOpen] = React.useState(false);
     const [functionalCookies, setFunctionalCookies] = React.useState(false);
     const [performanceCookies, setPerformanceCookies] = React.useState(false);
