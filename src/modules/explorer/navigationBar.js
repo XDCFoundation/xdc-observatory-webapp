@@ -520,6 +520,16 @@ export default function Navbar(props) {
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
+            href="http://observatoryapi.xdc.org:3008/swagger-docs/"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">API Document</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
             href="https://github.com/xdcfoundation"
             target="_blank"
           >
