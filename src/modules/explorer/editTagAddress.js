@@ -341,7 +341,7 @@ function EditTaggedAddress(props) {
       </div>
 
       <div>
-      {open && <div className="overlay-private-alert">
+      {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
         <Dialog
           classes={{ paperWidthSm: classes.dialogBox }}
           open={open}

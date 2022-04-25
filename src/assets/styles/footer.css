@@ -259,9 +259,15 @@ ul {
 }
 
 .select-icon {
-  padding-left: 0px;
+  margin-right: 0px;
   width: 20px;
   height: 20px;
+}
+#currency-menu-item-usd > div > div {
+  padding: 0 25px 0 7px !important;
+}
+#currency-menu-item-euro > div > div {
+  padding: 0 25px 0 7px !important;
 }
 .inline {
   display: inline;

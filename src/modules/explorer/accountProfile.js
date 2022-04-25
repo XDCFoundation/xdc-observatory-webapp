@@ -738,10 +738,10 @@ function SimpleTabs(props) {
     watchlists = JSON.parse(watchlists);
     if (!watchlists) watchlists = [];
     response.watchlistContent = response.watchlistContent.map((obj) => {
-      obj.description = watchlists.map((item, index) => {
-        return watchlists && watchlists[index][obj.address]
-          ? watchlists[index][obj.address]
-          : "";
+      watchlists.map((item, index) => {
+        if(watchlists && watchlists[index][obj.address]) {
+          obj.description = watchlists[index][obj.address];
+        }
       });
       return obj;
     });

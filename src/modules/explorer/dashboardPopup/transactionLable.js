@@ -456,7 +456,7 @@ export default function FormDialog(props) {
       </Button> */}
 
         {/* <div> */}
-        {open && <div className="overlay-private-alert">
+        {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
         <Dialog
           // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}

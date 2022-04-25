@@ -63,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
       height: "10.8rem !important",
       padding: "15px",
     },
+    appBarDark: {
+      height: "10.8rem !important",
+      padding: "15px",
+    },
     drawerHeader: {
       padding: "0 !important",
     },
@@ -70,6 +74,13 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 767px) and (max-width:1250px)": {
     appBar: {
       backgroundColor: "#2149b9",
+      height: "134px !important",
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarDark: {
       height: "134px !important",
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
