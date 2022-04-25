@@ -13,6 +13,7 @@ import AuthService from "../../services/userLogin";
 import Loader from '../../assets/loader'
 import { genericConstants } from "../../constants";
 import { cookiesConstants } from "../../constants"
+import LoginService from "../../services/auth0"
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -205,7 +206,6 @@ export default function ChangePassword(props) {
         const reqObj = {
             email: userInfo.email,
             userId: userInfo.sub,
-            oldPassword: currentInput,
             newPassword: newInput,
         };
 
@@ -234,21 +234,32 @@ export default function ChangePassword(props) {
             setLoading(false);
         } else if (currentInput === newInput) {
             setErrorPassword("New password cannot be same as old password");
+            setLoading(false);
         } else if (newInput !== confirmPassword) {
             setErrorConfirmPassword("Password doesn't match");
             setLoading(false);
         } else {
+            const newRequest = {
+                name: userInfo.name,
+                password: currentInput
+            }
+            let authObjectLogin = new LoginService();
+            let [errorLogin, authResponseLogin] = await Utility.parseResponse(
+                authObjectLogin.signin(newRequest.name, newRequest.password)
+            );
+            setLoading(false);
+            if (errorLogin || !authResponseLogin) {
+                setLoading(false);
+                setErrorConfirmPassword(genericConstants.WRONG_CURRENT_PASSWORD);
+                return;
+            }
             const authObject = new AuthService();
             let [error, authResponse] = await Utility.parseResponse(
                 authObject.changePassword(reqObj)
             );
             if (error || !authResponse) {
                 setLoading(false);
-                // utility.apiFailureToast("failed");
-                if(error.message == genericConstants.WRONG_CURRENT_PASSWORD)
-                    setErrorConfirmPassword(genericConstants.WRONG_CURRENT_PASSWORD);
-                else
-                    setErrorConfirmPassword("Failed to Change Password");
+                setErrorConfirmPassword("Failed to Change Password");
             } else {
                 setLoading(false);
                 const authObject = new AuthService();
