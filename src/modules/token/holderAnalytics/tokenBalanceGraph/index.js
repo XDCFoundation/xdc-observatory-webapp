@@ -11,6 +11,7 @@ const NoDataFoundContainer = styled.div`
   align-items: center;
   margin-top: 100px;
   margin-bottom: 100px;
+  margin-left: 10px;
   gap: 10px;
   @media (min-width: 767px) {
     margin: 100px !important;

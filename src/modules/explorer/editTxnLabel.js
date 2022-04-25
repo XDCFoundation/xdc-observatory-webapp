@@ -180,7 +180,7 @@ function EditTxnLabel(props) {
     }, [props]);
 
     async function editTransactionLable() {
-        validateTransaction()
+        if(!validateTransaction()) return
         const data = {
             ...props.row,
             trxLable: PrivateNote,
@@ -245,6 +245,7 @@ function EditTxnLabel(props) {
             setPrivateNoteError(genericConstants.TRANSACTION_LABEL_LIMIT);
             return
         }
+        return true;
     };
     const handleDelete = async () => {
         // if (props?.row?._id) {
@@ -301,7 +302,7 @@ function EditTxnLabel(props) {
             </div>
 
             <div>
-            {open && <div className="overlay-private-alert">
+            {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
                 <Dialog
                     classes={{paperWidthSm: classes.dialogBox}}
                     open={open}
@@ -362,7 +363,7 @@ function EditTxnLabel(props) {
                             <span>
                 <button
                     className={classes.updatebtn}
-                    onClick={(editTransactionLable, validateTransaction)}
+                    onClick={(editTransactionLable)}
                 >
                   Update
                 </button>

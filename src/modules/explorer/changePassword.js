@@ -170,6 +170,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ChangePassword(props) {
+    console.log("props",props)
     const classes = useStyles();
     const [newInput, setNewInput] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -276,12 +277,15 @@ export default function ChangePassword(props) {
     };
 
     return (
+        <div>
+        {<div className={window.innerWidth >= 768 && "overlay-private-alert"}>
         <Dialog
             // className={classes.dialog}
             classes={props.theme === "dark" ? { paperWidthSm: classes.dialogBoxDark } : { paperWidthSm: classes.dialogBox }}
             open
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
+            style={{position: "absolute", zIndex: 10000}}
         >
             <DialogContent className={classes.heading}>
                 <div onClick={handleClose} className={classes.backButtonMobile}>
@@ -426,5 +430,7 @@ export default function ChangePassword(props) {
                 </Column>
             </DialogContent>
         </Dialog>
+        </div>}
+        </div>
     );
 }

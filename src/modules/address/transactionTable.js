@@ -486,9 +486,9 @@ export default function TransactionTableComponent(props) {
                         onChange={handleChanged}
                         type="checkbox"
                         name="allselect"
-                        checked={
+                        checked={ address.length > 0 ?
                           address.filter((addr) => addr?.isChecked == true)
-                            .length == address.length
+                            .length == address.length : false
                         }
                         style={{ marginRight: "8px" }}
                       />
