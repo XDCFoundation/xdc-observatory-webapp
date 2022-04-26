@@ -134,6 +134,7 @@ export default function TransactionComponent(props) {
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    margin-bottom: 100px;
     gap: 10px;
     color: #c6cbcf;
     @media (min-width: 767px) {

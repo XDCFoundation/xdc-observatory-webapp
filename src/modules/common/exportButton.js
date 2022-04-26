@@ -19,7 +19,7 @@ const SelectedValueContainer = styled.div`
   flex-direction: row;
   cursor: pointer;
   background: white;
-  padding: 7px 10px;
+  padding: 3px 10px;
   background-color: rgb(7 125 245);
   border-radius: 0.25rem;
   width: 5.875rem;
@@ -121,7 +121,7 @@ const ExportButton = (props) => {
           <PDFDownloadLink
                 
                 document={<AddressPDF data={downloadData} />}
-                fileName="tagAddresses.pdf"
+                fileName="Tag Address.pdf"
               >
             <span>Export</span>
             </PDFDownloadLink>

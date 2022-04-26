@@ -257,7 +257,6 @@ class AddressStatsData extends Component {
       : Number(gasPrice) * Number(currencyPrice);
 
     let currencySymbol = activeCurrency === "EUR" ? "€" : "$";
-    console.log("loffer", gasPrice);
     return (
       <>
         <DeskTopView>
@@ -291,7 +290,7 @@ class AddressStatsData extends Component {
                   Total Txn(s)
                 </MarketDataPointTitle>
                 {!this.props?.statData?.totalTransactionsCount ? (
-                  <div className="m-l-5">
+                  <div className="m-l-16">
                     <div className="animated-background"></div>
                   </div>
                 ) : (
@@ -335,7 +334,7 @@ class AddressStatsData extends Component {
                   Highest Txn
                 </MarketDataPointTitle>
                 {!highestTxn ? (
-                  <div>
+                  <div className="m-l-20">
                     <div className="animated-background"></div>
                   </div>
                 ) : (
@@ -376,7 +375,7 @@ class AddressStatsData extends Component {
                   Average Balance
                 </MarketDataPointTitle>
                 {!avgBalance ? (
-                  <div>
+                  <div className="m-l-16">
                     <div className="animated-background"></div>
                   </div>
                 ) : (
@@ -420,7 +419,8 @@ class AddressStatsData extends Component {
                     Txn Fee Paid
                   </MarketDataPointTitle>
                   {typeof gasPrice === "string" ? (
-                    <div style={{marginLeft:"14px"}}>
+                    // <div style={{marginLeft:"14px"}}>
+                    <div className="m-l-32">
                       <div className="animated-background"></div>
                     </div>
                   ) : (

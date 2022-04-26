@@ -338,7 +338,21 @@ export default function Navbar(props) {
             },
           });
           window.location.href = blockurl;
-        } else if (responseData[0].redirect === "account") {
+        }else if (responseData[0].redirect === "contract") {
+          let accounturl =
+            "/address/" + responseData[0].account.address;
+          dispatch({
+            type: eventConstants.ADD_TO_SEARCH_LIST,
+            payload: {
+              type: recentSearchTypeConstants.CONTRACT,
+              searchValue: responseData[0]?.account?.address || "",
+              result: responseData[0]?.account?.balance || 0,
+              redirectUrl: accounturl,
+            },
+          });
+          window.location.href = accounturl;
+        } 
+        else if (responseData[0].redirect === "account") {
           let accounturl =
             "/address-details/" + responseData[0].account.address;
           dispatch({
@@ -500,6 +514,16 @@ export default function Navbar(props) {
             target="_blank"
           >
             <div className="xinfin_account_button">XDC Network Stats</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="http://observatoryapi.xdc.org:3008/swagger-docs/"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">API Document</div>
           </a>
           <hr className="myhr" />
         </ul>

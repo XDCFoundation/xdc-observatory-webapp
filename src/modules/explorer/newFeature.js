@@ -140,11 +140,13 @@ export default function NewFeature(props) {
         window.innerWidth >= 768 || newFeatureOpenInMobile ? (
           !openSignUp ? (
             !userInfo && !closeForNow ? (
+              open && <div className="overlay-private-alert">
               <Dialog
                 id="new-features"
                 onClose={handleClose}
                 open={open}
                 classes={props.theme === "dark" ? { paperWidthSm: classes.dialogBoxDark } : { paperWidthSm: classes.dialogBox }}
+                style={{position: "absolute", zIndex: 10000}}
               >
                 <div className="main-box">
                   <Row className="main-row">
@@ -231,6 +233,7 @@ export default function NewFeature(props) {
                   </div>
                 </div>
               </Dialog>
+              </div>
             ) : (
               ""
             )

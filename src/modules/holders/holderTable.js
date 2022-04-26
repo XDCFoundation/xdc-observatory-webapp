@@ -134,6 +134,7 @@ export default function HolderTableComponent(props) {
   const [toToolTip, setToToolTip] = React.useState(false);
   const [amountToolTip, setAmountToolTip] = React.useState(false);
   const [exportToolTip, setExportToolTip] = React.useState(false);
+  const [holderTotalTransfersCount, setHolderTotalTransfersCount] = React.useState(0);
 
   const sortTable = (_sortKey) => {
     let _sortOrder = -1;
@@ -208,6 +209,7 @@ export default function HolderTableComponent(props) {
         setLoading(false);
         setNoData(false);
         parseResponseData(responseData, 1);
+        setHolderTotalTransfersCount(responseData[0].Total_transfes_transactions_Count);
       } else {
         setLoading(false);
         setNoData(true);
@@ -283,7 +285,7 @@ export default function HolderTableComponent(props) {
     setDownloadaddress(
       trxn.map((d) => {
         return {
-          Txn_Hash: d.hash,
+          TransactionHash: d.hash,
           Age: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
           Block: d.blockNumber,
           From: d.from,
@@ -340,8 +342,8 @@ export default function HolderTableComponent(props) {
       setDownloadaddress(
         tempAddress.map((d) => {
           return {
-            TxHash: d.Txn_Hash,
-            Age: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            TransactionHash: d.Txn_Hash,
+            Age: moment(d.Age * 1000).format("MMM DD, YYYY h:mm A"),
             Block: d.Block,
             From: d.From,
             To: d.To,
@@ -367,8 +369,8 @@ export default function HolderTableComponent(props) {
       setDownloadaddress(
         tempAddr.map((d) => {
           return {
-            TxHash: d.Txn_Hash,
-            Age: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            TransactionHash: d.Txn_Hash,
+            Age: moment(d.Age * 1000).format("MMM DD, YYYY h:mm A"),
             Block: d.Block,
             From: d.From,
             To: d.To,
@@ -384,6 +386,7 @@ export default function HolderTableComponent(props) {
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  margin-bottom: 100px;
   gap: 10px;
   color: #c6cbcf;
   @media (min-width: 767px) {
@@ -427,7 +430,7 @@ export default function HolderTableComponent(props) {
 
         {isDownloadActive ? (
           <CSVLink
-            filename={"transactions.csv"}
+            filename={"Transactions.csv"}
             data={downloadaddress}
             style={{
               fontSize: "0.938rem",
@@ -467,7 +470,7 @@ export default function HolderTableComponent(props) {
                   height: "2.125rem",
                 }} onClick={() => setExportToolTip(!exportToolTip)}>
               <CSVLink
-                filename={"transactions.csv"}
+                filename={"Transactions.csv"}
                 data={downloadaddress}
                 style={{
                   pointerEvents: "none",
@@ -505,9 +508,9 @@ export default function HolderTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={
+                      checked={ address.length > 0 ?
                         address.filter((addr) => addr?.isChecked == true)
-                          .length == address.length
+                          .length == address.length : false
                       }
                       style={{ marginRight: "8px" }}
                     />
@@ -1199,7 +1202,7 @@ export default function HolderTableComponent(props) {
           </TableContainer>
         </Paper>
         <DeskTopView>
-          <Grid
+          {holderTotalTransfersCount >= rowsPerPage ? <Grid
             container
             style={{ marginTop: "1.75rem" }}
             className="Pagination"
@@ -1294,10 +1297,10 @@ export default function HolderTableComponent(props) {
                 Last
               </button>
             </Grid>
-          </Grid>
+          </Grid>:""}
         </DeskTopView>
         <MobileView>
-          <Grid
+        {holderTotalTransfersCount >= rowsPerPage ? <Grid
             container
             style={{ marginTop: "1.75rem" }}
             className="Pagination"
@@ -1392,7 +1395,7 @@ export default function HolderTableComponent(props) {
                 Last
               </button>
             </Grid>
-          </Grid>
+          </Grid>:""}
         </MobileView>
       </Grid>
     </div>

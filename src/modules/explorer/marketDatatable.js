@@ -151,29 +151,38 @@ class MarketDatatable extends Component {
 
   render() {
     const { classes } = this.props;
-    /* Calculating marketCap change percentege */
-    let LatestMarketCap = this.state.postLatestMarket.marketCap;
-    let PreviousMarketCap = this.state.postPreviousMarket.marketCap;
-    let MarketCapchange =
-      LatestMarketCap && PreviousMarketCap
-        ? percentageChange(LatestMarketCap, PreviousMarketCap).toFixed(2)
-        : 0;
+        
+    let percentageChangeUSD = this.state.postLatestMarket?.quote?.[0]?.USD?.percent_change_24h || 0;
+    let percentageChangeEUR = this.state.postLatestMarket?.quote?.[0]?.EUR?.percent_change_24h || 0;
+    let volumeChangeUSD = this.state.postLatestMarket?.quote?.[0]?.USD?.volume_change_24h || 0;
+    let volumeChangeEUR = this.state.postLatestMarket?.quote?.[0]?.EUR?.volume_change_24h || 0;
 
     /* Calculating marketCap change percentege */
-    let Latestfdmc = this.state.postLatestMarket.fullyDilutedMarketCap;
-    let Previousfdmc = this.state.postPreviousMarket.fullyDilutedMarketCap;
-    let FullyDilutedMarketCapchange =
-      Previousfdmc && Latestfdmc
-        ? percentageChange(Latestfdmc, Previousfdmc).toFixed(2)
-        : 0;
+    let MarketCapchange = this.state.postLatestMarket ? (this.props.currency === "USD" ? (percentageChangeUSD).toFixed(2) : (percentageChangeEUR).toFixed(2)) : 0;
+    // let LatestMarketCap = this.state.postLatestMarket.marketCap;
+    // let PreviousMarketCap = this.state.postPreviousMarket.marketCap;
+    // let MarketCapchange =
+    //   LatestMarketCap && PreviousMarketCap
+    //     ? percentageChange(LatestMarketCap, PreviousMarketCap).toFixed(2)
+    //     : 0;
 
     /* Calculating marketCap change percentege */
-    let LatestVolume = this.state.postLatestMarket.volume;
-    let PreviousVolume = this.state.postPreviousMarket.volume;
-    let Volumechange =
-      LatestVolume && PreviousVolume
-        ? percentageChange(LatestVolume, PreviousVolume).toFixed(2)
-        : 0;
+    let FullyDilutedMarketCapchange = this.state.postLatestMarket ? (this.props.currency === "USD" ? (percentageChangeUSD).toFixed(2) : (percentageChangeEUR).toFixed(2)) : 0;
+    // let Latestfdmc = this.state.postLatestMarket.fullyDilutedMarketCap;
+    // let Previousfdmc = this.state.postPreviousMarket.fullyDilutedMarketCap;
+    // let FullyDilutedMarketCapchange =
+    //   Previousfdmc && Latestfdmc
+    //     ? percentageChange(Latestfdmc, Previousfdmc).toFixed(2)
+    //     : 0;
+
+    /* Calculating marketCap change percentege */
+    let Volumechange = this.state.postLatestMarket ? (this.props.currency === "USD" ? (volumeChangeUSD).toFixed(2) : (volumeChangeEUR).toFixed(2)) : 0;
+    // let LatestVolume = this.state.postLatestMarket.volume;
+    // let PreviousVolume = this.state.postPreviousMarket.volume;
+    // let Volumechange =
+    //   LatestVolume && PreviousVolume
+    //     ? percentageChange(LatestVolume, PreviousVolume).toFixed(2)
+    //     : 0;
 
     let MarketCapValue = convertToInternationalCurrencySystem(
       this.state.postLatestMarket.marketCap

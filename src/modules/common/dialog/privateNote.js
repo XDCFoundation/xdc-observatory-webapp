@@ -8,7 +8,7 @@ import { Row } from "simple-flexbox";
 import { sessionManager } from "../../../managers/sessionManager";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
-import { cookiesConstants } from "../../../constants";
+import { cookiesConstants, genericConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "503px",
     height: "10px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     outline: "none",
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   textarea: {
     width: "503px",
     height: "90px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
@@ -189,7 +189,7 @@ export default function FormDialog(props) {
     ) {
       setError("Invalid transaction hash");
     } else if (privateNote.length > 120) {
-      setPrivateNoteError("Transaction label/note cannot be longer than 120 characters");
+      setPrivateNoteError(genericConstants.TRANSACTION_LABEL_LIMIT);
     } else {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
@@ -239,11 +239,13 @@ export default function FormDialog(props) {
 
   return (
     <div>
+      {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
       <Dialog
         className={classes.dialog}
         classes={{ paperWidthSm: classes.dialogBox }}
         open={open}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <Row>
           <div className={classes.heading} id="form-dialog-title">
@@ -293,6 +295,7 @@ export default function FormDialog(props) {
           </span>
         </DialogActions>
       </Dialog>
+    </div>}
     </div>
   );
 }

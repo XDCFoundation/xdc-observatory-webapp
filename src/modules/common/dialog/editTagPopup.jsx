@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "506px",
     height: "10px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
@@ -155,7 +155,8 @@ const useStyles = makeStyles((theme) => ({
     },
     dialogBox: {
       width: "100%",
-      top: "95px",
+      height: "100%",
+      top: "40px",
       borderRadius: "0px !important",
       marginLeft: "auto",
       marginRight: "auto",
@@ -347,16 +348,18 @@ function EditTaggedAddress(props) {
 
   return (
     <div>
+      {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
       <Dialog
         classes={{ paperWidthSm: classes.dialogBox }}
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
       <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
         <Row>
           <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
-            Edit Address Tag1
+            Edit Address Tag
           </div>
         </Row>
         <DialogContent>
@@ -434,6 +437,7 @@ function EditTaggedAddress(props) {
         </DialogActions>
         </div>
       </Dialog>
+    </div>}
     </div>
   );
 }

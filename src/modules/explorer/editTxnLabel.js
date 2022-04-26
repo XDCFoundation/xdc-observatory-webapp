@@ -53,10 +53,15 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "2px",
         marginTop: "-20px",
     },
+    error1: {
+        color: "red",
+        marginLeft: "2px",
+        // marginTop: "-20px",
+    },
     input: {
         width: "506px",
         height: "10px",
-        border: "solid 1px #c6c8ce",
+        border: "solid 1px #9fa9ba",
         backgroundColor: "#ffffff",
         borderRadius: "7px",
         padding: "20px",
@@ -66,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     textarea: {
         width: "503px",
         height: "90px",
-        border: "solid 1px #c6c8ce",
+        border: "solid 1px #9fa9ba",
         backgroundColor: "#ffffff",
         borderRadius: "7px",
         padding: "20px",
@@ -162,6 +167,8 @@ function EditTxnLabel(props) {
     const [error, setError] = React.useState("");
     const [passwordShown, setPasswordShown] = React.useState(false);
     const [id, setId] = React.useState("");
+    const [privateNoteError, setPrivateNoteError] = React.useState("");
+
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
     };
@@ -173,6 +180,7 @@ function EditTxnLabel(props) {
     }, [props]);
 
     async function editTransactionLable() {
+        if(!validateTransaction()) return
         const data = {
             ...props.row,
             trxLable: PrivateNote,
@@ -225,14 +233,19 @@ function EditTxnLabel(props) {
         setOpen(false);
     };
     const validateTransaction = () => {
-        if (
-            (TransactionsHash && TransactionsHash.length === 66) ||
-            TransactionsHash.slice(0, 1) == "0x"
-        ) {
-            editTransactionLable();
-        } else {
+        if (!(TransactionsHash && TransactionsHash.length === 66) || TransactionsHash.slice(0, 2) !== "0x") {
             setError("Please add address that is having 43 characters and initiates with xdc");
+            return
         }
+        if (!PrivateNote) {
+            setPrivateNoteError(genericConstants.ENTER_REQUIRED_FIELD);
+            return
+        }
+        if (PrivateNote.length > 120) {
+            setPrivateNoteError(genericConstants.TRANSACTION_LABEL_LIMIT);
+            return
+        }
+        return true;
     };
     const handleDelete = async () => {
         // if (props?.row?._id) {
@@ -289,11 +302,13 @@ function EditTxnLabel(props) {
             </div>
 
             <div>
+            {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
                 <Dialog
                     classes={{paperWidthSm: classes.dialogBox}}
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="form-dialog-title"
+                    style={{position: "absolute", zIndex: 10000}}
                 >
                     <div>
                     <Row>
@@ -328,6 +343,7 @@ function EditTxnLabel(props) {
                             value={PrivateNote}
                             onChange={(e) => setPrivateNote(e.target.value)}
                         ></textarea>
+                        {privateNoteError ? <div className={classes.error1}>{privateNoteError}</div> : <></>}
                     </DialogContent>
 
                     <DialogActions className={classes.buttons}>
@@ -347,7 +363,7 @@ function EditTxnLabel(props) {
                             <span>
                 <button
                     className={classes.updatebtn}
-                    onClick={(editTransactionLable, validateTransaction)}
+                    onClick={(editTransactionLable)}
                 >
                   Update
                 </button>
@@ -356,6 +372,7 @@ function EditTxnLabel(props) {
                     </DialogActions>
                     </div>
                 </Dialog>
+            </div>}
             </div>
         </div>
     );

@@ -63,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
       height: "10.8rem !important",
       padding: "15px",
     },
+    appBarDark: {
+      height: "10.8rem !important",
+      padding: "15px",
+    },
     drawerHeader: {
       padding: "0 !important",
     },
@@ -70,6 +74,13 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 767px) and (max-width:1250px)": {
     appBar: {
       backgroundColor: "#2149b9",
+      height: "134px !important",
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarDark: {
       height: "134px !important",
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
@@ -418,6 +429,15 @@ export default function Navbar(props) {
             href="https://stats.xdc.org/" target="_blank"
           >
             <div className="xinfin_account_button">XDC Network Stats</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="http://observatoryapi.xdc.org:3008/swagger-docs/" target="_blank"
+          >
+            <div className="xinfin_account_button">API Document</div>
           </a>
           <hr className="myhr" />
         </ul>

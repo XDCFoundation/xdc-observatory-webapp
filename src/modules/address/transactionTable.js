@@ -255,7 +255,7 @@ export default function TransactionTableComponent(props) {
       setDownloadaddress(
         tempAddress.map((d) => {
           return {
-            Txn_Hash: d.hash,
+            TransactionHash: d.hash,
             Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.blockNumber,
             From: d.from,
@@ -282,7 +282,7 @@ export default function TransactionTableComponent(props) {
       setDownloadaddress(
         tempAddr.map((d) => {
           return {
-            Txn_Hash: d.hash,
+            TransactionHash: d.hash,
             Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.blockNumber,
             From: d.from,
@@ -354,7 +354,7 @@ export default function TransactionTableComponent(props) {
           <>
             {isDownloadActive ? (
               <CSVLink
-                filename={"transactions.csv"}
+                filename={"Transactions.csv"}
                 data={downloadaddress}
                 style={
                   props.theme === "dark"
@@ -424,7 +424,7 @@ export default function TransactionTableComponent(props) {
                   }
                 >
                   <CSVLink
-                    filename={"transactions.csv"}
+                    filename={"Transactions.csv"}
                     data={downloadaddress}
                     style={
                       props.theme === "dark"
@@ -486,9 +486,9 @@ export default function TransactionTableComponent(props) {
                         onChange={handleChanged}
                         type="checkbox"
                         name="allselect"
-                        checked={
+                        checked={ address.length > 0 ?
                           address.filter((addr) => addr?.isChecked == true)
-                            .length == address.length
+                            .length == address.length : false
                         }
                         style={{ marginRight: "8px" }}
                       />
