@@ -464,7 +464,8 @@ function AddressDetailsData(props) {
                 : "content_sec"
             }
           >
-            <TransactionTableComponent theme={props.theme.currentTheme}/>
+            {/* {console.log("resp",responses?.contractResponse?.creationTransaction)} */}
+            <TransactionTableComponent theme={props.theme.currentTheme} hash={responses?.contractResponse?.creationTransaction}/>
           </div>
           <div
             className={
