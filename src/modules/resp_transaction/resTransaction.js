@@ -23,7 +23,7 @@ import { cookiesConstants } from "../../constants";
 import { BsCaretRightFill } from "react-icons/bs";
 import utility from "../../utility";
 import { toolTipMessages } from "../../constants";
-
+import TokenData from "../../services/token"
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "75.125rem",
@@ -1109,6 +1109,7 @@ const ContainerTxnAction = styled.div`
 `;
 
 function Transaction({ theme, currency }) {
+  let frgt;
   const classes = useStyles();
   const { hash } = useParams();
   const [transactions, setTransactions] = useState([]);
@@ -1194,14 +1195,18 @@ function Transaction({ theme, currency }) {
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
   const [isLoading, setLoading] = useState(true);
   const [timeStamp, setTimeStamp] = useState();
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
+  const [tokenHashDetailData, setTokenHashDetail] = useState("")
+
   const [latestBlock, setLatestBlock] = useState(0);
   const [isSeeMore, setSeeMore] = useState(false);
   const [contractData, setContractData] = useState(0);
   useEffect(async () => {
     await transactionDetail();
-    getLatestBlock();
-    privateNoteUsingHash();
+    await getLatestBlock();
+    await privateNoteUsingHash();
+    await getTokenHashDetail();
+    await gettokenPriceUsingTimestamp()
   }, []);
 
   const transactionDetail = async () => {
@@ -1261,6 +1266,31 @@ function Transaction({ theme, currency }) {
     );
     if (error || !transactiondetailusinghash) return;
     setPrice(transactiondetailusinghash[0]?.price);
+  };
+  const getTokenHashDetail = async () => {
+    let urlPath = `${hash}`;
+    let [error, tokenHashDetail] = await Utils.parseResponse(
+      TransactionService.getTokenHashDetail(urlPath, {})
+    );
+    if (tokenHashDetail) {
+      let data = {
+        "timestamp": tokenHashDetail?.timestamp,
+        "address": tokenHashDetail?.contract,
+      }
+      gettokenPriceUsingTimestamp(data)
+    }
+    
+    // await gettokenPriceUsingTimestamp(data)
+    };
+  
+const[tokenPrice,setTokenPriceUsingTimestamp]=useState(0)
+  const gettokenPriceUsingTimestamp = async (data) => {
+    let [error, tokenPriceUsingTimeStamp] = await Utils.parseResponse(
+      TokenData.gettokenPriceUsingTimestamp(data)
+    );
+    if (error || !tokenPriceUsingTimeStamp) return;
+    setTokenPriceUsingTimestamp(tokenPriceUsingTimeStamp)
+    // setTokenHashDetail(tokenHashDetail)
   };
 
   const userInfo = sessionManager.getDataFromCookies("userInfo");
@@ -1386,11 +1416,12 @@ function Transaction({ theme, currency }) {
     setSeeMore(false);
   };
 
+let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
   let CurrencyValue = currency.activeCurrency;
   const currencySymbol =
     CurrencyValue === "INR" ? "₹" : CurrencyValue === "USD" ? "$" : "€";
   const valueFetch =
-    CurrencyValue === "INR" ? price : CurrencyValue === "USD" ? price : price;
+    CurrencyValue === "INR" ? priceToMultiply : CurrencyValue === "USD" ? priceToMultiply : priceToMultiply;
   const txfee = !transactions
     ? 0
     : Utils.decimalDivison(transactions?.gasPrice * transactions?.gasUsed, 8);
@@ -1402,10 +1433,10 @@ function Transaction({ theme, currency }) {
 
   const transactionFetch =
     CurrencyValue === "INR"
-      ? txfee * price
+      ? txfee * priceToMultiply
       : CurrencyValue === "USD"
-        ? txfee * price
-        : txfee * price;
+        ? txfee * priceToMultiply
+        : txfee * priceToMultiply;
   const fetchtxn = !transactionFetch
     ? 0
     : parseFloat(transactionFetch)?.toFixed(8);
@@ -1420,10 +1451,10 @@ function Transaction({ theme, currency }) {
   let gasPrice2 = gasPrice.toString().split(".")[1];
   const avgTxnFeeConverted =
     CurrencyValue === "INR"
-      ? gasP * price
+      ? gasP * priceToMultiply
       : CurrencyValue === "USD"
-        ? gasP * price
-        : gasP * price;
+        ? gasP * priceToMultiply
+        : gasP * priceToMultiply;
   const avgTxnFeeFetch = !avgTxnFeeConverted
     ? 0
     : parseFloat(avgTxnFeeConverted)?.toFixed(14);
@@ -1443,7 +1474,7 @@ function Transaction({ theme, currency }) {
     transactions?.value > 0 && transactions?.value < 1
       ? transactions?.value
       : Utils.decimalDivisonOnly(transactionValue, 8);
-  let bx =  latestBlock[0]?.number - transactions?.blockNumber;
+  let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now();
     let difference = today - date;
@@ -1484,7 +1515,7 @@ function Transaction({ theme, currency }) {
   let txnActionValues = utility.getTxnActionFromAndTo(transactions)
   // let interectedWithValues = utility.getInterectedWithFromAndTo(transactions)
 
-  
+
   return (
     <div
       className={
@@ -1704,17 +1735,17 @@ function Transaction({ theme, currency }) {
                           Transaction Value
                         </Hash>
                       </Container>
-                      
-                        <DetailsMiddleContainer
-                          isTextArea={false}
-                          theme={theme.currentTheme}
-                        >
-                          {isNaN(ValueMain) ? "" : format({})(ValueMain)}&nbsp;XDC{" "}
-                          {!valueDiv
-                            ? " "
-                            : "(" + (currencySymbol + valueDiv) + ")"}
-                        </DetailsMiddleContainer>
-                      
+
+                      <DetailsMiddleContainer
+                        isTextArea={false}
+                        theme={theme.currentTheme}
+                      >
+                        {isNaN(ValueMain) ? "" : format({})(ValueMain)}&nbsp;XDC{" "}
+                        {!valueDiv
+                          ? " "
+                          : "(" + (currencySymbol + valueDiv) + ")"}
+                      </DetailsMiddleContainer>
+
                     </DetailsContainer>
                     {/* ------------------------------------------------time stamp------------------------------------- */}
                     <DetailsContainerTimeStamp className="mobileTimeStamp">
@@ -1832,7 +1863,7 @@ function Transaction({ theme, currency }) {
                           </a>
                           &nbsp;{" "}
                           <BlockConfirmation theme={theme.currentTheme}>
-                            {isNaN(bx) ? "":bx} Blocks Confirmation
+                            {isNaN(bx) ? "" : bx} Blocks Confirmation
                           </BlockConfirmation>
                         </Content>
                       </DetailsMiddleContainer>
@@ -2309,7 +2340,7 @@ function Transaction({ theme, currency }) {
                               xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                             </a>
                           </span>
-                          &nbsp;&nbsp; 
+                          &nbsp;&nbsp;
                           {/* (
                           <BlackText theme={theme.currentTheme}>
                             FleekApp
@@ -2579,7 +2610,7 @@ function Transaction({ theme, currency }) {
                                 xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                               </a>
                             </span>
-                            &nbsp;&nbsp; 
+                            &nbsp;&nbsp;
                             {/* (
                             <BlackText theme={theme.currentTheme}>
                               FleekApp
