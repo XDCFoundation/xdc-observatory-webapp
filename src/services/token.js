@@ -239,8 +239,9 @@ async function getListOfTokenForAddress(path, data) {
     });
 }
 async function getHolderDetailsUsingAddressforToken(data) {
-  let url = process.env.REACT_APP_GET_HOLDER_DETAIL_USING_ADDRESS_FOR_TOKEN
-  // let url = "http://localhost:3007/getHolderDetailsUsingAddress"
+  let url = process.env.REACT_APP_GET_HOLDER_DETAIL_USING_ADDRESS_FOR_TOKEN 
+  if(data && data.address)
+    url = url + data.address;
   return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {
       if (
