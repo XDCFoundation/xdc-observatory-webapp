@@ -1125,7 +1125,7 @@ export default function StickyHeadTable(props) {
                               placement="top"
                               title={format({})(
                                 totalsupply >= 1
-                                  ? parseFloat(totalsupply)
+                                  ? parseFloat(totalsupply).toLocaleString()
                                   : totalsupply == 0
                                     ? parseFloat(totalsupply)
                                     : totalsupply

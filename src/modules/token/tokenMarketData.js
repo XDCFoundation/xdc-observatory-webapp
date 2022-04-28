@@ -199,7 +199,7 @@ export default function TokenMarketDataTable(props) {
               <Heading theme={props.theme}>Market Cap </Heading>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
-                {marketCapVal}
+                {marketCapVal === 0 ? "--" : marketCapVal}
               </p>
               {/* <div
                     className={
@@ -226,7 +226,7 @@ export default function TokenMarketDataTable(props) {
               <Heading theme={props.theme}>Fully Diluted Market Cap</Heading>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
-                {fullyDilutedMarketCapmarketCapVal}
+                {fullyDilutedMarketCapmarketCapVal === 0 ? "--" : fullyDilutedMarketCapmarketCapVal}
               </p>
               {/*<div
                     className={
@@ -253,7 +253,7 @@ export default function TokenMarketDataTable(props) {
               <Heading theme={props.theme}>Volume (24hr)</Heading>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
-                {val24}
+                {val24 === 0 ? "--" : val24}
               </p>
               {/*<div
                     className={
@@ -282,7 +282,7 @@ export default function TokenMarketDataTable(props) {
               <div className="cont1-child">
                 <Heading theme={props.theme}>Circulating Supply</Heading>
                 <p>
-                  {circulatingSupplyVal} {symbol}
+                  {circulatingSupplyVal === 0 ? "--" : circulatingSupplyVal} {symbol}
                 </p>
               </div>
             </div>
@@ -291,7 +291,7 @@ export default function TokenMarketDataTable(props) {
               <div className="cont1-child">
                 <Heading theme={props.theme}>Total Supply</Heading>
                 <p>
-                  {utility.convertToInternationalCurrencySystem(totalSupplyVal)}
+                  {totalSupplyVal === 0 ? "--" : utility.convertToInternationalCurrencySystem(totalSupplyVal)}
                 </p>
               </div>
             </div>
@@ -309,7 +309,7 @@ export default function TokenMarketDataTable(props) {
               {" "}
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
-                {marketCapVal}
+                {marketCapVal === 0 ? "--" : marketCapVal}
               </p>
             </div>
             {/* <div
@@ -342,7 +342,7 @@ export default function TokenMarketDataTable(props) {
               {" "}
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
-                {fullyDilutedMarketCapmarketCapVal}
+                {fullyDilutedMarketCapmarketCapVal === 0 ? "--" : fullyDilutedMarketCapmarketCapVal}
               </p>
             </div>
             {/*<div
@@ -374,7 +374,7 @@ export default function TokenMarketDataTable(props) {
             <div className="mid_cont ">
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
-                {val24}
+                {val24 === 0 ? "--" : val24}
               </p>
             </div>
             {/*<div
@@ -405,7 +405,7 @@ export default function TokenMarketDataTable(props) {
             </div>
             <div className="mid_cont">
               <p>
-                {circulatingSupplyVal} {symbol}
+                {circulatingSupplyVal === 0 ? "--" : circulatingSupplyVal} {symbol}
               </p>
             </div>
           </div>
@@ -416,7 +416,7 @@ export default function TokenMarketDataTable(props) {
             </div>
             <div className="mid_cont">
               <p>
-                {utility.convertToInternationalCurrencySystem(totalSupplyVal)}
+                {totalSupplyVal === 0 ? "--" : utility.convertToInternationalCurrencySystem(totalSupplyVal)}
               </p>
             </div>
           </div>
