@@ -22,7 +22,6 @@ import { messages } from "../../constants";
 import PageSelector from "../common/pageSelector";
 
 export default function TransactionTableComponent(props) {
-  console.log("Hii111111111111111111111111111",props)
   const { state } = props;
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
