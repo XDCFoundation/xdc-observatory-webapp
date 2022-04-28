@@ -113,6 +113,7 @@ export default function TransactionTableComponent(props) {
         perpage: amount,
         keywords: searchkeyword,
         addrr: ContractAddress,
+        hash: props?.hash,
       };
       getContractDetails(datas);
     }
@@ -125,6 +126,7 @@ export default function TransactionTableComponent(props) {
         perpage: amount,
         addrr: ContractAddress,
         keywords: "",
+        hash: props?.hash,
       };
       getContractDetails(datas);
     }
@@ -138,6 +140,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
+          hash: props?.hash,
         };
         getContractDetails(datas);
       } else {
@@ -146,6 +149,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: "",
+          hash: props?.hash,
         };
         getContractDetails(datas);
       }
@@ -160,6 +164,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
+          hash: props?.hash,
         };
         getContractDetails(datas);
       } else {
@@ -168,6 +173,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
+          hash: props?.hash,
         };
         getContractDetails(datas);
       }
@@ -183,6 +189,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
           getContractDetails(datas);
         } else {
@@ -191,6 +198,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
 
           getContractDetails(datas);
@@ -208,6 +216,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
           getContractDetails(datas);
         } else {
@@ -216,6 +225,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
           getContractDetails(datas);
         }
@@ -230,6 +240,7 @@ export default function TransactionTableComponent(props) {
       perpage: event.target.value,
       addrr: ContractAddress,
       keywords: keywords,
+      hash: props?.hash,
     };
     getContractDetails(datas);
   };
@@ -300,6 +311,7 @@ export default function TransactionTableComponent(props) {
       pageNum: from,
       perpage: amount,
       keywords: keywords,
+      hash: props?.hash,
     };
     getContractDetails(values);
     let data = {
@@ -307,7 +319,7 @@ export default function TransactionTableComponent(props) {
     };
     getTransactionsCountForAddress(data);
     setLoading(false);
-  }, []);
+  }, [props.hash]);
   const classes = useStyles();
   const history = useHistory();
 
