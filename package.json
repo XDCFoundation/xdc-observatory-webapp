@@ -39,7 +39,7 @@
     "react-copy-to-clipboard": "^5.0.3",
     "react-csv": "^2.0.3",
     "react-custom-alert": "^0.1.2",
-    "react-data-table-component": "^7.4.7",
+    "react-data-table-component": "^7.5.0",
     "react-date-range": "^1.4.0",
     "react-device-detect": "^2.1.2",
     "react-dom": "^16.9.0",
@@ -71,8 +71,8 @@
     "styled-components": "^4.4.1",
     "sweetalert": "^2.1.0",
     "universal-cookie": "^4.0.0",
-    "web3": "^1.6.1",
-    "xlsx": "^0.18.2",
+    "web3": "^1.7.1",
+    "xlsx": "^0.18.5",
     "yup": "^0.32.11"
   },
   "scripts": {

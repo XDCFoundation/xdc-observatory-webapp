@@ -20,6 +20,7 @@ const NoDataFoundContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  margin-bottom: 100px;
   gap: 10px;
   @media (min-width: 767px) {
     margin: 100px !important;
@@ -37,7 +38,6 @@ class XDCBalanceGraph extends BaseComponent {
     this.state = {
       loading: false,
       graphData:[],
-      optionsDark : {},
     };
   }
 
@@ -93,7 +93,7 @@ class XDCBalanceGraph extends BaseComponent {
     const transactionCount = [];
     for (let index = 0; index < data.length; index++) {
       const x = data[index].date;
-      xdcBalance.push({ x, y: data[index].currentBalance / 10 ** 18 });
+      xdcBalance.push({ x, y: Math.abs(data[index].currentBalance / 10 ** 18 )});
       historicUSDPrice.push({ x, y: data[index].priceInUSD });
       transactionCount.push({ x, y: data[index].totalDocument });
     }
@@ -107,6 +107,7 @@ class XDCBalanceGraph extends BaseComponent {
         zoomType: {
           enabled: false,
         },
+        backgroundColor: "#ffffff",
       },
       legend: {
         layout: "horizontal",

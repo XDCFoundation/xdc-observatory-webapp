@@ -60,6 +60,14 @@ const useStyles = makeStyles({
     width: "15px",
     marginLeft: "5px",
   },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
 });
 export default function AddressTableComponent(props) {
   const { state } = props;
@@ -111,13 +119,14 @@ export default function AddressTableComponent(props) {
     to: 0,
     value: 0,
   });
-
+  const [lastFrom, setLastFrom] = useState(0);
+  const [lastPage, setlastPage] = useState(false);
   const [sortingKey, setSortingKey] = React.useState("");
-  if (sortToggle["value"] === 1 && sortingKey ==="value") {
+  if (sortToggle["value"] === 1 && sortingKey === "value") {
     address.sort(function (a, b) {
       return Number(b.Value) - Number(a.Value);
     });
-  } else if (sortToggle["value"] === -1 && sortingKey ==="value") {
+  } else if (sortToggle["value"] === -1 && sortingKey === "value") {
     address.sort(function (a, b) {
       return Number(a.Value) - Number(b.Value);
     });
@@ -132,6 +141,7 @@ export default function AddressTableComponent(props) {
     if (action == "first") {
       if (keywords) {
         setPage(0);
+        setLastFrom(false)
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
@@ -141,6 +151,7 @@ export default function AddressTableComponent(props) {
         getTransactionSearch(datas);
       } else {
         setPage(0);
+        setlastPage(false)
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
@@ -152,6 +163,8 @@ export default function AddressTableComponent(props) {
       }
     }
     if (action === "last") {
+      setlastPage(true)
+      setLastFrom(0)
       let pagecount = (Math.ceil(totalRecord / rowsPerPage) - 1) * rowsPerPage;
       setPage(pagecount);
       if (keywords) {
@@ -164,81 +177,123 @@ export default function AddressTableComponent(props) {
         getTransactionSearch(datas);
       } else {
         let datas = {
-          pageNum: pagecount,
+          pageNum: lastFrom,
           perpage: rowsPerPage,
           addrr: addr,
-          sortKey: sortingKey,
-          sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+          sortKey: "blockNumber",
+          sortType: 1,
         };
         getAddressDetails(datas);
       }
     }
 
     if (action === "next") {
-      if (+rowsPerPage + +page < totalRecord) {
-        let pagecount = +rowsPerPage + +page;
-        setPage(pagecount);
-        if (keywords) {
-          datas = {
-            pageNum: pagecount,
-            perpage: rowsPerPage,
-            addrr: addr,
-            keywords: keywords,
-          };
-          getTransactionSearch(datas);
-        } else {
+      let pagecount = +rowsPerPage + +page;
+      setPage(pagecount);
+      if (lastPage === true) {
+        if (lastFrom - rowsPerPage >= 0) {
+          let from = lastFrom - rowsPerPage
+          setLastFrom(from)
           let datas = {
-            pageNum: pagecount,
+            pageNum: from,
             perpage: rowsPerPage,
             addrr: addr,
-            sortKey: sortingKey,
-            sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+            sortKey: "blockNumber",
+            sortType: 1
           };
           getAddressDetails(datas);
+        }
+      } else {
+        if (+rowsPerPage + +page < totalRecord) {
+          let pagecount = +rowsPerPage + +page;
+          setPage(pagecount);
+          if (keywords) {
+            datas = {
+              pageNum: pagecount,
+              perpage: rowsPerPage,
+              addrr: addr,
+              keywords: keywords,
+            };
+            getTransactionSearch(datas);
+          } else {
+            let datas = {
+              pageNum: pagecount,
+              perpage: rowsPerPage,
+              addrr: addr,
+              sortKey: sortingKey,
+              sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+            };
+            getAddressDetails(datas);
+          }
         }
       }
     }
 
     if (action === "prev") {
-      if (page - rowsPerPage >= 0) {
-        let pagecount = page - rowsPerPage;
-        setPage(pagecount);
-        if (keywords) {
-          datas = {
-            pageNum: pagecount,
-            perpage: rowsPerPage,
-            addrr: addr,
-            keywords: keywords,
-          };
-          getTransactionSearch(datas);
-        } else {
-          let datas = {
-            pageNum: pagecount,
-            perpage: rowsPerPage,
-            addrr: addr,
-            sortKey: sortingKey,
-            sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
-          };
-          getAddressDetails(datas);
+      let pagecount = page - rowsPerPage;
+      setPage(pagecount);
+      if (lastPage === true) {
+
+        let from = lastFrom + rowsPerPage
+        setLastFrom(from)
+        let datas = {
+          pageNum: from,
+          perpage: rowsPerPage,
+          addrr: addr,
+          sortKey: "blockNumber",
+          sortType: 1
+        };
+        getAddressDetails(datas);
+
+      } else {
+        if (page - rowsPerPage >= 0) {
+          let pagecount = page - rowsPerPage;
+          setPage(pagecount);
+          if (keywords) {
+            datas = {
+              pageNum: pagecount,
+              perpage: rowsPerPage,
+              addrr: addr,
+              keywords: keywords,
+            };
+            getTransactionSearch(datas);
+          } else {
+            let datas = {
+              pageNum: pagecount,
+              perpage: rowsPerPage,
+              addrr: addr,
+              sortKey: sortingKey,
+              sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+            };
+            getAddressDetails(datas);
+          }
         }
       }
+
     }
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
-    setPage(0);
-    datas = {
-      pageNum: 0,
-      perpage: event.target.value,
-      addrr: addr,
-      sortKey: sortingKey,
-      sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
-    };
+    // setPage(0);
+    lastPage === false ?
+      datas = {
+        pageNum: 0,
+        perpage: event.target.value,
+        addrr: addr,
+        sortKey: sortingKey,
+        sortType: sortToggle[sortingKey] == 1 ? -1 : 1,
+      } : datas = {
+        pageNum: lastFrom,
+        perpage: event.target.value,
+        addrr: addr,
+        sortKey: "blockNumber",
+        sortType: 1,
+      }
     getAddressDetails(datas);
   };
 
   const getAddressDetails = async (data, filters) => {
-    const skip =Number(data?.pageNum) || 0;
+    const skip = Number(data?.pageNum) || 0;
     const limit = Number(data?.perpage) || 10;
     const sortKey = data?.sortKey || "blockNumber";
     const sortType = data?.sortType;
@@ -247,7 +302,7 @@ export default function AddressTableComponent(props) {
     const filtersData = filters || searchAndFilters;
     if (filtersData.searchQuery) {
       requestData.searchValue = filtersData.searchQuery;
-      requestData.searchKeys = ["from", "to", "hash"];
+      requestData.searchKeys = ["from", "to", "hash", "blockNumber"];
     }
     if (filtersData.type && filtersData.type !== "ALL")
       requestData.txnType = filtersData.type;
@@ -318,7 +373,6 @@ export default function AddressTableComponent(props) {
     sortData("blockNumber");
   }, []);
   const sortData = async (sortKey) => {
-    
     setArrowUpDown(false);
     let sortType = sortToggle[sortKey];
     if (sortType === 1) {
@@ -331,10 +385,10 @@ export default function AddressTableComponent(props) {
         sortType: sortType,
       });
       setSortToggle({ ...sortToggle, [sortKey]: -1 });
-      
+
       setSortingKey(sortKey);
-    
-     setArrowUpDown(true);
+
+      setArrowUpDown(true);
     } else {
       // setLoading(true)
       getAddressDetails({
@@ -346,7 +400,7 @@ export default function AddressTableComponent(props) {
       });
       setSortToggle({ ...sortToggle, [sortKey]: 1 });
       setSortingKey(sortKey);
-      
+
       setArrowUpDown(true);
     }
   };
@@ -387,9 +441,10 @@ export default function AddressTableComponent(props) {
           From: d.from,
           To: d.to,
           Value:
-            Number(d?.value) < 1000000000000
+            Number(d?.value) < 10000000000
               ? Number(d?.value * 1000000000000000000)
               : d.value,
+          contractAddress: d.contractAddress,
           id: d._id,
         };
       })
@@ -411,15 +466,15 @@ export default function AddressTableComponent(props) {
     setDownloadaddress(
       trxn.map((d) => {
         return {
-          Txn_Hash: d.hash,
-          Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
+          TransactionHash: d.hash,
+          Date: moment(d.timestamp * 1000).format("MMM DD, YYYY h:mm A"),
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
           Value:
-            d?.value < 1000000000000
+            d?.value < 10000000000
               ? Number(d?.value * 1000000000000000000)
-              : Utility.decimalDivison(d.value, 8),
+              : Utility.decimalDivisonOnly(d.value, 8),
         };
       })
     );
@@ -470,15 +525,15 @@ export default function AddressTableComponent(props) {
       setDownloadaddress(
         tempAddress.map((d) => {
           return {
-            Txn_Hash: d.Txn_Hash,
-            Date: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            TransactionHash: d.Txn_Hash,
+            Date: moment(d.Age * 1000).format("MMM DD, YYYY h:mm A"),
             Block: d.Block,
             From: d.From,
             To: d.To,
             Value:
-              d?.Value < 1000000000000
+              d?.Value < 10000000000
                 ? Number(d?.Value * 1000000000000000000)
-                : Utility.decimalDivison(d.Value, 8),
+                : Utility.decimalDivisonOnly(d.Value, 8),
           };
         })
       );
@@ -501,15 +556,17 @@ export default function AddressTableComponent(props) {
       setDownloadaddress(
         tempAddr.map((d) => {
           return {
-            Txn_Hash: d.Txn_Hash,
-            Date: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            TransactionHash: d.Txn_Hash,
+            Date: moment(d.Age * 1000).format("MMM DD, YYYY h:mm A"),
             Block: d.Block,
             From: d.From,
             To: d.To,
             Value:
-              d?.Value < 1000000000000
-                ? Number(d?.Value * 1000000000000000000) /*there are some transactions which are not in gwei in ou DB*/
-                : Utility.decimalDivison(d.Value, 8),
+              d?.Value < 10000000000
+                ? Number(
+                  d?.Value * 1000000000000000000
+                ) /*there are some transactions which are not in gwei in ou DB*/
+                : Utility.decimalDivisonOnly(d.Value, 8),
           };
         })
       );
@@ -522,6 +579,7 @@ export default function AddressTableComponent(props) {
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    margin-bottom: 100px;
     gap: 10px;
     color: #c6cbcf;
     @media (min-width: 767px) {
@@ -535,14 +593,15 @@ export default function AddressTableComponent(props) {
   const [blockTT, setblockTT] = React.useState(false);
   const [fromTT, setfromTT] = React.useState(false);
   const [toTT, settoTT] = React.useState(false);
-
+  const [valueTT, setValueTT] = React.useState(false);
+  const [downloadCsvTT, setDownloadCsvTT] = React.useState(false);
   const updateFiltersAndGetAccounts = async (filters) => {
     await setSearchAndFilters(filters);
     if (
       filters.searchQuery ||
       filters.type ||
       filters.status !==
-        "all" /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/
+      "all" /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/
     )
       setLoading(true);
     getAddressDetails({}, filters);
@@ -556,62 +615,106 @@ export default function AddressTableComponent(props) {
           updateFiltersAndGetAccounts={updateFiltersAndGetAccounts}
           theme={props.theme}
         />
+        <div>
         {isDownloadActive ? (
           <CSVLink
-            filename={"transactions.csv"}
+            filename={"Transactions.csv"}
             data={downloadaddress}
-            style={props.theme === "dark" ? {
-              fontSize: "0.938rem",
-              color: "#ffffff",
-              textAlign: "center",
-              backgroundColor: "#283966",
-              borderRadius: "0.25rem",
-              width: "5.875rem",
-              height: "2.125rem",
-              paddingTop: "0.125rem",
-            } : {
-              fontSize: "0.938rem",
-              color: "#ffffff",
-              textAlign: "center",
-              backgroundColor: "rgb(7 125 245)",
-              borderRadius: "0.25rem",
-              width: "5.875rem",
-              height: "2.125rem",
-              paddingTop: "0.125rem",
-            }}
+            style={
+              props.theme === "dark"
+                ? {
+                    fontSize: "0.938rem",
+                    color: "#ffffff",
+                    textAlign: "center",
+                    backgroundColor: "#283966",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+                    paddingTop: "0.125rem",
+                    float: 'right'
+                  }
+                : {
+                    fontSize: "0.938rem",
+                    color: "#ffffff",
+                    textAlign: "center",
+                    backgroundColor: "rgb(7 125 245)",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+                    paddingTop: "0.125rem",
+                    float: "right"
+                  }
+            }
           >
             Export
           </CSVLink>
         ) : (
-          <CSVLink
-            filename={"transactions.csv"}
-            data={downloadaddress}
-            style={props.theme === "dark" ? {
-              pointerEvents: "none",
-              fontSize: "0.938rem",
-              textAlign: "center",
-              color: "#ffffff",
-              backgroundColor: "#283966",
-              borderRadius: "0.25rem",
-              width: "5.875rem",
-              height: "2.125rem",
-              paddingTop: "0.125rem",
-              opacity: 0.7
-            } : {
-              pointerEvents: "none",
-              fontSize: "0.938rem",
-              textAlign: "center",
-              color: "#ffffff",
-              backgroundColor: "#e3e7eb",
-              borderRadius: "0.25rem",
-              width: "5.875rem",
-              height: "2.125rem",
-              paddingTop: "0.125rem",
+          <Tooltip
+            open={downloadCsvTT}
+            onOpen={() => setDownloadCsvTT(true)}
+            onClose={() => setDownloadCsvTT(false)}
+            placement="top"
+            title={messages.DOWNLOAD_CSV}
+            classes={{
+              tooltip:
+                props.theme === "dark"
+                  ? classes.customTooltipDarkMode
+                  : classes.customTooltip,
             }}
           >
-            Export
-          </CSVLink>
-        )}
+            <div
+              onClick={() => setDownloadCsvTT(!downloadCsvTT)}
+              style={
+                props.theme === "dark"
+                  ? {
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "#283966",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      paddingTop: "0.125rem",
+                      opacity: 0.7,
+                      float: "right"
+                    }
+                  : {
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "#e3e7eb",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      paddingTop: "0.125rem",
+                      float: "right"
+                    }
+              }
+            >
+              <CSVLink
+                filename={"Transactions.csv"}
+                data={downloadaddress}
+                style={
+                  props.theme === "dark"
+                    ? {
+                      pointerEvents: "none",
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                    }
+                    : {
+                      pointerEvents: "none",
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                    }
+                }
+              >
+                Export
+              </CSVLink>
+            </div>
+          </Tooltip>
+        )}</div>
       </SearchAndExportDiv>
 
       <Grid lg={13} className="tablegrid_address_details">
@@ -621,7 +724,9 @@ export default function AddressTableComponent(props) {
           className="table-paper paper-table"
         >
           <TableContainer
-            className={props.theme === "dark" ? classes.containerDark : classes.container}
+            className={
+              props.theme === "dark" ? classes.containerDark : classes.container
+            }
             id="container-table table-cont"
           >
             <Table className="table-trans">
@@ -642,23 +747,55 @@ export default function AddressTableComponent(props) {
                       // }
                       style={{ marginRight: "0.5rem", verticalAlign: "middle" }}
                     />
-                    <span className={props.theme === "dark" ? "tableheaders table-hash fc-white" : "tableheaders table-hash"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-hash fc-white"
+                          : "tableheaders table-hash"
+                      }
+                    >
                       Transaction Hash
-                      <Tooltip
-                        open={hashTT}
-                        onOpen={() => setHashTT(true)}
-                        onClose={() => setHashTT(false)}
-                        placement="top"
-                        title={messages.HASH}
-                      >
-                        <img
-                          onClick={() => setHashTT(!hashTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.HASH}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={hashTT}
+                          onOpen={() => setHashTT(true)}
+                          onClose={() => setHashTT(false)}
+                          placement="top"
+                          title={messages.HASH}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setHashTT(!hashTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -671,7 +808,11 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={props.theme === "dark" ? "tableheaders table-age cursor-pointer fc-white" : "tableheaders table-age cursor-pointer"}
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-age cursor-pointer fc-white"
+                          : "tableheaders table-age cursor-pointer"
+                      }
                       onClick={() => {
                         sortData("blockNumber");
                         setAgeArrow(true);
@@ -679,29 +820,61 @@ export default function AddressTableComponent(props) {
                       }}
                     >
                       Age
-                      <Tooltip
-                        open={ageTT}
-                        onOpen={() => setageTT(true)}
-                        onClose={() => setageTT(false)}
-                        placement="top"
-                        title={messages.AGE}
-                      >
-                        <img
-                          onClick={() => setageTT(!ageTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.AGE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={ageTT}
+                          onOpen={() => setageTT(true)}
+                          onClose={() => setageTT(false)}
+                          placement="top"
+                          title={messages.AGE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setageTT(!ageTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                     <Tooltip
                       placement="top"
                       title={getSortTitle("blockNumber")}
+                      classes={{
+                        tooltip:
+                          props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
                     >
                       {sortingKey &&
-                      ageArrow &&
-                      sortingKey === "blockNumber" ? (
+                        ageArrow &&
+                        sortingKey === "blockNumber" ? (
                         sortToggle.blockNumber == -1 ? (
                           <img
                             alt="question-mark"
@@ -732,7 +905,11 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={props.theme === "dark" ? "tableheaders table-block-dark cursor-pointer fc-white" : "tableheaders table-block cursor-pointer"}
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-block-dark cursor-pointer fc-white"
+                          : "tableheaders table-block cursor-pointer"
+                      }
                       onClick={() => {
                         sortData("blockNumber");
                         setAgeArrow(false);
@@ -740,29 +917,61 @@ export default function AddressTableComponent(props) {
                       }}
                     >
                       Block
-                      <Tooltip
-                        open={blockTT}
-                        onOpen={() => setblockTT(true)}
-                        onClose={() => setblockTT(false)}
-                        placement="top"
-                        title={messages.BLOCK}
-                      >
-                        <img
-                          onClick={() => setblockTT(!blockTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.BLOCK}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={blockTT}
+                          onOpen={() => setblockTT(true)}
+                          onClose={() => setblockTT(false)}
+                          placement="top"
+                          title={messages.BLOCK}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setblockTT(!blockTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                     <Tooltip
                       placement="top"
                       title={getSortTitle("blockNumber")}
+                      classes={{
+                        tooltip:
+                          props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
+                      }}
                     >
                       {blockArrow &&
-                      sortingKey &&
-                      sortingKey === "blockNumber" ? (
+                        sortingKey &&
+                        sortingKey === "blockNumber" ? (
                         sortToggle.blockNumber == -1 ? (
                           // <ArrowUpwardIcon
                           // onClick={() => {
@@ -805,30 +1014,69 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={props.theme === "dark" ? "tableheaders table-from cursor-pointer fc-white" : "tableheaders table-from cursor-pointer"}
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-from cursor-pointer fc-white"
+                          : "tableheaders table-from cursor-pointer"
+                      }
                       onClick={() => {
                         sortData("from");
                       }}
                     >
                       From
-                      <Tooltip
-                        open={fromTT}
-                        onOpen={() => setfromTT(true)}
-                        onClose={() => setfromTT(false)}
-                        placement="top"
-                        title={messages.FROM}
-                      >
-                        <img
-                          onClick={() => setfromTT(!fromTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.FROM}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={fromTT}
+                          onOpen={() => setfromTT(true)}
+                          onClose={() => setfromTT(false)}
+                          placement="top"
+                          title={messages.FROM}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setfromTT(!fromTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                     <button className={classes.btn}>
-                      <Tooltip placement="top" title={getSortTitle("from")}>
+                      <Tooltip
+                        placement="top"
+                        title={getSortTitle("from")}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
                         {sortingKey && sortingKey === "from" ? (
                           sortToggle.from == 1 ? (
                             // <ArrowUpwardIcon
@@ -884,30 +1132,69 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={props.theme === "dark" ? "tableheaders table-to cursor-pointer fc-white" : "tableheaders table-to cursor-pointer"}
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-to cursor-pointer fc-white"
+                          : "tableheaders table-to cursor-pointer"
+                      }
                       onClick={() => {
                         sortData("to");
                       }}
                     >
                       To
-                      <Tooltip
-                        open={toTT}
-                        onOpen={() => settoTT(true)}
-                        onClose={() => settoTT(false)}
-                        placement="top"
-                        title={messages.TO}
-                      >
-                        <img
-                          onClick={() => settoTT(!toTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.TO}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={toTT}
+                          onOpen={() => settoTT(true)}
+                          onClose={() => settoTT(false)}
+                          placement="top"
+                          title={messages.TO}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => settoTT(!toTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                     <button className={classes.btn}>
-                      <Tooltip placement="top" title={getSortTitle("to")}>
+                      <Tooltip
+                        placement="top"
+                        title={getSortTitle("to")}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
                         {sortingKey && sortingKey === "to" ? (
                           sortToggle.to == 1 ? (
                             // <ArrowUpwardIcon
@@ -952,24 +1239,63 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span
-                      className={props.theme === "dark" ? "tableheaders table-value cursor-pointer fc-white" : "tableheaders table-value cursor-pointer"}
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders table-value cursor-pointer fc-white"
+                          : "tableheaders table-value cursor-pointer"
+                      }
                       onClick={() => {
                         sortData("value");
                         setValueArrow(true);
                       }}
                     >
                       Value
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.VALUE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={valueTT}
+                          onOpen={() => setValueTT(true)}
+                          onClose={() => setValueTT(false)}
+                          placement="top"
+                          title={messages.VALUE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setValueTT(!valueTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                     <button className={classes.btn}>
                       <Tooltip placement="top" title={getSortTitle("value")}>
                         {valueArrow && sortingKey && sortingKey === "value" ? (
                           sortToggle.value == -1 ? (
-                            // <ArrowUpwardIcon
-                            //   onClick={() => {
-                            //     sortData("value");
-                            //   }}
-                            //   className={classes.sortButton}
-                            // />
                             <img
                               alt="question-mark"
                               src="/images/see-more.svg"
@@ -977,12 +1303,6 @@ export default function AddressTableComponent(props) {
                               className="tooltipInfoIcon rotate-180"
                             />
                           ) : (
-                            // <ArrowDownwardIcon
-                            //   onClick={() => {
-                            //     sortData("value");
-                            //   }}
-                            //   className={classes.sortButton}
-                            // />
                             <img
                               alt="question-mark"
                               src="/images/see-more.svg"
@@ -1013,17 +1333,15 @@ export default function AddressTableComponent(props) {
                 noData == false && (
                   <TableBody>
                     {address.map((row, index) => {
-                      
                       const TimeAge = !row.Age
                         ? ""
                         : moment(row.Age * 1000).format("MMM DD, YYYY h:mm A");
-
 
                       const value =
                         row.Value > 0 && row.Value < 1
                           ? row.Value
                           : Utility.decimalDivison(Number(row?.Value), 8);
-                    
+
                       var value1 = value.toString().split(".")[0];
                       var value2 = value.toString().split(".")[1];
 
@@ -1041,8 +1359,12 @@ export default function AddressTableComponent(props) {
                         <TableRow
                           style={
                             index % 2 !== 1
-                              ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
-                              : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
+                              ? props.theme === "dark"
+                                ? { background: "#192a59" }
+                                : { background: "#f9f9f9" }
+                              : props.theme === "dark"
+                                ? { background: "#192a59" }
+                                : { background: "white" }
                           }
                         >
                           <TableCell
@@ -1070,10 +1392,23 @@ export default function AddressTableComponent(props) {
                             </div>
 
                             <a
-                              className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                              className={
+                                props.theme === "dark"
+                                  ? "linkTable fc-4878ff"
+                                  : "linkTable"
+                              }
                               href={"/transaction-details/" + row.Txn_Hash}
                             >
-                              <Tooltip placement="top" title={row.Txn_Hash}>
+                              <Tooltip
+                                placement="top"
+                                title={row.Txn_Hash}
+                                classes={{
+                                  tooltip:
+                                    props.theme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
+                              >
                                 <span className="tabledata">
                                   {shorten(row.Txn_Hash)}{" "}
                                 </span>
@@ -1084,14 +1419,30 @@ export default function AddressTableComponent(props) {
                             style={{ border: "none", color: "#2a2a2a" }}
                             align="left"
                           >
-                            <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>{TimeAge}</span>
+                            <span
+                              className={
+                                props.theme === "dark"
+                                  ? "tabledata fc-b1c3e1"
+                                  : "tabledata"
+                              }
+                            >
+                              {TimeAge}
+                            </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <a
                               className="linkTable"
                               href={"/block-details/" + row.Block}
                             >
-                              <span className={props.theme === "dark" ? "tabledata fc-4878ff" : "tabledata"}>{row.Block}</span>
+                              <span
+                                className={
+                                  props.theme === "dark"
+                                    ? "tabledata fc-4878ff"
+                                    : "tabledata"
+                                }
+                              >
+                                {row.Block}
+                              </span>
                             </a>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
@@ -1099,8 +1450,23 @@ export default function AddressTableComponent(props) {
                               className="linkTable"
                               href={"/address-details/" + row.From}
                             >
-                              <Tooltip placement="top" title={row.From}>
-                                <span className={props.theme === "dark" ? "tabledata fc-4878ff" : "tabledata"}>
+                              <Tooltip
+                                placement="top"
+                                title={row.From}
+                                classes={{
+                                  tooltip:
+                                    props.theme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
+                              >
+                                <span
+                                  className={
+                                    props.theme === "dark"
+                                      ? "tabledata fc-4878ff"
+                                      : "tabledata"
+                                  }
+                                >
                                   {" "}
                                   {shorten(row.From)}
                                   {/* {let fromAddress = row.From} */}
@@ -1110,21 +1476,51 @@ export default function AddressTableComponent(props) {
                           </TableCell>
 
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className={row.From === addr 
-                              ? props.theme === "dark" ? "out_dark" : "out" 
-                              :  props.theme === "dark" ? "in_dark" : "in"
-                              }>
+                            <span
+                              className={
+                                row.From === addr
+                                  ? props.theme === "dark"
+                                    ? "out_dark"
+                                    : "out"
+                                  : props.theme === "dark"
+                                    ? "in_dark"
+                                    : "in"
+                              }
+                            >
                               {row.From === addr ? "Out" : "In"}
                             </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <a
                               className="linkTable"
-                              href={"/address-details/" + row.To}
+                              href={
+                                "/address-details/" + row.To
+                                  ? row.To
+                                  : row.contractAddress
+                              }
                             >
-                              <Tooltip placement="top" title={row.To}>
-                                <span className={props.theme === "dark" ? "tabledata fc-4878ff" : "tabledata"}>
-                                  {shorten(row.To)}
+                              <Tooltip
+                                placement="top"
+                                title={row.To ? row.To : row.contractAddress}
+                                classes={{
+                                  tooltip:
+                                    props.theme === "dark"
+                                      ? classes.customTooltipDarkMode
+                                      : classes.customTooltip,
+                                }}
+                              >
+                                <span
+                                  className={
+                                    props.theme === "dark"
+                                      ? "tabledata fc-4878ff"
+                                      : "tabledata"
+                                  }
+                                >
+                                  {row.To
+                                    ? shorten(row.To)
+                                    : shorten(
+                                      row.contractAddress
+                                    ).toLocaleLowerCase()}
                                 </span>
                               </Tooltip>
                             </a>
@@ -1133,14 +1529,35 @@ export default function AddressTableComponent(props) {
                             style={{ border: "none", color: "#2a2a2a" }}
                             align="left"
                           >
-                            <Tooltip placement="top" title={format({})(value)}>
+                            <Tooltip
+                              placement="top"
+                              title={format({})(value)}
+                              classes={{
+                                tooltip:
+                                  props.theme === "dark"
+                                    ? classes.customTooltipDarkMode
+                                    : classes.customTooltip,
+                              }}
+                            >
                               {value2 == null ? (
-                                <span className={props.theme === "dark" ? "tabledata fc-b1c3e1 cursor-pointer" : "tabledata cursor-pointer"}>
+                                <span
+                                  className={
+                                    props.theme === "dark"
+                                      ? "tabledata fc-b1c3e1 cursor-pointer"
+                                      : "tabledata cursor-pointer"
+                                  }
+                                >
                                   {row.Value == 0 ? 0 : value1}
-                                  {} &nbsp;XDC
+                                  { } &nbsp;XDC
                                 </span>
                               ) : (
-                                <span className={props.theme === "dark" ? "tabledata fc-b1c3e1 cursor-pointer" : "tabledata cursor-pointer"}>
+                                <span
+                                  className={
+                                    props.theme === "dark"
+                                      ? "tabledata fc-b1c3e1 cursor-pointer"
+                                      : "tabledata cursor-pointer"
+                                  }
+                                >
                                   {row.Value == 0 ? 0 : value1}
                                   {"."}
                                   <span style={{ color: "#9FA9BA" }}>
@@ -1180,7 +1597,13 @@ export default function AddressTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div className={props.theme === "dark" ? "not-found fc-b1c3e1" : "not-found"}>No Transaction Found</div>
+                <div
+                  className={
+                    props.theme === "dark" ? "not-found fc-b1c3e1" : "not-found"
+                  }
+                >
+                  No Transaction Found
+                </div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
@@ -1199,14 +1622,30 @@ export default function AddressTableComponent(props) {
               ""
             ) : (
               <>
-                <span className={props.theme === "dark" ? "textShowRecord fc-b1c3e1" : "textShowRecord"}>Show</span>
+                <span
+                  className={
+                    props.theme === "dark"
+                      ? "textShowRecord fc-b1c3e1"
+                      : "textShowRecord"
+                  }
+                >
+                  Show
+                </span>
                 <PageSelector
                   value={rowsPerPage}
                   height={30}
                   handler={handleChangeRowsPerPage}
                   theme={props.theme}
                 />
-                <span className={props.theme === "dark" ? "textShowRecord fc-b1c3e1" : "textShowRecord"}>Records</span>
+                <span
+                  className={
+                    props.theme === "dark"
+                      ? "textShowRecord fc-b1c3e1"
+                      : "textShowRecord"
+                  }
+                >
+                  Records
+                </span>
               </>
             )}
           </Grid>
@@ -1228,9 +1667,13 @@ export default function AddressTableComponent(props) {
                     style={{ marginLeft: "0rem" }}
                     onClick={() => handleChangePage("first")}
                     className={
-                      page === 0 || totalRecord === 0 
-                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
-                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
+                      page === 0 || totalRecord === 0
+                        ? props.theme === "dark"
+                          ? "btn-latest-block-dark disabled"
+                          : "btn disabled"
+                        : props.theme === "dark"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     First
@@ -1238,9 +1681,13 @@ export default function AddressTableComponent(props) {
                   <button
                     onClick={() => handleChangePage("prev")}
                     className={
-                      page === 0 || totalRecord === 0 
-                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
-                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
+                      page === 0 || totalRecord === 0
+                        ? props.theme === "dark"
+                          ? "btn-latest-block-dark disabled"
+                          : "btn disabled"
+                        : props.theme === "dark"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     <img
@@ -1248,15 +1695,25 @@ export default function AddressTableComponent(props) {
                       src={"/images/next.svg"}
                     />
                   </button>
-                  <button className={props.theme === "dark" ? "btn-latest-block-dark" : "btn"}>Page 0 of 0</button>
+                  <button
+                    className={
+                      props.theme === "dark" ? "btn-latest-block-dark" : "btn"
+                    }
+                  >
+                    Page 0 of 0
+                  </button>
                   <button
                     onClick={() => handleChangePage("next")}
                     className={
                       page + rowsPerPage === totalRecord ||
-                      +page + +rowsPerPage > totalRecord ||
-                      totalRecord === 0
-                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
-                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
+                        +page + +rowsPerPage > totalRecord ||
+                        totalRecord === 0
+                        ? props.theme === "dark"
+                          ? "btn-latest-block-dark disabled"
+                          : "btn disabled"
+                        : props.theme === "dark"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     <img className="back-arrow" src={"/images/next.svg"} />
@@ -1265,10 +1722,14 @@ export default function AddressTableComponent(props) {
                     onClick={() => handleChangePage("last")}
                     className={
                       page + rowsPerPage === totalRecord ||
-                      +page + +rowsPerPage > totalRecord ||
-                      totalRecord === 0
-                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
-                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
+                        +page + +rowsPerPage > totalRecord ||
+                        totalRecord === 0
+                        ? props.theme === "dark"
+                          ? "btn-latest-block-dark disabled"
+                          : "btn disabled"
+                        : props.theme === "dark"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     Last
@@ -1290,9 +1751,13 @@ export default function AddressTableComponent(props) {
                     style={{ marginLeft: "0rem" }}
                     onClick={() => handleChangePage("first")}
                     className={
-                      page === 0 || totalRecord === 0 
-                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
-                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
+                      page === 0 || totalRecord === 0
+                        ? props.theme === "dark"
+                          ? "btn-latest-block-dark disabled"
+                          : "btn disabled"
+                        : props.theme === "dark"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     First
@@ -1300,9 +1765,13 @@ export default function AddressTableComponent(props) {
                   <button
                     onClick={() => handleChangePage("prev")}
                     className={
-                      page === 0 || totalRecord === 0 
-                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
-                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
+                      page === 0 || totalRecord === 0
+                        ? props.theme === "dark"
+                          ? "btn-latest-block-dark disabled"
+                          : "btn disabled"
+                        : props.theme === "dark"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     <img
@@ -1311,7 +1780,11 @@ export default function AddressTableComponent(props) {
                       alt="back"
                     />
                   </button>
-                  <button className={props.theme === "dark" ? "btn-latest-block-dark" : "btn"}>
+                  <button
+                    className={
+                      props.theme === "dark" ? "btn-latest-block-dark" : "btn"
+                    }
+                  >
                     Page{" "}
                     {Math.ceil(totalRecord / rowsPerPage) -
                       Math.ceil((totalRecord - page) / rowsPerPage) +
@@ -1322,10 +1795,14 @@ export default function AddressTableComponent(props) {
                     onClick={() => handleChangePage("next")}
                     className={
                       page + rowsPerPage === totalRecord ||
-                      +page + +rowsPerPage > totalRecord ||
-                      totalRecord === 0
-                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
-                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
+                        +page + +rowsPerPage > totalRecord ||
+                        totalRecord === 0
+                        ? props.theme === "dark"
+                          ? "btn-latest-block-dark disabled"
+                          : "btn disabled"
+                        : props.theme === "dark"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     <img className="back-arrow" src={"/images/next.svg"} />
@@ -1334,10 +1811,14 @@ export default function AddressTableComponent(props) {
                     onClick={() => handleChangePage("last")}
                     className={
                       page + rowsPerPage === totalRecord ||
-                      +page + +rowsPerPage > totalRecord ||
-                      totalRecord === 0
-                      ? props.theme === "dark" ? "btn-latest-block-dark disabled" : "btn disabled" 
-                      : props.theme === "dark" ? "btn-latest-block-dark" : "btn" 
+                        +page + +rowsPerPage > totalRecord ||
+                        totalRecord === 0
+                        ? props.theme === "dark"
+                          ? "btn-latest-block-dark disabled"
+                          : "btn disabled"
+                        : props.theme === "dark"
+                          ? "btn-latest-block-dark"
+                          : "btn"
                     }
                   >
                     Last
@@ -1349,10 +1830,16 @@ export default function AddressTableComponent(props) {
             ""
           )}
         </Grid>
-        <div className={props.theme === "dark" ? "transaction-synchronization-text mb-60" : "transaction-synchronization-text"}>
+        {/* <div
+          className={
+            props.theme === "dark"
+              ? "transaction-synchronization-text mb-60"
+              : "transaction-synchronization-text"
+          }
+        >
           Some transactions might not be visible as transaction synchronization
           is in progress
-        </div>
+        </div> */}
       </Grid>
     </div>
   );

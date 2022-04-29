@@ -7,6 +7,7 @@ import TokenTransfertab from "./tokenTransfertab";
 import TokenHoldertab from "./tokenHoldersTab";
 import TokenContracttab from "./tokenContractTab";
 import TokenUnverifiedContract from "./tokenUnverifiedContract";
+import TotalTokenTransactions from "./allTokenTransactions"
 import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
@@ -17,7 +18,6 @@ import ReadContract from "../contractMethods/read";
 import WriteContract from "../contractMethods/write";
 import { Row } from "simple-flexbox";
 
-let li = 0;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -129,6 +129,16 @@ export default function SimpleTabs(props) {
                 gap: 20,
               }}
             >
+              {/* <button
+                className={
+                  toggleState === 7
+                    ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                    : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
+                }
+                onClick={() => toggleTab(7)}
+              >
+                All Txns
+              </button> */}
               <button
                 className={
                   toggleState === 1
@@ -207,6 +217,15 @@ export default function SimpleTabs(props) {
           </div>
 
           <div>
+            <div
+              className={
+                toggleState === 7 ? "content  active-content" : "content"
+              }
+            >
+              <div style={{ marginTop: "10px", width: "auto" }}>
+                <TotalTokenTransactions theme={props.theme} />
+              </div>
+            </div>
             <div
               className={
                 toggleState === 1 ? "content  active-content" : "content"

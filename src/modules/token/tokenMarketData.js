@@ -101,7 +101,7 @@ export default function TokenMarketDataTable(props) {
 
   var totalSupplyValue = 25425328688; //totalSupply
   // totalSupplyValue = totalSupplyValue.toLocaleString();
-  let activeCurrency = window.localStorage.getItem("currency");
+  let activeCurrency = props.activeCurrency;
   let CurrencySymbol = "";
   let marketCapVal = 0;
   let totalSupplyVal = 0;
@@ -134,21 +134,21 @@ export default function TokenMarketDataTable(props) {
     } else if (activeCurrency == "EUR") {
       CurrencySymbol = "€";
       marketCapVal = convertToInternationalCurrencySystem(
-        props.marketCap.parseDataUSD.marketCap
+        props.marketCap.parseDataEUR.marketCap
       );
       let totalSupplyValue = Math.round(
-        props.marketCap.parseDataUSD.totalSupply
+        props.marketCap.parseDataEUR.totalSupply
       ); //totalSupply
       totalSupplyVal = totalSupplyValue ? totalSupplyValue : 0;
       circulatingSupplyVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataEUR.circulatingSupply
       );
       fullyDilutedMarketCapmarketCapVal = convertToInternationalCurrencySystem(
-        props.marketCap.parseDataUSD.fullyDilutedMarketCap
+        props.marketCap.parseDataEUR.fullyDilutedMarketCap
       );
       tokenPriceVal = props.marketCap.parseDataEUR.tokenPrice.toFixed(2);
       val24 = convertToInternationalCurrencySystem(
-        props.marketCap.parseDataUSD.volume24_hr
+        props.marketCap.parseDataEUR.volume24_hr
       );
     } else if (activeCurrency == "INR") {
       CurrencySymbol = "₹";

@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "503px",
     height: "3px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
@@ -339,6 +339,10 @@ export default function FormDialog(props) {
       !(address.slice(0, 3) === "xdc")
     ) {
       setError("Address should start with xdc and consist of 43 characters");
+    } else if (
+      description && description.length > 220
+    ) {
+      setDescriptionError("Description should be maximum 220 characters");
     } else {
       if (value === "NO") request["isEnabled"] = false;
       const [error, response] = await utility.parseResponse(
@@ -474,7 +478,7 @@ export default function FormDialog(props) {
             <LightToolTip
               open={tooltipIsOpen}
               onClose={tooltipClose}
-              title="An Email notification can be sent to you when an address on your watch list recieves an incoming/outgoing transaction."
+              title="An Email notification can be sent to you when an address on your watch list receives an incoming/outgoing transaction."
               arrow
               placement="top-start"
             >
@@ -496,13 +500,14 @@ export default function FormDialog(props) {
       >
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
-        
+          {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
           <Dialog
             // className={classes.dialog}
             classes={{ paperWidthSm: classes.dialogBox }}
             open={open}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
+            style={{position: "absolute", zIndex: 10000}}
           >
             <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
             <Row>
@@ -590,7 +595,7 @@ export default function FormDialog(props) {
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
                     classes={props.theme === "dark" ? { label: classes.notifyLabelDark } : { label: classes.notifyLabel }}
-                    label="Notify on Incoming (Recieve) Transactions Only"
+                    label="Notify on Incoming (Receive) Transactions Only"
                     onClick={(e) => setNotification(e.target.value)}
                   />
                   {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
@@ -634,6 +639,7 @@ export default function FormDialog(props) {
             </DialogContentText> */}
             </div>
           </Dialog>
+          </div>}
         {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
       </div>
     </>

@@ -47,12 +47,34 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#192a59",
   },
-  "@media (min-width:0px) and (max-width: 1240px)": {
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
+  "@media (min-width:0px) and (max-width: 767px)": {
     container: {
       height: "36.375rem",
     },
     containerDark: {
       height: "36.375rem",
+    },
+    container1: {
+      height: "23.375rem",
+    },
+    containerDark1: {
+      height: "23.375rem",
+    },
+  },
+  "@media (min-width:768px) and (max-width: 1240px)": {
+    container: {
+      height: "43.375rem",
+    },
+    containerDark: {
+      height: "43.375rem",
     },
     container1: {
       height: "23.375rem",
@@ -76,6 +98,14 @@ export default function TransactionComponent(props) {
   let [anchorEl, setAnchorEl] = React.useState();
   let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
   let isSettingColumnOpen = Boolean(anchorEl);
+  const [hashTT, setHashTT] = React.useState(false);
+  const [amountTT, setAmountTT] = React.useState(false);
+  const [methodTT, setMethodTT] = React.useState(false);
+  const [ageTT, setAgeTT] = React.useState(false);
+  const [dateTT, setDateTT] = React.useState(false);
+  const [blockTT, setBlockTT] = React.useState(false);
+  const [fromTT, setFromTT] = React.useState(false);
+  const [toTT, setToTT] = React.useState(false);
 
   function handleSettingsClick(event) {
     setAnchorEl(event.currentTarget);
@@ -104,6 +134,7 @@ export default function TransactionComponent(props) {
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    margin-bottom: 100px;
     gap: 10px;
     color: #c6cbcf;
     @media (min-width: 767px) {
@@ -122,7 +153,15 @@ export default function TransactionComponent(props) {
   return (
     <div className="responsive-table-width-transactions-list contact-list-tab ">
       <div className="display-flex justify-content-between p-t-30 p-b-15">
-        <div class={props.theme === "dark" ? "latestTransactionHeadingDark" :"latestTransactionHeading"}>{state.tableName}</div>
+        <div
+          class={
+            props.theme === "dark"
+              ? "latestTransactionHeadingDark"
+              : "latestTransactionHeading"
+          }
+        >
+          {state.tableName}
+        </div>
         <div class=" display-none-mobile display-flex flex-direction-column justify-content-center">
           <img
             onClick={handleSettingsClick}
@@ -135,6 +174,7 @@ export default function TransactionComponent(props) {
             handleOnClose={handleOnClose}
             tableColumns={props.state.tableColumns}
             toggleTableColumns={props.toggleTableColumns}
+            theme={props.theme}
           />
         </div>
         <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
@@ -148,12 +188,24 @@ export default function TransactionComponent(props) {
             onModalClose={toggleModal}
             tableColumns={props.state.tableColumns}
             toggleTableColumns={props.toggleTableColumns}
+            theme={props.theme}
           />
         </div>
       </div>
 
       <div style={{ borderRadius: "14px" }} elevation={0}>
-        <TableContainer className={!props.state.isData ? props.theme === "dark" ? classes.containerDark1 : classes.container1 : props.theme === "dark" ? classes.containerDark : classes.container} id="container-table-transaction-list">
+        <TableContainer
+          className={
+            !props.state.isData
+              ? props.theme === "dark"
+                ? classes.containerDark1
+                : classes.container1
+              : props.theme === "dark"
+              ? classes.containerDark
+              : classes.container
+          }
+          id="container-table-transaction-list"
+        >
           <Table>
             <TableHead>
               <TableRow>
@@ -161,27 +213,140 @@ export default function TransactionComponent(props) {
                   className="table-head-hash hash-transaction-list-all"
                   align="left"
                 >
-                  <span className={props.theme === "dark" ? "tableheaders-hash-dark TableHeadersTransactionDark" : ("tableheaders-hash", "tableheaders")}>
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "tableheaders-hash-dark TableHeadersTransactionDark"
+                        : ("tableheaders-hash", "tableheaders")
+                    }
+                  >
                     Hash
-                    <Tooltip placement="top" title={messages.HASH}>
-                      <img
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.HASH}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        placement="top"
+                        title={messages.HASH}
+                        open={hashTT}
+                        onOpen={() => setHashTT(true)}
+                        onClose={() => setHashTT(false)}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                          onClick={() => setHashTT(!hashTT)}
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 {props.state.tableColumns["Amount"].isActive && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "2.813rem" }}
+                    style={{ border: "none", paddingLeft: "2rem" }}
                     className="table-head-all"
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-all-dark" : ("tableheaders", "tableheaders-all")}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "TableHeadersTransactionDark tableheaders-all-dark"
+                          : ("tableheaders", "tableheaders-all")
+                      }
+                    >
                       Amount
-                      <Tooltip placement="top" title={messages.AMOUNT}>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.AMOUNT}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          placement="top"
+                          title={messages.AMOUNT}
+                          open={amountTT}
+                          onOpen={() => setAmountTT(true)}
+                          onClose={() => setAmountTT(false)}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                            onClick={() => setAmountTT(!amountTT)}
+                          />
+                        </Tooltip>
+                      )}
+                    </span>
+                  </TableCell>
+                )}
+                {/* {props.state.tableColumns["Age"].isActive && ( */}
+                {/* <TableCell
+                  style={{ border: "none", paddingLeft: "2rem" }}
+                  className="table-head-all"
+                  align="left"
+                >
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "TableHeadersTransactionDark tableheaders-all-dark"
+                        : ("tableheaders", "tableheaders-all")
+                    }
+                  >
+                    Method
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.METHOD}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
                         <img
                           alt="question-mark"
                           src="/images/info.svg"
@@ -189,63 +354,145 @@ export default function TransactionComponent(props) {
                           className="tooltipInfoIcon"
                         />
                       </Tooltip>
-                    </span>
-                  </TableCell>
-                )}
-                {props.state.tableColumns["Age"].isActive && (
-                  <TableCell
-                    style={{ border: "none", paddingLeft: "2.813rem" }}
-                    className="table-head-all"
-                    align="left"
-                  >
-                    <span className={("tableheaders", "tableheaders-age")}>
-                      Method
-                      <Tooltip placement="top" title={messages.METHOD}>
+                    ) : (
+                      <Tooltip
+                        placement="top"
+                        title={messages.METHOD}
+                        open={methodTT}
+                        onOpen={() => setMethodTT(true)}
+                        onClose={() => setMethodTT(false)}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
                         <img
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
                           className="tooltipInfoIcon"
+                          onClick={() => setMethodTT(!methodTT)}
                         />
                       </Tooltip>
-                    </span>
-                  </TableCell>
-                )}
+                    )}
+                  </span>
+                </TableCell> */}
+                {/* )} */}
                 {props.state.tableColumns["Age"].isActive && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "3rem" }}
+                    style={{ border: "none", paddingLeft: "2rem" }}
                     className="table-head-all"
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-age-dark" : ("tableheaders", "tableheaders-age")}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "TableHeadersTransactionDark tableheaders-age-dark"
+                          : ("tableheaders", "tableheaders-age")
+                      }
+                    >
                       Age
-                      <Tooltip placement="top" title={messages.AGE}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.AGE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          placement="top"
+                          title={messages.AGE}
+                          open={ageTT}
+                          onOpen={() => setAgeTT(true)}
+                          onClose={() => setAgeTT(false)}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                            onClick={() => setAgeTT(!ageTT)}
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                 )}
                 {props.state.tableColumns["Date"].isActive && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "3rem" }}
+                    style={{ border: "none", paddingLeft: "2rem" }}
                     className="table-head-all"
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-age-dark" : ("tableheaders", "tableheaders-age")}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "TableHeadersTransactionDark tableheaders-age-dark"
+                          : ("tableheaders", "tableheaders-age")
+                      }
+                    >
                       Date
-                      <Tooltip placement="top" title={messages.DATE}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.DATE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          placement="top"
+                          title={messages.DATE}
+                          open={dateTT}
+                          onOpen={() => setDateTT(true)}
+                          onClose={() => setDateTT(false)}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                            onClick={() => setDateTT(!dateTT)}
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                 )}
@@ -255,9 +502,82 @@ export default function TransactionComponent(props) {
                     className="table-head-all"
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-all-dark" : ("tableheaders", "tableheaders-all")}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "TableHeadersTransactionDark tableheaders-all-dark"
+                          : ("tableheaders", "tableheaders-all")
+                      }
+                    >
                       Block
-                      <Tooltip placement="top" title={messages.BLOCK}>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.BLOCK}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          placement="top"
+                          title={messages.BLOCK}
+                          open={blockTT}
+                          onOpen={() => setBlockTT(true)}
+                          onClose={() => setBlockTT(false)}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                            onClick={() => setBlockTT(!blockTT)}
+                          />
+                        </Tooltip>
+                      )}
+                    </span>
+                  </TableCell>
+                )}
+                <TableCell
+                  style={{ border: "none", paddingLeft: "1.25rem" }}
+                  className="table-head-all"
+                  align="left"
+                >
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "TableHeadersTransactionDark tableheaders-all-dark"
+                        : ("tableheaders", "tableheaders-all")
+                    }
+                  >
+                    From
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.FROM}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
                         <img
                           alt="question-mark"
                           src="/images/info.svg"
@@ -265,41 +585,85 @@ export default function TransactionComponent(props) {
                           className="tooltipInfoIcon"
                         />
                       </Tooltip>
-                    </span>
-                  </TableCell>
-                )}
-                <TableCell
-                  style={{ border: "none", paddingLeft: "3rem" }}
-                  className="table-head-all"
-                  align="left"
-                >
-                  <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-all-dark" : ("tableheaders", "tableheaders-all")}>
-                    From
-                    <Tooltip placement="top" title={messages.FROM}>
-                      <img
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
+                    ) : (
+                      <Tooltip
+                        placement="top"
+                        title={messages.FROM}
+                        open={fromTT}
+                        onOpen={() => setFromTT(true)}
+                        onClose={() => setFromTT(false)}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                          onClick={() => setFromTT(!fromTT)}
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 <TableCell
-                  style={{ border: "none", paddingLeft: "3rem" }}
+                  style={{ border: "none", paddingLeft: "1.813rem" }}
                   className="table-head-all"
                   align="left"
                 >
-                  <span className={props.theme === "dark" ? "TableHeadersTransactionDark tableheaders-all-dark" : ("tableheaders", "tableheaders-all")}>
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "TableHeadersTransactionDark tableheaders-all-dark"
+                        : ("tableheaders", "tableheaders-all")
+                    }
+                  >
                     To
-                    <Tooltip placement="top" title={messages.TO}>
-                      <img
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.TO}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        placement="top"
+                        title={messages.TO}
+                        open={toTT}
+                        onOpen={() => setToTT(true)}
+                        onClose={() => setToTT(false)}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                          onClick={() => setToTT(!toTT)}
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 {/* <TableCell
@@ -344,8 +708,12 @@ export default function TransactionComponent(props) {
                         key={row.name}
                         style={
                           index % 2 !== 1
-                            ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
-                            : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
+                            ? props.theme === "dark"
+                              ? { background: "#192a59" }
+                              : { background: "#f9f9f9" }
+                            : props.theme === "dark"
+                            ? { background: "#192a59" }
+                            : { background: "white" }
                         }
                       >
                         <TableCell
@@ -369,9 +737,13 @@ export default function TransactionComponent(props) {
                             {" "}
                             <span
                               className={
-                                animationClass 
-                                ? props.theme === "dark" ? `${animationClass} connect-wallet-dark-xdc-url` : animationClass 
-                                : props.theme === "dark" ? "connect-wallet-dark-xdc-url tabledata" : "tabledata"
+                                animationClass
+                                  ? props.theme === "dark"
+                                    ? `${animationClass} connect-wallet-dark-xdc-url`
+                                    : animationClass
+                                  : props.theme === "dark"
+                                  ? "connect-wallet-dark-xdc-url tabledata"
+                                  : "tabledata"
                               }
                             >
                               {" "}
@@ -384,22 +756,26 @@ export default function TransactionComponent(props) {
                             style={{
                               border: "none",
                               width: "100px",
-                              paddingLeft: "2.813rem",
+                              paddingLeft: "1.813rem",
                             }}
                             align="left"
                           >
                             <span
                               className={
-                                animationClass 
-                                ? props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass 
-                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata"
+                                animationClass
+                                  ? props.theme === "dark"
+                                    ? `${animationClass} latest-blocks-tabledata-dark`
+                                    : animationClass
+                                  : props.theme === "dark"
+                                  ? "latest-blocks-tabledata-dark"
+                                  : "tabledata"
                               }
                             >
                               {amt}
                             </span>
                           </TableCell>
                         )}
-                        <TableCell
+                        {/* <TableCell
                           style={{
                             border: "none",
                             width: "120px",
@@ -407,22 +783,38 @@ export default function TransactionComponent(props) {
                           }}
                           align="left"
                         >
-                          {row.method ? row.method : ""}
-                        </TableCell>
+                          <span
+                            className={
+                              animationClass
+                                ? props.theme === "dark"
+                                  ? `${animationClass} latest-blocks-tabledata-dark`
+                                  : animationClass
+                                : props.theme === "dark"
+                                ? "latest-blocks-tabledata-dark"
+                                : "tabledata"
+                            }
+                          >
+                            {row.method ? row.method : ""}
+                          </span>
+                        </TableCell> */}
                         {props.state.tableColumns["Age"].isActive && (
                           <TableCell
                             style={{
                               border: "none",
                               width: "120px",
-                              paddingLeft: "2.813rem",
+                              paddingLeft: "1.813rem",
                             }}
                             align="left"
                           >
                             <span
                               className={
-                                animationClass 
-                                ? props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass 
-                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata"
+                                animationClass
+                                  ? props.theme === "dark"
+                                    ? `${animationClass} latest-blocks-tabledata-dark`
+                                    : animationClass
+                                  : props.theme === "dark"
+                                  ? "latest-blocks-tabledata-dark"
+                                  : "tabledata"
                               }
                             >
                               {ti}
@@ -434,15 +826,19 @@ export default function TransactionComponent(props) {
                             style={{
                               border: "none",
                               width: "120px",
-                              paddingLeft: "2.813rem",
+                              paddingLeft: "1.813rem",
                             }}
                             align="left"
                           >
                             <span
                               className={
-                                animationClass 
-                                ? props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass 
-                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata"
+                                animationClass
+                                  ? props.theme === "dark"
+                                    ? `${animationClass} latest-blocks-tabledata-dark`
+                                    : animationClass
+                                  : props.theme === "dark"
+                                  ? "latest-blocks-tabledata-dark"
+                                  : "tabledata"
                               }
                             >
                               {moment(row.timestamp * 1000).format(
@@ -467,11 +863,15 @@ export default function TransactionComponent(props) {
                             >
                               {" "}
                               <span
-                               className={
-                                animationClass 
-                                ? props.theme === "dark" ? `${animationClass} connect-wallet-dark-xdc-url` : animationClass 
-                                : props.theme === "dark" ? "connect-wallet-dark-xdc-url tabledata" : "tabledata"
-                              }
+                                className={
+                                  animationClass
+                                    ? props.theme === "dark"
+                                      ? `${animationClass} connect-wallet-dark-xdc-url`
+                                      : animationClass
+                                    : props.theme === "dark"
+                                    ? "connect-wallet-dark-xdc-url tabledata"
+                                    : "tabledata"
+                                }
                               >
                                 {" "}
                                 {row.blockNumber}
@@ -483,7 +883,7 @@ export default function TransactionComponent(props) {
                           style={{
                             border: "none",
                             width: "160px",
-                            paddingLeft: "2.813rem",
+                            paddingLeft: "1rem",
                           }}
                           align="left"
                         >
@@ -495,9 +895,13 @@ export default function TransactionComponent(props) {
                             <Tooltip placement="top" title={row.from}>
                               <span
                                 className={
-                                  animationClass 
-                                  ? props.theme === "dark" ? `${animationClass} connect-wallet-dark-xdc-url` : animationClass 
-                                  : props.theme === "dark" ? "connect-wallet-dark-xdc-url tabledata" : "tabledata"
+                                  animationClass
+                                    ? props.theme === "dark"
+                                      ? `${animationClass} connect-wallet-dark-xdc-url`
+                                      : animationClass
+                                    : props.theme === "dark"
+                                    ? "connect-wallet-dark-xdc-url tabledata"
+                                    : "tabledata"
                                 }
                               >
                                 {shorten(row.from)}
@@ -509,7 +913,7 @@ export default function TransactionComponent(props) {
                           style={{
                             border: "none",
                             width: "155px",
-                            paddingLeft: "2.813rem",
+                            paddingLeft: "1.813rem",
                             paddingRight: "15px",
                           }}
                           align="left"
@@ -522,9 +926,13 @@ export default function TransactionComponent(props) {
                             <Tooltip placement="top" title={row.to}>
                               <span
                                 className={
-                                  animationClass 
-                                  ? props.theme === "dark" ? `${animationClass} connect-wallet-dark-xdc-url` : animationClass 
-                                  : props.theme === "dark" ? "connect-wallet-dark-xdc-url tabledata" : "tabledata"
+                                  animationClass
+                                    ? props.theme === "dark"
+                                      ? `${animationClass} connect-wallet-dark-xdc-url`
+                                      : animationClass
+                                    : props.theme === "dark"
+                                    ? "connect-wallet-dark-xdc-url tabledata"
+                                    : "tabledata"
                                 }
                               >
                                 {!row.to
@@ -569,14 +977,24 @@ export default function TransactionComponent(props) {
       <Grid container style={{ marginTop: "1.75rem" }} className="Pagination">
         {/* <Pagination> */}
         <Grid className="Pagination_1">
-          {!props.state.isLoading && props.state.isData ?
-            (<><span className={props.theme === "dark" ? "text-dark" : "text"}>Show</span>
-              <PageSelector value={props.state.amount}
+          {!props.state.isLoading && props.state.isData ? (
+            <>
+              <span className={props.theme === "dark" ? "text-dark" : "text"}>
+                Show
+              </span>
+              <PageSelector
+                value={props.state.amount}
                 height={35}
-                handler={props._handleChange} 
+                handler={props._handleChange}
                 theme={props.theme}
-                />
-              <span className={props.theme === "dark" ? "text-dark" : "text"}>Records</span></>) : ("")}
+              />
+              <span className={props.theme === "dark" ? "text-dark" : "text"}>
+                Records
+              </span>
+            </>
+          ) : (
+            ""
+          )}
         </Grid>
 
         <Grid item className="Pagination_2">
@@ -584,8 +1002,12 @@ export default function TransactionComponent(props) {
             onClick={(event) => props._FirstPage(event)}
             className={
               props.state.from === 0
-                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-first" : "btn disabled btn-first"
-                : props.theme === "dark" ? "btn-latest-block-dark btn-first" : "btn btn-first"
+                ? props.theme === "dark"
+                  ? "btn-latest-block-dark disabled-dark btn-first"
+                  : "btn disabled btn-first"
+                : props.theme === "dark"
+                ? "btn-latest-block-dark btn-first"
+                : "btn btn-first"
             }
           >
             First
@@ -593,14 +1015,24 @@ export default function TransactionComponent(props) {
           <button
             onClick={(event) => props._PrevPage(event)}
             className={
-              props.state.from === 0 
-              ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-back" : "btn disabled btn-back" 
-              : props.theme === "dark" ? "btn-latest-block-dark  btn-back" : "btn btn-back"
+              props.state.from === 0
+                ? props.theme === "dark"
+                  ? "btn-latest-block-dark disabled-dark btn-back"
+                  : "btn disabled btn-back"
+                : props.theme === "dark"
+                ? "btn-latest-block-dark  btn-back"
+                : "btn btn-back"
             }
           >
             <img className="rotate-180" alt="back" src={"/images/next.svg"} />{" "}
           </button>
-          <button className={props.theme === "dark" ? "btn-latest-block-dark  btn-page" : "btn btn-page"}>
+          <button
+            className={
+              props.theme === "dark"
+                ? "btn-latest-block-dark  btn-page"
+                : "btn btn-page"
+            }
+          >
             Page{" "}
             {Math.round(state.totalTransaction / state.amount) +
               1 -
@@ -615,11 +1047,19 @@ export default function TransactionComponent(props) {
               props.state.lastPage === false
                 ? props.state.from + props.state.amount ===
                   props.state.totalTransaction
-                  ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
-                : props.theme === "dark" ? "btn-latest-block-dark  btn-next" : "btn btn-next"
+                  ? props.theme === "dark"
+                    ? "btn-latest-block-dark disabled-dark"
+                    : "btn disabled"
+                  : props.theme === "dark"
+                  ? "btn-latest-block-dark  btn-next"
+                  : "btn btn-next"
                 : props.state.lastFrom - props.state.amount < 0
-                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
-                : props.theme === "dark" ? "btn-latest-block-dark  btn-next" : "btn btn-next"
+                ? props.theme === "dark"
+                  ? "btn-latest-block-dark disabled-dark"
+                  : "btn disabled"
+                : props.theme === "dark"
+                ? "btn-latest-block-dark  btn-next"
+                : "btn btn-next"
             }
           >
             <img alt="next" src={"/images/next.svg"} />
@@ -628,9 +1068,13 @@ export default function TransactionComponent(props) {
             onClick={(event) => props._LastPage(event)}
             className={
               props.state.from + props.state.amount ===
-                props.state.totalTransaction
-                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
-                : props.theme === "dark" ? "btn-latest-block-dark  btn-last" : "btn btn-last"
+              props.state.totalTransaction
+                ? props.theme === "dark"
+                  ? "btn-latest-block-dark disabled-dark"
+                  : "btn disabled"
+                : props.theme === "dark"
+                ? "btn-latest-block-dark  btn-last"
+                : "btn btn-last"
             }
           >
             Last

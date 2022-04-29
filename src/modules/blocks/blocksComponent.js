@@ -15,7 +15,7 @@ import Loader from "../../assets/loader";
 import { messages } from "../../constants";
 import utility from "../../utility";
 import { useState } from "react";
-import PageSelector from "../../modules/common/pageSelector"
+import PageSelector from "../../modules/common/pageSelector";
 
 const useStyles = makeStyles({
   container: {
@@ -32,7 +32,15 @@ const useStyles = makeStyles({
   },
   selectAmount: {
     height: "70%",
-    marginRight: "8px",
+    marginRight: "20px",
+  },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
   },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
@@ -58,125 +66,330 @@ export default function BlocksComponent(props) {
   const [difficultyTT, setDifficultyTT] = useState(false);
   const [gasUsedTT, setGasUsedTT] = useState(false);
 
-  if(props.state.lastPage===true){
+  if (props.state.lastPage === true) {
     props.state.blocksList.sort(function (a, b) {
       return Number(b.number) - Number(a.number);
     });
   }
   return (
     <Grid className="table_1 ">
-      <Grid class={props.theme === "dark" ? "tabletop-heading-dark table-top-header" : "tabletop-header table-top-header"}>{state.tableName}</Grid>
-      <div style={{ borderRadius: "14px"}} elevation={0}>
-        <TableContainer className={props.theme === "dark" ? classes.containerDark : classes.container} id="container-table">
+      <Grid
+        class={
+          props.theme === "dark"
+            ? "tabletop-heading-dark table-top-header"
+            : "tabletop-header table-top-header"
+        }
+      >
+        {state.tableName}
+      </Grid>
+      <div style={{ borderRadius: "14px" }} elevation={0}>
+        <TableContainer
+          className={
+            props.theme === "dark" ? classes.containerDark : classes.container
+          }
+          id="container-table"
+        >
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark block-list-all" : "tableheaders table-headers block-list-all"}>
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "tableheaders-dark table-headers-dark block-list-all p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers block-list-all p-l-8-md p-l-4-sm"
+                    }
+                  >
                     Hash
-                    <Tooltip
-                      open={hashTT}
-                      onOpen={() => setHashTT(true)}
-                      onClose={() => setHashTT(false)}
-                      placement="top" 
-                      title={messages.HASH}>
-                      <img
-                        onClick={() => setHashTT(!hashTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.HASH}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={hashTT}
+                        onOpen={() => setHashTT(true)}
+                        onClose={() => setHashTT(false)}
+                        placement="top"
+                        title={messages.HASH}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setHashTT(!hashTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
+                    }
+                  >
                     Height
-                    <Tooltip
-                      open={heightTT}
-                      onOpen={() => setHeightTT(true)}
-                      onClose={() => setHeightTT(false)}  
-                      placement="top" 
-                      title={messages.BLOCK_HEIGHT}>
-                      <img
-                        onClick={() => setHeightTT(!heightTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.BLOCK_HEIGHT}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={heightTT}
+                        onOpen={() => setHeightTT(true)}
+                        onClose={() => setHeightTT(false)}
+                        placement="top"
+                        title={messages.BLOCK_HEIGHT}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setHeightTT(!heightTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
+                    }
+                  >
                     Age
-                    <Tooltip 
-                      open={ageTT}
-                      onOpen={() => setAgeTT(true)}
-                      onClose={() => setAgeTT(false)} 
-                      placement="top" 
-                      title={messages.AGE}>
-                      <img
-                        onClick={() => setAgeTT(!ageTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.AGE}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={ageTT}
+                        onOpen={() => setAgeTT(true)}
+                        onClose={() => setAgeTT(false)}
+                        placement="top"
+                        title={messages.AGE}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setAgeTT(!ageTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
+                    }
+                  >
                     Transactions
-                    <Tooltip 
-                      open={transactionTT}
-                      onOpen={() => setTransactionTT(true)}
-                      onClose={() => setTransactionTT(false)}
-                      placement="top" 
-                      title={messages.NO_OF_TRANSACTION}>
-                      <img
-                        onClick={() => setTransactionTT(!transactionTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.NO_OF_TRANSACTION}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={transactionTT}
+                        onOpen={() => setTransactionTT(true)}
+                        onClose={() => setTransactionTT(false)}
+                        placement="top"
+                        title={messages.NO_OF_TRANSACTION}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setTransactionTT(!transactionTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
+                    }
+                  >
                     Difficulty
-                    <Tooltip 
-                      open={difficultyTT}
-                      onOpen={() => setDifficultyTT(true)}
-                      onClose={() => setDifficultyTT(false)} 
-                      placement="top" 
-                      title={messages.DIFFICULTY}>
-                      <img
-                        onClick={() => setDifficultyTT(!difficultyTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.DIFFICULTY}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={difficultyTT}
+                        onOpen={() => setDifficultyTT(true)}
+                        onClose={() => setDifficultyTT(false)}
+                        placement="top"
+                        title={messages.DIFFICULTY}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setDifficultyTT(!difficultyTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={props.theme === "dark" ? "tableheaders-dark table-headers-dark" : "tableheaders table-headers"}>
+                  <span
+                    className={
+                      props.theme === "dark"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
+                    }
+                  >
                     Gas Used
-                    <Tooltip 
-                      open={gasUsedTT}
-                      onOpen={() => setGasUsedTT(true)}
-                      onClose={() => setGasUsedTT(false)} 
-                      placement="top" 
-                      title={messages.GAS_USED}>
-                      <img
-                        onClick={() => setGasUsedTT(!gasUsedTT)}
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        className="tooltipInfoIconAccount"
-                      />
-                    </Tooltip>
+                    {window.innerWidth > 1024 ? (
+                      <Tooltip
+                        placement="top"
+                        title={messages.GAS_USED}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        open={gasUsedTT}
+                        onOpen={() => setGasUsedTT(true)}
+                        onClose={() => setGasUsedTT(false)}
+                        placement="top"
+                        title={messages.GAS_USED}
+                        classes={{
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
+                        }}
+                      >
+                        <img
+                          onClick={() => setGasUsedTT(!gasUsedTT)}
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
+                        />
+                      </Tooltip>
+                    )}
                   </span>
                 </TableCell>
                 {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
@@ -208,8 +421,12 @@ export default function BlocksComponent(props) {
                         key={row.name}
                         style={
                           index % 2 !== 1
-                            ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
-                            : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
+                            ? props.theme === "dark"
+                              ? { background: "#192a59" }
+                              : { background: "#f9f9f9" }
+                            : props.theme === "dark"
+                            ? { background: "#192a59" }
+                            : { background: "white" }
                         }
                       >
                         <TableCell
@@ -227,8 +444,12 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
-                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata table-data"
+                                ? props.theme === "dark"
+                                  ? `${animationClass} latest-blocks-tabledata-dark`
+                                  : animationClass
+                                : props.theme === "dark"
+                                ? "latest-blocks-tabledata-dark"
+                                : "tabledata table-data"
                             }
                           >
                             {shorten(row.hash)}{" "}
@@ -240,7 +461,11 @@ export default function BlocksComponent(props) {
                           align="left"
                         >
                           <a
-                            className={props.theme === "dark" ? "linkTable-dark" : "linkTable"}
+                            className={
+                              props.theme === "dark"
+                                ? "linkTable-dark"
+                                : "linkTable"
+                            }
                             href={"/block-details/" + row.number}
                           >
                             <span
@@ -262,8 +487,12 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
-                                : props.theme === "dark" ? "latest-blocks-tabledata-dark" : "tabledata table-data"
+                                ? props.theme === "dark"
+                                  ? `${animationClass} latest-blocks-tabledata-dark`
+                                  : animationClass
+                                : props.theme === "dark"
+                                ? "latest-blocks-tabledata-dark"
+                                : "tabledata table-data"
                             }
                           >
                             {ti < 0 ? "0 secs ago" : ti}
@@ -277,8 +506,12 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
-                                : props.theme === "dark" ? "latest-blocks-tabledata-dark pad-left-6" : "tabledata table-data pad-left-6"
+                                ? props.theme === "dark"
+                                  ? `${animationClass} latest-blocks-tabledata-dark`
+                                  : animationClass
+                                : props.theme === "dark"
+                                ? "latest-blocks-tabledata-dark pad-left-6"
+                                : "tabledata table-data pad-left-6"
                             }
                           >
                             {" "}
@@ -293,8 +526,12 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
-                                : props.theme === "dark" ? "latest-blocks-tabledata-dark pad-left-4" : "tabledata table-data pad-left-4"
+                                ? props.theme === "dark"
+                                  ? `${animationClass} latest-blocks-tabledata-dark`
+                                  : animationClass
+                                : props.theme === "dark"
+                                ? "latest-blocks-tabledata-dark pad-left-4"
+                                : "tabledata table-data pad-left-4"
                             }
                           >
                             {row.difficulty}
@@ -304,8 +541,12 @@ export default function BlocksComponent(props) {
                           <span
                             className={
                               animationClass
-                                ?  props.theme === "dark" ? `${animationClass} latest-blocks-tabledata-dark` : animationClass
-                                : props.theme === "dark" ? "latest-blocks-tabledata-dark pad-left-7" : "tabledata table-data pad-left-7"
+                                ? props.theme === "dark"
+                                  ? `${animationClass} latest-blocks-tabledata-dark`
+                                  : animationClass
+                                : props.theme === "dark"
+                                ? "latest-blocks-tabledata-dark pad-left-7"
+                                : "tabledata table-data pad-left-7"
                             }
                           >
                             {row.gasUsed}
@@ -322,13 +563,21 @@ export default function BlocksComponent(props) {
       </div>
       <Grid container style={{ marginTop: "28px" }} className="Pagination">
         <Grid item className="Pagination_1">
-          <span className={props.theme === "dark" ? "textShowRecordBlockDark" : "textShowRecordBlock"}>Show</span>
-          <span className={classes.selectAmount}>
-          <PageSelector value={props.state.amount}
-                height={35}
-                handler={(event) => props._handleChange(event)} 
-                theme={props.theme}
-                /></span>
+          <span
+            className={
+              props.theme === "dark"
+                ? "textShowRecordBlockDark"
+                : "textShowRecordBlock"
+            }
+          >
+            Show
+          </span>
+          <PageSelector
+            value={props.state.amount}
+            height={35}
+            handler={(event) => props._handleChange(event)}
+            theme={props.theme}
+          />
           {/* <select
             value={props.state.amount}
             className="select-amount"
@@ -339,7 +588,15 @@ export default function BlocksComponent(props) {
             <option value={50}>50</option>
             <option value={100}>100</option>
           </select> */}
-          <span className={props.theme === "dark" ? "textShowRecordBlockDark" : "textShowRecordBlock"}>Records</span>
+          <span
+            className={
+              props.theme === "dark"
+                ? "textShowRecordBlockDark"
+                : "textShowRecordBlock"
+            }
+          >
+            Records
+          </span>
         </Grid>
 
         <Grid item className="Pagination_2">
@@ -347,8 +604,12 @@ export default function BlocksComponent(props) {
             onClick={(event) => props._FirstPage(event)}
             className={
               props.state.from === 0
-                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-first" : "btn disabled btn-first"
-                : props.theme === "dark" ? "btn-latest-block-dark btn-first" : "btn btn-first"
+                ? props.theme === "dark"
+                  ? "btn-latest-block-dark disabled-dark btn-first"
+                  : "btn disabled btn-first"
+                : props.theme === "dark"
+                ? "btn-latest-block-dark btn-first"
+                : "btn btn-first"
             }
           >
             First
@@ -356,14 +617,24 @@ export default function BlocksComponent(props) {
           <button
             onClick={(event) => props._PrevPage(event)}
             className={
-              props.state.from === 0 
-              ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark btn-back" : "btn disabled btn-back" 
-              : props.theme === "dark" ? "btn-latest-block-dark  btn-back" : "btn btn-back"
+              props.state.from === 0
+                ? props.theme === "dark"
+                  ? "btn-latest-block-dark disabled-dark btn-back"
+                  : "btn disabled btn-back"
+                : props.theme === "dark"
+                ? "btn-latest-block-dark  btn-back"
+                : "btn btn-back"
             }
           >
             <img className="rotate-180" src={"/images/next.svg"} width="10px" />
           </button>
-          <button className={props.theme === "dark" ? "btn-latest-block-dark  btn-page" : "btn btn-page"}>
+          <button
+            className={
+              props.theme === "dark"
+                ? "btn-latest-block-dark  btn-page"
+                : "btn btn-page"
+            }
+          >
             Page{" "}
             {Math.round(state.totalblocks / state.amount) +
               1 -
@@ -374,8 +645,12 @@ export default function BlocksComponent(props) {
             onClick={(event) => props._NextPage(event)}
             className={
               props.state.from + props.state.amount === props.state.totalblocks
-                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
-                : props.theme === "dark" ? "btn-latest-block-dark  btn-next" : "btn btn-next"
+                ? props.theme === "dark"
+                  ? "btn-latest-block-dark disabled-dark"
+                  : "btn disabled"
+                : props.theme === "dark"
+                ? "btn-latest-block-dark  btn-next"
+                : "btn btn-next"
             }
           >
             <img src={"/images/next.svg"} width="10px" />
@@ -384,8 +659,12 @@ export default function BlocksComponent(props) {
             onClick={(event) => props._LastPage(event)}
             className={
               props.state.from + props.state.amount === props.state.totalblocks
-                ? props.theme === "dark" ? "btn-latest-block-dark disabled-dark" : "btn disabled"
-                : props.theme === "dark" ? "btn-latest-block-dark  btn-last" : "btn btn-last"
+                ? props.theme === "dark"
+                  ? "btn-latest-block-dark disabled-dark"
+                  : "btn disabled"
+                : props.theme === "dark"
+                ? "btn-latest-block-dark  btn-last"
+                : "btn btn-last"
             }
           >
             Last

@@ -218,6 +218,7 @@ export default function ManageCookiesDialog(props) {
 
     const handleClose = () => {
         setOpen(props.close)
+        fetchCookies()
     }
     const handleSwitchOn1 = () => {
         setFunctionalCookies(true);
@@ -271,10 +272,12 @@ export default function ManageCookiesDialog(props) {
     }
 
     return <div>
+        {props.open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
         <Dialog
             classes={props.theme === "dark" ? {paperWidthSm: classes.dialogBoxDark} : {paperWidthSm: classes.dialogBox}}
             open={props.open}
             close={handleClose}
+            style={{position: "absolute", zIndex: 10000}}
         >
             <div>
             <div className={props.theme === "dark" ? classes.headingContainerDark : classes.headingContainer}>
@@ -347,5 +350,6 @@ export default function ManageCookiesDialog(props) {
             </div>
             </div>
         </Dialog>
-    </div>;
+    </div>}
+    </div>
 }

@@ -387,7 +387,6 @@ export default function ContractWriteMethods(props) {
       writeFunctions[index].loading = false;
       setState({ ...state, writeFunctions, loading: false });
     } catch (error) {
-      console.log(error);
       writeFunctions[index].loading = false;
       writeFunctions[index].error = "Transaction Failed";
       setState({

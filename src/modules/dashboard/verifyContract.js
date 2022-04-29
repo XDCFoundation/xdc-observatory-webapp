@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Releases from "./list.json";
+import {genericConstants} from "../../constants";
 import contractverify from "../../services/contractverify";
 export default function VerifyContract(props) {
     let address = useParams();
@@ -26,13 +27,13 @@ export default function VerifyContract(props) {
     const inputRef = useRef();
     const validationSchema = Yup.object().shape({
         addr: Yup.string()
-            .required('Contract address is required'),
+            .required('Contract Address is required'),
         contractname: Yup.string()
-            .required('Contract name is required'),
+            .required('Contract Name is required'),
         version: Yup.string()
             .required('Version is required'),
         code: Yup.string()
-            .required('Contract code is required')
+            .required('Contract Code is required')
     });
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validationSchema)
@@ -52,15 +53,20 @@ export default function VerifyContract(props) {
     }
     const onSubmitHandler = async (data) => {
         let contractAddress = data.addr?.replace(/^.{2}/g, 'xdc');
+        const urlParams = new URLSearchParams(window.location.search);
+        const reference = urlParams.get('reference');
+        if(reference && reference === genericConstants.SCM_REFERENCE)
+            data["reference"] = genericConstants.SCM_REFERENCE;
         try {
             setisLoading(true)
             const resp = await contractverify.getContractVerify(data)
+            setisLoading(false)
+
             if (resp[0].Error == 0) {
                 let url = "/address/" + contractAddress
-                setisLoading(false)
                 window.location.href = url;
-            } else {
-                setisLoading(false)
+            }
+             else {
                 setMessage(resp[0].message)
             }
         } catch (err) {
@@ -68,7 +74,6 @@ export default function VerifyContract(props) {
             //setMessage(err)
         }
     };
-
 
     return (
         <>
@@ -79,9 +84,9 @@ export default function VerifyContract(props) {
                     <div className={props.theme === "dark" ? "paper-verify-contracts table-bg-dark border-none-dark mb-60" : "paper-verify-contracts"} elevation={3}>
 
                         <div className={props.theme === "dark" ? "verify-contracts-head fc-white" : "verify-contracts-head"}>Verify and Publish Contract Source Code</div><br />
-                        <div className="textarea-verify-contract">
-                            <p className={props.theme === "dark" ? "verify-contract-first-div fc-black" : "verify-contract-first-div"}>Enter Contract Source Code below.</p>
-                            <p className={props.theme === "dark" ? "verify-contract-first-div-text fc-black" : "verify-contract-first-div-text"}>If the compiled bytecode matches the Creation Address bytecode, the contract is then Verified and will be published online.</p>
+                        <div className={props.theme === "dark" ? "textarea-verify-contract-black" : "textarea-verify-contract"}>
+                            <p className={props.theme === "dark" ? "verify-contract-first-div-fc-black" : "verify-contract-first-div"}>Enter Contract Source Code below.</p>
+                            <p className={props.theme === "dark" ? "verify-contract-first-div-text-fc-black" : "verify-contract-first-div-text"}>If the compiled bytecode matches the Creation Address bytecode, the contract is then Verified and will be published online.</p>
                         </div>
                         <br />
                         {msg ? <p className="validation-error-message txt-center">{msg}</p> : ""}

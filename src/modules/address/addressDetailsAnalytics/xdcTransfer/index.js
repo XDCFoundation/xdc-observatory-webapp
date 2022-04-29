@@ -20,6 +20,7 @@ const NoDataFoundContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  margin-bottom: 100px;
   gap: 10px;
   @media (min-width: 767px) {
     margin: 100px !important;
@@ -37,14 +38,12 @@ class XDCTransferGraph extends BaseComponent {
     this.state = {
       loading: false,
       graphData:[],
-      optionsDark : {},
     };
   }
 
   componentDidMount = () => {
     this.getXdcTransferData();
   };
-
   getXdcTransferData = async () => {
     this.setState({ loading: true });
     const address = this.props.address;
@@ -72,8 +71,8 @@ class XDCTransferGraph extends BaseComponent {
     const receiveAmount = [];
     for (let index = 0; index < data.length; index++) {
       const x = data[index].addedOn;
-      sentAmount.push({ x, y: data[index].sentAmount });
-      receiveAmount.push({ x, y: data[index].receivedAmount });
+      sentAmount.push({ x, y: data[index].sentAmount / 10 ** 18 });
+      receiveAmount.push({ x, y: data[index].receivedAmount / 10 ** 18 });
     }
 
     let options = {
@@ -85,6 +84,7 @@ class XDCTransferGraph extends BaseComponent {
         zoomType: {
           enabled: false,
         },
+        backgroundColor: "#ffffff",
       },
       legend: {
         layout: "horizontal",
@@ -234,7 +234,7 @@ class XDCTransferGraph extends BaseComponent {
         zoomType: {
           enabled: false,
         },
-        backgroundColor: "#192a59 ",
+        backgroundColor: "#192a59",
       },
       legend: {
         layout: "horizontal",

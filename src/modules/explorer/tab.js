@@ -24,7 +24,7 @@ function Tab(props) {
                     <button
                         className={toggleState === 2 ? props.theme === "dark" ? "tabs-dark active-tabs-dark" : "tabs active-tabs" : "tabs"}
                         onClick={() => toggleTab(2)}
-                        style={{paddingLeft: "13px"}}
+                        style={{marginLeft: "13px"}}
                     >
                         Accounts
                     </button>
@@ -42,17 +42,17 @@ function Tab(props) {
 
             <div className="content-tabs" >
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
-                    <Graphbar />
+                    <Graphbar theme={props.theme}/>
 
 
                 </div>
 
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
-                    <Accountsgraphbar />
+                    <Accountsgraphbar theme={props.theme}/>
                 </div>
 
                 <div className={toggleState === 3 ? "content  active-content" : "content"}>
-                    <Gasgraphbar />
+                    <Gasgraphbar theme={props.theme} currency={props.currency}/>
 
                 </div>
             </div>

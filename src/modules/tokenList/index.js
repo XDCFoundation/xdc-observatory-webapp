@@ -7,10 +7,14 @@ import FooterComponent from "../common/footerComponent";
 import { toolTipMessages } from "../../constants";
 import { connect } from "react-redux";
 import { dispatchAction } from "../../utility"
+import { sessionManager } from "../../managers/sessionManager";
 
 class LatestTransactionList extends BaseComponent {
   constructor(props) {
+    let ercValue = sessionManager.getDataFromCookies("xrc20")
+    ercValue = ercValue == "true"
     super(props);
+    { !ercValue ?
     this.state = {
       tableColumns: {
         // Hash: { isActive: true, toolTipText: "Unique transaction identifier, also known as the Transaction ID." },
@@ -26,7 +30,14 @@ class LatestTransactionList extends BaseComponent {
         },
       },
       sortKey:""
-    };
+    } :
+    this.state = {
+      tableColumns: {
+        Symbol: { isActive: true, toolTipText: "Short name of the token" },
+      },
+      sortKey:""
+    } 
+  }
   }
 
   toggleTableColumns = (columnName) => {

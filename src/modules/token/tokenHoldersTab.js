@@ -111,6 +111,14 @@ const useStyles = makeStyles({
   table: {
     marginBottom: "200px",
   },
+  customTooltip: {
+    fontSize: "13px",
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px",
+  },
 });
 
 export default function StickyHeadTable(props) {
@@ -126,6 +134,12 @@ export default function StickyHeadTable(props) {
   const [sortKey, setSortKey] = useState("");
   const [sortOrder, setSortOrder] = useState(0);
   const { tn } = useParams();
+
+  // tooltip state
+  const [rankTT, setRankTT] = useState(false);
+  const [addressTT, setAddressTT] = useState(false);
+  const [quantityTT, setQuantityTT] = useState(false);
+  const [percentageTT, setPercentageTT] = useState(false);
 
   const sortTable = (_sortKey) => {
     let _sortOrder = -1;
@@ -192,7 +206,7 @@ export default function StickyHeadTable(props) {
     }
 
     if (action === "last") {
-      let pageValue = Math.round(totalHolder / rowsPerPage) * rowsPerPage;
+      let pageValue = (Math.round(totalHolder / rowsPerPage)-1) * rowsPerPage;
       setPage(pageValue);
       values.skip = pageValue;
     }
@@ -218,7 +232,8 @@ export default function StickyHeadTable(props) {
     height: 300px !important;
     justify-content: center;
     align-items: center;
-    margin-top: 140px !important;
+    margin-top: 70px !important;
+    margin-bottom: 70px !important;
     gap: 10px;
     @media (min-width: 0px) and (max-width: 767px) {
       margin: 30px 0 !important;
@@ -231,7 +246,14 @@ export default function StickyHeadTable(props) {
 
   return (
     <div>
-      <Paper style={props.theme === "dark" ? {borderRadius: "14px", backgroundColor: "#192a59"} : { borderRadius: "14px" }} elevation={0}>
+      <Paper
+        style={
+          props.theme === "dark"
+            ? { borderRadius: "14px", backgroundColor: "#192a59" }
+            : { borderRadius: "14px" }
+        }
+        elevation={0}
+      >
         {isLoading == true ? (
           <TableContainer
             className={classes.container}
@@ -249,122 +271,70 @@ export default function StickyHeadTable(props) {
               </TableBody>
             </Table>
           </TableContainer>
-        ) : noData == false ? (
-          <TableContainer
-            className={props.theme === "dark" ? classes.containerDark : classes.container}
-            id="container-table-token-holders-tab"
-          >
-            <Table>
-              <TableHead>
-                <TableRow className="w-100">
-                  <TableCell
-                    style={{ border: "none" }}
-                    className="w-10"
-                    align="left"
-                  >
-                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark table-headers-dark" : "tableheaders table-headers"}>
-                      Rank
-                      <Tooltip placement="top" title={messages.HOLDER_RANK}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconMarketData"
-                        />
-                      </Tooltip>
-                    </span>
-                  </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    className="w-40"
-                    align="left"
-                  >
-                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark table-headers-dark" : "tableheaders table-headers"}>
-                      Address
-                      <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconMarketData"
-                        />
-                      </Tooltip>
-                    </span>
-                  </TableCell>
-                  <TableCell
-                    style={{ border: "none", paddingLeft: "17px" }}
-                    className="w-20"
-                    align="left"
-                  >
-                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark table-headers-dark" : "tableheaders table-headers"}>
-                      Quantity
-                      <Tooltip placement="top" title={messages.QUANTITY}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconMarketData"
-                        />
-                      </Tooltip>
-                    </span>
-                  </TableCell>
-                  <TableCell
-                    style={{ border: "none", paddingLeft: "17px" }}
-                    className="w-21"
-                    align="left"
-                  >
-                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark table-headers-dark" : "tableheaders table-headers"}>
-                      Percentage
-                      <Tooltip placement="top" title={messages.PERCENTAGE}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconMarketData"
-                        />
-                      </Tooltip>
-                    </span>
-                  </TableCell>
-                  {/* <TableCell
-                    style={{ border: "none", paddingLeft: "17px" }}
-                    className="w-12"
-                    align="left"
-                  >
-                    <span className={"tableheaders table-headers"}>Value</span>
-                  </TableCell> */}
-                </TableRow>
-              </TableHead>
-            </Table>
-            <NoDataFoundContainer>
-              <img
-                src={require("../../../src/assets/images/XDC-Alert.svg")}
-              ></img>
-              <div className="not-found">No Holder Found</div>
-            </NoDataFoundContainer>
-          </TableContainer>
         ) : (
           <TableContainer
-          className={props.theme === "dark" ? classes.containerDark : classes.container}
+            className={
+              props.theme === "dark" ? classes.containerDark : classes.container
+            }
             id="container-table-token-holders-tab"
           >
             <Table>
               <TableHead>
                 <TableRow className="w-100">
                   <TableCell
-                    style={{ border: "none" }}
+                    style={{ border: "none", columnWidth: 500 }}
                     className="w-10 p-l-22"
                     align="left"
                   >
-                    <span className={props.theme === "dark" ? "TableHeadersTransactionDark table-headers-dark" : "tableheaders table-headers"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "TableHeadersTransactionDark table-headers-dark p-l-2-md"
+                          : "tableheaders table-headers p-l-2-md"
+                      }
+                    >
                       Rank
-                      <Tooltip placement="top" title={messages.HOLDER_RANK}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconMarketData"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.HOLDER_RANK}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={rankTT}
+                          onOpen={() => setRankTT(true)}
+                          onClose={() => setRankTT(false)}
+                          placement="top"
+                          title={messages.HOLDER_RANK}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconMarketData"
+                            onClick={() => setRankTT(!rankTT)}
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                   </TableCell>
                   <TableCell
@@ -373,18 +343,55 @@ export default function StickyHeadTable(props) {
                     align="left"
                   >
                     <span
-                      className={props.theme === "dark" ? "TableHeadersTransactionDark table-headers-dark cursor-pointer" : "tableheaders table-headers cursor-pointer"}
+                      className={
+                        props.theme === "dark"
+                          ? "TableHeadersTransactionDark table-headers-dark cursor-pointer p-l-2-md"
+                          : "tableheaders table-headers cursor-pointer p-l-2-md"
+                      }
                       onClick={() => sortTable("address")}
                     >
                       Address
-                      <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconMarketData"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.WALLET_ADDRESS}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={addressTT}
+                          onOpen={() => setAddressTT(true)}
+                          onClose={() => setAddressTT(false)}
+                          placement="top"
+                          title={messages.WALLET_ADDRESS}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconMarketData"
+                            onClick={() => setAddressTT(!addressTT)}
+                          />
+                        </Tooltip>
+                      )}
                       {sortKey && sortOrder && sortKey == "address" ? (
                         sortOrder === -1 ? (
                           <img
@@ -412,18 +419,55 @@ export default function StickyHeadTable(props) {
                     align="left"
                   >
                     <span
-                      className={props.theme === "dark" ? "TableHeadersTransactionDark table-headers-dark cursor-pointer" : "tableheaders table-headers cursor-pointer"}
+                      className={
+                        props.theme === "dark"
+                          ? "TableHeadersTransactionDark table-headers-dark cursor-pointer p-l-2-md"
+                          : "tableheaders table-headers cursor-pointer p-l-2-md"
+                      }
                       onClick={() => sortTable("balance")}
                     >
                       Quantity
-                      <Tooltip placement="top" title={messages.QUANTITY}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconMarketData"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.QUANTITY}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={quantityTT}
+                          onOpen={() => setQuantityTT(true)}
+                          onClose={() => setQuantityTT(false)}
+                          placement="top"
+                          title={messages.QUANTITY}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconMarketData"
+                            onClick={() => setQuantityTT(!quantityTT)}
+                          />
+                        </Tooltip>
+                      )}
                       {sortKey && sortOrder && sortKey == "balance" ? (
                         sortOrder === -1 ? (
                           <img
@@ -451,18 +495,55 @@ export default function StickyHeadTable(props) {
                     align="left"
                   >
                     <span
-                      className={props.theme === "dark" ? "TableHeadersTransactionDark table-headers-dark cursor-pointer" : "tableheaders table-headers cursor-pointer"}
+                      className={
+                        props.theme === "dark"
+                          ? "TableHeadersTransactionDark table-headers-dark cursor-pointer"
+                          : "tableheaders table-headers cursor-pointer"
+                      }
                       onClick={() => sortTable("percentage")}
                     >
                       Percentage
-                      <Tooltip placement="top" title={messages.PERCENTAGE}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIconMarketData"
-                        />
-                      </Tooltip>
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.PERCENTAGE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={percentageTT}
+                          onOpen={() => setPercentageTT(true)}
+                          onClose={() => setPercentageTT(false)}
+                          placement="top"
+                          title={messages.PERCENTAGE}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconMarketData"
+                            onClick={() => setPercentageTT(!percentageTT)}
+                          />
+                        </Tooltip>
+                      )}
                       {sortKey && sortOrder && sortKey == "percentage" ? (
                         sortOrder === -1 ? (
                           <img
@@ -496,9 +577,7 @@ export default function StickyHeadTable(props) {
 
               <TableBody>
                 {holders?.data?.map((row, index) => {
-                  let quantity = (
-                    row?.Quantity 
-                  );
+                  let quantity = row?.Quantity;
                   let quantity1 =
                     row?.Quantity >= 1
                       ? format({})(
@@ -532,7 +611,13 @@ export default function StickyHeadTable(props) {
                   return (
                     <StyledTableRow role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
-                        <span className={props.theme === "dark" ? "latest-blocks-tabledata-dark table-data" : "tabledata table-data"}>
+                        <span
+                          className={
+                            props.theme === "dark"
+                              ? "latest-blocks-tabledata-dark table-data"
+                              : "tabledata table-data"
+                          }
+                        >
                           {row?.Rank}
                         </span>
                       </TableCell>
@@ -541,7 +626,11 @@ export default function StickyHeadTable(props) {
                         style={{ border: "none", paddingLeft: "0" }}
                       >
                         <a
-                          style={props.theme === "dark" ? {color: "#4878ff", fontSize: 11} : { color: "#2149b9", fontSize: 11 }}
+                          style={
+                            props.theme === "dark"
+                              ? { color: "#4878ff", fontSize: 11 }
+                              : { color: "#2149b9", fontSize: 11 }
+                          }
                           href={"/holder-details/" + row?.Address + "/" + tn}
                         >
                           <span className="tabledata table-data">
@@ -557,11 +646,23 @@ export default function StickyHeadTable(props) {
                           )}
                         >
                           {quantity3 >= 0 || quantity3 == null ? (
-                            <span className={props.theme === "dark" ? "latest-blocks-tabledata-dark table-data mar-lef-3" : "tabledata table-data mar-lef-3"}>
+                            <span
+                              className={
+                                props.theme === "dark"
+                                  ? "latest-blocks-tabledata-dark table-data mar-lef-3"
+                                  : "tabledata table-data mar-lef-3"
+                              }
+                            >
                               {quantity2}
                             </span>
                           ) : (
-                            <span className={props.theme === "dark" ? "latest-blocks-tabledata-dark table-data mar-lef-3" : "tabledata table-data mar-lef-3"}>
+                            <span
+                              className={
+                                props.theme === "dark"
+                                  ? "latest-blocks-tabledata-dark table-data mar-lef-3"
+                                  : "tabledata table-data mar-lef-3"
+                              }
+                            >
                               {quantity2}
                               {"."}
                               <span style={{ color: "#9FA9BA" }}>
@@ -574,7 +675,13 @@ export default function StickyHeadTable(props) {
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
-                        <span className={props.theme === "dark" ? "latest-blocks-tabledata-dark table-data mar-lef-3" : "tabledata table-data mar-lef-3"}>
+                        <span
+                          className={
+                            props.theme === "dark"
+                              ? "latest-blocks-tabledata-dark table-data mar-lef-3"
+                              : "tabledata table-data mar-lef-3"
+                          }
+                        >
                           {percentageValue2 == null || percentageValue2 == 0 ? (
                             <span>{format({})(percentageValue1)}%</span>
                           ) : (
@@ -593,6 +700,7 @@ export default function StickyHeadTable(props) {
                         {" "}
                         <span className="tabledata table-data mar-lef-3">
                           <a
+                            style={{ color: "#2149b9" }}
                             href={`/holder-details/${row?.Address}/${tn}?isAnalytics=true&tokenAddress=${address}`}
                           >
                             Analytics
@@ -620,6 +728,15 @@ export default function StickyHeadTable(props) {
                 })}
               </TableBody>
             </Table>
+            {noData == false && (
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
+
+                <div className="not-found">No Holder Found</div>
+              </NoDataFoundContainer>
+            )}
           </TableContainer>
         )}
       </Paper>
@@ -629,14 +746,27 @@ export default function StickyHeadTable(props) {
             ""
           ) : (
             <>
-              <p className={props.theme === "dark" ? "p-pagination-dark" : "p-pagination"}>Show</p>
+              <p
+                className={
+                  props.theme === "dark" ? "p-pagination-dark" : "p-pagination"
+                }
+              >
+                Show
+              </p>
               <PageSelector
                 value={rowsPerPage}
                 height={35}
                 handler={handleChangeRowsPerPage}
                 theme={props.theme}
               />
-              <p className={props.theme === "dark" ? "p-pagination-dark" : "p-pagination"}> Records</p>
+              <p
+                className={
+                  props.theme === "dark" ? "p-pagination-dark" : "p-pagination"
+                }
+              >
+                {" "}
+                Records
+              </p>
             </>
           )}
         </LeftPagination>
@@ -649,20 +779,37 @@ export default function StickyHeadTable(props) {
           // }}
           >
             <div
-              className={page === 0 
-                ? props.theme === "dark" ? "firstbox-dark disabled" : "firstbox disabled" 
-                : props.theme === "dark" ? "firstbox-dark" : "firstbox" 
+              className={
+                page === 0
+                  ? props.theme === "dark"
+                    ? "firstbox-dark disabled"
+                    : "firstbox disabled"
+                  : props.theme === "dark"
+                  ? "firstbox-dark"
+                  : "firstbox"
               }
               onClick={() => handleChangePage("first")}
             >
-              <button style={props.theme === "dark" ? { background: "transparent" } : { backgroundColor: "white" }} className={props.theme === "dark" ? "first-dark" : "first"}>
+              <button
+                style={
+                  props.theme === "dark"
+                    ? { background: "transparent" }
+                    : { backgroundColor: "white" }
+                }
+                className={props.theme === "dark" ? "first-dark" : "first"}
+              >
                 First
               </button>
             </div>
             <div
-              className={page === 0 
-                ? props.theme === "dark" ? "previousbox-dark disabled" : "previousbox disabled" 
-                : props.theme === "dark" ? "previousbox-dark" : "previousbox"
+              className={
+                page === 0
+                  ? props.theme === "dark"
+                    ? "previousbox-dark disabled"
+                    : "previousbox disabled"
+                  : props.theme === "dark"
+                  ? "previousbox-dark"
+                  : "previousbox"
               }
               onClick={() => handleChangePage("prev")}
             >
@@ -674,19 +821,29 @@ export default function StickyHeadTable(props) {
                 />
               </p>
             </div>
-            <div className={props.theme === "dark" ? "pagebox-dark" : "pagebox"}>
-              <p className={props.theme === "dark" ? "Page-1-of-5-dark" : "Page-1-of-5"}>
+            <div
+              className={props.theme === "dark" ? "pagebox-dark" : "pagebox"}
+            >
+              <p
+                className={
+                  props.theme === "dark" ? "Page-1-of-5-dark" : "Page-1-of-5"
+                }
+              >
                 Page{" "}
                 {Math.round(totalHolder / rowsPerPage) -
-                  Math.round((totalHolder - page) / rowsPerPage)}{" "}
+                  Math.round((totalHolder - page) / rowsPerPage)+1}{" "}
                 of {Math.round(totalHolder / rowsPerPage)}
               </p>
             </div>
             <div
               className={
                 page + visibleRowCount === totalHolder
-                ? props.theme === "dark" ? "nextbox-dark disabled" : "nextbox disabled"
-                : props.theme === "dark" ? "nextbox-dark" : "nextbox"
+                  ? props.theme === "dark"
+                    ? "nextbox-dark disabled"
+                    : "nextbox disabled"
+                  : props.theme === "dark"
+                  ? "nextbox-dark"
+                  : "nextbox"
               }
             >
               <p className="path-2" onClick={() => handleChangePage("next")}>
@@ -696,12 +853,23 @@ export default function StickyHeadTable(props) {
             <div
               className={
                 page + visibleRowCount === totalHolder
-                ? props.theme === "dark" ? "lastbox-dark disabled" : "lastbox disabled"
-                : props.theme === "dark" ? "lastbox-dark" : "lastbox"
+                  ? props.theme === "dark"
+                    ? "lastbox-dark disabled"
+                    : "lastbox disabled"
+                  : props.theme === "dark"
+                  ? "lastbox-dark"
+                  : "lastbox"
               }
               onClick={() => handleChangePage("last")}
             >
-              <button style={props.theme === "dark" ? {background: "transparent"} : { backgroundColor: "white" }} className={props.theme === "dark" ? "last-dark" : "last"}>
+              <button
+                style={
+                  props.theme === "dark"
+                    ? { background: "transparent" }
+                    : { backgroundColor: "white" }
+                }
+                className={props.theme === "dark" ? "last-dark" : "last"}
+              >
                 Last
               </button>
             </div>

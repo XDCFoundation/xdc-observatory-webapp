@@ -62,10 +62,10 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "503px",
-    height: "15px",
-    border: "solid 1px #c6c8ce",
+    height: "38px",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
-    borderRadius: "7px",
+    borderRadius: "8px",
     padding: "20px",
     marginBottom: "21px",
     outline: "none",
@@ -181,7 +181,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "18px",
     color: "#2a2a2a",
-    "@media (min-width:500px) and (max-width:768px)": {
+    "@media (min-width:500px) and (max-width:767px)": {
       width: "100% !important",
       flexFlow: "column nowrap ",
       display: "flex !important",
@@ -505,12 +505,14 @@ export default function FormDialog(props) {
       </Button> */}
 
         {/* <div> */}
+        {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
         <Dialog
           // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
+          style={{position: "absolute", zIndex: 10000}}
         >
           <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
           <Row>
@@ -541,7 +543,7 @@ export default function FormDialog(props) {
               Name Tag
             </DialogContentText>
 
-            <div className={props.theme === "dark" ? "containerTagDark" : "containerTag"}>
+            {/* <div className={props.theme === "dark" ? "containerTagDark" : "containerTag"}> */}
               {/*<div className="tag">*/}
               {/*  /!*{input}*!/*/}
               {/*  /!*<button onClick={() => deleteTag(index)}>x</button>*!/*/}
@@ -551,9 +553,9 @@ export default function FormDialog(props) {
                 // onKeyDown={onKeyDown}
                 // onKeyUp={onKeyUp}
                 onChange={onChange}
-                className={props.theme === "dark" ? "fc-white" :""}
+                className={props.theme === "dark" ? classes.inputDark : classes.input}
               />
-            </div>
+            {/* </div> */}
             {errorTag ? (
               <div className={classes.error1}>{errorTag}</div>
             ) : (
@@ -602,7 +604,7 @@ export default function FormDialog(props) {
             </DialogContentText> */}
             </div>
         </Dialog>
-        {/* </div> */}
+        </div>}
         {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
       </div>
     </>

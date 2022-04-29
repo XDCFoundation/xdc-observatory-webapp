@@ -101,7 +101,18 @@ const styles = StyleSheet.create({
     borderRadius: "0.25rem",
     width: "5.875rem",
     height: "2.125rem",
-    marginRight: "1.5rem",
+    // marginRight: "1.5rem",
+    paddingTop: "0.125rem",
+  },
+  pdfDownloadLinkDark: {
+    fontSize: "0.938rem",
+    textAlign: "center",
+    color: "#b1c3e1",
+    backgroundColor: "#283966",
+    borderRadius: "0.25rem",
+    width: "5.875rem",
+    height: "2.125rem",
+    // marginRight: "1.5rem",
     paddingTop: "0.125rem",
   },
   pdfDownloadLinkDark: {
@@ -162,13 +173,13 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "1190px",
     margin: "auto",
     borderRadius: "none",
-    padding: "10px 0px",
+    padding: "10px 15px",
     justifyContent: "space-around",
     textTransform: "none",
   },
   "@media(max-width: 767px)": {
     root: {
-      width: "21rem",
+      width: "100%",
     },
   },
   label: {
@@ -210,6 +221,12 @@ const useStyles = makeStyles((theme) => ({
     //color: "#6b7482",
     textTransform: "none",
     //color: "#2149b9",
+  },
+  descriptionTableCell: {
+    maxWidth: "390px",
+  },
+  trxLableTableCell: {
+    maxWidth: "390px",
   },
   txnprivate: {
     height: "19px",
@@ -396,6 +413,15 @@ const useStyles = makeStyles((theme) => ({
   //   border: "solid 1px #e3e7eb",
   //   backgroundColor: "var(--white-two)"
   // }
+
+  customTooltip: {
+    fontSize: "13px"
+  },
+  customTooltipDarkMode: {
+    background: "#051440",
+    color: "#adc4e4",
+    fontSize: "13px"
+  }
 }));
 
 const NoDataFoundContainer = styled.div`
@@ -404,6 +430,7 @@ const NoDataFoundContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  margin-bottom: 100px;
   gap: 10px;
 `;
 
@@ -429,6 +456,10 @@ const UserNameContainer = styled.div`
   width: 100%;
   align-items: center;
 
+  @media (min-width: 768px) and (max-width: 1240px) {
+    gap: 32px;
+  }
+
   @media (max-width: 850px) {
     ${
       "" /* padding: 0 10px 0 10px !important;
@@ -436,9 +467,10 @@ const UserNameContainer = styled.div`
     max-width: 710px; */
     }
   }
-  @media (min-width: 400px) and (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     ${"" /* gap: 12px; */}
     margin-top: 15px;
+    gap:17px;
     margin-bottom: 15px;
     padding: 0px 15px !important;
   }
@@ -515,15 +547,7 @@ function SimpleTabs(props) {
     setTablevalue(1);
   }
 
-  async function getUserTxnLabel() {
-    // const userId = sessionManager.getDataFromCookies("userId");
-    // let transactionLabels = localStorage.getItem(userId + cookiesConstants.USER_TRASACTION_LABELS);
-    // transactionLabels = JSON.parse(transactionLabels);
-    // if (!transactionLabels)
-    //   transactionLabels = [];
-    // setTotalCount2(transactionLabels.length);
-    getListOfTxnLabel({ skip: 0, _limit });
-  }
+  async function getUserTxnLabel() {}
 
   async function getPvtTagAddress() {}
 
@@ -570,7 +594,29 @@ function SimpleTabs(props) {
       }
 
       if (totalLocalWatchlist == count) {
-        setDataNotFound(true);
+        // setDataNotFound(true);
+        const data = {
+          userId: sessionManager.getDataFromCookies("userId"),
+          searchValue: searchValue,
+          searchKeys: ["description", "address"],
+          search: value.toString(),
+        };
+        if (!searchValue) {
+          onChangeWatchlistPage(watchlistPageCount);
+        } else {
+          let [error, response] = await Utils.parseResponse(
+            UserService.Search(data)
+          );
+          if (error || !response) {
+            setDataNotFound("Data not found");
+          } else {
+            response = response.map((obj) => {
+              obj.description = localWatchlists[0]?.description || "";
+              return obj;
+            });
+            setWatchlist(response);
+          }
+        }
         return;
       }
 
@@ -590,7 +636,7 @@ function SimpleTabs(props) {
           setDataNotFound("Data not found");
         } else {
           response = response.map((obj) => {
-            obj.description = localWatchlists[0].description;
+            obj.description = localWatchlists[0]?.description;
             return obj;
           });
           setWatchlist(response);
@@ -692,10 +738,10 @@ function SimpleTabs(props) {
     watchlists = JSON.parse(watchlists);
     if (!watchlists) watchlists = [];
     response.watchlistContent = response.watchlistContent.map((obj) => {
-      obj.description = watchlists.map((item, index) => {
-        return watchlists && watchlists[index][obj.address]
-          ? watchlists[index][obj.address]
-          : "";
+      watchlists.map((item, index) => {
+        if(watchlists && watchlists[index][obj.address]) {
+          obj.description = watchlists[index][obj.address];
+        }
       });
       return obj;
     });
@@ -872,13 +918,11 @@ function SimpleTabs(props) {
       newData = oldData.sort(
         (index1, index2) => parseInt(index2.modifiedOn) - parseInt(index1.modifiedOn)
       );
-
       setAgeToggle(1);
     } else {
       newData = oldData.sort(
         (index1, index2) => parseInt(index1.modifiedOn) - parseInt(index2.modifiedOn)
       );
-
       setAgeToggle(-1);
     }
     setPrivateAddress(newData);
@@ -1069,6 +1113,7 @@ function SimpleTabs(props) {
     // console.log(res, "res");
   };
   const updateListTags = (res) => {
+    
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
     };
@@ -1084,6 +1129,7 @@ function SimpleTabs(props) {
       let existingAddressIndex = privateAddress.findIndex(
         (i2) => i2.address === item.address
       );
+      item["modifiedOn"] = moment(item?.modifiedOn).valueOf()
       if (existingAddressIndex !== -1) {
         updatedPrivateAddress.push({
           ...privateAddress[existingAddressIndex],
@@ -1092,6 +1138,8 @@ function SimpleTabs(props) {
         privateAddress.splice(existingAddressIndex, 1);
         return;
       }
+
+      item["modifiedOn"] =moment(item?.modifiedOn).valueOf()
       updatedPrivateAddress.push({ userId: request?.userId, ...item });
     });
 
@@ -1133,9 +1181,10 @@ function SimpleTabs(props) {
       setDownloadTagAddress(
         tempAddress.map((item) => {
           return {
-            address: item.address,
-            tagName: item.tagName,
-            modifiedOn: item?.modifiedOn,
+            Address: item.address,
+            NameTag: item.tagName,
+            // AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            AddedOn: item?.modifiedOn
           };
         })
       );
@@ -1158,10 +1207,12 @@ function SimpleTabs(props) {
       }
       setDownloadTagAddress(
         tempAddr.map((item) => {
+          
           return {
-            address: item.address,
-            nameTag: item.tagName,
-            modified:item?.addedOn,
+            Address: item.address,
+            NameTag: item.tagName,
+            // AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            AddedOn: item?.modifiedOn
           };
         })
       );
@@ -1204,8 +1255,8 @@ function SimpleTabs(props) {
                   ) || "/images/Profile.png"
                 }
               /> */}
-              <Column style={{ margin: "0 15px" }}>
-                <Row className={classes.profileName} style={props.theme.currentTheme === "dark" ? { gap: "15px", color: "#fff" } : { gap: "15px" }}>
+              <Column >
+                <Row className={classes.profileName} style={props.theme.currentTheme === "dark" ? { marginRight: "8px", color: "#fff" } : { marginRight: "8px" }}>
                   Welcome, {setUserName()}
                 </Row>
 
@@ -1330,86 +1381,46 @@ function SimpleTabs(props) {
                 value={search}
               />
             </div>
-            {!isDownloadActive && tableValue === 1 ? (
-              ""
-            ) : isDownloadActive ? (
-              tableValue === 1 ? (
-                ""
-              ) : // <CSVLink
-              //   filename={"watchlist.csv"}
-              //   data={downloadWatchlist}
-              //   style={{
-              //     fontSize: "0.938rem",
-              //     textAlign: "center",
-              //     color: "#ffffff",
-              //     backgroundColor: "rgb(7 125 245)",
-              //     borderRadius: "0.25rem",
-              //     width: "5.875rem",
-              //     height: "2.125rem",
-              //     marginRight: "1.5rem",
-              //     paddingTop: "0.125rem",
-              //   }}
-              // >
-              //   Export
-              // </CSVLink>
-              tableValue === 2 ? (
-                // <div
-                //   onClick={downloadTxnPvtNotePDF}
-                //   filename={"private_note.csv"}
-                //   data={downloadTxnPvtNote}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export test
-                // </div>
-                <PDFDownloadLink
-                  style={props.theme.currentTheme === "dark" ? styles.pdfDownloadLinkDark : styles.pdfDownloadLink}
-                  document={<TransactionPDF data={downloadTxnPvtNote} />}
-                  fileName="transactionPvtNote.pdf"
-                >
-                  Export
-                </PDFDownloadLink>
+            <div className="display-flex align-items-center">
+              {/* {tableValue === 3 ? (
+                <CustomDropDownAddress
+                  sampleRender={sampleRender}
+                  updateListTags={updateListTags}
+                  getListOfTagAddress={getListOfTagAddress}
+                />
               ) : (
-                <PDFDownloadLink
-                style={props.theme.currentTheme === "dark" ? styles.pdfDownloadLinkDark : styles.pdfDownloadLink}
-                  document={<AddressPDF data={downloadTagAddress} />}
-                  fileName="tagAddresses.pdf"
+                ""
+              )} */}
+              {!isDownloadActive && tableValue === 1 ? (
+                ""
+              ) : isDownloadActive ? (
+                tableValue === 1 ? (
+                  ""
+                ) : 
+                tableValue === 2 ? (
+
+                  <PDFDownloadLink
+                    style={props.theme.currentTheme === "dark" ? styles.pdfDownloadLinkDark : styles.pdfDownloadLink}
+                    document={<TransactionPDF data={downloadTxnPvtNote} />}
+                    fileName="Transaction Private Note.pdf"
+                  >
+                    Export
+                  </PDFDownloadLink>
+                ) : (
+                  <ExportButton 
+                  downloadData={downloadTagAddress}
+                  />
+                )
+              ) : (
+                <Tooltip
+                  placement="top"
+                  title={messages.EXPORT_DISABLE}
                 >
-                  Export
-                </PDFDownloadLink>
-                // <CSVLink
-                //   filename={"tag_address.csv"}
-                //   data={downloadTagAddress}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export
-                // </CSVLink>
-              )
-            ) : (
-              <div
-                filename={"tag_address.csv"}
-                data={downloadTagAddress}
-                style={props.theme.currentTheme === "dark" ? {
-                  pointerEvents: "none",
+                <div
+                  filename={"Tag Address.csv"}
+                  data={downloadTagAddress}
+                  style={props.theme.currentTheme === "dark" ? {
+                  cursor: "default",
                   fontSize: "0.938rem",
                   textAlign: "center",
                   color: "#b1c3e1",
@@ -1419,20 +1430,23 @@ function SimpleTabs(props) {
                   height: "2.125rem",
                   paddingTop: "0.4rem",
                 } : {
-                  pointerEvents: "none",
-                  fontSize: "0.938rem",
-                  textAlign: "center",
-                  color: "#ffffff",
-                  backgroundColor: "#9fa9ba",
-                  borderRadius: "0.25rem",
-                  width: "5.875rem",
-                  height: "2.125rem",
-                  paddingTop: "0.4rem",
-                }}
-              >
-                Export
-              </div>
-            )}
+                    cursor: "default",
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "#9fa9ba",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+
+                    paddingTop: "0.4rem",
+                  }}
+                >
+                  Export
+                </div>
+                </Tooltip>
+              )}
+            </div>
           </div>
           <TabPanel value={value} index={0}>
             <div className={props.theme.currentTheme === "dark" ? "border-none-dark bg-transparent-dark griddiv add-root" : "griddiv add-root"}>
@@ -1460,6 +1474,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_ADDRESS}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1476,6 +1493,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_DESCRIPTION}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1503,6 +1523,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_BALANCE}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1520,6 +1543,9 @@ function SimpleTabs(props) {
                                       ? "Descending"
                                       : "Ascending"
                                   }
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   {balanceToggle === "" ? (
                                     <></>
@@ -1547,6 +1573,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_ADDED_ON}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1566,6 +1595,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.WATCHLIST_NOTIFICATION}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1581,6 +1613,7 @@ function SimpleTabs(props) {
                             </TableCell>
                           </TableRow>
                         </TableHead>
+
                       </Table>
                     </Grid>
                   </Grid>
@@ -1636,6 +1669,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_ADDRESS}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1652,6 +1688,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_DESCRIPTION}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1679,6 +1718,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_BALANCE}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1726,6 +1768,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_ADDED_ON}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1770,6 +1815,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_NOTIFICATION}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -1827,6 +1875,9 @@ function SimpleTabs(props) {
                                     <Tooltip
                                       placement="top"
                                       title={row.address}
+                                      classes={{
+                                        tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                      }}
                                     >
                                       <span className="tabledataWatchlist">
                                         {shorten(row.address)}{" "}
@@ -1837,6 +1888,7 @@ function SimpleTabs(props) {
                                 <TableCell
                                   style={{ border: "none" }}
                                   align="left"
+                                  className={classes.descriptionTableCell}
                                 >
                                   <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {row.description}
@@ -1858,6 +1910,7 @@ function SimpleTabs(props) {
                                   <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                     {`${
                                       (row?.modifiedOn &&
+                                   
                                         moment(parseInt(row?.modifiedOn)) 
                                           .tz(timezone)
                                           .format("MMM DD, YYYY, hh:mm A")) ||
@@ -1886,6 +1939,7 @@ function SimpleTabs(props) {
                                 >
                                   <EditWatchList 
                                     row={row}
+                                    index={index}
                                     getWatchlistList={getListOfWatchlist}
                                     getTotalCountWatchlist={getUserWatchlist}
                                   />
@@ -1957,7 +2011,11 @@ function SimpleTabs(props) {
                             >
                               <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                                 Transaction Hash
-                                <Tooltip placement="top" title={messages.HASH}>
+                                <Tooltip placement="top" title={messages.HASH}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
+                                >
                                   <img
                                     alt="question-mark"
                                     src="/images/info.svg"
@@ -1973,6 +2031,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.PRIVATE_NOTE}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -1995,6 +2056,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.PRIVATE_NOTE_ADDED_ON}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2099,7 +2163,11 @@ function SimpleTabs(props) {
                           <TableCell style={{ border: "none" }} align="left">
                             <span className={props.theme.currentTheme === "dark" ? "tableheaders-1 fc-white" : "tableheaders-1"}>
                               Transaction Hash
-                              <Tooltip placement="top" title={messages.HASH}>
+                              <Tooltip placement="top" title={messages.HASH}
+                              classes={{
+                                tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                              }}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/info.svg"
@@ -2115,6 +2183,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.PRIVATE_NOTE}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2137,6 +2208,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.PRIVATE_NOTE_ADDED_ON}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2224,6 +2298,9 @@ function SimpleTabs(props) {
                                   <Tooltip
                                     placement="top"
                                     title={row.transactionHash}
+                                    classes={{
+                                      tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                    }}
                                   >
                                     <span className="tabledata1">
                                       {Utils.shortenHash(row.transactionHash)}{" "}
@@ -2234,6 +2311,7 @@ function SimpleTabs(props) {
                               <TableCell
                                 style={{ border: "none" }}
                                 align="left"
+                                className={classes.trxLableTableCell}
                               >
                                 <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                   {row.trxLable}
@@ -2269,6 +2347,7 @@ function SimpleTabs(props) {
                                 <EditTxnLabel
                                   row={row}
                                   index={index}
+                                  skip={Math.ceil(pvtNotePageCount.selected * 5)}
                                   getListOfTxnLabel={getListOfTxnLabel}
                                   getTotalCountTxnLabel={getUserTxnLabel}
                                 />
@@ -2339,6 +2418,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.TAG_ADDRESS}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2362,6 +2444,9 @@ function SimpleTabs(props) {
                                 <Tooltip
                                   placement="top"
                                   title={messages.NAME_TAG}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2422,7 +2507,10 @@ function SimpleTabs(props) {
                                 Added On
                                 <Tooltip
                                   placement="top"
-                                  title={messages.NAME_TAG}
+                                  title={messages.TAG_ADDED_ON}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
                                 >
                                   <img
                                     alt="question-mark"
@@ -2532,6 +2620,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.TAG_ADDRESS}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2555,6 +2646,9 @@ function SimpleTabs(props) {
                               <Tooltip
                                 placement="top"
                                 title={messages.NAME_TAG}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2616,7 +2710,10 @@ function SimpleTabs(props) {
                               Added On
                               <Tooltip
                                 placement="top"
-                                title={messages.NAME_TAG}
+                                title={messages.TAG_ADDED_ON}
+                                classes={{
+                                  tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                }}
                               >
                                 <img
                                   alt="question-mark"
@@ -2676,6 +2773,7 @@ function SimpleTabs(props) {
                         {privateAddress.map((row, index) => {
                           if (index >= _limit) return null;
                           let tag = row.tagName;
+                   
                           // const multipleTag = handleMultipleTag(tag);
 
                           return (
@@ -2708,7 +2806,11 @@ function SimpleTabs(props) {
                                   className={props.theme.currentTheme === "dark" ? "linkTable1 fc-4878ff" : "linkTable1"}
                                   href={"/address-details/" + row.address}
                                 >
-                                  <Tooltip placement="top" title={row.address}>
+                                  <Tooltip placement="top" title={row.address}
+                                  classes={{
+                                    tooltip: props.theme.currentTheme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                  }}
+                                  >
                                     <span className="tabledata1">
                                       {shorten(row.address)}
                                     </span>
@@ -2729,17 +2831,32 @@ function SimpleTabs(props) {
                                 align="left"
                               >
                                 <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
-                                  {`${
-                                    (row?.modifiedOn &&
-                                      moment((parseInt(row?.modifiedOn)))
-                                        .tz(timezone)
-                                        .format("MMM DD, YYYY, hh:mm A")) ||
-                                    ""
-                                  } ${
-                                    (timezone &&
-                                      Utility.getUtcOffset(timezone)) ||
-                                    ""
-                                  }`}
+                                  {
+                                    row?.modifiedOn.length >= 12 ?
+                                    `${
+                                      (row?.modifiedOn &&
+                                        moment((parseInt(row?.modifiedOn*1000)))
+                                          .tz(timezone)
+                                          .format("MMM DD, YYYY, hh:mm A")) ||
+                                      ""
+                                    } ${
+                                      (timezone &&
+                                        Utility.getUtcOffset(timezone)) ||
+                                      ""
+                                    }`
+                                    :
+                                    `${
+                                      (row?.modifiedOn &&
+                                        moment((parseInt(row?.modifiedOn)))
+                                          .tz(timezone)
+                                          .format("MMM DD, YYYY, hh:mm A")) ||
+                                      ""
+                                    } ${
+                                      (timezone &&
+                                        Utility.getUtcOffset(timezone)) ||
+                                      ""
+                                    }`
+                                  }
                                 </span>
                               </TableCell>
 
@@ -2750,6 +2867,7 @@ function SimpleTabs(props) {
                                 <EditTagAddress
                                   row={row}
                                   index={index}
+                                  skip={Math.ceil(tagPageCount.selected * 5)}
                                   getListOfTagAddress={getListOfTagAddress}
                                   getTotalCountTagAddress={getPvtTagAddress}
                                 />

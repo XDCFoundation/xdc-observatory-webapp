@@ -71,7 +71,8 @@ export const cookiesConstants = {
   ACCESS_TOKEN:"ACCESS_TOKEN",
   ID_TOKEN:"ID_TOKEN",
   AUTHENTICATION_PROVIDER:"AUTHENTICATION_PROVIDER",
-  OBSERVER_THEME: "OBSERVER_THEME"
+  OBSERVER_THEME: "OBSERVER_THEME",
+  OBSERVER_CURRENCY: "OBSERVER_CURRENCY"
 };
 
 export const eventConstants = {
@@ -81,6 +82,7 @@ export const eventConstants = {
   ADD_TO_SEARCH_LIST: 'ADD_TO_SEARCH_LIST',
   CLEAR_SEARCH_LIST: 'CLEAR_SEARCH_LIST',
   TOGGLE_THEME: 'TOGGLE_THEME',
+  ACTIVE_CURRENCY: 'ACTIVE_CURRENCY'
 };
 
 export const genericConstants = {
@@ -99,6 +101,11 @@ export const genericConstants = {
   TXN_PRIVATE_NOTE_DELETED: "Txn Private Note Deleted",
   CANNOT_DELETE_TAGGED_ADDRESS: "Cannot delete Tagged Addresses",
   TAGGED_ADDRESS_DELETED: "Tagged Address Deleted",
+  SCM_REFERENCE: 'scm',
+  IMPORTED_TAG_LENGTH_ERROR: "Imported Name Tag should be maximum 15 characters.",
+  WRONG_CURRENT_PASSWORD: "You have entered wrong current password",
+  DESCRIPTION_LIMIT: "Description should be maximum 220 characters",
+  TRANSACTION_LABEL_LIMIT: "Transaction label/note cannot be longer than 120 characters"
 };
 
 export const statusConstants = {
@@ -140,7 +147,7 @@ export const messages = {
   AGE: "Time when was the transaction created.",
   METHOD: "Function executed based on decoded input data.",
   BLOCK: "Block number associated with the transaction.",
-  DIFFICULTY: "Difficulty.",
+  DIFFICULTY: "The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time.",
   GAS_USED: "The exact unit of gas that was used for the transactions.",
   FROM: "Sender’s account.",
   TO: "Receiver’s account.",
@@ -189,21 +196,31 @@ export const messages = {
   AVERAGE_BALANCE: "Average daily balance",
   PASSWORD:
     "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
-  DOWNLOAD_CSV: "Select the transactions from table to download data",
+  DOWNLOAD_CSV: "Select address by clicking on checkbox to export data",
+  RANGE_SELECTOR:"Dates can be selected within the date range of data available",
+  EXPORT_DISABLE: "Select address by clicking on checkbox to export data",
+  RANGE_SELECT: "Dates can be selected within the date range of data available"
 };
 
 export const toolTipMessages = {
+  AMOUNT: "The number of tokens being transferred.",
   hashid:
     "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
   blocknumber:
-    "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
+    "Block number associated with the transaction.",
   timestamp: "The date and time at which a transaction is mined.",
   from: "The sending party of the transaction(could be from a contact address)",
   to: "The receiving party of the transaction(could be from a contact address) ",
   value:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
   txnfee:
-    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+    "Amount paid for processing the transaction.",
+  tokenTransferred:
+    "Tokens transferred in the transaction.",
+  transactionAction:
+    "Highlighted event of the transaction.",
+  interactedWithTo:
+    "The receiving party of the transaction (could be a contract address).",
   gasprovided:
     "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
   gasprice:
@@ -214,9 +231,9 @@ export const toolTipMessages = {
   input: "Additional information that is required for the transaction",
   transferToken:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
-  privatenote: "Private notes",
   age: "Time when was the transaction created.",
   date: "Transaction creation date.",
+  privatenote : `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`
 };
 
 export const decimalDivisionValue = {
@@ -233,6 +250,7 @@ export const recentSearchTypeConstants = {
   WALLET: "WALLET",
   BLOCK: "TOKEN",
   TOKEN: "TOKEN",
+  CONTRACT:"CONTRACT"
 };
 
 export const authenticationProvider = {
@@ -240,38 +258,43 @@ export const authenticationProvider = {
 };
 
 export const MethodFromByte = {
-  e341eaa4: "sign()",
-  "3b1cd713": "approve()",
-  "9059cbb": "transfer()",
-  "978501e": "transferFrom()",
-  d6718db8: "_symbol()",
-  "49e65440 ": "setSymbol()",
-  a3895fff: "changeSymbol()",
-  efa74f1f: "getTokenBySymbol()",
-  "313ce567": "decimals()",
-  c112dfa3: "changeDecimals()",
-  "8c8885c8": "setDecimals()",
-  a44b47f7: "totalSUpply()",
-  "72dd529b": "totalSupply()",
-  "9707f708": "totalSupply()",
-  "94a08c69": "totalSupply()",
-  "5fd4b08a": "getName()",
-  "773bc712": "changeName()",
-  c47f0027: "setName()",
-  "5ac801fe": "setName()",
-  "48f97f9a": "setName()",
-  ba863fae: "balanceOf()",
-  "2980a5d3": "balanceOf()",
-  bd4b0b13: "balanceOfContract()",
-  "9a3174a0": "BalanceOf()",
-  "722713f7": "balanceOf()",
-  "3d64125b": "balanceOf()",
-  fa094954: "setTokenAllowance()",
-  c2f373d2: "allowance()",
-  "1777fc89": "setAllowance()",
-  "6aeac363": "_allowance()",
-  de242ff4: "allowance()",
-  de242ff4: "allowance()",
-  "7040f3e5": "Allowance()",
-  "9c315aa8": "setAllowance()",
+  "e341eaa4": "sign",
+  "3b1cd713": "approve",
+  "a9059cbb": "transfer",
+  "4f18b3d5": "transferFrom",
+  "b992cdb8": "transferFrom",
+  "811c34d3": "transferFrom",
+  "8c5b0a87": "transferFrom",
+  "857a6516": "transferFrom",
+  "407d6189": "transferFrom",
+  "e4759493": "transferFrom",
+  "d6718db8": "_symbol",
+  "49e65440 ": "setSymbol",
+  "a3895fff": "changeSymbol",
+  "efa74f1f": "getTokenBySymbol",
+  "313ce567": "decimals",
+  "c112dfa3": "changeDecimals",
+  "8c8885c8": "setDecimals",
+  "a44b47f7": "totalSUpply",
+  "72dd529b": "totalSupply",
+  "9707f708": "totalSupply",
+  "94a08c69": "totalSupply",
+  "5fd4b08a": "getName",
+  "773bc712": "changeName",
+  "c47f0027": "setName",
+  "5ac801fe": "setName",
+  "48f97f9a": "setName",
+  "ba863fae": "balanceOf",
+  "2980a5d3": "balanceOf",
+  "bd4b0b13": "balanceOfContract",
+  "9a3174a0": "BalanceOf",
+  "722713f7": "balanceOf",
+  "3d64125b": "balanceOf",
+  "fa094954": "setTokenAllowance",
+  "c2f373d2": "allowance",
+  "1777fc89": "setAllowance",
+  "6aeac363": "_allowance",
+  "de242ff4": "allowance",
+  "7040f3e5": "Allowance",
+  "9c315aa8": "setAllowance",
 };

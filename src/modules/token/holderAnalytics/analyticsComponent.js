@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState  , useEffect} from "react";
 import { Paper } from "@material-ui/core";
 import styled from "styled-components";
 import TokenBalanceGraph from "./tokenBalanceGraph";
@@ -48,16 +48,24 @@ const ProgressBarContainer = styled.div`
 `;
 
 function TokenAnalytics(props) {
+  console.log("TokenAnalytics");
   const [graphData, setGraphData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [contractAdd, setContractAdd] = React.useState("");
 
-  React.useEffect(async () => {
-    await getTokenBalance();
-  }, []);
+  // React.useEffect( () => {
+  //   console.log("prppppppp", props);
+  //   setContractAdd(props.contractAddress)
+  //    getTokenBalance();
+  // }, []);
+
+  useEffect(() => {
+    setContractAdd(props.contractAddress)
+    getTokenBalance();
+  }, [props]);
 
   const getTokenBalance = async () => {
-    let values = { addr: props.walletAddress, pageNum: 0, perpage: 1 };
+    let values = { address: props.walletAddress, pageNum: 0, perpage: 1 , skip :0 , limit:10};
     let [err, tns] = await Utils.parseResponse(
       TokenData.getHolderDetailsUsingAddressforToken(values)
     );

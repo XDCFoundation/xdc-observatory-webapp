@@ -33,7 +33,7 @@ const ListItems = styled.div`
 const drawerWidth = 340;
 const useStyles = makeStyles((theme) => ({
   paper: {
-    top: "4.938rem",
+    top: "75px",
     width: drawerWidth,
     backgroundColor: "#102e84",
   },
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "26px -12px 0px 23px",
   },
   singleCheckbox: {
-    margin: "17px -2px 0 15px"
+    margin: "7px -2px 0 15px"
   },
   "@media (max-width: 1240px)": {
     paper: {
@@ -80,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TemporaryDrawer(props) {
-  console.log("props",props)
   const classes = useStyles();
   const theme = useTheme();
   const [state, setState] = React.useState({
@@ -124,6 +123,7 @@ function TemporaryDrawer(props) {
       },
       selectionString: ["description", "payload"],
     };
+    setLoading(true);
     props.dispatchAction(eventConstants.SHOW_LOADER, true);
     const [error, response] = await utility.parseResponse(
       NotificationService.getNotificationList(request)
@@ -163,7 +163,6 @@ function TemporaryDrawer(props) {
     deletableNotification.map((notification) => {
       notificationIdArray.push(notification.id);
     });
-    console.log("notificationIdArray",notificationIdArray);
     props.dispatchAction(eventConstants.SHOW_LOADER, true);
     const [error] = await utility.parseResponse(
       NotificationService.markNotificationCleared({
@@ -243,12 +242,12 @@ function TemporaryDrawer(props) {
           >
             Clear all
           </div> */}
-          <div
+          {/* <div
             className="Notification-header-text-color-fade cursor-pointer"
             onClick={handleEdit}
           >
             Edit
-          </div>
+          </div> */}
         </NoticationClear>
         <div className={classes.drawerHeader}>
           <IconButton
@@ -283,10 +282,11 @@ function TemporaryDrawer(props) {
             Done</div>
         </ListItems>}
         {isLoading && <Loader />}
-      {notifications && notifications.length !== 0 ? (
+      {!isLoading && notifications && notifications.length !== 0 ? (
         <>
           {notifications &&
             notifications.map((notification) => (
+              <div>
               <List className="side-box display-flex flex-direction-row-imp">
                 {isEditOpen ? <input className={classes.singleCheckbox}
                   key={notification._id}
@@ -295,7 +295,7 @@ function TemporaryDrawer(props) {
                   type="checkbox"
                   checked={notification?.isChecked || false}
                   />: <></>}
-                <ul className="inside-side-box">
+                <ul className="notification-inside-side-box">
                   <a className="Notification_details_button ">
                     <div className="Notificationtext">
                       <span>{notification.description.splitted[0]}&nbsp;</span>
@@ -303,7 +303,6 @@ function TemporaryDrawer(props) {
                       <span>{notification.description.splitted[2]}&nbsp;</span>
                       <span>{notification.description.splitted[3]}&nbsp;</span>
                       <span>{notification.description.splitted[4]}&nbsp;</span>
-                      {console.log("deletable-notification",deletableNotification)}
                       <span>
                         {window.innerWidth > 767
                           ? utility.shortenAddress(
@@ -330,13 +329,14 @@ function TemporaryDrawer(props) {
                           .format("HH:mm A, DD MMM YYYY")}
                     </div>
                   </div>
-                  <hr className="notification-hr" />
                 </ul>
               </List>
+              <hr className="notification-hr" />
+              </div>
             ))}
         </>
       ) : (
-        <p className="sidebar_notification">No Notification</p>
+        !isLoading && <p className="sidebar_notification">No Notification</p>
       )}
     </div>
   );

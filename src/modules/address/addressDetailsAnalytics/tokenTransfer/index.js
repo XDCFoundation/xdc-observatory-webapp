@@ -21,6 +21,7 @@ const NoDataFoundContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  margin-bottom: 100px;
   gap: 10px;
   @media (min-width: 767px) {
     margin: 100px !important;
@@ -38,7 +39,6 @@ class TokenTransferGraph extends BaseComponent {
     this.state = {
       loading: false,
       graphData:[],
-      optionsDark : {},
     };
   }
 
@@ -76,7 +76,7 @@ class TokenTransferGraph extends BaseComponent {
     const uniqueAddressReceived = [];
     for (let index = 0; index < data.length; index++) {
       const x = data[index].addedOn;
-      tokenTransfer.push({ x, y: data[index].totalTransferTokens });
+      tokenTransfer.push({ x, y: data[index].totalTransferTokens/ 10 ** 18 });
       tokenContractCount.push({ x, y: data[index].transfersCount });
       outBoundTransfer.push({ x, y: data[index].outBoundTransfers });
       inBoundTransfer.push({ x, y: data[index].inBoundTransfers });
@@ -93,6 +93,7 @@ class TokenTransferGraph extends BaseComponent {
         zoomType: {
           enabled: false,
         },
+        backgroundColor: "#ffffff",
       },
       legend: {
         layout: "horizontal",

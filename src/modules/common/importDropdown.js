@@ -24,6 +24,7 @@ import "../../assets/styles/custom.css";
 import toast, { Toaster } from "react-hot-toast";
 import CustomLoader from "../../assets/customLoader"
 import Web3 from "web3";
+import { genericConstants, messages } from "../../constants";
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -42,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
   error1: {
     color: "red",
     marginLeft: "2px",
+  },
+  error2: {
+    color: "red",
+    marginLeft: "16px",
   },
   value: {
     width: "400px !important",
@@ -64,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "506px",
     height: "10px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
@@ -208,6 +213,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
     cursor: "pointer",
   },
+  dialogContentTable: {
+    padding: "8px",
+  },
   "@media (max-width: 767px)": {
     heading: {
       fontSize: "22px",
@@ -286,6 +294,7 @@ const DropdownContainer = styled.div`
   background-color: white;
   max-height: 250px;
   margin-top: 3px;
+  padding: 9px 11px;
   border-radius: 8px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   min-width: ${(props) => props.containerWidth}px;
@@ -308,6 +317,12 @@ const OptionDiv = styled.div`
   :hover {
     background-color: #f9f9f9;
   }
+`;
+const OptionsContainer = styled.div`
+  display: flex;
+`;
+const Image = styled.img`
+  margin-right: 2px;
 `;
 const TransactionHeaderContainer = styled.div`
   display: flex;
@@ -345,7 +360,7 @@ const TableSubContainer = styled.div`
 `;
 
 const CustomDropDownAddress = (props) => {
-  const { sampleRender, updateListTags } = props;
+  const { sampleRender, updateListTags, getListOfTagAddress } = props;
   const classes = useStyles();
   const [isDropdownOpen, toggleDropdown] = useState(false);
   const mainDiv = useRef(null);
@@ -360,9 +375,11 @@ const CustomDropDownAddress = (props) => {
 
   const [masterChecked, setMasterChecked] = useState(false);
   const [selectedList, setSelectedList] = useState([]);
+  const [tagError, setTagError] = useState("");
   // console.log(masterChecked, selectedList, "<<<");
   const closeDialogImport = () => {
     setImportAddress(false);
+    setTagError("")
   };
   const openDialogImport = () => {
     setImportAddress(true);
@@ -446,7 +463,15 @@ const CustomDropDownAddress = (props) => {
       selector: c,
     }));
 
-    setData(list);
+    const newArrayOfObj = list.map(({
+      Address: address,
+      NameTag:tagName,
+      AddedOn:modifiedOn
+    }) => ({
+      address,
+      tagName,modifiedOn
+    }));
+    setData(newArrayOfObj);
     setColumns(columns);
     if (list.length >= 1) openDialogImport();
   };
@@ -490,16 +515,39 @@ const CustomDropDownAddress = (props) => {
   };
 
   const selectAll = async () => {
-    // allChecked.current.click();
+    let tagLength = 0;
+    data.map((item) => {
+      if (item.tagName.length > 15) {
+        tagLength = item.tagName.length;
+      }
+      return item;
+    });
+    if(tagLength != 0) {
+      setTagError(genericConstants.IMPORTED_TAG_LENGTH_ERROR)
+      return
+    }
     await updateListTags(data);
     await closeDialogImport();
     await notify();
+    getListOfTagAddress()
   };
 
   const selectedOnly = async () => {
+    let tagLength = 0;
+    selectedList.map((item) => {
+      if (item.tagName.length > 15) {
+        tagLength = item.tagName.length;
+      }
+      return item;
+    });
+    if(tagLength != 0) {
+      setTagError(genericConstants.IMPORTED_TAG_LENGTH_ERROR)
+      return
+    }
     await updateListTags(selectedList);
     await closeDialogImport();
     await notify();
+    getListOfTagAddress()
   };
 
   const handleOpenXDCPay = () => {
@@ -521,7 +569,7 @@ const CustomDropDownAddress = (props) => {
     if (chainId == 50 || chainId == 51) {
       // Utils.apixFailureToast("Please login to XDCPay extension");
       await web3.eth.getAccounts().then((accounts) => {
-        console.log(accounts,"<<")
+
         if (!accounts || !accounts.length) {
           Utility.apiFailureToast("Please login to XDCPay extension");
           return;
@@ -557,17 +605,25 @@ const CustomDropDownAddress = (props) => {
               ref={hiddenFileInput}
               style={{ display: "none" }}
             />
-            <OptionDiv onClick={handleOpenXDCPay}>Import from XDCPay</OptionDiv>
-            <OptionDiv onClick={handleClick}>Import from CSV file</OptionDiv>
+              <OptionsContainer onClick={handleOpenXDCPay}>
+                <Image src="/images/xdc.svg" />
+                <OptionDiv>Import from XDCPay</OptionDiv>
+              </OptionsContainer>
+              <OptionsContainer onClick={handleClick}>
+                <Image src="/images/csv.svg" />
+                <OptionDiv>Import from CSV File</OptionDiv>
+              </OptionsContainer>
           </DropdownContainer>
         )}
       </Container>
     
 {/* -----------------------------------------------------connect XDC Pay--------------------------------------------- */}
+      {connectXDCPay && <div className="overlay-private-alert">
       <Dialog classes={{ paperWidthSm: classes.connectXdcDialogBox }}
         open={connectXDCPay}
         onClose={closeConnectXDCPay}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <div className={classes.importXdcHeading}>Import from XDC Pay</div>
         <div className={classes.importXdcText}>You can import the contact saved in XDCPay into you Observer Account.</div>
@@ -575,19 +631,22 @@ const CustomDropDownAddress = (props) => {
         {/* <img className={classes.importXdcLogo} src="/images/xdc-icon-blue-color.svg"></img> */}
         <div className={classes.connectWalletButton} onClick={searchMyAddress}>Connect Wallet</div>
         </Dialog>
+        </div>}
 {/* ------------------------------------------------------------------------------------------------------------------*/}
+    {importAddress && <div className="overlay-private-alert">
       <Dialog
         classes={{ paperWidthSm: classes.dialogBox }}
         open={importAddress}
         onClose={closeDialogImport}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <Row style={{ justifyContent: "center" }}>
           <div className={classes.heading} id="form-dialog-title">
             Select Addresses to import
           </div>
         </Row>
-        <DialogContent>
+        <DialogContent classes={{root: classes.dialogContentTable}}>
           <Paper
             className={"table-list"}
             style={{
@@ -598,6 +657,7 @@ const CustomDropDownAddress = (props) => {
             }}
             elevation={0}
           >
+            {tagError && <div className={classes.error2}>{tagError}</div>}
             <TableContainer
               className={classes.container}
               id="container-table-token"
@@ -611,13 +671,13 @@ const CustomDropDownAddress = (props) => {
               <TableSubContainer>
                 <Table style={{ borderBottom: "none" }}>
                   <TableHead>
-                    <TableRow>
+                    <TableRow >
                       <TableCell
                         style={{
                           border: "none",
                           display: "flex",
                           alignItems: "center",
-                          marginLeft: 0,
+                          marginLeft: 11,
                           padding: "2.5px 3px",
                         }}
                         align="left"
@@ -646,10 +706,6 @@ const CustomDropDownAddress = (props) => {
                         </span>
                       </TableCell>
 
-                      <TableCell
-                        style={{ border: "none", whiteSpace: "nowrap" }}
-                        align="left"
-                      ></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -657,7 +713,12 @@ const CustomDropDownAddress = (props) => {
                       data.length >= 1 &&
                       data.map((row, index) => {
                         return (
-                          <TableRow>
+                          <TableRow 
+                          style={
+                            index % 2 !== 1
+                              ? { background: "#f9f9f9" }
+                              : { background: "white" }
+                          }>
                             <TableCell
                               id="td"
                               className="w-150 bord-none"
@@ -668,7 +729,7 @@ const CustomDropDownAddress = (props) => {
                                 padding: "10.5px 3px 8.5px",
                               }}
                             >
-                              <div className="display-flex">
+                              <div className="display-flex m-l-11">
                                 <input
                                   type="checkbox"
                                   className="form-check-input"
@@ -723,6 +784,7 @@ const CustomDropDownAddress = (props) => {
           </div>
         </DialogContent>
       </Dialog>
+      </div>}
     </div>
   );
 };

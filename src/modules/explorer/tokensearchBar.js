@@ -20,7 +20,7 @@ import { Row } from "simple-flexbox";
 import { eventConstants, recentSearchTypeConstants } from "../../constants";
 import { useDispatch } from "react-redux";
 import TokenPopover from "./tokenPopover";
-
+import SearchBox from "../../common/components/internalSearchBar";
 const drawerWidth = 240;
 const Cut = styled.div`
   padding-right: 5px;
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "unset !important",
     backgroundColor: "#2149b9",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   appBarDark: {
     position: "unset !important",
     backgroundColor: "#132a69",
-    height: "4.875rem",
+    height: "4.675rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -61,7 +61,11 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: "10.8rem !important",
-      padding: "16px 15px 15px 16px",
+      padding: "15px",
+    },
+    appBarDark: {
+      height: "10.8rem !important",
+      padding: "15px",
     },
     drawerHeader: {
       padding: "0 !important",
@@ -70,6 +74,13 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 767px) and (max-width:1250px)": {
     appBar: {
       backgroundColor: "#2149b9",
+      height: "134px !important",
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarDark: {
       height: "134px !important",
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
@@ -118,6 +129,9 @@ const useStyles = makeStyles((theme) => ({
     width: 18,
     height: 18,
     marginRight: 3,
+  },
+  searchImageinputContainer: {
+    display: "flex"
   },
   "@media (min-width: 0px) and (max-width: 767px)": {
     searchIcon: {
@@ -185,7 +199,6 @@ export default function Navbar(props) {
   const history = useHistory();
 
   const currentTheme = props.theme;
-
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -206,128 +219,128 @@ export default function Navbar(props) {
   const openChangePassword = () => {
     setOpenPasswordBox(!openPasswordBox);
   };
-  const handleTokenPopover = () =>{
+  const handleTokenPopover = () => {
     setTokenPopover(true);
-  } 
-  const closeTokenPopover = () =>{
+  }
+  const closeTokenPopover = () => {
     setTokenPopover(false);
   }
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
 
   const [errorMessage, setErrorMessage] = useState("");
-  const handleSearch = (event) => {
-    if (event.target.value.length == 0) setErrorMessage("");
-    if (event.key === "Enter") {
-      var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-      if (format.test(event.target.value)) {
-        window.location.href=`/data-not-found?searchString=${event.target.value}`;
-      } else {
-        var selectOptType = SelectOptRef.current?.value;
+  // const handleSearch = (event) => {
+  //   if (event.target.value.length == 0) setErrorMessage("");
+  //   if (event.key === "Enter") {
+  //     var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+  //     if (format.test(event.target.value)) {
+  //       window.location.href=`/data-not-found?searchString=${event.target.value}`;
+  //     } else {
+  //       var selectOptType = SelectOptRef.current?.value;
 
-        let requestdata = {
-          filter: selectOptType,
-          data: event.target.value,
-        };
-        BlockChainSearch(requestdata);
-      }
-    }
-  };
-  const handleSearchOption = (event) => {
-    var selectOptType = SelectOptRef.current?.value;
-    var SearchDataInput = SearchDataRef.current?.value;
-    let requestdata = {
-      filter: selectOptType,
-      data: SearchDataInput,
-    };
-    if (SearchDataInput === "") {
-      return;
-    } else {
-      BlockChainSearch(requestdata);
-    }
-  };
-  const BlockChainSearch = async (data) => {
-    try {
-      const [error, responseData] = await Utility.parseResponse(
-        SearchData.searchData(data)
-      );
+  //       let requestdata = {
+  //         filter: selectOptType,
+  //         data: event.target.value,
+  //       };
+  //       BlockChainSearch(requestdata);
+  //     }
+  //   }
+  // };
+  // const handleSearchOption = (event) => {
+  //   var selectOptType = SelectOptRef.current?.value;
+  //   var SearchDataInput = SearchDataRef.current?.value;
+  //   let requestdata = {
+  //     filter: selectOptType,
+  //     data: SearchDataInput,
+  //   };
+  //   if (SearchDataInput === "") {
+  //     return;
+  //   } else {
+  //     BlockChainSearch(requestdata);
+  //   }
+  // };
+  // const BlockChainSearch = async (data) => {
+  //   try {
+  //     const [error, responseData] = await Utility.parseResponse(
+  //       SearchData.searchData(data)
+  //     );
 
-      if (!responseData || responseData[0]?.token?.length == 0) {
-        window.location.href=`/data-not-found?searchString=${data?.data}`;
-      }
+  //     if (!responseData || responseData[0]?.token?.length == 0) {
+  //       window.location.href=`/data-not-found?searchString=${data?.data}`;
+  //     }
 
-      if (responseData) {
-        if (responseData[0].redirect === "block") {
-          let blockurl = "/block-details/" + responseData[0].block.number;
-          dispatch({
-            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-              type: recentSearchTypeConstants.BLOCK,
-              searchValue: data?.data || '',
-              result: responseData[0]?.block?.transactions?.length > 0 && responseData[0]?.block?.transactions.reduce((accumulator, trx) => accumulator + parseInt(trx.value), [0]) || 0,
-              redirectUrl: blockurl
-            }
-          })
-          window.location.href = blockurl;
-        } else if (responseData[0].redirect === "account") {
-          let accounturl =
-            "/address-details/" + responseData[0].account.address;
-          dispatch({
-            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-              type: recentSearchTypeConstants.ACCOUNT,
-              searchValue: responseData[0]?.account?.address || '',
-              result: responseData[0]?.account?.balance || 0,
-              redirectUrl: accounturl
-            }
-          })
-          window.location.href = accounturl;
-        } else if (responseData[0].redirect === "transaction") {
-          let transactionurl =
-            "/transaction-details/" + responseData[0].transaction.hash;
-          dispatch({
-            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-              type: recentSearchTypeConstants.TRANSACTION,
-              searchValue: data?.data || '',
-              result: responseData[0]?.transaction?.value || 0,
-              redirectUrl: transactionurl
-            }
-          })
-          window.location.href = transactionurl;
-        } else if (responseData[0].redirect === "token") {
-          if (responseData[0]?.token.length == 1) {
-            let tokenDataUrl =
-              "/token-data/" +
-              responseData[0]?.token[0]?.address +
-              "/" +
-              responseData[0]?.token[0]?.symbol;
-            dispatch({
-              type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-                type: recentSearchTypeConstants.TOKEN,
-                searchValue: responseData[0]?.token[0]?.address || '',
-                result: responseData[0]?.token[0]?.totalSupply || 0,
-                redirectUrl: tokenDataUrl
-              }
-            })
-            window.location.href = tokenDataUrl;
-          } else if (responseData[0]?.token.length > 1) {
-            let tokenListUrl =
-              "/tokens/" + responseData[0]?.token[0]?.tokenName;
-            dispatch({
-              type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-                type: recentSearchTypeConstants.TOKEN,
-                searchValue: responseData[0]?.token?.address || '',
-                result: responseData[0]?.token?.totalSupply || 0,
-                redirectUrl: tokenListUrl
-              }
-            })
-            window.location.href = tokenListUrl;
-          } else {
-          }
-        } else {
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     if (responseData) {
+  //       if (responseData[0].redirect === "block") {
+  //         let blockurl = "/block-details/" + responseData[0].block.number;
+  //         dispatch({
+  //           type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //             type: recentSearchTypeConstants.BLOCK,
+  //             searchValue: data?.data || '',
+  //             result: responseData[0]?.block?.transactions?.length > 0 && responseData[0]?.block?.transactions.reduce((accumulator, trx) => accumulator + parseInt(trx.value), [0]) || 0,
+  //             redirectUrl: blockurl
+  //           }
+  //         })
+  //         window.location.href = blockurl;
+  //       } else if (responseData[0].redirect === "account") {
+  //         let accounturl =
+  //           "/address-details/" + responseData[0].account.address;
+  //         dispatch({
+  //           type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //             type: recentSearchTypeConstants.ACCOUNT,
+  //             searchValue: responseData[0]?.account?.address || '',
+  //             result: responseData[0]?.account?.balance || 0,
+  //             redirectUrl: accounturl
+  //           }
+  //         })
+  //         window.location.href = accounturl;
+  //       } else if (responseData[0].redirect === "transaction") {
+  //         let transactionurl =
+  //           "/transaction-details/" + responseData[0].transaction.hash;
+  //         dispatch({
+  //           type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //             type: recentSearchTypeConstants.TRANSACTION,
+  //             searchValue: data?.data || '',
+  //             result: responseData[0]?.transaction?.value || 0,
+  //             redirectUrl: transactionurl
+  //           }
+  //         })
+  //         window.location.href = transactionurl;
+  //       } else if (responseData[0].redirect === "token") {
+  //         if (responseData[0]?.token.length == 1) {
+  //           let tokenDataUrl =
+  //             "/token-data/" +
+  //             responseData[0]?.token[0]?.address +
+  //             "/" +
+  //             responseData[0]?.token[0]?.symbol;
+  //           dispatch({
+  //             type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //               type: recentSearchTypeConstants.TOKEN,
+  //               searchValue: responseData[0]?.token[0]?.address || '',
+  //               result: responseData[0]?.token[0]?.totalSupply || 0,
+  //               redirectUrl: tokenDataUrl
+  //             }
+  //           })
+  //           window.location.href = tokenDataUrl;
+  //         } else if (responseData[0]?.token.length > 1) {
+  //           let tokenListUrl =
+  //             "/tokens/" + responseData[0]?.token[0]?.tokenName;
+  //           dispatch({
+  //             type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+  //               type: recentSearchTypeConstants.TOKEN,
+  //               searchValue: responseData[0]?.token?.address || '',
+  //               result: responseData[0]?.token?.totalSupply || 0,
+  //               redirectUrl: tokenListUrl
+  //             }
+  //           })
+  //           window.location.href = tokenListUrl;
+  //         } else {
+  //         }
+  //       } else {
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -341,11 +354,11 @@ export default function Navbar(props) {
 
   const lists = (anchor) => (
     <div
-    className={props.theme === "dark" ? clsx(classes.listDark, {
-      [classes.fullList]: anchor === "top" || anchor === "bottom",
-    }) : clsx(classes.list, {
-      [classes.fullList]: anchor === "top" || anchor === "bottom",
-    })}
+      className={props.theme === "dark" ? clsx(classes.listDark, {
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
+      }) : clsx(classes.list, {
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
+      })}
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
@@ -383,6 +396,15 @@ export default function Navbar(props) {
           </p>
           <hr className="myhr" />
         </ul>
+        {/* <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="/blockchain-identity"
+          >
+            <div className="xinfin_account_button">Blockchain Identity</div>
+          </a>
+          <hr className="myhr" />
+        </ul> */}
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
@@ -398,6 +420,24 @@ export default function Navbar(props) {
             href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
           >
             <div className="xinfin_account_button">XDCPay</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="https://stats.xdc.org/" target="_blank"
+          >
+            <div className="xinfin_account_button">XDC Network Stats</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="http://observatoryapi.xdc.org:3008/swagger-docs/" target="_blank"
+          >
+            <div className="xinfin_account_button">API Document</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -807,7 +847,7 @@ export default function Navbar(props) {
     font-size: 0.875rem;
   }
   `;
-  const NavigationButton = styled.div`
+  const NavigationButton = styled.a`
   text-decoration :  none;
   cursor: pointer;
   padding: 5px 20px;
@@ -824,6 +864,7 @@ export default function Navbar(props) {
     list-style: none;
   @media (min-width: 0px) and (max-width: 767px){
     font-size: 0.875rem;
+  }
   `;
 
   const MobileNavigationContainer = styled.div`
@@ -856,8 +897,8 @@ export default function Navbar(props) {
 
   const SearchContainer = styled.div`
     width: 100%;
-    height: 35px;
-    padding: 6px;
+    height: 38px;
+    padding: 7px 8px 9px;
     border-radius: 6px;
     border: solid 1px #e3e7eb;
     margin: auto;
@@ -880,11 +921,12 @@ export default function Navbar(props) {
   `;
 
   const TabSearchBox = styled.div`
-    height: 2.375rem;
-    padding: 8px;
-    margin-right: 0.625rem;
+    width: 623px;
+    height: 2.4375rem;
+    padding: 9px 12px;
+    // margin-right: 0.625rem;
     margin-top: 10px;
-    border-radius: 0.25rem;
+    border-radius: 7px;
     background-color: #ffffff;
   `;
 
@@ -939,18 +981,17 @@ export default function Navbar(props) {
                   </NavLink>
 
                   {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
-                  <TokenPopover open={isTokenPopver} handleClose={closeTokenPopover}/>
+                  <TokenPopover open={isTokenPopver} handleClose={closeTokenPopover} />
                 </div>
                 <div>
-                  <div
-                    exact
-                    activeClassName="active-t"
-                    // to={"/tokens"}
-                    className="Token cursor-pointer"
-                    onClick={handleTokenPopover}
-                  >
-                    Tokens
-                  </div>
+                <a
+                  exact
+                  activeClassName="active-t"
+                  href={"/tokens"}
+                  className="Token"
+                >
+                  Tokens
+                </a>
 
                   <a href="/">
                     <p className="Network-explorer" id="Network-explorer">
@@ -960,9 +1001,14 @@ export default function Navbar(props) {
                 </div>
                 <div>
                   <div >
-                    <div onClick={handleTokenPopover} className="Token cursor-pointer" id="Token">
-                      Tokens
-                    </div>
+                  <a
+                  exact
+                  activeClassName="active-t"
+                  href={"/tokens"}
+                  className="Token"
+                >
+                  Tokens
+                </a>
                   </div>
                 </div>
               </DeskTopView>
@@ -975,12 +1021,11 @@ export default function Navbar(props) {
                   {SearchBox({
                     classes,
                     filter,
-                    handleSearch,
                     SearchDataRef,
                     SelectOptRef,
-                    handleSearchOption,
+
                     list,
-                    currentTheme
+                    currentTheme: currentTheme
                   })}
                   <div className="token-error-message-div">
                     <span className="token-error-message">{errorMessage}</span>
@@ -1031,8 +1076,7 @@ export default function Navbar(props) {
               XDC Observatory
             </NavigationButton1>
             <NavigationButton
-              active={window.location.pathname.includes("token")}
-              onClick={handleTokenPopover}
+             href="/tokens"
             >
               Tokens
             </NavigationButton>
@@ -1041,12 +1085,11 @@ export default function Navbar(props) {
             {SearchBox({
               classes,
               filter,
-              handleSearch,
               SearchDataRef,
               SelectOptRef,
-              handleSearchOption,
+
               list,
-              currentTheme
+              currentTheme: currentTheme
             })}
             <div className="token-error-message-div">
               <span className="token-error-message">{errorMessage}</span>
@@ -1058,12 +1101,11 @@ export default function Navbar(props) {
             {SearchBox({
               classes,
               filter,
-              handleSearch,
               SearchDataRef,
               SelectOptRef,
-              handleSearchOption,
+
               list,
-              currentTheme
+              currentTheme: currentTheme
             })}
             <div className="token-error-message-div">
               <span className="token-error-message">{errorMessage}</span>
@@ -1076,79 +1118,7 @@ export default function Navbar(props) {
   );
 }
 
-const SearchBox = ({
-  classes,
-  filter,
-  handleSearch,
-  SearchDataRef,
-  SelectOptRef,
-  handleSearchOption,
-  list,
-  currentTheme
-}) => {
-  return (
-    <div>
-      <form
-        method="post"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <Row alignItems="center">
-          <img className={classes.searchIcon} src={"/images/Search.svg"} />
-          <div className="search-responsive">
-            <input
-              defaultValue={filter}
-              type="text"
-              onKeyUp={(event) => handleSearch(event)}
-              ref={SearchDataRef}
-              /* onKeyPress={(event) => {
-                if (event.key === "Enter") {
-                  handleSearch(event);
-                }
-              }} */
-              className={currentTheme === "dark" ? "main-input-td-dark" : "main-input-td "}
-              src={"/images/Search.png"}
-              placeholder="Search by Address / Txn Hash / Block"
-            />
-            {/* name="NAME" */}
-            <div className="mobFilter">
-              <select
-                className={currentTheme === "dark" ? "select-td-dark" : "select-td"}
-                onChange={(event) => handleSearchOption(event)}
-                ref={SelectOptRef}
-              >
-                <option value="All filters" selected>
-                  All Filters
-                </option>
-                <option value="Address">Addresses</option>
-                <option value="Blocks">Blocks</option>
-                <option value="Tokens">Tokens</option>
-                <option value="Transaction">Transaction</option>
-                {/* <option value="Nametags">Nametags</option>
-                      <option value="Labels">Labels</option>
-                      <option value="Websites">Websites</option> */}
-              </select>
-            </div>
-          </div>
-        </Row>
-        <ul style={{ color: "black" }}>
-          {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
-          <li>
-            {list.map((name) => {
-              if (filter.length !== 0) {
-                if (name.toLowerCase().startsWith(filter.toLowerCase()))
-                  return <li>{name}</li>;
-              } else {
-                return null;
-              }
-            })}
-          </li>
-        </ul>
-      </form>
-    </div>
-  );
-};
+
 
 const LoginComponent = ({
   toggleDrawer,
@@ -1168,9 +1138,9 @@ const LoginComponent = ({
   return (
     <Row className={classes.popover} alignItems="center">
       {openPasswordBox && (
-        <ChangePassword openChangePassword={openChangePassword} theme={currentTheme}/>
+        <ChangePassword openChangePassword={openChangePassword} theme={currentTheme} />
       )}
-      <Popover theme={currentTheme} openChangePassword={openChangePassword} /> 
+      <Popover theme={currentTheme} openChangePassword={openChangePassword} />
 
       <React.Fragment className="rigt-line" key={"right"}>
         <IconButton

@@ -20,6 +20,7 @@ import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag";
 import PrivateNote from "../../modules/common/dialog/privateNote";
 import { cookiesConstants } from "../../constants";
 import LoginDialog from "../explorer/loginDialog";
+import { BsCaretRightFill } from "react-icons/bs";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -127,12 +128,12 @@ function TransferTransaction({ _handleChange,theme }) {
   };
 
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
-  const blocknumber = ` The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.  `;
+  const blocknumber = `Block number associated with the transaction.`;
   const timestamp = ` The date and time at which a transaction is mined. `;
   const from = ` The sending party of the transaction(could be from a contact address)  `;
   const to = ` The receiving party of the transaction(could be from a contact address) `;
   const value = ` The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction `;
-  const txnfee = ` The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction `;
+  const txnfee = ` Amount paid for processing the transaction.`;
   const gasprovided = `Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit. `;
   const gasprice = ` Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher hance of getting included in a block `;
   const gasused = ` The exact unit of gas that was used for the transactions. `;
@@ -878,6 +879,115 @@ function TransferTransaction({ _handleChange,theme }) {
               </DivMiddleContainer>
 
               <Div__ theme={theme.currentTheme}>
+              <Spacing theme={theme.currentTheme}>
+                  <Container>
+                    <Tooltip align="right" title={gasprovided}>
+                      <ImageView src={"/images/info.svg"} />
+                    </Tooltip>
+                    <Hash theme={theme.currentTheme}>Token Transferred</Hash>
+                  </Container>
+                  <MiddleContainer isTextArea={false}>
+                    <TokenTransferredMiddleContainer>
+                      <TokenTransferredContent>
+                    <BlackText theme={theme.currentTheme}>XRC-721</BlackText>
+                    <GreyText>Token ID</GreyText>
+                    <GreyText>[</GreyText>
+                    <BlueText theme={theme.currentTheme}>1256</BlueText>
+                    <GreyText>]</GreyText>
+                    <BlueText theme={theme.currentTheme}>CunningFox.. (CFX)</BlueText>
+                    </TokenTransferredContent>
+                    <ImgProfileIcon src="/images/xyz.svg" />
+                    </TokenTransferredMiddleContainer>
+                  </MiddleContainer>
+                </Spacing>
+                <SpacingTxnAction theme={theme.currentTheme}>
+                  <ContainerTxnAction>
+                    <Tooltip align="right" title={gasprovided}>
+                      <ImageView src={"/images/info.svg"} />
+                    </Tooltip>
+                    <Hash theme={theme.currentTheme}>Txn Action</Hash>
+                  </ContainerTxnAction>
+                  <MiddleContainer isTextArea={false}>
+                  <MainContainerTxnAction>
+                    <TxnActionNextRow>
+                      <div className="arrow_right_grey">
+                        <BsCaretRightFill size={10}/>
+                      </div>
+                      <GreyText>Sale:</GreyText>
+                      <BlackText theme={theme.currentTheme}>1 NFT</BlackText>
+                      <GreyText>For</GreyText>
+                      <BlackText theme={theme.currentTheme}>2500.00 XDC</BlackText>
+                      <ImgNextRed src="/images/xyz.svg" />
+                      <BlackText theme={theme.currentTheme}>FleekApp</BlackText>
+                    </TxnActionNextRow>
+                    <TxnActionNextRow>
+                      <Gap1 />
+                      <div className="arrow_right_grey">
+                        <BsCaretRightFill size={10}/>
+                      </div>
+                      <BlackText theme={theme.currentTheme}>Transfer of</BlackText>
+                      <BlueText theme={theme.currentTheme}>CunningFox.. (CFX)</BlueText>
+                      <GreyText>from</GreyText>
+                      <BlueText theme={theme.currentTheme}>xdcc4e69958…5b9c</BlueText>
+                      <GreyText>to</GreyText>
+                      <BlueText theme={theme.currentTheme}>xdcc4e69958…9e9a</BlueText>
+                    </TxnActionNextRow>
+                    <TxnActionNextRow>
+                      <Gap2 />
+                      <div className="arrow_right_grey">
+                        <BsCaretRightFill size={10}/>
+                      </div>
+                      <BlackText theme={theme.currentTheme}>1 of</BlackText>
+                      <GreyText>Token ID</GreyText>
+                      <GreyText>[</GreyText>
+                      <BlueText theme={theme.currentTheme}>1256</BlueText>
+                      <GreyText>]</GreyText>
+                    </TxnActionNextRow>  
+                  </MainContainerTxnAction>
+                  </MiddleContainer>
+                </SpacingTxnAction>
+                <SpacingInteractedWith theme={theme.currentTheme}>
+                  <ContainerInteractedWith>
+                    <Tooltip align="right" title={gasprovided}>
+                      <ImageView src={"/images/info.svg"} />
+                    </Tooltip>
+                    <Hash theme={theme.currentTheme}>Interacted With (To)</Hash>
+                  </ContainerInteractedWith>
+                  <MiddleContainer isTextArea={false}>
+                  <MainContainerInteractedWith>
+                    <ContentInteractedWith>
+                    <BlackText theme={theme.currentTheme}>Contract</BlackText>
+                      &nbsp;
+                      <span><a className={theme.currentTheme==="dark"?"linkTableDetails-transaction-dark":"linkTableDetails-transaction"} href={"#"}>
+                      xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
+                      </a></span>
+                      &nbsp;&nbsp;
+                      <BlackText theme={theme.currentTheme}>(FleekApp)</BlackText>
+                      <ImgInteracted src="/images/success.svg" />
+                      <ImgCopyGrey src="/images/copy-grey.svg" />
+                    </ContentInteractedWith>
+                    <InteractedWithNextRow>
+                      <ImgNewLine src="/images/xyz.svg" />
+                      <GreyText>TRANSFER</GreyText>
+                      <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
+                      <GreyText>From</GreyText>
+                      <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
+                      <GreyText>to</GreyText>
+                      <BlackText theme={theme.currentTheme}>Fleek:</BlackText>
+                      <BlueText theme={theme.currentTheme}>NFT App</BlueText>
+                    </InteractedWithNextRow>
+                    <InteractedWithNextRow>
+                      <ImgNewLine src="/images/xyz.svg" />
+                      <GreyText>TRANSFER</GreyText>
+                      <BlackText theme={theme.currentTheme}>0.000000006 XDC</BlackText>
+                      <GreyText>From</GreyText>
+                      <BlueText theme={theme.currentTheme}>Fleek: NFT App</BlueText>
+                      <GreyText>to</GreyText>
+                      <BlueText theme={theme.currentTheme}>xdcc4e6995811141…eb9a</BlueText>
+                    </InteractedWithNextRow>
+                    </MainContainerInteractedWith>
+                  </MiddleContainer>
+                </SpacingInteractedWith>
                 {/* -------------------------------------------------------------txn fee----------------------- */}
                 {/* <Spacing>
                   <Container>
@@ -1045,7 +1155,7 @@ function TransferTransaction({ _handleChange,theme }) {
                   </Spacing>
                 ) : (
                   <>
-                  <Spacing>
+                  {/* <Spacing>
                     <Container>
                       <Tooltip title={transferToken}>
                         <ImageView src={"/images/info.svg"} />
@@ -1075,7 +1185,7 @@ function TransferTransaction({ _handleChange,theme }) {
 
                     </Content>
                   </MiddleContainer>
-                </Spacing>
+                </Spacing> */}
                     <Spacing>
                       <Container>
                         <Tooltip align="right" title={nounced}>
@@ -1278,35 +1388,35 @@ const ContentHash = styled.div`
     `}
   }
 `;
-const ContentInteractedWith = styled.div`
-  font-family: Inter;
-  font-size: 0.935rem;
+// const ContentInteractedWith = styled.div`
+//   font-family: Inter;
+//   font-size: 0.935rem;
 
-  text-align: left;
-  color: #3a3a3a;
-  line-height: 22px;
-  display: flex;
-  align-items: center;
-  @media (min-width: 0px) and (max-width: 767px) {
-    font-size: 0.875rem;
-    text-align: left;
-    color: #3a3a3a;
-    opacity: 1;
-    line-height: 7px !important;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-right: 10px;
-    padding-top: 5px;
-  }
-  @media (min-width: 768px) and (max-width: 1241px) {
-    font-size: 0.875rem;
-    word-break: break-all;
-    text-align: left;
+//   text-align: left;
+//   color: #3a3a3a;
+//   line-height: 22px;
+//   display: flex;
+//   align-items: center;
+//   @media (min-width: 0px) and (max-width: 767px) {
+//     font-size: 0.875rem;
+//     text-align: left;
+//     color: #3a3a3a;
+//     opacity: 1;
+//     line-height: 7px !important;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     padding-right: 10px;
+//     padding-top: 5px;
+//   }
+//   @media (min-width: 768px) and (max-width: 1241px) {
+//     font-size: 0.875rem;
+//     word-break: break-all;
+//     text-align: left;
 
-    color: #3a3a3a;
-    opacity: 1;
-  }
-`;
+//     color: #3a3a3a;
+//     opacity: 1;
+//   }
+// `;
 const TextArea = styled.textarea`
   opacity: 0.33;
   border-radius: 4px;
@@ -2037,4 +2147,157 @@ const AddLabel = styled.div`
 `;
 const AddLabelText = styled.div`
   margin-right: 8px;
+`;
+const MainContainerInteractedWith = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const MainContainerTxnAction = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const ContentInteractedWith = styled.div`
+  font-family: Inter;
+  font-size: 0.935rem;
+  text-align: left;
+  color: #3a3a3a;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 0.875rem;
+    text-align: left;
+    color: #3a3a3a;
+    opacity: 1;
+    line-height: 7px !important;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 10px;
+    padding-top: 5px;
+  }
+  @media (min-width: 768px) and (max-width: 1241px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+
+    color: #3a3a3a;
+    opacity: 1;
+  }
+`;
+const InteractedWithNextRow = styled.div`
+  display: flex;
+`;
+const TxnActionNextRow = styled.div`
+  display: flex;
+`;
+const TokenTransferredMiddleContainer = styled.div`
+  display: flex;
+`;
+const TokenTransferredContent = styled.div`
+  display: flex;
+  margin-top: 5px;
+  margin-right: 12px;
+`;
+
+const ImgInteracted = styled.img`
+  width: 19px;
+  margin-left: 13px;
+  margin-right: 9px;
+`;
+
+const ImgProfileIcon = styled.img`
+  width: 32px;
+  height: 32px;
+`;
+
+const ImgCopyGrey = styled.img`
+  width: 25px;
+`;
+
+const ImgNextArrowLine = styled.img`
+  width: 18px;
+`;
+const ImgNextRed = styled.img`
+  width: 18px;
+  margin-left: 10px;
+  margin-right: 20px;
+`;
+const ImgNewLine = styled.img`
+  width: 25px;
+`;
+
+const GreyText = styled.span`
+  color: #9fa9ba;
+  margin-left: 2px;
+`;
+
+const BlackText = styled.span`
+  color: #2a2a2a;
+  margin-left: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #ffffff;
+  `}
+`;
+
+const BlueText = styled.span`
+  color: #2149b9;
+  margin-left: 2px;
+  ${({ theme }) => theme === "dark" && `
+    color: #4878ff;
+  `}
+`;
+
+const Gap1 = styled.span`
+  margin-left: 15px;
+`;
+const Gap2 = styled.span`
+  margin-left: 30px;
+`;
+const SpacingInteractedWith = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  align-items: center;
+  border-bottom: solid 1px #e3e7eb;
+  height: 7rem;
+  ${({ theme }) => theme === "dark" && `
+  border-bottom: solid 1px #4a5d94;
+`}
+  @media (max-width: 767px) {
+    display: block;
+    height: auto;
+    padding: 12px 0 17px 0;
+  }
+`;
+const SpacingTxnAction = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  align-items: center;
+  border-bottom: solid 1px #e3e7eb;
+  height: 7rem;
+  ${({ theme }) => theme === "dark" && `
+  border-bottom: solid 1px #4a5d94;
+`}
+  @media (max-width: 767px) {
+    display: block;
+    height: auto;
+    padding: 12px 0 17px 0;
+  }
+`;
+
+
+const ContainerInteractedWith = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  max-width: 165px;
+  margin-top: -40px;
+`;
+const ContainerTxnAction = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  max-width: 165px;
+  margin-top: -40px;
 `;

@@ -74,28 +74,54 @@ const utility = {
   getUtcOffset,
   shortenAddress,
   shortenAddressImport,
-  getMethodType,
+  getMethodType, getTxnActionFromAndTo, getInterectedWithFromAndTo
 };
 export default utility;
 
 function getMethodType(transactionData) {
   const input = transactionData.input ? transactionData.input.slice(2, 10) : "";
-  return MethodFromByte[input] ? MethodFromByte[input] : "-";
-}
 
+  return MethodFromByte[input] ? MethodFromByte[input] : "";
+}
+function getTxnActionFromAndTo(res) {
+  
+  let txnActionFrom = []
+  let txnActionTo = []
+  let txnLog = res ? res.logs : ""
+  
+  let txnlog = txnLog?.map((data) => {
+    let topicsFrom = data && data?.topics.length>=3 ? data?.topics[1].slice(-40) : ""
+    txnActionFrom.push(topicsFrom)
+    let topicsTo = data && data?.topics.length>=3? data?.topics[2].slice(-40) : ""
+    txnActionTo.push(topicsTo)
+  })
+  let txnActionFromValue = "xdc" + txnActionFrom.pop();
+  let txnActionToValue = "xdc" + txnActionTo.pop();
+  return { txnActionFromValue, txnActionToValue }
+}
+function getInterectedWithFromAndTo(res) {
+  let interectedWithFrom = []
+  let interectedWithTo = []
+  let txnLog = res ? res.logs : ""
+  let txnlog = txnLog?.map((data) => {
+    let topicsFrom = data && data?.topics.length>0 ? data?.topics[1].slice(-40) : ""
+    interectedWithFrom.push("xdc" + topicsFrom)
+    let topicsTo = data && data?.topics.length>0 ? data?.topics[2].slice(-40) : ""
+    interectedWithTo.push("xdc" + topicsTo)
+  })
+  return { interectedWithFrom, interectedWithTo }
+}
 function getUtcOffset(timezone) {
   let min = momentZone.tz(timezone).utcOffset();
   return min > 0
-    ? `UTC+${
-        Math.abs(parseInt(min / 60)) > 9
-          ? Math.abs(parseInt(min / 60))
-          : `0${Math.abs(parseInt(min / 60))}`
-      }:${Math.abs(parseInt(min % 60)) || "00"}`
-    : `UTC-${
-        Math.abs(parseInt(min / 60)) > 9
-          ? Math.abs(parseInt(min / 60))
-          : `0${Math.abs(parseInt(min / 60))}`
-      }:${Math.abs(parseInt(min % 60)) || "00"}`;
+    ? `UTC+${Math.abs(parseInt(min / 60)) > 9
+      ? Math.abs(parseInt(min / 60))
+      : `0${Math.abs(parseInt(min / 60))}`
+    }:${Math.abs(parseInt(min % 60)) || "00"}`
+    : `UTC-${Math.abs(parseInt(min / 60)) > 9
+      ? Math.abs(parseInt(min / 60))
+      : `0${Math.abs(parseInt(min / 60))}`
+    }:${Math.abs(parseInt(min % 60)) || "00"}`;
 }
 
 function getNumber(num) {
@@ -117,8 +143,10 @@ function convertToInternationalCurrencySystem(num) {
     return parseFloat((num / 1000000).toFixed(2)) + "M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num >= 1000000000) {
     return parseFloat((num / 1000000000).toFixed(2)) + "B"; // convert to B for number from > 1 billion
-  } else if (num < 999.99999999) {
+  } else if (num >= 1 && num < 999.99999999) {
     return parseFloat(num.toFixed(8)); // if value < 1000, nothing to do
+  } else if (num < 1) {
+    return Number(num).toFixed(8)
   }
 }
 
@@ -246,8 +274,8 @@ async function uploadImage(request) {
       throw error && error.message
         ? error.message
         : error
-        ? error
-        : "Upload file Failed";
+          ? error
+          : "Upload file Failed";
     }
     return response.responseData[0];
   } catch (error) {
@@ -282,17 +310,17 @@ function shortenAddressImport(b, amountL = 23, amountR = 0, stars = 3) {
 }
 
 function shortenHashTab(b, amountL = 40, amountR = 0, stars = 3) {
-  if (b && b.length > 12)
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
+  if (b && b?.length > 12)
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
+      b?.length - 0,
+      b?.length
     )}`;
   else return b;
 }
 function shortenAddress(b, amountL, amountR, stars) {
-  return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-    b.length - amountR,
-    b.length
+  return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
+    b?.length - amountR,
+    b?.length
   )}`;
 }
 
@@ -655,8 +683,8 @@ function getAddedByObject(propsOfComponent) {
       user.firstName || user.lastName
         ? user.firstName + " " + user.lastName
         : user.company && user.company.name
-        ? user.company.name
-        : "",
+          ? user.company.name
+          : "",
     _id: user._id,
   };
 }
@@ -736,8 +764,8 @@ function isCompanyBalanceLow(company) {
     new Date(company.tokenEconomy.endDate).getMonth() -
     new Date().getMonth() +
     12 *
-      (new Date(company.tokenEconomy.endDate).getFullYear() -
-        new Date().getFullYear());
+    (new Date(company.tokenEconomy.endDate).getFullYear() -
+      new Date().getFullYear());
   if (
     company.tokenEconomy.PERCBalance <
     company.tokenEconomy.monthlyPERCAllocation * remainingMonth
