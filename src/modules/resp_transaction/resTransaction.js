@@ -23,6 +23,7 @@ import { cookiesConstants } from "../../constants";
 import { BsCaretRightFill } from "react-icons/bs";
 import utility from "../../utility";
 import { toolTipMessages } from "../../constants";
+import TokenData from "../../services/token";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -1003,9 +1004,15 @@ const ImgInteracted = styled.img`
   margin-right: 9px;
 `;
 
+const ImgProIconContainer = styled.div`
+  padding: 2px;
+  border-radius: 6px;
+  border: solid 1px #f2f2f2;
+`;
 const ImgProfileIcon = styled.img`
   width: 32px;
   height: 32px;
+  border-radius: 3px;
 `;
 
 const ImgCopyGrey = styled.img`
@@ -1123,6 +1130,7 @@ function Transaction({ theme, currency }) {
   const [copiedText, setCopiedText] = useState("");
   const [fromAddress, setFromAddress] = useState("");
   const [toAddress, setToAddress] = useState("");
+  const [transferTransactionResponse, setTranferTransactionResponse] = useState("")
 
   const [hashTT, setHashTT] = useState(false);
   const [transactionValueTT, setTransactionValueTT] = useState(false);
@@ -1198,8 +1206,10 @@ function Transaction({ theme, currency }) {
   const [latestBlock, setLatestBlock] = useState(0);
   const [isSeeMore, setSeeMore] = useState(false);
   const [contractData, setContractData] = useState(0);
+  const [tokenMethodValue, setTokenMethodValue] = useState("");
   useEffect(async () => {
     await transactionDetail();
+    transferTransactionDetail()
     getLatestBlock();
     privateNoteUsingHash();
   }, []);
@@ -1227,6 +1237,33 @@ function Transaction({ theme, currency }) {
     tagUsingAddressTo(transactiondetailusinghash);
     setFromAddress(transactiondetailusinghash.from);
     setToAddress(transactiondetailusinghash.to);
+  };
+  const transferTransactionDetail = async () => {
+    let urlPath = `/${hash}`;
+    let [error, transferTransactionDetailUsingHash] = await Utils.parseResponse(
+      TokenData.getTransferTransactionDetailsUsingHash(urlPath, {})
+    );
+    if (error || !transferTransactionDetailUsingHash) return;
+    setLoading(false);
+    setTranferTransactionResponse(transferTransactionDetailUsingHash)
+    if (transferTransactionDetailUsingHash?.method.length < 3){
+      let inputValue =  (transferTransactionDetailUsingHash?.input).slice(2, 10)
+      tokenMethod(inputValue)
+    } else {
+      setTokenMethodValue(transferTransactionDetailUsingHash?.method)
+    }
+  };
+  const tokenMethod = async (inputValue) => {
+    let reqData = {
+      inputData: inputValue
+    };
+    let [error, tokenMethodResponse] = await Utils.parseResponse(
+      TokenData.getTokenMethod(reqData)
+    );
+    if (error || !tokenMethodResponse) return;
+    setLoading(false);
+    let value = utility.getCharsBefore(tokenMethodResponse, "(")
+    setTokenMethodValue(value)
   };
   const getLatestBlock = async () => {
     let urlPath = "?skip=0&limit=1";
@@ -2313,9 +2350,9 @@ function Transaction({ theme, currency }) {
                           <span>
                             <a
                               className="linkTableDetails-transaction"
-                              href={"#"}
+                              href={"/address-details/"+transactions?.to}
                             >
-                              xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
+                              {transactions?.to}
                             </a>
                           </span>
                           &nbsp;&nbsp; 
@@ -2422,18 +2459,20 @@ function Transaction({ theme, currency }) {
                             <BlackText theme={theme.currentTheme}>
                               {contractData?.ERC == 2
                                 ? "XRC-20"
-                                : ContractData?.ERC > 2
+                                : contractData?.ERC > 2
                                   ? "XRC-721"
                                   : ""}
                             </BlackText>
-                            <GreyText>Token ID</GreyText>
+                            {/* <GreyText>Token ID</GreyText>
                             <GreyText>[</GreyText>
                             <BlueText theme={theme.currentTheme}>1256</BlueText>
-                            <GreyText>]</GreyText>
+                            <GreyText>]</GreyText> */}
+                            &nbsp;
                             <BlueText theme={theme.currentTheme}>
                               {contractData?.tokenName}
                             </BlueText>
                           </TokenTransferredContent>
+                          <ImgProIconContainer>
                           <ImgProfileIcon
                             src={
                               contractData?.tokenImage
@@ -2441,6 +2480,7 @@ function Transaction({ theme, currency }) {
                                 : "/images/placeholder.svg"
                             }
                           />
+                          </ImgProIconContainer>
                         </TokenTransferredMiddleContainer>
                       </MiddleContainer>
                     </Spacing>
@@ -2490,7 +2530,7 @@ function Transaction({ theme, currency }) {
                               <BsCaretRightFill size={10} />
                             </div>
                             <BlackText theme={theme.currentTheme}>
-                              {transactions?.method ? transactions?.method : ""}
+                              {tokenMethodValue}
                             </BlackText>
                             <BlueText theme={theme.currentTheme}>
                               &nbsp;
@@ -2499,7 +2539,7 @@ function Transaction({ theme, currency }) {
                                 : ""}
                             </BlueText>
                             <GreyText>&nbsp;from</GreyText>
-                            <BlueText theme={theme.currentTheme}>
+                            {/* <BlueText theme={theme.currentTheme}>
                               &nbsp;
                               {txnActionValues?.txnActionFromValue
                                 ? utility.shortenAddress(
@@ -2509,13 +2549,35 @@ function Transaction({ theme, currency }) {
                                   3
                                 )
                                 : ""}
+                            </BlueText> */}
+                            <BlueText theme={theme.currentTheme}>
+                              &nbsp;
+                              {transferTransactionResponse?.from
+                                ? utility.shortenAddress(
+                                  transferTransactionResponse?.from,
+                                  11,
+                                  4,
+                                  3
+                                )
+                                : ""}
                             </BlueText>
                             <GreyText>&nbsp;to</GreyText>
-                            <BlueText theme={theme.currentTheme}>
+                            {/* <BlueText theme={theme.currentTheme}>
                               &nbsp;
                               {txnActionValues?.txnActionToValue
                                 ? utility.shortenAddress(
                                   txnActionValues?.txnActionToValue,
+                                  11,
+                                  4,
+                                  3
+                                )
+                                : ""}
+                            </BlueText> */}
+                            <BlueText theme={theme.currentTheme}>
+                              &nbsp;
+                              {transferTransactionResponse?.to
+                                ? utility.shortenAddress(
+                                  transferTransactionResponse?.to,
                                   11,
                                   4,
                                   3
@@ -2583,9 +2645,9 @@ function Transaction({ theme, currency }) {
                                     ? "linkTableDetails-transaction-dark"
                                     : "linkTableDetails-transaction"
                                 }
-                                href={"#"}
+                                href={"/address-details/"+transactions?.to}
                               >
-                                xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
+                                {transactions?.to}
                               </a>
                             </span>
                             &nbsp;&nbsp; 

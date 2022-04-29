@@ -66,3 +66,28 @@ export const httpGetService = (method, headers, data, url) => {
         })
 
 };
+
+export const httpServiceGetmethod = (method, headers, data, url) => {
+    const requestOptions = {
+        method: method,
+        headers: headers || { 'Content-Type': 'application/json' }
+    };
+    if (method !== httpConstants.METHOD_TYPE.GET)
+        requestOptions.body = JSON.stringify(data);
+    return fetch(url, requestOptions)
+        .then(function handleResponse(response) {
+            //in case API is down-
+            if (!response || !response.ok)
+                return Promise.reject("Unable to fetch data");
+
+            return response.text().then(responseText => {
+                if (!responseText)
+                    return Promise.reject(responseText);
+                    
+                return responseText;
+            });
+        }).catch(function (err) {
+            return Promise.reject(err);
+        })
+
+}
