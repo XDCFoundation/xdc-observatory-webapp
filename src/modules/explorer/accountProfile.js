@@ -1332,7 +1332,7 @@ function SimpleTabs(props) {
               />
               <Tab
                 label="Transaction Private Note"
-                className={classes.txnprivate}
+                // className={classes.txnprivate}
                 className={value === 1 
                   ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
                   : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
@@ -1346,7 +1346,7 @@ function SimpleTabs(props) {
               />
               <Tab
                 label="Tagged Address"
-                className={classes.address}
+                // className={classes.address}
                 className={value === 2 
                   ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
                   : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
@@ -1382,7 +1382,7 @@ function SimpleTabs(props) {
               />
             </div>
             <div className="display-flex align-items-center">
-              {/* {tableValue === 3 ? (
+              {tableValue === 3 ? (
                 <CustomDropDownAddress
                   sampleRender={sampleRender}
                   updateListTags={updateListTags}
@@ -1390,7 +1390,7 @@ function SimpleTabs(props) {
                 />
               ) : (
                 ""
-              )} */}
+              )}
               {!isDownloadActive && tableValue === 1 ? (
                 ""
               ) : isDownloadActive ? (
