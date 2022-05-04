@@ -77,6 +77,8 @@ async function getAddressDetailWithlimit(data) {
     Math.ceil(data.pageNum) +
     "&limit=" +
     data.perpage + "&sortKey=" + data?.sortKey + "&sortType=" + data?.sortType;
+    if(data?.hash)
+      url = url + "&hash=" + data.hash
   return httpService(
     httpConstants.METHOD_TYPE.GET,
     getHeaders(),

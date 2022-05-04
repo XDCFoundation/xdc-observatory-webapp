@@ -23,7 +23,6 @@ import PageSelector from "../common/pageSelector";
 
 export default function TransactionTableComponent(props) {
   const { state } = props;
-
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
       b.length - 3,
@@ -37,6 +36,7 @@ export default function TransactionTableComponent(props) {
   const [address, setAddress] = useState([]);
   const [ContractAddress, setContractAddress] = useState(addressNumber);
   const [keywords, setKeywords] = useState("");
+  const [creationTransaction, setCreationTransaction] = useState("");
   const [reportaddress, setReportaddress] = useState([]);
   const [downloadaddress, setDownloadaddress] = useState([]);
   const [isDownloadActive, setDownloadActive] = useState(0);
@@ -63,6 +63,8 @@ export default function TransactionTableComponent(props) {
   });
   const getContractDetails = async (values) => {
     try {
+      if(creationTransaction) 
+        values["hash"] = creationTransaction;
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(values)
       );
@@ -73,9 +75,11 @@ export default function TransactionTableComponent(props) {
         setLoading(false);
         return;
       }
+      setNoData(false)
       let transactionSortByValue = responseData.sort((a, b) => {
         return Number(b.value) - Number(a.value);
       });
+
       setVisibleCount(responseData.length);
       if (transactionSortByValue && transactionSortByValue.length > 0) {
         setAddress(transactionSortByValue);
@@ -294,7 +298,9 @@ export default function TransactionTableComponent(props) {
     }
   };
   React.useEffect(() => {
+
     setContractAddress(addressNumber);
+    setCreationTransaction(props?.contractData?.creationTransaction)
     let values = {
       addrr: ContractAddress,
       pageNum: from,
@@ -306,8 +312,10 @@ export default function TransactionTableComponent(props) {
       address: ContractAddress,
     };
     getTransactionsCountForAddress(data);
-    setLoading(false);
-  }, []);
+
+  setLoading(false);
+
+  }, [props]);
   const classes = useStyles();
   const history = useHistory();
 

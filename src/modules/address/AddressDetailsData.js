@@ -464,7 +464,7 @@ function AddressDetailsData(props) {
                 : "content_sec"
             }
           >
-            <TransactionTableComponent theme={props.theme.currentTheme}/>
+            <TransactionTableComponent theme={props.theme.currentTheme} contractData={responses?.contractResponse} />
           </div>
           <div
             className={
