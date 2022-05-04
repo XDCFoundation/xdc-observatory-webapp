@@ -33,7 +33,7 @@ const ListItems = styled.div`
 const drawerWidth = 340;
 const useStyles = makeStyles((theme) => ({
   paper: {
-    top: "78px",
+    top: "75px",
     width: drawerWidth,
     backgroundColor: "#102e84",
   },
@@ -242,12 +242,12 @@ function TemporaryDrawer(props) {
           >
             Clear all
           </div> */}
-          <div
+          {/* <div
             className="Notification-header-text-color-fade cursor-pointer"
             onClick={handleEdit}
           >
             Edit
-          </div>
+          </div> */}
         </NoticationClear>
         <div className={classes.drawerHeader}>
           <IconButton
@@ -295,7 +295,7 @@ function TemporaryDrawer(props) {
                   type="checkbox"
                   checked={notification?.isChecked || false}
                   />: <></>}
-                <ul className="inside-side-box">
+                <ul className="notification-inside-side-box">
                   <a className="Notification_details_button ">
                     <div className="Notificationtext">
                       <span>{notification.description.splitted[0]}&nbsp;</span>

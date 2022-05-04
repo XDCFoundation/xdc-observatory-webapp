@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "503px",
     height: "15px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
@@ -327,11 +327,13 @@ export default function FormDialog(props) {
 
   return (
     <div>
+      {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
       <Dialog
         // className={classes.dialog}
         classes={{ paperWidthSm: classes.dialogBox }}
         open={open}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
         <Row>
@@ -414,6 +416,7 @@ export default function FormDialog(props) {
           </div>
         </div>
       </Dialog>
+    </div>}
     </div>
   );
 }

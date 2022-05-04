@@ -87,6 +87,7 @@ const useStyles = makeStyles({
   },
   customTooltip: {
     fontSize: "13px",
+
   },
   customTooltipDarkMode: {
     background: "#051440",
@@ -133,6 +134,7 @@ export default function HolderTableComponent(props) {
   const [toToolTip, setToToolTip] = React.useState(false);
   const [amountToolTip, setAmountToolTip] = React.useState(false);
   const [exportToolTip, setExportToolTip] = React.useState(false);
+  const [holderTotalTransfersCount, setHolderTotalTransfersCount] = React.useState(0);
 
   const sortTable = (_sortKey) => {
     let _sortOrder = -1;
@@ -207,6 +209,7 @@ export default function HolderTableComponent(props) {
         setLoading(false);
         setNoData(false);
         parseResponseData(responseData, 1);
+        setHolderTotalTransfersCount(responseData[0].Total_transfes_transactions_Count);
       } else {
         setLoading(false);
         setNoData(true);
@@ -282,7 +285,7 @@ export default function HolderTableComponent(props) {
     setDownloadaddress(
       trxn.map((d) => {
         return {
-          Txn_Hash: d.hash,
+          TransactionHash: d.hash,
           Age: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
           Block: d.blockNumber,
           From: d.from,
@@ -339,8 +342,8 @@ export default function HolderTableComponent(props) {
       setDownloadaddress(
         tempAddress.map((d) => {
           return {
-            TxHash: d.Txn_Hash,
-            Age: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            TransactionHash: d.Txn_Hash,
+            Age: moment(d.Age * 1000).format("MMM DD, YYYY h:mm A"),
             Block: d.Block,
             From: d.From,
             To: d.To,
@@ -366,8 +369,8 @@ export default function HolderTableComponent(props) {
       setDownloadaddress(
         tempAddr.map((d) => {
           return {
-            TxHash: d.Txn_Hash,
-            Age: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            TransactionHash: d.Txn_Hash,
+            Age: moment(d.Age * 1000).format("MMM DD, YYYY h:mm A"),
             Block: d.Block,
             From: d.From,
             To: d.To,
@@ -377,7 +380,19 @@ export default function HolderTableComponent(props) {
       );
     }
   };
-
+  const NoDataFoundContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  gap: 10px;
+  color: #c6cbcf;
+  @media (min-width: 767px) {
+    margin: 100px 0 !important;
+  }
+`;
   return (
     <div>
       <div className="content_input_all">
@@ -415,7 +430,7 @@ export default function HolderTableComponent(props) {
 
         {isDownloadActive ? (
           <CSVLink
-            filename={"transactions.csv"}
+            filename={"Transactions.csv"}
             data={downloadaddress}
             style={{
               fontSize: "0.938rem",
@@ -444,20 +459,23 @@ export default function HolderTableComponent(props) {
                   : classes.customTooltip,
             }}
           >
-            <div onClick={() => setExportToolTip(!exportToolTip)}>
-              <CSVLink
-                filename={"transactions.csv"}
-                data={downloadaddress}
-                style={{
-                  pointerEvents: "none",
+            <div style={{
+                 
                   fontSize: "15px",
                   textAlign: "center",
                   color: "#ffffff",
                   backgroundColor: "#e3e7eb",
                   borderRadius: "4px",
-                  // width: "94px",
-                  // height: "2.125rem",
-                  padding: "7px 24px",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                }} onClick={() => setExportToolTip(!exportToolTip)}>
+              <CSVLink
+                filename={"Transactions.csv"}
+                data={downloadaddress}
+                style={{
+                  pointerEvents: "none",
+                  color: "#ffffff",
+                  
                 }}
               >
                 Export
@@ -490,9 +508,9 @@ export default function HolderTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={
+                      checked={ address.length > 0 ?
                         address.filter((addr) => addr?.isChecked == true)
-                          .length == address.length
+                          .length == address.length : false
                       }
                       style={{ marginRight: "8px" }}
                     />
@@ -990,7 +1008,7 @@ export default function HolderTableComponent(props) {
                             style={{ border: "none", width: "22%" }}
                             marginleft="5px"
                           >
-                            <div className="dis-flex input_12">
+                            <div className="holder-tranferTable-checkbox-container">
                               {" "}
                               <input
                                 key={row.id}
@@ -999,6 +1017,7 @@ export default function HolderTableComponent(props) {
                                 type="checkbox"
                                 checked={row?.isChecked || false}
                                 style={{ marginRight: "8px" }}
+                                className="transfer-checkbox"
                               />
                               <a
                                 className={
@@ -1156,7 +1175,7 @@ export default function HolderTableComponent(props) {
                             >
                               {Number(value) === Number(row.Value)
                                 ? 0
-                                : format({})(parseFloat(value))}
+                                : format({})(value)}
                             </span>
                           </TableCell>
                         </TableRow>
@@ -1165,26 +1184,26 @@ export default function HolderTableComponent(props) {
                   </TableBody>
                 )
               )}
-              {noData == true && (
-                <TableBody>
-                  <TableRow>
-                    <TableCell
-                      id="td"
-                      colspan="6"
-                      style={{ borderBottom: "none" }}
-                    >
-                      <span className="tabledata" style={{ color: "red" }}>
-                        No transaction found.
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              )}
+              
             </Table>
+            {noData == true && (
+              
+              <NoDataFoundContainer>
+            <img
+              src={require("../../../src/assets/images/XDC-Alert.svg")}
+            ></img>
+
+            <div>
+              No transactions found
+            </div>
+          </NoDataFoundContainer>
+        
+            
+          )}
           </TableContainer>
         </Paper>
         <DeskTopView>
-          <Grid
+          {holderTotalTransfersCount >= rowsPerPage ? <Grid
             container
             style={{ marginTop: "1.75rem" }}
             className="Pagination"
@@ -1279,10 +1298,10 @@ export default function HolderTableComponent(props) {
                 Last
               </button>
             </Grid>
-          </Grid>
+          </Grid>:""}
         </DeskTopView>
         <MobileView>
-          <Grid
+        {holderTotalTransfersCount >= rowsPerPage ? <Grid
             container
             style={{ marginTop: "1.75rem" }}
             className="Pagination"
@@ -1377,7 +1396,7 @@ export default function HolderTableComponent(props) {
                 Last
               </button>
             </Grid>
-          </Grid>
+          </Grid>:""}
         </MobileView>
       </Grid>
     </div>

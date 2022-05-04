@@ -144,6 +144,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "305px",
     justifyContent: "flex-end",
+    marginTop: "18px",
   },
   xdcBeta: {
     marginTop: "96px",
@@ -376,15 +377,10 @@ export default function Navbar(props) {
               redirectUrl: transactionurl,
             },
           });
-          window.location.href = transactionurl;
+           window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
           if (responseData[0]?.token.length == 1) {
-            let tokenDataUrl =
-              "/token-data/" +
-              responseData[0]?.token[0]?.address +
-              "/" +
-              responseData[0]?.token[0]?.symbol;
-
+            let tokenDataUrl =`/token-data/${responseData[0]?.token[0]?.address}/${responseData[0]?.token[0]?.symbol ? responseData[0]?.token[0]?.symbol : "NA"}`
             dispatch({
               type: eventConstants.ADD_TO_SEARCH_LIST,
               payload: {
@@ -485,12 +481,12 @@ export default function Navbar(props) {
           </p>
           <hr className="myhr" />
         </ul>
-        <ul className="Network-list-nav">
+        {/* <ul className="Network-list-nav">
           <a className="sidebar-links" href="/blockchain-identity">
             <div className="xinfin_account_button">Blockchain Identity</div>
           </a>
           <hr className="myhr" />
-        </ul>
+        </ul> */}
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
@@ -518,6 +514,16 @@ export default function Navbar(props) {
             target="_blank"
           >
             <div className="xinfin_account_button">XDC Network Stats</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="http://observatoryapi.xdc.org:3008/swagger-docs/"
+            target="_blank"
+          >
+            <div className="xinfin_account_button">API Document</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -936,7 +942,7 @@ export default function Navbar(props) {
       font-size: 0.875rem;
     }
   `;
-  const NavigationButton = styled.div`
+  const NavigationButton = styled.a`
     text-decoration: none;
     cursor: pointer;
     padding: 5px 20px;
@@ -1018,14 +1024,22 @@ export default function Navbar(props) {
                 {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
               </div>
               <div>
-                <div
+                {/* <div
                   exact
                   activeClassName="active-t"
                   onClick={handleTokenPopover}
                   className="Token cursor-pointer"
                 >
                   Tokens
-                </div>
+                </div> */}
+                <a
+                  exact
+                  activeClassName="active-t"
+                  href={"/tokens"}
+                  className="Token"
+                >
+                  Tokens
+                </a>
               </div>
             </Row>
             <Row alignItems="center">
@@ -1137,7 +1151,8 @@ export default function Navbar(props) {
             >
               XDC Observatory
             </NavigationButton1>
-            <NavigationButton onClick={handleTokenPopover}>
+            <NavigationButton  
+              href="/tokens">
               Tokens
             </NavigationButton>
           </MobileNavigationContainer>

@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "503px",
     height: "3px",
-    border: "solid 1px #c6c8ce",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
@@ -325,6 +325,8 @@ export default function FormDialog(props) {
       !(address.slice(0, 3) === "xdc")
     ) {
       setError("Address should start with xdc and consist of 43 characters");
+    } else if (description && description.length > 220) {
+      setDescriptionError("Description should be maximum 220 characters");
     } else {
       if (value === "NO") request["isEnabled"] = false;
       const [error, response] = await utility.parseResponse(
@@ -398,17 +400,19 @@ export default function FormDialog(props) {
 
   return (
     <div>
+      {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
       <Dialog
         className={classes.dialog}
         classes={{ paperWidthSm: classes.dialogBox }}
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
         <Row>
           <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
-            Add a New Address to your Watchlist1
+            Add a New Address to your Watchlist
           </div>
         </Row>
         {errorEmptyField ? (
@@ -531,6 +535,7 @@ export default function FormDialog(props) {
         </div>
         </div>
       </Dialog>
+    </div>}
     </div>
   );
 }

@@ -437,6 +437,7 @@ class Contractlist extends React.Component {
       justify-content: center;
       align-items: center;
       margin-top: 100px;
+      margin-bottom: 100px;
       gap: 10px;
       color: #c6cbcf;
       @media (min-width: 767px) {
@@ -526,8 +527,8 @@ class Contractlist extends React.Component {
                       style={{ fontSize: "14px" }}
                       className={
                         this.props.theme === "dark"
-                          ? "tableheaders-contract cursor-pointer fc-white"
-                          : "tableheaders-contract cursor-pointer"
+                          ? "tableheaders-contract cursor-pointer fc-white m-l-8-md"
+                          : "tableheaders-contract cursor-pointer m-l-8-md"
                       }
                       onClick={this.sortByAddress}
                     >
@@ -604,8 +605,8 @@ class Contractlist extends React.Component {
                         style={{ fontSize: "14px" }}
                         className={
                           this.props.theme === "dark"
-                            ? "tableheaders cursor-pointer fc-white"
-                            : "tableheaders cursor-pointer"
+                            ? "tableheaders cursor-pointer fc-white m-l-8-md"
+                            : "tableheaders cursor-pointer m-l-8-md"
                         }
                         onClick={this.sortByTokenName}
                       >
@@ -716,8 +717,8 @@ class Contractlist extends React.Component {
                         style={{ fontSize: "14px" }}
                         className={
                           this.props.theme === "dark"
-                            ? "tableheaders fc-white"
-                            : "tableheaders"
+                            ? "tableheaders fc-white m-l-8-md"
+                            : "tableheaders m-l-8-md"
                         }
                       >
                         Contract Type1
@@ -833,7 +834,7 @@ class Contractlist extends React.Component {
                                   ? "tabledata fc-b1c3e1"
                                   : "tabledata"
                               }
-                              style={{ marginLeft: "5px" }}
+                              style={{ marginLeft: "0px" }}
                             >
                               {row.tokenName}
                             </span>
@@ -857,7 +858,7 @@ class Contractlist extends React.Component {
                                   ? "tabledata fc-b1c3e1"
                                   : "tabledata"
                               }
-                              style={{ marginLeft: "0.188rem", fontSize: 14 }}
+                              style={{ marginLeft: "0", fontSize: 14 }}
                             >
                               {isToken}
                             </span>

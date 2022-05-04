@@ -19,7 +19,7 @@ const SelectedValueContainer = styled.div`
   flex-direction: row;
   cursor: pointer;
   background: white;
-  padding: 7px 10px;
+  padding: 3px 10px;
   background-color: rgb(7 125 245);
   border-radius: 0.25rem;
   width: 5.875rem;
@@ -57,7 +57,10 @@ const DropdownContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   min-width: ${(props) => props.containerWidth}px;
-
+@media (min-width:0px) and (max-width:767px) {
+  right: 15px;
+  
+}
   span {
     padding: 8px;
     cursor: pointer;
@@ -115,10 +118,16 @@ const ExportButton = (props) => {
       <Container ref={mainDiv}>
         <SelectedValueContainer onClick={onFilterClicked}>
           <FilterName>
+          <PDFDownloadLink
+                
+                document={<AddressPDF data={downloadData} />}
+                fileName="Tag Address.pdf"
+              >
             <span>Export</span>
+            </PDFDownloadLink>
           </FilterName>
         </SelectedValueContainer>
-        {isDropdownOpen && (
+        {/* {isDropdownOpen && (
           <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
             <OptionDiv>
               <PDFDownloadLink
@@ -142,7 +151,7 @@ const ExportButton = (props) => {
             </CSVLink>
             </OptionDiv>
           </DropdownContainer>
-        )}
+        )} */}
       </Container>
     </div>
   );

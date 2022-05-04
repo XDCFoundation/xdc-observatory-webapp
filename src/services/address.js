@@ -72,13 +72,11 @@ async function getTransactionSearch(data) {
 async function getAddressDetailWithlimit(data) {
   let url =
     process.env.REACT_APP_GET_TRANSACTIONS_FOR_ADDRESS +
-    data.addrr +
+    data.addrr + 
     "?skip=" +
     Math.ceil(data.pageNum) +
     "&limit=" +
-    data.perpage + "&sortKey=" + data?.sortKey + "&sortType=" + data?.sortType;
-    if(data?.hash)
-      url = url + "&hash=" + data.hash
+    data.perpage + "&sortKey=" + data?.sortKey + "&sortType=" + data?.sortType + "&hash=" + data.hash;
   return httpService(
     httpConstants.METHOD_TYPE.GET,
     getHeaders(),

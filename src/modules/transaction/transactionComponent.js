@@ -134,6 +134,7 @@ export default function TransactionComponent(props) {
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    margin-bottom: 100px;
     gap: 10px;
     color: #c6cbcf;
     @media (min-width: 767px) {
@@ -322,7 +323,7 @@ export default function TransactionComponent(props) {
                   </TableCell>
                 )}
                 {/* {props.state.tableColumns["Age"].isActive && ( */}
-                <TableCell
+                {/* <TableCell
                   style={{ border: "none", paddingLeft: "2rem" }}
                   className="table-head-all"
                   align="left"
@@ -377,7 +378,7 @@ export default function TransactionComponent(props) {
                       </Tooltip>
                     )}
                   </span>
-                </TableCell>
+                </TableCell> */}
                 {/* )} */}
                 {props.state.tableColumns["Age"].isActive && (
                   <TableCell
@@ -774,7 +775,7 @@ export default function TransactionComponent(props) {
                             </span>
                           </TableCell>
                         )}
-                        <TableCell
+                        {/* <TableCell
                           style={{
                             border: "none",
                             width: "120px",
@@ -795,7 +796,7 @@ export default function TransactionComponent(props) {
                           >
                             {row.method ? row.method : ""}
                           </span>
-                        </TableCell>
+                        </TableCell> */}
                         {props.state.tableColumns["Age"].isActive && (
                           <TableCell
                             style={{

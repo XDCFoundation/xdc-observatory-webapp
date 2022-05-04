@@ -225,6 +225,9 @@ const useStyles = makeStyles((theme) => ({
   descriptionTableCell: {
     maxWidth: "390px",
   },
+  trxLableTableCell: {
+    maxWidth: "390px",
+  },
   txnprivate: {
     height: "19px",
     /* margin: 65px 67.5px 10.5px 8.5px; */
@@ -427,6 +430,7 @@ const NoDataFoundContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  margin-bottom: 100px;
   gap: 10px;
 `;
 
@@ -543,15 +547,7 @@ function SimpleTabs(props) {
     setTablevalue(1);
   }
 
-  async function getUserTxnLabel() {
-    // const userId = sessionManager.getDataFromCookies("userId");
-    // let transactionLabels = localStorage.getItem(userId + cookiesConstants.USER_TRASACTION_LABELS);
-    // transactionLabels = JSON.parse(transactionLabels);
-    // if (!transactionLabels)
-    //   transactionLabels = [];
-    // setTotalCount2(transactionLabels.length);
-    getListOfTxnLabel({ skip: 0, _limit });
-  }
+  async function getUserTxnLabel() {}
 
   async function getPvtTagAddress() {}
 
@@ -598,7 +594,29 @@ function SimpleTabs(props) {
       }
 
       if (totalLocalWatchlist == count) {
-        setDataNotFound(true);
+        // setDataNotFound(true);
+        const data = {
+          userId: sessionManager.getDataFromCookies("userId"),
+          searchValue: searchValue,
+          searchKeys: ["description", "address"],
+          search: value.toString(),
+        };
+        if (!searchValue) {
+          onChangeWatchlistPage(watchlistPageCount);
+        } else {
+          let [error, response] = await Utils.parseResponse(
+            UserService.Search(data)
+          );
+          if (error || !response) {
+            setDataNotFound("Data not found");
+          } else {
+            response = response.map((obj) => {
+              obj.description = localWatchlists[0]?.description || "";
+              return obj;
+            });
+            setWatchlist(response);
+          }
+        }
         return;
       }
 
@@ -618,7 +636,7 @@ function SimpleTabs(props) {
           setDataNotFound("Data not found");
         } else {
           response = response.map((obj) => {
-            obj.description = localWatchlists[0].description;
+            obj.description = localWatchlists[0]?.description;
             return obj;
           });
           setWatchlist(response);
@@ -720,10 +738,10 @@ function SimpleTabs(props) {
     watchlists = JSON.parse(watchlists);
     if (!watchlists) watchlists = [];
     response.watchlistContent = response.watchlistContent.map((obj) => {
-      obj.description = watchlists.map((item, index) => {
-        return watchlists && watchlists[index][obj.address]
-          ? watchlists[index][obj.address]
-          : "";
+      watchlists.map((item, index) => {
+        if(watchlists && watchlists[index][obj.address]) {
+          obj.description = watchlists[index][obj.address];
+        }
       });
       return obj;
     });
@@ -1165,7 +1183,8 @@ function SimpleTabs(props) {
           return {
             Address: item.address,
             NameTag: item.tagName,
-            AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            // AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            AddedOn: item?.modifiedOn
           };
         })
       );
@@ -1192,7 +1211,8 @@ function SimpleTabs(props) {
           return {
             Address: item.address,
             NameTag: item.tagName,
-            AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            // AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
+            AddedOn: item?.modifiedOn
           };
         })
       );
@@ -1236,7 +1256,7 @@ function SimpleTabs(props) {
                 }
               /> */}
               <Column >
-                <Row className={classes.profileName} style={props.theme.currentTheme === "dark" ? { gap: "15px", color: "#fff" } : { gap: "15px" }}>
+                <Row className={classes.profileName} style={props.theme.currentTheme === "dark" ? { marginRight: "8px", color: "#fff" } : { marginRight: "8px" }}>
                   Welcome, {setUserName()}
                 </Row>
 
@@ -1362,7 +1382,7 @@ function SimpleTabs(props) {
               />
             </div>
             <div className="display-flex align-items-center">
-              {tableValue === 3 ? (
+              {/* {tableValue === 3 ? (
                 <CustomDropDownAddress
                   sampleRender={sampleRender}
                   updateListTags={updateListTags}
@@ -1370,7 +1390,7 @@ function SimpleTabs(props) {
                 />
               ) : (
                 ""
-              )}
+              )} */}
               {!isDownloadActive && tableValue === 1 ? (
                 ""
               ) : isDownloadActive ? (
@@ -1382,7 +1402,7 @@ function SimpleTabs(props) {
                   <PDFDownloadLink
                     style={props.theme.currentTheme === "dark" ? styles.pdfDownloadLinkDark : styles.pdfDownloadLink}
                     document={<TransactionPDF data={downloadTxnPvtNote} />}
-                    fileName="transactionPvtNote.pdf"
+                    fileName="Transaction Private Note.pdf"
                   >
                     Export
                   </PDFDownloadLink>
@@ -1397,7 +1417,7 @@ function SimpleTabs(props) {
                   title={messages.EXPORT_DISABLE}
                 >
                 <div
-                  filename={"tag_address.csv"}
+                  filename={"Tag Address.csv"}
                   data={downloadTagAddress}
                   style={props.theme.currentTheme === "dark" ? {
                   cursor: "default",
@@ -1919,6 +1939,7 @@ function SimpleTabs(props) {
                                 >
                                   <EditWatchList 
                                     row={row}
+                                    index={index}
                                     getWatchlistList={getListOfWatchlist}
                                     getTotalCountWatchlist={getUserWatchlist}
                                   />
@@ -2290,6 +2311,7 @@ function SimpleTabs(props) {
                               <TableCell
                                 style={{ border: "none" }}
                                 align="left"
+                                className={classes.trxLableTableCell}
                               >
                                 <span className={props.theme.currentTheme === "dark" ? "tabledata-1 fc-b1c3e1" : "tabledata-1"}>
                                   {row.trxLable}
@@ -2325,6 +2347,7 @@ function SimpleTabs(props) {
                                 <EditTxnLabel
                                   row={row}
                                   index={index}
+                                  skip={Math.ceil(pvtNotePageCount.selected * 5)}
                                   getListOfTxnLabel={getListOfTxnLabel}
                                   getTotalCountTxnLabel={getUserTxnLabel}
                                 />
@@ -2844,6 +2867,7 @@ function SimpleTabs(props) {
                                 <EditTagAddress
                                   row={row}
                                   index={index}
+                                  skip={Math.ceil(tagPageCount.selected * 5)}
                                   getListOfTagAddress={getListOfTagAddress}
                                   getTotalCountTagAddress={getPvtTagAddress}
                                 />

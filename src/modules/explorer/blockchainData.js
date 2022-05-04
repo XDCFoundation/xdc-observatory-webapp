@@ -65,12 +65,14 @@ const MainContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column-reverse;
     /* width: auto; */
-    width: 22rem;
+    // width: 22rem;
+    max-width: 767px;
+    width: 100%;
     margin-right: auto;
     margin-left: auto;
     padding-top: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin-top: 15px;
   }
 `;
@@ -94,7 +96,7 @@ const LeftFirst = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   @media (min-width: 0px) and (max-width: 767px) {
-    padding: 20px 10px 0 0;
+    padding: 20px 0 0 0;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     padding: 20px 10px 0 0;
@@ -332,6 +334,9 @@ const LeftTopSecMain = styled.div`
   text-align: center;
   margin-right: 5px;
   margin-top: 7px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    margin-right: 0px;
+  }
 `;
 const MobileDesign = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
@@ -371,7 +376,7 @@ class BlockChainDataComponent extends Component {
       addressTT: false,
       nodes: 0,
       activeNodes: 0,
-      nodeLoading: true,
+      nodeLoading: true
     };
   }
   componentWillUnmount() {
@@ -385,9 +390,10 @@ class BlockChainDataComponent extends Component {
     this.coinMarketCapDetails();
     this.blocksLatest();
     this.transactionsLatest();
+    this.getTotalAccounts()
     await this.tpsCountDetail();
     // await this.CountMaxtps();
-
+ 
     this.socketData(this.props.socket);
   }
 
@@ -396,7 +402,12 @@ class BlockChainDataComponent extends Component {
       this.coinMarketCapDetails();
     }
   }
-
+  async getTotalAccounts() {
+    let [error, totalNumberAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
+    if (error || !totalNumberAccounts)
+        return
+    this.setState({ totalAccount: totalNumberAccounts })
+}
   socketData(socket) {
     let blocks = this.state.blockdataNumber;
     let transactions = this.state.transactionDataDetails;
@@ -507,7 +518,7 @@ class BlockChainDataComponent extends Component {
     if (error || !netStatData) return;
     this.setState({
       netStatData: netStatData,
-      totalAccount: netStatData?.activeAddressCount,
+      // totalAccount: netStatData?.activeAddressCount,
     });
     const interval = setInterval(async () => {
       let [error, netStatData] = await Utils.parseResponse(
@@ -516,7 +527,7 @@ class BlockChainDataComponent extends Component {
       if (error || !netStatData) return;
       this.setState({
         netStatData: netStatData,
-        totalAccount: netStatData?.activeAddressCount,
+        // totalAccount: netStatData?.activeAddressCount,
       });
     }, 90000);
   }
@@ -851,7 +862,7 @@ class BlockChainDataComponent extends Component {
                         )}
                       </TransactionValue>
                     </Tooltip>
-                    {window.innerWidth > 1024 ? (
+                    {/* {window.innerWidth > 1024 ? (
                       <Tooltip
                         placement="top"
                         title="Transactions are syncing"
@@ -899,7 +910,7 @@ class BlockChainDataComponent extends Component {
                           className="tooltipAlert"
                         />
                       </Tooltip>
-                    )}
+                    )} */}
                   </TransactionTitleValue>
                 </ValueName>
               </Value>

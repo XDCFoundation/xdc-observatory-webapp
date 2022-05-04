@@ -607,7 +607,6 @@ function TokenDataComponent(props) {
                       {}
                       <TitleValue theme={props.theme.currentTheme}>
                         {!isLoading && (transfer.length === 0 ? 0 : transfer)}
-                        {console.log("transfer",transfer.length)}
                       </TitleValue>
                     </ValueName>
                   </Value>

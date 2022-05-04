@@ -289,8 +289,8 @@ export default function StickyHeadTable(props) {
                     <span
                       className={
                         props.theme === "dark"
-                          ? "TableHeadersTransactionDark table-headers-dark"
-                          : "table-headers-holder"
+                          ? "TableHeadersTransactionDark table-headers-dark p-l-2-md"
+                          : "tableheaders table-headers p-l-2-md"
                       }
                     >
                       Rank
@@ -345,8 +345,8 @@ export default function StickyHeadTable(props) {
                     <span
                       className={
                         props.theme === "dark"
-                          ? "TableHeadersTransactionDark table-headers-dark cursor-pointer"
-                          : "tableheaders table-headers cursor-pointer"
+                          ? "TableHeadersTransactionDark table-headers-dark cursor-pointer p-l-2-md"
+                          : "tableheaders table-headers cursor-pointer p-l-2-md"
                       }
                       onClick={() => sortTable("address")}
                     >
@@ -421,8 +421,8 @@ export default function StickyHeadTable(props) {
                     <span
                       className={
                         props.theme === "dark"
-                          ? "TableHeadersTransactionDark table-headers-dark cursor-pointer"
-                          : "tableheaders table-headers cursor-pointer"
+                          ? "TableHeadersTransactionDark table-headers-dark cursor-pointer p-l-2-md"
+                          : "tableheaders table-headers cursor-pointer p-l-2-md"
                       }
                       onClick={() => sortTable("balance")}
                     >

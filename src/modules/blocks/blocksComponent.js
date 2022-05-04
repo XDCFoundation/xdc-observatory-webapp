@@ -96,8 +96,8 @@ export default function BlocksComponent(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders-dark table-headers-dark block-list-all"
-                        : "tableheaders table-headers block-list-all"
+                        ? "tableheaders-dark table-headers-dark block-list-all p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers block-list-all p-l-8-md p-l-4-sm"
                     }
                   >
                     Hash
@@ -146,8 +146,8 @@ export default function BlocksComponent(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders-dark table-headers-dark"
-                        : "tableheaders table-headers"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
                     }
                   >
                     Height
@@ -196,8 +196,8 @@ export default function BlocksComponent(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders-dark table-headers-dark"
-                        : "tableheaders table-headers"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
                     }
                   >
                     Age
@@ -246,8 +246,8 @@ export default function BlocksComponent(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders-dark table-headers-dark"
-                        : "tableheaders table-headers"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
                     }
                   >
                     Transactions
@@ -296,8 +296,8 @@ export default function BlocksComponent(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders-dark table-headers-dark"
-                        : "tableheaders table-headers"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
                     }
                   >
                     Difficulty
@@ -346,8 +346,8 @@ export default function BlocksComponent(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders-dark table-headers-dark"
-                        : "tableheaders table-headers"
+                        ? "tableheaders-dark table-headers-dark p-l-8-md p-l-4-sm"
+                        : "tableheaders table-headers p-l-8-md p-l-4-sm"
                     }
                   >
                     Gas Used

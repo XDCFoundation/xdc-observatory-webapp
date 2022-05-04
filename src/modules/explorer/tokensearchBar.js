@@ -63,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
       height: "10.8rem !important",
       padding: "15px",
     },
+    appBarDark: {
+      height: "10.8rem !important",
+      padding: "15px",
+    },
     drawerHeader: {
       padding: "0 !important",
     },
@@ -70,6 +74,13 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 767px) and (max-width:1250px)": {
     appBar: {
       backgroundColor: "#2149b9",
+      height: "134px !important",
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarDark: {
       height: "134px !important",
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
@@ -385,7 +396,7 @@ export default function Navbar(props) {
           </p>
           <hr className="myhr" />
         </ul>
-        <ul className="Network-list-nav">
+        {/* <ul className="Network-list-nav">
           <a
             className="sidebar-links"
             href="/blockchain-identity"
@@ -393,7 +404,7 @@ export default function Navbar(props) {
             <div className="xinfin_account_button">Blockchain Identity</div>
           </a>
           <hr className="myhr" />
-        </ul>
+        </ul> */}
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
@@ -418,6 +429,15 @@ export default function Navbar(props) {
             href="https://stats.xdc.org/" target="_blank"
           >
             <div className="xinfin_account_button">XDC Network Stats</div>
+          </a>
+          <hr className="myhr" />
+        </ul>
+        <ul className="Network-list-nav">
+          <a
+            className="sidebar-links"
+            href="http://observatoryapi.xdc.org:3008/swagger-docs/" target="_blank"
+          >
+            <div className="xinfin_account_button">API Document</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -827,7 +847,7 @@ export default function Navbar(props) {
     font-size: 0.875rem;
   }
   `;
-  const NavigationButton = styled.div`
+  const NavigationButton = styled.a`
   text-decoration :  none;
   cursor: pointer;
   padding: 5px 20px;
@@ -901,7 +921,7 @@ export default function Navbar(props) {
   `;
 
   const TabSearchBox = styled.div`
-    width: 623px
+    width: 623px;
     height: 2.4375rem;
     padding: 9px 12px;
     // margin-right: 0.625rem;
@@ -964,15 +984,14 @@ export default function Navbar(props) {
                   <TokenPopover open={isTokenPopver} handleClose={closeTokenPopover} />
                 </div>
                 <div>
-                  <div
-                    exact
-                    activeClassName="active-t"
-                    // to={"/tokens"}
-                    className="Token cursor-pointer"
-                    onClick={handleTokenPopover}
-                  >
-                    Tokens
-                  </div>
+                <a
+                  exact
+                  activeClassName="active-t"
+                  href={"/tokens"}
+                  className="Token"
+                >
+                  Tokens
+                </a>
 
                   <a href="/">
                     <p className="Network-explorer" id="Network-explorer">
@@ -982,9 +1001,14 @@ export default function Navbar(props) {
                 </div>
                 <div>
                   <div >
-                    <div onClick={handleTokenPopover} className="Token cursor-pointer" id="Token">
-                      Tokens
-                    </div>
+                  <a
+                  exact
+                  activeClassName="active-t"
+                  href={"/tokens"}
+                  className="Token"
+                >
+                  Tokens
+                </a>
                   </div>
                 </div>
               </DeskTopView>
@@ -1052,8 +1076,7 @@ export default function Navbar(props) {
               XDC Observatory
             </NavigationButton1>
             <NavigationButton
-              active={window.location.pathname.includes("token")}
-              onClick={handleTokenPopover}
+             href="/tokens"
             >
               Tokens
             </NavigationButton>

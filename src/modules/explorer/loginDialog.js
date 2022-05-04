@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "433px",
     height: "40px",
-    padding: "12px 19px 11px 12px",
+    padding: "9px 19px 11px 12px",
     borderRadius: "6px",
     border: "solid 1px #9fa9ba",
     backgroundColor: "#fff",
@@ -1038,6 +1038,7 @@ export default function FormDialog(props) {
     setReCaptcha(value);
     setCaptchaExpired(false);
     setCaptchaError("");
+    setErrorCaptcha("");
   }
   function expiredRecaptcha(e) {
     setCaptchaExpired(true);
@@ -1125,6 +1126,7 @@ export default function FormDialog(props) {
         ""
       )}
       {/* <div className="dialogboxModal"> */}
+      {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
       <Dialog
         classes={{
           paperWidthSm:
@@ -1136,6 +1138,7 @@ export default function FormDialog(props) {
         open={open}
         // onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        style={{position: "absolute", zIndex: 10000}}
       >
         <div
           onClick={handleClose}
@@ -1145,6 +1148,7 @@ export default function FormDialog(props) {
         </div>
         {value === 0 ? (
           <div>
+            {console.log("Open:",open)}
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
             <Row>
               <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
@@ -1674,6 +1678,9 @@ export default function FormDialog(props) {
                 ref={recaptchaRef}
                 sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
                 onChange={handleReCaptcha}
+                onExpired={(e) => {
+                  expiredRecaptcha();
+                }}
               />
 
               <div style={{ marginLeft: 0 }} className={classes.error1}>
@@ -1724,6 +1731,7 @@ export default function FormDialog(props) {
           </div>
         )}
       </Dialog>
+      </div>}
       {/* </div> */}
       {/* </div> */}
       <ToastContainer />

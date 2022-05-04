@@ -102,7 +102,10 @@ export const genericConstants = {
   CANNOT_DELETE_TAGGED_ADDRESS: "Cannot delete Tagged Addresses",
   TAGGED_ADDRESS_DELETED: "Tagged Address Deleted",
   SCM_REFERENCE: 'scm',
-  IMPORTED_TAG_LENGTH_ERROR: "Imported Name Tag should be maximum 15 characters."
+  IMPORTED_TAG_LENGTH_ERROR: "Imported Name Tag should be maximum 15 characters.",
+  WRONG_CURRENT_PASSWORD: "You have entered wrong current password",
+  DESCRIPTION_LIMIT: "Description should be maximum 220 characters",
+  TRANSACTION_LABEL_LIMIT: "Transaction label/note cannot be longer than 120 characters"
 };
 
 export const statusConstants = {
@@ -200,17 +203,18 @@ export const messages = {
 };
 
 export const toolTipMessages = {
+  AMOUNT: "The number of tokens being transferred.",
   hashid:
     "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
   blocknumber:
-    "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
+    "Block number associated with the transaction.",
   timestamp: "The date and time at which a transaction is mined.",
   from: "The sending party of the transaction(could be from a contact address)",
   to: "The receiving party of the transaction(could be from a contact address) ",
   value:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
   txnfee:
-    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+    "Amount paid for processing the transaction.",
   tokenTransferred:
     "Tokens transferred in the transaction.",
   transactionAction:

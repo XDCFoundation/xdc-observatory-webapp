@@ -140,7 +140,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-
+  white-space: nowrap;
   text-align: center;
   color: #2a2a2a;
 }
@@ -250,7 +250,7 @@
   }
   .tableheaders-contract {
     font-size: 0.875rem;
-    margin-left: 12px;
+    margin-left: 23px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -1377,15 +1377,15 @@
   /* padding-left: 11% !important; */
   font-weight: 600;
 }
-@media (min-width: 0px) and (max-width: 766px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .block-list-all {
     border: none !important;
-    padding-left: 0% !important;
+    /* padding-left: 0% !important; */
   }
 }
-@media (min-width: 767px) and (max-width: 1240px) {
+@media (min-width: 768px) and (max-width: 1240px) {
   .block-list-all {
     border: none !important;
-    padding-left: 0% !important;
+    /* padding-left: 0% !important; */
   }
 }

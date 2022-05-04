@@ -13,6 +13,7 @@ export default {
   getListOfTransferTransactionsForToken,
   getListOfHoldersForToken,
   getListOfTokenForAddress,getTokenTransactions,
+  gettokenPriceUsingTimestamp,
 };
 function getHeaders() {
   return {
@@ -202,6 +203,23 @@ async function getListOfHoldersForToken(data) {
       return Promise.reject(err);
     });
 }
+async function gettokenPriceUsingTimestamp(data) {
+  let url = process.env.REACT_APP_GET_TOKEN_PRICE_USING_TIMESTAMP
+ return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
+   .then((response) => {
+     if (
+       !response.success ||
+       response.responseCode !== 200 ||
+       !response.responseData ||
+       response.responseData.length === 0
+     )
+       return Promise.reject();
+     return Promise.resolve(response.responseData);
+   })
+   .catch(function (err) {
+     return Promise.reject(err);
+   });
+}
 async function getTransferTransactionDetailsUsingHash(path, data) {
   let url =
     process.env.REACT_APP_GET_TRANSFER_TRANSACTION_DETAIL_USING_ADDRESS + path;
@@ -239,8 +257,9 @@ async function getListOfTokenForAddress(path, data) {
     });
 }
 async function getHolderDetailsUsingAddressforToken(data) {
-  let url = process.env.REACT_APP_GET_HOLDER_DETAIL_USING_ADDRESS_FOR_TOKEN
-  // let url = "http://localhost:3007/getHolderDetailsUsingAddress"
+  let url = process.env.REACT_APP_GET_HOLDER_DETAIL_USING_ADDRESS_FOR_TOKEN 
+  if(data && data.address)
+    url = url + data.address;
   return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {
       if (

@@ -117,6 +117,7 @@ export default function TransactionTableComponent(props) {
         perpage: amount,
         keywords: searchkeyword,
         addrr: ContractAddress,
+        hash: props?.hash,
       };
       getContractDetails(datas);
     }
@@ -129,6 +130,7 @@ export default function TransactionTableComponent(props) {
         perpage: amount,
         addrr: ContractAddress,
         keywords: "",
+        hash: props?.hash,
       };
       getContractDetails(datas);
     }
@@ -142,6 +144,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
+          hash: props?.hash,
         };
         getContractDetails(datas);
       } else {
@@ -150,6 +153,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: "",
+          hash: props?.hash,
         };
         getContractDetails(datas);
       }
@@ -164,6 +168,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
+          hash: props?.hash,
         };
         getContractDetails(datas);
       } else {
@@ -172,6 +177,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
+          hash: props?.hash,
         };
         getContractDetails(datas);
       }
@@ -187,6 +193,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
           getContractDetails(datas);
         } else {
@@ -195,6 +202,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
 
           getContractDetails(datas);
@@ -212,6 +220,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
           getContractDetails(datas);
         } else {
@@ -220,6 +229,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
           getContractDetails(datas);
         }
@@ -234,6 +244,7 @@ export default function TransactionTableComponent(props) {
       perpage: event.target.value,
       addrr: ContractAddress,
       keywords: keywords,
+      hash: props?.hash,
     };
     getContractDetails(datas);
   };
@@ -259,7 +270,7 @@ export default function TransactionTableComponent(props) {
       setDownloadaddress(
         tempAddress.map((d) => {
           return {
-            Txn_Hash: d.hash,
+            TransactionHash: d.hash,
             Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.blockNumber,
             From: d.from,
@@ -286,7 +297,7 @@ export default function TransactionTableComponent(props) {
       setDownloadaddress(
         tempAddr.map((d) => {
           return {
-            Txn_Hash: d.hash,
+            TransactionHash: d.hash,
             Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.blockNumber,
             From: d.from,
@@ -306,16 +317,15 @@ export default function TransactionTableComponent(props) {
       pageNum: from,
       perpage: amount,
       keywords: keywords,
+      hash: props?.hash,
     };
     getContractDetails(values);
     let data = {
       address: ContractAddress,
     };
     getTransactionsCountForAddress(data);
-
-  setLoading(false);
-
-  }, [props]);
+    setLoading(false);
+  }, [props.hash]);
   const classes = useStyles();
   const history = useHistory();
 
@@ -362,7 +372,7 @@ export default function TransactionTableComponent(props) {
           <>
             {isDownloadActive ? (
               <CSVLink
-                filename={"transactions.csv"}
+                filename={"Transactions.csv"}
                 data={downloadaddress}
                 style={
                   props.theme === "dark"
@@ -432,7 +442,7 @@ export default function TransactionTableComponent(props) {
                   }
                 >
                   <CSVLink
-                    filename={"transactions.csv"}
+                    filename={"Transactions.csv"}
                     data={downloadaddress}
                     style={
                       props.theme === "dark"
@@ -494,9 +504,9 @@ export default function TransactionTableComponent(props) {
                         onChange={handleChanged}
                         type="checkbox"
                         name="allselect"
-                        checked={
+                        checked={ address.length > 0 ?
                           address.filter((addr) => addr?.isChecked == true)
-                            .length == address.length
+                            .length == address.length : false
                         }
                         style={{ marginRight: "8px" }}
                       />
