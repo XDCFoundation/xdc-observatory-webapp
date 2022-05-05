@@ -291,6 +291,11 @@ export default function StickyHeadTable(props) {
         TokenData.getTokenLists(data)
       );
       if (error) return;
+      if(responseData?.tokens.length === 0) {
+        setNoData(true);
+        setLoading(false);
+        return;
+      }
       if (responseData) {
         setNoData(false);
         setLoading(false);
@@ -442,7 +447,7 @@ export default function StickyHeadTable(props) {
       margin-bottom: 100px;
       gap: 10px;
       @media (min-width: 767px) {
-        margin: 100px 0 !important;
+        margin: 200px 0 !important;
       }
     `;
 
@@ -1125,7 +1130,7 @@ export default function StickyHeadTable(props) {
                               placement="top"
                               title={format({})(
                                 totalsupply >= 1
-                                  ? parseFloat(totalsupply)
+                                  ? parseFloat(totalsupply).toLocaleString()
                                   : totalsupply == 0
                                     ? parseFloat(totalsupply)
                                     : totalsupply
