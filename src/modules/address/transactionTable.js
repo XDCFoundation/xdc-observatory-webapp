@@ -489,8 +489,8 @@ export default function TransactionTableComponent(props) {
                   className={props.theme === "dark" ? "table-bg-dark" : ""}
                 >
                   <TableCell
-                    className="w-31 w-850"
-                    style={{ border: "none" }}
+                    className="w-31"
+                    style={{ border: "none", display: "flex", flexFlow: "nowrap" }}
                     align="left"
                   >
                     {noData == false && (
@@ -502,7 +502,7 @@ export default function TransactionTableComponent(props) {
                           address.filter((addr) => addr?.isChecked == true)
                             .length == address.length : false
                         }
-                        style={{ marginRight: "8px" }}
+                        style={{ marginRight: "8px", marginTop: window.innerWidth < 768 ? "2px" : window.innerWidth > 1240 ? "2px": "3px" }}
                       />
                     )}
                     <span
@@ -928,7 +928,7 @@ export default function TransactionTableComponent(props) {
                           }
                         >
                           <TableCell
-                            style={{ border: "none" }}
+                            style={{ border: "none", display: "flex", flexFlow: "nowrap" }}
                             margin-left="5px"
                           >
                             <input
@@ -938,7 +938,7 @@ export default function TransactionTableComponent(props) {
                               type="checkbox"
                               checked={row?.isChecked || false}
                               //checked={checkAll}
-                              style={{ marginRight: "8px" }}
+                              style={{ marginRight: "8px", marginTop: window.innerWidth < 768 ? "5px" : window.innerWidth > 1240 ? "7px": "8px"}}
                             />
 
                             <a
