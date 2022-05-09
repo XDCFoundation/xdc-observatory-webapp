@@ -1340,6 +1340,10 @@ export default function AddressTableComponent(props) {
                         ? ""
                         : moment(row.Age * 1000).format("MMM DD, YYYY h:mm A");
 
+                        const valueToShowOnTooltip =
+                        row.Value > 0 && row.Value < 1
+                          ? row.Value
+                          : Utility.decimalDivisonOnly(Number(row?.Value), 8);
                       const value =
                         row.Value > 0 && row.Value < 1
                           ? row.Value
@@ -1534,7 +1538,7 @@ export default function AddressTableComponent(props) {
                           >
                             <Tooltip
                               placement="top"
-                              title={format({})(value)}
+                              title={format({})(valueToShowOnTooltip)}
                               classes={{
                                 tooltip:
                                   props.theme === "dark"

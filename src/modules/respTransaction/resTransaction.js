@@ -146,11 +146,11 @@ const ContentHash = styled.div`
     color: #b1c3e1;
     `}
   }
-  @media (min-width: 768px) and (max-width: 1241px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-
+    white-space: nowrap;
     color: #3a3a3a;
     opacity: 1;
     width: 33rem;
