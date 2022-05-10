@@ -1065,7 +1065,17 @@ function SimpleTabs(props) {
           return {
             TransactionHash: item.transactionHash,
             Note: item.trxLable,
-            AddedOn: item.addedOn,
+            AddedOn: `${
+              (item?.modifiedOn &&
+                moment(parseInt(item?.modifiedOn))
+                  .tz(timezone)
+                  .format("MMM DD, YYYY, [\n] hh:mm A")) ||
+              ""
+            } ${
+              (timezone &&
+                Utility.getUtcOffset(timezone)) ||
+              ""
+            }`,
           };
         })
       );
@@ -1092,7 +1102,17 @@ function SimpleTabs(props) {
           return {
             TransactionHash: item.transactionHash,
             Note: item.trxLable,
-            AddedOn: item.addedOn,
+            AddedOn: `${
+              (item?.modifiedOn &&
+                moment(parseInt(item?.modifiedOn))
+                  .tz(timezone)
+                  .format("MMM DD, YYYY, [\n] hh:mm A")) ||
+              ""
+            } ${
+              (timezone &&
+                Utility.getUtcOffset(timezone)) ||
+              ""
+            }`,
           };
         })
       );
@@ -1172,11 +1192,22 @@ function SimpleTabs(props) {
 
       setDownloadTagAddress(
         tempAddress.map((item) => {
+          console.log("address",moment(parseInt(item?.modifiedOn)).tz(timezone).format("MMM DD, YYYY, hh:mm A"))
           return {
             Address: item.address,
             NameTag: item.tagName,
             // AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
-            AddedOn: item?.modifiedOn,
+            AddedOn: `${
+              (item?.modifiedOn &&
+                moment(parseInt(item?.modifiedOn))
+                  .tz(timezone)
+                  .format("MMM DD, YYYY, [\n] hh:mm A")) ||
+              ""
+            } ${
+              (timezone &&
+                Utility.getUtcOffset(timezone)) ||
+              ""
+            }`,
           };
         })
       );
@@ -1203,7 +1234,17 @@ function SimpleTabs(props) {
             Address: item.address,
             NameTag: item.tagName,
             // AddedOn: moment(Number(item?.modifiedOn)).format('MMMM D YYYY, h:mm:ss a'),
-            AddedOn: item?.modifiedOn,
+            AddedOn: `${
+              (item?.modifiedOn &&
+                moment(parseInt(item?.modifiedOn))
+                  .tz(timezone)
+                  .format("MMM DD, YYYY, [\n] hh:mm A")) ||
+              ""
+            } ${
+              (timezone &&
+                Utility.getUtcOffset(timezone)) ||
+              ""
+            }`,
           };
         })
       );

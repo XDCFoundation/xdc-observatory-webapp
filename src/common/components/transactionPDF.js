@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     }
 
 })
+
 const PDF = ({ data }) => (
     <Document>
         <Page size="A4" style={styles.page}>
@@ -126,8 +127,9 @@ const PDF = ({ data }) => (
                                     {row.Note}
                                 </Text>
                                 <View style={styles.tableBodyText}>
-                                    <Text>{moment.utc(moment(row.AddedOn)).format("MMM DD YYYY")}</Text>
-                                    <Text>{moment.utc(moment(row.AddedOn)).format("HH:mm:ss")} UTC+</Text>
+                                    {/* <Text>{moment.utc(moment(row.AddedOn)).format("MMM DD YYYY")}</Text>
+                                    <Text>{moment.utc(moment(row.AddedOn)).format("HH:mm:ss")} UTC+</Text> */}
+                                    <Text>{row.AddedOn}</Text>
                                 </View>
                             </View>
                             <View style={styles.horizontalline}></View>
