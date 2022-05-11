@@ -464,7 +464,7 @@ function AddressDetailsData(props) {
                 : "content_sec"
             }
           >
-            <TransactionTableComponent theme={props.theme.currentTheme}/>
+            <TransactionTableComponent decimal ={responses?.contractResponse?.decimals}theme={props.theme.currentTheme}/>
           </div>
           <div
             className={

@@ -1,4 +1,4 @@
-import { httpService } from "../managers/httpService";
+import { httpService, httpServiceGetmethod } from "../managers/httpService";
 import { httpConstants } from "../constants";
 
 export default {
@@ -14,6 +14,7 @@ export default {
   getListOfHoldersForToken,
   getListOfTokenForAddress,getTokenTransactions,
   gettokenPriceUsingTimestamp,
+  getTokenMethod,
 };
 function getHeaders() {
   return {
@@ -269,6 +270,22 @@ async function getHolderDetailsUsingAddressforToken(data) {
       )
         return Promise.reject();
       return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+
+async function getTokenMethod(data) {
+  let url =
+    "https://raw.githubusercontent.com/ethereum-lists/4bytes/master/signatures/" + data.inputData;
+  return httpServiceGetmethod(httpConstants.METHOD_TYPE.GET, {}, {}, url)
+    .then((response) => {
+      if (
+        !response
+      )
+        return Promise.reject();
+      return Promise.resolve(response);
     })
     .catch(function (err) {
       return Promise.reject(err);

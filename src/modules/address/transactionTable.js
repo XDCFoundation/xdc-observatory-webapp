@@ -22,6 +22,7 @@ import { messages } from "../../constants";
 import PageSelector from "../common/pageSelector";
 
 export default function TransactionTableComponent(props) {
+  console.log(props,"<<<<<<<<")
   const { state } = props;
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -897,6 +898,7 @@ export default function TransactionTableComponent(props) {
                 noData == false && (
                   <TableBody>
                     {address.map((row, index) => {
+                      console.log(row,">>>>>>>>>>>")
                       const currentTime = new Date();
                       const previousTime = new Date(row.timestamp * 1000);
                       const TimeAge = Utility.timeDiff(
@@ -1094,7 +1096,7 @@ export default function TransactionTableComponent(props) {
                                   : "tabledata"
                               }
                             >
-                              {format({})(row.gasUsed)}
+                              {Utility.divideByDecimalValue(row?.gasUsed * row?.gasPrice, props?.decimal ?props?.decimal : 18)}
                             </span>
                           </TableCell>
                         </TableRow>

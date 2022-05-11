@@ -278,7 +278,7 @@ export default function HolderTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: d.value / 1000000000000000000,
+          Value: d.value / 10 ** 18,
         };
       })
     );
@@ -290,7 +290,7 @@ export default function HolderTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: d.value / 1000000000000000000,
+          Value: d.value / 10 ** 18,
         };
       })
     );
@@ -460,22 +460,22 @@ export default function HolderTableComponent(props) {
             }}
           >
             <div style={{
-                 
-                  fontSize: "15px",
-                  textAlign: "center",
-                  color: "#ffffff",
-                  backgroundColor: "#e3e7eb",
-                  borderRadius: "4px",
-                  width: "5.875rem",
-                  height: "2.125rem",
-                }} onClick={() => setExportToolTip(!exportToolTip)}>
+
+              fontSize: "15px",
+              textAlign: "center",
+              color: "#ffffff",
+              backgroundColor: "#e3e7eb",
+              borderRadius: "4px",
+              width: "5.875rem",
+              height: "2.125rem",
+            }} onClick={() => setExportToolTip(!exportToolTip)}>
               <CSVLink
                 filename={"Transactions.csv"}
                 data={downloadaddress}
                 style={{
                   pointerEvents: "none",
                   color: "#ffffff",
-                  
+
                 }}
               >
                 Export
@@ -508,7 +508,7 @@ export default function HolderTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={ address.length > 0 ?
+                      checked={address.length > 0 ?
                         address.filter((addr) => addr?.isChecked == true)
                           .length == address.length : false
                       }
@@ -1000,8 +1000,8 @@ export default function HolderTableComponent(props) {
                                 ? { background: "#192a59" }
                                 : { background: "#f9f9f9" }
                               : props.theme === "dark"
-                              ? { background: "#192a59" }
-                              : { background: "white" }
+                                ? { background: "#192a59" }
+                                : { background: "white" }
                           }
                         >
                           <TableCell
@@ -1130,11 +1130,11 @@ export default function HolderTableComponent(props) {
                                     ? "linkTable fc-4878ff"
                                     : "linkTable"
                                 }
-                                href={"/address-details/" + row.To}
+                                href={"/address-details/" + `${row.To === "xdc" ? props?.contractAddress : row.To}`}
                               >
                                 <Tooltip
                                   placement="top"
-                                  title={row.To}
+                                  title={row.To === "xdc" ? props?.contractAddress : row.To}
                                   classes={{
                                     tooltip:
                                       props.theme === "dark"
@@ -1143,14 +1143,14 @@ export default function HolderTableComponent(props) {
                                   }}
                                 >
                                   <span className="tabledata">
-                                    {shorten(row.To)}
+                                    {row.To === "xdc" ? shorten(props?.contractAddress) : shorten(row.To)}
                                   </span>
                                 </Tooltip>
                               </a>
                             ) : (
                               <Tooltip
                                 placement="top"
-                                title={row.To}
+                                title={row.To === "xdc" ? props?.contractAddress : row.To}
                                 classes={{
                                   tooltip:
                                     props.theme === "dark"
@@ -1159,7 +1159,7 @@ export default function HolderTableComponent(props) {
                                 }}
                               >
                                 <span className="tabledata">
-                                  {shorten(row.To)}
+                                  {row.To === "xdc" ? shorten(props?.contractAddress) : shorten(row.To)}
                                 </span>
                               </Tooltip>
                             )}
@@ -1183,22 +1183,22 @@ export default function HolderTableComponent(props) {
                   </TableBody>
                 )
               )}
-              
+
             </Table>
             {noData == true && (
-              
-              <NoDataFoundContainer>
-            <img
-              src={require("../../../src/assets/images/XDC-Alert.svg")}
-            ></img>
 
-            <div>
-              No transactions found
-            </div>
-          </NoDataFoundContainer>
-        
-            
-          )}
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
+
+                <div>
+                  No transactions found
+                </div>
+              </NoDataFoundContainer>
+
+
+            )}
           </TableContainer>
         </Paper>
         <DeskTopView>
@@ -1231,8 +1231,8 @@ export default function HolderTableComponent(props) {
                       ? "btn-latest-block-dark disabled-dark btn-first"
                       : "btn disabled btn-first"
                     : props.theme === "dark"
-                    ? "btn-latest-block-dark btn-first"
-                    : "btn btn-first"
+                      ? "btn-latest-block-dark btn-first"
+                      : "btn btn-first"
                 }
               >
                 First
@@ -1245,8 +1245,8 @@ export default function HolderTableComponent(props) {
                       ? "btn-latest-block-dark disabled-dark btn-back"
                       : "btn disabled btn-back"
                     : props.theme === "dark"
-                    ? "btn-latest-block-dark  btn-back"
-                    : "btn btn-back"
+                      ? "btn-latest-block-dark  btn-back"
+                      : "btn btn-back"
                 }
               >
                 <img
@@ -1276,8 +1276,8 @@ export default function HolderTableComponent(props) {
                       ? "btn-latest-block-dark disabled-dark"
                       : "btn disabled"
                     : props.theme === "dark"
-                    ? "btn-latest-block-dark  btn-next"
-                    : "btn btn-next"
+                      ? "btn-latest-block-dark  btn-next"
+                      : "btn btn-next"
                 }
               >
                 <img alt="next" src={"/images/next.svg"} />
@@ -1290,17 +1290,17 @@ export default function HolderTableComponent(props) {
                       ? "btn-latest-block-dark disabled-dark"
                       : "btn disabled"
                     : props.theme === "dark"
-                    ? "btn-latest-block-dark  btn-last"
-                    : "btn btn-last"
+                      ? "btn-latest-block-dark  btn-last"
+                      : "btn btn-last"
                 }
               >
                 Last
               </button>
             </Grid>
-          </Grid>:""}
+          </Grid> : ""}
         </DeskTopView>
         <MobileView>
-        {holderTotalTransfersCount >= rowsPerPage ? <Grid
+          {holderTotalTransfersCount >= rowsPerPage ? <Grid
             container
             style={{ marginTop: "1.75rem" }}
             className="Pagination"
@@ -1329,8 +1329,8 @@ export default function HolderTableComponent(props) {
                       ? "btn-latest-block-dark disabled-dark btn-first"
                       : "btn disabled btn-first"
                     : props.theme === "dark"
-                    ? "btn-latest-block-dark btn-first"
-                    : "btn btn-first"
+                      ? "btn-latest-block-dark btn-first"
+                      : "btn btn-first"
                 }
               >
                 First
@@ -1343,8 +1343,8 @@ export default function HolderTableComponent(props) {
                       ? "btn-latest-block-dark disabled-dark btn-back"
                       : "btn disabled btn-back"
                     : props.theme === "dark"
-                    ? "btn-latest-block-dark  btn-back"
-                    : "btn btn-back"
+                      ? "btn-latest-block-dark  btn-back"
+                      : "btn btn-back"
                 }
               >
                 <img
@@ -1374,8 +1374,8 @@ export default function HolderTableComponent(props) {
                       ? "btn-latest-block-dark disabled-dark"
                       : "btn disabled"
                     : props.theme === "dark"
-                    ? "btn-latest-block-dark  btn-next"
-                    : "btn btn-next"
+                      ? "btn-latest-block-dark  btn-next"
+                      : "btn btn-next"
                 }
               >
                 <img alt="next" src={"/images/next.svg"} />
@@ -1388,14 +1388,14 @@ export default function HolderTableComponent(props) {
                       ? "btn-latest-block-dark disabled-dark"
                       : "btn disabled"
                     : props.theme === "dark"
-                    ? "btn-latest-block-dark  btn-last"
-                    : "btn btn-last"
+                      ? "btn-latest-block-dark  btn-last"
+                      : "btn btn-last"
                 }
               >
                 Last
               </button>
             </Grid>
-          </Grid>:""}
+          </Grid> : ""}
         </MobileView>
       </Grid>
     </div>
