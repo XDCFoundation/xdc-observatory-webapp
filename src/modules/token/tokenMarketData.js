@@ -31,7 +31,9 @@ const Heading = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
 `;
@@ -193,105 +195,108 @@ export default function TokenMarketDataTable(props) {
   return (
     <>
       <DeskTopView>
-        <div className={props.theme === "dark" ? "main_mid_token_dark" : "main_mid_token"}>
+        <div
+          className={
+            props.theme === "dark" ? "main_mid_token_dark" : "main_mid_token"
+          }
+        >
           <div className="main_child">
-            <div className={props.theme === "dark" ? "cont-token-data-dark" : "cont-token-data"}>
+            <div
+              className={
+                props.theme === "dark"
+                  ? "cont-token-data-dark"
+                  : "cont-token-data"
+              }
+            >
               <Heading theme={props.theme}>Market Cap </Heading>
               <p>
-                {ReactHtmlParser(CurrencySymbol)}
-                {marketCapVal === 0 ? "--" : marketCapVal}
+                {marketCapVal === 0 ? (
+                  "--"
+                ) : (
+                  <div>
+                    {ReactHtmlParser(CurrencySymbol)}
+                    {marketCapVal}
+                  </div>
+                )}
               </p>
-              {/* <div
-                    className={
-                        MarketCapchange >= 0
-                            ? "data_value_green"
-                            : "data_value_red"
-                    }
-                >
-                    <div className="varMarket">
-                        {MarketCapchange >= 0 ? (
-                            <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
-                            </div>
-                        ) : (
-                            <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
-                            </div>
-                        )}
-                        &nbsp;{MarketCapchange}%
-                    </div>
-                </div> */}
             </div>
-            <div className={props.theme === "dark" ? "cont-token-data-dark" : "cont-token-data"}>
+            <div
+              className={
+                props.theme === "dark"
+                  ? "cont-token-data-dark"
+                  : "cont-token-data"
+              }
+            >
               <Heading theme={props.theme}>Fully Diluted Market Cap</Heading>
               <p>
-                {ReactHtmlParser(CurrencySymbol)}
-                {fullyDilutedMarketCapmarketCapVal === 0 ? "--" : fullyDilutedMarketCapmarketCapVal}
+                {fullyDilutedMarketCapmarketCapVal === 0 ? (
+                  "--"
+                ) : (
+                  <div>
+                    {ReactHtmlParser(CurrencySymbol)}
+                    {fullyDilutedMarketCapmarketCapVal}
+                  </div>
+                )}
               </p>
-              {/*<div
-                    className={
-                        FullyDilutedMarketCapchange >= 0
-                            ? "data_value_green"
-                            : "data_value_red"
-                    }
-                >
-                    <div className="varMarket">
-                        {FullyDilutedMarketCapchange >= 0 ? (
-                            <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
-                            </div>
-                        ) : (
-                            <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
-                            </div>
-                        )}
-                        &nbsp;{FullyDilutedMarketCapchange}%
-                    </div>
-                </div>*/}
             </div>
-            <div className={props.theme === "dark" ? "cont-token-data-dark" : "cont-token-data"}>
+            <div
+              className={
+                props.theme === "dark"
+                  ? "cont-token-data-dark"
+                  : "cont-token-data"
+              }
+            >
               <Heading theme={props.theme}>Volume (24hr)</Heading>
               <p>
-                {ReactHtmlParser(CurrencySymbol)}
-                {val24 === 0 ? "--" : val24}
+                {val24 === 0 ? (
+                  "--"
+                ) : (
+                  <div>
+                    {ReactHtmlParser(CurrencySymbol)}
+                    {val24}
+                  </div>
+                )}
               </p>
-              {/*<div
-                    className={
-                        Volumechange >= 0
-                            ? "data_value_green"
-                            : "data_value_red"
-                    }
-                >
-                    <div className="varMarket">
-                        {Volumechange >= 0 ? (
-                            <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
-                            </div>
-                        ) : (
-                            <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
-                            </div>
-                        )}
-                        &nbsp;{Volumechange}%
-                    </div>
-                </div>*/}
             </div>
           </div>
           <div className="main_sec">
-            <div className={props.theme === "dark" ? "cont-token-data-dark" : "cont-token-data"}>
+            <div
+              className={
+                props.theme === "dark"
+                  ? "cont-token-data-dark"
+                  : "cont-token-data"
+              }
+            >
               <div className="cont1-child">
                 <Heading theme={props.theme}>Circulating Supply</Heading>
                 <p>
-                  {circulatingSupplyVal === 0 ? "--" : circulatingSupplyVal} {symbol}
+                  {circulatingSupplyVal === 0 ? (
+                    "--"
+                  ) : (
+                    <div>
+                      {circulatingSupplyVal}
+                      {symbol}
+                    </div>
+                  )}
                 </p>
               </div>
             </div>
 
-            <div className={props.theme === "dark" ? "cont-token-data-dark cont1_align" : "cont-token-data cont1_align"}>
+            <div
+              className={
+                props.theme === "dark"
+                  ? "cont-token-data-dark cont1_align"
+                  : "cont-token-data cont1_align"
+              }
+            >
               <div className="cont1-child">
                 <Heading theme={props.theme}>Total Supply</Heading>
                 <p>
-                  {totalSupplyVal === 0 ? "--" : utility.convertToInternationalCurrencySystem(totalSupplyVal)}
+                  {totalSupplyVal === 0
+                    ? "--"
+                    : utility.convertToInternationalCurrencySystem(
+                        totalSupplyVal
+                      )}
                 </p>
               </div>
             </div>
@@ -308,30 +313,16 @@ export default function TokenMarketDataTable(props) {
             <div className="mid_cont ">
               {" "}
               <p>
-                {ReactHtmlParser(CurrencySymbol)}
-                {marketCapVal === 0 ? "--" : marketCapVal}
+                {marketCapVal === 0 ? (
+                  "--"
+                ) : (
+                  <div>
+                    {ReactHtmlParser(CurrencySymbol)}
+                    {marketCapVal}
+                  </div>
+                )}
               </p>
             </div>
-            {/* <div
-                    className={
-                        MarketCapchange >= 0
-                            ? "data_value_green"
-                            : "data_value_red"
-                    }
-                >
-                    <div className="varMarket">
-                        {MarketCapchange >= 0 ? (
-                            <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
-                            </div>
-                        ) : (
-                            <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
-                            </div>
-                        )}
-                        &nbsp;{MarketCapchange}%
-                    </div>
-                </div> */}
           </div>
           <div className="second_cont">
             <div className="w-54-per">
@@ -341,30 +332,16 @@ export default function TokenMarketDataTable(props) {
             <div className="mid_cont ">
               {" "}
               <p>
-                {ReactHtmlParser(CurrencySymbol)}
-                {fullyDilutedMarketCapmarketCapVal === 0 ? "--" : fullyDilutedMarketCapmarketCapVal}
+                {fullyDilutedMarketCapmarketCapVal === 0 ? (
+                  "--"
+                ) : (
+                  <div>
+                    {ReactHtmlParser(CurrencySymbol)}
+                    {fullyDilutedMarketCapmarketCapVal}
+                  </div>
+                )}
               </p>
             </div>
-            {/*<div
-                    className={
-                        FullyDilutedMarketCapchange >= 0
-                            ? "data_value_green"
-                            : "data_value_red"
-                    }
-                >
-                    <div className="varMarket">
-                        {FullyDilutedMarketCapchange >= 0 ? (
-                            <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
-                            </div>
-                        ) : (
-                            <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
-                            </div>
-                        )}
-                        &nbsp;{FullyDilutedMarketCapchange}%
-                    </div>
-                </div>*/}
           </div>
           <div className="second_cont">
             <div className="w-54-per">
@@ -373,30 +350,16 @@ export default function TokenMarketDataTable(props) {
             </div>
             <div className="mid_cont ">
               <p>
-                {ReactHtmlParser(CurrencySymbol)}
-                {val24 === 0 ? "--" : val24}
+                {val24 === 0 ? (
+                  "--"
+                ) : (
+                  <div>
+                    {ReactHtmlParser(CurrencySymbol)}
+                    {val24}
+                  </div>
+                )}
               </p>
             </div>
-            {/*<div
-                    className={
-                        Volumechange >= 0
-                            ? "data_value_green"
-                            : "data_value_red"
-                    }
-                >
-                    <div className="varMarket">
-                        {Volumechange >= 0 ? (
-                            <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
-                            </div>
-                        ) : (
-                            <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
-                            </div>
-                        )}
-                        &nbsp;{Volumechange}%
-                    </div>
-                </div>*/}
           </div>
           <div className="second_cont">
             <div className="w-54-per">
@@ -405,7 +368,14 @@ export default function TokenMarketDataTable(props) {
             </div>
             <div className="mid_cont">
               <p>
-                {circulatingSupplyVal === 0 ? "--" : circulatingSupplyVal} {symbol}
+                {circulatingSupplyVal === 0 ? (
+                  "--"
+                ) : (
+                  <div>
+                    {circulatingSupplyVal}
+                    {symbol}
+                  </div>
+                )}
               </p>
             </div>
           </div>
@@ -416,7 +386,11 @@ export default function TokenMarketDataTable(props) {
             </div>
             <div className="mid_cont">
               <p>
-                {totalSupplyVal === 0 ? "--" : utility.convertToInternationalCurrencySystem(totalSupplyVal)}
+                {totalSupplyVal === 0
+                  ? "--"
+                  : utility.convertToInternationalCurrencySystem(
+                      totalSupplyVal
+                    )}
               </p>
             </div>
           </div>
