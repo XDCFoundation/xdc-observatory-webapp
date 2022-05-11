@@ -923,6 +923,7 @@ export default function TransactionTableComponent(props) {
                         currentTime,
                         previousTime
                       );
+                      row["to"] = row?.to && row?.to?.length ? row.to :ContractAddress;
                       return (
                         <TableRow
                           style={
