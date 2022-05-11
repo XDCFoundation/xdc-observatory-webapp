@@ -272,7 +272,7 @@ export default function ManageCookiesDialog(props) {
     }
 
     return <div>
-        {props.open && <div className="overlay-private-alert">
+        {props.open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
         <Dialog
             classes={props.theme === "dark" ? {paperWidthSm: classes.dialogBoxDark} : {paperWidthSm: classes.dialogBox}}
             open={props.open}

@@ -1008,7 +1008,7 @@ export default function HolderTableComponent(props) {
                             style={{ border: "none", width: "22%" }}
                             marginleft="5px"
                           >
-                            <div className="dis-flex input_12">
+                            <div className="holder-tranferTable-checkbox-container">
                               {" "}
                               <input
                                 key={row.id}
@@ -1017,6 +1017,7 @@ export default function HolderTableComponent(props) {
                                 type="checkbox"
                                 checked={row?.isChecked || false}
                                 style={{ marginRight: "8px" }}
+                                className="transfer-checkbox"
                               />
                               <a
                                 className={
@@ -1174,7 +1175,7 @@ export default function HolderTableComponent(props) {
                             >
                               {Number(value) === Number(row.Value)
                                 ? 0
-                                : format({})(parseFloat(value))}
+                                : format({})(value)}
                             </span>
                           </TableCell>
                         </TableRow>

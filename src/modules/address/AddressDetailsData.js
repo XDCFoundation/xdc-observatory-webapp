@@ -125,7 +125,7 @@ function AddressDetailsData(props) {
   let value1 = value.toString().split(".")[0];
   let value2 = value.toString().split(".")[1];
 
-  let changedValue =  data?.balance?Utility.convertToInternationalCurrencySystem(data?.balance * price):"";
+  let changedValue = data?.balance ? Utility.convertToInternationalCurrencySystem(data?.balance * price) : "";
   let changedValue1 = changedValue.toString().split(".")[0];
   let changedValue2 = changedValue.toString().split(".")[1];
 
@@ -167,7 +167,7 @@ function AddressDetailsData(props) {
             changeVal = responseData.priceInUSD.toFixed(6);
         }
         setData({
-          balance: Utility.decimalDivisonOnly(responseAPI?.balance,8),
+          balance: Utility.decimalDivisonOnly(responseAPI?.balance, 8),
           transactionCout: responseData.transactionCount,
           contractName: responseData.contractName,
           creator: responseData.owner,
@@ -195,7 +195,7 @@ function AddressDetailsData(props) {
   };
   let activeCurrency = window.localStorage.getItem("currency");
   let currencySymbol = !price ? "" :
-  activeCurrency === "USD" ? "$" : "€";
+    activeCurrency === "USD" ? "$" : "€";
   const coinMarketCapDetails = async () => {
     let [error, totalcoinMarketPrice] = await Utility?.parseResponse(
       CoinMarketService?.getCoinMarketData(activeCurrency, {})
@@ -216,7 +216,7 @@ function AddressDetailsData(props) {
 
   return (
     <div style={props.theme.currentTheme === "dark" ? { backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
-      <Tokensearchbar theme={props.theme.currentTheme}/>
+      <Tokensearchbar theme={props.theme.currentTheme} />
       <Grid className="table-grid-block-contract ">
         <div>
           <div
@@ -231,7 +231,7 @@ function AddressDetailsData(props) {
           <div className="address_block_main">
             <div className={props.theme.currentTheme === "dark" ? "contractOverview table-bg-dark border-none-dark" : "contractOverview"}>
               <div className="latest">
-                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : "" }>Contract Overview</h1>
+                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : ""}>Contract Overview</h1>
               </div>
               <div className="data">
                 <TableContainer
@@ -248,7 +248,7 @@ function AddressDetailsData(props) {
                         </TableCell>
                         <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
                           {balance2 == null ? (
-                            <span>{balance1?Number(balance1):0} XDC</span>
+                            <span>{balance1 ? Number(balance1) : 0} XDC</span>
                           ) : (
                             <span>
                               {Number(balance1)}
@@ -290,13 +290,13 @@ function AddressDetailsData(props) {
                             </span>
                           )}
                           ) */}
-                         
+
                           {changedValue2 == null ? (
-                            <span>{currencySymbol}&nbsp;{changedValue1 ?changedValue1:0}&nbsp; </span>
+                            <span>{currencySymbol}&nbsp;{changedValue1 ? changedValue1 : 0}&nbsp; </span>
                           ) : (
-                            
+
                             <span>
-                             {currencySymbol} {changedValue1}
+                              {currencySymbol} {changedValue1}
                               {"."}
                               <span style={{ color: "#9FA9BA" }}>
                                 {changedValue2}
@@ -332,7 +332,7 @@ function AddressDetailsData(props) {
 
             <div className={props.theme.currentTheme === "dark" ? "contractSummary table-bg-dark border-none-dark" : "contractSummary"}>
               <div className="latest">
-                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : "" }>Contract Summary</h1>
+                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : ""}>Contract Summary</h1>
               </div>
               <div className="data">
                 <TableContainer
@@ -349,9 +349,9 @@ function AddressDetailsData(props) {
                             Creator
                           </TableCell>
                           <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
-                            {data.creator == "" ? "Not Available":(
+                            {data.creator == "" ? "Not Available" : (
                               <a
-                              className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                                className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
                                 href={"/address-details/" + data.creator}
                               >
                                 <span className="tabledata">
@@ -368,17 +368,17 @@ function AddressDetailsData(props) {
                             Transaction
                           </TableCell>
                           <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
-                          {data.transaction == "" ? "Not Available":(
+                            {data.transaction == "" ? "Not Available" : (
                               <a
-                              className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
-                              href={
-                                "/transaction-details/" + data.transaction
-                              }
-                            >
-                              <span className="tabledata">
-                                {shorten(data?.transaction)}
-                              </span>
-                            </a>
+                                className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                                href={
+                                  "/transaction-details/" + data.transaction
+                                }
+                              >
+                                <span className="tabledata">
+                                  {shorten(data?.transaction)}
+                                </span>
+                              </a>
                             )}
                           </TableCell>
                         </div>
@@ -408,8 +408,8 @@ function AddressDetailsData(props) {
               <button
                 className={
                   toggleState === 2
-                  ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
-                  : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
+                    ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                    : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(2)}
               >
@@ -432,8 +432,8 @@ function AddressDetailsData(props) {
                   <button
                     className={
                       toggleState === 4
-                      ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
-                      : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
+                        ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                        : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                     }
                     onClick={() => toggleTab(4)}
                   >
@@ -442,8 +442,8 @@ function AddressDetailsData(props) {
                   <button
                     className={
                       toggleState === 5
-                      ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
-                      : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
+                        ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
+                        : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
                     }
                     onClick={() => toggleTab(5)}
                   >
@@ -464,7 +464,7 @@ function AddressDetailsData(props) {
                 : "content_sec"
             }
           >
-            <TransactionTableComponent decimal ={responses?.contractResponse?.decimals}theme={props.theme.currentTheme}/>
+            <TransactionTableComponent hash={responses?.contractResponse?.creationTransaction} decimal={responses?.contractResponse?.decimals} theme={props.theme.currentTheme} />
           </div>
           <div
             className={
@@ -481,7 +481,7 @@ function AddressDetailsData(props) {
                 theme={props.theme.currentTheme}
               />
             ) : (
-              <TokenContracttab contractData={responses?.contractResponse} theme={props.theme.currentTheme}/>
+              <TokenContracttab contractData={responses?.contractResponse} theme={props.theme.currentTheme} />
             )}
           </div>
           <div
@@ -519,7 +519,7 @@ function AddressDetailsData(props) {
           {/* </div> */}
         </div>
       </Grid>
-      <FooterComponent  _handleChange={_handleChange} currency={amount} />
+      <FooterComponent _handleChange={_handleChange} currency={amount} />
     </div>
   );
 }

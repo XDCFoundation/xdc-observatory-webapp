@@ -155,13 +155,14 @@ const PDF = ({ data }) => {
                     </View>
 
                     <View style={styles.tableBodyText}>
-                      <Text>
+                      {/* <Text>
                         {moment.utc(moment(parseInt(row.AddedOn))).format("MMM DD YYYY")}
                       </Text>
                       <Text>
                         {moment.utc(moment(parseInt(row.AddedOn))).format("HH:mm:ss")}{" "}
                         UTC+
-                      </Text>
+                      </Text> */}
+                      <Text>{row.AddedOn}</Text>
                     </View>
                   </View>
                   <View style={styles.horizontalline}></View>

@@ -93,7 +93,7 @@ class XDCBalanceGraph extends BaseComponent {
     const transactionCount = [];
     for (let index = 0; index < data.length; index++) {
       const x = data[index].date;
-      xdcBalance.push({ x, y: data[index].currentBalance / 10 ** 18 });
+      xdcBalance.push({ x, y: Math.abs(data[index].currentBalance / 10 ** 18 )});
       historicUSDPrice.push({ x, y: data[index].priceInUSD });
       transactionCount.push({ x, y: data[index].totalDocument });
     }

@@ -979,6 +979,7 @@ export default function FormDialog(props) {
       setErrorCaptcha("Please verify the captcha");
       return;
     } else {
+      setLoading(true);
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
         authObject.forgotPassword(email)
@@ -1126,7 +1127,7 @@ export default function FormDialog(props) {
         ""
       )}
       {/* <div className="dialogboxModal"> */}
-      {open && <div className="overlay-private-alert">
+      {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
       <Dialog
         classes={{
           paperWidthSm:
@@ -1148,6 +1149,7 @@ export default function FormDialog(props) {
         </div>
         {value === 0 ? (
           <div>
+            {console.log("Open:",open)}
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
             <Row>
               <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
@@ -1212,7 +1214,6 @@ export default function FormDialog(props) {
               </DialogContentText>
 
               <input
-                type="password"
                 type={passwordShown ? "text" : "password"}
                 id={passwordShown ? "text" : "password"}
                 placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
@@ -1711,7 +1712,7 @@ export default function FormDialog(props) {
                 // validateEmail();
                 forgotpassword();
               }}
-              // disabled={!email}
+              disabled={isLoading}
             >
               Reset Password
             </button>

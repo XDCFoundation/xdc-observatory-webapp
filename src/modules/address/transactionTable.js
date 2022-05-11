@@ -24,7 +24,6 @@ import PageSelector from "../common/pageSelector";
 export default function TransactionTableComponent(props) {
   console.log(props,"<<<<<<<<")
   const { state } = props;
-
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
       b.length - 3,
@@ -38,6 +37,7 @@ export default function TransactionTableComponent(props) {
   const [address, setAddress] = useState([]);
   const [ContractAddress, setContractAddress] = useState(addressNumber);
   const [keywords, setKeywords] = useState("");
+  const [creationTransaction, setCreationTransaction] = useState("");
   const [reportaddress, setReportaddress] = useState([]);
   const [downloadaddress, setDownloadaddress] = useState([]);
   const [isDownloadActive, setDownloadActive] = useState(0);
@@ -64,6 +64,8 @@ export default function TransactionTableComponent(props) {
   });
   const getContractDetails = async (values) => {
     try {
+      if(creationTransaction) 
+        values["hash"] = creationTransaction;
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(values)
       );
@@ -74,9 +76,11 @@ export default function TransactionTableComponent(props) {
         setLoading(false);
         return;
       }
+      setNoData(false)
       let transactionSortByValue = responseData.sort((a, b) => {
         return Number(b.value) - Number(a.value);
       });
+
       setVisibleCount(responseData.length);
       if (transactionSortByValue && transactionSortByValue.length > 0) {
         setAddress(transactionSortByValue);
@@ -114,6 +118,7 @@ export default function TransactionTableComponent(props) {
         perpage: amount,
         keywords: searchkeyword,
         addrr: ContractAddress,
+        hash: props?.hash,
       };
       getContractDetails(datas);
     }
@@ -126,6 +131,7 @@ export default function TransactionTableComponent(props) {
         perpage: amount,
         addrr: ContractAddress,
         keywords: "",
+        hash: props?.hash,
       };
       getContractDetails(datas);
     }
@@ -139,6 +145,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
+          hash: props?.hash,
         };
         getContractDetails(datas);
       } else {
@@ -147,6 +154,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: "",
+          hash: props?.hash,
         };
         getContractDetails(datas);
       }
@@ -161,6 +169,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
+          hash: props?.hash,
         };
         getContractDetails(datas);
       } else {
@@ -169,6 +178,7 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
+          hash: props?.hash,
         };
         getContractDetails(datas);
       }
@@ -184,6 +194,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
           getContractDetails(datas);
         } else {
@@ -192,6 +203,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
 
           getContractDetails(datas);
@@ -209,6 +221,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
           getContractDetails(datas);
         } else {
@@ -217,6 +230,7 @@ export default function TransactionTableComponent(props) {
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
+            hash: props?.hash,
           };
           getContractDetails(datas);
         }
@@ -231,6 +245,7 @@ export default function TransactionTableComponent(props) {
       perpage: event.target.value,
       addrr: ContractAddress,
       keywords: keywords,
+      hash: props?.hash,
     };
     getContractDetails(datas);
   };
@@ -295,12 +310,15 @@ export default function TransactionTableComponent(props) {
     }
   };
   React.useEffect(() => {
+
     setContractAddress(addressNumber);
+    setCreationTransaction(props?.contractData?.creationTransaction)
     let values = {
       addrr: ContractAddress,
       pageNum: from,
       perpage: amount,
       keywords: keywords,
+      hash: props?.hash,
     };
     getContractDetails(values);
     let data = {
@@ -308,7 +326,7 @@ export default function TransactionTableComponent(props) {
     };
     getTransactionsCountForAddress(data);
     setLoading(false);
-  }, []);
+  }, [props.hash]);
   const classes = useStyles();
   const history = useHistory();
 
@@ -478,8 +496,8 @@ export default function TransactionTableComponent(props) {
                   className={props.theme === "dark" ? "table-bg-dark" : ""}
                 >
                   <TableCell
-                    className="w-31 w-850"
-                    style={{ border: "none" }}
+                    className="w-31"
+                    style={{ border: "none", display: "flex", flexFlow: "nowrap" }}
                     align="left"
                   >
                     {noData == false && (
@@ -487,11 +505,11 @@ export default function TransactionTableComponent(props) {
                         onChange={handleChanged}
                         type="checkbox"
                         name="allselect"
-                        checked={
+                        checked={ address.length > 0 ?
                           address.filter((addr) => addr?.isChecked == true)
-                            .length == address.length
+                            .length == address.length : false
                         }
-                        style={{ marginRight: "8px" }}
+                        style={{ marginRight: "8px", marginTop: window.innerWidth < 768 ? "2px" : window.innerWidth > 1240 ? "2px": "3px" }}
                       />
                     )}
                     <span
@@ -905,6 +923,7 @@ export default function TransactionTableComponent(props) {
                         currentTime,
                         previousTime
                       );
+                      row["to"] = row?.to && row?.to?.length ? row.to :ContractAddress;
                       return (
                         <TableRow
                           style={
@@ -918,7 +937,7 @@ export default function TransactionTableComponent(props) {
                           }
                         >
                           <TableCell
-                            style={{ border: "none" }}
+                            style={{ border: "none", display: "flex", flexFlow: "nowrap" }}
                             margin-left="5px"
                           >
                             <input
@@ -928,7 +947,7 @@ export default function TransactionTableComponent(props) {
                               type="checkbox"
                               checked={row?.isChecked || false}
                               //checked={checkAll}
-                              style={{ marginRight: "8px" }}
+                              style={{ marginRight: "8px", marginTop: window.innerWidth < 768 ? "5px" : window.innerWidth > 1240 ? "7px": "8px"}}
                             />
 
                             <a

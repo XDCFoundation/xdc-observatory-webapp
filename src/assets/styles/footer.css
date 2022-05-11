@@ -68,11 +68,11 @@ label {
 @media (max-width: 767px) {
   .footer_base {
     padding: 0px;
-    margin: 0px;
+    margin: 30px 0 0 0;
   }
   .footer_base-dark {
     padding: 0px;
-    margin: 0px;
+    margin: 30px 0 0 0;
   }
 }
 .footer {
@@ -259,9 +259,15 @@ ul {
 }
 
 .select-icon {
-  padding-left: 0px;
+  margin-right: 0px;
   width: 20px;
   height: 20px;
+}
+#currency-menu-item-usd > div > div {
+  padding: 0 25px 0 7px !important;
+}
+#currency-menu-item-euro > div > div {
+  padding: 0 25px 0 7px !important;
 }
 .inline {
   display: inline;

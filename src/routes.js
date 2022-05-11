@@ -49,7 +49,7 @@ const AddressDetailsData = withRouter(lazy(() => import('./modules/address/Addre
 const ContractComponent = withRouter(lazy(() => import('./modules/dashboard')));
 const ContractTab = withRouter(lazy(() => import('./modules/dashboard/contractTab')));
 const AccountProfile = withRouter(lazy(() => import('./modules/explorer/accountProfile')));
-const Transaction = withRouter(lazy(() => import('./modules/resp_transaction/resTransaction')));
+const Transaction = withRouter(lazy(() => import('./modules/respTransaction/resTransaction')));
 const TransferDetailsUi = withRouter(lazy(() => import('./modules/Transfertransactiondetails/transferTransactionDetails')));
 const BlockDetails = withRouter(lazy(() => import('./modules/explorer/newblockDetail')));
 // const LoaderComponent =withRouter(lazy(() => import('./common/components/loader')));

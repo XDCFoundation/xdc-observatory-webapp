@@ -213,7 +213,7 @@ function FooterComponent(props) {
                             >
                                 {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
                                 <MenuItem
-                                    id="cureency"
+                                    id="currency-menu-item-usd"
                                     value="USD"
                                     style={{
                                         outline: "0",
@@ -228,6 +228,7 @@ function FooterComponent(props) {
                                     </span>
                                 </MenuItem>
                                 <MenuItem
+                                    id="currency-menu-item-euro"
                                     value="EUR"
                                     style={{
                                         outline: "0",

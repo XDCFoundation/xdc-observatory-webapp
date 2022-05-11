@@ -12,16 +12,16 @@ import FormControl from "@material-ui/core/FormControl";
 import PutWatchlist from "../../services/user";
 import utility, { dispatchAction } from "../../utility";
 import { WatchListService } from "../../services";
-import {cookiesConstants, eventConstants, genericConstants} from "../../constants";
+import {
+  cookiesConstants,
+  eventConstants,
+  genericConstants,
+} from "../../constants";
 import { connect } from "react-redux";
-import {sessionManager} from "../../managers/sessionManager";
+import { sessionManager } from "../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   add: {
-    // marginLeft: "80%",
-    // backgroundColor: "#f5f8fa",
-    // fontFamily: "Roboto",
-    // fontStyle: "normal",
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
@@ -69,24 +69,6 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     marginBottom: "21px",
   },
-  // addbtn: {
-  //   width: "110px",
-  // height: "34px",
-  // margin: "33px 0 0 21px",
-  // padding: "8px 30px 7px 32px",
-  // borderRadius: "4px",
-  // backgroundColor: "#3763dd",
-  // },
-  // cnlbtn: {
-  //   width: "94px",
-  // height: "34px",
-  // margin: "33px 21px 0 87px",
-  // padding: "8px 19px 7px 21px",
-  // borderRadius: "4px",
-  // backgroundColor: "#9fa9ba",
-
-  // },
-
   updatebtn: {
     width: "110px",
     height: "34px",
@@ -105,16 +87,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "Red",
     color: "white",
   },
-
   cnlbtn: {
     width: "94px",
     height: "34px",
-    // margin: "33px 21px 0 87px",
-    // padding: "8px 19px 7px 21px",
     borderRadius: "4px",
     backgroundColor: "#9fa9ba",
     color: "white",
-
     margin: "14px 8px 15px 2px",
     padding: "6px 19px 3px 20px",
   },
@@ -201,14 +179,13 @@ function EditWatchList(props) {
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
-    // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
   useEffect(() => {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
     setId(props.row._id);
-    setValue(props?.row?.notification?.type)
+    setValue(props?.row?.notification?.type);
   }, [props]);
 
   const classes = useStyles();
@@ -226,25 +203,27 @@ function EditWatchList(props) {
   };
 
   const handleLogin = () => {
-    //   history.push("/loginprofile")
     setOpen(false);
   };
 
   const [descError, setDescError] = React.useState("");
   const validateAddress = () => {
-    if (!(address && address.length === 43) || !(address.slice(0, 3) === "xdc")) {
+    if (
+      !(address && address.length === 43) ||
+      !(address.slice(0, 3) === "xdc")
+    ) {
       setError("Address should start with xdc and consist of 43 characters");
-      return
+      return;
     }
-    if(!description) {
+    if (!description) {
       setDescError("Please enter description");
-      return
+      return;
     }
     if (description && description.length > 220) {
       setDescError("Description should be maximum 220 characters");
-      return
+      return;
     }
-    return true
+    return true;
   };
 
   const watchListService = async () => {
@@ -254,11 +233,10 @@ function EditWatchList(props) {
       // description: description,
       notification: {
         type: value,
-        isEnabled: value === "NO" ? false : true
-      }
+        isEnabled: value === "NO" ? false : true,
+      },
     };
     if (validateAddress()) {
-      // validateAddress();
       const [error, response] = await utility.parseResponse(
         PutWatchlist.putWatchlist(request)
       );
@@ -266,36 +244,37 @@ function EditWatchList(props) {
         utility.apiFailureToast("Error");
       } else {
         let watchlists = localStorage.getItem(
-            sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST
+          sessionManager.getDataFromCookies("userId") +
+            cookiesConstants.USER_ADDRESS_WATCHLIST
         );
         watchlists = JSON.parse(watchlists);
-          const data = {
-            description: description,
-            address: address,
-            [request.address] : description
-          };
-          if (!watchlists) {
-            watchlists = []
-            watchlists.push(data);
-          }
-          else {
-            let addr = [request.address];
-            let tempCount = 0;
-            let searchedAddress = false;
-            watchlists.map((item,index) => {
-              if(item.address == addr) {
-                watchlists[index] = data;
-                searchedAddress = true;
-              }
-              tempCount++;
-              if(tempCount === watchlists.length && !searchedAddress) {
-                watchlists.push(data);
-              }
-            })
-          }
+        const data = {
+          description: description,
+          address: address,
+          [request.address]: description,
+        };
+        if (!watchlists) {
+          watchlists = [];
+          watchlists.push(data);
+        } else {
+          let addr = [request.address];
+          let tempCount = 0;
+          let searchedAddress = false;
+          watchlists.map((item, index) => {
+            if (item.address == addr) {
+              watchlists[index] = data;
+              searchedAddress = true;
+            }
+            tempCount++;
+            if (tempCount === watchlists.length && !searchedAddress) {
+              watchlists.push(data);
+            }
+          });
+        }
         localStorage.setItem(
-            sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST,
-            JSON.stringify(watchlists)
+          sessionManager.getDataFromCookies("userId") +
+            cookiesConstants.USER_ADDRESS_WATCHLIST,
+          JSON.stringify(watchlists)
         );
         utility.apiSuccessToast("Address Updated");
         handleClose();
@@ -305,17 +284,6 @@ function EditWatchList(props) {
     }
   };
 
-  // const watchListService = async () => {
-  //   const request = {
-  //     _id: props.row._id,
-  //     address: address,
-  //     description: description,
-  //   };
-  //   validateAddress();
-  //   const response = PutWatchlist.putWatchlist(request);
-  //   utility.apiSuccessToast("Changes updated successfully")
-  //   window.location.reload();
-  // };
   const handleDelete = async (watchlist) => {
     if (props?.row?._id) {
       props.dispatchAction(eventConstants.SHOW_LOADER, true);
@@ -330,23 +298,24 @@ function EditWatchList(props) {
         return;
       }
       let watchlists = localStorage.getItem(
-        sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST
+        sessionManager.getDataFromCookies("userId") +
+          cookiesConstants.USER_ADDRESS_WATCHLIST
       );
       watchlists = JSON.parse(watchlists);
-      watchlists = watchlists.filter((item) => item.address !== props.row.address);
+      watchlists = watchlists.filter(
+        (item) => item.address !== props.row.address
+      );
       localStorage.setItem(
-        sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST,
+        sessionManager.getDataFromCookies("userId") +
+          cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchlists)
       );
       if (watchlists.length === 0) {
-        localStorage.removeItem(sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_ADDRESS_WATCHLIST);
+        localStorage.removeItem(
+          sessionManager.getDataFromCookies("userId") +
+            cookiesConstants.USER_ADDRESS_WATCHLIST
+        );
       }
-      // let items =JSON.parse(localStorage.getItem("item"));
-      // items = items.filter((item) => item.id !== id);
-      // localStorage.setItem("item", JSON.stringify(items));
-      // if (items.length === 0) {
-      //   localStorage.removeItem("item");
-      // }
       await utility.apiSuccessToast(genericConstants.WATCHLIST_DELETED);
       await handleClose();
       await props.getWatchlistList();
@@ -364,128 +333,136 @@ function EditWatchList(props) {
       </div>
 
       <div>
-      {open && <div className="overlay-private-alert">
-        <Dialog
-          classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-          style={{position: "absolute", zIndex: 10000}}
-        >
-          <div>
-          <Row>
-            <div className={classes.heading} id="form-dialog-title">
-              Edit Watchlist
-            </div>
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Address
-            </DialogContentText>
-            <input
-              value={address}
-              readOnly
-              className={classes.input}
-              onChange={(e) => {
-                setAddress(e.target.value);
-                setError("");
-              }}
-            ></input>
-            {error ? <div className={classes.error}>{error}</div> : <></>}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Description
-            </DialogContentText>
-
-            <input
-              type="text"
-              value={description}
-              className={classes.input}
-              onChange={(e) => setDescription(e.target.value)}
-            ></input>
-            {descError ? <div className={classes.error}>{descError}</div> : <></>}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Notifications
-            </DialogContentText>
-            <FormControl
-              component="fieldset"
-              style={{ backgoundColor: "red !important" }}
-              className={classes.main_div}
+        {open && (
+          <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
+            <Dialog
+              classes={{ paperWidthSm: classes.dialogBox }}
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+              style={{ position: "absolute", zIndex: 10000 }}
             >
-              <RadioGroup
-                aria-label="gender"
-                name="type"
-                className={classes.radio}
-                style={{ margin: "-5px 28px -3px -10px" }}
-                value={value}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  className="radio-inside-dot"
-                  value="NO"
-                  control={<Radio style={{ color: "#979797" }} />}
-                  classes={{ label: classes.notifyLabel }}
-                  style={{ margin: "5px 2px -5px -5px" }}
-                  label="No Notifications"
-                />
-                <FormControlLabel
-                  className="radio-inside-dot"
-                  value="INOUT"
-                  control={<Radio style={{ color: "#979797" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  classes={{ label: classes.notifyLabel }}
-                  label="Notify on Incoming & Outgoing Transactions"
-                />
-                <FormControlLabel
-                  className="radio-inside-dot"
-                  value="IN"
-                  control={<Radio style={{ color: "#979797" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  classes={{ label: classes.notifyLabel }}
-                  label="Notify on Incoming (Receive) Transactions Only"
-                />
-                {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Transactions Only" /> */}
-                <FormControlLabel
-                  className="radio-inside-dot"
-                  value="OUT"
-                  control={<Radio style={{ color: "#979797" }} />}
-                  classes={{ label: classes.notifyLabel }}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  label="Notify on Outgoing (Sent) Transactions Only"
-                />
-              </RadioGroup>
-            </FormControl>
-          </DialogContent>
-          <DialogActions className={classes.buttons}>
-            <div>
-              <span>
-                <button className={classes.deletebtn} onClick={handleDelete}>
-                  Delete
-                </button>
-              </span>
-            </div>
-            <div className={classes.flexButton}>
-              <span>
-                <button className={classes.cnlbtn} onClick={handleLogin}>
-                  Cancel
-                </button>
-              </span>
-              <span>
-                <button
-                  className={classes.updatebtn}
-                  onClick={watchListService}
-                >
-                  Update
-                </button>
-              </span>
-            </div>
-          </DialogActions>
+              <div>
+                <Row>
+                  <div className={classes.heading} id="form-dialog-title">
+                    Edit Watchlist
+                  </div>
+                </Row>
+                <DialogContent>
+                  <DialogContentText className={classes.subCategory}>
+                    Address
+                  </DialogContentText>
+                  <input
+                    value={address}
+                    readOnly
+                    className={classes.input}
+                    onChange={(e) => {
+                      setAddress(e.target.value);
+                      setError("");
+                    }}
+                  ></input>
+                  {error ? <div className={classes.error}>{error}</div> : <></>}
+                </DialogContent>
+                <DialogContent>
+                  <DialogContentText className={classes.subCategory}>
+                    Description
+                  </DialogContentText>
+                  {console.log("description",description)}
+                  <input
+                    type="text"
+                    value={description}
+                    className={classes.input}
+                    onChange={(e) => setDescription(e.target.value)}
+                  ></input>
+                  {descError ? (
+                    <div className={classes.error}>{descError}</div>
+                  ) : (
+                    <></>
+                  )}
+                </DialogContent>
+                <DialogContent>
+                  <DialogContentText className={classes.subCategory}>
+                    Notifications
+                  </DialogContentText>
+                  <FormControl
+                    component="fieldset"
+                    style={{ backgoundColor: "red !important" }}
+                    className={classes.main_div}
+                  >
+                    <RadioGroup
+                      aria-label="gender"
+                      name="type"
+                      className={classes.radio}
+                      style={{ margin: "-5px 28px -3px -10px" }}
+                      value={value}
+                      onChange={handleChange}
+                    >
+                      <FormControlLabel
+                        className="radio-inside-dot"
+                        value="NO"
+                        control={<Radio style={{ color: "#979797" }} />}
+                        classes={{ label: classes.notifyLabel }}
+                        style={{ margin: "5px 2px -5px -5px" }}
+                        label="No Notifications"
+                      />
+                      <FormControlLabel
+                        className="radio-inside-dot"
+                        value="INOUT"
+                        control={<Radio style={{ color: "#979797" }} />}
+                        style={{ margin: "-5px 26px -5px -5px" }}
+                        classes={{ label: classes.notifyLabel }}
+                        label="Notify on Incoming & Outgoing Transactions"
+                      />
+                      <FormControlLabel
+                        className="radio-inside-dot"
+                        value="IN"
+                        control={<Radio style={{ color: "#979797" }} />}
+                        style={{ margin: "-5px 26px -5px -5px" }}
+                        classes={{ label: classes.notifyLabel }}
+                        label="Notify on Incoming (Receive) Transactions Only"
+                      />
+                      <FormControlLabel
+                        className="radio-inside-dot"
+                        value="OUT"
+                        control={<Radio style={{ color: "#979797" }} />}
+                        classes={{ label: classes.notifyLabel }}
+                        style={{ margin: "-5px 26px -5px -5px" }}
+                        label="Notify on Outgoing (Sent) Transactions Only"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </DialogContent>
+                <DialogActions className={classes.buttons}>
+                  <div>
+                    <span>
+                      <button
+                        className={classes.deletebtn}
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </button>
+                    </span>
+                  </div>
+                  <div className={classes.flexButton}>
+                    <span>
+                      <button className={classes.cnlbtn} onClick={handleLogin}>
+                        Cancel
+                      </button>
+                    </span>
+                    <span>
+                      <button
+                        className={classes.updatebtn}
+                        onClick={watchListService}
+                      >
+                        Update
+                      </button>
+                    </span>
+                  </div>
+                </DialogActions>
+              </div>
+            </Dialog>
           </div>
-        </Dialog>
-      </div>}
+        )}
       </div>
     </div>
   );

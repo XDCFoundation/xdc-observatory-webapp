@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttons: {
     justifyContent: "space-between",
-    padding: "10px 35px 15px 0px",
+    padding: "10px 24px 15px 24px",
   },
   input: {
     width: "506px",
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   deletebtn: {
     width: "110px",
     height: "34px",
-    margin: "14px 0px 15px 20px",
+    margin: "14px 0px 15px 0px",
     borderRadius: "4px",
     backgroundColor: "Red",
     color: "white",
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
   updatebtn: {
     width: "110px",
     height: "34px",
-    margin: "14px -8px 15px 2px",
+    margin: "14px 0px 15px 0px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     color: "white",
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     backgroundColor: "#9fa9ba",
     color: "white",
-    margin: "14px 8px 15px 2px",
+    margin: "14px 10px 15px 0px",
   },
   cnlbtnDark: {
     width: "94px",
@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     backgroundColor: "#192a59",
     color: "white",
-    margin: "14px 8px 15px 2px",
+    margin: "14px 10px 15px 0px",
     border: "solid 1px #3552a5",
   },
   subCategory: {
@@ -163,6 +163,12 @@ const useStyles = makeStyles((theme) => ({
     },
     flexButton: {
       display: "flex",
+    },
+    deletebtn: {
+      width: "108px",
+    },
+    updatebtn: {
+      width: "108px",
     },
   },
 }));
@@ -341,7 +347,7 @@ function EditTaggedAddress(props) {
       </div>
 
       <div>
-      {open && <div className="overlay-private-alert">
+      {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
         <Dialog
           classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
@@ -411,13 +417,11 @@ function EditTaggedAddress(props) {
           {/* <------------------------------------------------------------------------------------------------------------------> */}
 
           <DialogActions className={classes.buttons}>
-            <div>
-              <span>
-                <button className={classes.deletebtn} onClick={handleDelete}>
-                  Delete
-                </button>
-              </span>
-            </div>
+            <span>
+              <button className={classes.deletebtn} onClick={handleDelete}>
+                Delete
+              </button>
+            </span>
             <div className={classes.flexButton}>
               <span>
                 <button className={props.theme === "dark" ? classes.cnlbtnDark : classes.cnlbtn} onClick={handleClose}>
