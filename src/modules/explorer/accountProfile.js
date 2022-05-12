@@ -1383,15 +1383,10 @@ function SimpleTabs(props) {
               />
               <Tab
                 label="Transaction Private Note"
-                className={classes.txnprivate}
-                className={
-                  value === 1
-                    ? props.theme.currentTheme === "dark"
-                      ? classes.tab1Dark
-                      : classes.tab1
-                    : props.theme.currentTheme === "dark"
-                    ? classes.tab2Dark
-                    : classes.tab2
+                // className={classes.txnprivate}
+                className={value === 1 
+                  ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
+                  : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
                 }
                 style={{
                   borderBottom:
@@ -1402,15 +1397,10 @@ function SimpleTabs(props) {
               />
               <Tab
                 label="Tagged Address"
-                className={classes.address}
-                className={
-                  value === 2
-                    ? props.theme.currentTheme === "dark"
-                      ? classes.tab1Dark
-                      : classes.tab1
-                    : props.theme.currentTheme === "dark"
-                    ? classes.tab2Dark
-                    : classes.tab2
+                // className={classes.address}
+                className={value === 2 
+                  ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
+                  : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
                 }
                 style={{
                   borderBottom:
