@@ -982,6 +982,13 @@ const ContentInteractedWith = styled.div`
     opacity: 1;
   }
 `;
+const subContentInteractedWith = styled.span`
+  display: flex;
+  justify-content: space-between;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    justify-content: normal
+  }
+`;
 const InteractedWithNextRow = styled.div`
   display: flex;
 `;
@@ -1010,6 +1017,9 @@ const ImgProfileIcon = styled.img`
 
 const ImgCopyGrey = styled.img`
   width: 25px;
+  @media (min-width: 0px) and (max-width: 1240px) {
+    width: 22px;
+  }
 `;
 
 const ImgNextArrowLine = styled.img`
@@ -1039,6 +1049,21 @@ const BlackText = styled.span`
     `
     color: #ffffff;
   `}
+`;
+
+const BlackTextNowrap = styled.span`
+  color: #2a2a2a;
+  margin-left: 2px;
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
+    color: #ffffff;
+  `}
+  @media (min-width: 768px) and (max-width: 1241px) {
+    margin-right 10px;
+    white-space: nowrap;
+    margin-top: -26px;
+  }
 `;
 
 const BlueText = styled.span`
@@ -2328,26 +2353,26 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                     <MiddleContainer isTextArea={false}>
                       <MainContainerInteractedWith>
                         <ContentInteractedWith>
-                          <BlackText theme={theme.currentTheme}>
+                          <BlackTextNowrap theme={theme.currentTheme}>
                             Contract
-                          </BlackText>
+                          </BlackTextNowrap>
                           &nbsp;
-                          <span>
+                          <subContentInteractedWith>
                             <a
                               className="linkTableDetails-transaction"
                               href={"#"}
                             >
                               xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                             </a>
-                          </span>
-                          &nbsp;&nbsp;
+                            &nbsp;&nbsp;
+                            <ImgCopyGrey src="/images/copy-grey.svg" />
+                          </subContentInteractedWith>
                           {/* (
                           <BlackText theme={theme.currentTheme}>
                             FleekApp
                           </BlackText>
                           )
                           <ImgInteracted src="/images/success.svg" /> */}
-                          <ImgCopyGrey src="/images/copy-grey.svg" />
                         </ContentInteractedWith>
                         {/* <InteractedWithNextRow>
                           <ImgNewLine src="/images/linked.svg" />
@@ -2594,11 +2619,11 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                       <MiddleContainer isTextArea={false}>
                         <MainContainerInteractedWith>
                           <ContentInteractedWith>
-                            <BlackText theme={theme.currentTheme}>
+                            <BlackTextNowrap theme={theme.currentTheme}>
                               Contract
-                            </BlackText>
+                            </BlackTextNowrap>
                             &nbsp;
-                            <span>
+                            <subContentInteractedWith>
                               <a
                                 className={
                                   theme.currentTheme === "dark"
@@ -2609,15 +2634,15 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                               >
                                 xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
                               </a>
-                            </span>
-                            &nbsp;&nbsp;
+                              &nbsp;&nbsp;
+                            <ImgCopyGrey src="/images/copy-grey.svg" />
+                            </subContentInteractedWith>
                             {/* (
                             <BlackText theme={theme.currentTheme}>
                               FleekApp
                             </BlackText>
                             )
                             <ImgInteracted src="/images/success.svg" /> */}
-                            <ImgCopyGrey src="/images/copy-grey.svg" />
                           </ContentInteractedWith>
                           {/* <InteractedWithNextRow>
                             <ImgNewLine src="/images/linked.svg" />

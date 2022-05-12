@@ -172,10 +172,10 @@ const useStyles = makeStyles((theme) => ({
     // flexGrow: 1,
     // backgroundColor: "#f8f9fa00",
     // width: "100vw",
-    maxWidth: "1190px",
+    maxWidth: "1202px",
     margin: "auto",
     borderRadius: "none",
-    padding: "10px 15px",
+    padding: "10px 0px",
     justifyContent: "space-around",
     textTransform: "none",
   },
@@ -439,14 +439,13 @@ const UserNameContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   margin: 40px auto;
-  gap: 15px;
   font-family: Inter;
   font-size: 18px;
   font-weight: 600;
-  max-width: 1190px;
+  max-width: 1202px;
   width: 100%;
   align-items: center;
-
+  justify-content: space-between;
   @media (min-width: 768px) and (max-width: 1240px) {
     gap: 32px;
   }
