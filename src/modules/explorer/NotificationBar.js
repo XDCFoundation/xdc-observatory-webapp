@@ -241,13 +241,13 @@ function TemporaryDrawer(props) {
             onClick={clearNotification}
           >
             Clear all
-          </div> */}
-          {/* <div
+          </div>  */}
+         <div
             className="Notification-header-text-color-fade cursor-pointer"
             onClick={handleEdit}
           >
             Edit
-          </div> */}
+          </div>
         </NoticationClear>
         <div className={classes.drawerHeader}>
           <IconButton

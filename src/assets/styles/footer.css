@@ -68,11 +68,11 @@ label {
 @media (max-width: 767px) {
   .footer_base {
     padding: 0px;
-    margin: 0px;
+    margin: 30px 0 0 0;
   }
   .footer_base-dark {
     padding: 0px;
-    margin: 0px;
+    margin: 30px 0 0 0;
   }
 }
 .footer {
