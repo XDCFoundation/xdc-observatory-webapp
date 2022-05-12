@@ -481,12 +481,12 @@ export default function Navbar(props) {
           </p>
           <hr className="myhr" />
         </ul>
-        {/* <ul className="Network-list-nav">
+        <ul className="Network-list-nav">
           <a className="sidebar-links" href="/blockchain-identity">
             <div className="xinfin_account_button">Blockchain Identity</div>
           </a>
           <hr className="myhr" />
-        </ul> */}
+        </ul>
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
@@ -1024,22 +1024,22 @@ export default function Navbar(props) {
                 {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
               </div>
               <div>
-                {/* <div
+                <div
                   exact
                   activeClassName="active-t"
                   onClick={handleTokenPopover}
                   className="Token cursor-pointer"
                 >
                   Tokens
-                </div> */}
-                <a
+                </div>
+                {/* <a
                   exact
                   activeClassName="active-t"
                   href={"/tokens"}
                   className="Token"
                 >
                   Tokens
-                </a>
+                </a> */}
               </div>
             </Row>
             <Row alignItems="center">

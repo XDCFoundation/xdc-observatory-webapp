@@ -396,7 +396,7 @@ export default function Navbar(props) {
           </p>
           <hr className="myhr" />
         </ul>
-        {/* <ul className="Network-list-nav">
+        <ul className="Network-list-nav">
           <a
             className="sidebar-links"
             href="/blockchain-identity"
@@ -404,7 +404,7 @@ export default function Navbar(props) {
             <div className="xinfin_account_button">Blockchain Identity</div>
           </a>
           <hr className="myhr" />
-        </ul> */}
+        </ul>
         <ul className="Network-list-nav">
           <a
             className="sidebar-links"
@@ -847,7 +847,7 @@ export default function Navbar(props) {
     font-size: 0.875rem;
   }
   `;
-  const NavigationButton = styled.a`
+  const NavigationButton = styled.div`
   text-decoration :  none;
   cursor: pointer;
   padding: 5px 20px;
@@ -983,15 +983,16 @@ export default function Navbar(props) {
                   {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
                   <TokenPopover open={isTokenPopver} handleClose={closeTokenPopover} />
                 </div>
-                <div>
-                <a
-                  exact
-                  activeClassName="active-t"
-                  href={"/tokens"}
-                  className="Token"
-                >
-                  Tokens
-                </a>
+                 <div>
+                <div
+                    exact
+                    activeClassName="activet"
+                    // to={"/tokens"}
+                    className="Token cursorpointer"
+                    onClick={handleTokenPopover}
+                  >
+                    Tokens
+                  </div>
 
                   <a href="/">
                     <p className="Network-explorer" id="Network-explorer">
@@ -1001,14 +1002,9 @@ export default function Navbar(props) {
                 </div>
                 <div>
                   <div >
-                  <a
-                  exact
-                  activeClassName="active-t"
-                  href={"/tokens"}
-                  className="Token"
-                >
+                  <div onClick={handleTokenPopover} className="Token cursor-pointer" id="Token">
                   Tokens
-                </a>
+            </div>
                   </div>
                 </div>
               </DeskTopView>
@@ -1076,7 +1072,8 @@ export default function Navbar(props) {
               XDC Observatory
             </NavigationButton1>
             <NavigationButton
-             href="/tokens"
+            active={window.location.pathname.includes("token")}
+            onClick={handleTokenPopover}
             >
               Tokens
             </NavigationButton>
