@@ -236,12 +236,12 @@ function TemporaryDrawer(props) {
       <ListItems>
         <NoticationClear>
           <div className="Notification-header-color">Notifications</div>
-          <div
+          {/* <div
             className="Notification-header-text-color-fade cursor-pointer"
             onClick={clearNotification}
           >
             Clear all
-          </div> 
+          </div>  */}
          <div
             className="Notification-header-text-color-fade cursor-pointer"
             onClick={handleEdit}
