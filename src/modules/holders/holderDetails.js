@@ -667,6 +667,7 @@ const TabComponent = ({
           walletAddress={addr}
           contractAddress={contractAddress}
           theme={theme}
+          decimal={decimal}
         />
       </div>
     </div>

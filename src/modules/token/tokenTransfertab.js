@@ -127,7 +127,6 @@ export default function StickyHeadTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [transfer, settransfer] = useState({});
-  console.log(transfer,"transfer")
   const [totalToken, setTotalToken] = useState([]);
   const [noData, setNoData] = useState(true);
   const [searchAndFilters, setSearchAndFilters] = useState({
