@@ -44,6 +44,8 @@ class TokenContractOverviewGraph extends BaseComponent {
         this.state = {
             loading: false,
             graphData: [],
+            options:{},
+            optionsDark:{}
         };
     }
 
@@ -107,7 +109,10 @@ class TokenContractOverviewGraph extends BaseComponent {
                 spacing: [20, 10, 15, 10],
                 backgroundColor: "#ffffff",
             },
-            legend: {
+            plotOptions: {
+                series: {
+                  turboThreshold: 0} } ,
+                legend: {
                 layout: "horizontal",
                 align: "center",
                 enabled: true,
@@ -289,6 +294,9 @@ class TokenContractOverviewGraph extends BaseComponent {
                 spacing: [20, 10, 15, 10],
                 backgroundColor: "#192a59 ",
             },
+            plotOptions: {
+                series: {
+                  turboThreshold: 0} } ,
             legend: {
                 layout: "horizontal",
                 align: "center",
@@ -490,7 +498,7 @@ class TokenContractOverviewGraph extends BaseComponent {
         
         return (
             <div>
-                {this.state.loading ? (
+                {this.state.loading  || !this.state.options.title? (
                     <ProgressBarContainer>
                         <CircularProgress size={40}/>
                     </ProgressBarContainer>

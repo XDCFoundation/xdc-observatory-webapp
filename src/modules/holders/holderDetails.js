@@ -513,7 +513,7 @@ let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
                       <div style={props.theme.currentTheme === "dark" ? {color: "#ffffff"}: {}}>Balance</div>
                         <div className="sec-row-table">
                           {" "}
-                          <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holder[0]?.Holder_token_balance} XDC</div>
+                          <div style={props.theme.currentTheme === "dark" ? {color: "#b1c3e1"}: {}}>{holderBalance && decimal ? format({})(holderBalance):0} {tn}</div>
                           {/* ({ReactHtmlParser(convertCurrency)} {coinValue}) */}
                         </div>
                       </TableCell>
@@ -655,7 +655,7 @@ const TabComponent = ({
           toggleState === 1 ? "content_sec  active-content_sec" : "content_sec"
         }
       >
-        <HolderTableComponent trans={transactions} decimal={decimal} theme={theme}/>
+        <HolderTableComponent contractAddress={contractAddress} trans={transactions} decimal={decimal} theme={theme}/>
       </div>
 
       <div

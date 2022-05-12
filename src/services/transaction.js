@@ -11,6 +11,7 @@ export default {
   deleteTransactionPrivateNote,
   getCoinMarketDetailForTransaction,
   getTransactionMethodType,
+  getTokenHashDetail,
 };
 function getHeaders() {
   return {
@@ -74,6 +75,24 @@ async function getSomeDaysTransaction() {
 async function getTransactionDetailsUsingHash(path, data) {
   let url = process.env.REACT_APP_GET_TRANSACTION_DETAILS + path;
   return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
+    .then((response) => {
+      if (
+        !response.success ||
+        response.responseCode !== 200 ||
+        !response.responseData ||
+        response.responseData.length === 0
+      )
+        return Promise.reject();
+      return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+
+async function getTokenHashDetail(path, data) {
+  let url = process.env.REACT_APP_GET_TOKEN_HASH_DETAIL + path;
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||

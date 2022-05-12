@@ -651,11 +651,6 @@ input:focus {
     width: 20%;
   }
 }
-@media (max-width: 1023px) {
-  .dis-flex {
-    display: flex;
-  }
-}
 
 @media (max-width: 640px) {
   .word-break {
@@ -5107,6 +5102,9 @@ body {
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
+  .p-l-4-sm {
+    padding-left: 4px !important;
+  }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   /* #container-table th {
@@ -5122,6 +5120,12 @@ body {
   }
   #container-table td {
     padding: 17px 0px 17px 10px !important;
+  }
+  .p-l-8-md {
+    padding-left: 8px !important;
+  }
+  .p-l-2-md {
+    padding-left: 2px;
   }
 }
 
@@ -10576,7 +10580,7 @@ button {
     margin-left: 0px;
     padding-left: 1.25rem;
     font-size: 14px;
-    white-space: nowrap;
+    white-space: normal;
   }
   .table-grid-block {
     width: 23.5rem;
@@ -11393,7 +11397,7 @@ button {
     width: 25%;
   }
   .copyIconHash {
-    margin-top: -23px;
+    margin-top: 0px;
   }
   .editIconHash {
     width: 20px;
@@ -11789,6 +11793,13 @@ button {
   .token-searchelement {
     margin-left: 0% !important;
   }
+  .holder-tranferTable-checkbox-container {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  .transfer-checkbox{
+    margin-top: 7px;
+  }
 }
 
 @media (min-width: 1024px) and (max-width: 1300px) {
@@ -11831,6 +11842,13 @@ button {
   }
   .down-arrow-internal {
     display: none;
+  }
+  .holder-tranferTable-checkbox-container {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  .transfer-checkbox{
+    margin-top: 4.5px;
   }
 }
 .Notification-header-text-color-fade {

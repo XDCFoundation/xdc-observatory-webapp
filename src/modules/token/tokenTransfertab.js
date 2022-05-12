@@ -127,6 +127,7 @@ export default function StickyHeadTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [transfer, settransfer] = useState({});
+  console.log(transfer,"transfer")
   const [totalToken, setTotalToken] = useState([]);
   const [noData, setNoData] = useState(true);
   const [searchAndFilters, setSearchAndFilters] = useState({
@@ -192,9 +193,11 @@ export default function StickyHeadTable(props) {
     if (!tns || tns.length == 0) {
       setNoData(false);
       setLoading(false);
-    } else {
+      settransfer({})
+    } else if(tns && tns.length > 0) {
       settransfer(tns);
       setLoading(false);
+      setNoData(true)
     }
   };
   const getTotalTransferToken = async (data) => {
@@ -303,8 +306,8 @@ export default function StickyHeadTable(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders_Transfer-table-hash-dark cursor-pointer"
-                        : "tableheaders_Transfer-table-hash cursor-pointer"
+                        ? "tableheaders_Transfer-table-hash-dark cursor-pointer p-l-8-md p-l-4-sm"
+                        : "tableheaders_Transfer-table-hash cursor-pointer p-l-8-md p-l-4-sm"
                     }
                     onClick={() => sortTable("hash")}
                   >
@@ -375,8 +378,8 @@ export default function StickyHeadTable(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders_Transfer-table-age-dark cursor-pointer"
-                        : "tableheaders_Transfer-table-age cursor-pointer"
+                        ? "tableheaders_Transfer-table-age-dark cursor-pointer p-l-8-md p-l-4-sm"
+                        : "tableheaders_Transfer-table-age cursor-pointer p-l-8-md p-l-4-sm"
                     }
                     onClick={() => sortTable("timestamp")}
                   >
@@ -447,8 +450,8 @@ export default function StickyHeadTable(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders_Transfer-table-block-dark cursor-pointer"
-                        : "tableheaders_Transfer-table-block cursor-pointer"
+                        ? "tableheaders_Transfer-table-block-dark cursor-pointer p-l-8-md p-l-4-sm"
+                        : "tableheaders_Transfer-table-block cursor-pointer p-l-8-md p-l-4-sm"
                     }
                     onClick={() => sortTable("blockNumber")}
                   >
@@ -521,8 +524,8 @@ export default function StickyHeadTable(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders_Transfer-table-from-dark cursor-pointer"
-                        : "tableheaders_Transfer-table-from cursor-pointer"
+                        ? "tableheaders_Transfer-table-from-dark cursor-pointer p-l-8-md p-l-4-sm"
+                        : "tableheaders_Transfer-table-from cursor-pointer p-l-8-md p-l-4-sm"
                     }
                     onClick={() => sortTable("from")}
                   >
@@ -593,8 +596,8 @@ export default function StickyHeadTable(props) {
                   <span
                     className={
                       props.theme === "dark"
-                        ? "tableheaders_Transfer-table-to-dark cursor-pointer"
-                        : "tableheaders_Transfer-table-to cursor-pointer"
+                        ? "tableheaders_Transfer-table-to-dark cursor-pointer p-l-8-md p-l-4-sm"
+                        : "tableheaders_Transfer-table-to cursor-pointer p-l-8-md p-l-4-sm"
                     }
                     onClick={() => sortTable("to")}
                   >
