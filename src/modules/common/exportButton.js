@@ -19,7 +19,7 @@ const SelectedValueContainer = styled.div`
   flex-direction: row;
   cursor: pointer;
   background: white;
-  padding: 3px 10px;
+  padding: 5px 10px;
   background-color: rgb(7 125 245);
   border-radius: 0.25rem;
   width: 5.875rem;
@@ -30,6 +30,10 @@ const SelectedValueContainer = styled.div`
     width: 11px;
     margin-left: 8px;
   }
+  @media (min-width:0px) and (max-width:767px) {
+    width: 4rem;
+    
+  }
 `;
 
 const FilterName = styled.div`
@@ -39,7 +43,7 @@ const FilterName = styled.div`
   font-weight: 500;
   color: #fff;
   gap: 25px;
-
+  align-items: center;
   span {
     font-weight: 500;
     color: #fff;
@@ -126,6 +130,7 @@ const ExportButton = (props) => {
         {isDropdownOpen && (
           <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
             <OptionDiv>
+              
               <PDFDownloadLink
                 
                 document={<AddressPDF data={downloadData} />}

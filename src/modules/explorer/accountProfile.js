@@ -1446,7 +1446,7 @@ function SimpleTabs(props) {
                 value={search}
               />
             </div>
-            <div className="display-flex align-items-center">
+            <div className="display-flex">
               {tableValue === 3 ? (
                 <CustomDropDownAddress
                   sampleRender={sampleRender}
@@ -1490,7 +1490,7 @@ function SimpleTabs(props) {
                             color: "#b1c3e1",
                             backgroundColor: "#283966",
                             borderRadius: "0.25rem",
-                            width: "5.875rem",
+                            width: window.innerWidth <768 ? "4rem":"5.875rem",
                             height: "2.125rem",
                             paddingTop: "0.4rem",
                           }
@@ -1501,7 +1501,7 @@ function SimpleTabs(props) {
                             color: "#ffffff",
                             backgroundColor: "#9fa9ba",
                             borderRadius: "0.25rem",
-                            width: "5.875rem",
+                            width: window.innerWidth <768 ? "4rem":"5.875rem",
                             height: "2.125rem",
 
                             paddingTop: "0.4rem",

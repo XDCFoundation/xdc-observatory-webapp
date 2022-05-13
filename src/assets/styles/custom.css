@@ -10631,14 +10631,14 @@ button {
   }
   .block_sec {
     width: 21rem;
-    /* height: 4.5rem; */
-    height: 1.825rem;
+    height: 4.5rem;
+    /* height: 1.825rem; */
     margin-left: 1rem;
   }
   .block_sec_dark {
     width: 21rem;
-    /* height: 4.5rem; */
-    height: 1.825rem;
+    height: 4.5rem;
+    /* height: 1.825rem; */
     margin-left: 1rem;
   }
   .block_sec_contract {

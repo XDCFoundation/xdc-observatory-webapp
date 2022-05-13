@@ -251,7 +251,7 @@ const Container = styled.div`
   @media (max-width: 767px) {
     min-width: 100%;
     margin-left: 0;
-    margin-top: 4px;
+    // margin-top: 4px;
     margin-bottom: 4px;
   }
 `;
@@ -260,7 +260,7 @@ const SelectedValueContainer = styled.div`
   width: 100%;
   flex-direction: row;
   cursor: pointer;
-  padding: 7px 10px;
+  padding: 5px 10px;
   background-color: #fff;
   border-radius: 0.25rem;
   width: 5.875rem;
@@ -271,6 +271,9 @@ const SelectedValueContainer = styled.div`
   img {
     width: 11px;
     margin-left: 8px;
+  }
+  @media (min-width:0px) and (max-width:767px) {
+    width: 4rem;
   }
 `;
 
