@@ -1210,6 +1210,7 @@ function AddressDetails(props) {
                           options={tokenForAddres}
                           price={price}
                           theme={props.theme.currentTheme}
+                          activeCurrency={props.currency.activeCurrency}
                         />
                       ) : (
                         "No Tokens Available"

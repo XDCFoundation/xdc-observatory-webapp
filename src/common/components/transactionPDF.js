@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         color: "#787878"
     },
     transactionHash: {
-        flex: 3,
+        flex: 3.2,
         wordBreak: 'break-all',
         margin: 10,
     },

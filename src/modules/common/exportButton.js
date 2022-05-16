@@ -30,9 +30,8 @@ const SelectedValueContainer = styled.div`
     width: 11px;
     margin-left: 8px;
   }
-  @media (min-width:0px) and (max-width:767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     width: 4rem;
-    
   }
 `;
 
@@ -61,10 +60,9 @@ const DropdownContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   min-width: ${(props) => props.containerWidth}px;
-@media (min-width:0px) and (max-width:767px) {
-  right: 15px;
-  
-}
+  @media (min-width: 0px) and (max-width: 767px) {
+    right: 15px;
+  }
   span {
     padding: 8px;
     cursor: pointer;
@@ -91,8 +89,8 @@ const Image = styled.img`
   margin-right: 2px;
 `;
 const OptionText = styled.span`
-   font-size: 14px;
-   color: #2a2a2a;
+  font-size: 14px;
+  color: #2a2a2a;
 `;
 
 const ExportButton = (props) => {
@@ -110,6 +108,12 @@ const ExportButton = (props) => {
     }
   };
 
+  const handleToggle = () => {
+    setTimeout(() => {
+      toggleDropdown(false);
+    }, 1000);
+  };
+
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
     return () => {
@@ -122,34 +126,31 @@ const ExportButton = (props) => {
       <Container ref={mainDiv}>
         <SelectedValueContainer onClick={onFilterClicked}>
           <FilterName>
-  
             <span>Export</span>
-            
           </FilterName>
         </SelectedValueContainer>
         {isDropdownOpen && (
           <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
             <OptionDiv>
-              
               <PDFDownloadLink
-                
                 document={<AddressPDF data={downloadData} />}
-                fileName="tagAddresses.pdf"
+                fileName="Tag Address.pdf"
               >
-                <OptionsContainer onClick={() => toggleDropdown(false)}>
-                  <Image src="/images/pdf.svg" />
-                  <OptionText>Export as PDF</OptionText>
-                </OptionsContainer>
+                <span>
+                  <OptionsContainer onClick={handleToggle}>
+                    <Image src="/images/pdf.svg" />
+                    <OptionText>Export as PDF</OptionText>
+                  </OptionsContainer>
+                </span>
               </PDFDownloadLink>
-              
             </OptionDiv>
             <OptionDiv>
-            <CSVLink filename={"tag_address.csv"} data={downloadData}>
-              <OptionsContainer onClick={() =>toggleDropdown(false)}>
-                <Image src="/images/csv.svg" />
-                <OptionText>Export as CSV File</OptionText>
-              </OptionsContainer>
-            </CSVLink>
+              <CSVLink filename={"Tag Address.csv"} data={downloadData}>
+                <OptionsContainer onClick={handleToggle}>
+                  <Image src="/images/csv.svg" />
+                  <OptionText>Export as CSV File</OptionText>
+                </OptionsContainer>
+              </CSVLink>
             </OptionDiv>
           </DropdownContainer>
         )}
