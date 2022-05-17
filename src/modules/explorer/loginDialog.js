@@ -699,6 +699,7 @@ export default function FormDialog(props) {
   var regExAlphaNum = /^[0-9a-zA-Z]+$/;
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+  var regExNumericOnly = /^[0-9]+$/;
 
   // <-----------------------------------------------------login functionality------------------------------------------------------>
 
@@ -753,12 +754,15 @@ export default function FormDialog(props) {
       setErrorEmail("Enter valid username");
       setLoading(false);
       return;
+    } else if (email.match(regExNumericOnly)) {
+      setErrorEmail("Enter valid username");
+      setLoading(false);
+      return;
     } else if (!password.match(regExPass)) {
       setErrorPassword("Incorrect password");
       setLoading(false);
       return;
     }
-
     let authObject = new LoginService();
     let [error, authResponse] = await Utility.parseResponse(
       authObject.signin(reqObj.name, reqObj.password)
@@ -858,6 +862,9 @@ export default function FormDialog(props) {
       setErrorUserName(genericConstants.USERNAME_CHARACTER_LIMIT_5_30);
       setLoading(false);
     } else if (!userName.match(regExAlphaNum)) {
+      setErrorUserName("Enter valid username");
+      setLoading(false);
+    } else if (userName.match(regExNumericOnly)) {
       setErrorUserName("Enter valid username");
       setLoading(false);
     } else if (!email.match(mailformat)) {
