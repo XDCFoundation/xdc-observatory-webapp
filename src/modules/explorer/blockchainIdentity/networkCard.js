@@ -116,6 +116,7 @@ export default function NetworkCard(props) {
             : classes.contentContainer
         }
       >
+        <a href={props.blockExplorer} target="_blank">
         <div
           className={
             props.theme === "dark"
@@ -125,6 +126,7 @@ export default function NetworkCard(props) {
         >
           {props.cardHeading}
         </div>
+        </a>
         <div className={classes.subContentRow}>
           <div
             className={

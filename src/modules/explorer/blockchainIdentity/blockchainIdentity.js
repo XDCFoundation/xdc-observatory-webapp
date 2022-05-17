@@ -12,6 +12,7 @@ const useStyles = makeStyles((themes) => ({
     maxWidth: "1202px",
     marginLeft: "auto",
     marginRight: "auto",
+    minHeight: "500px"
   },
   heading: {
     marginTop: "46px",
@@ -105,7 +106,7 @@ function BlockchainIdentity(props) {
           {blockchainIdentityResponse &&
             blockchainIdentityResponse.map((row, index) => {
               return (
-                <NetworkCard
+                (row.networkName === "XDC Mainnet" || row.networkName === "XDC Apothem") && <NetworkCard
                   cardHeading={row.networkName}
                   networkName={row.networkName}
                   RPC_URL={row.RPC_URL}

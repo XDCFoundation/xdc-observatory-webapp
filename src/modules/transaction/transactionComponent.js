@@ -779,7 +779,7 @@ export default function TransactionComponent(props) {
                           style={{
                             border: "none",
                             width: "120px",
-                            paddingLeft: "2.813rem",
+                            paddingLeft: "30px",
                           }}
                           align="left"
                         >
