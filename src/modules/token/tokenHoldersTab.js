@@ -167,7 +167,8 @@ export default function StickyHeadTable(props) {
   }, []);
   const listOfHolders = async (values) => {
     if (!values.sortKey && sortKey && sortOrder)
-      values.sortKey = { [sortKey]: sortOrder };
+    values.sortKey = { ["balance"]: sortOrder };
+
     let [error, tns] = await Utils.parseResponse(
       TokenData.getListOfHoldersForToken(values)
     );
