@@ -1156,7 +1156,6 @@ export default function FormDialog(props) {
         </div>
         {value === 0 ? (
           <div>
-            {console.log("Open:",open)}
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
             <Row>
               <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">

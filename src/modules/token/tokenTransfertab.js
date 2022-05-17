@@ -127,7 +127,6 @@ export default function StickyHeadTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [transfer, settransfer] = useState({});
-  console.log(transfer,"transfer")
   const [totalToken, setTotalToken] = useState([]);
   const [noData, setNoData] = useState(true);
   const [searchAndFilters, setSearchAndFilters] = useState({
@@ -181,8 +180,9 @@ export default function StickyHeadTable(props) {
     if (filtersData.searchQuery)
       requestData.searchValue = filtersData.searchQuery;
     if (filtersData.startDate) requestData.startDate = filtersData.startDate;
-    if (filtersData.startDate || filtersData.searchQuery)
+    if (filtersData.startDate  || filtersData.searchQuery)
       getTotalTransferToken(requestData);
+      if(filtersData.startDate === '' || !filtersData.searchQuery) getTotalTransferToken({ addr: address });
     if (sortingKey || _sortingKey)
       requestData.sortKey = _sortingKey ? _sortingKey : sortingKey;
     if (sortingOrder || _sortingOrder)
@@ -190,6 +190,7 @@ export default function StickyHeadTable(props) {
     let [error, tns] = await Utils.parseResponse(
       TokenData.getListOfTransferTransactionsForToken(requestData)
     );
+    
     if (!tns || tns.length == 0) {
       setNoData(false);
       setLoading(false);

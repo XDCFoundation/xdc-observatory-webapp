@@ -22,7 +22,6 @@ import { messages } from "../../constants";
 import PageSelector from "../common/pageSelector";
 
 export default function TransactionTableComponent(props) {
-  console.log(props,"<<<<<<<<")
   const { state } = props;
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
@@ -916,7 +915,6 @@ export default function TransactionTableComponent(props) {
                 noData == false && (
                   <TableBody>
                     {address.map((row, index) => {
-                      console.log(row,">>>>>>>>>>>")
                       const currentTime = new Date();
                       const previousTime = new Date(row.timestamp * 1000);
                       const TimeAge = Utility.timeDiff(

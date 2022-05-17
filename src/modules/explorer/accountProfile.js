@@ -1191,7 +1191,6 @@ function SimpleTabs(props) {
 
       setDownloadTagAddress(
         tempAddress.map((item) => {
-          console.log("address",moment(parseInt(item?.modifiedOn)).tz(timezone).format("MMM DD, YYYY, hh:mm A"))
           return {
             Address: item.address,
             NameTag: item.tagName,
