@@ -560,6 +560,7 @@ export default function AccountComponent(props) {
                           100
                         ).toFixed(8)) : 0
 
+                        percentageValue = Number(percentageValue).toLocaleString()
                         let percentageValue1 = percentageValue
                           .toString()
                           .split(".")[0];
@@ -627,13 +628,13 @@ export default function AccountComponent(props) {
                               >
                                 <Tooltip
                                   placement="right"
-                                  title={format({})(finalBal)}
+                                  title={Number(finalBal).toLocaleString()}
                                   classes={{
                                     tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
                                   }}
                                 >
                                   {bal3 >= 0 || bal3 == null ? (
-                                    <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>{bal2}</span>
+                                    <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>{bal2.length > 18 ? utility.shortenAddress(bal2,6,3,3) : bal2}</span>
                                   ) : (
                                     <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
                                       {bal2}
@@ -654,7 +655,7 @@ export default function AccountComponent(props) {
                                   align="center"
                                 >
                                   <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
-                                    {(!percentageValue2) ? <span>{percentageValue1}%</span> :
+                                    {(!percentageValue2) ? <span>{percentageValue1.length > 18 ? utility.shortenAddress(percentageValue1,6,3,3):percentageValue1}%</span> :
                                       <span>
                                         {percentageValue1}
                                         {"."}

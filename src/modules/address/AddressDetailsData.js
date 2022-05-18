@@ -188,7 +188,7 @@ function AddressDetailsData(props) {
         AddressData.getTransactionsCountForAddress(data)
       );
       if (error || !responseData) return;
-      setCount(parseInt(responseData));
+      setCount(parseInt(responseData)-1);
     } catch (error) {
       console.error(error);
     }
