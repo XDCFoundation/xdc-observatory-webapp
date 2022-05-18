@@ -29,7 +29,7 @@ const NoDataFoundContainer = styled.div`
 
 export default function WrappedComponent(props) {
   const { addr } = useParams();
-  return <XDCBalanceGraph address={addr} theme={props.theme}/>;
+  return <XDCBalanceGraph address={addr} theme={props.theme} />;
 }
 
 class XDCBalanceGraph extends BaseComponent {
@@ -37,7 +37,7 @@ class XDCBalanceGraph extends BaseComponent {
     super(props);
     this.state = {
       loading: false,
-      graphData:[],
+      graphData: [],
     };
   }
 
@@ -63,7 +63,7 @@ class XDCBalanceGraph extends BaseComponent {
       this.generateGraphData([]);
       return;
     }
-    this.setState({ loading: false, graphData:response });
+    this.setState({ loading: false, graphData: response });
     this.generateGraphData(response);
   };
 
@@ -93,7 +93,10 @@ class XDCBalanceGraph extends BaseComponent {
     const transactionCount = [];
     for (let index = 0; index < data.length; index++) {
       const x = data[index].date;
-      xdcBalance.push({ x, y: Math.abs(data[index].currentBalance / 10 ** 18 )});
+      xdcBalance.push({
+        x,
+        y: Math.abs(data[index].currentBalance / 10 ** 18),
+      });
       historicUSDPrice.push({ x, y: data[index].priceInUSD });
       transactionCount.push({ x, y: data[index].totalDocument });
     }
@@ -278,11 +281,11 @@ class XDCBalanceGraph extends BaseComponent {
         backgroundColor: "#091b4e",
         useHTML: true,
         width: "37%",
-        itemStyle:{
-          'color': '#b1c3e1',
+        itemStyle: {
+          color: "#b1c3e1",
         },
         itemHoverStyle: {
-            color: '#b1c3e1'
+          color: "#b1c3e1",
         },
         labelFormatter: function () {
           let legend = "<div style='display:flex; align-items: center;'>";
@@ -409,19 +412,19 @@ class XDCBalanceGraph extends BaseComponent {
       yAxis: [
         {
           opposite: false,
-          title: { 
+          title: {
             text: "",
             style: {
-              color: '#b1c3e1'
-            }
+              color: "#b1c3e1",
+            },
           },
           labels: {
             style: {
-                color: '#b1c3e1'
-            }
+              color: "#b1c3e1",
+            },
           },
-          minorGridLineColor: '#4a5d94',
-          gridLineColor: '#4a5d94',
+          minorGridLineColor: "#4a5d94",
+          gridLineColor: "#4a5d94",
         },
       ],
       xAxis: [
@@ -431,16 +434,16 @@ class XDCBalanceGraph extends BaseComponent {
           title: { text: "" },
           labels: {
             style: {
-                color: '#b1c3e1'
-            }
+              color: "#b1c3e1",
+            },
           },
-          minorGridLineColor: '#4a5d94',
-          gridLineColor: '#4a5d94',
+          minorGridLineColor: "#4a5d94",
+          gridLineColor: "#4a5d94",
         },
       ],
     };
     this.setState({ options });
-    this.setState({optionsDark});
+    this.setState({ optionsDark });
   };
 
   render() {
@@ -451,19 +454,25 @@ class XDCBalanceGraph extends BaseComponent {
             <CircularProgress size={40} />
           </ProgressBarContainer>
         ) : (
-            <span>
-              {this.state.graphData.length == 0 ?
-                  <NoDataFoundContainer>
-                    <img
-                        src={require("../../../../../src/assets/images/XDC-Alert.svg")}
-                    ></img>
+          <span>
+            {this.state.graphData.length == 0 ? (
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
 
-                    <div>No Data found.</div>
-                  </NoDataFoundContainer>
-                  :
-                  <Graph options={this.props.theme === "dark" ? this.state.optionsDark : this.state.options}/>
-              }
-            </span>
+                <div>No Data found.</div>
+              </NoDataFoundContainer>
+            ) : (
+              <Graph
+                options={
+                  this.props.theme === "dark"
+                    ? this.state.optionsDark
+                    : this.state.options
+                }
+              />
+            )}
+          </span>
         )}
       </div>
     );

@@ -1723,6 +1723,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                   onClose={closeDialogPvtNote}
                                   hash={hash}
                                   pvtNote={privateNote[0]?.trxLable}
+                                  theme={theme.currentTheme}
                                 />
                               }
                               {
@@ -2051,6 +2052,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                 fromAddr={transactions.from}
                                 value={dialogValue}
                                 hash={hash}
+                                theme={theme.currentTheme}
                               />
                             }
 
@@ -2100,6 +2102,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                               fromAddr={transactions.from}
                               value={dialogValue}
                               hash={hash}
+                              theme={theme.currentTheme}
                             />
                           }
 
@@ -2259,6 +2262,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                 toAddr={transactions.to}
                                 value={dialogValue2}
                                 hash={hash}
+                                theme={theme.currentTheme}
                               />
                             }
                             {tagValueTo && tagValueTo?.length ? (
@@ -2304,6 +2308,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                               toAddr={transactions.to}
                               value={dialogValue2}
                               hash={hash}
+                              theme={theme.currentTheme}
                             />
                           }
                           {tagValueTo && tagValueTo?.length ? (
@@ -3174,6 +3179,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                             pvtNote={
                               pvtNoteValue[pvtNoteValue?.length - 1]?.trxLable
                             }
+                            theme={theme.currentTheme}
                           />
                         }
                         {

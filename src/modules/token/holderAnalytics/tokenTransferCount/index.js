@@ -47,9 +47,9 @@ class TokenTransferCountGraph extends BaseComponent {
     super(props);
     this.state = {
       options: {
-        loading: false
+        loading: false,
       },
-      graphData:[]
+      graphData: [],
     };
   }
 
@@ -75,7 +75,7 @@ class TokenTransferCountGraph extends BaseComponent {
       this.generateGraphData([]);
       return;
     }
-    this.setState({graphData:response})
+    this.setState({ graphData: response });
     this.generateGraphData(response);
   }
 
@@ -108,6 +108,7 @@ class TokenTransferCountGraph extends BaseComponent {
       },
       chart: {
         type: "line",
+        backgroundColor: this.props.theme === "dark" ? "#192a59" : "#ffffff",
       },
       legend: {
         layout: "horizontal",
@@ -290,19 +291,21 @@ class TokenTransferCountGraph extends BaseComponent {
             <CircularProgress size={40} />
           </ProgressBarContainer>
         ) : (
-            <span>
-              {this.state.graphData.length == 0 ?
-                  <NoDataFoundContainer>
-                    <img
-                        src={require("../../../../../src/assets/images/XDC-Alert.svg")}
-                    ></img>
+          <span>
+            {this.state.graphData.length == 0 ? (
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
 
-                    <div className={this.props.theme === "dark" ? "fc-b1c3e1" : ""}>No Data found.</div>
-                  </NoDataFoundContainer>
-                  :
-                  <Graph options={this.state.options}/>
-              }
-            </span>
+                <div className={this.props.theme === "dark" ? "fc-b1c3e1" : ""}>
+                  No Data found.
+                </div>
+              </NoDataFoundContainer>
+            ) : (
+              <Graph options={this.state.options} />
+            )}
+          </span>
         )}
       </div>
     );

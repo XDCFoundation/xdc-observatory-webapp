@@ -45,7 +45,7 @@ const HolderDetails = withRouter(lazy(() => import('./modules/holders/holderDeta
 const PolicyDetails = withRouter(lazy(() => import('./modules/explorer/privacyPolicy')));
 const TermsCondition = withRouter(lazy(() => import('./modules/explorer/termsCondition')));
 const ActivateAccount = withRouter(lazy(() => import('./modules/explorer/activateAccount')));
-const AddressDetailsData = withRouter(lazy(() => import('./modules/address/AddressDetailsData')));
+const AddressDetailsData = withRouter(lazy(() => import('./modules/address/addressDetailsData')));
 const ContractComponent = withRouter(lazy(() => import('./modules/dashboard')));
 const ContractTab = withRouter(lazy(() => import('./modules/dashboard/contractTab')));
 const AccountProfile = withRouter(lazy(() => import('./modules/explorer/accountProfile')));
