@@ -182,7 +182,7 @@ export default function StickyHeadTable(props) {
     if (filtersData.startDate) requestData.startDate = filtersData.startDate;
     if (filtersData.startDate  || filtersData.searchQuery)
       getTotalTransferToken(requestData);
-      if(filtersData.startDate === '')getTotalTransferToken({ addr: address });
+      if(filtersData.startDate === '' || !filtersData.searchQuery) getTotalTransferToken({ addr: address });
     if (sortingKey || _sortingKey)
       requestData.sortKey = _sortingKey ? _sortingKey : sortingKey;
     if (sortingOrder || _sortingOrder)

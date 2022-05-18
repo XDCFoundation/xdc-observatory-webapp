@@ -198,16 +198,16 @@ export default function ChangePassword(props) {
   var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
   const handleClose = () => {
-    history.push("/loginprofile");
     setOpenChangePassword(props.openChangePassword);
   };
-  const notify = () =>
+
+  const notify = () => {
     toast.success("Password reset successfully. Sign in to continue", {
       duration: 4000,
       position: "top-center",
       className: "toast-div-address",
     });
-
+  };
   const updatepassword = async () => {
     let userInfo = sessionManager.getDataFromCookies("userInfo");
     const reqObj = {
@@ -268,23 +268,24 @@ export default function ChangePassword(props) {
         setLoading(false);
         setErrorConfirmPassword("Failed to Change Password");
       } else {
-        setLoading(false);
         const authObject = new AuthService();
         await Utility.parseResponse(authObject.logout(userInfo.sub));
-        notify();
         sessionManager.removeDataFromCookies("userId");
         sessionManager.removeDataFromCookies("userInfo");
         sessionManager.removeDataFromCookies("isLoggedIn");
         sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
         sessionManager.removeDataFromCookies(cookiesConstants.USER_PICTURE);
-        setInterval((window.location.href = "/dashboard"), 4000);
+        notify();
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 4000);
+        setLoading(false);
       }
     }
   };
 
   return (
     <div>
-      <Toaster />
       {
         <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
           <Dialog
@@ -299,6 +300,7 @@ export default function ChangePassword(props) {
             aria-labelledby="form-dialog-title"
             style={{ position: "absolute", zIndex: 10000 }}
           >
+            <Toaster />
             <DialogContent className={classes.heading}>
               <div onClick={handleClose} className={classes.backButtonMobile}>
                 <img src="/images/backButton.svg" alt="back" />
@@ -313,10 +315,7 @@ export default function ChangePassword(props) {
                 >
                   <b className={classes.mobileHeader}>Change Password</b>
                 </DialogContentText>
-                <span
-                  onClick={props.openChangePassword}
-                  className={classes.closeContainer}
-                >
+                <span onClick={handleClose} className={classes.closeContainer}>
                   <img
                     className={classes.close}
                     src={"/images/XDC-Cross.svg"}

@@ -148,6 +148,7 @@ export default function HolderTableComponent(props) {
       skip: 0,
       limit: rowsPerPage,
       address: addr,
+      tokenContract : props?.contractAddress,
       sortKey: { [_sortKey]: _sortOrder },
     };
     getHolderDetails(requestObj);
@@ -157,6 +158,7 @@ export default function HolderTableComponent(props) {
     let requestObj = {
       limit: rowsPerPage,
       address: addr,
+      tokenContract : props?.contractAddress
     };
     if (keywords) requestObj.keywords = keywords;
     if (action == "first") {
@@ -194,6 +196,7 @@ export default function HolderTableComponent(props) {
       skip: 0,
       limit: event.target.value,
       address: addr,
+      tokenContract : props?.contractAddress
     };
     getHolderDetails(reqObj);
   };
@@ -224,6 +227,7 @@ export default function HolderTableComponent(props) {
       skip: page,
       limit: rowsPerPage,
       address: addr,
+      tokenContract : props?.contractAddress
     };
     getHolderDetails(datas);
   }, []);
@@ -307,6 +311,7 @@ export default function HolderTableComponent(props) {
         limit: rowsPerPage,
         address: addr,
         keywords: searchkeyword,
+        tokenContract : props?.contractAddress
       };
       getHolderDetails(datas);
     }
@@ -316,6 +321,7 @@ export default function HolderTableComponent(props) {
         skip: 0,
         limit: rowsPerPage,
         address: addr,
+        tokenContract : props?.contractAddress
       };
       getHolderDetails(datas);
     }
