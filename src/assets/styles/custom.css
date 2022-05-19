@@ -10580,7 +10580,7 @@ button {
     margin-left: 0px;
     padding-left: 1.25rem;
     font-size: 14px;
-    white-space: nowrap;
+    white-space: normal;
   }
   .table-grid-block {
     width: 23.5rem;
@@ -11397,7 +11397,7 @@ button {
     width: 25%;
   }
   .copyIconHash {
-    margin-top: -23px;
+    margin-top: 0px;
   }
   .editIconHash {
     width: 20px;

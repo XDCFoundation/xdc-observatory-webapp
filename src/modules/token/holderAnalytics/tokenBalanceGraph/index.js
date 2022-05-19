@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Graph from "../../../common/commonGraph";
 import { CircularProgress } from "@material-ui/core";
 import Highcharts from "highcharts/highstock";
+import utility from "../../../../utility";
 
 const NoDataFoundContainer = styled.div`
   display: flex;
@@ -11,7 +12,6 @@ const NoDataFoundContainer = styled.div`
   align-items: center;
   margin-top: 100px;
   margin-bottom: 100px;
-  margin-left: 10px;
   gap: 10px;
   @media (min-width: 767px) {
     margin: 100px !important;
@@ -20,11 +20,11 @@ const NoDataFoundContainer = styled.div`
 
 function TokenBalanceGraphComponent(props) {
   const graphData = props.graphData.map((data) => {
+    let value = data.currentBalance / 10 ** Number(props?.decimal)
     data.x = data.date;
-    data.y = Math.abs(Number(data.currentBalance.toFixed(2)));
+    data.y = Math.abs(value);
     return data;
   });
-
   const options = {
     title: {
       text: "",

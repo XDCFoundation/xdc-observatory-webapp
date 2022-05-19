@@ -74,6 +74,7 @@ const utility = {
   getUtcOffset,
   shortenAddress,
   shortenAddressImport,
+  getCharsBefore,
   getMethodType, getTxnActionFromAndTo, getInterectedWithFromAndTo
 };
 export default utility;
@@ -137,13 +138,13 @@ function convertToInternationalCurrencySystem(num) {
     return "";
   }
   num = Number(num);
-  if (num > 999.99999999 && num < 1000000) {
+  if (num >= 1000 && num < 1000000) {
     return parseFloat((num / 1000).toFixed(2)) + "K"; // convert to K for number from > 1000 < 1 million
-  } else if (num > 999999.99999999 && num < 999999999.99999999) {
+  } else if (num >= 1000000 && num < 1000000000) {
     return parseFloat((num / 1000000).toFixed(2)) + "M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num >= 1000000000) {
     return parseFloat((num / 1000000000).toFixed(2)) + "B"; // convert to B for number from > 1 billion
-  } else if (num >= 1 && num < 999.99999999) {
+  } else if (num >= 1 && num < 1000) {
     return parseFloat(num.toFixed(8)); // if value < 1000, nothing to do
   } else if (num < 1) {
     return Number(num).toFixed(8)
@@ -1002,4 +1003,12 @@ function getAggregatedPercWercQueryObject(start, end, skip, id) {
       $skip: skip,
     },
   ];
+}
+
+function getCharsBefore(str, chr) {
+  var index = str.indexOf(chr);
+  if (index != -1) {
+      return(str.substring(0, index));
+  }
+  return("");
 }

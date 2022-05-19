@@ -24,11 +24,11 @@ function TokenBalanceGraphComponent(props) {
   props.graphData.map((data) => {
     sentAmountSeries.push({
       x: data.date,
-      y: data.toAmount,
+      y: data.toAmount/ 10 ** Number(props?.decimal),
     });
     receiveAmountSeries.push({
       x: data.date,
-      y: data.fromAmount,
+      y: data.fromAmount/ 10 ** Number(props?.decimal),
     });
   });
 
