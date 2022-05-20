@@ -1360,7 +1360,7 @@ function AddressDetails(props) {
                 >
                   Analytics
                 </button>
-                <button
+                {/* <button
                   className={
                     toggleState === 3
                       ? "tabs_third_address_details active-tabs_sec_xrc"
@@ -1370,7 +1370,7 @@ function AddressDetails(props) {
                   id="transaction-btn"
                 >
                   XRC20 Transactions
-                </button>
+                </button> */}
               </div>
             </div>
             {toggleState === 1 && (
