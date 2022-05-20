@@ -848,6 +848,7 @@ export default function Navbar(props) {
   }
   `;
   const NavigationButton = styled.div`
+  display: flex;
   text-decoration :  none;
   cursor: pointer;
   padding: 5px 20px;
@@ -988,10 +989,11 @@ export default function Navbar(props) {
                     exact
                     activeClassName="activet"
                     // to={"/tokens"}
-                    className="Token cursorpointer"
+                    className="Token cursorpointer display-flex-i"
                     onClick={handleTokenPopover}
                   >
-                    Tokens
+                    <div>Tokens</div>
+                    <img className="token-dropdown-icon" src="/images/Dropdown.svg"></img>
                   </div>
 
                   <a href="/">
@@ -1002,8 +1004,9 @@ export default function Navbar(props) {
                 </div>
                 <div>
                   <div >
-                  <div onClick={handleTokenPopover} className="Token cursor-pointer" id="Token">
-                  Tokens
+                  <div onClick={handleTokenPopover} className="Token cursor-pointer display-flex-i" id="Token">
+                  <div>Tokens</div>
+                    <img className="token-dropdown-icon" src="/images/Dropdown.svg"></img>
             </div>
                   </div>
                 </div>
@@ -1075,7 +1078,8 @@ export default function Navbar(props) {
             active={window.location.pathname.includes("token")}
             onClick={handleTokenPopover}
             >
-              Tokens
+              <div>Tokens</div>
+                    <img className="token-dropdown-icon" src="/images/Dropdown.svg"></img>
             </NavigationButton>
           </MobileNavigationContainer>
           <SearchContainer>

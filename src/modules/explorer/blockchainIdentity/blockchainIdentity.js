@@ -106,7 +106,7 @@ function BlockchainIdentity(props) {
           {blockchainIdentityResponse &&
             blockchainIdentityResponse.map((row, index) => {
               return (
-                (row.networkName === "XDC Mainnet" || row.networkName === "XDC Apothem") && <NetworkCard
+                (row.networkName === "XDC Mainnet") && <NetworkCard
                   cardHeading={row.networkName}
                   networkName={row.networkName}
                   RPC_URL={row.RPC_URL}

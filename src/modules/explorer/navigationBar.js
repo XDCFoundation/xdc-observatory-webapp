@@ -1028,9 +1028,10 @@ export default function Navbar(props) {
                   exact
                   activeClassName="active-t"
                   onClick={handleTokenPopover}
-                  className="Token cursor-pointer"
+                  className="Token cursor-pointer display-flex-i"
                 >
-                  Tokens
+                 <div>Tokens</div>
+                    <img className="token-dropdown-icon" src="/images/Dropdown.svg"></img>
                 </div>
                 {/* <a
                   exact
@@ -1151,9 +1152,12 @@ export default function Navbar(props) {
             >
               XDC Observatory
             </NavigationButton1>
-            <NavigationButton  
-              href="/tokens">
-              Tokens
+            <NavigationButton
+            active={window.location.pathname.includes("token")}
+            onClick={handleTokenPopover}
+            >
+              <div>Tokens</div>
+                    <img className="token-dropdown-icon" src="/images/Dropdown.svg"></img>
             </NavigationButton>
           </MobileNavigationContainer>
         </AppBar>
