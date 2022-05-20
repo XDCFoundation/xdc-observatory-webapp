@@ -128,7 +128,7 @@ export default function StickyHeadTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [transfer, settransfer] = useState({});
   const [totalToken, setTotalToken] = useState([]);
-  const [noData, setNoData] = useState(true);
+  const [noData, setNoData] = useState(false);
   const [searchAndFilters, setSearchAndFilters] = useState({
     searchQuery: "",
     startDate: "",
@@ -190,9 +190,10 @@ export default function StickyHeadTable(props) {
       TokenData.getListOfTransferTransactionsForToken(requestData)
     );
     if (!tns || tns.length == 0) {
-      setNoData(false);
+      setNoData(true);
       setLoading(false);
     } else {
+      setNoData(false);
       settransfer(tns);
       setLoading(false);
     }
@@ -673,7 +674,7 @@ export default function StickyHeadTable(props) {
                   </TableCell>
                 </TableRow>
               </TableBody>
-            ) : (
+            ) : noData == false && (
               transfer &&
               transfer.length >= 1 &&
               transfer.map((row) => {
@@ -788,7 +789,7 @@ export default function StickyHeadTable(props) {
               )
             } */}
           </Table>
-          {noData == false && (
+          {noData == true && (
             <NoDataFoundContainer>
               <img
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -801,7 +802,7 @@ export default function StickyHeadTable(props) {
       </div>
       <Pagination>
         <LeftPagination>
-          {(!isLoading && noData == false) || totalToken < 10 ? (
+          {(!isLoading && noData == true) || totalToken < 10 ? (
             ""
           ) : (
             <>
@@ -829,7 +830,7 @@ export default function StickyHeadTable(props) {
             </>
           )}
         </LeftPagination>
-        {noData == true && totalToken > rowsPerPage ? (
+        {noData == false && totalToken > rowsPerPage ? (
           <RightPagination
             style={{
               display: "flex",
