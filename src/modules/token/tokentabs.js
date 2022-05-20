@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs(props) {
   const classes = useStyles();
-  const [toggleState, setToggleState] = useState(7);
+  const [toggleState, setToggleState] = useState(1);
   const { tn, address } = useParams();
   const toggleTab = (index) => {
     setToggleState(index);
@@ -131,15 +131,15 @@ export default function SimpleTabs(props) {
             >
               <button
                 className={
-                  toggleState === 7
+                  toggleState === 1
                     ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
                     : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(7)}
               >
-                All Txns
+                Transfers
               </button>
-              <button
+              {/* <button
                 className={
                   toggleState === 1
                     ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
@@ -148,7 +148,7 @@ export default function SimpleTabs(props) {
                 onClick={() => toggleTab(1)}
               >
                 XRC 20 Txns
-              </button>
+              </button> */}
               <button
                 className={
                   toggleState === 2
@@ -217,7 +217,7 @@ export default function SimpleTabs(props) {
           </div>
 
           <div>
-            <div
+            {/* <div
               className={
                 toggleState === 7 ? "content  active-content" : "content"
               }
@@ -225,7 +225,7 @@ export default function SimpleTabs(props) {
               <div style={{ marginTop: "10px", width: "auto" }}>
                 <TotalTokenTransactions theme={props.theme} />
               </div>
-            </div>
+            </div> */}
             <div
               className={
                 toggleState === 1 ? "content  active-content" : "content"

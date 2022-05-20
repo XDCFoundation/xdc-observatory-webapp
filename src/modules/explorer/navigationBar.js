@@ -338,9 +338,8 @@ export default function Navbar(props) {
             },
           });
           window.location.href = blockurl;
-        }else if (responseData[0].redirect === "contract") {
-          let accounturl =
-            "/address/" + responseData[0].account.address;
+        } else if (responseData[0].redirect === "contract") {
+          let accounturl = "/address/" + responseData[0].account.address;
           dispatch({
             type: eventConstants.ADD_TO_SEARCH_LIST,
             payload: {
@@ -351,8 +350,7 @@ export default function Navbar(props) {
             },
           });
           window.location.href = accounturl;
-        } 
-        else if (responseData[0].redirect === "account") {
+        } else if (responseData[0].redirect === "account") {
           let accounturl =
             "/address-details/" + responseData[0].account.address;
           dispatch({
@@ -377,10 +375,16 @@ export default function Navbar(props) {
               redirectUrl: transactionurl,
             },
           });
-           window.location.href = transactionurl;
+          window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
           if (responseData[0]?.token.length == 1) {
-            let tokenDataUrl =`/token-data/${responseData[0]?.token[0]?.address}/${responseData[0]?.token[0]?.symbol ? responseData[0]?.token[0]?.symbol : "NA"}`
+            let tokenDataUrl = `/token-data/${
+              responseData[0]?.token[0]?.address
+            }/${
+              responseData[0]?.token[0]?.symbol
+                ? responseData[0]?.token[0]?.symbol
+                : "NA"
+            }`;
             dispatch({
               type: eventConstants.ADD_TO_SEARCH_LIST,
               payload: {
@@ -943,6 +947,7 @@ export default function Navbar(props) {
     }
   `;
   const NavigationButton = styled.a`
+    display: flex;
     text-decoration: none;
     cursor: pointer;
     padding: 5px 20px;
@@ -1030,8 +1035,11 @@ export default function Navbar(props) {
                   onClick={handleTokenPopover}
                   className="Token cursor-pointer display-flex-i"
                 >
-                 <div>Tokens</div>
-                    <img className="token-dropdown-icon" src="/images/Dropdown.svg"></img>
+                  <div>Tokens</div>
+                  <img
+                    className="token-dropdown-icon"
+                    src="/images/Dropdown.svg"
+                  ></img>
                 </div>
                 {/* <a
                   exact
@@ -1153,11 +1161,14 @@ export default function Navbar(props) {
               XDC Observatory
             </NavigationButton1>
             <NavigationButton
-            active={window.location.pathname.includes("token")}
-            onClick={handleTokenPopover}
+              active={window.location.pathname.includes("token")}
+              onClick={handleTokenPopover}
             >
               <div>Tokens</div>
-                    <img className="token-dropdown-icon" src="/images/Dropdown.svg"></img>
+              <img
+                className="token-dropdown-icon"
+                src="/images/Dropdown.svg"
+              ></img>
             </NavigationButton>
           </MobileNavigationContainer>
         </AppBar>
