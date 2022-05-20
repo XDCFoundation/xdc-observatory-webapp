@@ -209,7 +209,6 @@ const LastLine = styled.div`
   }
 `;
 const CustomDropDownAddress = (props) => {
-  console.log("props", props);
   const { price, options, onSelect } = props;
   const [isDropdownOpen, toggleDropdown] = useState(false);
   const mainDiv = useRef(null);
