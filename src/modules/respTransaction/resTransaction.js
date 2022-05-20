@@ -1066,7 +1066,7 @@ const BlackTextNowrap = styled.span`
     color: #ffffff;
   `}
   @media (min-width: 768px) and (max-width: 1241px) {
-    margin-right 10px;
+    margin-right: 10px;
     white-space: nowrap;
     margin-top: -26px;
   }
