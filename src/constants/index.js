@@ -68,9 +68,9 @@ export const cookiesConstants = {
   AUTH0_ID_TOKEN: "AUTH0_ID_TOKEN",
   JWT_TOKEN: "JWT_TOKEN",
 
-  ACCESS_TOKEN:"ACCESS_TOKEN",
-  ID_TOKEN:"ID_TOKEN",
-  AUTHENTICATION_PROVIDER:"AUTHENTICATION_PROVIDER",
+  ACCESS_TOKEN: "ACCESS_TOKEN",
+  ID_TOKEN: "ID_TOKEN",
+  AUTHENTICATION_PROVIDER: "AUTHENTICATION_PROVIDER",
   OBSERVER_THEME: "OBSERVER_THEME",
   OBSERVER_CURRENCY: "OBSERVER_CURRENCY"
 };
@@ -197,7 +197,7 @@ export const messages = {
   PASSWORD:
     "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
   DOWNLOAD_CSV: "Select address by clicking on checkbox to export data",
-  RANGE_SELECTOR:"Dates can be selected within the date range of data available",
+  RANGE_SELECTOR: "Dates can be selected within the date range of data available",
   EXPORT_DISABLE: "Select address by clicking on checkbox to export data",
   RANGE_SELECT: "Dates can be selected within the date range of data available"
 };
@@ -233,7 +233,7 @@ export const toolTipMessages = {
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
   age: "Time when was the transaction created.",
   date: "Transaction creation date.",
-  privatenote : `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`
+  privatenote: `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`
 };
 
 export const decimalDivisionValue = {
@@ -250,7 +250,7 @@ export const recentSearchTypeConstants = {
   WALLET: "WALLET",
   BLOCK: "TOKEN",
   TOKEN: "TOKEN",
-  CONTRACT:"CONTRACT"
+  CONTRACT: "CONTRACT"
 };
 
 export const authenticationProvider = {
@@ -258,6 +258,12 @@ export const authenticationProvider = {
 };
 
 export const MethodFromByte = {
+  "a978501e": "transferFrom",
+  "40c10f19": "mint",
+  "8456cb59": "pause",
+  "3f4ba83a": "resume",
+  "f1c064af": "ownership",
+  "42966c68": "burn",
   "e341eaa4": "sign",
   "3b1cd713": "approve",
   "a9059cbb": "transfer",
