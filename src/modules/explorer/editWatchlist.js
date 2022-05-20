@@ -252,6 +252,7 @@ function EditWatchList(props) {
           description: description,
           address: address,
           [request.address]: description,
+          modifiedOn: Date.now(),
         };
         if (!watchlists) {
           watchlists = [];
@@ -367,7 +368,6 @@ function EditWatchList(props) {
                   <DialogContentText className={classes.subCategory}>
                     Description
                   </DialogContentText>
-                  {console.log("description",description)}
                   <input
                     type="text"
                     value={description}

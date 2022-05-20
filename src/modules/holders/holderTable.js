@@ -87,7 +87,6 @@ const useStyles = makeStyles({
   },
   customTooltip: {
     fontSize: "13px",
-
   },
   customTooltipDarkMode: {
     background: "#051440",
@@ -134,7 +133,8 @@ export default function HolderTableComponent(props) {
   const [toToolTip, setToToolTip] = React.useState(false);
   const [amountToolTip, setAmountToolTip] = React.useState(false);
   const [exportToolTip, setExportToolTip] = React.useState(false);
-  const [holderTotalTransfersCount, setHolderTotalTransfersCount] = React.useState(0);
+  const [holderTotalTransfersCount, setHolderTotalTransfersCount] =
+    React.useState(0);
 
   const sortTable = (_sortKey) => {
     let _sortOrder = -1;
@@ -148,7 +148,7 @@ export default function HolderTableComponent(props) {
       skip: 0,
       limit: rowsPerPage,
       address: addr,
-      tokenContract : props?.contractAddress,
+      tokenContract: props?.contractAddress,
       sortKey: { [_sortKey]: _sortOrder },
     };
     getHolderDetails(requestObj);
@@ -158,7 +158,7 @@ export default function HolderTableComponent(props) {
     let requestObj = {
       limit: rowsPerPage,
       address: addr,
-      tokenContract : props?.contractAddress
+      tokenContract: props?.contractAddress,
     };
     if (keywords) requestObj.keywords = keywords;
     if (action == "first") {
@@ -196,7 +196,7 @@ export default function HolderTableComponent(props) {
       skip: 0,
       limit: event.target.value,
       address: addr,
-      tokenContract : props?.contractAddress
+      tokenContract: props?.contractAddress,
     };
     getHolderDetails(reqObj);
   };
@@ -212,7 +212,9 @@ export default function HolderTableComponent(props) {
         setLoading(false);
         setNoData(false);
         parseResponseData(responseData, 1);
-        setHolderTotalTransfersCount(responseData[0].Total_transfes_transactions_Count);
+        setHolderTotalTransfersCount(
+          responseData[0].Total_transfes_transactions_Count
+        );
       } else {
         setLoading(false);
         setNoData(true);
@@ -227,7 +229,7 @@ export default function HolderTableComponent(props) {
       skip: page,
       limit: rowsPerPage,
       address: addr,
-      tokenContract : props?.contractAddress
+      tokenContract: props?.contractAddress,
     };
     getHolderDetails(datas);
   }, []);
@@ -311,7 +313,7 @@ export default function HolderTableComponent(props) {
         limit: rowsPerPage,
         address: addr,
         keywords: searchkeyword,
-        tokenContract : props?.contractAddress
+        tokenContract: props?.contractAddress,
       };
       getHolderDetails(datas);
     }
@@ -321,7 +323,7 @@ export default function HolderTableComponent(props) {
         skip: 0,
         limit: rowsPerPage,
         address: addr,
-        tokenContract : props?.contractAddress
+        tokenContract: props?.contractAddress,
       };
       getHolderDetails(datas);
     }
@@ -387,18 +389,18 @@ export default function HolderTableComponent(props) {
     }
   };
   const NoDataFoundContainer = styled.div`
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  gap: 10px;
-  color: #c6cbcf;
-  @media (min-width: 767px) {
-    margin: 100px 0 !important;
-  }
-`;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    gap: 10px;
+    color: #c6cbcf;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
+    }
+  `;
   return (
     <div>
       <div className="content_input_all">
@@ -446,7 +448,7 @@ export default function HolderTableComponent(props) {
               borderRadius: "4px",
               width: "5.875rem",
               height: "2.125rem",
-              paddingTop: "2px"
+              paddingTop: "2px",
             }}
           >
             Export
@@ -465,23 +467,25 @@ export default function HolderTableComponent(props) {
                   : classes.customTooltip,
             }}
           >
-            <div style={{
-
-              fontSize: "15px",
-              textAlign: "center",
-              color: "#ffffff",
-              backgroundColor: "#e3e7eb",
-              borderRadius: "4px",
-              width: "5.875rem",
-              height: "2.125rem",
-            }} onClick={() => setExportToolTip(!exportToolTip)}>
+            <div
+              style={{
+                fontSize: "15px",
+                textAlign: "center",
+                color: "#ffffff",
+                backgroundColor: "#e3e7eb",
+                borderRadius: "4px",
+                width: "5.875rem",
+                height: "2.125rem",
+                paddingTop: "2px",
+              }}
+              onClick={() => setExportToolTip(!exportToolTip)}
+            >
               <CSVLink
                 filename={"Transactions.csv"}
                 data={downloadaddress}
                 style={{
                   pointerEvents: "none",
                   color: "#ffffff",
-
                 }}
               >
                 Export
@@ -514,9 +518,11 @@ export default function HolderTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={address.length > 0 ?
-                        address.filter((addr) => addr?.isChecked == true)
-                          .length == address.length : false
+                      checked={
+                        address.length > 0
+                          ? address.filter((addr) => addr?.isChecked == true)
+                              .length == address.length
+                          : false
                       }
                       style={{ marginRight: "8px" }}
                     />
@@ -1006,8 +1012,8 @@ export default function HolderTableComponent(props) {
                                 ? { background: "#192a59" }
                                 : { background: "#f9f9f9" }
                               : props.theme === "dark"
-                                ? { background: "#192a59" }
-                                : { background: "white" }
+                              ? { background: "#192a59" }
+                              : { background: "white" }
                           }
                         >
                           <TableCell
@@ -1137,11 +1143,22 @@ export default function HolderTableComponent(props) {
                                     ? "linkTable fc-4878ff"
                                     : "linkTable"
                                 }
-                                href={"/address-details/" + `${row.To === "xdc" ? props?.contractAddress : row.To}`}
+                                href={
+                                  "/address-details/" +
+                                  `${
+                                    row.To === "xdc"
+                                      ? props?.contractAddress
+                                      : row.To
+                                  }`
+                                }
                               >
                                 <Tooltip
                                   placement="top"
-                                  title={row.To === "xdc" ? props?.contractAddress : row.To}
+                                  title={
+                                    row.To === "xdc"
+                                      ? props?.contractAddress
+                                      : row.To
+                                  }
                                   classes={{
                                     tooltip:
                                       props.theme === "dark"
@@ -1150,14 +1167,20 @@ export default function HolderTableComponent(props) {
                                   }}
                                 >
                                   <span className="tabledata">
-                                    {row.To === "xdc" ? shorten(props?.contractAddress) : shorten(row.To)}
+                                    {row.To === "xdc"
+                                      ? shorten(props?.contractAddress)
+                                      : shorten(row.To)}
                                   </span>
                                 </Tooltip>
                               </a>
                             ) : (
                               <Tooltip
                                 placement="top"
-                                title={row.To === "xdc" ? props?.contractAddress : row.To}
+                                title={
+                                  row.To === "xdc"
+                                    ? props?.contractAddress
+                                    : row.To
+                                }
                                 classes={{
                                   tooltip:
                                     props.theme === "dark"
@@ -1166,7 +1189,9 @@ export default function HolderTableComponent(props) {
                                 }}
                               >
                                 <span className="tabledata">
-                                  {row.To === "xdc" ? shorten(props?.contractAddress) : shorten(row.To)}
+                                  {row.To === "xdc"
+                                    ? shorten(props?.contractAddress)
+                                    : shorten(row.To)}
                                 </span>
                               </Tooltip>
                             )}
@@ -1190,219 +1215,221 @@ export default function HolderTableComponent(props) {
                   </TableBody>
                 )
               )}
-
             </Table>
             {noData == true && (
-
               <NoDataFoundContainer>
                 <img
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div>
-                  No transactions found
-                </div>
+                <div>No transactions found</div>
               </NoDataFoundContainer>
-
-
             )}
           </TableContainer>
         </Paper>
         <DeskTopView>
-          {holderTotalTransfersCount >= rowsPerPage ? <Grid
-            container
-            style={{ marginTop: "1.75rem" }}
-            className="Pagination"
-          >
-            <Grid className="Pagination_1">
-              <span className={props.theme === "dark" ? "text-dark" : "text"}>
-                Show
-              </span>
-              <PageSelector
-                value={rowsPerPage}
-                height={35}
-                handler={handleChangeRowsPerPage}
-                theme={props.theme}
-              />
-              <span className={props.theme === "dark" ? "text-dark" : "text"}>
-                Records
-              </span>
-            </Grid>
+          {holderTotalTransfersCount >= rowsPerPage ? (
+            <Grid
+              container
+              style={{ marginTop: "1.75rem" }}
+              className="Pagination"
+            >
+              <Grid className="Pagination_1">
+                <span className={props.theme === "dark" ? "text-dark" : "text"}>
+                  Show
+                </span>
+                <PageSelector
+                  value={rowsPerPage}
+                  height={35}
+                  handler={handleChangeRowsPerPage}
+                  theme={props.theme}
+                />
+                <span className={props.theme === "dark" ? "text-dark" : "text"}>
+                  Records
+                </span>
+              </Grid>
 
-            <Grid item className="Pagination_2">
-              <button
-                onClick={() => handleChangePage("first")}
-                className={
-                  page === 0
-                    ? props.theme === "dark"
-                      ? "btn-latest-block-dark disabled-dark btn-first"
-                      : "btn disabled btn-first"
-                    : props.theme === "dark"
+              <Grid item className="Pagination_2">
+                <button
+                  onClick={() => handleChangePage("first")}
+                  className={
+                    page === 0
+                      ? props.theme === "dark"
+                        ? "btn-latest-block-dark disabled-dark btn-first"
+                        : "btn disabled btn-first"
+                      : props.theme === "dark"
                       ? "btn-latest-block-dark btn-first"
                       : "btn btn-first"
-                }
-              >
-                First
-              </button>
-              <button
-                onClick={() => handleChangePage("prev")}
-                className={
-                  page === 0
-                    ? props.theme === "dark"
-                      ? "btn-latest-block-dark disabled-dark btn-back"
-                      : "btn disabled btn-back"
-                    : props.theme === "dark"
+                  }
+                >
+                  First
+                </button>
+                <button
+                  onClick={() => handleChangePage("prev")}
+                  className={
+                    page === 0
+                      ? props.theme === "dark"
+                        ? "btn-latest-block-dark disabled-dark btn-back"
+                        : "btn disabled btn-back"
+                      : props.theme === "dark"
                       ? "btn-latest-block-dark  btn-back"
                       : "btn btn-back"
-                }
-              >
-                <img
-                  className="rotate-180"
-                  alt="back"
-                  src={"/images/next.svg"}
-                />{" "}
-              </button>
-              <button
-                className={
-                  props.theme === "dark"
-                    ? "btn-latest-block-dark  btn-page"
-                    : "btn btn-page"
-                }
-              >
-                Page{" "}
-                {Math.round(totalRecord / rowsPerPage) +
-                  1 -
-                  Math.round((totalRecord - page) / rowsPerPage)}
-                &nbsp;of {Math.ceil(totalRecord / rowsPerPage)}
-              </button>
-              <button
-                onClick={() => handleChangePage("next")}
-                className={
-                  page + rowsPerPage === totalRecord
-                    ? props.theme === "dark"
-                      ? "btn-latest-block-dark disabled-dark"
-                      : "btn disabled"
-                    : props.theme === "dark"
+                  }
+                >
+                  <img
+                    className="rotate-180"
+                    alt="back"
+                    src={"/images/next.svg"}
+                  />{" "}
+                </button>
+                <button
+                  className={
+                    props.theme === "dark"
+                      ? "btn-latest-block-dark  btn-page"
+                      : "btn btn-page"
+                  }
+                >
+                  Page{" "}
+                  {Math.round(totalRecord / rowsPerPage) +
+                    1 -
+                    Math.round((totalRecord - page) / rowsPerPage)}
+                  &nbsp;of {Math.ceil(totalRecord / rowsPerPage)}
+                </button>
+                <button
+                  onClick={() => handleChangePage("next")}
+                  className={
+                    page + rowsPerPage === totalRecord
+                      ? props.theme === "dark"
+                        ? "btn-latest-block-dark disabled-dark"
+                        : "btn disabled"
+                      : props.theme === "dark"
                       ? "btn-latest-block-dark  btn-next"
                       : "btn btn-next"
-                }
-              >
-                <img alt="next" src={"/images/next.svg"} />
-              </button>
-              <button
-                onClick={() => handleChangePage("last")}
-                className={
-                  page + rowsPerPage === totalRecord
-                    ? props.theme === "dark"
-                      ? "btn-latest-block-dark disabled-dark"
-                      : "btn disabled"
-                    : props.theme === "dark"
+                  }
+                >
+                  <img alt="next" src={"/images/next.svg"} />
+                </button>
+                <button
+                  onClick={() => handleChangePage("last")}
+                  className={
+                    page + rowsPerPage === totalRecord
+                      ? props.theme === "dark"
+                        ? "btn-latest-block-dark disabled-dark"
+                        : "btn disabled"
+                      : props.theme === "dark"
                       ? "btn-latest-block-dark  btn-last"
                       : "btn btn-last"
-                }
-              >
-                Last
-              </button>
+                  }
+                >
+                  Last
+                </button>
+              </Grid>
             </Grid>
-          </Grid> : ""}
+          ) : (
+            ""
+          )}
         </DeskTopView>
         <MobileView>
-          {holderTotalTransfersCount >= rowsPerPage ? <Grid
-            container
-            style={{ marginTop: "1.75rem" }}
-            className="Pagination"
-          >
-            <Grid className="Pagination_1">
-              <span className={props.theme === "dark" ? "text-dark" : "text"}>
-                Show
-              </span>
-              <PageSelector
-                value={rowsPerPage}
-                height={35}
-                handler={handleChangeRowsPerPage}
-                theme={props.theme}
-              />
-              <span className={props.theme === "dark" ? "text-dark" : "text"}>
-                Records
-              </span>
-            </Grid>
+          {holderTotalTransfersCount >= rowsPerPage ? (
+            <Grid
+              container
+              style={{ marginTop: "1.75rem" }}
+              className="Pagination"
+            >
+              <Grid className="Pagination_1">
+                <span className={props.theme === "dark" ? "text-dark" : "text"}>
+                  Show
+                </span>
+                <PageSelector
+                  value={rowsPerPage}
+                  height={35}
+                  handler={handleChangeRowsPerPage}
+                  theme={props.theme}
+                />
+                <span className={props.theme === "dark" ? "text-dark" : "text"}>
+                  Records
+                </span>
+              </Grid>
 
-            <Grid item className="Pagination_2">
-              <button
-                onClick={() => handleChangePage("first")}
-                className={
-                  page === 0
-                    ? props.theme === "dark"
-                      ? "btn-latest-block-dark disabled-dark btn-first"
-                      : "btn disabled btn-first"
-                    : props.theme === "dark"
+              <Grid item className="Pagination_2">
+                <button
+                  onClick={() => handleChangePage("first")}
+                  className={
+                    page === 0
+                      ? props.theme === "dark"
+                        ? "btn-latest-block-dark disabled-dark btn-first"
+                        : "btn disabled btn-first"
+                      : props.theme === "dark"
                       ? "btn-latest-block-dark btn-first"
                       : "btn btn-first"
-                }
-              >
-                First
-              </button>
-              <button
-                onClick={() => handleChangePage("prev")}
-                className={
-                  page === 0
-                    ? props.theme === "dark"
-                      ? "btn-latest-block-dark disabled-dark btn-back"
-                      : "btn disabled btn-back"
-                    : props.theme === "dark"
+                  }
+                >
+                  First
+                </button>
+                <button
+                  onClick={() => handleChangePage("prev")}
+                  className={
+                    page === 0
+                      ? props.theme === "dark"
+                        ? "btn-latest-block-dark disabled-dark btn-back"
+                        : "btn disabled btn-back"
+                      : props.theme === "dark"
                       ? "btn-latest-block-dark  btn-back"
                       : "btn btn-back"
-                }
-              >
-                <img
-                  className="rotate-180"
-                  alt="back"
-                  src={"/images/next.svg"}
-                />{" "}
-              </button>
-              <button
-                className={
-                  props.theme === "dark"
-                    ? "btn-latest-block-dark  btn-page"
-                    : "btn btn-page"
-                }
-              >
-                Page{" "}
-                {Math.round(totalRecord / rowsPerPage) +
-                  1 -
-                  Math.round((totalRecord - page) / rowsPerPage)}
-                &nbsp;of {Math.ceil(totalRecord / rowsPerPage)}
-              </button>
-              <button
-                onClick={() => handleChangePage("next")}
-                className={
-                  page + rowsPerPage === totalRecord
-                    ? props.theme === "dark"
-                      ? "btn-latest-block-dark disabled-dark"
-                      : "btn disabled"
-                    : props.theme === "dark"
+                  }
+                >
+                  <img
+                    className="rotate-180"
+                    alt="back"
+                    src={"/images/next.svg"}
+                  />{" "}
+                </button>
+                <button
+                  className={
+                    props.theme === "dark"
+                      ? "btn-latest-block-dark  btn-page"
+                      : "btn btn-page"
+                  }
+                >
+                  Page{" "}
+                  {Math.round(totalRecord / rowsPerPage) +
+                    1 -
+                    Math.round((totalRecord - page) / rowsPerPage)}
+                  &nbsp;of {Math.ceil(totalRecord / rowsPerPage)}
+                </button>
+                <button
+                  onClick={() => handleChangePage("next")}
+                  className={
+                    page + rowsPerPage === totalRecord
+                      ? props.theme === "dark"
+                        ? "btn-latest-block-dark disabled-dark"
+                        : "btn disabled"
+                      : props.theme === "dark"
                       ? "btn-latest-block-dark  btn-next"
                       : "btn btn-next"
-                }
-              >
-                <img alt="next" src={"/images/next.svg"} />
-              </button>
-              <button
-                onClick={() => handleChangePage("last")}
-                className={
-                  page + rowsPerPage === totalRecord
-                    ? props.theme === "dark"
-                      ? "btn-latest-block-dark disabled-dark"
-                      : "btn disabled"
-                    : props.theme === "dark"
+                  }
+                >
+                  <img alt="next" src={"/images/next.svg"} />
+                </button>
+                <button
+                  onClick={() => handleChangePage("last")}
+                  className={
+                    page + rowsPerPage === totalRecord
+                      ? props.theme === "dark"
+                        ? "btn-latest-block-dark disabled-dark"
+                        : "btn disabled"
+                      : props.theme === "dark"
                       ? "btn-latest-block-dark  btn-last"
                       : "btn btn-last"
-                }
-              >
-                Last
-              </button>
+                  }
+                >
+                  Last
+                </button>
+              </Grid>
             </Grid>
-          </Grid> : ""}
+          ) : (
+            ""
+          )}
         </MobileView>
       </Grid>
     </div>

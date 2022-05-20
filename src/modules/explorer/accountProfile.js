@@ -48,6 +48,7 @@ import format from "format-number";
 import CustomDropDownAddress from "../common/importDropdown";
 import ExportButton from "../common/exportButton";
 import { forEach } from "lodash";
+import Loader from "../../assets/loader"
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
@@ -424,6 +425,13 @@ const NoDataFoundContainer = styled.div`
   margin-bottom: 100px;
   gap: 10px;
 `;
+const LoaderDiv = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+`;
 
 const ParentProfile = styled.div`
   display: flex;
@@ -508,7 +516,7 @@ function SimpleTabs(props) {
   const [privateAddress, setPrivateAddress] = React.useState([]);
   // const [exports, exportAddress] = React.useState({});
   // const [toggle, handleToggle] = React.useState(false);
-  // const [isLoading, setLoading] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
   const _limit = 5;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -602,6 +610,7 @@ function SimpleTabs(props) {
           } else {
             response = response.map((obj) => {
               obj.description = localWatchlists[0]?.description || "";
+              obj.modifiedOn = localWatchlists[0]?.modifiedOn || obj.modifiedOn;
               return obj;
             });
             setWatchlist(response);
@@ -627,6 +636,7 @@ function SimpleTabs(props) {
         } else {
           response = response.map((obj) => {
             obj.description = localWatchlists[0]?.description;
+            obj.modifiedOn = localWatchlists[0]?.modifiedOn || obj.modifiedOn;
             return obj;
           });
           setWatchlist(response);
@@ -721,16 +731,19 @@ function SimpleTabs(props) {
       userId: sessionManager.getDataFromCookies("userId"),
       isWatchlistAddress: true,
     };
+    setLoading(true);
     let response = await UserService.getWatchlistList(request);
     let watchlists = localStorage.getItem(
       request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
     );
+    setLoading(false);
     watchlists = JSON.parse(watchlists);
     if (!watchlists) watchlists = [];
     response.watchlistContent = response.watchlistContent.map((obj) => {
       watchlists.map((item, index) => {
         if (watchlists && watchlists[index][obj.address]) {
           obj.description = watchlists[index][obj.address];
+          obj.modifiedOn = watchlists[index]?.modifiedOn || obj.modifiedOn;
         }
       });
       return obj;
@@ -1070,11 +1083,7 @@ function SimpleTabs(props) {
                   .tz(timezone)
                   .format("MMM DD, YYYY, [\n] hh:mm A")) ||
               ""
-            } ${
-              (timezone &&
-                Utility.getUtcOffset(timezone)) ||
-              ""
-            }`,
+            } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`,
           };
         })
       );
@@ -1107,11 +1116,7 @@ function SimpleTabs(props) {
                   .tz(timezone)
                   .format("MMM DD, YYYY, [\n] hh:mm A")) ||
               ""
-            } ${
-              (timezone &&
-                Utility.getUtcOffset(timezone)) ||
-              ""
-            }`,
+            } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`,
           };
         })
       );
@@ -1201,11 +1206,7 @@ function SimpleTabs(props) {
                   .tz(timezone)
                   .format("MMM DD, YYYY, [\n] hh:mm A")) ||
               ""
-            } ${
-              (timezone &&
-                Utility.getUtcOffset(timezone)) ||
-              ""
-            }`,
+            } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`,
           };
         })
       );
@@ -1238,11 +1239,7 @@ function SimpleTabs(props) {
                   .tz(timezone)
                   .format("MMM DD, YYYY, [\n] hh:mm A")) ||
               ""
-            } ${
-              (timezone &&
-                Utility.getUtcOffset(timezone)) ||
-              ""
-            }`,
+            } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`,
           };
         })
       );
@@ -1382,7 +1379,7 @@ function SimpleTabs(props) {
               />
               <Tab
                 label="Transaction Private Note"
-                className={classes.txnprivate}
+                // className={classes.txnprivate}
                 className={
                   value === 1
                     ? props.theme.currentTheme === "dark"
@@ -1401,7 +1398,7 @@ function SimpleTabs(props) {
               />
               <Tab
                 label="Tagged Address"
-                className={classes.address}
+                // className={classes.address}
                 className={
                   value === 2
                     ? props.theme.currentTheme === "dark"
@@ -1771,7 +1768,7 @@ function SimpleTabs(props) {
                       ></img>
                       <div className={classes.noData}>Data Not Found</div>
                     </NoDataFoundContainer>
-                  ) : (
+                  ) : isLoading ? (<LoaderDiv><Loader/></LoaderDiv>):(
                     <NoDataFoundContainer>
                       <img
                         className={classes.alert}
