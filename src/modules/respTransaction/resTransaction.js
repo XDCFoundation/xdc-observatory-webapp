@@ -1010,9 +1010,15 @@ const ImgInteracted = styled.img`
   margin-right: 9px;
 `;
 
+const ImgProIconContainer = styled.div`
+  padding: 2px;
+  border-radius: 6px;
+  border: solid 1px #f2f2f2;
+`;
 const ImgProfileIcon = styled.img`
   width: 32px;
   height: 32px;
+  border-radius: 3px;
 `;
 
 const ImgCopyGrey = styled.img`
@@ -1060,7 +1066,7 @@ const BlackTextNowrap = styled.span`
     color: #ffffff;
   `}
   @media (min-width: 768px) and (max-width: 1241px) {
-    margin-right 10px;
+    margin-right: 10px;
     white-space: nowrap;
     margin-top: -26px;
   }
@@ -1166,6 +1172,8 @@ function Transaction({ theme, currency }) {
   const [nonceTT, setNonceTT] = useState(false);
   const [inputDataTT, setInputDataTT] = useState(false);
   const [privateNoteTT, setPrivateNoteTT] = useState(false);
+  const [transferTransactionResponse, setTranferTransactionResponse] = useState("")
+  const [tokenMethodValue, setTokenMethodValue] = useState("");
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -1229,6 +1237,7 @@ function Transaction({ theme, currency }) {
   useEffect(async () => {
     await transactionDetail();
     await getLatestBlock();
+    transferTransactionDetail()
     await privateNoteUsingHash();
     await getTokenHashDetail();
     await gettokenPriceUsingTimestamp()
@@ -1257,6 +1266,34 @@ function Transaction({ theme, currency }) {
     tagUsingAddressTo(transactiondetailusinghash);
     setFromAddress(transactiondetailusinghash.from);
     setToAddress(transactiondetailusinghash.to);
+  };
+
+  const transferTransactionDetail = async () => {
+    let urlPath = `/${hash}`;
+    let [error, transferTransactionDetailUsingHash] = await Utils.parseResponse(
+      TokenData.getTransferTransactionDetailsUsingHash(urlPath, {})
+    );
+    if (error || !transferTransactionDetailUsingHash) return;
+    setLoading(false);
+    setTranferTransactionResponse(transferTransactionDetailUsingHash)
+    if (transferTransactionDetailUsingHash?.method.length < 3){
+      let inputValue =  (transferTransactionDetailUsingHash?.input).slice(2, 10)
+      tokenMethod(inputValue)
+    } else {
+      setTokenMethodValue(transferTransactionDetailUsingHash?.method)
+    }
+  };
+  const tokenMethod = async (inputValue) => {
+    let reqData = {
+      inputData: inputValue
+    };
+    let [error, tokenMethodResponse] = await Utils.parseResponse(
+      TokenData.getTokenMethod(reqData)
+    );
+    if (error || !tokenMethodResponse) return;
+    setLoading(false);
+    let value = utility.getCharsBefore(tokenMethodResponse, "(")
+    setTokenMethodValue(value)
   };
   const getLatestBlock = async () => {
     let urlPath = "?skip=0&limit=1";
@@ -1686,6 +1723,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                   onClose={closeDialogPvtNote}
                                   hash={hash}
                                   pvtNote={privateNote[0]?.trxLable}
+                                  theme={theme.currentTheme}
                                 />
                               }
                               {
@@ -2014,6 +2052,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                 fromAddr={transactions.from}
                                 value={dialogValue}
                                 hash={hash}
+                                theme={theme.currentTheme}
                               />
                             }
 
@@ -2063,6 +2102,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                               fromAddr={transactions.from}
                               value={dialogValue}
                               hash={hash}
+                              theme={theme.currentTheme}
                             />
                           }
 
@@ -2222,6 +2262,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                 toAddr={transactions.to}
                                 value={dialogValue2}
                                 hash={hash}
+                                theme={theme.currentTheme}
                               />
                             }
                             {tagValueTo && tagValueTo?.length ? (
@@ -2267,6 +2308,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                               toAddr={transactions.to}
                               value={dialogValue2}
                               hash={hash}
+                              theme={theme.currentTheme}
                             />
                           }
                           {tagValueTo && tagValueTo?.length ? (
@@ -2360,9 +2402,9 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                           <subContentInteractedWith>
                             <a
                               className="linkTableDetails-transaction"
-                              href={"#"}
+                              href={"/address-details/"+transactions?.to}
                             >
-                              xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
+                             {transactions?.to}
                             </a>
                             &nbsp;&nbsp;
                             <ImgCopyGrey src="/images/copy-grey.svg" />
@@ -2420,7 +2462,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                   </SpacingInteractedWith>
                 ) : contractData.ERC > 2 ? (
                   <>
-                    {/* <Spacing theme={theme.currentTheme}>
+                    <Spacing theme={theme.currentTheme}>
                       <Container>
                         {window.innerWidth > 1024 ? (
                           <Tooltip
@@ -2469,18 +2511,20 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                             <BlackText theme={theme.currentTheme}>
                               {contractData?.ERC == 2
                                 ? "XRC-20"
-                                : ContractData?.ERC > 2
+                                : contractData?.ERC > 2
                                   ? "XRC-721"
                                   : ""}
                             </BlackText>
-                            <GreyText>Token ID</GreyText>
+                            {/* <GreyText>Token ID</GreyText>
                             <GreyText>[</GreyText>
                             <BlueText theme={theme.currentTheme}>1256</BlueText>
-                            <GreyText>]</GreyText>
+                            <GreyText>]</GreyText> */}
+                            &nbsp;
                             <BlueText theme={theme.currentTheme}>
                               {contractData?.tokenName}
                             </BlueText>
                           </TokenTransferredContent>
+                          <ImgProIconContainer>
                           <ImgProfileIcon
                             src={
                               contractData?.tokenImage
@@ -2488,10 +2532,11 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                 : "/images/placeholder.svg"
                             }
                           />
+                          </ImgProIconContainer>
                         </TokenTransferredMiddleContainer>
                       </MiddleContainer>
-                    </Spacing> */}
-                    {/* <SpacingTxnAction theme={theme.currentTheme}>
+                    </Spacing>
+                    <SpacingTxnAction theme={theme.currentTheme}>
                       <ContainerTxnAction>
                         {window.innerWidth > 1024 ? (
                           <Tooltip
@@ -2537,7 +2582,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                               <BsCaretRightFill size={10} />
                             </div>
                             <BlackText theme={theme.currentTheme}>
-                              {transactions?.method ? transactions?.method : ""}
+                            {tokenMethodValue}
                             </BlackText>
                             <BlueText theme={theme.currentTheme}>
                               &nbsp;
@@ -2546,7 +2591,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                 : ""}
                             </BlueText>
                             <GreyText>&nbsp;from</GreyText>
-                            <BlueText theme={theme.currentTheme}>
+                            {/* <BlueText theme={theme.currentTheme}>
                               &nbsp;
                               {txnActionValues?.txnActionFromValue
                                 ? utility.shortenAddress(
@@ -2556,13 +2601,35 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                   3
                                 )
                                 : ""}
-                            </BlueText>
-                            <GreyText>&nbsp;to</GreyText>
+                            </BlueText> */}
                             <BlueText theme={theme.currentTheme}>
+                              &nbsp;
+                              {transferTransactionResponse?.from
+                                ? utility.shortenAddress(
+                                  transferTransactionResponse?.from,
+                                  11,
+                                  4,
+                                  3
+                                )
+                                : ""}
+                              </BlueText>
+                            <GreyText>&nbsp;to</GreyText>
+                            {/* <BlueText theme={theme.currentTheme}>
                               &nbsp;
                               {txnActionValues?.txnActionToValue
                                 ? utility.shortenAddress(
                                   txnActionValues?.txnActionToValue,
+                                  11,
+                                  4,
+                                  3
+                                )
+                                : ""} 
+                                </BlueText> */}
+                            <BlueText theme={theme.currentTheme}>
+                              &nbsp;
+                              {transferTransactionResponse?.to
+                                ? utility.shortenAddress(
+                                  transferTransactionResponse?.to,
                                   11,
                                   4,
                                   3
@@ -2572,7 +2639,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                           </TxnActionNextRow>
                         </MainContainerTxnAction>
                       </MiddleContainer>
-                    </SpacingTxnAction> */}
+                    </SpacingTxnAction>
                     <SpacingInteractedWith theme={theme.currentTheme}>
                       <ContainerInteractedWith>
                         {window.innerWidth > 1024 ? (
@@ -2630,9 +2697,9 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                                     ? "linkTableDetails-transaction-dark"
                                     : "linkTableDetails-transaction"
                                 }
-                                href={"#"}
+                                href={"/address-details/"+transactions?.to}
                               >
-                                xdcc4e699581116412965b5e7c71b8e2dd50ac341eb9a
+                                {transactions?.to}
                               </a>
                               &nbsp;&nbsp;
                             <ImgCopyGrey src="/images/copy-grey.svg" />
@@ -3112,6 +3179,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                             pvtNote={
                               pvtNoteValue[pvtNoteValue?.length - 1]?.trxLable
                             }
+                            theme={theme.currentTheme}
                           />
                         }
                         {

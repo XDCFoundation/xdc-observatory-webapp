@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs(props) {
   const classes = useStyles();
-  const [toggleState, setToggleState] = useState(1);
+  const [toggleState, setToggleState] = useState(7);
   const { tn, address } = useParams();
   const toggleTab = (index) => {
     setToggleState(index);
@@ -129,7 +129,7 @@ export default function SimpleTabs(props) {
                 gap: 20,
               }}
             >
-              {/* <button
+              <button
                 className={
                   toggleState === 7
                     ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
@@ -138,7 +138,7 @@ export default function SimpleTabs(props) {
                 onClick={() => toggleTab(7)}
               >
                 All Txns
-              </button> */}
+              </button>
               <button
                 className={
                   toggleState === 1
@@ -147,7 +147,7 @@ export default function SimpleTabs(props) {
                 }
                 onClick={() => toggleTab(1)}
               >
-                Transfers
+                XRC 20 Txns
               </button>
               <button
                 className={

@@ -24,7 +24,8 @@ import "../../assets/styles/custom.css";
 import toast, { Toaster } from "react-hot-toast";
 import CustomLoader from "../../assets/customLoader"
 import Web3 from "web3";
-import { genericConstants, messages } from "../../constants";
+import { genericConstants, cookiesConstants ,  messages } from "../../constants";
+import { sessionManager } from "../../managers/sessionManager";
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -250,7 +251,7 @@ const Container = styled.div`
   @media (max-width: 767px) {
     min-width: 100%;
     margin-left: 0;
-    margin-top: 4px;
+    // margin-top: 4px;
     margin-bottom: 4px;
   }
 `;
@@ -259,7 +260,7 @@ const SelectedValueContainer = styled.div`
   width: 100%;
   flex-direction: row;
   cursor: pointer;
-  padding: 7px 10px;
+  padding: 5px 10px;
   background-color: #fff;
   border-radius: 0.25rem;
   width: 5.875rem;
@@ -270,6 +271,9 @@ const SelectedValueContainer = styled.div`
   img {
     width: 11px;
     margin-left: 8px;
+  }
+  @media (min-width:0px) and (max-width:767px) {
+    width: 4rem;
   }
 `;
 
@@ -520,6 +524,8 @@ const CustomDropDownAddress = (props) => {
       if (item.tagName.length > 15) {
         tagLength = item.tagName.length;
       }
+      // item["tagName"] = item.name;
+      // delete item.name;
       return item;
     });
     if(tagLength != 0) {
@@ -528,6 +534,8 @@ const CustomDropDownAddress = (props) => {
     }
     await updateListTags(data);
     await closeDialogImport();
+    setSelectedList([]);
+    setData([]);
     await notify();
     getListOfTagAddress()
   };
@@ -538,6 +546,8 @@ const CustomDropDownAddress = (props) => {
       if (item.tagName.length > 15) {
         tagLength = item.tagName.length;
       }
+      // item["tagName"] = item.name;
+      // delete item.name;
       return item;
     });
     if(tagLength != 0) {
@@ -546,6 +556,8 @@ const CustomDropDownAddress = (props) => {
     }
     await updateListTags(selectedList);
     await closeDialogImport();
+    setSelectedList([]);
+    setData([]);
     await notify();
     getListOfTagAddress()
   };
@@ -560,6 +572,16 @@ const CustomDropDownAddress = (props) => {
   const closeConnectXDCPay = () => {
     setConnectXDCPay(false);
   }
+  const getCurrentTaggedAddresses =  () => {
+    const userId = sessionManager.getDataFromCookies("userId");
+ 
+     let taggedAddress = localStorage.getItem(
+       userId + cookiesConstants.USER_TAGGED_ADDRESS
+     );
+     taggedAddress = JSON.parse(taggedAddress);
+     if (!taggedAddress)  return [];
+     return taggedAddress;
+        }
   const searchMyAddress = async () => {
 
     let web3;
@@ -574,9 +596,33 @@ const CustomDropDownAddress = (props) => {
           Utility.apiFailureToast("Please login to XDCPay extension");
           return;
         }
-        let acc = accounts[0];
-        acc = acc.replace("0x", "xdc");
-        acc = acc.toLowerCase();
+        let xdc = window?.xdc;
+        let contacts = xdc?.publicConfigStore?._state.addressBook
+        if(!contacts || !contacts.length)
+          Utility.apiFailureToast("No Address found");
+        else{
+       contacts = parseContacts(contacts);   
+       let currentlyAddedAddresses =  getCurrentTaggedAddresses();
+       if(currentlyAddedAddresses && currentlyAddedAddresses.length){
+        currentlyAddedAddresses = currentlyAddedAddresses.map(({address})=>address);
+         contacts = contacts.filter((contact)=>{
+           if(!currentlyAddedAddresses.includes(contact.address))
+            return contact;
+         })
+       }
+       if(contacts.length>0)
+       {
+          setData(contacts)
+        setImportAddress(true);
+      }
+      else
+      Utility.apiFailureToast("No New Addresses found");
+
+      }
+        // let acc = accounts[0];
+        // acc = acc.replace("0x", "xdc");
+        // acc = acc.toLowerCase();
+        setConnectXDCPay(false);
         // window.location.href = "/address-details/" + acc;
       });
     } else { 
@@ -584,6 +630,16 @@ const CustomDropDownAddress = (props) => {
     }
     
   };
+const parseContacts = (contacts) =>{
+ let parsedTaggedAddresses = contacts.map(contact => {
+    contact["tagName"] = contact.name;
+    delete contact.name;
+    return contact;
+  })
+  return parsedTaggedAddresses
+}
+ 
+
 
   return (
     <div>

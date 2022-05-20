@@ -30,7 +30,9 @@ const SelectedValueContainer = styled.div`
     width: 11px;
     margin-left: 8px;
   }
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     background: transparent;
     border: solid 1px #3552a5;
   `}
@@ -66,7 +68,9 @@ const DropdownContainer = styled.div`
   min-width: ${(props) => props.containerWidth}px;
   max-height: 347px;
   padding-bottom: 10px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     background: #283966;
     border: solid 1px #3552a5;
     color: #ffffff;
@@ -90,14 +94,18 @@ const SearchBox = styled.div`
   display: flex;
   align-items: center;
   margin: 6px 3px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     background: #091b4e;
     border: solid 1px #3552a5;
   `}
   input {
     outline: none;
     border: none !important;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     background: #091b4e;
     color: #ffffff;
   `}
@@ -128,7 +136,9 @@ const OptionDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     color: #ffffff;
   `}
   :hover {
@@ -155,14 +165,18 @@ const TokenHeading = styled.div`
   display: flex;
   align-items: center;
   padding-left: 4px;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     background: #091b4e;
   `}
   span {
     font-size: 14px;
     font-weight: 600;
     color: #2a2a2a;
-    ${({ theme }) => theme === "dark" && `
+    ${({ theme }) =>
+      theme === "dark" &&
+      `
     color: #ffffff;
   `}
   }
@@ -185,7 +199,9 @@ const LastLine = styled.div`
   margin: 0 auto;
   min-width: 311px;
   border: solid 0.5px #e3e7eb;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     border: solid 0.5px #3552a5;
   `}
   @media (max-width: 767px) {
@@ -193,6 +209,7 @@ const LastLine = styled.div`
   }
 `;
 const CustomDropDownAddress = (props) => {
+  console.log("props", props);
   const { price, options, onSelect } = props;
   const [isDropdownOpen, toggleDropdown] = useState(false);
   const mainDiv = useRef(null);
@@ -206,10 +223,8 @@ const CustomDropDownAddress = (props) => {
     toggleDropdown(false);
   };
   const onFilterClicked = () => {
-    if(isDropdownOpen)
-    toggleDropdown(false)
-    else
-    toggleDropdown(true);
+    if (isDropdownOpen) toggleDropdown(false);
+    else toggleDropdown(true);
   };
 
   const handleClickOutside = (event) => {
@@ -237,30 +252,32 @@ const CustomDropDownAddress = (props) => {
   let filterXrc20 = options?.filter((obj) => !obj.ERC || obj.ERC == 2);
   let filterXrc721 = options.filter((obj) => obj.ERC > 2);
 
-  let activeCurrency = window.localStorage.getItem("currency");
+  let activeCurrency = props.activeCurrency;
   const currencySymbol = !price ? "" : activeCurrency === "USD" ? "$" : "€";
 
   function MouseOver(price) {
     setPriceConvertedValue(price);
-    setPriceVisibilty(true)
+    setPriceVisibilty(true);
   }
-  function MouseOut(event){
-    event.target.style.background="";
-    setPriceVisibilty(false)
+  function MouseOut(event) {
+    event.target.style.background = "";
+    setPriceVisibilty(false);
   }
 
   return (
     <Container ref={mainDiv}>
       <SelectedValueContainer theme={props.theme} onClick={onFilterClicked}>
         <TokenBalanceContainer>
-        {isPriceVisibilty && <TokenUsdBalance >
-            {currencySymbol}
-            {Number(priceConvertedValue).toFixed(2)}
-          </TokenUsdBalance>}
+          {isPriceVisibilty && (
+            <TokenUsdBalance>
+              {currencySymbol}
+              {Number(priceConvertedValue).toFixed(2)}
+            </TokenUsdBalance>
+          )}
           <FilterName>
             <span>{options.length}</span>
           </FilterName>
-          </TokenBalanceContainer>
+        </TokenBalanceContainer>
         <div>
           <img
             className={
@@ -268,12 +285,19 @@ const CustomDropDownAddress = (props) => {
                 ? "arrow-rotate-animation-up"
                 : "arrow-rotate-animation-down"
             }
-            src={props.theme === "dark" ? "/images/Dropdown.svg":"/images/dropdown-arrow.svg"}
+            src={
+              props.theme === "dark"
+                ? "/images/Dropdown.svg"
+                : "/images/dropdown-arrow.svg"
+            }
           />
         </div>
       </SelectedValueContainer>
       {isDropdownOpen && search.length == 0 ? (
-        <DropdownContainer theme={props.theme} containerWidth={mainDiv.current.clientWidth}>
+        <DropdownContainer
+          theme={props.theme}
+          containerWidth={mainDiv.current.clientWidth}
+        >
           <SearchBox theme={props.theme}>
             <img src="/images/Search.svg" />
             <input
@@ -292,7 +316,7 @@ const CustomDropDownAddress = (props) => {
             let priceConverted = !price
               ? ""
               : Utility.divideByDecimalValue(px, data?.decimals);
-              // setPriceConvertedValue(priceConverted)
+            // setPriceConvertedValue(priceConverted)
             return (
               <a
                 className="options-data"
@@ -300,7 +324,11 @@ const CustomDropDownAddress = (props) => {
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
-                <OptionDiv theme={props.theme} onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
+                <OptionDiv
+                  theme={props.theme}
+                  onMouseOver={() => MouseOver(priceConverted)}
+                  onMouseOut={MouseOut}
+                >
                   <FirstColumnToken>
                     <TokenLogo>
                       {data?.tokenImage ? (
@@ -352,7 +380,11 @@ const CustomDropDownAddress = (props) => {
                   data?.symbol ? data?.symbol : "NA"
                 }`}
               >
-                <OptionDiv theme={props.theme} onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
+                <OptionDiv
+                  theme={props.theme}
+                  onMouseOver={() => MouseOver(priceConverted)}
+                  onMouseOut={MouseOut}
+                >
                   <FirstColumnToken>
                     <TokenLogo>
                       {data?.tokenImage ? (
@@ -389,7 +421,10 @@ const CustomDropDownAddress = (props) => {
         </DropdownContainer>
       ) : (
         isDropdownOpen && (
-          <DropdownContainer theme={props.theme} containerWidth={mainDiv.current.clientWidth}>
+          <DropdownContainer
+            theme={props.theme}
+            containerWidth={mainDiv.current.clientWidth}
+          >
             <SearchBox theme={props.theme}>
               <img src="/images/Search.svg" />
               <input
@@ -412,7 +447,11 @@ const CustomDropDownAddress = (props) => {
                     data?.symbol ? data?.symbol : "NA"
                   }`}
                 >
-                  <OptionDiv theme={props.theme} onMouseOver={() => MouseOver(priceConverted)} onMouseOut={MouseOut}>
+                  <OptionDiv
+                    theme={props.theme}
+                    onMouseOver={() => MouseOver(priceConverted)}
+                    onMouseOut={MouseOut}
+                  >
                     <FirstColumnToken>
                       <TokenLogo>
                         {data?.tokenImage ? (

@@ -1380,14 +1380,9 @@ function SimpleTabs(props) {
               <Tab
                 label="Transaction Private Note"
                 // className={classes.txnprivate}
-                className={
-                  value === 1
-                    ? props.theme.currentTheme === "dark"
-                      ? classes.tab1Dark
-                      : classes.tab1
-                    : props.theme.currentTheme === "dark"
-                    ? classes.tab2Dark
-                    : classes.tab2
+                className={value === 1 
+                  ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
+                  : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
                 }
                 style={{
                   borderBottom:
@@ -1399,14 +1394,9 @@ function SimpleTabs(props) {
               <Tab
                 label="Tagged Address"
                 // className={classes.address}
-                className={
-                  value === 2
-                    ? props.theme.currentTheme === "dark"
-                      ? classes.tab1Dark
-                      : classes.tab1
-                    : props.theme.currentTheme === "dark"
-                    ? classes.tab2Dark
-                    : classes.tab2
+                className={value === 2 
+                  ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
+                  : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
                 }
                 style={{
                   borderBottom:
@@ -1452,8 +1442,8 @@ function SimpleTabs(props) {
                 value={search}
               />
             </div>
-            <div className="display-flex align-items-center">
-              {/* {tableValue === 3 ? (
+            <div className="display-flex">
+              {tableValue === 3 ? (
                 <CustomDropDownAddress
                   sampleRender={sampleRender}
                   updateListTags={updateListTags}
@@ -1461,7 +1451,7 @@ function SimpleTabs(props) {
                 />
               ) : (
                 ""
-              )} */}
+              )}
               {!isDownloadActive && tableValue === 1 ? (
                 ""
               ) : isDownloadActive ? (
@@ -1496,7 +1486,7 @@ function SimpleTabs(props) {
                             color: "#b1c3e1",
                             backgroundColor: "#283966",
                             borderRadius: "0.25rem",
-                            width: "5.875rem",
+                            width: window.innerWidth <768 ? "4rem":"5.875rem",
                             height: "2.125rem",
                             paddingTop: "0.4rem",
                           }
@@ -1507,7 +1497,7 @@ function SimpleTabs(props) {
                             color: "#ffffff",
                             backgroundColor: "#9fa9ba",
                             borderRadius: "0.25rem",
-                            width: "5.875rem",
+                            width: window.innerWidth <768 ? "4rem":"5.875rem",
                             height: "2.125rem",
 
                             paddingTop: "0.4rem",

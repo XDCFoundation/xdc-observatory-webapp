@@ -381,6 +381,11 @@ input:focus {
   display: flex;
 }
 
+.display-flex-i {
+  display: flex !important;
+}
+
+
 .flex-direction-column {
   flex-direction: column;
 }
@@ -8946,6 +8951,13 @@ button {
   height: 100%;
 }
 
+.token-dropdown-icon {
+  height: 5px;
+  width: 9px;
+  margin-top: 8px;
+  margin-left: 5px;
+}
+
 .block_details_heading_left {
   font-size: 1.5rem;
   margin-top: 5px;
@@ -10631,14 +10643,14 @@ button {
   }
   .block_sec {
     width: 21rem;
-    /* height: 4.5rem; */
-    height: 1.825rem;
+    height: 4.5rem;
+    /* height: 1.825rem; */
     margin-left: 1rem;
   }
   .block_sec_dark {
     width: 21rem;
-    /* height: 4.5rem; */
-    height: 1.825rem;
+    height: 4.5rem;
+    /* height: 1.825rem; */
     margin-left: 1rem;
   }
   .block_sec_contract {

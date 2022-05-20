@@ -4,7 +4,6 @@ import Graph from "../../../common/commonGraph";
 import { CircularProgress } from "@material-ui/core";
 import Highcharts from "highcharts/highstock";
 
-
 const NoDataFoundContainer = styled.div`
   display: flex;
   flex-flow: column;
@@ -24,11 +23,11 @@ function TokenBalanceGraphComponent(props) {
   props.graphData.map((data) => {
     sentAmountSeries.push({
       x: data.date,
-      y: data.toAmount/ 10 ** Number(props?.decimal),
+      y: data.toAmount / 10 ** Number(props?.decimal),
     });
     receiveAmountSeries.push({
       x: data.date,
-      y: data.fromAmount/ 10 ** Number(props?.decimal),
+      y: data.fromAmount / 10 ** Number(props?.decimal),
     });
   });
 
@@ -38,6 +37,7 @@ function TokenBalanceGraphComponent(props) {
     },
     chart: {
       type: "column",
+      backgroundColor: props.theme === "dark" ? "#192a59" : "#ffffff",
     },
     legend: {
       layout: "horizontal",
@@ -181,23 +181,25 @@ function TokenBalanceGraphComponent(props) {
   return (
     <div className={props.theme === "dark" ? "bg-192a59" : ""}>
       {props.loading ? (
-        <props.ProgressBarContainer> 
+        <props.ProgressBarContainer>
           <CircularProgress size={40} />
         </props.ProgressBarContainer>
       ) : (
-          <span>
-              {props.graphData.length == 0 ?
-                  <NoDataFoundContainer>
-                    <img
-                        src={require("../../../../../src/assets/images/XDC-Alert.svg")}
-                    ></img>
+        <span>
+          {props.graphData.length == 0 ? (
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
 
-                    <div className={props.theme === "dark" ? "fc-b1c3e1" : ""}>No Data found.</div>
-                  </NoDataFoundContainer>
-                  :
-                  <Graph options={options}/>
-              }
-            </span>
+              <div className={props.theme === "dark" ? "fc-b1c3e1" : ""}>
+                No Data found.
+              </div>
+            </NoDataFoundContainer>
+          ) : (
+            <Graph options={options} />
+          )}
+        </span>
       )}
     </div>
   );

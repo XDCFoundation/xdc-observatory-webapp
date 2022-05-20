@@ -323,7 +323,7 @@ export default function TransactionComponent(props) {
                   </TableCell>
                 )}
                 {/* {props.state.tableColumns["Age"].isActive && ( */}
-                {/* <TableCell
+                <TableCell
                   style={{ border: "none", paddingLeft: "2rem" }}
                   className="table-head-all"
                   align="left"
@@ -378,8 +378,8 @@ export default function TransactionComponent(props) {
                       </Tooltip>
                     )}
                   </span>
-                </TableCell> */}
-                {/* )} */}
+                </TableCell> 
+                
                 {props.state.tableColumns["Age"].isActive && (
                   <TableCell
                     style={{ border: "none", paddingLeft: "2rem" }}
@@ -775,11 +775,11 @@ export default function TransactionComponent(props) {
                             </span>
                           </TableCell>
                         )}
-                        {/* <TableCell
+                        <TableCell
                           style={{
                             border: "none",
                             width: "120px",
-                            paddingLeft: "2.813rem",
+                            paddingLeft: "30px",
                           }}
                           align="left"
                         >
@@ -796,7 +796,7 @@ export default function TransactionComponent(props) {
                           >
                             {row.method ? row.method : ""}
                           </span>
-                        </TableCell> */}
+                        </TableCell>
                         {props.state.tableColumns["Age"].isActive && (
                           <TableCell
                             style={{
