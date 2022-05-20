@@ -135,7 +135,7 @@ export default function SimpleTabs(props) {
                     ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
                     : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
-                onClick={() => toggleTab(7)}
+                onClick={() => toggleTab(1)}
               >
                 Transfers
               </button>
