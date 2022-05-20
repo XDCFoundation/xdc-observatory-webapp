@@ -12,7 +12,7 @@ const useStyles = makeStyles((themes) => ({
     maxWidth: "1202px",
     marginLeft: "auto",
     marginRight: "auto",
-    minHeight: "500px"
+    minHeight: "500px",
   },
   heading: {
     marginTop: "46px",
@@ -54,6 +54,7 @@ const useStyles = makeStyles((themes) => ({
     },
     "@media screen and (min-width: 0px) and (max-width: 767px)": {
       fontSize: "17px",
+      paddingLeft: "3.5%",
     },
   },
   contentRow: {
@@ -66,11 +67,24 @@ const useStyles = makeStyles((themes) => ({
       justifyContent: "center",
     },
   },
+  "@media screen and (min-width: 0px) and (max-width: 767px)": {
+    mainContainer: {
+      minHeight: "300px",
+    },
+    heading: {
+      marginTop: "15px",
+    },
+    darkheading: {
+      marginTop: "15px",
+    },
+  },
 }));
 
 function BlockchainIdentity(props) {
-    const classes = useStyles();
-    const [blockchainIdentityResponse, setBlockchainIdentityResponse] = useState([])
+  const classes = useStyles();
+  const [blockchainIdentityResponse, setBlockchainIdentityResponse] = useState(
+    []
+  );
 
   useEffect(() => {
     networkDetails();
@@ -106,15 +120,17 @@ function BlockchainIdentity(props) {
           {blockchainIdentityResponse &&
             blockchainIdentityResponse.map((row, index) => {
               return (
-                (row.networkName === "XDC Mainnet") && <NetworkCard
-                  cardHeading={row.networkName}
-                  networkName={row.networkName}
-                  RPC_URL={row.RPC_URL}
-                  chainID={row.chainID}
-                  currencySymbol={row.currencySymbol}
-                  blockExplorer={row.blockExplorer}
-                  theme={props?.theme.currentTheme}
-                />
+                row.networkName === "XDC Mainnet" && (
+                  <NetworkCard
+                    cardHeading={row.networkName}
+                    networkName={row.networkName}
+                    RPC_URL={row.RPC_URL}
+                    chainID={row.chainID}
+                    currencySymbol={row.currencySymbol}
+                    blockExplorer={row.blockExplorer}
+                    theme={props?.theme.currentTheme}
+                  />
+                )
               );
             })}
         </div>

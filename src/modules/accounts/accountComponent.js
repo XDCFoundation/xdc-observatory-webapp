@@ -25,7 +25,6 @@ import PageSelector from "../common/pageSelector";
 import SearchAndFiltersComponent from "./searchAndFiltersComponent";
 import { useEffect } from "react";
 
-
 const useStyles = makeStyles({
   headingContainer: {
     display: "flex",
@@ -44,12 +43,14 @@ const useStyles = makeStyles({
     boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#fff",
+    minHeight: "500px",
   },
   containerDark: {
     borderRadius: "0.875rem",
     boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#192a59",
+    minHeight: "500px",
   },
   RankColumn: {
     border: "none !important",
@@ -123,12 +124,12 @@ const useStyles = makeStyles({
     },
   },
   customTooltip: {
-    fontSize: "13px"
+    fontSize: "13px",
   },
   customTooltipDarkMode: {
     background: "#051440",
     color: "#adc4e4",
-    fontSize: "13px"
+    fontSize: "13px",
   },
 });
 
@@ -171,9 +172,8 @@ export default function AccountComponent(props) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
   useEffect(() => {
-    props.sortData("balance")
+    props.sortData("balance");
   }, []);
-  
 
   const { state } = props;
   const classes = useStyles();
@@ -181,10 +181,18 @@ export default function AccountComponent(props) {
 
   return (
     <div className={props.theme === "dark" ? "dark-theme-bg" : ""}>
-      <Tokensearchbar theme={props.theme}/>
+      <Tokensearchbar theme={props.theme} />
       <div className="responsive-table-width-contract-list contact-list-tab ">
         <div className={classes.headingContainer}>
-          <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading}>{state.tableName}</div>
+          <div
+            className={
+              props.theme === "dark"
+                ? `${classes.heading} fc-white`
+                : classes.heading
+            }
+          >
+            {state.tableName}
+          </div>
           <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
             <img
               onClick={handleSettingsClick}
@@ -217,52 +225,72 @@ export default function AccountComponent(props) {
             />
           </div>
         </div>
-        <SearchAndFiltersComponent searchAndFilters={props.state.searchAndFilters}
-          updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts} 
+        <SearchAndFiltersComponent
+          searchAndFilters={props.state.searchAndFilters}
+          updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts}
           getListOfAccounts={props.getListOfAccounts}
           theme={props.theme}
-          />
+        />
         <div style={{ borderRadius: "0.875rem" }} elevation={0}>
-          <TableContainer className={props.theme === "dark" ? classes.containerDark : classes.container} id="container-table">
+          <TableContainer
+            className={
+              props.theme === "dark" ? classes.containerDark : classes.container
+            }
+            id="container-table"
+          >
             <Table>
               <TableHead>
                 <TableRow>
                   {props.state.tableColumns["Rank"].isActive && (
                     <TableCell className={classes.RankColumn} align="center">
-                      <span className={props.theme === "dark" ? "tableheaders_1 fc-white p-l-8-md" : "tableheaders_1 p-l-8-md"}>
-                        Rank
-                        {window.innerWidth > 1024 ?
-                      <Tooltip
-                        placement="top"
-                        title={messages.RANK}
-                        classes={{
-                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                        }}
+                      <span
+                        className={
+                          props.theme === "dark"
+                            ? "tableheaders_1 fc-white p-l-8-md"
+                            : "tableheaders_1 p-l-8-md"
+                        }
                       >
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>:
-                        <Tooltip
-                          open={rankTT}
-                          onOpen={() => setRankTT(true)}
-                          onClose={() => setRankTT(false)}
-                          placement="top"
-                          title={messages.RANK}
-                          classes={{
-                            tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                          }}
-                        >
-                          <img
-                            onClick={() => setRankTT(!rankTT)}
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            className="tooltipInfoIconAccount"
-                          />
-                        </Tooltip>}
+                        Rank
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            placement="top"
+                            title={messages.RANK}
+                            classes={{
+                              tooltip:
+                                props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            open={rankTT}
+                            onOpen={() => setRankTT(true)}
+                            onClose={() => setRankTT(false)}
+                            placement="top"
+                            title={messages.RANK}
+                            classes={{
+                              tooltip:
+                                props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              onClick={() => setRankTT(!rankTT)}
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              className="tooltipInfoIconAccount"
+                            />
+                          </Tooltip>
+                        )}
                       </span>
                     </TableCell>
                   )}
@@ -273,104 +301,139 @@ export default function AccountComponent(props) {
                       props.sortData("address");
                     }}
                   >
-                    <span className={props.theme === "dark" ? "tableheaders_1_address cursor-pointer fc-white" : "tableheaders_1_address cursor-pointer"}>
+                    <span
+                      className={
+                        props.theme === "dark"
+                          ? "tableheaders_1_address cursor-pointer fc-white"
+                          : "tableheaders_1_address cursor-pointer"
+                      }
+                    >
                       Address
-                      {window.innerWidth > 1024 ?
-                      <Tooltip
-                        placement="top"
-                        title={messages.ACCOUNT_ADDRESS}
-                        classes={{
-                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                        }}
-                      >
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>:
-                      <Tooltip
-                        open={addressTT}
-                        onOpen={() => setaddressTT(true)}
-                        onClose={() => setaddressTT(false)}
-                        placement="top"
-                        title={messages.ACCOUNT_ADDRESS}
-                        classes={{
-                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                        }}
-                      >
-                        <img
-                          onClick={() => setaddressTT(!addressTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          className="tooltipInfoIconAccount"
-                        />
-                      </Tooltip>}
+                      {window.innerWidth > 1024 ? (
+                        <Tooltip
+                          placement="top"
+                          title={messages.ACCOUNT_ADDRESS}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          open={addressTT}
+                          onOpen={() => setaddressTT(true)}
+                          onClose={() => setaddressTT(false)}
+                          placement="top"
+                          title={messages.ACCOUNT_ADDRESS}
+                          classes={{
+                            tooltip:
+                              props.theme === "dark"
+                                ? classes.customTooltipDarkMode
+                                : classes.customTooltip,
+                          }}
+                        >
+                          <img
+                            onClick={() => setaddressTT(!addressTT)}
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                      )}
                     </span>
                     <Tooltip
                       placement="top"
                       title={props.getSortTitle(props?.state?.sortOrder)}
                       classes={{
-                        tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                        tooltip:
+                          props.theme === "dark"
+                            ? classes.customTooltipDarkMode
+                            : classes.customTooltip,
                       }}
-                    >{
-                        props?.state?.sortKey == "address" ?
-                          (props?.state?.sortOrder === 1 ? <img
+                    >
+                      {props?.state?.sortKey == "address" ? (
+                        props?.state?.sortOrder === 1 ? (
+                          <img
                             alt="question-mark"
                             src="/images/see-more.svg"
                             height={"14px"}
                             className="tooltipInfoIcon rotate-180"
-                        />
-                            : <img
+                          />
+                        ) : (
+                          <img
                             alt="question-mark"
                             src="/images/see-more.svg"
                             height={"14px"}
                             className="tooltipInfoIcon"
-                        />) : <span></span>
-                      }
+                          />
+                        )
+                      ) : (
+                        <span></span>
+                      )}
                     </Tooltip>
-                    
                   </TableCell>
                   {props.state.tableColumns["Type"].isActive && (
                     <TableCell
                       style={{ border: "none", paddingLeft: "5.4%" }}
                       align="center"
                     >
-                      <span className={props.theme === "dark" ? "tableheaders_1 fc-white p-l-8-md" : "tableheaders_1 p-l-8-md"}>
-                        Type
-                        {window.innerWidth > 1024 ?
-                      <Tooltip
-                        placement="top"
-                        title={messages.ACCOUNT_TYPE}
-                        classes={{
-                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                        }}
+                      <span
+                        className={
+                          props.theme === "dark"
+                            ? "tableheaders_1 fc-white p-l-8-md"
+                            : "tableheaders_1 p-l-8-md"
+                        }
                       >
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>:
-                        <Tooltip
-                          open={typeTT}
-                          onOpen={() => settypeTT(true)}
-                          onClose={() => settypeTT(false)}
-                          placement="top"
-                          title={messages.ACCOUNT_TYPE}
-                          classes={{
-                            tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                          }}
-                        >
-                          <img
-                            onClick={() => settypeTT(!typeTT)}
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            className="tooltipInfoIconAccount"
-                          />
-                        </Tooltip>}
+                        Type
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            placement="top"
+                            title={messages.ACCOUNT_TYPE}
+                            classes={{
+                              tooltip:
+                                props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            open={typeTT}
+                            onOpen={() => settypeTT(true)}
+                            onClose={() => settypeTT(false)}
+                            placement="top"
+                            title={messages.ACCOUNT_TYPE}
+                            classes={{
+                              tooltip:
+                                props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              onClick={() => settypeTT(!typeTT)}
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              className="tooltipInfoIconAccount"
+                            />
+                          </Tooltip>
+                        )}
                       </span>
                     </TableCell>
                   )}
@@ -385,65 +448,85 @@ export default function AccountComponent(props) {
                         props.sortData("balance");
                       }}
                     >
-                      <span className={props.theme === "dark" ? "tableheaders_1 fc-white p-l-8-md" : "tableheaders_1 p-l-8-md"}>
-                        Balance
-                        {window.innerWidth > 1024 ?
-                      <Tooltip
-                        placement="top"
-                        title={messages.ACCOUNT_BALANCE}
-                        classes={{
-                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                        }}
+                      <span
+                        className={
+                          props.theme === "dark"
+                            ? "tableheaders_1 fc-white p-l-8-md"
+                            : "tableheaders_1 p-l-8-md"
+                        }
                       >
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>:
-                        <Tooltip
-                          open={balanceTT}
-                          onOpen={() => setbalanceTT(true)}
-                          onClose={() => setbalanceTT(false)}
-                          placement="top"
-                          title={messages.ACCOUNT_BALANCE}
-                          classes={{
-                            tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                          }}
-                        >
-                          <img
-                            onClick={() => setbalanceTT(!balanceTT)}
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            className="tooltipInfoIconAccount"
-                          />
-                        </Tooltip>}
+                        Balance
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            placement="top"
+                            title={messages.ACCOUNT_BALANCE}
+                            classes={{
+                              tooltip:
+                                props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            open={balanceTT}
+                            onOpen={() => setbalanceTT(true)}
+                            onClose={() => setbalanceTT(false)}
+                            placement="top"
+                            title={messages.ACCOUNT_BALANCE}
+                            classes={{
+                              tooltip:
+                                props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              onClick={() => setbalanceTT(!balanceTT)}
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              className="tooltipInfoIconAccount"
+                            />
+                          </Tooltip>
+                        )}
                       </span>
-                        <Tooltip
+                      <Tooltip
                         placement="top"
                         title={props.getSortTitle(props?.state?.sortOrder)}
                         classes={{
-                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
                         }}
-                      >{
-                          props?.state?.sortKey == "balance" ?
-                            (props?.state?.sortOrder === 1 ? <img
+                      >
+                        {props?.state?.sortKey == "balance" ? (
+                          props?.state?.sortOrder === 1 ? (
+                            <img
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
                               className="tooltipInfoIcon rotate-180"
-                          />
-                              : <img
+                            />
+                          ) : (
+                            <img
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
                               className="tooltipInfoIcon"
-                          />) : <span></span>
-                        }
-
+                            />
+                          )
+                        ) : (
+                          <span></span>
+                        )}
                       </Tooltip>
-                      
                     </TableCell>
                   )}
 
@@ -455,65 +538,85 @@ export default function AccountComponent(props) {
                         props.sortData("percentage");
                       }}
                     >
-                      <span className={props.theme === "dark" ? "tableheaders_1 fc-white p-l-8-md" : "tableheaders_1 p-l-8-md"}>
-                        Percentage
-                        {window.innerWidth > 1024 ?
-                      <Tooltip
-                        placement="top"
-                        title={messages.PERCENTAGE}
-                        classes={{
-                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                        }}
+                      <span
+                        className={
+                          props.theme === "dark"
+                            ? "tableheaders_1 fc-white p-l-8-md"
+                            : "tableheaders_1 p-l-8-md"
+                        }
                       >
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                        />
-                      </Tooltip>:
-                        <Tooltip
-                          open={percentageTT}
-                          onOpen={() => setpercentageTT(true)}
-                          onClose={() => setpercentageTT(false)}
-                          placement="top"
-                          title={messages.PERCENTAGE}
-                          classes={{
-                            tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
-                          }}
-                        >
-                          <img
-                            onClick={() => setpercentageTT(!percentageTT)}
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            className="tooltipInfoIconAccount"
-                          />
-                        </Tooltip>}
+                        Percentage
+                        {window.innerWidth > 1024 ? (
+                          <Tooltip
+                            placement="top"
+                            title={messages.PERCENTAGE}
+                            classes={{
+                              tooltip:
+                                props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                            />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip
+                            open={percentageTT}
+                            onOpen={() => setpercentageTT(true)}
+                            onClose={() => setpercentageTT(false)}
+                            placement="top"
+                            title={messages.PERCENTAGE}
+                            classes={{
+                              tooltip:
+                                props.theme === "dark"
+                                  ? classes.customTooltipDarkMode
+                                  : classes.customTooltip,
+                            }}
+                          >
+                            <img
+                              onClick={() => setpercentageTT(!percentageTT)}
+                              alt="question-mark"
+                              src="/images/info.svg"
+                              className="tooltipInfoIconAccount"
+                            />
+                          </Tooltip>
+                        )}
                       </span>
                       <Tooltip
                         placement="top"
                         title={props.getSortTitle(props?.state?.sortOrder)}
                         classes={{
-                          tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                          tooltip:
+                            props.theme === "dark"
+                              ? classes.customTooltipDarkMode
+                              : classes.customTooltip,
                         }}
                       >
-                        {
-                          props?.state?.sortKey == "percentage" ?
-                            (props?.state?.sortOrder === 1 ? <img
+                        {props?.state?.sortKey == "percentage" ? (
+                          props?.state?.sortOrder === 1 ? (
+                            <img
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
                               className="tooltipInfoIcon rotate-180"
-                          />
-                              : <img
+                            />
+                          ) : (
+                            <img
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
                               className="tooltipInfoIcon"
-                          />) : <span></span>
-                        }
+                            />
+                          )
+                        ) : (
+                          <span></span>
+                        )}
                       </Tooltip>
-                      
                     </TableCell>
                   )}
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}
@@ -554,10 +657,10 @@ export default function AccountComponent(props) {
                             : 0;
 
                         rantValue = rantValue + 1;
-                        let percentageValue = state.totalSupply && state.totalSupply > 0 ? ((
-                          (finalBal / state.totalSupply) *
-                          100
-                        ).toFixed(8)) : 0
+                        let percentageValue =
+                          state.totalSupply && state.totalSupply > 0
+                            ? ((finalBal / state.totalSupply) * 100).toFixed(8)
+                            : 0;
 
                         let percentageValue1 = percentageValue
                           .toString()
@@ -573,13 +676,21 @@ export default function AccountComponent(props) {
                             key={row.name}
                             style={
                               index % 2 !== 1
-                                ? props.theme === "dark" ? { background: "#192a59" } : { background: "#f9f9f9" }
-                                : props.theme === "dark" ? { background: "#192a59" } : { background: "white" }
+                                ? props.theme === "dark"
+                                  ? { background: "#192a59" }
+                                  : { background: "#f9f9f9" }
+                                : props.theme === "dark"
+                                ? { background: "#192a59" }
+                                : { background: "white" }
                             }
                           >
                             {props.state.tableColumns["Rank"].isActive && (
                               <TableCell
-                                className={props.theme === "dark" ? `${classes.RankColumnVal} fc-b1c3e1` : ` ${classes.RankColumnVal}`}
+                                className={
+                                  props.theme === "dark"
+                                    ? `${classes.RankColumnVal} fc-b1c3e1`
+                                    : ` ${classes.RankColumnVal}`
+                                }
                                 align="center"
                               >
                                 <span className="tabledata">{rantValue}</span>
@@ -594,7 +705,11 @@ export default function AccountComponent(props) {
                               }}
                             >
                               <a
-                                className={props.theme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                                className={
+                                  props.theme === "dark"
+                                    ? "linkTable fc-4878ff"
+                                    : "linkTable"
+                                }
                                 href={"/address-details/" + row.address}
                               >
                                 <span className="tabledata">{row.address}</span>
@@ -607,7 +722,13 @@ export default function AccountComponent(props) {
                                 style={{ border: "none", paddingLeft: "5%" }}
                                 align="center"
                               >
-                                <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
+                                <span
+                                  className={
+                                    props.theme === "dark"
+                                      ? "tabledata fc-b1c3e1"
+                                      : "tabledata"
+                                  }
+                                >
                                   {row.accountType == 0
                                     ? "Account"
                                     : "Contract"}
@@ -627,13 +748,30 @@ export default function AccountComponent(props) {
                                   placement="right"
                                   title={format({})(finalBal)}
                                   classes={{
-                                    tooltip: props.theme === "dark" ? classes.customTooltipDarkMode : classes.customTooltip,
+                                    tooltip:
+                                      props.theme === "dark"
+                                        ? classes.customTooltipDarkMode
+                                        : classes.customTooltip,
                                   }}
                                 >
                                   {bal3 >= 0 || bal3 == null ? (
-                                    <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>{bal2}</span>
+                                    <span
+                                      className={
+                                        props.theme === "dark"
+                                          ? "tabledata fc-b1c3e1"
+                                          : "tabledata"
+                                      }
+                                    >
+                                      {bal2}
+                                    </span>
                                   ) : (
-                                    <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
+                                    <span
+                                      className={
+                                        props.theme === "dark"
+                                          ? "tabledata fc-b1c3e1"
+                                          : "tabledata"
+                                      }
+                                    >
                                       {bal2}
                                       {"."}
                                       <span style={{ color: "#9FA9BA" }}>
@@ -647,24 +785,32 @@ export default function AccountComponent(props) {
                             )}
                             {props.state.tableColumns["Percentage"]
                               .isActive && (
-                                <TableCell
-                                  className={`w-2 ${classes.PercentageColumnVal}`}
-                                  align="center"
+                              <TableCell
+                                className={`w-2 ${classes.PercentageColumnVal}`}
+                                align="center"
+                              >
+                                <span
+                                  className={
+                                    props.theme === "dark"
+                                      ? "tabledata fc-b1c3e1"
+                                      : "tabledata"
+                                  }
                                 >
-                                  <span className={props.theme === "dark" ? "tabledata fc-b1c3e1" : "tabledata"}>
-                                    {(!percentageValue2) ? <span>{percentageValue1}%</span> :
-                                      <span>
-                                        {percentageValue1}
-                                        {"."}
-                                        <span style={{ color: "#9FA9BA" }}>
-                                          {percentageValue2}
-                                        </span>
-                                        %
-                                      </span>}
-
-                                  </span>
-                                </TableCell>
-                              )}
+                                  {!percentageValue2 ? (
+                                    <span>{percentageValue1}%</span>
+                                  ) : (
+                                    <span>
+                                      {percentageValue1}
+                                      {"."}
+                                      <span style={{ color: "#9FA9BA" }}>
+                                        {percentageValue2}
+                                      </span>
+                                      %
+                                    </span>
+                                  )}
+                                </span>
+                              </TableCell>
+                            )}
                             {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
                           </TableRow>
                         );
@@ -679,84 +825,130 @@ export default function AccountComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div className={props.theme === "dark" ? "fc-b1c3e1" : ""}>No data found.</div>
+                <div className={props.theme === "dark" ? "fc-b1c3e1" : ""}>
+                  No data found.
+                </div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
         </div>
 
-        <Grid container style={{ marginTop: "28px" }} className="Pagination">
-          <Grid item className="Pagination_1">
-            {!props.state.isLoading && props.state.noData ? (
-              <>
-                <span className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}>Show</span>
-                <PageSelector value={props.state.amount}
-                  height={30}
-                  handler={props._handleChange} 
-                  theme={props.theme}
+        {props.state.accountList.length >= 10 && (
+          <Grid container style={{ marginTop: "28px" }} className="Pagination">
+            <Grid item className="Pagination_1">
+              {!props.state.isLoading && props.state.noData ? (
+                <>
+                  <span
+                    className={
+                      props.theme === "dark" ? "text fc-b1c3e1" : "text"
+                    }
+                  >
+                    Show
+                  </span>
+                  <PageSelector
+                    value={props.state.amount}
+                    height={30}
+                    handler={props._handleChange}
+                    theme={props.theme}
                   />
-                <span className={props.theme === "dark" ? "text fc-b1c3e1" : "text"}>Records</span>
-              </>
-            ) : (
-              ""
-            )}
-          </Grid>
+                  <span
+                    className={
+                      props.theme === "dark" ? "text fc-b1c3e1" : "text"
+                    }
+                  >
+                    Records
+                  </span>
+                </>
+              ) : (
+                ""
+              )}
+            </Grid>
 
-          <Grid item className="Pagination_2">
-            <button
-              id="btn_12"
-              style={{ marginLeft: "0px" }}
-              onClick={(event) => props._FirstPage(event)}
-              className={props.state.from === 0 
-                ? props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled" : "btn disabled" 
-                : props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn" 
-              }
-            >
-              First
-            </button>
-            <button
-              id="btn_12"
-              onClick={(event) => props._PrevPage(event)}
-              className={props.state.from === 0 
-                ? props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled" : "btn disabled" 
-                : props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn" 
-              }
-            >
-              <img className="back-arrow rotate-180" src={"/images/next.svg"} alt="back"/>
-            </button>
-            <button id="btn_12" className={props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn"}>
-              Page{" "}
-              {Math.ceil(state.totalAccounts / state.amount) -
-                Math.ceil((state.totalAccounts - state.from) / state.amount) +
-                1}{" "}
-              of {Math.ceil(state.totalAccounts / state.amount)}
-            </button>
-            <button
-              id="btn_12"
-              onClick={(event) => props._NextPage(event)}
-              className={
-                props.state.from + props.state.accountList.length ===
+            <Grid item className="Pagination_2">
+              <button
+                id="btn_12"
+                style={{ marginLeft: "0px" }}
+                onClick={(event) => props._FirstPage(event)}
+                className={
+                  props.state.from === 0
+                    ? props.theme === "dark"
+                      ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled"
+                      : "btn disabled"
+                    : props.theme === "dark"
+                    ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1"
+                    : "btn"
+                }
+              >
+                First
+              </button>
+              <button
+                id="btn_12"
+                onClick={(event) => props._PrevPage(event)}
+                className={
+                  props.state.from === 0
+                    ? props.theme === "dark"
+                      ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled"
+                      : "btn disabled"
+                    : props.theme === "dark"
+                    ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1"
+                    : "btn"
+                }
+              >
+                <img
+                  className="back-arrow rotate-180"
+                  src={"/images/next.svg"}
+                  alt="back"
+                />
+              </button>
+              <button
+                id="btn_12"
+                className={
+                  props.theme === "dark"
+                    ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1"
+                    : "btn"
+                }
+              >
+                Page{" "}
+                {Math.ceil(state.totalAccounts / state.amount) -
+                  Math.ceil((state.totalAccounts - state.from) / state.amount) +
+                  1}{" "}
+                of {Math.ceil(state.totalAccounts / state.amount)}
+              </button>
+              <button
+                id="btn_12"
+                onClick={(event) => props._NextPage(event)}
+                className={
+                  props.state.from + props.state.accountList.length ===
                   props.state.totalAccounts
-                  ? props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled" : "btn disabled" 
-                  : props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn" 
-              }
-            >
-              <img className="back-arrow" src={"/images/next.svg"} />
-            </button>
-            <button
-              id="btn_12"
-              onClick={(event) => props._LastPage(event)}
-              className={
-                props.state.from + props.state.accountList.length ===
+                    ? props.theme === "dark"
+                      ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled"
+                      : "btn disabled"
+                    : props.theme === "dark"
+                    ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1"
+                    : "btn"
+                }
+              >
+                <img className="back-arrow" src={"/images/next.svg"} />
+              </button>
+              <button
+                id="btn_12"
+                onClick={(event) => props._LastPage(event)}
+                className={
+                  props.state.from + props.state.accountList.length ===
                   props.state.totalAccounts
-                  ? props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled" : "btn disabled" 
-                  : props.theme === "dark" ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1" : "btn" 
-              }
-            >
-              Last
-            </button>
+                    ? props.theme === "dark"
+                      ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1 disabled"
+                      : "btn disabled"
+                    : props.theme === "dark"
+                    ? "btn table-btn-bg-dark pagination-btn-dark-border fc-b1c3e1"
+                    : "btn"
+                }
+              >
+                Last
+              </button>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </div>
       <FooterComponent />
     </div>

@@ -14,6 +14,7 @@ const useStyles = makeStyles((themes) => ({
     marginBottom: "32px",
     "@media screen and (min-width: 0px) and (max-width: 767px)": {
       width: "350px",
+      padding: "23px 10px 23px 20px",
     },
   },
   darkContentContainer: {
@@ -24,6 +25,10 @@ const useStyles = makeStyles((themes) => ({
     // border: "solid 1px #e3e7eb",
     backgroundColor: "#283966",
     marginBottom: "32px",
+    "@media screen and (min-width: 0px) and (max-width: 767px)": {
+      width: "350px",
+      padding: "23px 10px 23px 20px",
+    },
   },
   contentHeading: {
     fontSize: "18px",
@@ -48,7 +53,7 @@ const useStyles = makeStyles((themes) => ({
     padding: " 3px 0",
   },
   subcontentHeading: {
-    width: "134px",
+    width: "110px",
     fontSize: "15px",
     fontWeight: "600",
     color: "#252525",
@@ -58,7 +63,7 @@ const useStyles = makeStyles((themes) => ({
     },
   },
   darkSubcontentHeading: {
-    width: "134px",
+    width: "110px",
     fontSize: "15px",
     fontWeight: "600",
     color: "#ffffff",
@@ -93,6 +98,9 @@ const useStyles = makeStyles((themes) => ({
     height: "16px",
     margin: "4px 0 0 8px",
     cursor: "pointer",
+    "@media screen and (min-width: 0px) and (max-width: 767px)": {
+      margin: "2px 0 0 8px",
+    },
   },
   customTooltip: {
     fontSize: "13px",
@@ -117,15 +125,15 @@ export default function NetworkCard(props) {
         }
       >
         <a href={props.blockExplorer} target="_blank">
-        <div
-          className={
-            props.theme === "dark"
-              ? classes.darkContentHeading
-              : classes.contentHeading
-          }
-        >
-          {props.cardHeading}
-        </div>
+          <div
+            className={
+              props.theme === "dark"
+                ? classes.darkContentHeading
+                : classes.contentHeading
+            }
+          >
+            {props.cardHeading}
+          </div>
         </a>
         <div className={classes.subContentRow}>
           <div
