@@ -811,6 +811,7 @@ display: block;
   @media (min-width: 768px) and (max-width: 1240px) {
     padding-top: 29px;
     margin-left: 32px;
+    margin-right: 42px;
   }
 `;
 const DetailsMiddleContainer = styled.div`
