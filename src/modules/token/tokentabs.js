@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs(props) {
   const classes = useStyles();
-  const [toggleState, setToggleState] = useState(1);
+  const [toggleState, setToggleState] = useState(7);
   const { tn, address } = useParams();
   const toggleTab = (index) => {
     setToggleState(index);
@@ -129,7 +129,7 @@ export default function SimpleTabs(props) {
                 gap: 20,
               }}
             >
-              {/* <button
+              <button
                 className={
                   toggleState === 7
                     ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
@@ -138,7 +138,7 @@ export default function SimpleTabs(props) {
                 onClick={() => toggleTab(7)}
               >
                 All Txns
-              </button> */}
+              </button>
               <button
                 className={
                   toggleState === 1
@@ -147,7 +147,7 @@ export default function SimpleTabs(props) {
                 }
                 onClick={() => toggleTab(1)}
               >
-                Transfers
+                XRC 20 Txns
               </button>
               <button
                 className={
@@ -173,8 +173,8 @@ export default function SimpleTabs(props) {
               <button
                 className={
                   toggleState === 3
-                  ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
-                  : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
+                    ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                    : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(3)}
               >
@@ -183,34 +183,34 @@ export default function SimpleTabs(props) {
               <button
                 className={
                   toggleState === 4
-                  ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
-                  : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
+                    ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                    : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
                 }
                 onClick={() => toggleTab(4)}
               >
                 Code
               </button>
-              { contractData?.contractStatus === "Verified" ?
-              (<><button
-                className={
-                  toggleState === 5
-                  ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
-                  : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
-                }
-                onClick={() => toggleTab(5)}
-              >
-                Read Contract
-              </button>
-              <button
-                className={
-                  toggleState === 6
-                  ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
-                  : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
-                }
-                onClick={() => toggleTab(6)}
-              >
-                Write Contract
-              </button></>):(<></>)}
+              {contractData?.contractStatus === "Verified" ?
+                (<><button
+                  className={
+                    toggleState === 5
+                      ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                      : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
+                  }
+                  onClick={() => toggleTab(5)}
+                >
+                  Read Contract
+                </button>
+                  <button
+                    className={
+                      toggleState === 6
+                        ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
+                        : props.theme === "dark" ? "token-data-tabs-dark" : "token-data-tabs"
+                    }
+                    onClick={() => toggleTab(6)}
+                  >
+                    Write Contract
+                  </button></>) : (<></>)}
             </div>
             {/* </div>
             </div> */}
@@ -232,7 +232,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px", width: "auto" }}>
-                <TokenTransfertab theme={props.theme}/>
+                <TokenTransfertab theme={props.theme} />
               </div>
             </div>
 
@@ -242,7 +242,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenHoldertab theme={props.theme} contractData={contractData}/>
+                <TokenHoldertab theme={props.theme} contractData={contractData} />
               </div>
             </div>
 
@@ -252,7 +252,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenAnalytics contractAddress={address} theme={props.theme}/>
+                <TokenAnalytics contractAddress={address} theme={props.theme} />
               </div>
             </div>
 
@@ -278,40 +278,40 @@ export default function SimpleTabs(props) {
               </div>
             </div>
 
-           
-                <div
-                  className={
-                    toggleState === 5 ? "content  active-content" : "content"
+
+            <div
+              className={
+                toggleState === 5 ? "content  active-content" : "content"
+              }
+            >
+              <div style={{ marginTop: "10px" }}>
+                <ReadContract
+                  contractData={
+                    contractData?.contractResponse
+                      ? { ...contractData?.contractResponse }
+                      : {}
                   }
-                >
-                  <div style={{ marginTop: "10px" }}>
-                    <ReadContract
-                      contractData={
-                        contractData?.contractResponse
-                          ? { ...contractData?.contractResponse }
-                          : {}
-                      }
-                      theme={props.theme}
-                    />
-                  </div>
-                </div>
-                <div
-                  className={
-                    toggleState === 6 ? "content  active-content" : "content"
+                  theme={props.theme}
+                />
+              </div>
+            </div>
+            <div
+              className={
+                toggleState === 6 ? "content  active-content" : "content"
+              }
+            >
+              <div style={{ marginTop: "10px" }}>
+                <WriteContract
+                  contractData={
+                    contractData?.contractResponse
+                      ? { ...contractData?.contractResponse }
+                      : {}
                   }
-                >
-                  <div style={{ marginTop: "10px" }}>
-                    <WriteContract
-                      contractData={
-                        contractData?.contractResponse
-                          ? { ...contractData?.contractResponse }
-                          : {}
-                      }
-                      theme={props.theme}
-                    />
-                  </div>
-                </div>
-            
+                  theme={props.theme}
+                />
+              </div>
+            </div>
+
             {/* <div
               className={
                 toggleState === 5 ? "content  active-content" : "content"

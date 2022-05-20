@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     marginBottom: "21px",
     outline: "none",
-    color: "#fff"
+    color: "#fff",
   },
 
   addbtn: {
@@ -163,10 +163,6 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginLeft: "2px",
     marginTop: "-20px",
-  },
-  error1: {
-    color: "red",
-    marginLeft: "2px",
   },
   error2: {
     color: "red",
@@ -358,7 +354,7 @@ export default function FormDialog(props) {
   };
   const closeAlert = () => {
     setOpenAlert(false);
-  }
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -445,34 +441,25 @@ export default function FormDialog(props) {
   return (
     <>
       <div className="w-33p">
-        <div className={props.theme === "dark" ? "div1_dark cursor-pointer" : "div1 cursor-pointer"}>
-          <div
-            onClick={
-              // width >= 760
-              //   ? 
-                handleClickOpen
-                // : () => {
-                //     history.push("/test-address");
-                //   }
-            }
-          >
+        <div
+          className={
+            props.theme === "dark"
+              ? "div1_dark cursor-pointer"
+              : "div1 cursor-pointer"
+          }
+        >
+          <div onClick={handleClickOpen}>
             <img className="imagediv1" src={"/images/private.svg"}></img>
           </div>
-          <div
-            className="imageParentDiv"
-            onClick={
-              // width >= 760
-              //   ? 
-                handleClickOpen
-                // : () => {
-                //     history.push("/test-address");
-                //   }
-            }
-          >
+          <div className="imageParentDiv" onClick={handleClickOpen}>
             <div className="headingdiv1">
               <div>Add private tag to an Address</div>
             </div>
-            <div className={props.theme === "dark" ? "paradiv1 fc-adc4e4" : "paradiv1"}>
+            <div
+              className={
+                props.theme === "dark" ? "paradiv1 fc-adc4e4" : "paradiv1"
+              }
+            >
               Add a short memo or private tag to the address of interest.
             </div>
           </div>
@@ -494,118 +481,122 @@ export default function FormDialog(props) {
             </LightToolTip>
           </LearnMoreParent>
         </div>
-
-        {/* <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          <img className="Shape2" src={"/images/Profile.png"}></img>
-      </Button> */}
-
-        {/* <div> */}
-        {open && <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
-        <Dialog
-          // className={classes.dialog}
-          classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-          style={{position: "absolute", zIndex: 10000}}
-        >
-          <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
-          <Row>
-            <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
-              Add a new Address Tag
-            </div>
-          </Row>
-          {errorEmptyField ? (
-            <div className={classes.error2}>{errorEmptyField}</div>
-          ) : (
-            <></>
-          )}
-          <DialogContent>
-            <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
-              Address
-            </DialogContentText>
-            <input
-              className={props.theme === "dark" ? classes.inputDark : classes.input}
-              onChange={(e) => {
-                setPrivateAddress(e.target.value);
-                setError("");
-              }}
-            ></input>
-            {error ? <div className={classes.error}>{error}</div> : <></>}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={props.theme === "dark" ? `${classes.subCategory} fc-white` : classes.subCategory}>
-              Name Tag
-            </DialogContentText>
-
-            {/* <div className={props.theme === "dark" ? "containerTagDark" : "containerTag"}> */}
-              {/*<div className="tag">*/}
-              {/*  /!*{input}*!/*/}
-              {/*  /!*<button onClick={() => deleteTag(index)}>x</button>*!/*/}
-              {/*</div>*/}
-              <input
-                value={input}
-                // onKeyDown={onKeyDown}
-                // onKeyUp={onKeyUp}
-                onChange={onChange}
-                className={props.theme === "dark" ? classes.inputDark : classes.input}
-              />
-            {/* </div> */}
-            {errorTag ? (
-              <div className={classes.error1}>{errorTag}</div>
-            ) : (
-              <></>
-            )}
-            {/* <input
-              type="text"
-              className={classes.input}
-              onChange={(e) => setNameTag(e.target.value)}
-            ></input> */}
-            {/* {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>} */}
-            {/* <span>
-                {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity}
-            {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
-
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>}
-            fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */}
-          </DialogContent>
-          <DialogActions className={classes.buttons}>
-            <span>
-              <button className={props.theme === "dark" ? classes.cnlbtnDark : classes.cnlbtn} onClick={handleClose}>
-                Cancel
-              </button>
-            </span>
-            <span>
-              <button className={classes.addbtn} onClick={TaggedAddress}>
-                Add
-              </button>
-            </span>
-          </DialogActions>
-          <div className="p-l-15 p-r-15">
-          <div className={props.theme === "dark" ? classes.lastContainerDark : classes.lastContainer}>
-            <div className={classes.lastContainerText}>
-              Privacy is very important to us. To protect sensitive information,
-              all custom tags and data related to the Watchlists are saved on
-              your local device. Clearing the browsing history or cookies will
-              remove the watchlist data saved in your profile.
-            </div>
-            </div>
+        {open && (
+          <div className={window.innerWidth >= 768 && "overlay-private-alert"}>
+            <Dialog
+              classes={{ paperWidthSm: classes.dialogBox }}
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+              style={{ position: "absolute", zIndex: 10000 }}
+            >
+              <div className={props.theme === "dark" ? "table-bg-dark" : ""}>
+                <Row>
+                  <div
+                    className={
+                      props.theme === "dark"
+                        ? `${classes.heading} fc-white`
+                        : classes.heading
+                    }
+                    id="form-dialog-title"
+                  >
+                    Add a new Address Tag
+                  </div>
+                </Row>
+                {errorEmptyField ? (
+                  <div className={classes.error2}>{errorEmptyField}</div>
+                ) : (
+                  <></>
+                )}
+                <DialogContent>
+                  <DialogContentText
+                    className={
+                      props.theme === "dark"
+                        ? `${classes.subCategory} fc-white`
+                        : classes.subCategory
+                    }
+                  >
+                    Address
+                  </DialogContentText>
+                  <input
+                    className={
+                      props.theme === "dark" ? classes.inputDark : classes.input
+                    }
+                    onChange={(e) => {
+                      setPrivateAddress(e.target.value);
+                      setError("");
+                    }}
+                  ></input>
+                  {error ? <div className={classes.error}>{error}</div> : <></>}
+                </DialogContent>
+                <DialogContent>
+                  <DialogContentText
+                    className={
+                      props.theme === "dark"
+                        ? `${classes.subCategory} fc-white`
+                        : classes.subCategory
+                    }
+                  >
+                    Name Tag
+                  </DialogContentText>
+                  <input
+                    value={input}
+                    onChange={onChange}
+                    className={
+                      props.theme === "dark" ? classes.inputDark : classes.input
+                    }
+                  />
+                  {errorTag ? (
+                    <div className={classes.error}>{errorTag}</div>
+                  ) : (
+                    <></>
+                  )}
+                </DialogContent>
+                <DialogActions className={classes.buttons}>
+                  <span>
+                    <button
+                      className={
+                        props.theme === "dark"
+                          ? classes.cnlbtnDark
+                          : classes.cnlbtn
+                      }
+                      onClick={handleClose}
+                    >
+                      Cancel
+                    </button>
+                  </span>
+                  <span>
+                    <button className={classes.addbtn} onClick={TaggedAddress}>
+                      Add
+                    </button>
+                  </span>
+                </DialogActions>
+                <div className="p-l-15 p-r-15">
+                  <div
+                    className={
+                      props.theme === "dark"
+                        ? classes.lastContainerDark
+                        : classes.lastContainer
+                    }
+                  >
+                    <div className={classes.lastContainerText}>
+                      Privacy is very important to us. To protect sensitive
+                      information, all custom tags and data related to the
+                      Watchlists are saved on your local device. Clearing the
+                      browsing history or cookies will remove the watchlist data
+                      saved in your profile.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Dialog>
           </div>
-          {/* <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
-            </DialogContentText> */}
-            </div>
-        </Dialog>
-        </div>}
-        {addressAdded ? <AlertDialog openAlert={openAlert} closeAlert={closeAlert}/>:("")}
+        )}
+        {addressAdded ? (
+          <AlertDialog openAlert={openAlert} closeAlert={closeAlert} />
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

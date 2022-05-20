@@ -63,8 +63,7 @@ export default function TransactionTableComponent(props) {
   });
   const getContractDetails = async (values) => {
     try {
-      if(creationTransaction) 
-        values["hash"] = creationTransaction;
+      if (creationTransaction) values["hash"] = creationTransaction;
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(values)
       );
@@ -75,7 +74,7 @@ export default function TransactionTableComponent(props) {
         setLoading(false);
         return;
       }
-      setNoData(false)
+      setNoData(false);
       let transactionSortByValue = responseData.sort((a, b) => {
         return Number(b.value) - Number(a.value);
       });
@@ -269,13 +268,18 @@ export default function TransactionTableComponent(props) {
 
       setDownloadaddress(
         tempAddress.map((d) => {
+          let avgTxnfee = Utility.divideByDecimalValue(
+            d?.gasUsed * d?.gasPrice,
+            props?.decimal ? props?.decimal : 18
+          );
           return {
             TransactionHash: d.hash,
             Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: d.Value,
+            Value: d.value,
+            AvgTxnFee: avgTxnfee,
           };
         })
       );
@@ -296,22 +300,26 @@ export default function TransactionTableComponent(props) {
       }
       setDownloadaddress(
         tempAddr.map((d) => {
+          let avgTxnfee = Utility.divideByDecimalValue(
+            d?.gasUsed * d?.gasPrice,
+            props?.decimal ? props?.decimal : 18
+          );
           return {
             TransactionHash: d.hash,
             Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: d.Value,
+            Value: d.value,
+            AvgTxnFee: avgTxnfee,
           };
         })
       );
     }
   };
   React.useEffect(() => {
-
     setContractAddress(addressNumber);
-    setCreationTransaction(props?.contractData?.creationTransaction)
+    setCreationTransaction(props?.contractData?.creationTransaction);
     let values = {
       addrr: ContractAddress,
       pageNum: from,
@@ -496,7 +504,11 @@ export default function TransactionTableComponent(props) {
                 >
                   <TableCell
                     className="w-31"
-                    style={{ border: "none", display: "flex", flexFlow: "nowrap" }}
+                    style={{
+                      border: "none",
+                      display: "flex",
+                      flexFlow: "nowrap",
+                    }}
                     align="left"
                   >
                     {noData == false && (
@@ -504,11 +516,21 @@ export default function TransactionTableComponent(props) {
                         onChange={handleChanged}
                         type="checkbox"
                         name="allselect"
-                        checked={ address.length > 0 ?
-                          address.filter((addr) => addr?.isChecked == true)
-                            .length == address.length : false
+                        checked={
+                          address.length > 0
+                            ? address.filter((addr) => addr?.isChecked == true)
+                                .length == address.length
+                            : false
                         }
-                        style={{ marginRight: "8px", marginTop: window.innerWidth < 768 ? "2px" : window.innerWidth > 1240 ? "2px": "3px" }}
+                        style={{
+                          marginRight: "8px",
+                          marginTop:
+                            window.innerWidth < 768
+                              ? "2px"
+                              : window.innerWidth > 1240
+                              ? "2px"
+                              : "3px",
+                        }}
                       />
                     )}
                     <span
@@ -921,7 +943,8 @@ export default function TransactionTableComponent(props) {
                         currentTime,
                         previousTime
                       );
-                      row["to"] = row?.to && row?.to?.length ? row.to :ContractAddress;
+                      row["to"] =
+                        row?.to && row?.to?.length ? row.to : ContractAddress;
                       return (
                         <TableRow
                           style={
@@ -935,7 +958,11 @@ export default function TransactionTableComponent(props) {
                           }
                         >
                           <TableCell
-                            style={{ border: "none", display: "flex", flexFlow: "nowrap" }}
+                            style={{
+                              border: "none",
+                              display: "flex",
+                              flexFlow: "nowrap",
+                            }}
                             margin-left="5px"
                           >
                             <input
@@ -945,7 +972,15 @@ export default function TransactionTableComponent(props) {
                               type="checkbox"
                               checked={row?.isChecked || false}
                               //checked={checkAll}
-                              style={{ marginRight: "8px", marginTop: window.innerWidth < 768 ? "5px" : window.innerWidth > 1240 ? "7px": "8px"}}
+                              style={{
+                                marginRight: "8px",
+                                marginTop:
+                                  window.innerWidth < 768
+                                    ? "5px"
+                                    : window.innerWidth > 1240
+                                    ? "7px"
+                                    : "8px",
+                              }}
                             />
 
                             <a
@@ -1113,7 +1148,10 @@ export default function TransactionTableComponent(props) {
                                   : "tabledata"
                               }
                             >
-                              {Utility.divideByDecimalValue(row?.gasUsed * row?.gasPrice, props?.decimal ?props?.decimal : 18)}
+                              {Utility.divideByDecimalValue(
+                                row?.gasUsed * row?.gasPrice,
+                                props?.decimal ? props?.decimal : 18
+                              )}
                             </span>
                           </TableCell>
                         </TableRow>

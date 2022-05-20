@@ -48,6 +48,7 @@ import format from "format-number";
 import CustomDropDownAddress from "../common/importDropdown";
 import ExportButton from "../common/exportButton";
 import { forEach } from "lodash";
+import Loader from "../../assets/loader"
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
@@ -172,10 +173,10 @@ const useStyles = makeStyles((theme) => ({
     // flexGrow: 1,
     // backgroundColor: "#f8f9fa00",
     // width: "100vw",
-    maxWidth: "1190px",
+    maxWidth: "1202px",
     margin: "auto",
     borderRadius: "none",
-    padding: "10px 15px",
+    padding: "10px 0px",
     justifyContent: "space-around",
     textTransform: "none",
   },
@@ -424,6 +425,13 @@ const NoDataFoundContainer = styled.div`
   margin-bottom: 100px;
   gap: 10px;
 `;
+const LoaderDiv = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+`;
 
 const ParentProfile = styled.div`
   display: flex;
@@ -439,14 +447,13 @@ const UserNameContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   margin: 40px auto;
-  gap: 15px;
   font-family: Inter;
   font-size: 18px;
   font-weight: 600;
-  max-width: 1190px;
+  max-width: 1202px;
   width: 100%;
   align-items: center;
-
+  justify-content: space-between;
   @media (min-width: 768px) and (max-width: 1240px) {
     gap: 32px;
   }
@@ -509,7 +516,7 @@ function SimpleTabs(props) {
   const [privateAddress, setPrivateAddress] = React.useState([]);
   // const [exports, exportAddress] = React.useState({});
   // const [toggle, handleToggle] = React.useState(false);
-  // const [isLoading, setLoading] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
   const _limit = 5;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -603,6 +610,7 @@ function SimpleTabs(props) {
           } else {
             response = response.map((obj) => {
               obj.description = localWatchlists[0]?.description || "";
+              obj.modifiedOn = localWatchlists[0]?.modifiedOn || obj.modifiedOn;
               return obj;
             });
             setWatchlist(response);
@@ -628,6 +636,7 @@ function SimpleTabs(props) {
         } else {
           response = response.map((obj) => {
             obj.description = localWatchlists[0]?.description;
+            obj.modifiedOn = localWatchlists[0]?.modifiedOn || obj.modifiedOn;
             return obj;
           });
           setWatchlist(response);
@@ -722,16 +731,19 @@ function SimpleTabs(props) {
       userId: sessionManager.getDataFromCookies("userId"),
       isWatchlistAddress: true,
     };
+    setLoading(true);
     let response = await UserService.getWatchlistList(request);
     let watchlists = localStorage.getItem(
       request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
     );
+    setLoading(false);
     watchlists = JSON.parse(watchlists);
     if (!watchlists) watchlists = [];
     response.watchlistContent = response.watchlistContent.map((obj) => {
       watchlists.map((item, index) => {
         if (watchlists && watchlists[index][obj.address]) {
           obj.description = watchlists[index][obj.address];
+          obj.modifiedOn = watchlists[index]?.modifiedOn || obj.modifiedOn;
         }
       });
       return obj;
@@ -1071,11 +1083,7 @@ function SimpleTabs(props) {
                   .tz(timezone)
                   .format("MMM DD, YYYY, [\n] hh:mm A")) ||
               ""
-            } ${
-              (timezone &&
-                Utility.getUtcOffset(timezone)) ||
-              ""
-            }`,
+            } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`,
           };
         })
       );
@@ -1108,11 +1116,7 @@ function SimpleTabs(props) {
                   .tz(timezone)
                   .format("MMM DD, YYYY, [\n] hh:mm A")) ||
               ""
-            } ${
-              (timezone &&
-                Utility.getUtcOffset(timezone)) ||
-              ""
-            }`,
+            } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`,
           };
         })
       );
@@ -1202,11 +1206,7 @@ function SimpleTabs(props) {
                   .tz(timezone)
                   .format("MMM DD, YYYY, [\n] hh:mm A")) ||
               ""
-            } ${
-              (timezone &&
-                Utility.getUtcOffset(timezone)) ||
-              ""
-            }`,
+            } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`,
           };
         })
       );
@@ -1239,11 +1239,7 @@ function SimpleTabs(props) {
                   .tz(timezone)
                   .format("MMM DD, YYYY, [\n] hh:mm A")) ||
               ""
-            } ${
-              (timezone &&
-                Utility.getUtcOffset(timezone)) ||
-              ""
-            }`,
+            } ${(timezone && Utility.getUtcOffset(timezone)) || ""}`,
           };
         })
       );
@@ -1383,15 +1379,10 @@ function SimpleTabs(props) {
               />
               <Tab
                 label="Transaction Private Note"
-                className={classes.txnprivate}
-                className={
-                  value === 1
-                    ? props.theme.currentTheme === "dark"
-                      ? classes.tab1Dark
-                      : classes.tab1
-                    : props.theme.currentTheme === "dark"
-                    ? classes.tab2Dark
-                    : classes.tab2
+                // className={classes.txnprivate}
+                className={value === 1 
+                  ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
+                  : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
                 }
                 style={{
                   borderBottom:
@@ -1402,15 +1393,10 @@ function SimpleTabs(props) {
               />
               <Tab
                 label="Tagged Address"
-                className={classes.address}
-                className={
-                  value === 2
-                    ? props.theme.currentTheme === "dark"
-                      ? classes.tab1Dark
-                      : classes.tab1
-                    : props.theme.currentTheme === "dark"
-                    ? classes.tab2Dark
-                    : classes.tab2
+                // className={classes.address}
+                className={value === 2 
+                  ? props.theme.currentTheme === "dark" ? classes.tab1Dark : classes.tab1 
+                  : props.theme.currentTheme === "dark" ? classes.tab2Dark : classes.tab2
                 }
                 style={{
                   borderBottom:
@@ -1456,8 +1442,8 @@ function SimpleTabs(props) {
                 value={search}
               />
             </div>
-            <div className="display-flex align-items-center">
-              {/* {tableValue === 3 ? (
+            <div className="display-flex">
+              {tableValue === 3 ? (
                 <CustomDropDownAddress
                   sampleRender={sampleRender}
                   updateListTags={updateListTags}
@@ -1465,7 +1451,7 @@ function SimpleTabs(props) {
                 />
               ) : (
                 ""
-              )} */}
+              )}
               {!isDownloadActive && tableValue === 1 ? (
                 ""
               ) : isDownloadActive ? (
@@ -1500,7 +1486,7 @@ function SimpleTabs(props) {
                             color: "#b1c3e1",
                             backgroundColor: "#283966",
                             borderRadius: "0.25rem",
-                            width: "5.875rem",
+                            width: window.innerWidth <768 ? "4rem":"5.875rem",
                             height: "2.125rem",
                             paddingTop: "0.4rem",
                           }
@@ -1511,7 +1497,7 @@ function SimpleTabs(props) {
                             color: "#ffffff",
                             backgroundColor: "#9fa9ba",
                             borderRadius: "0.25rem",
-                            width: "5.875rem",
+                            width: window.innerWidth <768 ? "4rem":"5.875rem",
                             height: "2.125rem",
 
                             paddingTop: "0.4rem",
@@ -1772,7 +1758,7 @@ function SimpleTabs(props) {
                       ></img>
                       <div className={classes.noData}>Data Not Found</div>
                     </NoDataFoundContainer>
-                  ) : (
+                  ) : isLoading ? (<LoaderDiv><Loader/></LoaderDiv>):(
                     <NoDataFoundContainer>
                       <img
                         className={classes.alert}

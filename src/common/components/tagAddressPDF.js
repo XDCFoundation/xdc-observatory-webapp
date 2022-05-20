@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
 });
 
 const PDF = ({ data }) => {
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>

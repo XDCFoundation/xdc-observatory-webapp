@@ -20,7 +20,7 @@ const NoDataFoundContainer = styled.div`
 
 function TokenBalanceGraphComponent(props) {
   const graphData = props.graphData.map((data) => {
-    let value = data.currentBalance / 10 ** Number(props?.decimal)
+    let value = data.currentBalance / 10 ** Number(props?.decimal);
     data.x = data.date;
     data.y = Math.abs(value);
     return data;
@@ -28,6 +28,10 @@ function TokenBalanceGraphComponent(props) {
   const options = {
     title: {
       text: "",
+    },
+    chart: {
+      type: "column",
+      backgroundColor: props.theme === "dark" ? "#192a59" : "#ffffff",
     },
     legend: {
       layout: "horizontal",
@@ -168,19 +172,21 @@ function TokenBalanceGraphComponent(props) {
           <CircularProgress size={40} />
         </props.ProgressBarContainer>
       ) : (
-          <span>
-              {props.graphData.length == 0 ?
-                  <NoDataFoundContainer>
-                    <img
-                        src={require("../../../../../src/assets/images/XDC-Alert.svg")}
-                    ></img>
+        <span>
+          {props.graphData.length == 0 ? (
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
 
-                    <div className={props.theme === "dark" ? "fc-b1c3e1" : ""}>No Data found.</div>
-                  </NoDataFoundContainer>
-                  :
-                  <Graph options={options}/>
-              }
-            </span>
+              <div className={props.theme === "dark" ? "fc-b1c3e1" : ""}>
+                No Data found.
+              </div>
+            </NoDataFoundContainer>
+          ) : (
+            <Graph options={options} />
+          )}
+        </span>
       )}
     </div>
   );

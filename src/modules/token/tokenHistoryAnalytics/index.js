@@ -45,7 +45,7 @@ class TokenPriceHistoryGraph extends BaseComponent {
     this.state = {
       loading: false,
       tokenName: "",
-      graphData: []
+      graphData: [],
     };
   }
 
@@ -226,7 +226,111 @@ class TokenPriceHistoryGraph extends BaseComponent {
         },
       ],
     };
+    let optionsDark = {
+      title: {
+        text: "",
+      },
+      chart: {
+        type: "line",
+        zoomType: {
+          enabled: false,
+        },
+        backgroundColor: "#192a59",
+      },
+      legend: {
+        layout: "horizontal",
+        align: "center",
+        enabled: true,
+        symbolPadding: 0,
+        symbolWidth: 0,
+        symbolHeight: 0,
+        squareSymbol: false,
+        backgroundColor: "#FFFFFF",
+        useHTML: true,
+        labelFormatter: function () {
+          let legend = "<div style='display:flex; align-items: center;'>";
+          if (this.name == __this.state.tokenName + " Daily Price") {
+            legend +=
+              "<img style='margin:5px' src='/images/graph-circle-blue.svg' />";
+          }
+
+          return (legend +=
+            "<div style='margin:5px 5px 5px 0'>" +
+            __this.state.tokenName +
+            " Daily Price" +
+            "</div>" +
+            "</div>");
+        },
+      },
+      navigator: {
+        enabled: false,
+      },
+      scrollbar: {
+        enabled: false,
+      },
+      rangeSelector: {
+        enabled: false,
+      },
+      exporting: {
+        buttons: {
+          contextButton: {
+            text: "Export",
+            enabled: true,
+          },
+        },
+        enabled: true,
+      },
+      tooltip: {
+        split: false,
+        formatter: function () {
+          let tooltip = moment(this.x).format("dddd, MMM D, YYYY");
+          tooltip += '<br><h2 style="font-size:20px">Daily Price</h2>';
+          tooltip +=
+            "<br><h2>High - </h2>" +
+            '<label style="font-weight: bold">' +
+            this.point.highestPrice +
+            " USD</label>";
+          tooltip +=
+            "<br><h2>Low - </h2>" +
+            '<label style="font-weight: bold">' +
+            this.point.lowestPrice +
+            " USD</label>";
+          tooltip +=
+            "<br><h2>Close - </h2>" +
+            '<label style="font-weight: bold">' +
+            this.point.closingPrice +
+            " USD</label>";
+          return tooltip;
+        },
+      },
+      series: [
+        {
+          data: data.map((obj) => {
+            obj.x = obj.timestamp;
+            obj.y = obj.closingPrice;
+            return obj;
+          }),
+          color: "rgb(124, 181, 236)",
+          name: __this.state.tokenName + " Daily Price",
+        },
+      ],
+      credits: { enabled: false },
+      yAxis: [
+        {
+          opposite: false,
+          title: { text: __this.state.tokenName + " Price(USD)" },
+        },
+      ],
+      xAxis: [
+        {
+          showInLegend: false,
+          opposite: false,
+          title: { text: "" },
+        },
+      ],
+    };
     this.setState({ options });
+    this.setState({ optionsDark });
   };
 
   render() {
@@ -238,17 +342,25 @@ class TokenPriceHistoryGraph extends BaseComponent {
           </ProgressBarContainer>
         ) : (
           <span>
-            {this.state.graphData.length == 0 ?
+            {this.state.graphData.length == 0 ? (
               <NoDataFoundContainer>
                 <img
                   src={require("../../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div className={this.props.theme === "dark" ? "fc-b1c3e1" : ""}>No Data found.</div>
+                <div className={this.props.theme === "dark" ? "fc-b1c3e1" : ""}>
+                  No Data found.
+                </div>
               </NoDataFoundContainer>
-              :
-              <Graph options={this.state.options} />
-            }
+            ) : (
+              <Graph
+                options={
+                  this.props.theme === "dark"
+                    ? this.state.optionsDark
+                    : this.state.options
+                }
+              />
+            )}
           </span>
         )}
       </div>
