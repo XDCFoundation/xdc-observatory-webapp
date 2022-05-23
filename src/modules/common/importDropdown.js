@@ -24,8 +24,10 @@ import "../../assets/styles/custom.css";
 import toast, { Toaster } from "react-hot-toast";
 import CustomLoader from "../../assets/customLoader"
 import Web3 from "web3";
-import { genericConstants, cookiesConstants ,  messages } from "../../constants";
+import { genericConstants, cookiesConstants, messages } from "../../constants";
 import { sessionManager } from "../../managers/sessionManager";
+import Papa from "papaparse";
+
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -469,11 +471,11 @@ const CustomDropDownAddress = (props) => {
 
     const newArrayOfObj = list.map(({
       Address: address,
-      NameTag:tagName,
-      AddedOn:modifiedOn
+      NameTag: tagName,
+      AddedOn: modifiedOn
     }) => ({
       address,
-      tagName,modifiedOn
+      tagName, modifiedOn
     }));
     setData(newArrayOfObj);
     setColumns(columns);
@@ -497,23 +499,53 @@ const CustomDropDownAddress = (props) => {
     };
   }, []);
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      /* Parse data */
-      const bstr = evt.target.result;
-      const wb = XLSX.read(bstr, { type: "binary" });
-      /* Get first worksheet */
-      const wsname = wb.SheetNames[0];
-      const ws = wb.Sheets[wsname];
-      /* Convert array of arrays */
-      const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
-      processData(data);
-    };
-    reader.readAsBinaryString(file);
+    let parsedData = [], result = {}, resultArray = [];
+    parsedData = await parseCSVToJSON(file)
+    if(!parsedData || !parsedData.length) return;
+    let keys = ["address", "tagName", "modifiedOn"]
+    for (let index = 1; index < parsedData.length; index++) {
+      let result = {};
+      for (let rindex = 0; rindex < parsedData[index].length; rindex++) {
+        result[keys[rindex]] = parsedData[index][rindex]
+      }
+      resultArray.push(result);
+
+    }
+    setData(resultArray);
+    // setColumns(columns);
+    if (resultArray.length >= 1) openDialogImport();
+
+    // const reader = new FileReader();
+    // reader.onload = (evt) => {
+    //   /* Parse data */
+    //   const bstr = evt.target.result;
+    //   const wb = XLSX.read(bstr, { type: "binary" });
+    //   console.log("wb",wb);
+    //   /* Get first worksheet */
+    //   const wsname = wb.SheetNames[0];
+    //   const ws = wb.Sheets[wsname];
+    //   /* Convert array of arrays */
+    //   const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+    //   console.log("data",data,wsname,ws);
+
+    //   processData(data);
+    // };
+    // reader.readAsBinaryString(file);
   };
 
+  const parseCSVToJSON = (file) => {
+    return new Promise((resolve, reject) => {
+      Papa.parse(file, {
+        complete: function (results) {
+          resolve(results?.data || []) 
+
+        }
+      }
+      )
+    })
+  }
   const handleClick = () => {
     hiddenFileInput.current.click();
   };
@@ -524,11 +556,12 @@ const CustomDropDownAddress = (props) => {
       if (item.tagName.length > 15) {
         tagLength = item.tagName.length;
       }
+
       // item["tagName"] = item.name;
       // delete item.name;
       return item;
     });
-    if(tagLength != 0) {
+    if (tagLength != 0) {
       setTagError(genericConstants.IMPORTED_TAG_LENGTH_ERROR)
       return
     }
@@ -550,7 +583,7 @@ const CustomDropDownAddress = (props) => {
       // delete item.name;
       return item;
     });
-    if(tagLength != 0) {
+    if (tagLength != 0) {
       setTagError(genericConstants.IMPORTED_TAG_LENGTH_ERROR)
       return
     }
@@ -572,16 +605,16 @@ const CustomDropDownAddress = (props) => {
   const closeConnectXDCPay = () => {
     setConnectXDCPay(false);
   }
-  const getCurrentTaggedAddresses =  () => {
+  const getCurrentTaggedAddresses = () => {
     const userId = sessionManager.getDataFromCookies("userId");
- 
-     let taggedAddress = localStorage.getItem(
-       userId + cookiesConstants.USER_TAGGED_ADDRESS
-     );
-     taggedAddress = JSON.parse(taggedAddress);
-     if (!taggedAddress)  return [];
-     return taggedAddress;
-        }
+
+    let taggedAddress = localStorage.getItem(
+      userId + cookiesConstants.USER_TAGGED_ADDRESS
+    );
+    taggedAddress = JSON.parse(taggedAddress);
+    if (!taggedAddress) return [];
+    return taggedAddress;
+  }
   const searchMyAddress = async () => {
 
     let web3;
@@ -598,47 +631,46 @@ const CustomDropDownAddress = (props) => {
         }
         let xdc = window?.xdc;
         let contacts = xdc?.publicConfigStore?._state.addressBook
-        if(!contacts || !contacts.length)
+        if (!contacts || !contacts.length)
           Utility.apiFailureToast("No Address found");
-        else{
-       contacts = parseContacts(contacts);   
-       let currentlyAddedAddresses =  getCurrentTaggedAddresses();
-       if(currentlyAddedAddresses && currentlyAddedAddresses.length){
-        currentlyAddedAddresses = currentlyAddedAddresses.map(({address})=>address);
-         contacts = contacts.filter((contact)=>{
-           if(!currentlyAddedAddresses.includes(contact.address))
-            return contact;
-         })
-       }
-       if(contacts.length>0)
-       {
-          setData(contacts)
-        setImportAddress(true);
-      }
-      else
-      Utility.apiFailureToast("No New Addresses found");
+        else {
+          contacts = parseContacts(contacts);
+          let currentlyAddedAddresses = getCurrentTaggedAddresses();
+          if (currentlyAddedAddresses && currentlyAddedAddresses.length) {
+            currentlyAddedAddresses = currentlyAddedAddresses.map(({ address }) => address);
+            contacts = contacts.filter((contact) => {
+              if (!currentlyAddedAddresses.includes(contact.address))
+                return contact;
+            })
+          }
+          if (contacts.length > 0) {
+            setData(contacts)
+            setImportAddress(true);
+          }
+          else
+            Utility.apiFailureToast("No New Addresses found");
 
-      }
+        }
         // let acc = accounts[0];
         // acc = acc.replace("0x", "xdc");
         // acc = acc.toLowerCase();
         setConnectXDCPay(false);
         // window.location.href = "/address-details/" + acc;
       });
-    } else { 
+    } else {
       return;
     }
-    
+
   };
-const parseContacts = (contacts) =>{
- let parsedTaggedAddresses = contacts.map(contact => {
-    contact["tagName"] = contact.name;
-    delete contact.name;
-    return contact;
-  })
-  return parsedTaggedAddresses
-}
- 
+  const parseContacts = (contacts) => {
+    let parsedTaggedAddresses = contacts.map(contact => {
+      contact["tagName"] = contact.name;
+      delete contact.name;
+      return contact;
+    })
+    return parsedTaggedAddresses
+  }
+
 
 
   return (
@@ -661,185 +693,185 @@ const parseContacts = (contacts) =>{
               ref={hiddenFileInput}
               style={{ display: "none" }}
             />
-              <OptionsContainer onClick={handleOpenXDCPay}>
-                <Image src="/images/xdc.svg" />
-                <OptionDiv>Import from XDCPay</OptionDiv>
-              </OptionsContainer>
-              <OptionsContainer onClick={handleClick}>
-                <Image src="/images/csv.svg" />
-                <OptionDiv>Import from CSV File</OptionDiv>
-              </OptionsContainer>
+            <OptionsContainer onClick={handleOpenXDCPay}>
+              <Image src="/images/xdc.svg" />
+              <OptionDiv>Import from XDCPay</OptionDiv>
+            </OptionsContainer>
+            <OptionsContainer onClick={handleClick}>
+              <Image src="/images/csv.svg" />
+              <OptionDiv>Import from CSV File</OptionDiv>
+            </OptionsContainer>
           </DropdownContainer>
         )}
       </Container>
-    
-{/* -----------------------------------------------------connect XDC Pay--------------------------------------------- */}
+
+      {/* -----------------------------------------------------connect XDC Pay--------------------------------------------- */}
       {connectXDCPay && <div className="overlay-private-alert">
-      <Dialog classes={{ paperWidthSm: classes.connectXdcDialogBox }}
-        open={connectXDCPay}
-        onClose={closeConnectXDCPay}
-        aria-labelledby="form-dialog-title"
-        style={{position: "absolute", zIndex: 10000}}
-      >
-        <div className={classes.importXdcHeading}>Import from XDC Pay</div>
-        <div className={classes.importXdcText}>You can import the contact saved in XDCPay into you Observer Account.</div>
-        <CustomLoader classes={{root: classes.root}}/>
-        {/* <img className={classes.importXdcLogo} src="/images/xdc-icon-blue-color.svg"></img> */}
-        <div className={classes.connectWalletButton} onClick={searchMyAddress}>Connect Wallet</div>
+        <Dialog classes={{ paperWidthSm: classes.connectXdcDialogBox }}
+          open={connectXDCPay}
+          onClose={closeConnectXDCPay}
+          aria-labelledby="form-dialog-title"
+          style={{ position: "absolute", zIndex: 10000 }}
+        >
+          <div className={classes.importXdcHeading}>Import from XDC Pay</div>
+          <div className={classes.importXdcText}>You can import the contact saved in XDCPay into you Observer Account.</div>
+          <CustomLoader classes={{ root: classes.root }} />
+          {/* <img className={classes.importXdcLogo} src="/images/xdc-icon-blue-color.svg"></img> */}
+          <div className={classes.connectWalletButton} onClick={searchMyAddress}>Connect Wallet</div>
         </Dialog>
-        </div>}
-{/* ------------------------------------------------------------------------------------------------------------------*/}
-    {importAddress && <div className="overlay-private-alert">
-      <Dialog
-        classes={{ paperWidthSm: classes.dialogBox }}
-        open={importAddress}
-        onClose={closeDialogImport}
-        aria-labelledby="form-dialog-title"
-        style={{position: "absolute", zIndex: 10000}}
-      >
-        <Row style={{ justifyContent: "center" }}>
-          <div className={classes.heading} id="form-dialog-title">
-            Select Addresses to import
-          </div>
-        </Row>
-        <DialogContent classes={{root: classes.dialogContentTable}}>
-          <Paper
-            className={"table-list"}
-            style={{
-              borderRadius: "0.875rem",
-              minWidth: "48%",
-              // marginLeft: "18%",
-              // marginRight: "18%",
-            }}
-            elevation={0}
-          >
-            {tagError && <div className={classes.error2}>{tagError}</div>}
-            <TableContainer
-              className={classes.container}
-              id="container-table-token"
+      </div>}
+      {/* ------------------------------------------------------------------------------------------------------------------*/}
+      {importAddress && <div className="overlay-private-alert">
+        <Dialog
+          classes={{ paperWidthSm: classes.dialogBox }}
+          open={importAddress}
+          onClose={closeDialogImport}
+          aria-labelledby="form-dialog-title"
+          style={{ position: "absolute", zIndex: 10000 }}
+        >
+          <Row style={{ justifyContent: "center" }}>
+            <div className={classes.heading} id="form-dialog-title">
+              Select Addresses to import
+            </div>
+          </Row>
+          <DialogContent classes={{ root: classes.dialogContentTable }}>
+            <Paper
+              className={"table-list"}
               style={{
-                borderRadius: "0",
-                boxShadow: "none",
-                backgroundColor: "#ffffff",
-                minHeight: "100%",
+                borderRadius: "0.875rem",
+                minWidth: "48%",
+                // marginLeft: "18%",
+                // marginRight: "18%",
               }}
+              elevation={0}
             >
-              <TableSubContainer>
-                <Table style={{ borderBottom: "none" }}>
-                  <TableHead>
-                    <TableRow >
-                      <TableCell
-                        style={{
-                          border: "none",
-                          display: "flex",
-                          alignItems: "center",
-                          marginLeft: 11,
-                          padding: "2.5px 3px",
-                        }}
-                        align="left"
-                      >
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          checked={masterChecked}
-                          id="mastercheck"
-                          ref={allChecked}
-                          onChange={(e) => onMasterCheck(e)}
-                        />
-                        <span
-                          className={"tablehead-token-details"}
-                          style={{ opacity: 1 }}
+              {tagError && <div className={classes.error2}>{tagError}</div>}
+              <TableContainer
+                className={classes.container}
+                id="container-table-token"
+                style={{
+                  borderRadius: "0",
+                  boxShadow: "none",
+                  backgroundColor: "#ffffff",
+                  minHeight: "100%",
+                }}
+              >
+                <TableSubContainer>
+                  <Table style={{ borderBottom: "none" }}>
+                    <TableHead>
+                      <TableRow >
+                        <TableCell
+                          style={{
+                            border: "none",
+                            display: "flex",
+                            alignItems: "center",
+                            marginLeft: 11,
+                            padding: "2.5px 3px",
+                          }}
+                          align="left"
                         >
-                          Name Tag
-                        </span>
-                      </TableCell>
-                      <TableCell style={{ border: "none" }} align="left">
-                        <span
-                          className={"tablehead-token-details"}
-                          style={{ opacity: 1 }}
-                        >
-                          Address
-                        </span>
-                      </TableCell>
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            checked={masterChecked}
+                            id="mastercheck"
+                            ref={allChecked}
+                            onChange={(e) => onMasterCheck(e)}
+                          />
+                          <span
+                            className={"tablehead-token-details"}
+                            style={{ opacity: 1 }}
+                          >
+                            Name Tag
+                          </span>
+                        </TableCell>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span
+                            className={"tablehead-token-details"}
+                            style={{ opacity: 1 }}
+                          >
+                            Address
+                          </span>
+                        </TableCell>
 
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data &&
-                      data.length >= 1 &&
-                      data.map((row, index) => {
-                        return (
-                          <TableRow 
-                          style={
-                            index % 2 !== 1
-                              ? { background: "#f9f9f9" }
-                              : { background: "white" }
-                          }>
-                            <TableCell
-                              id="td"
-                              className="w-150 bord-none"
-                              style={{
-                                margin: 0,
-                                display: "flex",
-                                alignItems: "center",
-                                padding: "10.5px 3px 8.5px",
-                              }}
-                            >
-                              <div className="display-flex m-l-11">
-                                <input
-                                  type="checkbox"
-                                  className="form-check-input"
-                                  checked={row.selected}
-                                  onChange={(e) => onItemCheck(e, row)}
-                                />
-                                <span className={"tabledata p-l-0"}>
-                                  {row.tagName}
-                                </span>
-                              </div>
-                            </TableCell>
-                            <TableCell
-                              className=" bord-none"
-                              style={{ paddingRight: "25px" }}
-                            >
-                              <div className="display-flex">
-                                <span className="tabledata p-l-0">
-                                  {Utility.shortenAddressImport(row.address)}
-                                </span>
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-              </TableSubContainer>
-            </TableContainer>
-          </Paper>
-          <div className="display-flex justify-content-md-between">
-            <button className={classes.cnlbtn} onClick={closeDialogImport}>
-              Cancel
-            </button>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {data &&
+                        data.length >= 1 &&
+                        data.map((row, index) => {
+                          return (
+                            <TableRow
+                              style={
+                                index % 2 !== 1
+                                  ? { background: "#f9f9f9" }
+                                  : { background: "white" }
+                              }>
+                              <TableCell
+                                id="td"
+                                className="w-150 bord-none"
+                                style={{
+                                  margin: 0,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  padding: "10.5px 3px 8.5px",
+                                }}
+                              >
+                                <div className="display-flex m-l-11">
+                                  <input
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    checked={row.selected}
+                                    onChange={(e) => onItemCheck(e, row)}
+                                  />
+                                  <span className={"tabledata p-l-0"}>
+                                    {row.tagName}
+                                  </span>
+                                </div>
+                              </TableCell>
+                              <TableCell
+                                className=" bord-none"
+                                style={{ paddingRight: "25px" }}
+                              >
+                                <div className="display-flex">
+                                  <span className="tabledata p-l-0">
+                                    {Utility.shortenAddressImport(row?.address)}
+                                  </span>
+                                </div>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                    </TableBody>
+                  </Table>
+                </TableSubContainer>
+              </TableContainer>
+            </Paper>
+            <div className="display-flex justify-content-md-between">
+              <button className={classes.cnlbtn} onClick={closeDialogImport}>
+                Cancel
+              </button>
 
-            <div className="display-flex">
-              <div>
-                <button
-                  onClick={selectedOnly}
-                  className={
-                    selectedList.length > 0 ? classes.sibtn : classes.disabled
-                  }
-                >
-                  Import Selected
-                </button>
-              </div>
-              <div>
-                <button className={classes.sabtn} onClick={selectAll}>
-                  Import All
-                </button>
+              <div className="display-flex">
+                <div>
+                  <button
+                    onClick={selectedOnly}
+                    className={
+                      selectedList.length > 0 ? classes.sibtn : classes.disabled
+                    }
+                  >
+                    Import Selected
+                  </button>
+                </div>
+                <div>
+                  <button className={classes.sabtn} onClick={selectAll}>
+                    Import All
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
       </div>}
     </div>
   );
