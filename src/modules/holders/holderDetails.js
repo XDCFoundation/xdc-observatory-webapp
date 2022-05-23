@@ -111,9 +111,10 @@ function HoldersDetails(props) {
   const [decimal, setDecimal] = useState(0);
   const { addr } = useParams();
   const { tn } = useParams();
+  let contractAddr = (new URLSearchParams(window.location.search)).get("contractAddress")
 
   useEffect(() => {
-    let values = { address: addr, skip: 0, limit: 1 };
+    let values = { address: addr, skip: 0, limit: 1, tokenContract : contractAddr };
     holderDetail(values);
     if (holder !== 0) {
       getContractDetails();
@@ -331,7 +332,7 @@ let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
               toggleState={toggleState}
               transactions={transactions}
               decimal={decimal}
-              contractAddress={contractAddress}
+              contractAddress={contractAddr}
               addr={addr}
               theme={props.theme.currentTheme}
             />
@@ -547,7 +548,8 @@ let holderBalance = holder[0]?.Holder_token_balance/ 10 ** decimal
               toggleState={toggleState}
               transactions={transactions}
               decimal={decimal}
-              contractAddress={contractAddress}
+              contractAddress={contractAddr}
+
               addr={addr}
               theme={props.theme.currentTheme}
             />
@@ -655,7 +657,7 @@ const TabComponent = ({
           toggleState === 1 ? "content_sec  active-content_sec" : "content_sec"
         }
       >
-        <HolderTableComponent trans={transactions} decimal={decimal} theme={theme}/>
+        <HolderTableComponent contractAddress={contractAddress} trans={transactions} decimal={decimal} theme={theme}/>
       </div>
 
       <div
@@ -667,6 +669,7 @@ const TabComponent = ({
           walletAddress={addr}
           contractAddress={contractAddress}
           theme={theme}
+          decimal={decimal}
         />
       </div>
     </div>

@@ -699,6 +699,7 @@ export default function FormDialog(props) {
   var regExAlphaNum = /^[0-9a-zA-Z]+$/;
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+  var regExNumericOnly = /^[0-9]+$/;
 
   // <-----------------------------------------------------login functionality------------------------------------------------------>
 
@@ -753,12 +754,15 @@ export default function FormDialog(props) {
       setErrorEmail("Enter valid username");
       setLoading(false);
       return;
+    } else if (email.match(regExNumericOnly)) {
+      setErrorEmail("Enter valid username");
+      setLoading(false);
+      return;
     } else if (!password.match(regExPass)) {
       setErrorPassword("Incorrect password");
       setLoading(false);
       return;
     }
-
     let authObject = new LoginService();
     let [error, authResponse] = await Utility.parseResponse(
       authObject.signin(reqObj.name, reqObj.password)
@@ -858,6 +862,9 @@ export default function FormDialog(props) {
       setErrorUserName(genericConstants.USERNAME_CHARACTER_LIMIT_5_30);
       setLoading(false);
     } else if (!userName.match(regExAlphaNum)) {
+      setErrorUserName("Enter valid username");
+      setLoading(false);
+    } else if (userName.match(regExNumericOnly)) {
       setErrorUserName("Enter valid username");
       setLoading(false);
     } else if (!email.match(mailformat)) {
@@ -979,6 +986,7 @@ export default function FormDialog(props) {
       setErrorCaptcha("Please verify the captcha");
       return;
     } else {
+      setLoading(true);
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
         authObject.forgotPassword(email)
@@ -1148,7 +1156,6 @@ export default function FormDialog(props) {
         </div>
         {value === 0 ? (
           <div>
-            {console.log("Open:",open)}
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
             <Row>
               <div className={props.theme === "dark" ? `${classes.heading} fc-white` : classes.heading} id="form-dialog-title">
@@ -1213,7 +1220,6 @@ export default function FormDialog(props) {
               </DialogContentText>
 
               <input
-                type="password"
                 type={passwordShown ? "text" : "password"}
                 id={passwordShown ? "text" : "password"}
                 placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
@@ -1712,7 +1718,7 @@ export default function FormDialog(props) {
                 // validateEmail();
                 forgotpassword();
               }}
-              // disabled={!email}
+              disabled={isLoading}
             >
               Reset Password
             </button>

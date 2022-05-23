@@ -54,7 +54,7 @@ const useStyles = makeStyles({
   RankColumn: {
     border: "none !important",
     borderBottom: "none !important",
-    // paddingLeft: "5.8% !important",
+    paddingLeft: "72px !important",
     "@media (min-width: 768px) and (max-width: 1240px)": {
       border: "none !important",
       borderBottom: "none !important",
@@ -229,7 +229,7 @@ export default function AccountComponent(props) {
                 <TableRow>
                   {props.state.tableColumns["Rank"].isActive && (
                     <TableCell className={classes.RankColumn} align="center">
-                      <span className={props.theme === "dark" ? "tableheaders_1 pl--1 fc-white" : "tableheaders_1 pl--1"}>
+                      <span className={props.theme === "dark" ? "tableheaders_1 fc-white p-l-8-md" : "tableheaders_1 p-l-8-md"}>
                         Rank
                         {window.innerWidth > 1024 ?
                       <Tooltip
@@ -337,7 +337,7 @@ export default function AccountComponent(props) {
                       style={{ border: "none", paddingLeft: "5.4%" }}
                       align="center"
                     >
-                      <span className={props.theme === "dark" ? "tableheaders_1 pl--1 fc-white" : "tableheaders_1 pl--1"}>
+                      <span className={props.theme === "dark" ? "tableheaders_1 fc-white p-l-8-md" : "tableheaders_1 p-l-8-md"}>
                         Type
                         {window.innerWidth > 1024 ?
                       <Tooltip
@@ -378,7 +378,6 @@ export default function AccountComponent(props) {
                     <TableCell
                       style={{
                         border: "none",
-                        paddingLeft: "5%",
                         paddingRight: "60px",
                       }}
                       align="center"
@@ -386,7 +385,7 @@ export default function AccountComponent(props) {
                         props.sortData("balance");
                       }}
                     >
-                      <span className={props.theme === "dark" ? "tableheaders_1 cursor-pointer fc-white" : "tableheaders_1 cursor-pointer"}>
+                      <span className={props.theme === "dark" ? "tableheaders_1 fc-white p-l-8-md" : "tableheaders_1 p-l-8-md"}>
                         Balance
                         {window.innerWidth > 1024 ?
                       <Tooltip
@@ -456,7 +455,7 @@ export default function AccountComponent(props) {
                         props.sortData("percentage");
                       }}
                     >
-                      <span className={props.theme === "dark" ? "tableheaders_1 cursor-pointer fc-white" : "tableheaders_1 cursor-pointer"}>
+                      <span className={props.theme === "dark" ? "tableheaders_1 fc-white p-l-8-md" : "tableheaders_1 p-l-8-md"}>
                         Percentage
                         {window.innerWidth > 1024 ?
                       <Tooltip
@@ -621,7 +620,6 @@ export default function AccountComponent(props) {
                                 className="w-3"
                                 style={{
                                   border: "none",
-                                  paddingLeft: "5%",
                                   cursor: "pointer",
                                 }}
                                 align="center"

@@ -167,7 +167,8 @@ export default function StickyHeadTable(props) {
   }, []);
   const listOfHolders = async (values) => {
     if (!values.sortKey && sortKey && sortOrder)
-      values.sortKey = { [sortKey]: sortOrder };
+    values.sortKey = { ["balance"]: sortOrder };
+
     let [error, tns] = await Utils.parseResponse(
       TokenData.getListOfHoldersForToken(values)
     );
@@ -206,7 +207,7 @@ export default function StickyHeadTable(props) {
     }
 
     if (action === "last") {
-      let pageValue = (Math.round(totalHolder / rowsPerPage)-1) * rowsPerPage;
+      let pageValue = (Math.round(totalHolder / rowsPerPage) - 1) * rowsPerPage;
       setPage(pageValue);
       values.skip = pageValue;
     }
@@ -243,6 +244,7 @@ export default function StickyHeadTable(props) {
   let decimals = props?.contractData
     ? props?.contractData?.contractResponse?.decimals
     : "";
+  let contractAddress = props?.contractData ? props?.contractData?.contractResponse?.address : ""
 
   return (
     <div>
@@ -581,10 +583,10 @@ export default function StickyHeadTable(props) {
                   let quantity1 =
                     row?.Quantity >= 1
                       ? format({})(
-                          utility.convertToInternationalCurrencySystem(
-                            Number(row?.Quantity)
-                          )
+                        utility.convertToInternationalCurrencySystem(
+                          Number(row?.Quantity)
                         )
+                      )
                       : row?.Quantity?.toFixed(decimals);
                   var quantity2 = quantity1?.toString().split(".")[0];
                   var quantity3 = quantity1?.toString().split(".")[1];
@@ -631,7 +633,7 @@ export default function StickyHeadTable(props) {
                               ? { color: "#4878ff", fontSize: 11 }
                               : { color: "#2149b9", fontSize: 11 }
                           }
-                          href={"/holder-details/" + row?.Address + "/" + tn}
+                          href={"/holder-details/" + row?.Address + "/" + tn + "?contractAddress=" + contractAddress}
                         >
                           <span className="tabledata table-data">
                             {row?.Address}
@@ -785,8 +787,8 @@ export default function StickyHeadTable(props) {
                     ? "firstbox-dark disabled"
                     : "firstbox disabled"
                   : props.theme === "dark"
-                  ? "firstbox-dark"
-                  : "firstbox"
+                    ? "firstbox-dark"
+                    : "firstbox"
               }
               onClick={() => handleChangePage("first")}
             >
@@ -808,8 +810,8 @@ export default function StickyHeadTable(props) {
                     ? "previousbox-dark disabled"
                     : "previousbox disabled"
                   : props.theme === "dark"
-                  ? "previousbox-dark"
-                  : "previousbox"
+                    ? "previousbox-dark"
+                    : "previousbox"
               }
               onClick={() => handleChangePage("prev")}
             >
@@ -831,7 +833,7 @@ export default function StickyHeadTable(props) {
               >
                 Page{" "}
                 {Math.round(totalHolder / rowsPerPage) -
-                  Math.round((totalHolder - page) / rowsPerPage)+1}{" "}
+                  Math.round((totalHolder - page) / rowsPerPage) + 1}{" "}
                 of {Math.round(totalHolder / rowsPerPage)}
               </p>
             </div>
@@ -842,8 +844,8 @@ export default function StickyHeadTable(props) {
                     ? "nextbox-dark disabled"
                     : "nextbox disabled"
                   : props.theme === "dark"
-                  ? "nextbox-dark"
-                  : "nextbox"
+                    ? "nextbox-dark"
+                    : "nextbox"
               }
             >
               <p className="path-2" onClick={() => handleChangePage("next")}>
@@ -857,8 +859,8 @@ export default function StickyHeadTable(props) {
                     ? "lastbox-dark disabled"
                     : "lastbox disabled"
                   : props.theme === "dark"
-                  ? "lastbox-dark"
-                  : "lastbox"
+                    ? "lastbox-dark"
+                    : "lastbox"
               }
               onClick={() => handleChangePage("last")}
             >

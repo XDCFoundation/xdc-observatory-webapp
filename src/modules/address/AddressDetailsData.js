@@ -70,7 +70,9 @@ const TabContainerParent = styled.div`
   border-bottom: solid 1px #e3e7eb;
   width: 100%;
   margin: auto;
-  ${({ theme }) => theme === "dark" && `
+  ${({ theme }) =>
+    theme === "dark" &&
+    `
     border-bottom: solid 1px #4a5d94;
   `}
   @media (min-width: 0px) and (max-width: 767px) {
@@ -125,7 +127,9 @@ function AddressDetailsData(props) {
   let value1 = value.toString().split(".")[0];
   let value2 = value.toString().split(".")[1];
 
-  let changedValue =  data?.balance?Utility.convertToInternationalCurrencySystem(data?.balance * price):"";
+  let changedValue = data?.balance
+    ? Utility.convertToInternationalCurrencySystem(data?.balance * price)
+    : "";
   let changedValue1 = changedValue.toString().split(".")[0];
   let changedValue2 = changedValue.toString().split(".")[1];
 
@@ -137,7 +141,7 @@ function AddressDetailsData(props) {
       let responseData = responseAPI.contractResponse;
       if (responseData.address != "") {
         setResponses(responseAPI);
-        let activeCurrency = window.localStorage.getItem("currency");
+        let activeCurrency = props.currency.activeCurrency;
         let convertedCurrency = "";
         let value = 0;
         let changeVal = 0;
@@ -167,7 +171,7 @@ function AddressDetailsData(props) {
             changeVal = responseData.priceInUSD.toFixed(6);
         }
         setData({
-          balance: Utility.decimalDivisonOnly(responseAPI?.balance,8),
+          balance: Utility.decimalDivisonOnly(responseAPI?.balance, 8),
           transactionCout: responseData.transactionCount,
           contractName: responseData.contractName,
           creator: responseData.owner,
@@ -193,9 +197,8 @@ function AddressDetailsData(props) {
       console.error(error);
     }
   };
-  let activeCurrency = window.localStorage.getItem("currency");
-  let currencySymbol = !price ? "" :
-  activeCurrency === "USD" ? "$" : "€";
+  let activeCurrency = props.currency.activeCurrency;
+  let currencySymbol = !price ? "" : activeCurrency === "USD" ? "$" : "€";
   const coinMarketCapDetails = async () => {
     let [error, totalcoinMarketPrice] = await Utility?.parseResponse(
       CoinMarketService?.getCoinMarketData(activeCurrency, {})
@@ -211,44 +214,88 @@ function AddressDetailsData(props) {
     getContractDetails(values);
     let data = { address: addressNumber };
     getTransactionsCountForAddress(data);
-    coinMarketCapDetails()
+    coinMarketCapDetails();
   }, [amount]);
 
   return (
-    <div style={props.theme.currentTheme === "dark" ? { backgroundColor: "#091b4e" } : { backgroundColor: "#fff" }}>
-      <Tokensearchbar theme={props.theme.currentTheme}/>
+    <div
+      style={
+        props.theme.currentTheme === "dark"
+          ? { backgroundColor: "#091b4e" }
+          : { backgroundColor: "#fff" }
+      }
+    >
+      <Tokensearchbar theme={props.theme.currentTheme} />
       <Grid className="table-grid-block-contract ">
         <div>
-          <div
-            className="contract_details_heading p-t-30 display-flex justify-content-betwe"
-          >
-            <div className={props.theme.currentTheme === "dark" ? "contract-address-heading fc-white" : "contract-address-heading"}>Contract Address{" "}</div>
+          <div className="contract_details_heading p-t-30 display-flex justify-content-betwe">
+            <div
+              className={
+                props.theme.currentTheme === "dark"
+                  ? "contract-address-heading fc-white"
+                  : "contract-address-heading"
+              }
+            >
+              Contract Address{" "}
+            </div>
 
-            <div className={props.theme.currentTheme === "dark" ? "AddressTitle fc-4878ff" : "AddressTitle"}>{addressNumber}</div>
-
-
+            <div
+              className={
+                props.theme.currentTheme === "dark"
+                  ? "AddressTitle fc-4878ff"
+                  : "AddressTitle"
+              }
+            >
+              {addressNumber}
+            </div>
           </div>
           <div className="address_block_main">
-            <div className={props.theme.currentTheme === "dark" ? "contractOverview table-bg-dark border-none-dark" : "contractOverview"}>
+            <div
+              className={
+                props.theme.currentTheme === "dark"
+                  ? "contractOverview table-bg-dark border-none-dark"
+                  : "contractOverview"
+              }
+            >
               <div className="latest">
-                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : "" }>Contract Overview</h1>
+                <h1
+                  className={
+                    props.theme.currentTheme === "dark" ? "fc-white" : ""
+                  }
+                >
+                  Contract Overview
+                </h1>
               </div>
               <div className="data">
                 <TableContainer
                   component={Paper}
                   elevation={0}
                   style={{ padding: "0 1.5rem" }}
-                  className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
+                  className={
+                    props.theme.currentTheme === "dark" ? "table-bg-dark" : ""
+                  }
                 >
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                       <TableRow>
-                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-dark" : "left-table-contract"}>
+                        <TableCell
+                          className={
+                            props.theme.currentTheme === "dark"
+                              ? "left-table-contract-dark"
+                              : "left-table-contract"
+                          }
+                        >
                           Balance
                         </TableCell>
-                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
+                        <TableCell
+                          className={
+                            props.theme.currentTheme === "dark"
+                              ? "left-table-contract-data fc-b1c3e1 border-bottom-dark"
+                              : "left-table-contract-data"
+                          }
+                        >
                           {balance2 == null ? (
-                            <span>{balance1?Number(balance1):0} XDC</span>
+                            <span>{balance1 ? Number(balance1) : 0} XDC</span>
                           ) : (
                             <span>
                               {Number(balance1)}
@@ -262,10 +309,22 @@ function AddressDetailsData(props) {
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-dark" : "left-table-contract"}>
+                        <TableCell
+                          className={
+                            props.theme.currentTheme === "dark"
+                              ? "left-table-contract-dark"
+                              : "left-table-contract"
+                          }
+                        >
                           USD Value
                         </TableCell>
-                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
+                        <TableCell
+                          className={
+                            props.theme.currentTheme === "dark"
+                              ? "left-table-contract-data fc-b1c3e1 border-bottom-dark"
+                              : "left-table-contract-data"
+                          }
+                        >
                           {/* {ReactHtmlParser(data.currencySymbol)}
                           {value2 == null ? (
                             <span>{value1} </span>
@@ -290,13 +349,15 @@ function AddressDetailsData(props) {
                             </span>
                           )}
                           ) */}
-                         
+
                           {changedValue2 == null ? (
-                            <span>{currencySymbol}&nbsp;{changedValue1 ?changedValue1:0}&nbsp; </span>
-                          ) : (
-                            
                             <span>
-                             {currencySymbol} {changedValue1}
+                              {currencySymbol}&nbsp;
+                              {changedValue1 ? changedValue1 : 0}&nbsp;{" "}
+                            </span>
+                          ) : (
+                            <span>
+                              {currencySymbol} {changedValue1}
                               {"."}
                               <span style={{ color: "#9FA9BA" }}>
                                 {changedValue2}
@@ -306,18 +367,42 @@ function AddressDetailsData(props) {
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-dark" : "left-table-contract"}>
+                        <TableCell
+                          className={
+                            props.theme.currentTheme === "dark"
+                              ? "left-table-contract-dark"
+                              : "left-table-contract"
+                          }
+                        >
                           Transactions
                         </TableCell>
-                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data fc-b1c3e1 border-bottom-dark" : "left-table-contract-data"}>
+                        <TableCell
+                          className={
+                            props.theme.currentTheme === "dark"
+                              ? "left-table-contract-data fc-b1c3e1 border-bottom-dark"
+                              : "left-table-contract-data"
+                          }
+                        >
                           {count}
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-last-dark" : "left-table-contract-last"}>
+                        <TableCell
+                          className={
+                            props.theme.currentTheme === "dark"
+                              ? "left-table-contract-last-dark"
+                              : "left-table-contract-last"
+                          }
+                        >
                           Contract Name
                         </TableCell>
-                        <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-last fc-b1c3e1" : "left-table-contract-data-last"}>
+                        <TableCell
+                          className={
+                            props.theme.currentTheme === "dark"
+                              ? "left-table-contract-data-last fc-b1c3e1"
+                              : "left-table-contract-data-last"
+                          }
+                        >
                           {!data.contractName
                             ? "Not Available"
                             : data.contractName}
@@ -330,28 +415,60 @@ function AddressDetailsData(props) {
               </div>
             </div>
 
-            <div className={props.theme.currentTheme === "dark" ? "contractSummary table-bg-dark border-none-dark" : "contractSummary"}>
+            <div
+              className={
+                props.theme.currentTheme === "dark"
+                  ? "contractSummary table-bg-dark border-none-dark"
+                  : "contractSummary"
+              }
+            >
               <div className="latest">
-                <h1 className={props.theme.currentTheme === "dark" ? "fc-white" : "" }>Contract Summary</h1>
+                <h1
+                  className={
+                    props.theme.currentTheme === "dark" ? "fc-white" : ""
+                  }
+                >
+                  Contract Summary
+                </h1>
               </div>
               <div className="data">
                 <TableContainer
                   component={Paper}
                   elevation={0}
                   style={{ padding: "0 1.5rem" }}
-                  className={props.theme.currentTheme === "dark" ? "table-bg-dark" : ""}
+                  className={
+                    props.theme.currentTheme === "dark" ? "table-bg-dark" : ""
+                  }
                 >
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                       <TableRow>
                         <div className="contract-summary-mobile">
-                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-mobile fc-white border-bottom-dark" : "left-table-contract-mobile"}>
+                          <TableCell
+                            className={
+                              props.theme.currentTheme === "dark"
+                                ? "left-table-contract-mobile fc-white border-bottom-dark"
+                                : "left-table-contract-mobile"
+                            }
+                          >
                             Creator
                           </TableCell>
-                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
-                            {data.creator == "" ? "Not Available":(
+                          <TableCell
+                            className={
+                              props.theme.currentTheme === "dark"
+                                ? "left-table-contract-data-mobile-dark"
+                                : "left-table-contract-data-mobile"
+                            }
+                          >
+                            {data.creator == "" ? (
+                              "Not Available"
+                            ) : (
                               <a
-                              className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
+                                className={
+                                  props.theme.currentTheme === "dark"
+                                    ? "linkTable fc-4878ff"
+                                    : "linkTable"
+                                }
                                 href={"/address-details/" + data.creator}
                               >
                                 <span className="tabledata">
@@ -364,21 +481,39 @@ function AddressDetailsData(props) {
                       </TableRow>
                       <TableRow>
                         <div className="contract-summary-mobile">
-                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-mobile fc-white border-bottom-dark" : "left-table-contract-mobile"}>
+                          <TableCell
+                            className={
+                              props.theme.currentTheme === "dark"
+                                ? "left-table-contract-mobile fc-white border-bottom-dark"
+                                : "left-table-contract-mobile"
+                            }
+                          >
                             Transaction
                           </TableCell>
-                          <TableCell className={props.theme.currentTheme === "dark" ? "left-table-contract-data-mobile-dark" : "left-table-contract-data-mobile"}>
-                          {data.transaction == "" ? "Not Available":(
+                          <TableCell
+                            className={
+                              props.theme.currentTheme === "dark"
+                                ? "left-table-contract-data-mobile-dark"
+                                : "left-table-contract-data-mobile"
+                            }
+                          >
+                            {data.transaction == "" ? (
+                              "Not Available"
+                            ) : (
                               <a
-                              className={props.theme.currentTheme === "dark" ? "linkTable fc-4878ff" : "linkTable"}
-                              href={
-                                "/transaction-details/" + data.transaction
-                              }
-                            >
-                              <span className="tabledata">
-                                {shorten(data?.transaction)}
-                              </span>
-                            </a>
+                                className={
+                                  props.theme.currentTheme === "dark"
+                                    ? "linkTable fc-4878ff"
+                                    : "linkTable"
+                                }
+                                href={
+                                  "/transaction-details/" + data.transaction
+                                }
+                              >
+                                <span className="tabledata">
+                                  {shorten(data?.transaction)}
+                                </span>
+                              </a>
                             )}
                           </TableCell>
                         </div>
@@ -397,8 +532,12 @@ function AddressDetailsData(props) {
               <button
                 className={
                   toggleState === 1
-                    ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
-                    : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
+                    ? props.theme.currentTheme === "dark"
+                      ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff"
+                      : "token-data-tabs active-tabs-token"
+                    : props.theme.currentTheme === "dark"
+                    ? "token-data-tabs bg-transparent-dark"
+                    : "token-data-tabs"
                 }
                 onClick={() => toggleTab(1)}
               >
@@ -408,8 +547,12 @@ function AddressDetailsData(props) {
               <button
                 className={
                   toggleState === 2
-                  ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
-                  : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
+                    ? props.theme.currentTheme === "dark"
+                      ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff"
+                      : "token-data-tabs active-tabs-token"
+                    : props.theme.currentTheme === "dark"
+                    ? "token-data-tabs bg-transparent-dark"
+                    : "token-data-tabs"
                 }
                 onClick={() => toggleTab(2)}
               >
@@ -432,8 +575,12 @@ function AddressDetailsData(props) {
                   <button
                     className={
                       toggleState === 4
-                      ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
-                      : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
+                        ? props.theme.currentTheme === "dark"
+                          ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff"
+                          : "token-data-tabs active-tabs-token"
+                        : props.theme.currentTheme === "dark"
+                        ? "token-data-tabs bg-transparent-dark"
+                        : "token-data-tabs"
                     }
                     onClick={() => toggleTab(4)}
                   >
@@ -442,8 +589,12 @@ function AddressDetailsData(props) {
                   <button
                     className={
                       toggleState === 5
-                      ? props.theme.currentTheme === "dark" ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff" : "token-data-tabs active-tabs-token"
-                      : props.theme.currentTheme === "dark" ? "token-data-tabs bg-transparent-dark" : "token-data-tabs"
+                        ? props.theme.currentTheme === "dark"
+                          ? "token-data-tabs active-tabs-token bg-transparent-dark fc-4878ff"
+                          : "token-data-tabs active-tabs-token"
+                        : props.theme.currentTheme === "dark"
+                        ? "token-data-tabs bg-transparent-dark"
+                        : "token-data-tabs"
                     }
                     onClick={() => toggleTab(5)}
                   >
@@ -464,7 +615,11 @@ function AddressDetailsData(props) {
                 : "content_sec"
             }
           >
-            <TransactionTableComponent theme={props.theme.currentTheme} hash={responses?.contractResponse?.creationTransaction}/>
+            <TransactionTableComponent
+              hash={responses?.contractResponse?.creationTransaction}
+              decimal={responses?.contractResponse?.decimals}
+              theme={props.theme.currentTheme}
+            />
           </div>
           <div
             className={
@@ -481,7 +636,10 @@ function AddressDetailsData(props) {
                 theme={props.theme.currentTheme}
               />
             ) : (
-              <TokenContracttab contractData={responses?.contractResponse} theme={props.theme.currentTheme}/>
+              <TokenContracttab
+                contractData={responses?.contractResponse}
+                theme={props.theme.currentTheme}
+              />
             )}
           </div>
           <div
@@ -519,13 +677,12 @@ function AddressDetailsData(props) {
           {/* </div> */}
         </div>
       </Grid>
-      <FooterComponent  _handleChange={_handleChange} currency={amount} />
+      <FooterComponent _handleChange={_handleChange} currency={amount} />
     </div>
   );
 }
 
-
 const mapStateToProps = (state) => {
-  return { theme: state.theme };
+  return { theme: state.theme, currency: state.activeCurrency };
 };
 export default connect(mapStateToProps, { dispatchAction })(AddressDetailsData);

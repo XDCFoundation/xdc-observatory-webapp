@@ -291,6 +291,11 @@ export default function StickyHeadTable(props) {
         TokenData.getTokenLists(data)
       );
       if (error) return;
+      if(responseData?.tokens.length === 0) {
+        setNoData(true);
+        setLoading(false);
+        return;
+      }
       if (responseData) {
         setNoData(false);
         setLoading(false);
@@ -442,7 +447,7 @@ export default function StickyHeadTable(props) {
       margin-bottom: 100px;
       gap: 10px;
       @media (min-width: 767px) {
-        margin: 100px 0 !important;
+        margin: 200px 0 !important;
       }
     `;
 
@@ -837,7 +842,7 @@ export default function StickyHeadTable(props) {
                     style={{ border: "none", whiteSpace: "nowrap" }}
                     align="left"
                   >
-                    <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("totalSupply")}>
+                    <span className={props?.theme === "dark" ? "tablehead-token-details-dark-2 cursor-pointer" : "tablehead-token-details cursor-pointer"} onClick={() => sortTable("totalSupplyCount")}>
                       Total Supply
                       {window.innerWidth > 1024 ?
                       <Tooltip
@@ -872,7 +877,7 @@ export default function StickyHeadTable(props) {
                           onClick={() => setTotalSupplyTT(!totaSupplyTT)}
                         />
                       </Tooltip>}
-                      {sortKey && sortKey === "totalSupply" ? (
+                      {sortKey && sortKey === "totalSupplyCount" ? (
                         sortOrder === -1 ? <img
                           alt="question-mark"
                           src="/images/see-more.svg"
@@ -1040,23 +1045,25 @@ export default function StickyHeadTable(props) {
                 noData == false && (
                   <TableBody>
                     {rows?.map((row, index) => {
-                      let totalsupply = utility.divideByDecimalValue(
-                        row?.totalSupply,
-                        row?.decimals
-                      );
+                      let totalsupply = row?.totalSupplyCount
+                      //  utility.divideByDecimalValue(
+                      //   row?.totalSupply,
+                      //   row?.decimals
+                      // );
                       
                       const supply =
-                      totalsupply >= 1
-                          ? format({})(
+                      totalsupply >= 1?
+                       format({})(
 
                             utility.convertToInternationalCurrencySystem(
                               Number(totalsupply)
                             )
                           )
-                          : utility.divideByDecimalValue(
-                            row?.totalSupply,
-                            row?.decimals
-                          );
+                          : totalsupply
+                          // : utility.divideByDecimalValue(
+                          //   row?.totalSupply,
+                          //   row?.decimals
+                          // );
                       var supply1 = supply.toString().split(".")[0];
                       var supply2 = supply.toString().split(".")[1];
                       var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
@@ -1125,7 +1132,7 @@ export default function StickyHeadTable(props) {
                               placement="top"
                               title={format({})(
                                 totalsupply >= 1
-                                  ? parseFloat(totalsupply)
+                                  ? parseFloat(totalsupply).toLocaleString()
                                   : totalsupply == 0
                                     ? parseFloat(totalsupply)
                                     : totalsupply

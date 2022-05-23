@@ -48,7 +48,6 @@ const ProgressBarContainer = styled.div`
 `;
 
 function TokenAnalytics(props) {
-  console.log("TokenAnalytics");
   const [graphData, setGraphData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [contractAdd, setContractAdd] = React.useState("");
@@ -140,6 +139,7 @@ function TokenAnalytics(props) {
       {activeTab === "tokenBalance" && (
         <TokenBalanceGraph
           graphData={graphData}
+          decimal={props?.decimal}
           loading={loading}
           ProgressBarContainer={ProgressBarContainer}
           theme={props.theme}
@@ -147,6 +147,7 @@ function TokenAnalytics(props) {
       )}
       {activeTab === "tokenTransferAmounts" && (
         <TokenTransferAmount
+        decimal={props?.decimal}
           graphData={graphData}
           loading={loading}
           ProgressBarContainer={ProgressBarContainer}
@@ -155,6 +156,7 @@ function TokenAnalytics(props) {
       )}
       {activeTab === "tokenTransferCounts" && (
         <TokenTransferCount
+        decimal={props?.decimal}
           contractAddress={contractAdd}
           loading={loading}
           ProgressBarContainer={ProgressBarContainer}
@@ -162,7 +164,7 @@ function TokenAnalytics(props) {
         />
       )}
       {activeTab === "historicalPrice" && (
-        <TokeHistoryAnalytics contractAddress={contractAdd} loading={loading} theme={props.theme}/>
+        <TokeHistoryAnalytics decimal={props?.decimal} contractAddress={contractAdd} loading={loading} theme={props.theme}/>
       )}
     </Paper>
   );
