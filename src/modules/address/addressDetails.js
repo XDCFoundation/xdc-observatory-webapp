@@ -1358,9 +1358,9 @@ function AddressDetails(props) {
                   onClick={() => toggleTab(2)}
                   id="transaction-btn"
                 >
-                  Analytics
+                  XRC20 Transactions
                 </button>
-                {/* <button
+                <button
                   className={
                     toggleState === 3
                       ? "tabs_third_address_details active-tabs_sec_xrc"
@@ -1369,8 +1369,8 @@ function AddressDetails(props) {
                   onClick={() => toggleTab(3)}
                   id="transaction-btn"
                 >
-                  XRC20 Transactions
-                </button> */}
+                  Analytics
+                </button>
               </div>
             </div>
             {toggleState === 1 && (
@@ -1402,10 +1402,10 @@ function AddressDetails(props) {
               </div>
             )}
             {/* {toggleState === 2 && <AddressDetailsAnalytics />} */}
-            {toggleState === 3 && (
+            {toggleState === 2 && (
               <XRC20Transactions theme={props.theme.currentTheme} />
             )}
-            {toggleState === 2 && (
+            {toggleState === 3 && (
               <AddressDetailsAnalytics theme={props.theme.currentTheme} />
             )}
           </div>

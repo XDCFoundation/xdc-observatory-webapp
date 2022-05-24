@@ -832,8 +832,7 @@ export default function AccountComponent(props) {
             )}
           </TableContainer>
         </div>
-
-        {props.state.accountList.length >= 10 && (
+        {props.state.totalAccounts >= 10 && (
           <Grid container style={{ marginTop: "28px" }} className="Pagination">
             <Grid item className="Pagination_1">
               {!props.state.isLoading && props.state.noData ? (

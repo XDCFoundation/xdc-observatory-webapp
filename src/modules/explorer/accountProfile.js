@@ -750,6 +750,8 @@ function SimpleTabs(props) {
     });
     if (response.totalCount > 0) {
       setWatchlistAddressNotAdded(false);
+    } else {
+      setWatchlistAddressNotAdded(true);
     }
     setWatchlist(response.watchlistContent);
   };
@@ -770,6 +772,8 @@ function SimpleTabs(props) {
     if (!transactionLabels) transactionLabels = [];
     if (transactionLabels.length > 0) {
       setTxnHashNotAdded(false);
+    } else {
+      setTxnHashNotAdded(true);
     }
 
     let tempNoteCount = 0;
@@ -814,6 +818,8 @@ function SimpleTabs(props) {
     if (!taggedAddress) taggedAddress = [];
     if (taggedAddress.length > 0) {
       setTagAddressNotAdded(false);
+    } else {
+      setTagAddressNotAdded(true);
     }
 
     let tempTagCount = 0;
@@ -2237,9 +2243,9 @@ function SimpleTabs(props) {
                                 onChange={handlePvtNoteCheckbox}
                                 type="checkbox"
                                 name="allselect"
-                                checked={
-                                  countNote === pvtNoteLength ||
-                                  checkedNote === true
+                                checked={txnHashNotAdded ? false :
+                                  (countNote === pvtNoteLength ||
+                                  checkedNote === true)
                                 }
                                 style={{
                                   marginRight: "10px",
@@ -2759,9 +2765,9 @@ function SimpleTabs(props) {
                                 onChange={handleTagAddressCheckbox}
                                 type="checkbox"
                                 name="allselect"
-                                checked={
-                                  countTag === tagAddrLength ||
-                                  checkedTag == true
+                                checked={ tagAddressNotAdded ? false :
+                                  (countTag === tagAddrLength ||
+                                  checkedTag == true)
                                 }
                                 className={classes.Rectangle}
                                 style={{
