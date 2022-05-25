@@ -639,7 +639,7 @@ const TabComponent = ({
           >
             Transfers
           </button>
-          <button
+          {process.env.REACT_APP_ENV !== "apothem" && <button
             className={
               toggleState === 2
                 ? theme === "dark" ? "tabs-data active-tabs-token-holder bg-transparent-dark" : "tabs-data active-tabs-token-holder"
@@ -648,7 +648,7 @@ const TabComponent = ({
             onClick={() => toggleTab(2)}
           >
             Analytics
-          </button>
+          </button>}
         </div>
       </div>
 

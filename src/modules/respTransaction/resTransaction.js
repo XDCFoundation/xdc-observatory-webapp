@@ -191,7 +191,9 @@ const Div__ = styled.div`
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  padding: 0.563rem;
+  ${({env}) => env !== "apothem" && `
+    padding: 0.563rem;
+  `}
   padding-left: 27px;
   padding-right: 25px;
   margin-top: 35px;
@@ -2303,7 +2305,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                 </DivMiddle>
               </DivMiddleContainer>
 
-              <Div__ theme={theme.currentTheme}>
+              <Div__ theme={theme.currentTheme} env={process.env.REACT_APP_ENV}>
                 {contractData == 0 || contractData === undefined ? (
                   ""
                 ) : contractData.ERC == 2 && contractData.ERC > 0 ? (
@@ -3032,7 +3034,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                     </Spacing>
                   </>
                 )}
-                <SpacingPrivateNode>
+                {process.env.REACT_APP_ENV !== "apothem" && <SpacingPrivateNode>
                   <Container>
                     {window.innerWidth > 1024 ? (
                       <Tooltip
@@ -3137,7 +3139,7 @@ let priceToMultiply = tokenPrice[0] ? tokenPrice[0]?.highestPrice : price
                       </AddLabel>
                     )}
                   </MiddleContainerPrivateNote>
-                </SpacingPrivateNode>
+                </SpacingPrivateNode>}
               </Div__>
               <br />
               <br />

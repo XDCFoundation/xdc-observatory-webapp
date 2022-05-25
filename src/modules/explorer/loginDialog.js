@@ -1114,7 +1114,7 @@ export default function FormDialog(props) {
       {!props.isNewFeatureComponent ? (
         props.verifiedEmail ? (
           ""
-        ) : !props.dataHashOrAddress ? (
+        ) : !props.dataHashOrAddress ? (process.env.REACT_APP_ENV === "apothem" ? <div/>:
           //   <button className="login-button">
           <Avatar
             className="profile"

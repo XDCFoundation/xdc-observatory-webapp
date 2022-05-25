@@ -170,7 +170,7 @@ export default function SimpleTabs(props) {
                   Info
                 </button> */}
 
-              <button
+                {process.env.REACT_APP_ENV !== "apothem" && <button
                 className={
                   toggleState === 3
                     ? props.theme === "dark" ? "token-data-tabs-dark active-tabs-token-dark" : "token-data-tabs active-tabs-token"
@@ -179,7 +179,7 @@ export default function SimpleTabs(props) {
                 onClick={() => toggleTab(3)}
               >
                 Analytics
-              </button>
+              </button>}
               <button
                 className={
                   toggleState === 4

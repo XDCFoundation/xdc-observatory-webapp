@@ -108,7 +108,7 @@ class BlockChainClass extends BaseComponent {
             nodeSocket={this.props.socketNode}
             theme={this.props.theme.currentTheme}
           />
-          <MarketTable theme={this.props.theme.currentTheme} currency={activeCurrency} />
+          {process.env.REACT_APP_ENV !== "apothem" && <MarketTable theme={this.props.theme.currentTheme} currency={activeCurrency} />}
           <LatestBlocksComponent socket={this.props.socket} theme={this.props.theme.currentTheme}/>
           <RecentSearchList theme={this.props.theme.currentTheme}/>
           <BuyStoreTradeXDC theme={this.props.theme.currentTheme}/>

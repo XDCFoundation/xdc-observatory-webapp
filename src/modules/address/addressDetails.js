@@ -1042,14 +1042,13 @@ function AddressDetails(props) {
               </>
             ) : (
               <LoginMobile>
-                {
+                {process.env.REACT_APP_ENV !== "apothem" && <>
                   <LoginDialog
                     open={loginDialogIsOpen}
                     onClose={closeLoginDialog}
                     dataHashOrAddress={addr}
                     theme={props.theme.currentTheme}
                   />
-                }
                 <LoginTextMobile>
                   Want to tag and add this address to watchlist?
                   <a
@@ -1058,7 +1057,7 @@ function AddressDetails(props) {
                   >
                     &nbsp;Login
                   </a>
-                </LoginTextMobile>
+                </LoginTextMobile></>}
               </LoginMobile>
             )}
           </HeadingDiv>
@@ -1290,14 +1289,13 @@ function AddressDetails(props) {
                     </>
                   ) : (
                     <Login>
-                      {
+                      {process.env.REACT_APP_ENV !== "apothem" && <>
                         <LoginDialog
                           open={loginDialogIsOpen}
                           onClose={closeLoginDialog}
                           dataHashOrAddress={addr}
                           theme={props.theme.currentTheme}
                         />
-                      }
                       <LoginText theme={props.theme.currentTheme}>
                         Want to tag and add this address to watchlist?
                       </LoginText>
@@ -1310,7 +1308,7 @@ function AddressDetails(props) {
                         onClick={openLoginDialog}
                       >
                         &nbsp;Login
-                      </a>
+                      </a></>}
                     </Login>
                   )}
                 </ButtonDiv>
@@ -1346,7 +1344,7 @@ function AddressDetails(props) {
                   Transactions
                 </button>
 
-                <button
+                {process.env.REACT_APP_ENV !== "apothem" &&<button
                   className={
                     toggleState === 2
                       ? props.theme.currentTheme === "dark"
@@ -1358,7 +1356,7 @@ function AddressDetails(props) {
                   id="transaction-btn"
                 >
                   Analytics
-                </button>
+                </button>}
                 {/* <button
                   className={
                     toggleState === 3
