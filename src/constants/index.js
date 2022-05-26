@@ -72,17 +72,17 @@ export const cookiesConstants = {
   ID_TOKEN: "ID_TOKEN",
   AUTHENTICATION_PROVIDER: "AUTHENTICATION_PROVIDER",
   OBSERVER_THEME: "OBSERVER_THEME",
-  OBSERVER_CURRENCY: "OBSERVER_CURRENCY"
+  OBSERVER_CURRENCY: "OBSERVER_CURRENCY",
 };
 
 export const eventConstants = {
   HIDE_LOADER: "HIDE_LOADER",
   SHOW_LOADER: "SHOW_LOADER",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
-  ADD_TO_SEARCH_LIST: 'ADD_TO_SEARCH_LIST',
-  CLEAR_SEARCH_LIST: 'CLEAR_SEARCH_LIST',
-  TOGGLE_THEME: 'TOGGLE_THEME',
-  ACTIVE_CURRENCY: 'ACTIVE_CURRENCY'
+  ADD_TO_SEARCH_LIST: "ADD_TO_SEARCH_LIST",
+  CLEAR_SEARCH_LIST: "CLEAR_SEARCH_LIST",
+  TOGGLE_THEME: "TOGGLE_THEME",
+  ACTIVE_CURRENCY: "ACTIVE_CURRENCY",
 };
 
 export const genericConstants = {
@@ -101,11 +101,13 @@ export const genericConstants = {
   TXN_PRIVATE_NOTE_DELETED: "Txn Private Note Deleted",
   CANNOT_DELETE_TAGGED_ADDRESS: "Cannot delete Tagged Addresses",
   TAGGED_ADDRESS_DELETED: "Tagged Address Deleted",
-  SCM_REFERENCE: 'scm',
-  IMPORTED_TAG_LENGTH_ERROR: "Imported Name Tag should be maximum 15 characters.",
+  SCM_REFERENCE: "scm",
+  IMPORTED_TAG_LENGTH_ERROR:
+    "Imported Name Tag should be maximum 15 characters.",
   WRONG_CURRENT_PASSWORD: "You have entered wrong current password",
   DESCRIPTION_LIMIT: "Description should be maximum 220 characters",
-  TRANSACTION_LABEL_LIMIT: "Transaction label/note cannot be longer than 120 characters"
+  TRANSACTION_LABEL_LIMIT:
+    "Transaction label/note cannot be longer than 120 characters",
 };
 
 export const statusConstants = {
@@ -147,25 +149,27 @@ export const messages = {
   AGE: "Time when was the transaction created.",
   METHOD: "Function executed based on decoded input data.",
   BLOCK: "Block number associated with the transaction.",
-  DIFFICULTY: "The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time.",
+  DIFFICULTY:
+    "The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time.",
   GAS_USED: "The exact unit of gas that was used for the transactions.",
   FROM: "Sender’s account.",
   TO: "Receiver’s account.",
-  SI_NO: "Serial Number",
-  SYMBOL: "Short name of the token",
+  SI_NO: "Serial Number.",
+  SYMBOL: "Short name of the token.",
   NAME: "Name of the token.",
-  TOKEN: "A virtual currency token or a denomination of a cryptocurrency",
+  TOKEN: "A virtual currency token or a denomination of a cryptocurrency.",
   TOKEN_TYPE: "Token type may include XRC20, XRC721 or XRC1155.",
   CONTRACT: "Smart Contract associated with the particular token.",
-  HOLDER: "The total number of unique addresses that hold the token",
-  TOKEN_TOTAL_SUPPLY: "The number of coins that have been already created, minus any coins that have been burned",
+  HOLDER: "The total number of unique addresses that hold the token.",
+  TOKEN_TOTAL_SUPPLY:
+    "The number of coins that have been already created, minus any coins that have been burned.",
   TOKEN_TRANSFER_24_HOURS: "Transfer in 24 hours.",
   TOKEN_TRANSFER_3_DAYS: "Transfer in 3 days.",
   STATUS: "The token is either verified or unverified.",
   ACCOUNT_ADDRESS: "The unique address of a particular account.",
   ACCOUNT_TYPE: "Account type is either Account, Contract or Token.",
   ACCOUNT_BALANCE: "Balance held by a particular account.",
-  WATCHLIST_ADDRESS: "Users' wallet address.",
+  WATCHLIST_ADDRESS: "User's wallet address.",
   WATCHLIST_DESCRIPTION:
     "The description provided by the user while creating the watchlist.",
   WATCHLIST_BALANCE: "The amount available in the wallet.",
@@ -187,53 +191,51 @@ export const messages = {
   PERCENTAGE: "Percentage of holdings out of the total supply.",
   HOLDER_RANK: "Holder’s rank sorted on the basis of Quantity.",
   WALLET_ADDRESS: "Wallet address.",
-  QUANTITY: "The amount available in the wallet",
-  EMAIL: "Email is required for sending the email notifications",
-  Total_Txn: "Total number of incoming and outgoing transaction",
-  Highest_Txn: "Highest amount send or received by the user",
-  Txn_Fee: "Total transaction fee paid by the user",
-  Tokens: "Number of XRC20 tokens available in the user's wallet",
-  AVERAGE_BALANCE: "Average daily balance",
+  QUANTITY: "The amount available in the wallet.",
+  EMAIL: "Email is required for sending the email notifications.",
+  Total_Txn: "Total number of incoming and outgoing transaction.",
+  Highest_Txn: "Highest amount send or received by the user.",
+  Txn_Fee: "Total transaction fee paid by the user.",
+  Tokens: "Number of XRC20 tokens available in the user's wallet.",
+  AVERAGE_BALANCE: "Average daily balance.",
   PASSWORD:
     "Password must have at least 8 characters and contain the following: uppercase letters, lowercase letters, numbers, and symbols.",
-  DOWNLOAD_CSV: "Select address by clicking on checkbox to export data",
-  RANGE_SELECTOR: "Dates can be selected within the date range of data available",
-  EXPORT_DISABLE: "Select address by clicking on checkbox to export data",
-  RANGE_SELECT: "Dates can be selected within the date range of data available"
+  DOWNLOAD_CSV: "Select address by clicking on checkbox to export data.",
+  RANGE_SELECTOR:
+    "Dates can be selected within the date range of data available.",
+  EXPORT_DISABLE: "Select address by clicking on checkbox to export data.",
+  RANGE_SELECT:
+    "Dates can be selected within the date range of data available.",
 };
 
 export const toolTipMessages = {
   AMOUNT: "The number of tokens being transferred.",
   hashid:
     "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
-  blocknumber:
-    "Block number associated with the transaction.",
+  blocknumber: "Block number associated with the transaction.",
   timestamp: "The date and time at which a transaction is mined.",
-  from: "The sending party of the transaction(could be from a contact address)",
-  to: "The receiving party of the transaction(could be from a contact address) ",
+  from: "The sending party of the transaction(could be from a contact address).",
+  to: "The receiving party of the transaction(could be from a contact address).",
   value:
-    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
-  txnfee:
-    "Amount paid for processing the transaction.",
-  tokenTransferred:
-    "Tokens transferred in the transaction.",
-  transactionAction:
-    "Highlighted event of the transaction.",
+    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction.",
+  txnfee: "Amount paid for processing the transaction.",
+  tokenTransferred: "Tokens transferred in the transaction.",
+  transactionAction: "Highlighted event of the transaction.",
   interactedWithTo:
     "The receiving party of the transaction (could be a contract address).",
   gasprovided:
     "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
   gasprice:
-    "Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher chance of getting included in a block",
+    "Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher chance of getting included in a block.",
   gasused: "The exact unit of gas that was used for the transactions.",
   nounced:
     "Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address.",
-  input: "Additional information that is required for the transaction",
+  input: "Additional information that is required for the transaction.",
   transferToken:
     "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
   age: "Time when was the transaction created.",
   date: "Transaction creation date.",
-  privatenote: `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`
+  privatenote: `User can add a private note to the transaction. Private note is being saved in the local storage of the device.`,
 };
 
 export const decimalDivisionValue = {
@@ -250,7 +252,7 @@ export const recentSearchTypeConstants = {
   WALLET: "WALLET",
   BLOCK: "TOKEN",
   TOKEN: "TOKEN",
-  CONTRACT: "CONTRACT"
+  CONTRACT: "CONTRACT",
 };
 
 export const authenticationProvider = {

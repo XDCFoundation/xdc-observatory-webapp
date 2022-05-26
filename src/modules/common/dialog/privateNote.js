@@ -339,22 +339,16 @@ export default function FormDialog(props) {
                 >
                   Transaction Label/Note
                 </DialogContentText>
-                <div
+                <textarea
+                  type="text"
                   className={
-                    props.theme === "dark" ? "containerTagDark" : "containerTag"
+                    props.theme === "dark"
+                      ? classes.textareaDark
+                      : classes.textarea
                   }
-                >
-                  <textarea
-                    type="text"
-                    className={
-                      props.theme === "dark"
-                        ? classes.textareaDark
-                        : classes.textarea
-                    }
-                    value={privateNote}
-                    onChange={(e) => setPrivateNote(e.target.value)}
-                  ></textarea>
-                </div>
+                  value={privateNote}
+                  onChange={(e) => setPrivateNote(e.target.value)}
+                ></textarea>
               </DialogContent>
               {privateNoteError ? (
                 <div className={classes.error1}>{privateNoteError}</div>
