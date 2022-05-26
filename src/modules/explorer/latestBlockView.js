@@ -364,7 +364,7 @@ const LatestBlockView = (props) => {
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={row.hash}
+                        // key={row.hash}
                         style={
                           index % 2 !== 1
                             ? props.theme === "dark"

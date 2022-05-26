@@ -9180,7 +9180,8 @@ button {
   position: relative;
   font-size: 0.938rem;
   cursor: pointer;
-  padding-left: 3rem;
+  padding-left: 2.5rem;
+  white-space: nowrap;
 }
 
 .tabs_sec_address_details {
@@ -9259,8 +9260,8 @@ button {
   display: block;
   position: absolute;
   top: 100%;
-  left: 18%;
-  width: 100%;
+  left: 17%;
+  width: 85%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -10904,7 +10905,7 @@ button {
     margin: 0 auto !important;
   }
   #transaction-btn {
-    width: 10.5rem;
+    width: 12.5rem;
   }
   #contract-btn {
     width: 10.5rem;

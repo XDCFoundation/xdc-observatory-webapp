@@ -180,9 +180,13 @@ export default function StickyHeadTable(props) {
     if (filtersData.searchQuery)
       requestData.searchValue = filtersData.searchQuery;
     if (filtersData.startDate) requestData.startDate = filtersData.startDate;
-    if (filtersData.startDate  || filtersData.searchQuery)
+    if (filtersData.startDate  || filtersData.searchQuery){
       getTotalTransferToken(requestData);
-      if(filtersData.startDate === '' || !filtersData.searchQuery) getTotalTransferToken({ addr: address });
+    }else{
+      getTotalTransferToken({ addr: address });
+    }
+      
+ 
     if (sortingKey || _sortingKey)
       requestData.sortKey = _sortingKey ? _sortingKey : sortingKey;
     if (sortingOrder || _sortingOrder)

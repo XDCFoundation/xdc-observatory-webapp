@@ -34,11 +34,6 @@ export default function NewFeature(props) {
     setOpenSignUp(true);
     setCloseForNow(true);
   };
-  //   const { onClose, selectedValue, open } = props;
-
-  //   const handleClose = () => {
-  //     onClose(selectedValue);
-  //   };
 
   const useStyles = makeStyles((theme) => ({
     dialogBox: {
@@ -105,25 +100,20 @@ export default function NewFeature(props) {
   const [isOpenMobileAlert, setIsOpenMobileAlert] = React.useState(true);
   const [viewPopUp, setViewPopUp] = useState(true);
   const visited = () => {
-    sessionManager.setDataInCookies(true, "Visited");
+    sessionManager.setDataInLocalStorage("Visited", true);
   };
   const notVisited = () => {
-    sessionManager.setDataInCookies(false, "Visited");
+    sessionManager.setDataInLocalStorage("Visited", false);
   };
-  // useEffect(() => {
-  //   let isVisitedAccepted = sessionManager.getDataFromCookies("Visited");
-  //   if(isVisitedAccepted) setViewPopUp(false)
-  // },)
- function handleChange(e) {
+  function handleChange(e) {
     let isChecked = e.target.checked;
-    if (isChecked){
-      visited()
-    }else{
-      notVisited()
+    if (isChecked) {
+      visited();
+    } else {
+      notVisited();
     }
   }
 
-  
   const userInfo = sessionManager.getDataFromCookies("userInfo");
   const handleOpenNewFeatureMobile = () => {
     window.scrollTo(0, 0);
@@ -133,107 +123,205 @@ export default function NewFeature(props) {
   const handleCloseMobileAlert = () => {
     setIsOpenMobileAlert(false);
   };
-  let isVisitedAccepted = sessionManager.getDataFromCookies("Visited");
+  let isVisitedAccepted = sessionManager.getDataFromLocalStorage("Visited");
   return (
     <>
-      {props.setIsCookiesAccepted && (!isVisitedAccepted || isVisitedAccepted === "false") ? (
+      {props.setIsCookiesAccepted &&
+      (!isVisitedAccepted || isVisitedAccepted === "false") ? (
         window.innerWidth >= 768 || newFeatureOpenInMobile ? (
           !openSignUp ? (
             !userInfo && !closeForNow ? (
-              open && <div className="overlay-private-alert">
-              <Dialog
-                id="new-features"
-                onClose={handleClose}
-                open={open}
-                classes={props.theme === "dark" ? { paperWidthSm: classes.dialogBoxDark } : { paperWidthSm: classes.dialogBox }}
-                style={{position: "absolute", zIndex: 10000}}
-              >
-                <div className="main-box">
-                  <Row className="main-row">
-                    {window.innerWidth >= 768 ? (
-                      <>
-                        <div className={props.theme === "dark" ? "main-title fc-white" : "main-title"}>New Features</div>
-                        <div className="main-close" onClick={handleClose}>
-                          <img alt="Cross" src={"/images/XDC-Cross.svg"} />
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div onClick={handleClose}>
+              open && (
+                <div className="overlay-private-alert">
+                  <Dialog
+                    id="new-features"
+                    onClose={handleClose}
+                    open={open}
+                    classes={
+                      props.theme === "dark"
+                        ? { paperWidthSm: classes.dialogBoxDark }
+                        : { paperWidthSm: classes.dialogBox }
+                    }
+                    style={{ position: "absolute", zIndex: 10000 }}
+                  >
+                    <div className="main-box">
+                      <Row className="main-row">
+                        {window.innerWidth >= 768 ? (
+                          <>
+                            <div
+                              className={
+                                props.theme === "dark"
+                                  ? "main-title fc-white"
+                                  : "main-title"
+                              }
+                            >
+                              New Features
+                            </div>
+                            <div className="main-close" onClick={handleClose}>
+                              <img alt="Cross" src={"/images/XDC-Cross.svg"} />
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div onClick={handleClose}>
+                              <img
+                                className="back-newFeature"
+                                alt="back"
+                                src={"/images/backButton.svg"}
+                              />
+                            </div>
+                            <div
+                              className={
+                                props.theme === "dark"
+                                  ? "main-title fc-white"
+                                  : "main-title"
+                              }
+                            >
+                              New Features
+                            </div>
+                          </>
+                        )}
+                      </Row>
+                      <div
+                        className={
+                          props.theme === "dark"
+                            ? "main-sub-title fc-4878ff"
+                            : "main-sub-title"
+                        }
+                      >
+                        Create your account to get started
+                      </div>
+                      <Row className="card-box" style={{ flexFlow: "wrap" }}>
+                        <div
+                          className={
+                            props.theme === "dark"
+                              ? "card margin-right-34px popup-dark-theme-bg"
+                              : "card margin-right-34px"
+                          }
+                        >
                           <img
-                            className="back-newFeature"
-                            alt="back"
-                            src={"/images/backButton.svg"}
+                            alt="new-feature"
+                            src={require("../../../src/assets/images/watch-list-new-feature.svg")}
+                            className="crad-image"
                           />
+                          <div
+                            className={
+                              props.theme === "dark"
+                                ? "card-title fc-white"
+                                : "card-title"
+                            }
+                          >
+                            Create watchlist
+                          </div>
+                          <div
+                            className={
+                              props.theme === "dark"
+                                ? "card-text fc-adc4e4"
+                                : "card-text"
+                            }
+                          >
+                            An email notification will be sent when an address
+                            in your watch list receives an incoming/outgoing
+                            transaction.
+                          </div>
                         </div>
-                        <div className={props.theme === "dark" ? "main-title fc-white" : "main-title"}>New Features</div>
-                      </>
-                    )}
-                  </Row>
-                  <div className={props.theme === "dark" ? "main-sub-title fc-4878ff" : "main-sub-title"}>
-                    Create your account to get started
-                  </div>
-                  <Row className="card-box" style={{ flexFlow: "wrap" }}>
-                    <div className={props.theme === "dark" ? "card margin-right-34px popup-dark-theme-bg" : "card margin-right-34px"}>
-                      <img
-                        alt="new-feature"
-                        src={require("../../../src/assets/images/watch-list-new-feature.svg")}
-                        className="crad-image"
-                      />
-                      <div className={props.theme === "dark" ? "card-title fc-white" : "card-title"}>Create watchlist</div>
-                      <div className={props.theme === "dark" ? "card-text fc-adc4e4" : "card-text"}>
-                        An email notification will be sent when an address in
-                        your watch list receives an incoming/outgoing
-                        transaction.
-                      </div>
-                    </div>
-                    <div className={props.theme === "dark" ? "card margin-right-34px popup-dark-theme-bg" : "card margin-right-34px"}>
-                      <img
-                        alt="addLabel"
-                        src={require("../../../src/assets/images/AddLabel_NewFeature.svg")}
-                        className="crad-image"
-                      />
-                      <div className={props.theme === "dark" ? "card-title fc-white" : "card-title"}>Add transaction label</div>
-                      <div className={props.theme === "dark" ? "card-text fc-adc4e4" : "card-text"}>
-                        Add a personal note to the transaction hash to track it
-                        in the future.
-                      </div>
-                    </div>
-                    <div className={props.theme === "dark" ? "card popup-dark-theme-bg" : "card"}>
-                      <img
-                        alt="addLabel"
-                        src={require("../../../src/assets/images/AddTransactionLable_NewFeature.svg")}
-                        className="crad-image"
-                      />
-                      <div className={props.theme === "dark" ? "card-title fc-white" : "card-title"}>
-                        Add private tag to an address
-                      </div>
-                      <div className={props.theme === "dark" ? "card-text fc-adc4e4" : "card-text"}>
-                        Add a short memo or private tag to the address of
-                        interest.
-                      </div>
-                    </div>
-                  </Row>
+                        <div
+                          className={
+                            props.theme === "dark"
+                              ? "card margin-right-34px popup-dark-theme-bg"
+                              : "card margin-right-34px"
+                          }
+                        >
+                          <img
+                            alt="addLabel"
+                            src={require("../../../src/assets/images/AddLabel_NewFeature.svg")}
+                            className="crad-image"
+                          />
+                          <div
+                            className={
+                              props.theme === "dark"
+                                ? "card-title fc-white"
+                                : "card-title"
+                            }
+                          >
+                            Add transaction label
+                          </div>
+                          <div
+                            className={
+                              props.theme === "dark"
+                                ? "card-text fc-adc4e4"
+                                : "card-text"
+                            }
+                          >
+                            Add a personal note to the transaction hash to track
+                            it in the future.
+                          </div>
+                        </div>
+                        <div
+                          className={
+                            props.theme === "dark"
+                              ? "card popup-dark-theme-bg"
+                              : "card"
+                          }
+                        >
+                          <img
+                            alt="addLabel"
+                            src={require("../../../src/assets/images/AddTransactionLable_NewFeature.svg")}
+                            className="crad-image"
+                          />
+                          <div
+                            className={
+                              props.theme === "dark"
+                                ? "card-title fc-white"
+                                : "card-title"
+                            }
+                          >
+                            Add private tag to an address
+                          </div>
+                          <div
+                            className={
+                              props.theme === "dark"
+                                ? "card-text fc-adc4e4"
+                                : "card-text"
+                            }
+                          >
+                            Add a short memo or private tag to the address of
+                            interest.
+                          </div>
+                        </div>
+                      </Row>
 
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div className="sign-up-button" onClick={handleOpenSignUp}>
-                      <div className="main-sing-up-text"> Sign Up</div>
-                    </div>
-                  </div>
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <div
+                          className="sign-up-button"
+                          onClick={handleOpenSignUp}
+                        >
+                          <div className="main-sing-up-text"> Sign Up</div>
+                        </div>
+                      </div>
 
-                  <div className="main-end-box">
-                    <input
-                      type="checkbox"
-                      onChange={e => handleChange(e)}
-                      className="main-checkbox"
-                    />
-                    <div className={props.theme === "dark" ? "main-end-text fc-adc4e4" : "main-end-text"}>
-                      Don't show this message again
+                      <div className="main-end-box">
+                        <input
+                          type="checkbox"
+                          onChange={(e) => handleChange(e)}
+                          className="main-checkbox"
+                        />
+                        <div
+                          className={
+                            props.theme === "dark"
+                              ? "main-end-text fc-adc4e4"
+                              : "main-end-text"
+                          }
+                        >
+                          Don't show this message again
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </Dialog>
                 </div>
-              </Dialog>
-              </div>
+              )
             ) : (
               ""
             )
@@ -271,7 +359,7 @@ export default function NewFeature(props) {
           ""
         )
       ) : (
-        ""
+        openSignUp && <FormDialog isNewFeatureComponent={true} />
       )}
     </>
   );

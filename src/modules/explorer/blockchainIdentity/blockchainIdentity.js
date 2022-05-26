@@ -12,7 +12,7 @@ const useStyles = makeStyles((themes) => ({
     maxWidth: "1202px",
     marginLeft: "auto",
     marginRight: "auto",
-    minHeight: "500px",
+    minHeight: "550px",
   },
   heading: {
     marginTop: "46px",

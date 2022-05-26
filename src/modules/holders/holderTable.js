@@ -355,7 +355,10 @@ export default function HolderTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Amount: d.Value,
+            Amount: Utility.divideByDecimalValue(
+              d.Value,
+              Number(props?.decimal)
+            ),
           };
         })
       );
@@ -382,7 +385,10 @@ export default function HolderTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Amount: d.Value,
+            Amount: Utility.divideByDecimalValue(
+              d.Value,
+              Number(props?.decimal)
+            ),
           };
         })
       );
