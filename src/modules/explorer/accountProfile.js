@@ -3277,7 +3277,7 @@ function SimpleTabs(props) {
                                       : "tabledata-1"
                                   }
                                 >
-                                  {row?.modifiedOn.length >= 12
+                                  {row?.modifiedOn?.length >= 12
                                     ? `${
                                         (row?.modifiedOn &&
                                           moment(
@@ -3301,7 +3301,9 @@ function SimpleTabs(props) {
                                         (timezone &&
                                           Utility.getUtcOffset(timezone)) ||
                                         ""
-                                      }`}
+                                      }`
+                                    
+                                    }
                                 </span>
                               </TableCell>
 
