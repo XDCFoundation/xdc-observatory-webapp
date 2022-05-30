@@ -1148,9 +1148,9 @@ export default function TransactionTableComponent(props) {
                                   : "tabledata"
                               }
                             >
-                              {Utility.divideByDecimalValue(
+                              {Utility.decimalDivison(
                                 row?.gasUsed * row?.gasPrice,
-                                props?.decimal ? props?.decimal : 18
+                                18
                               )}
                             </span>
                           </TableCell>

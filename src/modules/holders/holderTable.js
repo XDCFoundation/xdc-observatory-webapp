@@ -276,18 +276,6 @@ export default function HolderTableComponent(props) {
       })
     );
 
-    setReportaddress(
-      trxn.map((d) => {
-        return {
-          Txn_Hash: d.hash,
-          Age: d.timestamp,
-          Block: d.blockNumber,
-          From: d.from,
-          To: d.to,
-          Value: d.value / 10 ** 18,
-        };
-      })
-    );
     setDownloadaddress(
       trxn.map((d) => {
         return {
