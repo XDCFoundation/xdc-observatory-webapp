@@ -784,7 +784,8 @@ const TxnDetailsRightBottomContainer = styled.div`
     flex-flow: row wrap;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    flex-flow: row wrap;
+    display:block;
+  flex-flow: row wrap;
     padding-top: 0px;
     justify-content: flex-start;
   }
@@ -810,7 +811,7 @@ display: block;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     padding-top: 29px;
-    margin-left: 32px;
+    /* margin-left: 32px; */
     margin-right: 42px;
   }
 `;

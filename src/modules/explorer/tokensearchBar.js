@@ -908,7 +908,7 @@ export default function Navbar(props) {
   `;
 
   const MobileToolBar = styled.div`
-    margin: 0 10px;
+    margin: 2px 10px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;

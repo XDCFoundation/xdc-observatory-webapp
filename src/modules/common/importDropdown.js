@@ -557,8 +557,8 @@ const CustomDropDownAddress = (props) => {
         tagLength = item.tagName.length;
       }
 
-      // item["tagName"] = item.name;
-      // delete item.name;
+       item["selected"] = item.selected;
+       delete item.selected;
       return item;
     });
     if (tagLength != 0) {

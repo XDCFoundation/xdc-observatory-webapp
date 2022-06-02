@@ -229,10 +229,14 @@ function EditTaggedAddress(props) {
       );
       taggedAddress = JSON.parse(taggedAddress);
       taggedAddress[props.skip + props.index] = data; //insert data at given index
-
+      const taggedAddressToSet = taggedAddress.map((item)=>{
+        item["isChecked3"] = item.isChecked3;
+        delete item.isChecked3
+        return item
+      })
       localStorage.setItem(
           sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS,
-          JSON.stringify(taggedAddress)
+          JSON.stringify(taggedAddressToSet)
       );
 
       utility.apiSuccessToast("Address tag Updated");

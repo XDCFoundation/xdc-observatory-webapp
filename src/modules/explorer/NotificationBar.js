@@ -33,7 +33,6 @@ const ListItems = styled.div`
 const drawerWidth = 340;
 const useStyles = makeStyles((theme) => ({
   paper: {
-    top: "75px",
     width: drawerWidth,
     backgroundColor: "#102e84",
   },

@@ -201,7 +201,11 @@ function EditTxnLabel(props) {
         );
         transactionLabel = JSON.parse(transactionLabel);
         transactionLabel[props.index + props.skip] = data;
-
+        const transactionLabelToSet = transactionLabel.map((item)=>{
+            item["isChecked2"] = item.isChecked2;
+            delete item.isChecked2
+            return item
+        })
         const existingTransactionLabel = transactionLabel.find(
             (item, innerIndex) =>
                 item.transactionHash == TransactionsHash && item.userId == data.userId && props.index !== innerIndex
@@ -213,7 +217,7 @@ function EditTxnLabel(props) {
 
         localStorage.setItem(
             sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS,
-            JSON.stringify(transactionLabel)
+            JSON.stringify(transactionLabelToSet)
         );
         utility.apiSuccessToast("Private Note Updated");
         handleClose();

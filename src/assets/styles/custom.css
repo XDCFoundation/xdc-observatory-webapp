@@ -6586,8 +6586,11 @@ button {
   height: 20px;
   width: 22px;
   cursor: default;
+  overflow: visible;
 }
-
+.MuiTooltip-popper {
+  z-index: 9999999 !important;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .latestTranscation {
     margin-top: 15px;

@@ -1219,7 +1219,7 @@ function SimpleTabs(props) {
     } else {
       let tempAddress = privateAddress.map((addr) =>
         addr.address === name ? { ...addr, isChecked3: checked } : addr
-      );
+      );  
       setPrivateAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked3 === true) {
